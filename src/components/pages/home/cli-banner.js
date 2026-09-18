@@ -219,6 +219,13 @@ const CliBanner = () => {
               One command to install. Works with any URL, any product, right
               now.
             </Text>
+            <Text
+              as='p'
+              css={theme({ m: 0, mt: 2, color: 'black80', lineHeight: 2 })}
+            >
+              Pass a URL for metadata, or a subcommand like markdown, screenshot,
+              or pdf. Results print as pretty JSON.
+            </Text>
             <Command
               as='button'
               type='button'

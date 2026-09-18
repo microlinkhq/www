@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components'
 import { backDrop } from 'helpers/style'
 import { isDevelopment } from 'helpers/is-development'
 
+import { riseInAnimation } from 'helpers/rise-in'
 import { colors, fontWeights, shadows, speed, theme, transition } from 'theme'
 
 import { ToolbarNavLink } from './ToolbarLinks'
@@ -350,7 +351,7 @@ export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
 `
 
 export const Header = styled(Box).withConfig({
-  shouldForwardProp: prop => !['isDocsRoute'].includes(prop)
+  shouldForwardProp: prop => !['isDocsRoute', 'animated'].includes(prop)
 })`
   ${theme({
     position: 'fixed',
@@ -361,6 +362,7 @@ export const Header = styled(Box).withConfig({
   })}
 
   ${({ isDocsRoute }) => !isDocsRoute && backDrop}
+  ${({ animated }) => animated && riseInAnimation()}
 `
 
 export const DEBUG_STICKY_SECTION = ''

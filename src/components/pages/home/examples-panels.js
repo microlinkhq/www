@@ -31,7 +31,7 @@ console.log(url)
   },
   {
     id: 'metadata',
-    title: 'Read metadata',
+    title: 'Extract metadata',
     description: 'Normalize Open Graph, Twitter, and schema data.',
     snippet: sdkExample(`const { title, description, image } =
   await microlink.metadata('${DEMO_URLS.metadata}')
@@ -82,7 +82,7 @@ console.log(html)
   {
     id: 'text',
     title: 'Extract text',
-    description: 'Readable plain text — no markup noise.',
+    description: 'Readable plain text, no markup noise.',
     snippet: sdkExample(`const text = await microlink.text(
   '${DEMO_URLS.text}',
   { selector: 'article' }
@@ -166,7 +166,7 @@ console.log(links)
   },
   {
     id: 'emails',
-    title: 'Harvest emails',
+    title: 'Collect emails',
     description: 'Find mailto and plain-text addresses.',
     snippet: sdkExample(`const emails = await microlink.emails(
   'https://microlink.io'

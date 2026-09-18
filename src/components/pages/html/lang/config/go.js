@@ -520,7 +520,7 @@ func main() {
           'Selector scoping to return only the subtree you need',
           'Antibot and CAPTCHA resolution handled for you',
           'Cached responses from a global edge network',
-          'Autoscaled fleet with a 99.95% uptime SLA'
+          'Autoscaled fleet with a 99.9% uptime SLA'
         ]
       }
     ]

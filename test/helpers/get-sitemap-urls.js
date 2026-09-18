@@ -13,10 +13,9 @@ test('function source stays under the free plan code limit', () => {
   )
 })
 
-test('reads the origin from page.url()', () => {
-  expect(getSitemapUrls).toMatch(/async \(\{ page \}\)/)
-  expect(getSitemapUrls).toMatch(/page\.url\(\)/)
-  expect(getSitemapUrls).not.toMatch(/\bsite\b/)
+test('does not reference page', () => {
+  expect(getSitemapUrls).toMatch(/async \(\{ url \}\)/)
+  expect(getSitemapUrls).not.toMatch(/\bpage\b/)
 })
 
 test('walks sitemaps with xml-urls and isolate fetch', () => {
@@ -31,14 +30,16 @@ test('SDK snippet is JavaScript, not a query-string function', () => {
   expect(snippet).toContain('microlink.function')
   expect(snippet).not.toContain('curl')
   expect(snippet).not.toContain('function=async')
-  expect(snippet).not.toMatch(/site:\s*['"]https:\/\/microlink\.io['"]/)
+  expect(snippet).toContain('https://microlink.io')
+  expect(snippet).not.toContain('site:')
 })
 
 test('card code is the function call without the SDK preamble', () => {
   const code = sitemapCardCode('https://microlink.io')
   expect(code).toContain('microlink.function')
   expect(code).toContain('xml-urls')
-  expect(code).toContain('page.url()')
+  expect(code).toContain('async ({ url })')
+  expect(code).not.toContain('page.url()')
   expect(code).not.toContain('import createClient')
-  expect(code).not.toMatch(/site:\s*['"]https:\/\/microlink\.io['"]/)
+  expect(code).not.toContain('site:')
 })

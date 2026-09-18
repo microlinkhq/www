@@ -21,6 +21,16 @@ It runs JavaScript code with runtime access to a headless browser.
 
 The function will receive any extra query parameter provided, plus:
 
+### url
+
+The target URL of the request. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
+
+<MultiCodeEditorInteractive mqlCode={{
+  url: 'https://example.com',
+  function: '({ url }) => new URL("/robots.txt", url).href',
+  meta: false
+}} />
+
 ### page
 
 The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the function references `page`, Microlink navigates to the URL in a browser before calling your function. Any Puppeteer page method is available:

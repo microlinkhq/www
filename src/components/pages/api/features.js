@@ -3,11 +3,9 @@ import styled from 'styled-components'
 import { breakpoints, theme } from 'theme'
 
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import ArrowLink from 'components/patterns/ArrowLink'
 import { FeatureCard, FEATURES } from 'components/patterns/FeatureStory'
 
-import { SectionBlock } from './shared'
+import { FEATURE_CTAS, SectionBlock } from './shared'
 
 const Cards = styled(Box)`
   ${theme({
@@ -30,15 +28,16 @@ export const Features = () => (
   <SectionBlock
     id='features'
     title='How every request actually runs'
-    caption='Isolation, caching, proxy, and automation are not add-ons. They ship with the endpoint. Open a primitive to see when to use it.'
+    caption='Isolation, adblock, automation, and the edge cache run on every plan. Cards marked PRO need an API key. Open a primitive to see when to use it.'
   >
     <Cards>
       {FEATURES.map(feature => (
-        <FeatureCard key={feature.slug} feature={feature} />
+        <FeatureCard
+          key={feature.slug}
+          feature={feature}
+          cta={FEATURE_CTAS[feature.slug]}
+        />
       ))}
     </Cards>
-    <Flex css={theme({ pt: [4, 4, 5, 5] })}>
-      <ArrowLink href='/features'>See all features</ArrowLink>
-    </Flex>
   </SectionBlock>
 )

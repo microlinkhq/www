@@ -2,7 +2,11 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
-import { HOME_CONTENT_WIDTH, PRODUCTS } from 'components/pages/home/catalog'
+import {
+  HOME_CONTENT_WIDTH,
+  PRODUCTS,
+  PRODUCT_TILES as TILE
+} from 'components/pages/home/catalog'
 import { Microlink } from 'components/logos'
 import { IframePreviewsShowcase } from 'components/pages/embed/IframePreviewsShowcase'
 import { FileType } from 'components/icons/FileType'
@@ -24,6 +28,7 @@ import styled, { css } from 'styled-components'
 import { rgba } from 'polished'
 import React from 'react'
 import {
+  Cpu as CpuIcon,
   MousePointer as MousePointerIcon,
   Package as PackageIcon,
   Repeat as RepeatIcon
@@ -66,47 +71,28 @@ const radius = {
 
 const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 
-const TILE = {
-  metadata: { bg: colors.violet0, color: colors.violet7 },
-  screenshot: { bg: colors.pink0, color: colors.pink6 },
-  markdown: { bg: colors.indigo0, color: colors.indigo7 },
-  html: { bg: colors.violet0, color: colors.violet7 },
-  embed: { bg: colors.blue0, color: colors.blue7 },
-  preview: {
-    bg: `linear-gradient(135deg, ${colors.violet0}, ${colors.pink0})`,
-    color: colors.violet7
-  },
-  pdf: { bg: colors.red0, color: colors.red6 },
-  logo: { bg: colors.yellow0, color: colors.yellow7 },
-  search: { bg: colors.blue0, color: colors.blue7 },
-  technologies: { bg: colors.violet0, color: colors.violet7 },
-  function: { bg: colors.indigo0, color: colors.indigo8 },
-  text: { bg: colors.orange0, color: colors.orange6 },
-  lighthouse: { bg: colors.teal0, color: colors.teal7 },
-  video: { bg: colors.violet0, color: colors.violet7 },
-  audio: { bg: colors.pink0, color: colors.pink6 },
-  animated: { bg: colors.indigo0, color: colors.indigo7 },
-  automation: { bg: colors.pink0, color: colors.pink6 },
-  sdk: { bg: colors.blue0, color: colors.blue7 },
-  conversion: { bg: colors.orange0, color: colors.orange8 }
-}
-
 const EXTRA = {
   automation: {
     label: 'Browser Automations',
-    description: 'Automate actions in the browser and extract results',
+    description: 'Clicks, waits, and scripts applied before capture',
     icon: MousePointerIcon,
     href: '/features/automation'
   },
   sdk: {
     label: 'Microlink SDK',
-    description: 'The official SDK to integrate Microlink in your app',
+    description: 'Every product as a method in Node.js, browsers, and Deno',
     icon: PackageIcon,
     href: '/integrations/sdk'
   },
+  mcp: {
+    label: 'Microlink MCP',
+    description: 'Every product as tools your AI agent can call',
+    icon: CpuIcon,
+    href: '/integrations/mcp'
+  },
   conversion: {
     label: 'File conversion',
-    description: 'Convert any file into HTML, Markdown, or clean text',
+    description: 'Any file as HTML, Markdown, or clean text',
     icon: RepeatIcon,
     href: '/file-conversion'
   }
@@ -313,7 +299,7 @@ const Gr = styled.span`
 `
 
 const META_FIELDS = [
-  ['title', 'Microlink | The universal API'],
+  ['title', 'Microlink | The web, ready for AI'],
   ['description', 'Turn any URL into data.'],
   ['url', 'https://microlink.io'],
   ['siteName', 'Microlink'],
@@ -682,6 +668,7 @@ const EmbedPreview = () => (
     >
       <IframePreviewsShowcase
         exclude={['instagram']}
+        headingAs='h4'
         minHeight={['360px', '400px', '420px', '360px']}
       />
     </Box>
@@ -1052,7 +1039,7 @@ const SEARCH_RESULTS = [
     name: 'Microlink',
     domain: 'microlink.io',
     url: 'microlink.io',
-    title: 'Microlink — The universal API',
+    title: 'Microlink | The web, ready for AI',
     description: 'One API to turn any URL into structured data.',
     tint: colors.gray9
   },
@@ -2294,7 +2281,12 @@ const FileConversionPreview = () => (
 )
 
 const Products = () => (
-  <Box as='section' css={theme({ py: SECTION_VERTICAL_SPACING })}>
+  <Box
+    as='section'
+    id='products'
+    aria-labelledby='home-products-title'
+    css={theme({ py: SECTION_VERTICAL_SPACING })}
+  >
     <Box
       css={theme({
         maxWidth: layout.large,
@@ -2303,10 +2295,13 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient'>Build features, not infrastructure</Subhead>
+      <Subhead id='home-products-title' variant='gradient'>
+        Build features, not infrastructure
+      </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
-        Turn any URL into screenshots, PDFs, markdown, or structured data. We
-        run the browsers, the cache, and the scale behind them.
+        Turn any URL into screenshots, PDFs, markdown, or structured data with
+        the <Link href='/api'>Microlink API</Link>. We run the browsers, the
+        cache, and the scale behind them.
       </Caption>
     </Box>
 
@@ -2392,6 +2387,8 @@ const Products = () => (
           <AudioPreview />
         </Feature>
       </Row>
+
+      <Feature vertical='mcp' />
     </Grid>
   </Box>
 )

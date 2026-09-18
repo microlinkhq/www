@@ -132,7 +132,7 @@ export const ProductInformation = () => {
             <>
               <div>
                 We guarantee <Link href='/enterprise'>enterprise-grade</Link>{' '}
-                reliability with a 99.95% uptime SLA. Every request runs in an
+                reliability with a 99.9% uptime SLA. Every request runs in an
                 isolated browser instance to guarantee security and avoid
                 shared-state leaks. Check real-time availability on the{' '}
                 <Link href='/status'>status page</Link>.

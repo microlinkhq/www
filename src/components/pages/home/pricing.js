@@ -12,15 +12,20 @@ const Pricing = () => {
     <>
       <Container
         as='section'
+        id='pricing'
+        aria-labelledby='home-pricing-title'
         css={theme({
           alignItems: 'center',
           textAlign: 'center',
           maxWidth: '100%',
           py: SECTION_VERTICAL_SPACING,
-          px: [3, 3, 4, 4]
+          px: [3, 3, 4, 4],
+          scrollMarginTop: 4
         })}
       >
-        <Subhead variant='gradient'>Simple to start. Ready to scale.</Subhead>
+        <Subhead id='home-pricing-title' variant='gradient'>
+          Simple to start. Ready to scale.
+        </Subhead>
         <Caption
           forwardedAs='div'
           css={theme({
@@ -28,8 +33,8 @@ const Pricing = () => {
             maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
           })}
         >
-          Start free and pay only for what you use as you grow. No seats, no
-          minimums, no surprises.
+          Start free, no card needed. When you need volume, pick the Pro tier
+          that fits your traffic. Priced by requests, not seats.
         </Caption>
       </Container>
       <Plans

@@ -3,9 +3,9 @@ import { mqlCode, sdkCall } from './mql-code'
 
 export const FREE_FUNCTION_CODE_LIMIT = 1024
 
-export const getSitemapUrls = `async ({ page }) => {
+export const getSitemapUrls = `async ({ url }) => {
   // Discover sitemap URLs from this origin's robots.txt
-  const { href: robotsUrl } = new URL('/robots.txt', page.url())
+  const { href: robotsUrl } = new URL('/robots.txt', url)
   const res = await fetch(robotsUrl)
   const body = res.ok ? await res.text() : ''
   const robotsParser = require('robots-parser')

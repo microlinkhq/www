@@ -26,27 +26,13 @@ import {
 import { ChevronDown, Mail } from 'react-feather'
 import styled from 'styled-components'
 
-import { LANG_LANDINGS } from 'components/pages/screenshot/lang/registry'
-import { LANG_LANDINGS as PDF_LANG_LANDINGS } from 'components/pages/pdf/lang/registry'
-import { LANG_LANDINGS as LOGO_LANG_LANDINGS } from 'components/pages/logo/lang/registry'
-import { LANG_LANDINGS as MARKDOWN_LANG_LANDINGS } from 'components/pages/markdown/lang/registry'
-import { LANG_LANDINGS as METADATA_LANG_LANDINGS } from 'components/pages/metadata/lang/registry'
-import { LANG_LANDINGS as HTML_LANG_LANDINGS } from 'components/pages/html/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
-import { VERTICALS } from 'components/patterns/UseCaseStory/use-cases'
-
-const USE_CASE_LINKS = Object.fromEntries(
-  VERTICALS.map(({ slug }) => [
-    slug,
-    { label: 'Use cases', href: `/use-cases/${slug}` }
-  ])
-)
 
 const FOOTER_COLUMNS = [
   {
     title: 'Products',
     links: [
-      { label: 'API', href: '/api' },
+      { label: 'Microlink API', href: '/api' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
@@ -62,52 +48,6 @@ const FOOTER_COLUMNS = [
       { label: 'File Conversion', href: '/file-conversion' },
       { label: 'Insights', href: '/insights' },
       { label: 'Unavatar', href: 'https://unavatar.io' }
-    ],
-    sections: [
-      {
-        // Per-language screenshot landings, generated from the shared registry
-        // so a new /screenshot/<lang> spoke is linked site-wide automatically.
-        title: 'Screenshot API',
-        links: [
-          ...LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
-          USE_CASE_LINKS['website-screenshot']
-        ]
-      },
-      {
-        title: 'PDF API',
-        links: [
-          ...PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
-          USE_CASE_LINKS['website-to-pdf']
-        ]
-      },
-      {
-        title: 'Logo API',
-        links: LOGO_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      },
-      {
-        title: 'Markdown API',
-        links: [
-          ...MARKDOWN_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
-          USE_CASE_LINKS['website-to-markdown']
-        ]
-      },
-      {
-        title: 'Metadata API',
-        links: [
-          ...METADATA_LANG_LANDINGS.map(({ label, href }) => ({ label, href })),
-          USE_CASE_LINKS['website-metadata']
-        ]
-      },
-      {
-        title: 'HTML API',
-        links: HTML_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      }
     ]
   },
   {
@@ -115,6 +55,7 @@ const FOOTER_COLUMNS = [
     links: [
       { label: 'SDK', href: '/integrations/sdk' },
       { label: 'CLI', href: '/integrations/cli' },
+      { label: 'MCP', href: '/integrations/mcp' },
       { label: 'Editor', href: '/editor' },
       { label: 'Blog', href: '/blog' },
       { label: 'Use cases', href: '/use-cases' },

@@ -6,9 +6,6 @@ import { rgba } from 'polished'
 const { FN_SNIPPET, REQUEST_OPTS, shortUrl, canonicalDemoUrl } =
   heroDemoRequests
 
-const SKILL_INSTALL =
-  'npx skills add https://github.com/microlinkhq/skills --skill microlink-api'
-
 const AGENT_TASK = {
   screenshot: 'capture a screenshot of',
   animated: 'record an animated screenshot of',
@@ -32,7 +29,7 @@ const agentPrompt = ({ vertical, fullUrl }) => {
     vertical === 'search'
       ? `search Google for "${SEARCH_EXAMPLE.query}" and return the structured results`
       : `${AGENT_TASK[vertical]} ${fullUrl} and return the structured result`
-  return `Using the Microlink API, ${task}.\n\nSet up Microlink for your agent first: ${SKILL_INSTALL}`
+  return `Using the Microlink MCP server, ${task}.\n\nIf your agent doesn't have it yet, add it first (one config block): https://microlink.io/integrations/mcp`
 }
 
 const INSTALL_COMMENT = '// npm install microlink.io'
@@ -140,19 +137,19 @@ const PROMPTS = {
   screenshot: 'take screenshot',
   animated: 'record animated screenshot',
   preview: 'generate link preview',
-  embed: 'embed URL',
+  embed: 'build embed',
   markdown: 'get markdown',
   html: 'get HTML',
   text: 'extract text',
   metadata: 'extract metadata',
-  lighthouse: 'run lighthouse report',
+  lighthouse: 'run lighthouse audit',
   technologies: 'detect technologies',
   function: 'run function',
   search: 'search the web',
-  pdf: 'create PDF',
-  logo: 'grab logo',
-  video: 'detect video',
-  audio: 'detect audio'
+  pdf: 'generate PDF',
+  logo: 'fetch logo',
+  video: 'extract video',
+  audio: 'extract audio'
 }
 
 const PARSE_RULES = [

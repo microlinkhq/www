@@ -18,6 +18,7 @@ import {
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { HtmlCapabilitiesVisual } from 'components/pages/html/capabilities-visual'
+import { LANG_LANDINGS } from 'components/pages/html/lang/registry'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -139,7 +140,7 @@ const HtmlPage = () => (
       }
       features={FEATURES}
     />
-    <ProductCta {...CTA} accent={ACCENT} />
+    <ProductCta {...CTA} accent={ACCENT} langLandings={LANG_LANDINGS} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
   </Layout>
 )

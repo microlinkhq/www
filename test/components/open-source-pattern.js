@@ -11,6 +11,7 @@ const ossData = fs.existsSync(OSS_PATH)
 const OSS_NAMES = new Set((ossData ?? []).map(({ name }) => name))
 
 const PAGES = [
+  'src/pages/api.js',
   'src/pages/embed/index.js',
   'src/pages/screenshot.js',
   'src/pages/pdf.js',
@@ -75,7 +76,7 @@ describe('OpenSource pattern', () => {
       `repos={[${HOME_REPOS.map(s => `'${s}'`).join(', ')}]}`
     )
     expect(home).toContain("accent='gradient'")
-    expect(home).toContain("Open source isn't just something we use —")
+    expect(home).toContain("Open source isn't just something we use.")
     expect(home).toContain(
       'technologies behind Microlink are developed in public'
     )

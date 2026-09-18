@@ -23,7 +23,7 @@ const FEATURES = [
   {
     title: 'Enterprise-Grade Infrastructure',
     description:
-      'Production-ready and built for scale. Handle millions of browser sessions with a 99.95% uptime SLA and guaranteed latency limits for business-critical workflows.'
+      'Production-ready and built for scale. Handle millions of browser sessions with a 99.9% uptime SLA and guaranteed latency limits for business-critical workflows.'
   },
   {
     title: 'Generous Free Tier',

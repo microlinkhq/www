@@ -1,3 +1,4 @@
+import { colors } from 'theme'
 import GOOGLE_EXAMPLES from 'data/google-examples'
 import { Focus } from 'components/icons/Focus'
 import { Markdown } from 'components/icons/Markdown'
@@ -30,37 +31,37 @@ export const PRODUCTS = {
     label: 'Screenshot',
     icon: Focus,
     href: '/screenshot',
-    description: 'Pixel-perfect captures of any web page'
+    description: 'Pixel-perfect captures of any page'
   },
   animated: {
     label: 'Animated Screenshot',
     icon: FilmIcon,
     href: '/screenshot',
-    description: 'Record any web page as a GIF or video'
+    description: 'Any page recorded as a GIF or video'
   },
   preview: {
     label: 'Link preview',
     icon: LinkIcon,
     href: '/link-preview',
-    description: 'Beautiful previews for any URL'
+    description: 'Beautiful previews for any link'
   },
   embed: {
     label: 'Embed',
     icon: LayoutIcon,
     href: '/embed',
-    description: 'Turn any URL into an embeddable card'
+    description: 'Any page as an embeddable card'
   },
   markdown: {
     label: 'Markdown',
     icon: Markdown,
     href: '/markdown',
-    description: 'Structured, AI-ready page content'
+    description: 'Structured, AI-ready content from any page'
   },
   html: {
     label: 'HTML',
     icon: CodeIcon,
     href: '/html',
-    description: 'Fully rendered HTML with JavaScript execution'
+    description: 'Fully rendered HTML, JavaScript included'
   },
   text: {
     label: 'Text',
@@ -84,43 +85,43 @@ export const PRODUCTS = {
     label: 'Technologies',
     icon: LayersIcon,
     href: '/insights',
-    description: 'Detect the tech stack behind any site'
+    description: 'The tech stack behind any site'
   },
   function: {
     label: 'Function',
     icon: Terminal,
     href: '/function',
-    description: 'Run custom browser code on any page'
+    description: 'Custom browser code, run on any page'
   },
   search: {
     label: 'Search',
     icon: SearchIcon,
     href: '/search',
-    description: 'Turn Google results into structured data'
+    description: 'Google results as structured data'
   },
   pdf: {
     label: 'PDF',
     icon: PDF,
     href: '/pdf',
-    description: 'Print-ready documents on demand'
+    description: 'Print-ready documents from any page'
   },
   logo: {
     label: 'Logo',
     icon: Shapes,
     href: '/logo',
-    description: 'Logos, favicons & brand palettes'
+    description: 'Logos, favicons & brand palettes for any site'
   },
   video: {
     label: 'Video',
     icon: VideoIcon,
     href: '/media',
-    description: 'Extract video assets from any page'
+    description: 'Video assets from any page'
   },
   audio: {
     label: 'Audio',
     icon: MusicIcon,
     href: '/media',
-    description: 'Extract audio assets from any page'
+    description: 'Audio assets from any page'
   }
 }
 
@@ -135,3 +136,29 @@ export const SEARCH_EXAMPLE = GOOGLE_EXAMPLES.search[0]
 export const HOME_CONTENT_WIDTH = '1180px'
 
 export const CAPACITY_REQUESTS_PER_MONTH = '188 million'
+
+export const PRODUCT_TILES = {
+  metadata: { bg: colors.violet0, color: colors.violet7 },
+  screenshot: { bg: colors.pink0, color: colors.pink6 },
+  markdown: { bg: colors.indigo0, color: colors.indigo7 },
+  html: { bg: colors.violet0, color: colors.violet7 },
+  embed: { bg: colors.blue0, color: colors.blue7 },
+  preview: {
+    bg: `linear-gradient(135deg, ${colors.violet0}, ${colors.pink0})`,
+    color: colors.violet7
+  },
+  pdf: { bg: colors.red0, color: colors.red6 },
+  logo: { bg: colors.yellow0, color: colors.yellow7 },
+  search: { bg: colors.blue0, color: colors.blue7 },
+  technologies: { bg: colors.violet0, color: colors.violet7 },
+  function: { bg: colors.indigo0, color: colors.indigo8 },
+  text: { bg: colors.orange0, color: colors.orange6 },
+  lighthouse: { bg: colors.teal0, color: colors.teal7 },
+  video: { bg: colors.violet0, color: colors.violet7 },
+  audio: { bg: colors.pink0, color: colors.pink6 },
+  animated: { bg: colors.indigo0, color: colors.indigo7 },
+  automation: { bg: colors.pink0, color: colors.pink6 },
+  sdk: { bg: colors.blue0, color: colors.blue7 },
+  mcp: { bg: colors.teal0, color: colors.teal7 },
+  conversion: { bg: colors.orange0, color: colors.orange8 }
+}

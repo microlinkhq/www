@@ -17,8 +17,9 @@ export const LangLandingsNav = ({ langs, current, label, accent }) => {
         alignItems: 'center',
         justifyContent: 'center',
         flexWrap: 'wrap',
-        gap: 2,
-        fontSize: [1, 1, 2, 2],
+        columnGap: [3, 3, 2, 2],
+        rowGap: 2,
+        fontSize: 1,
         color: 'black60'
       })}
     >
@@ -30,7 +31,12 @@ export const LangLandingsNav = ({ langs, current, label, accent }) => {
           {index > 0 && (
             <Text
               as='span'
-              css={theme({ fontSize: 'inherit', color: 'black30' })}
+              aria-hidden='true'
+              css={theme({
+                display: ['none', 'none', 'inline', 'inline'],
+                fontSize: 'inherit',
+                color: 'black30'
+              })}
             >
               ·
             </Text>

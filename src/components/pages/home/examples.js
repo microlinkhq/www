@@ -37,8 +37,10 @@ const Examples = () => (
           pt: [3, 3, 4, 4]
         })}
       >
-        The <Link href='/integrations/sdk'>Microlink SDK</Link> gives you a
-        consistent interface to everything Microlink offers.
+        The <Link href='/integrations/sdk'>Microlink SDK</Link> gives your app a
+        consistent interface to everything Microlink offers. The{' '}
+        <Link href='/integrations/mcp'>Microlink MCP</Link> gives your agent the
+        same products as tools.
       </Caption>
     </Box>
 
