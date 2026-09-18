@@ -110,6 +110,7 @@ const CarouselCardLink = styled(Link)`
 `
 
 const FALLBACK_LIMIT = 6
+const FALLBACK_CTA = 'View use case'
 
 const notCurrent = currentSlug => entry => entry && entry.slug !== currentSlug
 
@@ -191,7 +192,7 @@ export const MoreUseCases = ({
                 href={useCasePath(entry.slug)}
                 css={theme({ color: accent.text })}
               >
-                View use case →
+                {entry.cta || FALLBACK_CTA}&nbsp;→
               </CarouselCardLink>
             </CarouselCard>
           ))}

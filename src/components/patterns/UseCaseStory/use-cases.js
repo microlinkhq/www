@@ -15,6 +15,7 @@ const PARTNER_RECIPES = [
   {
     slug: 'upscale-extracted-images',
     name: 'Microlink + Magnific',
+    cta: 'Upscale extracted images',
     partner: 'Magnific',
     partnerUrl: 'https://magnific.com',
     blurb:

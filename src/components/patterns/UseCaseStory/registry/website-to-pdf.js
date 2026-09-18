@@ -7,6 +7,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'PDF invoices from authenticated pages',
+    cta: 'Generate PDF invoices',
     blurb:
       'Print the invoice page your app already renders: forward the session, hide the chrome, name the file.',
     keywords: [
@@ -25,6 +26,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'Clean PDFs without ads or banners',
+    cta: 'Export clean PDFs',
     blurb:
       'Ads and consent popups blocked by default, sticky navigation removed with one CSS rule, print or screen styles.',
     keywords: [
@@ -44,6 +46,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'Paper size, margins and orientation',
+    cta: 'Set paper size and margins',
     blurb:
       'A4 or Letter, custom dimensions, per-side margins, landscape, scale and page ranges from one request.',
     keywords: [
@@ -62,6 +65,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'PDF download links and previews',
+    cta: 'Create PDF download links',
     blurb:
       'Make the API URL return the PDF itself for one-click downloads and iframe previews.',
     keywords: [
@@ -80,6 +84,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'Archive web articles as PDF',
+    cta: 'Archive articles as PDF',
     blurb:
       'Readable, searchable PDFs of articles and docs, printed with their print styles and trimmed to the pages you need.',
     keywords: [
@@ -99,6 +104,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'PDFs in bulk',
+    cta: 'Generate PDFs in bulk',
     blurb:
       'Thousands of documents from URLs in one job: parallel requests, server-side retries and per-document caching.',
     keywords: [
@@ -118,6 +124,7 @@ export const WEBSITE_TO_PDF = [
     vertical,
     category,
     name: 'PDFs of JavaScript-rendered pages',
+    cta: 'Render dynamic pages to PDF',
     blurb:
       'Wait for charts and single-page apps to render, open tabs and sections, then print.',
     keywords: [

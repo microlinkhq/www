@@ -7,6 +7,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Custom fields alongside metadata',
+    cta: 'Extract custom fields',
     blurb:
       'Prices, ratings, headings or any selector, typed and returned next to the normalized fields.',
     keywords: [
@@ -25,6 +26,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Fix missing or wrong og:image',
+    cta: 'Fix a broken og:image',
     blurb:
       'Override any normalized field with a rule and chain fallbacks so previews never render empty.',
     keywords: [
@@ -43,6 +45,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Metadata from single-page apps',
+    cta: 'Read metadata from single-page apps',
     blurb:
       'Render client-side apps in a real browser, wait for the tags, then read the normalized metadata.',
     keywords: [
@@ -61,6 +64,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Link previews for bot-protected sites',
+    cta: 'Preview bot-protected sites',
     blurb:
       'One option routes the metadata request through the built-in proxy when a site blocks automated access.',
     keywords: [
@@ -79,6 +83,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Brand colors from images',
+    cta: 'Extract brand colors',
     blurb:
       'The dominant palette and accessible text and background pairs from a site’s logo and preview image.',
     keywords: [
@@ -97,6 +102,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Link previews at scale',
+    cta: 'Scale your link previews',
     blurb:
       'Unfurl links at any volume: no throttling, a cache that serves the repeats and background refresh.',
     keywords: [
@@ -115,6 +121,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Only the fields you need',
+    cta: 'Request only the fields you need',
     blurb:
       'Include or exclude normalized fields per request and trim the response for faster, lighter calls.',
     keywords: [
@@ -133,6 +140,7 @@ export const WEBSITE_METADATA = [
     vertical,
     category,
     name: 'Region-specific metadata',
+    cta: 'Get region-specific metadata',
     blurb:
       'Titles, descriptions and prices as a visitor from a given country and language sees them.',
     keywords: [

@@ -8,7 +8,11 @@ import {
   VERTICALS,
   useCasesByVertical
 } from '../../src/components/patterns/UseCaseStory/use-cases.js'
-import { CUSTOMERS } from '../../src/components/patterns/CustomerStory/customers.js'
+import {
+  CUSTOMERS,
+  CUSTOMERS_PATH,
+  customerPath
+} from '../../src/components/patterns/CustomerStory/customers.js'
 
 const ROOT = process.cwd()
 const PAGES_DIR = path.join(ROOT, 'src', 'pages', 'use-cases')
@@ -127,10 +131,17 @@ describe('use case registry', () => {
     }
   })
 
+  test('card link labels are present and never repeat', () => {
+    const labels = USE_CASES.map(({ cta }) => cta)
+    expect(labels.filter(label => !label)).toEqual([])
+    expect(new Set(labels).size).toBe(labels.length)
+  })
+
   test('every page under src/pages/use-cases is registered', () => {
     const known = new Set([
       ...USE_CASES.map(({ slug }) => slug),
-      ...CUSTOMERS.map(({ slug }) => slug),
+      'customers',
+      ...CUSTOMERS.map(({ slug }) => `customers/${slug}`),
       ...verticalSlugs
     ])
     const orphans = walk(PAGES_DIR)
@@ -158,6 +169,42 @@ describe('use case registry', () => {
     expect(page).toContain("schemaType='TechArticle'")
     expect(page).toContain('useCaseStructured(')
     expect(page).toContain('<UseCaseLanding')
+  })
+})
+
+describe('customer stories', () => {
+  const { redirects } = JSON.parse(read(path.join(ROOT, 'vercel.json')))
+  const destinationOf = source =>
+    redirects.find(redirect => redirect.source === source)?.destination
+
+  test('the hub page lives under the customers path', () => {
+    expect(CUSTOMERS_PATH).toBe('/use-cases/customers')
+    expect(exists(path.join(PAGES_DIR, 'customers', 'index.js'))).toBe(true)
+  })
+
+  test.each(CUSTOMERS)('$slug ships a page under the customers path', entry => {
+    expect(exists(pageFile(`customers/${entry.slug}`))).toBe(true)
+    expect(exists(pageFile(entry.slug))).toBe(false)
+  })
+
+  test.each(CUSTOMERS)('$slug old URL redirects to the new one', entry => {
+    expect(destinationOf(`/use-cases/${entry.slug}`)).toBe(
+      customerPath(entry.slug)
+    )
+  })
+
+  test('legacy /customers URLs skip the intermediate hop', () => {
+    expect(destinationOf('/customers')).toBe(CUSTOMERS_PATH)
+    expect(destinationOf('/customers/:path*')).toBe(`${CUSTOMERS_PATH}/:path*`)
+  })
+
+  test('customer slugs never collide with a use case route', () => {
+    const taken = new Set([
+      ...USE_CASES.map(({ slug }) => slug),
+      ...verticalSlugs,
+      'customers'
+    ])
+    expect(CUSTOMERS.filter(({ slug }) => taken.has(slug))).toEqual([])
   })
 })
 

@@ -1,109 +1,119 @@
-import { theme } from 'theme'
-import React from 'react'
+import { space, theme } from 'theme'
+import React, { useMemo, useRef } from 'react'
+import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
-import Subhead from 'components/elements/Subhead'
 
 import ArrowLink from 'components/patterns/ArrowLink'
-import { Eyebrow, StoryTag } from 'components/patterns/CustomerStory/chrome'
-
-import { CardGrid, UseCaseCard } from './use-case-card'
-import { VerticalIconTile } from '../landing/vertical-icon'
+import { CustomerCard } from 'components/patterns/CustomerStory/CustomerCard'
 import {
-  ACCENT,
+  CUSTOMERS,
+  CUSTOMERS_PATH
+} from 'components/patterns/CustomerStory/customers'
+
+import { ProductTabs, panelId, tabId } from './product-tabs'
+import { useActiveGroup } from './use-active-group'
+import { CardGrid, UseCaseCard } from './use-case-card'
+import {
   VERTICALS,
   partnerUseCases,
   useCasePath,
   useCasesByVertical
 } from '../use-cases'
 
-const groupLink = css => theme({ color: 'link', fontWeight: 'bold', ...css })
+const MAX_CARDS_PER_TAB = 6
 
-const JumpNav = ({ verticals }) => (
-  <Flex
-    as='nav'
-    aria-label='Use cases by product'
-    css={theme({ flexWrap: 'wrap', gap: 2, pb: [3, 3, 4, 4] })}
-  >
-    {verticals.map(vertical => (
-      <StoryTag
-        key={vertical.slug}
-        as='a'
-        href={`#${vertical.slug}`}
-        accent={ACCENT}
-        css={theme({ textDecoration: 'none' })}
-      >
-        {vertical.product}
-      </StoryTag>
-    ))}
-  </Flex>
-)
+const CUSTOMERS_GROUP = {
+  id: 'stories',
+  label: 'Customer stories',
+  accent: 'link',
+  href: CUSTOMERS_PATH,
+  linkLabel: 'All customer stories',
+  Card: CustomerCard,
+  entries: CUSTOMERS.slice(0, MAX_CARDS_PER_TAB)
+}
 
-const VerticalGroup = ({ vertical, entries }) => (
-  <Box
-    id={vertical.slug}
-    css={theme({ pb: [4, 4, 5, 5], scrollMarginTop: 4 })}
-  >
-    <Flex css={theme({ alignItems: 'center', gap: 2, pb: 2 })}>
-      <VerticalIconTile vertical={vertical} size={28} />
-      <Eyebrow accent={ACCENT}>{vertical.product}</Eyebrow>
-    </Flex>
-    <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-      {vertical.name} use cases
-    </Subhead>
-    <CardGrid>
-      {entries.map(entry => (
-        <UseCaseCard key={entry.slug} entry={entry} />
-      ))}
-    </CardGrid>
-    <Box css={theme({ pt: [3, 3, 4, 4] })}>
-      <ArrowLink
-        href={useCasePath(vertical.slug)}
-        css={groupLink({ fontSize: [1, 2, 2, 2] })}
-      >
-        All {vertical.name.toLowerCase()} use cases
-      </ArrowLink>
-    </Box>
-  </Box>
-)
+const PARTNERS_GROUP = {
+  id: 'partner-recipes',
+  label: 'Partner recipes',
+  accent: 'grape7',
+  Card: UseCaseCard
+}
 
-const PartnerRecipes = ({ entries }) => (
-  <Box id='partner-recipes' css={theme({ scrollMarginTop: 4 })}>
-    <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
-      Recipes with partners
-    </Eyebrow>
-    <Subhead css={theme({ textAlign: 'left', pb: [3, 3, 4, 4] })}>
-      Combine Microlink with other APIs
-    </Subhead>
-    <CardGrid>
-      {entries.map(entry => (
-        <UseCaseCard key={entry.slug} entry={entry} />
-      ))}
-    </CardGrid>
-  </Box>
-)
+const uncapitalize = name => name.charAt(0).toLowerCase() + name.slice(1)
 
-export const UseCaseGroups = () => {
-  const groups = VERTICALS.map(vertical => ({
-    vertical,
-    entries: useCasesByVertical(vertical.slug)
-  })).filter(({ entries }) => entries.length > 0)
+const Panel = styled(Box)`
+  &[hidden] {
+    display: none;
+  }
+`
+
+const toGroup = vertical => ({
+  id: vertical.slug,
+  label: vertical.product,
+  accent: vertical.iconBg,
+  href: useCasePath(vertical.slug),
+  linkLabel: `All ${uncapitalize(vertical.name)} use cases`,
+  Card: UseCaseCard,
+  entries: useCasesByVertical(vertical.slug).slice(0, MAX_CARDS_PER_TAB)
+})
+
+const toGroups = () => {
+  const verticals = VERTICALS.map(toGroup)
   const partners = partnerUseCases()
 
+  return [
+    CUSTOMERS_GROUP,
+    ...verticals,
+    ...(partners.length > 0 ? [{ ...PARTNERS_GROUP, entries: partners }] : [])
+  ].filter(({ entries }) => entries.length > 0)
+}
+
+export const UseCaseGroups = () => {
+  const groups = useMemo(toGroups, [])
+  const ids = useMemo(() => groups.map(({ id }) => id), [groups])
+  const containerRef = useRef(null)
+  const [active, select] = useActiveGroup(ids, containerRef)
+
   return (
-    <>
-      {groups.length > 1 && (
-        <JumpNav verticals={groups.map(({ vertical }) => vertical)} />
-      )}
-      {groups.map(({ vertical, entries }) => (
-        <VerticalGroup
-          key={vertical.slug}
-          vertical={vertical}
-          entries={entries}
-        />
+    <Box ref={containerRef} css={theme({ scrollMarginTop: space[6] })}>
+      <ProductTabs
+        groups={groups}
+        active={active}
+        onSelect={select}
+        label='Customer stories and use cases by product'
+      />
+
+      {groups.map(group => (
+        <Panel
+          key={group.id}
+          id={panelId(group.id)}
+          role='tabpanel'
+          aria-labelledby={tabId(group.id)}
+          hidden={group.id !== active}
+          css={theme({ pt: 4 })}
+        >
+          <CardGrid>
+            {group.entries.map(entry => (
+              <group.Card key={entry.slug} entry={entry} />
+            ))}
+          </CardGrid>
+          {group.href && (
+            <Box css={theme({ pt: [3, 3, 4, 4] })}>
+              <ArrowLink
+                href={group.href}
+                css={theme({
+                  color: 'link',
+                  fontWeight: 'bold',
+                  fontSize: [1, 2, 2, 2]
+                })}
+              >
+                {group.linkLabel}
+              </ArrowLink>
+            </Box>
+          )}
+        </Panel>
       ))}
-      {partners.length > 0 && <PartnerRecipes entries={partners} />}
-    </>
+    </Box>
   )
 }

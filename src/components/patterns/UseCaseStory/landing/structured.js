@@ -1,3 +1,10 @@
+import {
+  CUSTOMERS,
+  CUSTOMERS_HUB,
+  CUSTOMERS_PATH,
+  customerPath
+} from 'components/patterns/CustomerStory/customers'
+
 import { plain } from './inline-links'
 import {
   getUseCase,
@@ -100,6 +107,30 @@ export const verticalStructured = vertical => {
           url: `${SITE_URL}${useCasePath(entry.slug)}`
         })
       )
+    }
+  ]
+}
+
+export const customersStructured = () => {
+  const url = `${SITE_URL}${CUSTOMERS_PATH}`
+
+  return [
+    breadcrumbList(url, [
+      { name: 'Microlink', item: SITE_URL },
+      { name: 'Use cases', item: `${SITE_URL}/use-cases` },
+      { name: CUSTOMERS_HUB.name, item: url }
+    ]),
+    {
+      '@context': CONTEXT,
+      '@type': 'ItemList',
+      '@id': `${url}#stories`,
+      name: CUSTOMERS_HUB.h1,
+      itemListElement: CUSTOMERS.map(({ slug, name }, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name,
+        url: `${SITE_URL}${customerPath(slug)}`
+      }))
     }
   ]
 }

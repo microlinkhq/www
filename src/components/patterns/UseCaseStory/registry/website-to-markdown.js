@@ -7,6 +7,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'Markdown with metadata frontmatter',
+    cta: 'Add metadata frontmatter',
     blurb:
       'Title, author, date, description, word count and reading time on top of the converted page.',
     keywords: [
@@ -25,6 +26,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'Clean Markdown, no boilerplate',
+    cta: 'Get clean Markdown',
     blurb:
       'Scope the conversion to the article body and drop navigation, ads and widgets before converting.',
     keywords: [
@@ -43,6 +45,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'LLM context from any URL',
+    cta: 'Build LLM context',
     blurb:
       'Markdown, links, emails, metadata and tech stack from one URL, composed into one context object.',
     keywords: [
@@ -61,6 +64,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'PDF and office documents to Markdown',
+    cta: 'Convert documents to Markdown',
     blurb:
       'The same request converts PDF, DOCX, XLSX, PPTX and more into readable Markdown.',
     keywords: [
@@ -79,6 +83,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'YouTube transcripts as Markdown',
+    cta: 'Get YouTube transcripts',
     blurb:
       'Caption transcripts from watch, share or shorts URLs, with the video title, author and date.',
     keywords: [
@@ -97,6 +102,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'Markdown from JavaScript-rendered pages',
+    cta: 'Convert JavaScript-rendered pages',
     blurb:
       'Render single-page apps in a real browser, wait for the content, then convert the finished DOM.',
     keywords: [
@@ -115,6 +121,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'Markdown from bot-protected pages',
+    cta: 'Convert bot-protected pages',
     blurb:
       'One option routes the conversion through the built-in proxy when a site blocks automated access.',
     keywords: [
@@ -134,6 +141,7 @@ export const WEBSITE_TO_MARKDOWN = [
     vertical,
     category,
     name: 'Bulk Markdown conversion with caching',
+    cta: 'Convert URLs in bulk',
     blurb:
       'Thousands of URLs in parallel, cached per URL and refreshed in the background for cheap re-indexing.',
     keywords: [

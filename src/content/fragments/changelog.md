@@ -51,7 +51,7 @@
 - [Microlink](/): Added [antibot](/features/antibot) and [isolation](/features/isolation) feature landings.
 - [Microlink API](/docs/api/getting-started/overview): Added [EPDFTOOLARGE](/docs/api/basics/error-codes#epdftoolarge) when a document is too large to render as PDF.
 - [Microlink](/): Redesigned [skills](/skills) page.
-- [Microlink](/): Added [Handinger](/use-cases/handinger) customer story.
+- [Microlink](/): Added [Handinger](/use-cases/customers/handinger) customer story.
 - [unavatar.io](https://unavatar.io): Improved DuckDuckGo favicon resolution for www/apex host variants.
 - [Microlink](/): New homepage hero with an interactive natural-language API console.
 - [Microlink](/): Added [Chrome extensions](/extensions) landings for website screenshot and PDF.

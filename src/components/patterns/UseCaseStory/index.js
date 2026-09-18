@@ -27,11 +27,13 @@ export {
   UseCaseLanding,
   UseCaseFaqSection,
   VerticalIconTile,
+  customersStructured,
   useCaseStructured,
   verticalStructured
 } from './landing'
 export {
   CardGrid,
+  CustomersHub,
   ProductUseCases,
   RelatedUseCasesSection,
   UseCaseCard,

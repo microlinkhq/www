@@ -8,7 +8,7 @@ import { CUSTOMERS } from '../../src/components/patterns/CustomerStory/customers
 const PAGES_DIR = path.join(process.cwd(), 'src', 'pages', 'use-cases')
 
 const LOGO_CARD_SLUGS = [
-  ...CUSTOMERS.map(({ slug }) => slug),
+  ...CUSTOMERS.map(({ slug }) => `customers/${slug}`),
   'upscale-extracted-images'
 ]
 
