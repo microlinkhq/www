@@ -37,6 +37,12 @@ test('unsupported', async () => {
   expect(output).toBe(code)
 })
 
+test('does not format plaintext as javascript', async () => {
+  const code =
+    'https://api.microlink.io/?url=https://example.com&function=()=>5*5'
+  expect(await prettier(code, 'text')).toBe(code)
+})
+
 test('.serializeFmt', () => {
   const output = serializeFmt({
     type: 'email',

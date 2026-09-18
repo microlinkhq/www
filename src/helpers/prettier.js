@@ -124,7 +124,8 @@ export const prettier = async (code, language = 'js') => {
     return formatHeaders(code)
   }
 
-  const formatterOpts = getFormatterOpts[language] || getFormatterOpts.js
+  const formatterOpts = getFormatterOpts[language]
+  if (!formatterOpts) return code
 
   try {
     const { format, babel, typescript } = await loadPrettier()

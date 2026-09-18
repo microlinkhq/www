@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #7: SDK v4, Documentation Portal & MQL'
+title: 'Product brief #7: simpler SDK v4, docs portal, production-ready MQL'
 description: 'Experience the next evolution of Microlink with SDK v4.0, featuring a streamlined API and smarter bundling. Plus, explore our new Documentation Portal.'
 authors:
   - kiko
@@ -8,17 +8,15 @@ date: '2019-05-01'
 
 import { Microlink } from 'components/markdown/Microlink'
 
-## Microlink SDK 4.0
+This brief covered three releases: Microlink SDK 4.0 with fewer, more unified card parameters and a rewritten build, a documentation portal built into the site, and the Microlink Query Language (MQL), which was now production ready.
 
-> [See release notes on GitHub](https://github.com/microlinkhq/sdk/releases/tag/v4.0.0).
+If you used the SDK, v4 was a major version that renamed or removed four card parameters. The [release notes on GitHub](https://github.com/microlinkhq/sdk/releases/tag/v4.0.0) list every change.
 
 <Microlink url='https://microlink.io/docs/sdk-legacy/getting-started/overview/' media='logo' />
 
-This new major release has had two things in mind: Simplify some specific connectors parameters and provide a more smart bundle system.
+## SDK 4.0 expressed the same cards with fewer parameters
 
-These changes were necessary since we are preparing the project for another big thing: leverage [audio](https://github.com/microlinkhq/sdk/issues/135) support (already supported on [API](/docs/api/parameters/audio)) at SDK level.
-
-### API Surface
+SDK 4.0 had two goals: simplify some connector-specific parameters, and produce smarter bundles. Both prepared the SDK for the next step, bringing [audio](https://github.com/microlinkhq/sdk/issues/135) support, which the [API](/docs/api/parameters/audio) already had, to the SDK level.
 
 ```jsx
 /* before */
@@ -28,38 +26,26 @@ These changes were necessary since we are preparing the project for another big 
 <Microlink direction='ltr' media='video' />
 ```
 
-In the past, we added some specific connector parameters since [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) is oriented to support different user case over any site on internet.
+The [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) renders previews for any site on the internet, so over time we had added specific parameters for each new use case. With a wider view of the whole API surface, the same cards could be expressed with fewer, more general parameters, as the snippet above shows. The changes in v4 were:
 
-The things added are good, but now we have a more global vision of our API surface and we can simplify to express the same in a more unified way.
+- **`image` became `media`:** one parameter now selected which media the card showed.
+- **`video` was removed:** you passed `media='video'` instead.
+- **`reverse` became `direction`:** it took the values `rtl` and `ltr`.
+- **`noFetch` was removed:** the SDK deduced it when you called `setData` with an object.
 
-Specifically the changes has been:
+## The build was rewritten around the ESM bundle
 
-- Renamed `image` into `media`.
-- Removed `video`, use `media='video'` instead.
-- Renamed `reverse` into `direction` where values can be `rtl` and `ltr`.
-- Removed `noFetch`. Now, it will be deducted if you use `setData` passing an object.
+The build system decides how the library is bundled for each way you consume it, and v4 **rewrote** it from scratch. It produced both official connectors, [React](/docs/sdk-legacy/integrations/react/) and [Vanilla](/docs/sdk-legacy/integrations/vanilla/).
 
-### Better Build System
+The React connector was bundled for [CommonJS](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L6) and [ESM](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L7), the two entry points declared in its `package.json`. The build then took that ESM bundle as the input for the Vanilla connector, which it exported as a Universal Module Definition (_UMD_) bundle for the browser.
 
-The build system is the way we bundle the library to be consumed in different ways.
+## The documentation moved into the site
 
-The way we created the bundle has been totally **rewritten**.
+The new documentation portal gave everything involved with Microlink one entry point: the documentation itself, but also examples and code snippets. It was integrated into microlink.io and built with the same visual elements as our [Design System](/design).
 
-We offer two official connectors: [React](/docs/sdk-legacy/integrations/react/) and [Vanilla](/docs/sdk-legacy/integrations/vanilla/).
+Every documentation section also had an **Edit This Page on GitHub** link in its footer. Anyone who spotted a mistake or a missing example could suggest a change to that page on GitHub directly from the footer link.
 
-The React connector is bundle to be consume in [CommonJS](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L6) and [ESM](https://github.com/microlinkhq/sdk/blob/master/packages/react/package.json#L7).
-
-After these builds are created, we use the ESM bundle to create the Vanilla connector. This new build is exported to be consumed as Universal Module Definition (_UMD_).
-
-## New Documentation Portal
-
-The documentation portal is a big deal: We wanted to have an unified entry point to see all the things (formally documentation but also examples, code snippets) involved with Microlink.
-
-Now, the documentation portal is integrated on the site. It uses the same visual elements than our [Design System](/design).
-
-Also, we wanted to provide a way to anyone extend it, so every documentation section has **Edit This Page on GitHub** on the footer, making possible suggest changes quickly.
-
-## Microlink Query Language
+## MQL was production ready
 
 ```jsx
 import mql from '@microlink/mql'
@@ -67,14 +53,12 @@ const { status, data } = await mql('https://microlink.io')
 console.log(data)
 ```
 
-Microlink Query Language (_MQL_) is the successor of [Custom Rules](/blog/custom-rules) as we pointed in our [Master Plan for 2019](/blog/master-plan-2019/).
+The Microlink Query Language (_MQL_) replaced [Custom Rules](/blog/custom-rules), as announced in our [Master Plan for 2019](/blog/master-plan-2019/). With this release, **MQL was production ready**.
 
-We are happy to say that **MQL is production ready** 🚀.
+The [@microlink/mql](https://github.com/microlinkhq/mql) npm package is a JavaScript HTTP client on top of the [Microlink API](/docs/api/getting-started/overview). As the snippet shows, one `mql()` call with a URL returns the response `status` and the extracted `data`. The package also runs directly in the browser, where [its size is 4KB](https://bundlephobia.com/result?p=@microlink/mql).
 
-We provide [@microlink/mql](https://github.com/microlinkhq/mql) npm package that is a convenient JavaScript HTTP client on top of [Microlink API](/docs/api/getting-started/overview).
+The first [MQL documentation](/docs/mql/getting-started/overview) pages explained how rules are defined. The next items on the plan were documentation at the API layer, more practical examples, and a separate site to use as an MQL playground.
 
-Also it's ready to be used directly on browser [since size is 4KB](https://bundlephobia.com/result?p=@microlink/mql).
+## Upgrading to v4
 
-We have started adding [MQL documentation](/docs/mql/getting-started/overview) and how rules need to be defined.
-
-We are going to add, as soon as possible, documentation at the API layer, more practical examples, and a totally new site just for use it as a playground.
+To move a card to v4, replace `reverse` with `direction`, `video` with `media='video'`, and `image` with `media`, then drop `noFetch` wherever you call `setData` with an object. The [SDK docs](/docs/sdk-legacy/getting-started/overview/) cover each parameter, and `npm install @microlink/mql` adds the MQL client to any JavaScript project.
