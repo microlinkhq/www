@@ -12,6 +12,13 @@ import { Microlink } from 'components/markdown/Microlink'
 
 [Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0) can embed a provider’s **native iframe** instead of a link preview card. Set `iframe` as the [media](/docs/sdk-legacy/parameters/media/) value and the SDK renders the same player Spotify, SoundCloud, or Instagram would show on their own site.
 
+**TL;DR**
+
+- Microlink SDK v4.5.0 can embed a provider’s **native iframe** instead of a link preview card: set `iframe` as the `media` value.
+- `media: ['iframe']` enables iframe detection, and the response carries the provider’s embed markup in `html` and any scripts it needs in `scripts`.
+- `media` is an array of fallbacks: the SDK uses the first value the URL can satisfy, down to `image`.
+- Any provider that implements the oEmbed specification works, including Spotify, SoundCloud, Instagram, and YouTube.
+
 ## The card has three sizes
 
 **Microlink SDK** turns every link into a preview card, displayed in one of three [size](/docs/sdk-legacy/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.

@@ -12,6 +12,14 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 The [Microlink API](/docs/api/getting-started/overview) now supports **Custom Rules**: you declare a `selector`, an `attr`, and a `type` as query parameters, and the API returns that value as a new field in the response. The rules ride on the same request that already returns the metadata.
 
+**TL;DR**
+
+- The Microlink API now supports **Custom Rules**: declare a `selector`, an `attr`, and a `type`, and the API returns that value as a new field in the response.
+- Rules travel as query parameters, written in dot notation under `data.<field>`.
+- Several rules per field handle changing markup: the field takes the value of the first rule that resolves successfully.
+- A custom rule with the same name as a basic field acts as its fallback: for Instagram profiles, `author` resolves to `"Elon Musk"` instead of `null`.
+- Custom rules combine with every API parameter, such as `palette` and `filter`.
+
 Until now, the API returned the generic information a page exposes, normalized from its metadata by [metascraper](https://metascraper.js.org/#/). That covers `title`, `description`, `image`, and `logo`, but not the data specific to one site, such as the avatar on a profile page.
 
 ## The default response stops at metadata

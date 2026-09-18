@@ -11,6 +11,14 @@ import { Terminal } from 'components/markdown/Terminal'
 
 Every [Microlink documentation](/docs/api/getting-started/overview) page can now be consumed as Markdown. Add `.md` to the end of any docs URL and you get the same page as clean Markdown, ready to paste into an LLM or fetch from an agent.
 
+**TL;DR**
+
+- Add `.md` to any Microlink docs URL, or send `Accept: text/markdown`, and you get the same page as clean Markdown.
+- The Markdown comes from one MQL data rule with `attr: 'markdown'`: **14 lines** of code.
+- A Vercel rewrite serves the `.md` version on the original URL when the `accept` header matches `text/markdown`.
+- Before converting, the Microlink API removes headers, footers, navigation, and hidden elements, so the Markdown holds only the page content.
+- The same conversion works on any page through `markdown.microlink.io`.
+
 ```shell
 # human readable version
 curl https://microlink.io/docs/api/getting-started/overview

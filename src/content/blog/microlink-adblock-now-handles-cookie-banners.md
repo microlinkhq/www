@@ -15,6 +15,14 @@ When [adblock](/docs/api/parameters/adblock) is enabled, the Microlink API now h
 
 ![](/images/cookies.jpeg)
 
+**TL;DR**
+
+- When adblock is enabled, the Microlink API now handles cookie consent banners automatically, on top of blocking ads and trackers.
+- Adblock is on by default, so every request gets it without a code change.
+- For common cases, that replaces a custom Puppeteer script.
+- Inside browserless, three layers do the work: ad and tracker blocking, autoconsent-based opt-out, and cosmetic prehide rules.
+- Set `adblock=false` when your workflow needs to load ads and trackers, or when you are validating the site's default consent UX.
+
 A consent popup is the usual reason a [screenshot](/docs/api/parameters/screenshot), [PDF](/docs/api/parameters/pdf), or [metadata](/docs/api/parameters/meta) request comes back wrong: the page loads, and the banner covers the content. The upgrade runs inside [browserless](https://browserless.js.org/), our own headless browser runner behind the [Microlink API](/docs/api/getting-started/overview).
 
 ## One parameter blocks trackers and consent popups

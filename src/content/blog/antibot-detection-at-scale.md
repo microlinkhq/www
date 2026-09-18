@@ -12,6 +12,14 @@ import { Link } from 'components/elements/Link'
 
 Today we're releasing <Link href="https://github.com/microlinkhq/is-antibot" logoIcon externalIcon>is-antibot</Link>, an open-source, dependency-free library that detects when a response was blocked by an antibot system and names the provider that blocked it. It is built for crawlers, scrapers, link previews, and metadata pipelines that make requests at scale.
 
+**TL;DR**
+
+- is-antibot detects when a response was blocked by an antibot system and names the provider that blocked it. It is open-source and dependency-free.
+- Pass it a `fetch` response and it returns `detected` and `provider`. It does not try to solve challenges.
+- It covers antibot providers such as Cloudflare, DataDome, and Akamai Bot Manager, and CAPTCHA providers such as reCAPTCHA and hCaptcha.
+- The check is deterministic and fast, so it can run on every request without becoming the bottleneck.
+- The Microlink API runs it as one of its first checks and routes each failure through the resolution path for that protection layer.
+
 Install it from [npm](https://www.npmjs.com/package/is-antibot):
 
 <CodeEditor title='microlinkhq/is-antibot' language='bash'>

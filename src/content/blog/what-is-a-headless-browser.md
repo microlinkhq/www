@@ -9,6 +9,14 @@ date: '2026-01-15'
 
 A headless browser is [Chrome](https://www.google.com/chrome/) without the window: no address bar, no tabs, no bookmarks, only the engine. Unlike a *curl* or *fetch* request, it executes JavaScript fully and gives you the DOM as a user sees it.
 
+**TL;DR**
+
+- A headless browser executes JavaScript fully and gives you the DOM as a user sees it, which a cURL request cannot.
+- Running one on a laptop takes a **10-line script**. Running one in production brings memory leaks, missing fonts, and cold starts.
+- Zombie Chromium processes left by a `browser.close()` that fails to fire can eat **16GB of RAM** and crash an entire server cluster.
+- On serverless functions like AWS Lambda, a **2-second** browser boot lands directly on the user's request.
+- Microlink runs the browser for you: one `mql` call returns a screenshot, metadata, or a PDF.
+
 It renders HTML and runs JavaScript like any browser, but it is driven from code or a **Command Line Interface (CLI)** instead of a visual display. That makes it useless for browsing and the standard tool for E2E testing, generating [PDFs and screenshots](/screenshot), and scraping modern SPAs.
 
 Running one on a laptop takes a 10-line script. Running one in production brings memory leaks, missing fonts, and cold starts, and that gap is the reason Microlink exists.

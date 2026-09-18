@@ -10,6 +10,14 @@ date: '2020-01-26'
 
 [Microlink API](/docs/api/getting-started/overview) now supports **+30 query parameters** for controlling a browser instance. Each feature is enabled or disabled with a query parameter, so you can automate a real browser with a single URL instead of running one yourself.
 
+**TL;DR**
+
+- Microlink API supports **+30 query parameters** for controlling a browser instance, each one enabling or disabling a feature.
+- `url` is the only required parameter.
+- Data parameters such as `screenshot`, `pdf`, and `meta` enrich the response with data detected from the target URL.
+- Browser parameters such as `click`, `scroll`, and `waitForSelector` make the browser act on the page before you get the result.
+- Response parameters such as `filter`, `ttl`, and `staleTtl` shape what comes back.
+
 A web browser is one of the most complex pieces of software you use. Its internal sub-systems work together to resolve any kind of URL on the Internet, even if the content was written with HTML tables in 1992. Microlink API puts a high-level API in front of it. When we started the service, only a few things could be done this way.
 
 [url](/docs/api/parameters/url) is the only required parameter. You can combine it with any of the parameters below, grouped by what they change: the data in the response, the way the browser behaves, and the shape of the response itself.

@@ -9,7 +9,12 @@ date: '2026-09-13'
 
 [Browserless](https://browserless.js.org) now runs its page-cleaning work in a Chrome isolated world, where the page cannot observe it. Before every [screenshot](/docs/api/parameters/screenshot), it dismisses cookie banners, hides ads, and closes newsletter modals, and until last week each of those DOM calls ran where the page could watch.
 
-Across ten live sites, the calls a page could observe fell from **1,716,830 to 14,658** (−99.1%), and five of the ten now sit at zero. The same change made captures cheaper: a Guardian viewport screenshot went from 645 DevTools commands to 162. Detector scores barely moved, but reading how the detectors failed exposed three emulation bugs.
+**TL;DR**
+
+- The leak was never `navigator.webdriver`. It was our own DOM work running inside the page.
+- Isolated worlds cut page-visible automation calls from **1,716,830 to 14,658** across ten live sites (−99.1%). Five of the ten now sit at zero.
+- The same change made captures cheaper: a Guardian viewport screenshot went from **645 DevTools commands to 162**.
+- Detector scores barely moved. Reading how the detectors failed exposed three emulation bugs.
 
 ## Cleaning the page happened in public
 

@@ -8,6 +8,14 @@ date: '2026-03-02'
 
 Microlink is now available as an MCP server. One config block gives [Claude Desktop](https://claude.ai/download), [Cursor](https://cursor.com), [Windsurf](https://windsurf.com), and any other MCP-compatible client access to screenshots, PDFs, Markdown conversion, metadata extraction, Lighthouse audits, and more, with no boilerplate and no extra SDKs.
 
+**TL;DR**
+
+- Microlink is now available as an MCP server: **ten tools** behind one config block, for Claude Desktop, Cursor, Windsurf, and any other MCP-compatible client.
+- Every request routes through Microlink’s headless browser infrastructure, with anti-bot evasion, automatic cookie banner dismissal, and proxy routing.
+- `microlink_markdown` returns clean Markdown with **80% fewer tokens** than raw HTML.
+- `microlink_screenshot` captures any URL at any viewport and returns a CDN-hosted image in seconds.
+- `npx -y @microlink/mcp` runs the server on demand, so there is no global install.
+
 [MCP (Model Context Protocol)](https://modelcontextprotocol.io) is the open standard that lets AI agents use external tools through natural language. Instead of writing HTTP clients, handling auth, and parsing responses, you give your agent an MCP server and it handles the rest.
 
 Add Microlink to your client’s MCP config:

@@ -13,6 +13,13 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 Today we're introducing [Microlink PDF](/pdf): add the `pdf` query parameter to any [Microlink API](/docs/api/getting-started/overview) request and the response includes a PDF of the target URL, hosted and ready to link.
 
+**TL;DR**
+
+- Add the `pdf` query parameter to any Microlink API request and the response includes a PDF of the target URL, hosted and ready to link.
+- The file is hosted on Microlink CDN. Combine it with `ttl` and the PDF refreshes in the background.
+- Three new query parameters, `scale`, `margin`, and `mediaType`, change how the headless browser prints pages that were not built to print.
+- With `embed=pdf.url`, the request URL is the PDF itself: no server code, just HTML.
+
 It follows [Microlink screenshot](https://www.producthunt.com/posts/microlink-screenshot), which we launched six months ago as part of offering browser capabilities you can use directly from the API.
 
 [![](/images/owPghHJ.png)](/pdf)

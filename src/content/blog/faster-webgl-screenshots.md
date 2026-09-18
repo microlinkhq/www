@@ -12,6 +12,14 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 WebGL pages now render **up to 3× faster** when you ask [Microlink](/docs/api/getting-started/overview) to [screenshot](/docs/api/parameters/screenshot) them, and the timeouts that used to fail them are gone. That covers interactive 3D maps, seating charts, data visualizations, product configurators, and even whole games.
 
+**TL;DR**
+
+- WebGL pages now render **up to 3× faster** when you screenshot them, and the timeouts that used to fail them are gone.
+- The fix was one renderer swap in the headless Chrome behind the API: from SwiftShader to Mesa llvmpipe.
+- The same 3D chart went from **~23.6s** to **7–14s** on production, with no failed requests.
+- In isolation it finishes in about **6 seconds, a 4× improvement**. Under real production traffic, expect closer to **2×**.
+- There is nothing to configure: any screenshot or PDF of a WebGL page goes through llvmpipe.
+
 Until this change, those pages were the slowest thing you could ask the API to capture. The fix was one renderer swap in the headless Chrome behind the API: from SwiftShader to [Mesa llvmpipe](https://docs.mesa3d.org/drivers/llvmpipe.html).
 
 ## A 3D seat map took 24 seconds to screenshot

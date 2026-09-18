@@ -8,6 +8,13 @@ date: '2019-01-18'
 
 Our roadmap for 2019 has three projects: the Microlink Query Language (MQL), a GraphQL endpoint for [Microlink API](/docs/api/getting-started/overview), and hover previews. Each one has a public RFC on GitHub where you can follow and shape the design.
 
+**TL;DR**
+
+- Our roadmap for 2019 has **three projects**, each with a public RFC on GitHub.
+- The **Microlink Query Language** (MQL) is custom rules v2.0: built-in types, selectors declaration, and caching and batching support.
+- A GraphQL endpoint for Microlink API returns only the fields you ask for.
+- Hover previews render the same card only when the reader points at a link.
+
 We launched the [initial product release in March 2018](https://www.indiehackers.com/forum/show-ih-microlink-io-beautiful-links-previews-for-any-website-8fee2613af), and months later [the launch passed 1000 upvotes on Product Hunt](https://www.producthunt.com/posts/microlink-2-0). Since then we have watched how you use the API for link previews, metadata, and scraping, and collected feedback in our [community](/community). This plan comes from that feedback.
 
 ## Custom rules need a query language

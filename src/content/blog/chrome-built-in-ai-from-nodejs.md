@@ -11,12 +11,13 @@ date: '2026-08-21'
 
 [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) runs Chrome's Gemini Nano on a headless, GPU-less Chrome for Testing box and returns the result to your Node.js script. It evaluates three [Built-in AI](https://developer.chrome.com/docs/ai/built-in-apis) APIs: Prompt, Summarizer, and Language Detector.
 
-Built-in AI runs the model on-device, in the page. You can prompt, summarize, and detect language on the same origin as the content, instead of scraping the HTML, shipping it to a hosted LLM, and paying per token. The page never leaves Chrome.
-
-The results:
+**TL;DR**
 
 - [Microlink](/) can run Gemini Nano on the same headless Chrome that already takes screenshots and PDFs, so Prompt, Summarizer, and Language Detector come with no extra cost.
 - Anyone using [browserless](https://browserless.js.org) can do the same: [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) evaluates the page APIs and returns the result to your script.
+- No GPU needed: Gemini Nano runs on a CPU with **16&nbsp;GB RAM** and 4+ cores, the same machines that take screenshots.
+
+Built-in AI runs the model on-device, in the page. You can prompt, summarize, and detect language on the same origin as the content, instead of scraping the HTML, shipping it to a hosted LLM, and paying per token. The page never leaves Chrome.
 
 ## Chrome for Testing does not ship the model
 

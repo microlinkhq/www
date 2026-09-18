@@ -10,6 +10,13 @@ date: '2021-04-06'
 
 [Microlink Cards](https://cards.microlink.io) is officially [launched on Product Hunt](https://www.producthunt.com/posts/microlink-cards) today. It is an online code editor that turns a React composition into an image, and it has no database: every design lives in its URL.
 
+**TL;DR**
+
+- Microlink Cards is an online code editor that turns a React composition into an image, and it has **no database**: every design lives in its URL.
+- The editor is [Monaco Editor](https://microsoft.github.io/monaco-editor/), the core editor component of VS Code, so you get desktop features such as autocomplete.
+- Every code or data change is encoded in the query parameters and compressed with lz-string, so shared URLs stay short well under the practical ceiling of around **2,000 characters**.
+- The Microlink API renders each card URL with the screenshot parameter and serves the image from the Microlink CDN.
+
 [Early adopters](https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452) have had access since we [introduced it one year ago](https://mailchi.mp/4273d2f40705/introducing-microlink-cards). That year went into three engineering decisions that matter when a product runs at scale: the editor, the state, and the image generation.
 
 ## A VS Code editor in the browser

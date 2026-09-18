@@ -10,6 +10,13 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 Starting today, any [Microlink API](/docs/api/getting-started/overview) response served from the cache no longer counts toward your API quota. Cached responses are also served from the [CloudFlare Network](https://www.cloudflare.com/network), and screenshots get lossless compression and WebP on the fly.
 
+**TL;DR**
+
+- Responses served from the cache no longer count toward your API quota.
+- An `og:image` tag on a page with **1000 pageviews** used to consume 1000 requests. Now it consumes one.
+- Cached responses come from the CloudFlare Network, the nearest of more than **240 edge servers** in over 90 countries.
+- Screenshots get lossless compression on the fly, and WebP when the browser supports it, which can decrease average image size up to **42%**.
+
 Microlink API has shipped with a built-in cache layer from the beginning, to speed up consecutive calls for the same resource. This release reworks that layer in three ways: what it costs, where it is served from, and what it does to images.
 
 The first time you query a resource that was not served before, such as a screenshot of `https://example.com`, the API generates it. That is a cache *MISS*. Every successive request for the same resource returns the cached version, a cache *HIT*, and hits are the part this release changes.

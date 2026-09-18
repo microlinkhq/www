@@ -14,11 +14,13 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 Microlink now resolves the `logo` property from a DNS TXT record, [BIMI](https://datatracker.ietf.org/doc/draft-blank-ietf-bimi/), before it looks at the page. That record is where brands publish the logo your mailbox shows next to an email, as a square SVG instead of a 32×32 favicon.
 
-HTML never standardized how a website exposes its primary logo. Most sites declare none, so extraction falls back to the favicon: a browser tab icon that is small, often simplified, and not necessarily the brand's official mark. The BIMI record has been sitting in DNS the whole time. It's always DNS.
+**TL;DR**
 
 - Brands publish their logo in DNS as a [BIMI](https://datatracker.ietf.org/doc/draft-blank-ietf-bimi/) record, the standard behind the logo your mailbox shows next to an email.
-- Roughly one in five of the [top 500 sites](https://github.com/Kikobeats/top-sites) publish one. High precision, low recall, so it ships as an optional package, not a favicon replacement.
+- Roughly one in five of the [top 500 sites](https://github.com/Kikobeats/top-sites) publish one (**97 / 500**). High precision, low recall, so it ships as an optional package, not a favicon replacement.
 - It ships as [metascraper-logo-bimi](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-bimi), with the record logic split out as [bimi-url](https://github.com/Kikobeats/bimi-url).
+
+HTML never standardized how a website exposes its primary logo. Most sites declare none, so extraction falls back to the favicon: a browser tab icon that is small, often simplified, and not necessarily the brand's official mark. The BIMI record has been sitting in DNS the whole time. It's always DNS.
 
 ## HTML markup has no single logo field
 

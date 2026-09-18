@@ -18,6 +18,13 @@ A 3D page used to take ~24s to [screenshot](/docs/api/parameters/screenshot) on 
 
 <Figcaption>A WebGL page (three.js) captured as an [animated screenshot](/tools/website-screenshot/animated), rendered through Mesa llvmpipe on a GPU-less node</Figcaption>
 
+**TL;DR**
+
+- Our servers have no GPU. WebGL still has to render somewhere.
+- Chrome's default software path (SwiftShader) took **~24s** per 3D page.
+- Pointing ANGLE at Mesa llvmpipe (`--use-angle=gl`) dropped it to **~6s**.
+- The one-line flag is the easy part. The display, the from-source Mesa, and proving it stays on the fast path are the rest of the story.
+
 WebGL sits behind 3D maps, seat charts, product configurators, and shader-art landing pages, and it was the slowest thing you could ask us to capture. The flag is the easy part. The rest of this post covers the X display it needs, the Mesa we compile from source, and the CI check that proves every node stays on the fast path.
 
 ## Our fleet has no GPU, on purpose

@@ -12,6 +12,13 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 
 The [function](/docs/api/parameters/function) query parameter accepts its code compressed with brotli, gzip, or lz-string, not only as plain text. You prefix the compressed body with `br#`, `gz#`, or `lz#`, and we decompress it on our side before running it.
 
+**TL;DR**
+
+- The `function` parameter accepts code compressed with brotli, gzip, or lz-string, prefixed with `br#`, `gz#`, or `lz#`.
+- brotli has a good compression ratio and ships with Node.js in `zlib`.
+- lz-string's `compressToURI` returns a string you can put in a URL directly, and it is lightweight enough for client-side apps.
+- gzip is widely supported, and `CompressionStream` builds the `gz#` value in the browser without adding a dependency.
+
 ## Code that runs in a remote browser
 
 The `function` parameter runs your code at request time, with access to a remote headless browser. This example injects jQuery from `code.jquery.com` through `scripts`, then reads `jQuery.fn.jquery` from the page with `page.evaluate`:

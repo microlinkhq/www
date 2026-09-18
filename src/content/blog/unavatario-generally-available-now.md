@@ -13,6 +13,14 @@ import { Microlink } from 'components/markdown/Microlink'
 
 <Microlink url='https://unavatar.io' />
 
+**TL;DR**
+
+- unavatar is now **Generally Available**, with a pay-as-you-go PRO plan at **$0.001 per avatar token**.
+- The free tier stays at **50 avatar resolutions a day** per IP address.
+- PRO removes the daily cap and resolves avatars behind bot protection on platforms like Instagram or LinkedIn.
+- unavatar supports over 18 providers and resolves more than **200 million requests per month**.
+- The default cache duration is now **7 days**, and the `ttl` parameter sets it anywhere between 1 hour and 28 days.
+
 Resolving a user avatar across social networks means handling a different API format per network and getting past bot protection on platforms like Instagram or LinkedIn. unavatar puts all of that behind one URL.
 
 ## One URL for any username, email, or domain

@@ -12,6 +12,13 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 All [Microlink Pro](/pricing) plans come with **Microlink Proxy**, a built-in proxy layer that resolves and rotates proxies automatically based on the input URL. It is enabled by default, needs no setup, and works across every Microlink product.
 
+**TL;DR**
+
+- Every Microlink Pro plan includes Microlink Proxy, enabled by default with no setup.
+- It handles geographic restrictions, blacklisted IP addresses, and identity checks transparently for the **Top 500** most popular websites.
+- The `x-fetch-mode` response header shows whether a request went through the proxy layer, for example `prerender-proxy`.
+- It is a cross-feature: available for all the Microlink products, not only the API.
+
 ## Popular sites block requests at scale
 
 Every URL behaves differently, and the difference shows once you send enough traffic. Popular sites like Instagram or Bloomberg start answering some requests and refusing others, so getting a successful response becomes inconsistent.

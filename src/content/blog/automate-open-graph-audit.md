@@ -9,6 +9,14 @@ date: '2026-01-23'
 
 This post builds a Node.js script that reads your sitemap, fetches the metadata of every URL with Microlink, and writes a report of each page with a missing Open Graph image, title, description, author, date, or logo. It takes three dependencies and one file, `audit.js`.
 
+**TL;DR**
+
+- Nobody audits **5,000 pages** by hand, so `audit.js` checks every URL in your sitemap on its own, every time.
+- It needs three dependencies: `sitemapper`, `@microlink/mql`, and `p-map`.
+- Microlink runs each page in a real headless Chrome browser, so tags set by client-side JavaScript on React, Vue, and Angular sites are checked too.
+- On the free plan, keep `CONCURRENCY` at 1. With a Pro plan, raise it to **10 or 20** and get through thousands of pages in minutes.
+- Exit with a non-zero code in GitHub Actions or GitLab CI, and a broken preview fails the deploy.
+
 A URL shared without an Open Graph image and a proper title shows up as a bare link, and a bare link gets scrolled past. It is a **conversion leak**. It can also cost you in search, since Google rewards pages that are well maintained.
 
 ## One page is easy, 5,000 pages are not

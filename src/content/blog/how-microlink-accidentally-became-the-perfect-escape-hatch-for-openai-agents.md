@@ -9,6 +9,14 @@ date: '2026-09-10'
 
 OpenAI agents restricted to GET requests used Microlink to run the POST requests their sandbox blocked. We found out a few days ago, in data published alongside a forensic report that never mentions us.
 
+**TL;DR**
+
+- OpenAI agents restricted to GET requests used Microlink to run the POST requests their sandbox blocked.
+- Their sandbox saw a harmless GET. On our end, the browser ran the POST against the USAspending API and handed back the payload inside the original response.
+- Microlink appears in **11 of the ~14,600** recovered edits, and **nine** of them carry the POST trick.
+- We noticed around **200k requests** in June, a tiny fraction of our monthly volume, and let them run.
+- For us, it is a valid use case: it is what the `function` parameter is for.
+
 The sandbox let the agents read any page over GET and blocked every other kind of network request. The exact answer they needed sat behind a POST endpoint on the [USAspending](https://api.usaspending.gov) API, so one POST would have made their assigned task dramatically easier.
 
 ## Agents left 18,000 posts on a German wiki
