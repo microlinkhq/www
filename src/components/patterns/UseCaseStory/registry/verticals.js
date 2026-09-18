@@ -35,7 +35,7 @@ export const VERTICALS = [
     toolHref: '/tools/website-to-pdf',
     toolLabel: 'Free website to PDF tool',
     icon: 'pdf',
-    iconBg: 'pink7',
+    iconBg: 'teal8',
     hub: {
       title: 'Website to PDF API use cases',
       description:

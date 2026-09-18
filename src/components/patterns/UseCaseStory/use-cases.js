@@ -48,3 +48,8 @@ export const useCasesByVertical = vertical =>
   USE_CASES.filter(entry => entry.vertical === vertical)
 
 export const partnerUseCases = () => USE_CASES.filter(entry => !entry.vertical)
+
+export const PARTNER_ACCENT = 'grape7'
+
+export const accentOf = entry =>
+  entry.vertical ? getVertical(entry.vertical).iconBg : PARTNER_ACCENT

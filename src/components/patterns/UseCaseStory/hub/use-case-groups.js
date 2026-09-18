@@ -15,6 +15,7 @@ import { ProductTabs, panelId, tabId } from './product-tabs'
 import { useActiveGroup } from './use-active-group'
 import { CardGrid, UseCaseCard } from './use-case-card'
 import {
+  PARTNER_ACCENT,
   VERTICALS,
   partnerUseCases,
   useCasePath,
@@ -36,7 +37,7 @@ const CUSTOMERS_GROUP = {
 const PARTNERS_GROUP = {
   id: 'partner-recipes',
   label: 'Partner recipes',
-  accent: 'grape7',
+  accent: PARTNER_ACCENT,
   Card: UseCaseCard
 }
 
