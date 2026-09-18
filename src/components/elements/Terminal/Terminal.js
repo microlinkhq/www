@@ -242,7 +242,7 @@ const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   overflow: auto;
   width: 100%;
-  white-space: pre;
+  white-space: ${props => (props.$wrap ? 'pre-wrap' : 'pre')};
   &::before {
     content: ${props => (props.$shellSymbol ? `'${props.$shellSymbol} '` : '')};
   }
@@ -391,6 +391,7 @@ const Terminal = ({
       <TerminalTextWrapper
         $shellSymbol={shellSymbol}
         $blinkCursor={blinkCursor}
+        $wrap={autoHeight && !blinkCursor}
       >
         {content}
       </TerminalTextWrapper>

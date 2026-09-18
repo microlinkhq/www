@@ -74,7 +74,8 @@ export const BlogPostList = ({
               mt: 0,
               mb: 0,
               fontWeight: 'bold',
-              display: 'inline-block'
+              display: 'inline-block',
+              textWrap: 'pretty'
             })}
           >
             {title}

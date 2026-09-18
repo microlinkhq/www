@@ -87,6 +87,16 @@ describe('highlightSource', () => {
     expect(highlightSource('# wait', 'js')).not.toContain('sh__token--comment')
   })
 
+  test('does not highlight plaintext URLs as javascript comments', () => {
+    const url =
+      'https://api.microlink.io/?url=https://example.com&function=()=>5*5'
+
+    expect(highlightSource(url, 'text')).toBe(
+      'https://api.microlink.io/?url=https://example.com&amp;function=()=&gt;5*5'
+    )
+    expect(highlightSource(url, 'js')).toContain('sh__token--comment')
+  })
+
   test('aliases languages sugar-high does not ship a grammar for', () => {
     expect(lang('ruby')).toBeUndefined()
     expect(lang(toAlias('ruby'))).toBe('python')
