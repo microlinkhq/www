@@ -8,7 +8,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 
 import { CardGrid, UseCaseCard } from './use-case-card'
-import { getVertical, useCasePath, useCasesByVertical } from '../use-cases'
+import { getVertical, pathToUseCase, verticalUseCases } from '../use-cases'
 
 export const ProductUseCases = ({
   vertical: verticalSlug,
@@ -18,7 +18,7 @@ export const ProductUseCases = ({
   ...props
 }) => {
   const vertical = getVertical(verticalSlug)
-  const entries = useCasesByVertical(verticalSlug).slice(0, limit)
+  const entries = verticalUseCases(verticalSlug).slice(0, limit)
   if (!entries.length) return null
 
   return (
@@ -51,7 +51,7 @@ export const ProductUseCases = ({
       </CardGrid>
       <Box css={theme({ pt: [3, 3, 4, 4], width: '100%' })}>
         <ArrowLink
-          href={useCasePath(vertical.slug)}
+          href={pathToUseCase(vertical.slug)}
           css={theme({ color: 'link', fontWeight: 'bold', fontSize: [1, 2, 2, 2] })}
         >
           All {vertical.name.toLowerCase()} use cases

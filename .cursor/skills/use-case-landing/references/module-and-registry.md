@@ -107,7 +107,7 @@ Appending a `USE_CASES` registry entry makes it appear in the use-cases grid aut
 `use-cases.js` now concatenates the partner recipes with four per-vertical arrays from
 `registry/<vertical>.js` (`WEBSITE_SCREENSHOT`, `WEBSITE_TO_PDF`, `WEBSITE_TO_MARKDOWN`,
 `WEBSITE_METADATA`) and exports `VERTICALS`, `getUseCase`, `getVertical`,
-`useCasesByVertical`, `partnerUseCases` and `useCasePath`. The listing groups landings
+`verticalUseCases`, `partnerUseCases` and `pathToUseCase`. The listing groups landings
 by vertical (`UseCaseGroups`) and keeps partner recipes in their own block. `MoreUseCases`
 accepts an explicit `slugs` list (used by intent landings for their curated `related`
 set) and falls back to same-vertical siblings, then to every other entry. See

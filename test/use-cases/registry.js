@@ -6,7 +6,7 @@ import { describe, expect, test } from 'vitest'
 import {
   USE_CASES,
   VERTICALS,
-  useCasesByVertical
+  verticalUseCases
 } from '../../src/components/patterns/UseCaseStory/use-cases.js'
 import {
   CUSTOMERS,
@@ -116,7 +116,7 @@ describe('use case verticals', () => {
   })
 
   test.each(VERTICALS)('$slug has a hub page when it has landings', vertical => {
-    if (useCasesByVertical(vertical.slug).length === 0) return
+    if (verticalUseCases(vertical.slug).length === 0) return
     expect(exists(hubFile(vertical.slug)), hubFile(vertical.slug)).toBe(true)
   })
 })

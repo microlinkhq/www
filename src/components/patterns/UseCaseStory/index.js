@@ -5,8 +5,8 @@ export {
   getUseCase,
   getVertical,
   partnerUseCases,
-  useCasePath,
-  useCasesByVertical
+  pathToUseCase,
+  verticalUseCases
 } from './use-cases'
 export {
   SECTION_PX,

@@ -6,7 +6,7 @@ import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { accentOf, useCasePath } from '../use-cases'
+import { accentOf, pathToUseCase } from '../use-cases'
 
 export { CardGrid } from 'components/patterns/CustomerStory/primitives'
 
@@ -201,7 +201,7 @@ export const UseCaseCard = ({ entry }) => {
       </Text>
       <Box css={theme({ px: [3, 3, 4, 4], pt: 3, pb: [3, 3, 4, 4] })}>
         <CardLink
-          href={useCasePath(entry.slug)}
+          href={pathToUseCase(entry.slug)}
           css={theme({ color: 'link' })}
         >
           {lead}

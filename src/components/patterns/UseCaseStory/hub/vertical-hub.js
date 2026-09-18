@@ -21,7 +21,7 @@ import { CardGrid, UseCaseCard } from './use-case-card'
 import { UseCaseBreadcrumbs } from '../landing/hero'
 import { VerticalIconTile } from '../landing/vertical-icon'
 import { MoreUseCases } from '../MoreUseCases'
-import { ACCENT, VERTICALS, useCasesByVertical } from '../use-cases'
+import { ACCENT, VERTICALS, verticalUseCases } from '../use-cases'
 
 const linkStyle = size => theme({ color: 'link', fontWeight: 'bold', fontSize: size })
 
@@ -35,13 +35,13 @@ const startHereLinks = vertical =>
 
 const otherVerticalSlugs = vertical =>
   VERTICALS.filter(other => other.slug !== vertical.slug).flatMap(other =>
-    useCasesByVertical(other.slug)
+    verticalUseCases(other.slug)
       .slice(0, 2)
       .map(entry => entry.slug)
   )
 
 export const VerticalHub = ({ vertical }) => {
-  const entries = useCasesByVertical(vertical.slug)
+  const entries = verticalUseCases(vertical.slug)
 
   return (
     <Layout css={theme({ position: 'relative' })}>

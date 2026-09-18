@@ -21,8 +21,8 @@ import {
   USE_CASES,
   getUseCase,
   getVertical,
-  useCasePath,
-  useCasesByVertical
+  pathToUseCase,
+  verticalUseCases
 } from './use-cases'
 
 const CarouselTrack = styled(Flex)`
@@ -120,7 +120,7 @@ const resolveEntries = ({ currentSlug, slugs }) => {
   }
   const current = getUseCase(currentSlug)
   const siblings = current && current.vertical
-    ? useCasesByVertical(current.vertical).filter(notCurrent(currentSlug))
+    ? verticalUseCases(current.vertical).filter(notCurrent(currentSlug))
     : []
   if (siblings.length >= 2) return siblings
   return USE_CASES.filter(notCurrent(currentSlug)).slice(0, FALLBACK_LIMIT)
@@ -189,7 +189,7 @@ export const MoreUseCases = ({
               </Flex>
               <CarouselCardBlurb>{entry.blurb}</CarouselCardBlurb>
               <CarouselCardLink
-                href={useCasePath(entry.slug)}
+                href={pathToUseCase(entry.slug)}
                 css={theme({ color: accent.text })}
               >
                 {entry.cta || FALLBACK_CTA}&nbsp;→

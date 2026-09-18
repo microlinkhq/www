@@ -9,8 +9,8 @@ import { plain } from './inline-links'
 import {
   getUseCase,
   getVertical,
-  useCasePath,
-  useCasesByVertical
+  pathToUseCase,
+  verticalUseCases
 } from '../use-cases'
 
 const SITE_URL = 'https://microlink.io'
@@ -71,13 +71,13 @@ const howTo = (url, content, entry, vertical) => ({
 export const useCaseStructured = content => {
   const entry = getUseCase(content.slug)
   const vertical = getVertical(entry.vertical)
-  const url = `${SITE_URL}${useCasePath(content.slug)}`
+  const url = `${SITE_URL}${pathToUseCase(content.slug)}`
 
   return [
     breadcrumbList(url, [
       { name: 'Microlink', item: SITE_URL },
       { name: 'Use cases', item: `${SITE_URL}/use-cases` },
-      { name: vertical.name, item: `${SITE_URL}${useCasePath(vertical.slug)}` },
+      { name: vertical.name, item: `${SITE_URL}${pathToUseCase(vertical.slug)}` },
       { name: content.hero.title, item: url }
     ]),
     faqPage(url, content.faq),
@@ -86,7 +86,7 @@ export const useCaseStructured = content => {
 }
 
 export const verticalStructured = vertical => {
-  const url = `${SITE_URL}${useCasePath(vertical.slug)}`
+  const url = `${SITE_URL}${pathToUseCase(vertical.slug)}`
 
   return [
     breadcrumbList(url, [
@@ -99,12 +99,12 @@ export const verticalStructured = vertical => {
       '@type': 'ItemList',
       '@id': `${url}#use-cases`,
       name: vertical.hub.h1,
-      itemListElement: useCasesByVertical(vertical.slug).map(
+      itemListElement: verticalUseCases(vertical.slug).map(
         (entry, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           name: entry.name,
-          url: `${SITE_URL}${useCasePath(entry.slug)}`
+          url: `${SITE_URL}${pathToUseCase(entry.slug)}`
         })
       )
     }

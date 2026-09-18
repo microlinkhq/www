@@ -15,7 +15,7 @@ import {
 
 import { inline } from './inline-links'
 import { VerticalIconTile } from './vertical-icon'
-import { ACCENT, useCasePath } from '../use-cases'
+import { ACCENT, pathToUseCase } from '../use-cases'
 
 const crumbStyle = {
   fontFamily: 'mono',
@@ -68,7 +68,7 @@ export const UseCaseHero = ({ vertical, hero }) => (
       <UseCaseBreadcrumbs
         crumbs={[
           { label: 'Use cases', href: '/use-cases' },
-          { label: vertical.name, href: useCasePath(vertical.slug) }
+          { label: vertical.name, href: pathToUseCase(vertical.slug) }
         ]}
       />
       <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>

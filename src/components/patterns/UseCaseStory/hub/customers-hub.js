@@ -23,13 +23,13 @@ import Layout from 'components/patterns/Layout'
 
 import { UseCaseBreadcrumbs } from '../landing/hero'
 import { MoreUseCases } from '../MoreUseCases'
-import { ACCENT, VERTICALS, useCasesByVertical } from '../use-cases'
+import { ACCENT, VERTICALS, verticalUseCases } from '../use-cases'
 
 const USE_CASES_PER_VERTICAL = 2
 
 const featuredUseCaseSlugs = () =>
   VERTICALS.flatMap(vertical =>
-    useCasesByVertical(vertical.slug)
+    verticalUseCases(vertical.slug)
       .slice(0, USE_CASES_PER_VERTICAL)
       .map(entry => entry.slug)
   )

@@ -37,14 +37,14 @@ export const USE_CASES = [
 
 export { VERTICALS }
 
-export const useCasePath = slug => `/use-cases/${slug}`
+export const pathToUseCase = slug => `/use-cases/${slug}`
 
 export const getUseCase = slug => USE_CASES.find(entry => entry.slug === slug)
 
 export const getVertical = slug =>
   VERTICALS.find(vertical => vertical.slug === slug)
 
-export const useCasesByVertical = vertical =>
+export const verticalUseCases = vertical =>
   USE_CASES.filter(entry => entry.vertical === vertical)
 
 export const partnerUseCases = () => USE_CASES.filter(entry => !entry.vertical)

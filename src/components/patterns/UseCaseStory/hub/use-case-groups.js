@@ -18,8 +18,8 @@ import {
   PARTNER_ACCENT,
   VERTICALS,
   partnerUseCases,
-  useCasePath,
-  useCasesByVertical
+  pathToUseCase,
+  verticalUseCases
 } from '../use-cases'
 
 const MAX_CARDS_PER_TAB = 6
@@ -53,10 +53,10 @@ const toGroup = vertical => ({
   id: vertical.slug,
   label: vertical.product,
   accent: vertical.iconBg,
-  href: useCasePath(vertical.slug),
+  href: pathToUseCase(vertical.slug),
   linkLabel: `All ${uncapitalize(vertical.name)} use cases`,
   Card: UseCaseCard,
-  entries: useCasesByVertical(vertical.slug).slice(0, MAX_CARDS_PER_TAB)
+  entries: verticalUseCases(vertical.slug).slice(0, MAX_CARDS_PER_TAB)
 })
 
 const toGroups = () => {
