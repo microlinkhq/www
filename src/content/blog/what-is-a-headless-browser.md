@@ -1,23 +1,19 @@
 ---
-title: 'What Is a Headless Browser?'
-subtitle: 'And Why I Stopped Hating Them'
+title: 'Headless browsers are easy locally and hard in production'
+subtitle: 'From 16GB zombie processes to one API call'
 description: 'Learn how headless web browser enables scraping SPAs, creating assets and E2E testing, and why self-hosting infrastructure is often a trap.'
 authors:
   - kiko
 date: '2026-01-15'
 ---
 
-Think of a headless browser as programmable Chrome without the window. Unlike basic *curl* or *fetch* requests, it executes JavaScript fully, giving you access to the DOM just as a user sees it.
+A headless browser is [Chrome](https://www.google.com/chrome/) without the window: no address bar, no tabs, no bookmarks, only the engine. Unlike a *curl* or *fetch* request, it executes JavaScript fully and gives you the DOM as a user sees it.
 
-Top uses include E2E testing, dynamic asset generation such as [PDFs and screenshots](/screenshot), and scraping modern SPAs. Running headless browsers in production causes issues like memory leaks, missing fonts, and cold starts.
+It renders HTML and runs JavaScript like any browser, but it is driven from code or a **Command Line Interface (CLI)** instead of a visual display. That makes it useless for browsing and the standard tool for E2E testing, generating [PDFs and screenshots](/screenshot), and scraping modern SPAs.
 
-If you strip away the address bar, the tabs, the bookmarks, and the entire graphical interface from [Chrome](https://www.google.com/chrome/), what do you have left?
+Running one on a laptop takes a 10-line script. Running one in production brings memory leaks, missing fonts, and cold starts, and that gap is the reason Microlink exists.
 
-You have the engine. That's a **headless browser**. A browser that doesn't value pixels on a screen; it only cares about reading code.
-
-It handles standard tasks like rendering HTML and running JavaScript. It works only through a **Command Line Interface (CLI)** and not a visual display. For a regular user, this is useless. For a developer, it's the only way to automate the modern web.
-
-## Why cURL doesn't cut it anymore
+## cURL returns markup, not content
 
 ```bash
 curl -G https://microlink.io
@@ -25,13 +21,13 @@ curl -G https://microlink.io
 # <!DOCTYPE html><html lang="en"><head><meta charSet="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="true"/><link rel="preconnect" href="https://cdn.microlink.io" crossorigin="anonymous"/><meta name="generator" content="Gatsby 5.15.0"/>...
 ```
 
-Ten years ago, if you wanted to scrape a website, you just sent a simple HTTP GET request.
+Ten years ago, scraping a website meant sending a single HTTP GET request and parsing the HTML that came back.
 
-Try that today on a site built with React, Vue, or Angular, and you'll get back an empty tag. That's because modern sites render content dynamically [(Client-Side Rendering)](https://developers.google.com/web/updates/2019/02/rendering-on-the-web). The content doesn't exist until the JavaScript executes.
+Send the same request to a site built with React, Vue, or Angular and you get back an empty tag. Those sites use [Client-Side Rendering](https://developers.google.com/web/updates/2019/02/rendering-on-the-web), so the content does not exist until the JavaScript runs.
 
-A simple HTTP request can't execute JS. **A headless browser can**. It spins up a [Chromium instance](https://www.chromium.org/Home/), downloads the assets, waits for the network to idle, executes the scripts, and then hands you the data.
+An HTTP client cannot execute JavaScript, and **a headless browser can**. It starts a [Chromium instance](https://www.chromium.org/Home/), downloads the assets, waits for the network to go idle, runs the scripts, and then returns the rendered data.
 
-Instead, let [Microlink](/) handle these tasks. An API manages the infrastructure and gives you ready-to-use assets or JSON.
+[Microlink](/) runs that browser for you. One request to the API returns ready-to-use assets or JSON, like the `title`, `description`, `image`, and `logo` fields below:
 
 ```json
 // curl -G "https://api.microlink.io" -d "url=https://microlink.io"
@@ -68,41 +64,33 @@ Instead, let [Microlink](/) handle these tasks. An API manages the infrastructur
 }
 ```
 
-## The Big 5 Use Cases
+## Five jobs only a real browser can do
 
-Most of us reach for libraries like [**Puppeteer**](https://pptr.dev/) or [**Playwright**](https://playwright.dev/) for three reasons:
+Most developers reach for [**Puppeteer**](https://pptr.dev/) or [**Playwright**](https://playwright.dev/) for one of these five jobs:
 
-1. **Creating Assets:** You need to change a dynamic HTML invoice into a PDF. You also need to make a social media preview image (Open Graph) quickly.  
-2. **Scraping SPAs:** As mentioned above, if you need data from a dynamic site, you need a headless browser to "see" it.  
-3. **E2E Testing:** You need to simulate a real user logging in, clicking "buy," and checking out. You can't mock this; you need a real browser engine to prove the code works.  
-4. **Performance monitoring:** Measure the exact time a web browser needs to render your site. Make Google love you.  
-5. **Anti bot walls:** Viewing the content hidden behind a captcha without manually clicking the "I'm not a robot" checkbox.
+1. **Creating assets:** turning a dynamic HTML invoice into a PDF, or rendering an Open Graph image for a social media preview.
+2. **Scraping SPAs:** reading data from a client-rendered site, which only exists after the page's JavaScript has run.
+3. **E2E testing:** simulating a real user who logs in, clicks "buy", and checks out, which needs a real browser engine rather than a mock.
+4. **Performance monitoring:** measuring the exact time a browser needs to render your site, the same signal Google uses to rank it.
+5. **Anti-bot walls:** reading content behind a captcha without clicking the "I'm not a robot" checkbox by hand.
 
-## The "It Works on My Machine" Trap
+## Production breaks what worked on a MacBook Pro
 
-Here is the part that generic tutorials won't tell you.
+Locally, the setup is `npm install puppeteer` and a 10-line script. Then the same script ships to production and fails in ways it never did on the laptop.
 
-Running a headless browser on your local MacBook Pro is easy. You npm install puppeteer, write a 10-line script, and you feel like a genius.  
+I have spent more hours than I care to admit debugging headless browsers in [Docker containers](https://hub.docker.com/_/alpine). Self-hosting the stack comes with three recurring failures:
 
-**Then you deploy it to production, and everything breaks. We've been there.**  
+- **Memory:** a single `browser.close()` that fails to fire leaves zombie Chromium processes behind. I have seen them eat 16GB of RAM and crash an entire server cluster.
+- **Fonts:** a screenshot that looks right locally renders on a Linux server with missing fonts and emojis as square boxes, and the fix is a long list of font packages in the image.
+- **Cold starts:** booting a browser takes time, and on serverless functions like [AWS Lambda](https://aws.amazon.com/pm/lambda) a 2-second boot lands directly on the user's request.
 
-I have spent more hours than I care to admit debugging headless browsers in [Docker containers](https://hub.docker.com/_/alpine). Here is the reality of self-hosting this stack:
+## Browser infrastructure belongs behind an API
 
-* **RAM Gluttony:** Chromium is hungry. I've seen "zombie" browser processes eat 16GB of RAM and crash an entire server cluster because a *browser.close()* function failed to fire.  
-* **The Font Nightmare:** Your screenshot looks great locally. On your Linux server, the fonts are missing, and your emojis look like square boxes. Fixing this requires installing a bloat of font packages.  
-* **Cold Starts:** Booting a browser takes time. If you are using serverless functions [(like AWS Lambda)](https://aws.amazon.com/pm/lambda), that 2-second boot time kills your user experience.
+At [Vercel](https://vercel.com/) I spent years on edge performance and on the obscure edge cases of headless browsers. Running Puppeteer at scale meant zombie processes, cold starts, and memory leaks, and I learned each one in production.
 
-## Don't Build It. Call It.
+That experience is why Microlink became my primary mission: fix the cold start and the font problem once, in one place, so the teams calling it do not have to. We turned the browser into a [utility](/metadata) that you call instead of operate.
 
-If your core business isn't "building browser infrastructure," you shouldn't be managing headless instances. You should be using an API. That's the philosophy behind **Microlink**.
-
-During my time at [Vercel](https://vercel.com/), I spent years obsessing over edge performance and debugging the most obscure edge cases of headless browser technology. I learned the hard way that running Puppeteer at scale is a nightmare of zombie processes, cold starts, and memory leaks.
-
-My hatred turned into an obsession: after battling the nightmare of scaling browser infrastructure at Vercel, I decided to solve the 'cold start' and 'font nightmare' once and for all by making Microlink my primary mission.
-
-We built Microlink to solve those specific engineering headaches so you don't have to, and because I needed it too. We turned the browser into a [high-performance utility](/metadata).
-
-Instead of fighting with Dockerfiles and concurrency limits, you just hit an endpoint:
+Instead of maintaining Dockerfiles and concurrency limits, you call `mql` with a URL and the options you need, here a screenshot of the microlinkhq GitHub profile:
 
 ```javascript
 import mql from '@microlink/mql'
@@ -110,11 +98,10 @@ import mql from '@microlink/mql'
 const { data } = await mql('https://github.com/microlinkhq', { screenshot: true }) // easy peasy
 ```
 
-Explore our [docs](/docs/api/getting-started/overview) to see the full potential of browserless automation. Our infrastructure can even bypass the complex [anti bot protections](/blog/antibot-detection-at-scale) used by major platforms.
+The same request can extract metadata, render PDFs, or get past the [anti-bot protections](/blog/antibot-detection-at-scale) used by major platforms. Every option is in the [API docs](/docs/api/getting-started/overview).
 
+## Learn with Playwright, ship with an API
 
-## The Verdict
+A headless browser connects your backend code to the page a user actually sees. To learn how it works, install Playwright and write the 10-line script that opens a page and reads its DOM.
 
-A headless browser is a powerful tool in your arsenal. It bridges the gap between your backend code and the frontend user experience.
-
-If you are just learning? Go install Playwright and have fun. But if you are shipping to production? Do yourself a favor and offload the browser management. Your [uptime](/status) (and your sanity) will thank you.
+To ship it, replace the Chromium processes on your servers with one `mql` call to the Microlink API, and track its [uptime](/status) instead of your RAM graphs.

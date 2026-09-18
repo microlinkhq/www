@@ -1,5 +1,6 @@
 ---
-title: 'Microlink Proxy: How it works'
+title: 'Microlink Proxy resolves blocked URLs on every Pro plan'
+subtitle: 'Automatic proxy rotation for the top 500 websites'
 description: 'Bypass geographic restrictions and IP blacklists with Microlink Proxy. Learn how our automatic rotation layer ensures successful data extraction.'
 authors:
   - kiko
@@ -9,11 +10,11 @@ date: '2021-06-07'
 import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
-All [Microlink Pro](/pricing) plans come with a built-in proxy layer that does automatic proxy resolution and rotation based on the input URL.
+All [Microlink Pro](/pricing) plans come with **Microlink Proxy**, a built-in proxy layer that resolves and rotates proxies automatically based on the input URL. It is enabled by default, needs no setup, and works across every Microlink product.
 
-## What's wrong with URLs
+## Popular sites block requests at scale
 
-The Internet is a wild place where every URL is different. That's an issue especially when you are doing things at scale.
+Every URL behaves differently, and the difference shows once you send enough traffic. Popular sites like Instagram or Bloomberg start answering some requests and refusing others, so getting a successful response becomes inconsistent.
 
 ![](/images/pVPDpao.png)
 
@@ -22,27 +23,25 @@ The Internet is a wild place where every URL is different. That's an issue espec
   <Link href='https://github.com/microlinkhq/metascraper/issues/417' children='metascraper issue' /> facing with fetching problems.
 </Figcaption>
 
-When you are surfing the net and visit a website, there are situations you can't handle at all:
+Visiting a URL, from a browser or from a server, can fail in three ways a client cannot handle on its own:
 
-- The are geographic location restrictions (e.g., visiting a site from China).
-- Your IP address is blacklisted (e.g., performing a request from a data center).
-- You have to validate your identity (e.g., filling a CAPTCHA).
+- **Geographic restrictions:** the site is not reachable from your location, for example from China.
+- **Blacklisted IP addresses:** the site refuses traffic from your IP, for example a request from a data center.
+- **Identity checks:** the site asks you to prove you are human, for example with a CAPTCHA.
 
-You can quickly face these problems when sending enough traffic to popular sites, like Instagram or Bloomberg, which, in turn, makes getting a successful response inconsistent.
+## The proxy layer handles those failures for you
 
-## Resolving URLs gracefully
-
-Wouldn't it be nice if every time you want to retrieve data from any URL, the Microlink API just returned the data all while handling any of the problems above transparently?
+With Microlink Proxy, the [Microlink API](/docs/api/getting-started/overview) returns the data for the URL you asked for and handles any of the problems above transparently. There is nothing to configure and nothing to maintain.
 
 ![](/images/8uvahxZ.png)
 
 <Figcaption>No additional setup needed, just a Microlink Pro plan.</Figcaption>
 
-That's exactly what **Microlink Proxy** layer does. No failures. No maintenance. You don't need to do anything additional. It just works™. 
+The proxy is enabled by default for all [Microlink Pro](/pricing) plans. It handles these situations transparently for the [Top 500](https://github.com/Kikobeats/top-sites) most popular websites worldwide.
 
-The **Microlink Proxy** is enabled for all [Microlink Pro](/pricing) plans and it will handle all the situations for the [Top 500](https://github.com/Kikobeats/top-sites) most popular worldwide websites, in a transparent way, by default.
+## The x-fetch-mode header shows when the proxy was used
 
-Just for informational purposes, you can check if a specific request was resolved using the proxy layer by checking `x-fetch-mode` response header.
+To check whether a specific request went through the proxy layer, read the `x-fetch-mode` response header. The [Microlink CLI](/docs/api/getting-started/cli) prints it as `mode`. Here, a Bloomberg article resolved with `prerender-proxy` and was then served from cache in 329ms:
 
 ```bash
 microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumbles-gusto-goes-head-on-by-selling-insurance
@@ -59,8 +58,12 @@ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumble
   If the value there is prefixed by <code children='`proxy`'/> then it was handled by the proxy layer.
 </Figcaption>
 
-As you can see, the proxy layer respects other query parameters, such as [prerender](/docs/api/parameters/prerender) or [ttl](/docs/api/parameters/ttl).
+`x-fetch-mode` is there for informational purposes only: a `prerender-proxy` value needs no change to your request.
 
-Also, you can always provide your own [proxy](/docs/api/parameters/proxy).
+## The proxy works with the rest of the API
 
-Last but not least, **Microlink Proxy** is a **cross-feature**: it's available for all the Microlink products.
+The proxy layer respects the other query parameters of the request, such as [prerender](/docs/api/parameters/prerender) or [ttl](/docs/api/parameters/ttl). The request above combines `prerender` with the proxy, which is why the mode reads `prerender-proxy`.
+
+When you need to route traffic through your own infrastructure, you can always provide your own [proxy](/docs/api/parameters/proxy) parameter instead.
+
+Microlink Proxy is a **cross-feature**: it is available for all the Microlink products, not only the API. To use it, send your requests on a [Microlink Pro](/pricing) plan and check `x-fetch-mode` on the responses that used to fail.

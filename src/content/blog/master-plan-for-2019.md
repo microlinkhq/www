@@ -1,54 +1,41 @@
 ---
-title: 'Master Plan for 2019'
+title: 'Our 2019 plan: MQL, a GraphQL endpoint, and hover previews'
 description: 'Explore Microlinks 2019 roadmap, featuring the launch of Microlink Query Language (MQL) for advanced scraping, a GraphQL endpoint, and interactive hover previews.'
 authors:
   - kiko
 date: '2019-01-18'
 ---
 
-We launched our [initial product release on march 2018](https://www.indiehackers.com/forum/show-ih-microlink-io-beautiful-links-previews-for-any-website-8fee2613af) and months later we reached +[1000 upvotes on Product Hunt](https://www.producthunt.com/posts/microlink-2-0).
+Our roadmap for 2019 has three projects: the Microlink Query Language (MQL), a GraphQL endpoint for [Microlink API](/docs/api/getting-started/overview), and hover previews. Each one has a public RFC on GitHub where you can follow and shape the design.
 
-Since then we have been learning how you use the product and what benefit it brings to your business.
+We launched the [initial product release in March 2018](https://www.indiehackers.com/forum/show-ih-microlink-io-beautiful-links-previews-for-any-website-8fee2613af), and months later [the launch passed 1000 upvotes on Product Hunt](https://www.producthunt.com/posts/microlink-2-0). Since then we have watched how you use the API for link previews, metadata, and scraping, and collected feedback in our [community](/community). This plan comes from that feedback.
 
-Based on that, and a lot of feedback you told us from our [community](/community), we elaborate a master plan of the roadmap we want to follow in the next months.
+## Custom rules need a query language
 
+Microlink API returns generic metadata for any URL. Most users need specific values from the content instead, like a follower count, page hits, or a price variation.
 
-## Microlink Query Language ([RFC](https://github.com/microlinkhq/open/issues/5))
+We launched [custom rules](/blog/custom-rules) for that purpose, but in practice they only work if you have a tiny rules set. Next we are building a developer-friendly client API for scraping, called the **Microlink Query Language** (MQL). Think of it as custom rules v2.0. The [MQL RFC](https://github.com/microlinkhq/open/issues/5) covers the scope:
 
-Although [Microlink API](/docs/api/getting-started/overview) works fine for getting generic metadata, most of the users need to get specific things from the content, like count, followers, hits, price variation, etc.
+- **Built-in types:** each extracted value comes back with a declared type.
+- **Selectors declaration:** declare the selectors for what you want to extract, in one place.
+- **Caching and batching support:** built into the query layer, not left to the client.
 
-In the past, we launched [custom rules](/blog/custom-rules) for that purpose, but we feel it only usable if you have a tiny rules set.
+## A GraphQL endpoint returns only the fields you ask for
 
-The thing we want to do next is a totally developer-friendly client API.
+GraphQL is a query language Facebook introduced in 2015 as an alternative to REST APIs. A client names the fields it wants, and the server returns only those fields.
 
-We called it **Microlink Query Language** (MQL) and you can see it as Custom Rules v2.0 iteration.
+That matters once an API response grows and you only need a portion of the payload. Asking for `title` and `logo` instead of the full response saves bandwidth on every call.
 
-The **MQL** goal is to build the most simple to use and developer-friendly for scraping purposes.
+The Microlink API response keeps growing, and [MQL](https://github.com/microlinkhq/open/issues/5) will make it grow faster, since every custom field lands in the payload. A GraphQL endpoint lets you fetch exactly those fields. The [GraphQL RFC](https://github.com/microlinkhq/open/issues/14) tracks the design.
 
-This includes the built-in types, caching and batching support and selectors declaration.
- 
-## GraphQL Endpoint ([RFC](https://github.com/microlinkhq/open/issues/14))
+## Hover previews show context on demand
 
-GraphQL is a technology introduced by Facebook in 2015 as REST API alternative.
+Hover previews are something we wanted to build from the beginning.
 
-The major benefit of GraphQL over REST API is how easy is to query and do data manipulations.
+Today the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) turns a link into a preview card that you embed in any online publication. When your target is every website on the internet, one presentation does not fit every page, so the SDK needs more than one way to show the same data.
 
-It has a lot of sense specially if your API is starting to grow and you are only interested into a payload portion from the response data: Technically here you can save bandwidth!
+A hover preview renders the same card only when the reader points at a link. The page stays clean, and the extra context appears on user interaction. The [hover preview RFC](https://github.com/microlinkhq/open/issues/18) describes the first design.
 
-Because our [Microlink API](/docs/api/getting-started/overview) response tends to grow (especially after [MQL](https://github.com/microlinkhq/open/issues/5) support) that's definitely a worth it thing we can to support.
+## Comment on the RFCs
 
-## Hover Preview ([RFC](https://github.com/microlinkhq/open/issues/18))
-
-That's a thing we wanted to build from the beginning.
-
-We have [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) for creating link previews and add it into any online publication.
-
-Although it's very powerful, when the target of your product is basically the whole internet, you need to support different ways for doing the same.
-
-Under this aspect, on hover previews are very attractive: They add contextual information just under user interaction, doing a cleaner execution.
-
-
-
-–––
-
-That's the plan. How does it look? Please, you can answer, we are going to read every reply.
+The three RFCs are open for comments: [MQL](https://github.com/microlinkhq/open/issues/5), [GraphQL endpoint](https://github.com/microlinkhq/open/issues/14), and [hover preview](https://github.com/microlinkhq/open/issues/18). Reply there or in the [community](/community); we read every reply.

@@ -1,7 +1,7 @@
 ---
-title: 'Chrome Built-in AI from Node.js'
-subtitle: 'How we run Gemini Nano on a GPU-less headless fleet'
-description: 'Chrome Built-in AI only exists inside a page, and Chrome for Testing will not download Gemini Nano. How we pack the model once, unpack it on the server, and call Prompt, Summarizer, and Language Detector from Node.js — on CPU, with no GPU and no extra API key.'
+title: 'Call Chrome Built-in AI from Node.js without a GPU'
+subtitle: 'Running Gemini Nano on CPU with 16 GB RAM'
+description: 'Chrome Built-in AI only exists inside a page, and Chrome for Testing will not download Gemini Nano. How we pack the model once, unpack it on the server, and call Prompt, Summarizer, and Language Detector from Node.js, on CPU, with no GPU and no extra API key.'
 authors:
   - kiko
 date: '2026-08-21'
@@ -9,28 +9,24 @@ date: '2026-08-21'
 
 ![Gemini Nano wordmark](/images/google-gemini-nano-ai-1024x538.jpg)
 
-Chrome ships [Built-in AI](https://developer.chrome.com/docs/ai/built-in-apis): the model runs on-device, in the page.
+[@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) runs Chrome's Gemini Nano on a headless, GPU-less Chrome for Testing box and returns the result to your Node.js script. It evaluates three [Built-in AI](https://developer.chrome.com/docs/ai/built-in-apis) APIs: Prompt, Summarizer, and Language Detector.
 
-You can prompt, summarize, and detect language on the same origin as the content. You do not scrape the HTML, ship it to a hosted LLM, and pay per token. The page never leaves Chrome.
+Built-in AI runs the model on-device, in the page. You can prompt, summarize, and detect language on the same origin as the content, instead of scraping the HTML, shipping it to a hosted LLM, and paying per token. The page never leaves Chrome.
 
-We already run a [browserless](https://browserless.js.org) fleet and parse pages with [metascraper](https://metascraper.js.org). A little local-first AI on that stack would help in the edge cases where the markup gives you nothing else.
+The results:
 
-Gemini Nano lives in the browser, and we run browsers. That sounds like an easy job. It isn’t.
+- [Microlink](/) can run Gemini Nano on the same headless Chrome that already takes screenshots and PDFs, so Prompt, Summarizer, and Language Detector come with no extra cost.
+- Anyone using [browserless](https://browserless.js.org) can do the same: [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) evaluates the page APIs and returns the result to your script.
 
-When you launch a headless browser, you get **[Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing)**: a pinned, automation-only build with no auto-update and no branded-Chrome component updater.
+## Chrome for Testing does not ship the model
 
-There is no way to run the model from Chrome for Testing, because the model is not in the binary.
+We already run a [browserless](https://browserless.js.org) fleet and parse pages with [metascraper](https://metascraper.js.org). Local-first AI on that stack helps in the edge cases where the markup gives metascraper nothing else to read. Gemini Nano lives in the browser, and we run browsers, so it looked like an easy job. It wasn't.
 
-That is why we shipped [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai). It evaluates Prompt, Summarizer, and Language Detector on a headless, GPU-less Chrome for Testing box and returns the result to your script.
+When you launch a headless browser, you get **[Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing)**: a pinned, automation-only build with no auto-update and no branded-Chrome component updater. Gemini Nano is not in the Chrome binary, and the component updater is what downloads it, so Chrome for Testing has no way to get the model on its own.
 
-**TL;DR**
+## You call it from Node.js, Chrome runs it
 
-- [Microlink](/) can run Gemini Nano on the same headless Chrome that already takes screenshots and PDFs. Prompt, summarize, detect language with no extra cost.
-- Anyone using [browserless](https://browserless.js.org) can too: The package [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) evaluates the page APIs and returns the result to your script.
-
-## You call it from Node.js. Chrome runs it.
-
-[@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) loads a packed model into Chrome so you can call Prompt, Summarizer, and Language Detector from Node.js.
+[@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai) loads a packed model into Chrome. `createAI.unpack` puts the model in a `dir`, `createAI.launch({ dir })` starts Chrome for Testing with the model flags, and each call gets its own browser context that is destroyed when the call ends:
 
 ```js
 const createBrowser = require('browserless')
@@ -59,14 +55,14 @@ await ai.prompt('https://example.com', { prompt: 'What is this page about?' })
 await browser.close()
 ```
 
-That `dir` is the model. Desktop Chrome already has it; Chrome for Testing will not download it. After desktop Chrome has fetched Nano, the files live in two trees:
+That `dir` is the model. Desktop Chrome already has it, and Chrome for Testing will not download it. After desktop Chrome has fetched Nano, the files live in two trees:
 
 | Path | What it holds |
 | --- | --- |
 | OptGuideOnDeviceModel | weights.bin (~4&nbsp;GB) |
 | optimization_guide_model_store | per-API adaptations (prompt, summarize, detect) |
 
-Until those files are on disk, Chrome for Testing keeps Prompt and Summarizer stuck:
+Until those files are on disk, `ai.capabilities()` reports Prompt (`languageModel`) and Summarizer as `downloadable`, and Chrome for Testing never moves them past it:
 
 ```js
 await ai.capabilities()
@@ -78,9 +74,9 @@ await ai.capabilities()
 // }
 ```
 
-## Pack it once. Run it anywhere.
+## Pack the model once, run it anywhere
 
-Do this on a machine that already has regular Chrome. The zip is what Chrome for Testing will load:
+Packing runs on a machine that already has regular Chrome, and it produces the zip that Chrome for Testing will load:
 
 ```sh
 # pack the model coming from regular Chrome binary
@@ -90,13 +86,17 @@ pnpm --filter @browserless/ai pack-model
 pnpm --filter @browserless/ai pack-model -- --upload
 ```
 
-That writes `/tmp/browserless-ai-nano.zip`. `--upload` pushes it to object storage over the S3 API.
+That writes `/tmp/browserless-ai-nano.zip`. The `--upload` flag pushes it to object storage over the S3 API, so every server in the fleet can fetch the same zip and pass it to `createAI.unpack`.
 
-## On CPU, on purpose
+## Gemini Nano runs on CPU, on purpose
 
 Chrome’s Built-in AI docs do not require a GPU for Prompt or Summarizer. They require either:
 
 - a GPU with more than 4&nbsp;GB VRAM, or
 - a CPU with 16&nbsp;GB RAM and 4+ cores
 
-We take the second path. Same constraint as [WebGL without a GPU](/blog/webgl-without-a-gpu).
+We take the second path, the same constraint we worked with in [WebGL without a GPU](/blog/webgl-without-a-gpu). Our servers have no GPU, so Gemini Nano runs on the CPU cores of the same machines that take screenshots.
+
+## Try it
+
+Pack the model with `pnpm --filter @browserless/ai pack-model`, then call `ai.prompt`, `ai.summarize`, or `ai.detectLanguage` with a URL. The source and the full example are in [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai).

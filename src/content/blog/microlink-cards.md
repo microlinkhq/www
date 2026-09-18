@@ -1,5 +1,5 @@
 ---
-title: 'Microlink Cards: Under the hood'
+title: 'How Microlink Cards stores every design in a URL'
 description: 'Learn how Microlink Cards uses Monaco Editor, URL-based state management with lz-string compression, and the Microlink API to generate dynamic social images at scale.'
 authors:
   - kiko
@@ -8,51 +8,41 @@ date: '2021-04-06'
 
 ![](/images/YbOSJHy.png)
 
-Even some [early adopters](https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452) knew about this service almost one year ago [one year ago](https://mailchi.mp/4273d2f40705/introducing-microlink-cards), [Microlink Cards](https://cards.microlink.io) has been officially [launched](https://www.producthunt.com/posts/microlink-cards) today.
+[Microlink Cards](https://cards.microlink.io) is officially [launched on Product Hunt](https://www.producthunt.com/posts/microlink-cards) today. It is an online code editor that turns a React composition into an image, and it has no database: every design lives in its URL.
 
-During this time, **Microlink Cards** has been refined until reaching its final form, taking some engineering decisions under the hood.
+[Early adopters](https://microlink.us17.list-manage.com/subscribe/post?u=13504896341022a643b87c538&id=0d0978d452) have had access since we [introduced it one year ago](https://mailchi.mp/4273d2f40705/introducing-microlink-cards). That year went into three engineering decisions that matter when a product runs at scale: the editor, the state, and the image generation.
 
-There are some decisions worth to mention, specially when you’re building things at scale.
+## A VS Code editor in the browser
 
-## The online editor
+The editor is where you write a card's code, and a code editor is large and hard to embed in a web application. The first question was whether a real one, with the features of a desktop editor, could run inside a browser tab.
 
-**Microlink Cards** claims to use an online code editor.
-
-How real is that? A code editor can be huge and hard to embed in a web application.
-
-Well, Microlink Cards is using [Monaco Editor](https://microsoft.github.io/monaco-editor/) which is a core component used by [VS Code](https://code.visualstudio.com/docs/editor/editingevolved), meaning you will have the same code editor features, like autocomplete, among others.
+Microlink Cards uses [Monaco Editor](https://microsoft.github.io/monaco-editor/), the core editor component of [VS Code](https://code.visualstudio.com/docs/editor/editingevolved). You get the same editing features you have on the desktop, such as autocomplete.
 
 ![](/images/SPMzFhm.png)
 
-Although Monaco Editor is lighter than it may seem, it has to load asynchronously to prevent blocking the rendering step in a web browser.
+Monaco Editor is lighter than it looks, but it still loads asynchronously so it never blocks the browser's rendering step. [monaco-react](https://github.com/suren-atoyan/monaco-react) is the React wrapper that handles that setup for us in a few lines.
 
-We found [monaco-react](https://github.com/suren-atoyan/monaco-react) a very well React wrapper that handles the setup process in a simple way.
+We combined it with [react-live](https://github.com/FormidableLabs/react-live), which renders the editor's code as a live preview. Every change you type re-renders instantly, and the code you write can load React components inside the embedded editor.
 
-We combined it with [react-live](https://github.com/FormidableLabs/react-live) for rendering the code in a live preview mode, giving you the instant code change experience and making it possible to load React components inside the embedded code editor. How crazy is that?
+## State without a database
 
-## State without database
+We avoided a database on purpose. A database introduces a failure point and an extra cost in money and maintenance, and if you do not have a database, you do not need to maintain it.
 
-We wanted to avoid any database interaction since it will introduce a failure point and extra cost in terms of money and maintenance.
-
-If you don't have a database, you don't need to maintain it.
-
-Every time you do a code or data change, it will be encoded on the query parameters, generating a unique URL to retrieve the state.
+Instead, every code or data change is encoded in the query parameters, so each state has its own unique URL that restores it:
 
 ```bash
 https://cards.microlink.io/editor?color=white&bg=black
 ```
 
-That's great for data, but what about code? can we encode all the editor code inside the query parameters?
-
-Well, you can do it, but that will produce so long URLs:
+Short values like `color` and `bg` fit in the query string as they are. The editor's full source code does too, but the URL it produces is long:
 
 ```bash
 https://cards.microlink.io/editor?code=%3C%3E%0A++%3CBox%0A++++as%3D%27header%27%0A++++sx%3D%7B%7B%0A++++++position%3A+%27absolute%27%2C…
 ```
 
-We didn't find an official [URL length limitation](https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers/417184#417184) but looks like it could be around 2,000 characters. Also, we are not particularly interested in long URLs, they look terrible.
+We did not find an official [URL length limitation](https://stackoverflow.com/questions/417142/what-is-the-maximum-length-of-a-url-in-different-browsers/417184#417184), but the practical ceiling looks to be around 2,000 characters. Long URLs also look terrible when shared, so we wanted them short regardless of the limit.
 
-In order to minimize the size of the URLs, we apply [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) compression algorithm.
+To keep URLs short, the editor compresses its state with the [lz-string](https://pieroxy.net/blog/pages/lz-string/index.html) algorithm. The whole serialization layer is two exports from `lz-ts`: `marshall` compresses and `unmarshall` restores.
 
 ```js
 import { compressToURI, decompressFromURI } from 'lz-ts'
@@ -60,16 +50,14 @@ export const marshall = compressToURI
 export const unmarshall = decompressFromURI
 ```
 
-In this way, the output will be an ASCII string representing the original string encoded in Base64 in a URL friendly way, saving bandwidth and CPU in the process.
+`compressToURI` outputs an ASCII string that represents the original code encoded in URL-safe Base64. The result is a shorter URL, which saves bandwidth and CPU every time a card is loaded or shared.
 
-## The image generation
+## Images rendered by the Microlink API
 
-Lastly, **Microlink Cards** is part of the [Microlink](https://microlink.io) ecosystem.
+Microlink Cards is part of the [Microlink](https://microlink.io) ecosystem. Microlink provides cloud-based browsers for any browser flow, such as taking a screenshot, getting the full HTML, or generating a PDF.
 
-Microlink's mission is to provide cloud-based browsers, ready to be used for end-users to enable any browser flow, such as taking a screenshot, getting full HTML, generating PDF, and more.
+Microlink Cards is a product built on Microlink itself. The editor is a free canvas for any image composition, and each composition has a unique URL.
 
-Here it is the inception: **Microlink Cards** is a product built using Microlink.
+That URL goes to the [Microlink API](https://microlink.io/docs/api/getting-started/overview) with the [screenshot](https://microlink.io/docs/api/parameters/screenshot) parameter enabled. The API returns the rendered image and serves it from the [Microlink CDN](https://microlink.io/blog/edge-cdn/).
 
-You can see **Microlink Cards** as a free canvas to draw any image composition that generates a unique URL.
-
-That URL is provided to [Microlink API](https://microlink.io/docs/api/getting-started/overview) enabling [screenshot](https://microlink.io/docs/api/parameters/screenshot) feature to produce an image as output, distributed over [Microlink CDN](https://microlink.io/blog/edge-cdn/).
+Open the editor at `cards.microlink.io/editor`, change a color or a line of code, and the URL in the address bar is your card.

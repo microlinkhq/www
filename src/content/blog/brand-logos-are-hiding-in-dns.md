@@ -1,6 +1,6 @@
 ---
-title: 'Brand Logos Are Hiding in DNS'
-subtitle: 'How an email standard gave us vector logos instead of 32×32 favicons'
+title: 'Microlink now reads brand logos from DNS'
+subtitle: 'Square vector logos for 97 of the top 500 sites'
 description: 'BIMI puts brand logos in DNS as square SVGs. How Microlink uses that record for the logo property, what the top 500 sites say about coverage, and how to publish one for your company.'
 authors:
   - kiko
@@ -12,21 +12,17 @@ import { Figcaption } from 'components/markdown/Figcaption'
 
 ![](/images/types-logos-featured.jpg)
 
-Getting a website's logo sounds like a solved problem until you look at the results.
+Microlink now resolves the `logo` property from a DNS TXT record, [BIMI](https://datatracker.ietf.org/doc/draft-blank-ietf-bimi/), before it looks at the page. That record is where brands publish the logo your mailbox shows next to an email, as a square SVG instead of a 32×32 favicon.
 
-HTML never standardized how websites should expose their primary logo. Most sites don't declare one at all, so you're left falling back to the favicon: a browser tab icon that's intentionally small, often simplified, and not necessarily the brand's official logo.
-
-There is another source that's easy to overlook, and it's been sitting in DNS the whole time. It's always DNS.
-
-**TL;DR**
+HTML never standardized how a website exposes its primary logo. Most sites declare none, so extraction falls back to the favicon: a browser tab icon that is small, often simplified, and not necessarily the brand's official mark. The BIMI record has been sitting in DNS the whole time. It's always DNS.
 
 - Brands publish their logo in DNS as a [BIMI](https://datatracker.ietf.org/doc/draft-blank-ietf-bimi/) record, the standard behind the logo your mailbox shows next to an email.
 - Roughly one in five of the [top 500 sites](https://github.com/Kikobeats/top-sites) publish one. High precision, low recall, so it ships as an optional package, not a favicon replacement.
-- Shipped as [metascraper-logo-bimi](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-bimi), with the record logic split out as [bimi-url](https://github.com/Kikobeats/bimi-url).
+- It ships as [metascraper-logo-bimi](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-bimi), with the record logic split out as [bimi-url](https://github.com/Kikobeats/bimi-url).
 
-## Where to find a website logo
+## HTML markup has no single logo field
 
-Without one place to look, you end up probing a handful of optional markup conventions. [metascraper](https://metascraper.js.org) does that for you; [metascraper-logo](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo) walks the common hints in order:
+Without one place to look, you probe a handful of optional markup conventions. [metascraper](https://metascraper.js.org) does that for you: [metascraper-logo](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo) walks `og:logo`, `itemprop="logo"`, and the JSON-LD `logo` fields of `brand`, `organization`, `place`, `product`, `service`, and `publisher`, in this order:
 
 ```js
 // Resolve `logo` from HTML markup (metascraper-logo), first match wins.
@@ -45,7 +41,7 @@ logo: [
 ]
 ```
 
-Even after checking every common convention, many sites still expose no logo metadata. To improve coverage we built [metascraper-logo-favicon](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-favicon): almost every site exposes a `/favicon.ico`, so you can treat that as the logo when markup is empty:
+After every convention, many sites still expose no logo metadata. [metascraper-logo-favicon](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-favicon) covers the gap: almost every site serves a `/favicon.ico`, so it becomes the logo when markup is empty. Here is what that returns for four well-known domains:
 
 | Favicon                      | File | Size       | Resolution |
 | ---------------------------- | ---- | ---------- | ---------- |
@@ -54,37 +50,37 @@ Even after checking every common convention, many sites still expose no logo met
 | `cloudflare.com/favicon.ico` | PNG  | 908&nbsp;B | 99×96      |
 | `adobe.com/favicon.ico`      | ICO  | 15&nbsp;KB | 48×48      |
 
-This works surprisingly well for coverage, but it's a poor representation of a brand. Favicons are designed for browser tabs, not metadata. They're often tiny, simplified, or non-square because that's exactly what browsers need.
+Coverage is good, brand quality is poor. Favicons are designed for browser tabs, not metadata: `x.com` returns 32×32 pixels and `cloudflare.com` is not even square at 99×96.
 
-## Mailbox providers already solved this
+## Mailbox providers already publish the logo
 
-The web never standardized logo discovery, but email effectively did.
+The web never standardized logo discovery, but email did, through Gmail, Apple Mail, and the DNS record they read.
 
 ![](/images/gmail-bimi-brand-logo.png)
 
-[BIMI](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi#section-4.2.2) (Brand Indicators for Message Identification) lets domains publish an official brand logo in DNS. Mail providers like Gmail and Apple Mail use it to display the sender's logo next to authenticated emails:
+[BIMI](https://datatracker.ietf.org/doc/html/draft-blank-ietf-bimi#section-4.2.2) (Brand Indicators for Message Identification) lets a domain publish its official brand logo in DNS. Mail providers like Gmail and Apple Mail show it next to authenticated emails. One `dig` query returns it:
 
 ```console
 dig +short TXT default._bimi.microlink.io
 "v=BIMI1; l=https://cdn.microlink.io/logo/logo.svg;"
 ```
 
-That makes BIMI an interesting source of logo metadata for several reasons:
+That makes the `default._bimi` record a strong source of logo metadata:
 
 - **DNS is fast.** Resolving a TXT record is typically cheaper than downloading and parsing an HTML document, especially once the resolver is warm.
 - **No HTML required.** It still works when a page is JavaScript-rendered, rate-limited, or responds with a `403`.
-- **The logo is intentional.** It's the same asset mailbox providers use to represent the brand.
-- **The format is constrained.** BIMI requires a square SVG Tiny P/S image, which is much better suited for avatars than a random favicon.
+- **The logo is intentional.** It's the same asset Gmail and Apple Mail use to represent the brand.
+- **The format is constrained.** BIMI requires a square SVG Tiny P/S image, which suits avatars far better than a favicon.
 
-## Why the record is a better source
+## SVG Tiny P/S makes every logo safe and square
 
-BIMI requires [SVG Tiny P/S](https://datatracker.ietf.org/doc/html/draft-svg-tiny-ps-abrotman) (Portable/Secure), a restricted SVG profile designed specifically for safely displaying brand logos inside email clients.
+BIMI requires [SVG Tiny P/S](https://datatracker.ietf.org/doc/html/draft-svg-tiny-ps-abrotman) (Portable/Secure), a restricted SVG profile built for displaying brand logos inside email clients. Three constraints come with it:
 
 - **No scripts**: the SVG cannot run JavaScript, so mailbox clients can render it safely.
 - **No external assets**: no remote images, fonts, or stylesheets; the mark is self-contained.
 - **Square by design**: every logo fits a 1:1 aspect ratio, making it immediately usable as an avatar or application icon.
 
-Here are the same four sites from the favicon table, with their BIMI logos next to those icons:
+The same four domains from the favicon table, with each favicon next to its BIMI logo and the SVG size:
 
 | Domain         | Favicon                                                                                           | BIMI                                                                                        | Size        | Title                       |
 | -------------- | ------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------- | ----------- | --------------------------- |
@@ -93,7 +89,9 @@ Here are the same four sites from the favicon table, with their BIMI logos next 
 | cloudflare.com | <img src="/images/bimi/cloudflare-favicon.png" alt="Cloudflare favicon" width="40" height="40" /> | <img src="/images/bimi/cloudflare.svg" alt="Cloudflare BIMI logo" width="40" height="40" /> | 1.4&nbsp;KB | Cloudflare Inc.             |
 | adobe.com      | <img src="/images/bimi/adobe-favicon.png" alt="Adobe favicon" width="40" height="40" />           | <img src="/images/bimi/adobe.svg" alt="Adobe BIMI logo" width="40" height="40" />           | 474&nbsp;B  | Adobe: Creative, marketing… |
 
-## A strong signal when it's there
+Every BIMI logo is a vector of 1.4&nbsp;KB or less. The Apple favicon alone is 22&nbsp;KB.
+
+## One in five top sites publish a record
 
 We ran `dig TXT default._bimi.<domain>` across the [top 500 sites](https://github.com/Kikobeats/top-sites):
 
@@ -102,7 +100,7 @@ We ran `dig TXT default._bimi.<domain>` across the [top 500 sites](https://githu
 | Top 100 | **19&nbsp;/&nbsp;100** (19%) |
 | Top 500 | **97&nbsp;/&nbsp;500** (19%) |
 
-Coverage is still limited. BIMI significantly improves quality when present, but it isn't common enough to replace existing discovery strategies. So it ships as its own package rather than folded into the favicon rule, and ordering is the caller's choice:
+BIMI raises quality when present, but at 19% it cannot replace the existing discovery strategies. So it ships as its own package rather than folded into the favicon rule, and the order is the caller's choice:
 
 ```js
 const metascraper = require('metascraper')([
@@ -112,9 +110,11 @@ const metascraper = require('metascraper')([
 ])
 ```
 
-Putting the BIMI rule first means it wins whenever the domain publishes a record, while existing HTML and favicon strategies remain unchanged for everyone else. On a warm resolver the lookup measured between **23 ms and 78 ms** (median **52 ms**). Since results are memoized per domain, that cost is typically paid only once.
+With `metascraper-logo-bimi` first, the record wins whenever the domain publishes one, and the HTML and favicon rules stay unchanged for everyone else. On a warm resolver the lookup measured between **23 ms and 78 ms** (median **52 ms**). Results are memoized per domain, so that cost is typically paid once.
 
-## Try it
+## Try it on cloudflare.com
+
+Run the request below. The `logo` field in the response is the BIMI SVG, not the favicon.
 
 <MultiCodeEditorInteractive
   mqlCode={{
@@ -125,7 +125,7 @@ Putting the BIMI rule first means it wins whenever the domain publishes a record
 
 <Figcaption>`logo` here comes from `default._bimi.cloudflare.com`, not from the page. The favicon path returns a 99×96 PNG for the same site.</Figcaption>
 
-## Add BIMI to your company
+## Publish a BIMI record for your company
 
 If you want metadata tools (and mailboxes) to pick up your real logo, publish it. Three pieces, in order:
 
@@ -144,4 +144,4 @@ dig +short TXT default._bimi.microlink.io
 - `l=` is the HTTPS URL of the SVG.
 - `a=` is optional: a Verified Mark Certificate, if you want mailbox providers that require one (Gmail is the usual reason).
 
-For inbox display you also need DMARC at enforcement (`p=quarantine` or `p=reject`). For metadata extraction, the DNS logo alone is enough: that is the part [metascraper-logo-bimi](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-bimi) reads.
+For inbox display you also need DMARC at enforcement (`p=quarantine` or `p=reject`). For metadata extraction, the DNS record alone is enough: that is the part [metascraper-logo-bimi](https://github.com/microlinkhq/metascraper/tree/master/packages/metascraper-logo-bimi) reads.

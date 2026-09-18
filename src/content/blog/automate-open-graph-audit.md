@@ -1,39 +1,39 @@
 ---
-title: 'Automate Open Graph Audit'
-subtitle: 'Stop Shipping Broken Link Previews'
-description: 'Learn how to build a Node.js script that automatically validates Open Graph tags across your entire sitemap.'
-authors: 
+title: 'Audit the Open Graph tags of every page in your sitemap'
+subtitle: 'Checking a 5,000-page sitemap with three dependencies'
+description: 'Build a Node.js script that reads your sitemap, fetches each URL with Microlink, and reports every page with a missing Open Graph image, title, description, author, date, or logo.'
+authors:
   - joseba
 date: '2026-01-23'
 ---
 
-A naked URL without an Open Graph image and proper metadata is a **conversion leak**. It looks unprofessional, and it gets scrolled past. Additionally, SEO can be affected since Google values those who maintain their pages better.
+This post builds a Node.js script that reads your sitemap, fetches the metadata of every URL with Microlink, and writes a report of each page with a missing Open Graph image, title, description, author, date, or logo. It takes three dependencies and one file, `audit.js`.
 
-We built a [Sharing Debugger Tool](/tools/sharing-debugger) for exactly this: paste in any URL and instantly see how your metadata looks across different platforms. It's perfect for spot-checking individual pages.
+A URL shared without an Open Graph image and a proper title shows up as a bare link, and a bare link gets scrolled past. It is a **conversion leak**. It can also cost you in search, since Google rewards pages that are well maintained.
 
-The problem is **scale**. You can't manually audit a sitemap with 5,000 pages using a browser extension. You need infrastructure that scales with your deployment.
+## One page is easy, 5,000 pages are not
 
-### The cost of broken links
+We built the [Sharing Debugger Tool](/tools/sharing-debugger) to check a single page: paste a URL and see how its metadata renders on each social platform. It works well for spot checks.
 
-* **Visually Dominant:** Rich previews occupy 400% more pixels in a feed than plain text.
-* **Developer Trust:** If your meta tags are broken, maybe your API too.
-* **CTR is King:** You can rank #1 on Google, but if your social sharing is broken, your viral coefficient is zero.
+It does not scale to a sitemap. Nobody audits 5,000 pages by hand in a browser extension, and on a site where several people edit content every day, a page that was fine last week can regress today. The check has to run on its own, on every URL, every time.
 
-For organizations with thousands of pages, content updates happen daily. When multiple employees have the ability to modify pages, you need a robust solution that can recurrently analyze all your sitemaps to catch regressions.
+## Why broken previews cost more than they look
 
-In this post you'll learn to use Microlink to automate your own scans to maintain quality. We're going to look at a simplified example that gives you the foundation to build on.
+* **Visual weight:** a rich preview occupies 400% more pixels in a feed than plain text.
+* **Developer trust:** if your meta tags are broken, a reader assumes your API is too.
+* **Distribution:** you can rank #1 on Google, but with broken social previews your viral coefficient is zero.
 
-### The simple stack
+The script we walk through below is a simplified version you can extend. It fetches the sitemap with `sitemapper`, validates each page with `@microlink/mql`, and writes the failures to an `errors-<timestamp>.txt` file.
 
-I wanted this to be lightweight and practical, not some enterprise monstrosity. Three dependencies, that's it:
+## Three dependencies, no framework
 
-* [**sitemapper**](https://www.npmjs.com/package/sitemapper): Grabs every URL from your sitemap (even handles nested sitemap indexes).
-* [**microlink/mql**](/docs/mql/getting-started/installation): Fetches metadata exactly like social networks see it.
-* [**p-map**](https://www.npmjs.com/package/p-map): Manages concurrency so you don't melt the free tier API.
+I wanted this to stay small and practical: one `audit.js` file and three npm packages, installed with a single `npm install`.
 
-### Getting started
+* [**sitemapper**](https://www.npmjs.com/package/sitemapper): reads every URL from your sitemap, including nested sitemap indexes.
+* [**microlink/mql**](/docs/mql/getting-started/installation): fetches metadata the same way social networks see it.
+* [**p-map**](https://www.npmjs.com/package/p-map): limits concurrency so a run stays inside the free tier of the API.
 
-Five minutes of setup:
+Setup takes five minutes. Create a folder, initialize it, and install the three packages:
 
 ```shell
 mkdir sitemap-validator
@@ -42,9 +42,9 @@ npm init -y
 npm install sitemapper @microlink/mql p-map --save
 ```
 
-### The script that does the heavy lifting
+## The audit script
 
-Create **audit.js** file and drop this in:
+Create **audit.js** with the following content:
 
 ```javascript
 import Sitemapper from 'sitemapper';
@@ -81,7 +81,7 @@ const validateUrl = async (url) => {
     if (!data.image || !data.image.url) errors.push('Missing OG Image');
     
     if (!data.title) errors.push('Missing OG Title');
-    else if (data.title > 60) errors.push('OG Title is too long')
+    else if (data.title.length > 60) errors.push('OG Title is too long')
 
     if (!data.description) errors.push('Missing Description');
     else if (data.description.length < 50) errors.push('Description too short');
@@ -154,39 +154,47 @@ const runAudit = async () => {
 runAudit();
 ```
 
-### Running your first audit
+The script has two parts. `validateUrl` waits 1000&nbsp;ms, calls `mql(url, { meta: true })`, and checks the returned `data` field by field:
 
-Just fire it up:
+* `data.image.url` must exist, or the page gets `Missing OG Image`.
+* `data.title` must exist and be at most 60 characters long.
+* `data.description` must exist and be at least 50 characters long.
+* `data.author` and `data.logo` must exist.
+* `data.date` must exist and parse into a valid `Date`.
+
+`runAudit` fetches the sitemap with a 15000&nbsp;ms timeout. Without an `API_KEY`, it cuts the list to `FREE_TIER_LIMIT` (25 URLs), and `FIRST_BATCH` sets where that slice starts. Then `pMap` validates the URLs at the configured `CONCURRENCY`, printing progress as it goes.
+
+At the end it prints how many URLs were scanned, passed, and failed. When anything failed, it writes every failing URL and its errors to `errors-<timestamp>.txt` in the current folder.
+
+## Run the first audit
+
+Set `SITEMAP_URL` to your sitemap, and `API_KEY` if you have one, then run:
 
 ```bash
 node audit.js
 ```
 
-**A quick heads-up on rate limits:** If you're on the free plan, keep CONCURRENCY at 1. You'll avoid those annoying 429 errors. With a [Pro plan](/pricing), you can crank it to 10 or 20 and blast through thousands of pages in minutes.
+On the free plan, keep `CONCURRENCY` at 1. That avoids 429 errors from the rate limiter. With a [Pro plan](/pricing), you can raise it to 10 or 20 and get through thousands of pages in minutes.
 
-### What Makes This Actually Work
+## Why client-rendered pages pass too
 
-When you call ```mql(url, { meta: true })```, we're not just parsing HTML. We spin up a [real headless Chrome browser](/blog/what-is-a-headless-browser).
+`mql(url, { meta: true })` does not just parse the HTML the server returns. It runs the page in a [real headless Chrome browser](/blog/what-is-a-headless-browser).
 
-**Why does this matter?**
+That matters for React, Vue, and Angular sites. If your tags are set by client-side JavaScript, Microlink executes it and reads the tags after they are populated, so the audit sees what a visitor's browser sees.
 
-Your React/Vue/Angular site renders properly. Even if you're doing client-side rendering we execute the JavaScript and grab the tags after they're populated.
+## Check the copy with an LLM
 
-### Level up, semantic SEO with AI
-
-Since you are already fetching the page metadata, why not validate the quality of the content?
-
-Once you have it running, you can add extra features as elaborate as you want. You could take the title and description and ask an LLM that, by analyzing the website content, checks and improves both the title and description if it considers appropriate to climb positions in Google's ranking.
+The script already fetches each page, so it can also fetch the page text and ask an LLM whether the title and description match it. Add a `data` rule with `selector: 'body'` and `type: 'text'` to get the combined text of the page body as `data.content`:
 
 ```javascript
 const mql = require('@microlink/mql')
 
 // ... prev code
-const { status, data, response } = mql(url, {
+const { status, data, response } = await mql(url, {
   meta: true,
   data: {
     content: {
-      selector: 'body' // get the body of the page
+      selector: 'body', // get the body of the page
       type: 'text' // get combined text content
     }
   }
@@ -196,7 +204,7 @@ console.log(`The content of the url -> ${data.content}`)
 // next code ...
 ```
 
-You can extend and adapt to your use case or your clients' and offer a service that makes a difference.
+Pass `data.title`, `data.description`, and `data.content` to your model with a prompt like the one below. It asks for a JSON verdict with `valid`, `reasoning`, and suggested replacements, and checks relevance, length (a 50-60 character title, a 150-160 character description), search intent, and uniqueness:
 
 ```bash
 You are an expert Technical SEO Auditor and Content Analyst. Your goal is to evaluate the semantic coherence between a webpage's metadata and its actual body content, adhering to Google's latest search documentation and best practices.
@@ -237,15 +245,13 @@ Current Description: {{current_description}}
 Page Content: {{page_content}}
 ```
 
-### Not a Node.js Developer?
+A `valid: false` result comes back with a rewritten title and description. That turns the audit from a list of missing tags into a list of fixes you can apply for your own site or for your clients.
 
-This example uses Node.js because that's what I work with daily, but the Microlink API works with any language. 
+## Port it to another language
 
-Want to rewrite this in Python, Ruby, Go, or whatever you're comfortable with?
+This example uses Node.js because that is what I work with every day. The Microlink API at `https://api.microlink.io` works from any language.
 
-Here's how to adapt it:
-
-Copy this prompt and paste it into Claude, ChatGPT, or your AI tool of choice:
+To port the script to Python, Ruby, Go, or anything else, paste this prompt into Claude, ChatGPT, or the AI tool you use, together with the code above:
 
 ```bash
 I need to rewrite this Open Graph validation script for [YOUR LANGUAGE]. The script should:
@@ -258,11 +264,11 @@ Here's the original Node.js version: [paste the code from above]
 Please rewrite this in [YOUR LANGUAGE] using idiomatic patterns and popular libraries for that ecosystem.
 ```
 
-The AI will handle the translation and suggest the right libraries for your language. I've seen people successfully port this to Python (using requests and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/)), Ruby (with [Nokogiri](https://nokogiri.org/index.html)), and even shell scripts with curl.
+The model translates the script and picks the libraries for your ecosystem. I've seen people port it to Python (with requests and [BeautifulSoup](https://beautiful-soup-4.readthedocs.io/en/latest/)), to Ruby (with [Nokogiri](https://nokogiri.org/index.html)), and even to shell scripts with curl.
 
-### Make this part of your deploy process
+## Fail the deploy on a broken preview
 
-Want to never ship broken OG tags again? Add this to your GitHub Actions or GitLab CI:
+To stop broken Open Graph tags from reaching production, run `audit.js` in GitHub Actions or GitLab CI and exit with a non-zero code when any URL fails:
 
 ```javascript
 if (failures.length > 0) {
@@ -270,9 +276,8 @@ if (failures.length > 0) {
 }
 ```
 
-Now your deploy will fail if someone breaks the social metadata. Trust me, your marketing team will love you for this.
+With that check in place, a deploy fails the moment someone breaks the social metadata of a page. Your marketing team will thank you.
 
-### About me
-I'm Joseba, and I've been a CTO and full-stack developer for 15+ years. Now I'm scaling Microlink.
+## About the author
 
-Questions about the API or link previews? Hit me up at joseba@microlink.io
+I'm Joseba. I've been a CTO and full-stack developer for 15+ years, and I'm now scaling Microlink. For questions about the API or link previews, write to joseba@microlink.io.

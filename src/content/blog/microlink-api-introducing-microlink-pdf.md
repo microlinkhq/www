@@ -1,5 +1,6 @@
 ---
-title: 'Microlink API: Introducing Microlink PDF'
+title: 'Microlink PDF: turn any URL into a PDF'
+subtitle: 'Any URL to a hosted PDF with one query parameter'
 description: 'Turn any URL into a high-quality PDF using the Microlink API. Learn how to customize margins, scale, and media types, and serve PDFs directly via our global CDN.'
 authors:
   - kiko
@@ -10,17 +11,17 @@ import { Iframe } from 'components/markdown/Iframe'
 import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
-Six months ago we launched [Microlink screenshot](https://www.producthunt.com/posts/microlink-screenshot) as part of our product iteration to offer browser capabilities ready to be used directly consuming our [API](/docs/api/getting-started/overview).
+Today we're introducing [Microlink PDF](/pdf): add the `pdf` query parameter to any [Microlink API](/docs/api/getting-started/overview) request and the response includes a PDF of the target URL, hosted and ready to link.
 
-Today, we’re thrilled to announce [Microlink PDF](/pdf) 🔥.
+It follows [Microlink screenshot](https://www.producthunt.com/posts/microlink-screenshot), which we launched six months ago as part of offering browser capabilities you can use directly from the API.
 
 [![](/images/owPghHJ.png)](/pdf)
 
 <Figcaption>See live demo at <Link href='/pdf' children='microlink.io/pdf' />.</Figcaption>
 
-**Microlink PDF**  is based on the same engineering principles as the rest of the functionality behind [Microlink API](/docs/api/getting-started/overview): making it trivial to get something back from any URL.
+## One parameter adds a pdf field to the response
 
-Enabling the new [pdf](/docs/api/parameters/pdf) query parameter will add a `pdf` data field as part of the response payload:
+Microlink PDF is built on the same principle as the rest of the Microlink API: getting something back from any URL should be trivial. Enabling `pdf` adds a `pdf` data field to the response payload, with the file size in bytes, a human-readable `size_pretty`, the `type`, and the `url` of the generated file:
 
 ```json
 {
@@ -33,13 +34,19 @@ Enabling the new [pdf](/docs/api/parameters/pdf) query parameter will add a `pdf
 }
 ```
 
-The PDF file created as output of the process is hosted on [Microlink CDN](/blog/edge-cdn/) and it can be combined with [ttl](/docs/api/parameters/ttl) to automatically refresh in the background, providing an updated PDF representation of the target URL.
+The file is hosted on [Microlink CDN](/blog/edge-cdn/), so the `url` field is a link you can hand straight to a user. Combine it with [ttl](/docs/api/parameters/ttl) and the PDF refreshes in the background, so the link keeps pointing at an up-to-date representation of the target URL.
 
-Additionally, a set of new query parameters have been added for better PDF accommodation, such as [scale](/docs/api/parameters/pdf/scale), [margin](/docs/api/parameters/pdf/margin) and [mediaType](/docs/api/parameters/mediaType).
+## Parameters for pages that were not built to print
 
-These query parameters are specially helpful when the target URL is not actually prepared to be properly exported as PDF.
+When the target URL is not prepared to be exported as a PDF, three new query parameters change how the headless browser prints it:
 
-Another thing worth mentioning is the ability to consume the PDF directly from HTML markup using [embed](/docs/api/parameters/embed) mode:
+- **[scale](/docs/api/parameters/pdf/scale):** resizes the rendered page to fit the PDF.
+- **[margin](/docs/api/parameters/pdf/margin):** sets the space around the content on each page.
+- **[mediaType](/docs/api/parameters/mediaType):** chooses which CSS media type the page is rendered with.
+
+## Serve the PDF straight from HTML
+
+With [embed](/docs/api/parameters/embed) mode, the API responds with the file itself instead of JSON. Setting `embed=pdf.url` makes the request URL the PDF, so it works anywhere HTML accepts a link. This is the first chapter of Basecamp's Shape Up, rendered in an `<iframe>`:
 
 <Iframe src='https://cdn.microlink.io/pdf/basecamp.pdf' />
 
@@ -48,7 +55,7 @@ Another thing worth mentioning is the ability to consume the PDF directly from H
 ></iframe>
 ```
 
-Also as a `button`
+The same URL also works as the `href` of a download button:
 
 <Container textAlign='center'>
   <a href="https://api.microlink.io/?url=https://basecamp.com/shapeup/0.3-chapter-01&pdf&embed=pdf.url">
@@ -62,4 +69,8 @@ Also as a `button`
 </a>
 ```
 
-This way, the PDF file will be created on the fly, making it a *backendless* solution: just HTML.
+Either way, the PDF is created on the fly when the request arrives. That makes it a *backendless* solution: no server code, just HTML.
+
+## Try it
+
+Add `&pdf` to any API request, or open the live demo at microlink.io/pdf to generate a PDF from a URL of your own. The [pdf parameter reference](/docs/api/parameters/pdf) documents every option.
