@@ -2,6 +2,8 @@
 title: 'Product brief #5: user agent and video parameters'
 subtitle: 'metascraper v3.11 brought Custom Rules to the API'
 description: 'Discover Microlink Product Brief, featuring custom User Agent support, optimized video detection parameters, and the major metascraper v3.11 update with Custom Rules.'
+authors:
+  - kiko
 date: '2018-05-30'
 ---
 
