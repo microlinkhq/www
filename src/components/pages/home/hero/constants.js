@@ -137,19 +137,19 @@ const PROMPTS = {
   screenshot: 'take screenshot',
   animated: 'record animated screenshot',
   preview: 'generate link preview',
-  embed: 'embed URL',
+  embed: 'build embed',
   markdown: 'get markdown',
   html: 'get HTML',
   text: 'extract text',
   metadata: 'extract metadata',
-  lighthouse: 'run lighthouse report',
+  lighthouse: 'run lighthouse audit',
   technologies: 'detect technologies',
   function: 'run function',
   search: 'search the web',
-  pdf: 'create PDF',
-  logo: 'grab logo',
-  video: 'detect video',
-  audio: 'detect audio'
+  pdf: 'generate PDF',
+  logo: 'fetch logo',
+  video: 'extract video',
+  audio: 'extract audio'
 }
 
 const PARSE_RULES = [

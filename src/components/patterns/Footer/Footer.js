@@ -26,12 +26,6 @@ import {
 import { ChevronDown, Mail } from 'react-feather'
 import styled from 'styled-components'
 
-import { LANG_LANDINGS } from 'components/pages/screenshot/lang/registry'
-import { LANG_LANDINGS as PDF_LANG_LANDINGS } from 'components/pages/pdf/lang/registry'
-import { LANG_LANDINGS as LOGO_LANG_LANDINGS } from 'components/pages/logo/lang/registry'
-import { LANG_LANDINGS as MARKDOWN_LANG_LANDINGS } from 'components/pages/markdown/lang/registry'
-import { LANG_LANDINGS as METADATA_LANG_LANDINGS } from 'components/pages/metadata/lang/registry'
-import { LANG_LANDINGS as HTML_LANG_LANDINGS } from 'components/pages/html/lang/registry'
 import { FEATURES } from 'components/patterns/FeatureStory'
 
 const FOOTER_COLUMNS = [
@@ -54,46 +48,6 @@ const FOOTER_COLUMNS = [
       { label: 'File Conversion', href: '/file-conversion' },
       { label: 'Insights', href: '/insights' },
       { label: 'Unavatar', href: 'https://unavatar.io' }
-    ],
-    sections: [
-      {
-        // Per-language screenshot landings, generated from the shared registry
-        // so a new /screenshot/<lang> spoke is linked site-wide automatically.
-        title: 'Screenshot API',
-        links: LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
-      },
-      {
-        title: 'PDF API',
-        links: PDF_LANG_LANDINGS.map(({ label, href }) => ({ label, href }))
-      },
-      {
-        title: 'Logo API',
-        links: LOGO_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      },
-      {
-        title: 'Markdown API',
-        links: MARKDOWN_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      },
-      {
-        title: 'Metadata API',
-        links: METADATA_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      },
-      {
-        title: 'HTML API',
-        links: HTML_LANG_LANDINGS.map(({ label, href }) => ({
-          label,
-          href
-        }))
-      }
     ]
   },
   {

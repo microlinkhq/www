@@ -12,12 +12,9 @@ import {
   Activity,
   Code,
   Database,
-  FileText,
   Package,
   Repeat,
-  Server,
-  Shield,
-  UserCheck
+  Server
 } from 'react-feather'
 
 import Box from 'components/elements/Box'
@@ -176,6 +173,7 @@ export const QUICKSTART = {
   title: 'Call the API. No key needed.',
   caption:
     'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
+  request: 'https://api.microlink.io?url=https://github.com&screenshot=true',
   steps: [
     {
       title: 'Pick any URL',
@@ -366,27 +364,6 @@ export const INTEGRATIONS = [
 ]
 
 export const ENTERPRISE_ITEMS = [
-  {
-    title: 'Invoice and net 30',
-    icon: FileText,
-    hue: 'green',
-    description:
-      'Pay by card or invoice, with your PO number on the invoice. Net 30 terms on Business.'
-  },
-  {
-    title: 'NDA, DPA, and MSA',
-    icon: Shield,
-    hue: 'violet',
-    description:
-      'A published DPA, plus NDA and service agreement signed on request for your legal team.'
-  },
-  {
-    title: 'Named contact',
-    icon: UserCheck,
-    hue: 'blue',
-    description:
-      'The same person for commercial and technical questions. First response within 1 business day on Business, 12 hours on Enterprise.'
-  },
   {
     title: 'Dedicated environment',
     icon: Server,

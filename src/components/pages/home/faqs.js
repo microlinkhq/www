@@ -12,85 +12,33 @@ export const getFaqQuestions = () => {
   if (questions) return questions
   questions = [
     {
+      question: 'What is Microlink?',
+      answer: (
+        <>
+          <div>
+            A single <Link href='/api'>API</Link> that turns any URL into data:
+            screenshots, PDFs, markdown, metadata, rendered HTML, search
+            results, or the return value of your own browser code.
+          </div>
+          <div>
+            You call an endpoint. We run the browsers, the cache, and the CDN
+            behind it, so there is nothing to install or scale on your side.
+          </div>
+        </>
+      )
+    },
+    {
       question: 'Can I use Microlink for free?',
       answer: (
         <>
           <div>
-            Absolutely. We have a forever free{' '}
-            <Link href='/docs/api/basics/endpoint'>endpoint</Link> you can use.
-            It’s the best way to start using the service.
+            Yes. The free plan gives you 25 requests a day on every product
+            except Search, with no API key and no credit card. Just call the{' '}
+            <Link href='/docs/api/basics/endpoint'>free endpoint</Link>.
           </div>
           <div>
-            The free plan has limits to prevent abuse: burst rate, concurrency,
-            and a daily quota.
-          </div>
-          <div>It should be enough for small projects or low-volume usage.</div>
-        </>
-      )
-    },
-    {
-      question: 'What’s the difference between the free and paid plans?',
-      answer: (
-        <>
-          <div>
-            The paid plan is built for scale, with better performance and
-            unlocked features such as{' '}
-            <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link> or{' '}
-            <Link href='/docs/api/parameters/proxy'>proxy</Link>.
-          </div>
-          <div>
-            It comes with an associated API key and configurable quota. You only
-            pay for what you need.
-          </div>
-        </>
-      )
-    },
-    {
-      question: 'What if I don’t know how much API quota I need?',
-      answer: (
-        <div>
-          No problem, just start with the smallest pro plan, and at the moment
-          you need more, you can upgrade your plan.
-        </div>
-      )
-    },
-    {
-      question: 'How do I get an API key?',
-      answer: (
-        <>
-          <div>
-            After your payment, we send you the API key associated with the
-            email you signed up with.
-          </div>
-          <div>
-            Your AI agent can also start the upgrade flow through Microlink
-            MCP - choose a plan and create checkout. You complete payment, then
-            add the API key to your MCP config.
-          </div>
-          <div>
-            The API key needs to be attached to all your requests:
-            <Box as='ul' css={theme({ pt: 3, my: 0 })}>
-              <Box as='li'>
-                In{' '}
-                <Link href='/docs/sdk/getting-started/overview'>
-                  Microlink SDK
-                </Link>
-                , attach it as{' '}
-                <Link href='/docs/sdk/getting-started/overview/#authentication'>
-                  apiKey
-                </Link>
-                .
-              </Box>
-              <Box as='li' css={theme({ pt: 3 })}>
-                In{' '}
-                <Link href='/docs/api/getting-started/overview'>
-                  Microlink API
-                </Link>
-                , attach it as a{' '}
-                <Link href='/docs/api/basics/authentication'>header</Link>.
-              </Box>
-            </Box>
+            It has limits to prevent abuse: burst rate, concurrency, and the
+            daily quota. Enough for small projects and low-volume usage.
           </div>
         </>
       )
@@ -99,12 +47,70 @@ export const getFaqQuestions = () => {
       question: 'Can my AI agent use Microlink?',
       answer: (
         <div>
-          Yes - install the Microlink MCP server with one config block and
-          Claude, Cursor, or any MCP client gets screenshots, PDFs, markdown,
-          search, and more as callable tools. The free tier works out of the
-          box for every tool except Search; add an API key for Search or when
-          you need volume.
+          Yes. Install the <Link href='/integrations/mcp'>Microlink MCP</Link>{' '}
+          server with one config block and Claude, Cursor, or any MCP client
+          gets screenshots, PDFs, markdown, search, and more as callable tools.
+          The free tier works out of the box for every tool except Search; add
+          an API key for Search or when you need volume.
         </div>
+      )
+    },
+    {
+      question: 'What’s the difference between the free and paid plans?',
+      answer: (
+        <>
+          <div>
+            Pro is built for production: higher quota, better performance, and
+            features such as{' '}
+            <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link>, or{' '}
+            <Link href='/docs/api/parameters/proxy'>proxy</Link>, plus access
+            to Search.
+          </div>
+          <div>
+            It comes with an API key and a monthly quota. Not sure how much you
+            need? Start with the smallest Pro tier and upgrade the moment you
+            need more.
+          </div>
+        </>
+      )
+    },
+    {
+      question: 'How do I get an API key?',
+      answer: (
+        <>
+          <div>
+            Once you buy a plan you get access to{' '}
+            <Link href='https://dashboard.microlink.io'>
+              dashboard.microlink.io
+            </Link>
+            , where you will find your API key.
+          </div>
+          <div>
+            Attach it to every request:
+            <Box as='ul' css={theme({ pt: 3, my: 0 })}>
+              <Box as='li'>
+                In the{' '}
+                <Link href='/docs/sdk/getting-started/overview'>
+                  Microlink SDK
+                </Link>
+                , as{' '}
+                <Link href='/docs/sdk/getting-started/overview/#authentication'>
+                  apiKey
+                </Link>
+                .
+              </Box>
+              <Box as='li' css={theme({ pt: 3 })}>
+                In the{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  Microlink API
+                </Link>
+                , as a{' '}
+                <Link href='/docs/api/basics/authentication'>header</Link>.
+              </Box>
+            </Box>
+          </div>
+        </>
       )
     },
     {
@@ -113,10 +119,10 @@ export const getFaqQuestions = () => {
         <>
           <div>
             Yes. The platform is built for production workloads and the bursty
-            traffic agents generate: retries, loops, and parallel fan-outs.
-            We&rsquo;ve supported enterprise deployments processing up to{' '}
-            {CAPACITY_REQUESTS_PER_MONTH} requests per month, with sustained
-            daily traffic of more than 6 million requests.
+            traffic agents generate: retries, loops, and parallel fan-outs. Our
+            record for a single enterprise deployment is{' '}
+            {CAPACITY_REQUESTS_PER_MONTH} requests in one month, with more than
+            6 million requests a day sustained.
           </div>
           <div>
             No need to warn us before a spike or throttle on your side; your
@@ -126,69 +132,40 @@ export const getFaqQuestions = () => {
       )
     },
     {
+      question: 'How fast is it?',
+      answer: (
+        <>
+          <div>
+            The first request renders the page in a real browser. Repeat it and
+            the result comes back from the edge cache in milliseconds.
+          </div>
+          <div>
+            Cache hits never count toward your quota, and the{' '}
+            <Link href='/docs/api/parameters/ttl'>ttl</Link> parameter controls
+            how fresh the response needs to be.
+          </div>
+        </>
+      )
+    },
+    {
       question: 'What’s your SLA level?',
       answer: (
         <div>
-          Our SLA commitment is 99.9% uptime (three nines). You can see the live{' '}
-          <Link href='/status'>status</Link> of the service.
+          Our SLA commitment is 99.9% uptime on every paid plan. You can see the
+          live <Link href='/status'>status</Link> of the service.
         </div>
       )
     },
     {
-      question: 'How do I know my plan usage?',
+      question: 'Can I change or cancel my plan?',
       answer: (
         <div>
-          We notify you automatically when you reach 80% or more of your usage
-          plan, offering to upgrade your plan to one more suitable based on your
-          plan usage.
-        </div>
-      )
-    },
-    {
-      question: 'What if I want to change my plan?',
-      answer: (
-        <div>
-          You can upgrade, downgrade, or cancel your plan at any time with no
-          further obligation from{' '}
+          Yes. Upgrade, downgrade, or cancel at any time from{' '}
           <Link href='https://dashboard.microlink.io'>
             dashboard.microlink.io
           </Link>
-          .
-        </div>
-      )
-    },
-    {
-      question: 'How is the payment processed?',
-      answer: (
-        <div>
-          We use Stripe to process your payment, the same payment provider
-          behind companies like Amazon, Shopify, and Zoom. We never see your
-          credit card information.
-        </div>
-      )
-    },
-    {
-      question: 'Can I update my card details?',
-      answer: (
-        <div>
-          Yes, send an email to{' '}
-          <Link href='mailto:hello@microlink.io'>
-            <Email>hello@microlink.io</Email>
-          </Link>{' '}
-          requesting the change. You will receive a link where you&apos;ll be
-          able to securely update your details.
-        </div>
-      )
-    },
-    {
-      question: 'Can I cancel my subscription?',
-      answer: (
-        <div>
-          Yes, at any time from{' '}
-          <Link href='https://dashboard.microlink.io'>
-            dashboard.microlink.io
-          </Link>
-          , no questions asked.
+          , no questions asked. We also notify you when you reach 80% of your
+          quota, so you can move up before you hit the limit.
         </div>
       )
     },
@@ -212,7 +189,7 @@ const FAQs = props => (
   <Faq
     css={theme({ py: SECTION_VERTICAL_SPACING })}
     title='FAQs'
-    caption='Frequently asked questions.'
+    caption='Short answers to what developers ask before their first request.'
     questions={getFaqQuestions()}
     {...props}
   />

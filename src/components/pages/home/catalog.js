@@ -31,37 +31,37 @@ export const PRODUCTS = {
     label: 'Screenshot',
     icon: Focus,
     href: '/screenshot',
-    description: 'Pixel-perfect captures of any web page'
+    description: 'Pixel-perfect captures of any page'
   },
   animated: {
     label: 'Animated Screenshot',
     icon: FilmIcon,
     href: '/screenshot',
-    description: 'Record any web page as a GIF or video'
+    description: 'Any page recorded as a GIF or video'
   },
   preview: {
     label: 'Link preview',
     icon: LinkIcon,
     href: '/link-preview',
-    description: 'Beautiful previews for any URL'
+    description: 'Beautiful previews for any link'
   },
   embed: {
     label: 'Embed',
     icon: LayoutIcon,
     href: '/embed',
-    description: 'Turn any URL into an embeddable card'
+    description: 'Any page as an embeddable card'
   },
   markdown: {
     label: 'Markdown',
     icon: Markdown,
     href: '/markdown',
-    description: 'Structured, AI-ready page content'
+    description: 'Structured, AI-ready content from any page'
   },
   html: {
     label: 'HTML',
     icon: CodeIcon,
     href: '/html',
-    description: 'Fully rendered HTML with JavaScript execution'
+    description: 'Fully rendered HTML, JavaScript included'
   },
   text: {
     label: 'Text',
@@ -85,43 +85,43 @@ export const PRODUCTS = {
     label: 'Technologies',
     icon: LayersIcon,
     href: '/insights',
-    description: 'Detect the tech stack behind any site'
+    description: 'The tech stack behind any site'
   },
   function: {
     label: 'Function',
     icon: Terminal,
     href: '/function',
-    description: 'Run custom browser code on any page'
+    description: 'Custom browser code, run on any page'
   },
   search: {
     label: 'Search',
     icon: SearchIcon,
     href: '/search',
-    description: 'Turn Google results into structured data'
+    description: 'Google results as structured data'
   },
   pdf: {
     label: 'PDF',
     icon: PDF,
     href: '/pdf',
-    description: 'Print-ready documents on demand'
+    description: 'Print-ready documents from any page'
   },
   logo: {
     label: 'Logo',
     icon: Shapes,
     href: '/logo',
-    description: 'Logos, favicons & brand palettes'
+    description: 'Logos, favicons & brand palettes for any site'
   },
   video: {
     label: 'Video',
     icon: VideoIcon,
     href: '/media',
-    description: 'Extract video assets from any page'
+    description: 'Video assets from any page'
   },
   audio: {
     label: 'Audio',
     icon: MusicIcon,
     href: '/media',
-    description: 'Extract audio assets from any page'
+    description: 'Audio assets from any page'
   }
 }
 

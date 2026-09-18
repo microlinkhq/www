@@ -74,13 +74,13 @@ const CARD_HOVER_SHADOW = `0 22px 46px -28px rgba(${shadowInk}, 0.35)`
 const EXTRA = {
   automation: {
     label: 'Browser Automations',
-    description: 'Automate actions in the browser and extract results',
+    description: 'Clicks, waits, and scripts applied before capture',
     icon: MousePointerIcon,
     href: '/features/automation'
   },
   sdk: {
     label: 'Microlink SDK',
-    description: 'The official SDK to integrate Microlink in your app',
+    description: 'Every product as a method in Node.js, browsers, and Deno',
     icon: PackageIcon,
     href: '/integrations/sdk'
   },
@@ -92,7 +92,7 @@ const EXTRA = {
   },
   conversion: {
     label: 'File conversion',
-    description: 'Convert any file into HTML, Markdown, or clean text',
+    description: 'Any file as HTML, Markdown, or clean text',
     icon: RepeatIcon,
     href: '/file-conversion'
   }
@@ -299,7 +299,7 @@ const Gr = styled.span`
 `
 
 const META_FIELDS = [
-  ['title', 'Microlink | The universal API'],
+  ['title', 'Microlink | The web, ready for AI'],
   ['description', 'Turn any URL into data.'],
   ['url', 'https://microlink.io'],
   ['siteName', 'Microlink'],
@@ -668,6 +668,7 @@ const EmbedPreview = () => (
     >
       <IframePreviewsShowcase
         exclude={['instagram']}
+        headingAs='h4'
         minHeight={['360px', '400px', '420px', '360px']}
       />
     </Box>
@@ -1038,7 +1039,7 @@ const SEARCH_RESULTS = [
     name: 'Microlink',
     domain: 'microlink.io',
     url: 'microlink.io',
-    title: 'Microlink — The universal API',
+    title: 'Microlink | The web, ready for AI',
     description: 'One API to turn any URL into structured data.',
     tint: colors.gray9
   },
@@ -2280,7 +2281,12 @@ const FileConversionPreview = () => (
 )
 
 const Products = () => (
-  <Box as='section' css={theme({ py: SECTION_VERTICAL_SPACING })}>
+  <Box
+    as='section'
+    id='products'
+    aria-labelledby='home-products-title'
+    css={theme({ py: SECTION_VERTICAL_SPACING })}
+  >
     <Box
       css={theme({
         maxWidth: layout.large,
@@ -2289,7 +2295,9 @@ const Products = () => (
         px: 3
       })}
     >
-      <Subhead variant='gradient'>Build features, not infrastructure</Subhead>
+      <Subhead id='home-products-title' variant='gradient'>
+        Build features, not infrastructure
+      </Subhead>
       <Caption forwardedAs='p' css={theme({ pt: [3, 3, 4, 4] })}>
         Turn any URL into screenshots, PDFs, markdown, or structured data with
         the <Link href='/api'>Microlink API</Link>. We run the browsers, the

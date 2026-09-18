@@ -152,7 +152,7 @@ const FAQ_SCHEMA = {
       name: 'How do I get an API key?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'After payment we send the API key to the email you signed up with. Use it as a header in the API or as the apiKey option in the SDK.'
+        text: 'After payment you get access to dashboard.microlink.io, where you will find your API key. Use it as a header in the API or as the apiKey option in the SDK.'
       }
     }
   ]
@@ -1473,8 +1473,11 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              After payment we send the API key to the email you signed up with.
-              Use it as a header in the{' '}
+              After payment you get access to{' '}
+              <Link href='https://dashboard.microlink.io'>
+                dashboard.microlink.io
+              </Link>
+              , where you will find your API key. Use it as a header in the{' '}
               <Link href='/docs/api/getting-started/overview'>API</Link> or as
               the{' '}
               <Link href='/docs/sdk/getting-started/overview/#authentication'>

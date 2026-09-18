@@ -53,7 +53,7 @@ describe('home hero prompts', () => {
       'detect technologies',
       'extract metadata',
       'get markdown',
-      'grab logo'
+      'fetch logo'
     ])
   })
 

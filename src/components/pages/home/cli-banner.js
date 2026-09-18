@@ -223,9 +223,8 @@ const CliBanner = () => {
               as='p'
               css={theme({ m: 0, mt: 2, color: 'black80', lineHeight: 2 })}
             >
-              Or give it to your agent - one config block and any MCP client
-              gets every product as a tool.{' '}
-              <Link href='/integrations/mcp'>Set up Microlink MCP</Link>.
+              Pass a URL for metadata, or a subcommand like markdown, screenshot,
+              or pdf. Results print as pretty JSON.
             </Text>
             <Command
               as='button'
