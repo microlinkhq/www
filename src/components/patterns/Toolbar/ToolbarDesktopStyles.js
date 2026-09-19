@@ -14,13 +14,6 @@ import {
   TOOLBAR_SECTION_DESCRIPTION_STYLES
 } from './ToolbarStyles'
 
-export const iconLight = css`
-  color: ${colors.black50};
-  &:hover {
-    color: ${colors.black80};
-  }
-`
-
 export const LABEL_STYLE = {
   ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
   mb: 2,

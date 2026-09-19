@@ -1,6 +1,3 @@
-import React from 'react'
-import Flex from 'components/elements/Flex'
-import Text from 'components/elements/Text'
 import { Markdown as MarkdownIcon } from 'components/icons/Markdown'
 import { Bot as BotIcon } from 'components/icons/Bot'
 import { Award as AwardIcon } from 'components/icons/Award'
@@ -41,9 +38,7 @@ import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
 import { Grid as GridIcon } from 'components/icons/Grid'
-import { GitHub as GitHubBrand } from 'components/icons/GitHub'
 import { Brain as BrainIcon } from 'components/icons/Brain'
-import { useOssTotalStars } from 'components/hook/use-oss-total-stars'
 import { theme, transition } from 'theme'
 import styled from 'styled-components'
 import NavLink from './NavLink'
@@ -101,32 +96,6 @@ const screenshotToolMatcher = ({ location }) =>
     '/tools/website-screenshot/full-page',
     '/tools/website-screenshot/mobile'
   ].some(path => location.pathname === path)
-const compactNumberFormatter = new Intl.NumberFormat('en-US', {
-  notation: 'compact',
-  maximumFractionDigits: 0
-})
-
-const formatCompactNumber = number => compactNumberFormatter.format(number)
-
-const GitHubSocialIcon = () => {
-  const totalOssStars = useOssTotalStars()
-
-  return (
-    <Flex
-      as='span'
-      css={theme({
-        alignItems: 'center',
-        gap: 1,
-        color: 'inherit'
-      })}
-    >
-      <GitHubBrand width='14px' style={{ position: 'relative', top: '-1px' }} />
-      <Text as='span' css={theme({ color: 'inherit', fontSize: 0, m: 0 })}>
-        {formatCompactNumber(totalOssStars)}
-      </Text>
-    </Flex>
-  )
-}
 
 const createNavigationItem = ({
   label,
@@ -160,17 +129,14 @@ export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   actively: docsMatcher
 })
 
-export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
+export const DASHBOARD_NAV_ITEM = createNavigationItem({
+  label: 'Dashboard',
+  href: 'https://dashboard.microlink.io',
+  title: 'Open the Microlink dashboard',
+  externalIcon: false
+})
 
-export const SOCIAL_NAV_ITEMS = [
-  createNavigationItem({
-    label: 'GitHub',
-    href: 'https://github.com/microlinkhq',
-    title: '@microlinkhq on GitHub',
-    externalIcon: false,
-    icon: GitHubSocialIcon
-  })
-]
+export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({

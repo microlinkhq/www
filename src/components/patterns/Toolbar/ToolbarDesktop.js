@@ -8,11 +8,7 @@ import { useChangelogLatest } from 'components/hook/use-changelog-latest'
 
 import { layout, theme } from 'theme'
 
-import {
-  SOCIAL_NAV_ITEMS,
-  ToolbarNavLink,
-  getToolbarSectionFromPathname
-} from './ToolbarLinks'
+import { getToolbarSectionFromPathname } from './ToolbarLinks'
 import { NavMicrolinkLogo } from './NavLogo'
 
 import {
@@ -21,7 +17,6 @@ import {
   PANEL_EXIT_DURATION_MS,
   canUseHover,
   clearTimeoutRef,
-  iconLight,
   isStickySection
 } from './ToolbarDesktopStyles'
 
@@ -176,27 +171,6 @@ const ToolbarDesktop = ({ animated }) => {
             onOpenSectionWithHover={handleOpenSectionWithHover}
             onClosePanel={handleClosePanel}
           />
-          <Flex as='div' css={theme({ alignItems: 'center' })}>
-            {SOCIAL_NAV_ITEMS.map(
-              ({ href, label, title, externalIcon, icon: Icon }) => {
-                return (
-                  <ToolbarNavLink
-                    key={label}
-                    forwardedAs='div'
-                    href={href}
-                    title={title}
-                    externalIcon={externalIcon}
-                    data-event-location='Toolbar'
-                    data-event-name={label}
-                    onMouseEnter={handleClosePanel}
-                    css={iconLight}
-                  >
-                    <Icon />
-                  </ToolbarNavLink>
-                )
-              }
-            )}
-          </Flex>
         </Toolbar>
         <ToolbarDesktopMegaMenu
           isPanelVisible={isPanelVisible}
