@@ -22,6 +22,7 @@ import { setMobileMenuOpen } from 'helpers/mobile-menu'
 import React, { useEffect, useState } from 'react'
 
 import {
+  DASHBOARD_NAV_ITEM,
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
   ToolbarActionLink,
@@ -474,22 +475,26 @@ const ToolbarMobile = ({ animated }) => {
                 </Box>
               )
             })}
-            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
-              <MobileDirectNavLink
-                key={label}
-                forwardedAs='li'
-                href={href}
-                actively={actively}
-                data-event-location='Toolbar'
-                data-event-name={label}
-                onClick={closeMenu}
-                css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
-              >
-                <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
-                  {label}
-                </Caps>
-              </MobileDirectNavLink>
-            ))}
+            {DIRECT_NAV_ITEMS.map(
+              ({ label, href, actively, title, externalIcon }) => (
+                <MobileDirectNavLink
+                  key={label}
+                  forwardedAs='li'
+                  href={href}
+                  actively={actively}
+                  title={title}
+                  externalIcon={externalIcon}
+                  data-event-location='Toolbar'
+                  data-event-name={label}
+                  onClick={closeMenu}
+                  css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+                >
+                  <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                    {label}
+                  </Caps>
+                </MobileDirectNavLink>
+              )
+            )}
             <ToolbarActionLink
               forwardedAs='li'
               href={bookCallUrl('mobile_menu')}
@@ -514,6 +519,20 @@ const ToolbarMobile = ({ animated }) => {
                 {BOOK_CALL_LABEL}
               </Caps>
             </ToolbarActionLink>
+            <MobileDirectNavLink
+              forwardedAs='li'
+              href={DASHBOARD_NAV_ITEM.href}
+              title={DASHBOARD_NAV_ITEM.title}
+              externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
+              data-event-location='Toolbar'
+              data-event-name={DASHBOARD_NAV_ITEM.label}
+              onClick={closeMenu}
+              css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+            >
+              <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                {DASHBOARD_NAV_ITEM.label}
+              </Caps>
+            </MobileDirectNavLink>
           </Box>
         </MobileMenuPanel>
       )}
