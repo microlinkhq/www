@@ -166,3 +166,7 @@ See the <Link href='/docs/api/parameters/scripts' children='scripts' />, <Link h
 ## Next step
 
 Learn how to shape the final response as JSON or a direct field response in [delivery and response shaping](/docs/guides/data-extraction/delivery-and-response).
+
+## See also
+
+- <Link href='/use-cases/website-to-markdown/javascript-rendered-pages' children='Markdown from JavaScript-rendered pages' /> — prerender and waits before converting.

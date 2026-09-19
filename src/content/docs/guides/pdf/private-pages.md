@@ -48,3 +48,7 @@ For other errors, continue with [troubleshooting](/docs/guides/pdf/troubleshooti
 ## Next step
 
 Learn how to debug missing content, wrong layout, blocked sites, and common PDF errors in [troubleshooting](/docs/guides/pdf/troubleshooting).
+
+## See also
+
+- <Link href='/use-cases/website-to-pdf/invoices-and-receipts' children='PDF invoices from authenticated pages' /> — forward the session and print.

@@ -48,3 +48,7 @@ For other errors, continue with [troubleshooting](/docs/guides/screenshot/troubl
 ## Next step
 
 Learn how to debug timing issues, blocked sites, and common screenshot errors in [troubleshooting](/docs/guides/screenshot/troubleshooting).
+
+## See also
+
+- <Link href='/use-cases/website-screenshot/behind-login' children='Screenshots behind a login' /> — forward session cookies safely.

@@ -6,6 +6,7 @@ import {
   ProxyHeadersTtlLinks,
   sdkExample
 } from 'components/patterns/FeatureStory'
+import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
 
 export const META = {
   title: 'Web Scraping API: Structured Data Extraction',
@@ -172,6 +173,23 @@ export const EXAMPLES = {
 export const RELATED = {
   relatedSlugs: ['function', 'proxy', 'headers', 'ttl', 'antibot'],
   title: 'Compose after you extract.'
+}
+
+export const TOC = [
+  ...FEATURE_TOC.slice(0, 4),
+  { id: 'use-cases', label: 'Use cases' },
+  FEATURE_TOC[4]
+]
+
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-to-markdown/clean-content',
+    'website-to-markdown/llm-context',
+    'website-to-markdown/javascript-rendered-pages',
+    'website-metadata/custom-fields',
+    'website-metadata/missing-or-wrong-metadata'
+  ],
+  title: 'Extraction in practice.'
 }
 
 export const FAQ_ITEMS = faqFromItems([

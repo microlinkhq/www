@@ -40,3 +40,7 @@ A recommended production setup for generated PDFs:
 ## Next step
 
 Learn how to generate PDFs from authenticated and session-based pages safely in [private pages](/docs/guides/pdf/private-pages).
+
+## See also
+
+- <Link href='/use-cases/website-to-pdf/batch-generation' children='PDFs in bulk' /> — parallel requests, retries and caching for batch jobs.

@@ -16,7 +16,14 @@ import {
   SectionInner
 } from 'components/patterns/CustomerStory/primitives'
 
-import { USE_CASES } from './use-cases'
+import { VerticalIconTile } from './landing/vertical-icon'
+import {
+  USE_CASES,
+  getUseCase,
+  getVertical,
+  pathToUseCase,
+  verticalUseCases
+} from './use-cases'
 
 const CarouselTrack = styled(Flex)`
   ${theme({
@@ -102,11 +109,51 @@ const CarouselCardLink = styled(Link)`
   margin-top: auto;
 `
 
-export const MoreUseCases = ({ accent, currentSlug }) => {
-  const list = USE_CASES.filter(c => c.slug !== currentSlug)
+const FALLBACK_LIMIT = 6
+const FALLBACK_CTA = 'View use case'
+
+const notCurrent = currentSlug => entry => entry && entry.slug !== currentSlug
+
+const resolveEntries = ({ currentSlug, slugs }) => {
+  if (Array.isArray(slugs)) {
+    return slugs.map(getUseCase).filter(notCurrent(currentSlug))
+  }
+  const current = getUseCase(currentSlug)
+  const siblings = current && current.vertical
+    ? verticalUseCases(current.vertical).filter(notCurrent(currentSlug))
+    : []
+  if (siblings.length >= 2) return siblings
+  return USE_CASES.filter(notCurrent(currentSlug)).slice(0, FALLBACK_LIMIT)
+}
+
+const CardIcon = ({ entry }) =>
+  entry.icon
+    ? (
+      <CarouselLogo
+        src={entry.icon}
+        alt=''
+        width='40'
+        height='40'
+        loading='lazy'
+        decoding='async'
+      />
+      )
+    : (
+      <VerticalIconTile vertical={getVertical(entry.vertical)} size={40} />
+      )
+
+export const MoreUseCases = ({
+  accent,
+  currentSlug,
+  slugs,
+  eyebrow = 'More use cases',
+  title = 'Explore more ways to build with Microlink',
+  mt = 5
+}) => {
+  const list = resolveEntries({ currentSlug, slugs })
   if (list.length < 2) return null
   return (
-    <Section css={theme({ px: 0, mt: 5 })}>
+    <Section css={theme({ px: 0, mt })}>
       <SectionInner css={theme({ maxWidth: '100%', px: 0 })}>
         <Box
           css={theme({
@@ -118,41 +165,34 @@ export const MoreUseCases = ({ accent, currentSlug }) => {
           })}
         >
           <Eyebrow accent={accent} css={theme({ pb: 2, display: 'block' })}>
-            More use cases
+            {eyebrow}
           </Eyebrow>
           <Subhead
             css={theme({
               textAlign: 'center'
             })}
           >
-            Explore more ways to build with Microlink
+            {title}
           </Subhead>
         </Box>
 
         <CarouselTrack
           role='list'
-          aria-label='More use cases'
+          aria-label={eyebrow}
           css={theme({ maxWidth: '100%', mx: 'auto' })}
         >
-          {list.map(({ slug, name, blurb, icon }) => (
-            <CarouselCard key={slug} role='listitem'>
+          {list.map(entry => (
+            <CarouselCard key={entry.slug} role='listitem'>
               <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-                <CarouselLogo
-                  src={icon}
-                  alt=''
-                  width='40'
-                  height='40'
-                  loading='lazy'
-                  decoding='async'
-                />
-                <CarouselCardName>{name}</CarouselCardName>
+                <CardIcon entry={entry} />
+                <CarouselCardName>{entry.name}</CarouselCardName>
               </Flex>
-              <CarouselCardBlurb>{blurb}</CarouselCardBlurb>
+              <CarouselCardBlurb>{entry.blurb}</CarouselCardBlurb>
               <CarouselCardLink
-                href={`/use-cases/${slug}`}
+                href={pathToUseCase(entry.slug)}
                 css={theme({ color: accent.text })}
               >
-                View use case →
+                {entry.cta || FALLBACK_CTA}&nbsp;→
               </CarouselCardLink>
             </CarouselCard>
           ))}

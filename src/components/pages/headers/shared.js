@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
+import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
 
 export const META = {
   title: 'Custom HTTP Headers API: Secrets Stay Out of URLs',
@@ -132,6 +133,22 @@ export const EXAMPLES = {
 export const RELATED = {
   relatedSlugs: ['proxy', 'antibot', 'isolation', 'scraping'],
   title: 'Authenticate and reach targets.'
+}
+
+export const TOC = [
+  ...FEATURE_TOC.slice(0, 4),
+  { id: 'use-cases', label: 'Use cases' },
+  FEATURE_TOC[4]
+]
+
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-screenshot/behind-login',
+    'website-screenshot/proxy-geolocation',
+    'website-to-pdf/invoices-and-receipts',
+    'website-metadata/localized-metadata'
+  ],
+  title: 'Headers in practice.'
 }
 
 export const FAQ_ITEMS = faqFromItems([

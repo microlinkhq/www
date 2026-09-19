@@ -241,6 +241,14 @@
         "rules": [
           "react-doctor/no-high-complexity-react-function"
         ]
+      },
+      {
+        "files": [
+          "src/pages/features/*.js"
+        ],
+        "rules": [
+          "react-doctor/duplicate-jsx-subtree"
+        ]
       }
     ]
   }

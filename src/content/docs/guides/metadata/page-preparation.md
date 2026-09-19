@@ -107,3 +107,7 @@ If you still cannot get the right result, continue with [troubleshooting](/docs/
 ## Next step
 
 Learn how to keep metadata requests fast and fresh in [caching and performance](/docs/guides/metadata/caching-and-performance).
+
+## See also
+
+- <Link href='/use-cases/website-metadata/javascript-rendered-pages' children='Metadata from single-page apps' /> — prerender and waits before reading the tags.
