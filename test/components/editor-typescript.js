@@ -38,6 +38,6 @@ test('transpiles the TypeScript template', async () => {
     typescriptExample.files['scrape.ts']
   )
   expect(code).toContain('export const scrape')
-  expect(code).not.toContain('type Page')
-  expect(code).not.toContain('$eval: <T>')
+  expect(code).not.toContain('FunctionArgs')
+  expect(code).not.toContain(': FunctionArgs')
 })

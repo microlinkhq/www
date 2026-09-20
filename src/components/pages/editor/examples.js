@@ -215,12 +215,9 @@ const microlink = createClient()
 
 export default microlink.function('https://example.com', scrape)
 `,
-      'scrape.ts': `type Page = {
-  title: () => Promise<string>
-  $eval: <T>(selector: string, fn: (el: Element) => T) => Promise<T>
-}
+      'scrape.ts': `import type { FunctionArgs } from 'microlink.io'
 
-export const scrape = async ({ page }: { page: Page }) => {
+export const scrape = async ({ page }: FunctionArgs) => {
   const title = await page.title()
   const heading = await page.$eval('h1', el => el.textContent)
   return { title, heading }

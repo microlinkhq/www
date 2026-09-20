@@ -5,7 +5,8 @@ import { expect, test } from 'vitest'
 
 import {
   GOOGLE_DTS,
-  MICROLINK_DTS
+  MICROLINK_DTS,
+  PUPPETEER_DTS
 } from '../../src/components/pages/editor/monaco-dts'
 import {
   GOOGLE_TYPES,
@@ -24,6 +25,14 @@ const publishedGoogle = readFileSync(
     dirname(requireFromMicrolink.resolve('@microlink/google')),
     'index.d.ts'
   ),
+  'utf8'
+)
+const requireFromPuppeteer = createRequire(require.resolve('puppeteer'))
+const puppeteerCorePkg = requireFromPuppeteer.resolve(
+  'puppeteer-core/package.json'
+)
+const publishedPuppeteer = readFileSync(
+  join(dirname(puppeteerCorePkg), requireFromPuppeteer(puppeteerCorePkg).types),
   'utf8'
 )
 
@@ -106,18 +115,19 @@ test('types every published search result page', () => {
   expect(GOOGLE_TYPES).toContain('results: SearchResult[]')
 })
 
-test('stubs Puppeteer page methods Monaco cannot resolve', () => {
+test('types Puppeteer page methods from the published dts', () => {
+  expect(PUPPETEER_DTS).toBe(publishedPuppeteer)
   for (const member of [
     'title()',
     'url()',
-    '$eval<T>',
-    '$$eval<T>',
-    'evaluate<T>',
+    '$eval<',
+    '$$eval<',
+    'evaluate<',
     'waitForSelector',
     'waitForNavigation',
     'click(',
     'content()',
-    'keyboard:'
+    'abstract get keyboard'
   ]) {
     expect(PUPPETEER_CORE_TYPES).toContain(member)
   }
