@@ -75,10 +75,13 @@ test('types every published microlink.io client method', () => {
   expect(MICROLINK_TYPES).toContain('url: string')
   expect(MICROLINK_TYPES).toContain('code: FunctionInput')
   expect(MICROLINK_TYPES).toContain('interface Metadata')
+  expect(MICROLINK_TYPES).toContain('interface ExtractRules')
   expect(MICROLINK_TYPES).toContain('interface Asset')
   expect(MICROLINK_TYPES).toContain('interface Embed')
   expect(MICROLINK_TYPES).toContain('interface FunctionResult')
   expect(MICROLINK_TYPES).toContain('search: GoogleClient')
+  expect(MICROLINK_TYPES).toContain('metadata(): Promise<Metadata>')
+  expect(MICROLINK_TYPES).toContain('extract(rules: ExtractRules)')
 })
 
 test('types every published search result page', () => {
