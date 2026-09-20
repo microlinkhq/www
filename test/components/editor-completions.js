@@ -5,7 +5,8 @@ import { expect, test } from 'vitest'
 
 import {
   GOOGLE_DTS,
-  MICROLINK_DTS
+  MICROLINK_DTS,
+  PUPPETEER_DTS
 } from '../../src/components/pages/editor/monaco-dts'
 import {
   GOOGLE_TYPES,
@@ -24,6 +25,10 @@ const publishedGoogle = readFileSync(
     dirname(requireFromMicrolink.resolve('@microlink/google')),
     'index.d.ts'
   ),
+  'utf8'
+)
+const publishedPuppeteer = readFileSync(
+  join(dirname(require.resolve('microlink.io')), 'puppeteer-core.d.ts'),
   'utf8'
 )
 
@@ -70,15 +75,19 @@ test('types every published microlink.io client method', () => {
   for (const method of clientMethods) {
     expect(MICROLINK_TYPES).toContain(method)
   }
+  expect(MICROLINK_TYPES).toContain('export type { HTTPResponse, Page }')
   expect(MICROLINK_TYPES).toContain('page: Page')
   expect(MICROLINK_TYPES).toContain('response: HTTPResponse')
   expect(MICROLINK_TYPES).toContain('url: string')
   expect(MICROLINK_TYPES).toContain('code: FunctionInput')
   expect(MICROLINK_TYPES).toContain('interface Metadata')
+  expect(MICROLINK_TYPES).toContain('interface ExtractRules')
   expect(MICROLINK_TYPES).toContain('interface Asset')
   expect(MICROLINK_TYPES).toContain('interface Embed')
   expect(MICROLINK_TYPES).toContain('interface FunctionResult')
   expect(MICROLINK_TYPES).toContain('search: GoogleClient')
+  expect(MICROLINK_TYPES).toContain('metadata(): Promise<Metadata>')
+  expect(MICROLINK_TYPES).toContain('extract(rules: ExtractRules)')
 })
 
 test('types every published search result page', () => {
@@ -103,18 +112,19 @@ test('types every published search result page', () => {
   expect(GOOGLE_TYPES).toContain('results: SearchResult[]')
 })
 
-test('stubs Puppeteer page methods Monaco cannot resolve', () => {
+test('types Puppeteer page methods from the published dts', () => {
+  expect(PUPPETEER_DTS).toBe(publishedPuppeteer)
   for (const member of [
     'title()',
     'url()',
-    '$eval<T>',
-    '$$eval<T>',
-    'evaluate<T>',
+    '$eval<',
+    '$$eval<',
+    'evaluate<',
     'waitForSelector',
     'waitForNavigation',
     'click(',
     'content()',
-    'keyboard:'
+    'abstract get keyboard'
   ]) {
     expect(PUPPETEER_CORE_TYPES).toContain(member)
   }
