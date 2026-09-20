@@ -27,12 +27,8 @@ const publishedGoogle = readFileSync(
   ),
   'utf8'
 )
-const requireFromPuppeteer = createRequire(require.resolve('puppeteer'))
-const puppeteerCorePkg = requireFromPuppeteer.resolve(
-  'puppeteer-core/package.json'
-)
 const publishedPuppeteer = readFileSync(
-  join(dirname(puppeteerCorePkg), requireFromPuppeteer(puppeteerCorePkg).types),
+  join(dirname(require.resolve('microlink.io')), 'puppeteer-core.d.ts'),
   'utf8'
 )
 
