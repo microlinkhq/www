@@ -20,6 +20,7 @@ test('function glance examples open matching editor templates', () => {
     ...glance.matchAll(/href: editorTemplateHref\('([^']+)'\)/g)
   ].map(([, id]) => id)
   expect(hrefs).toEqual([
+    'extract-css',
     'extract',
     'click-wait',
     'proxy',
@@ -33,6 +34,21 @@ test('function glance examples open matching editor templates', () => {
     expect(ids.has(id)).toBe(true)
     expect(exampleFromSearch(`?template=${id}`)?.id).toBe(id)
   }
+})
+
+test('extract and metadata templates open from the editor query', () => {
+  const ids = ['metadata', 'extract-css', 'extract-list', 'extract-evaluate']
+  for (const id of ids) {
+    expect(exampleFromSearch(`?template=${id}`)?.id).toBe(id)
+  }
+
+  const files = id =>
+    EXAMPLES.find(example => example.id === id).files['main.mjs']
+  expect(files('metadata')).toContain('page.metadata()')
+  expect(files('extract-css')).toContain("selector: 'h1'")
+  expect(files('extract-list')).toContain('page.extract({')
+  expect(files('extract-list')).toContain('selectorAll')
+  expect(files('extract-evaluate')).toContain("evaluate: 'window.next.version'")
 })
 
 test('sitemap FAQ opens the sitemap editor template', () => {

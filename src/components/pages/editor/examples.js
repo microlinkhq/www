@@ -25,6 +25,65 @@ export const EXAMPLES = [
     )
   },
   {
+    id: 'metadata',
+    label: 'Read metadata',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: '({ page }) => page.metadata()'
+      })
+    )
+  },
+  {
+    id: 'extract-css',
+    label: 'Extract with CSS rules',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.extract({
+  title: { selector: 'h1', attr: 'text' },
+  description: {
+    selector: 'meta[name="description"]',
+    attr: 'content'
+  }
+})`
+      })
+    )
+  },
+  {
+    id: 'extract-list',
+    label: 'Extract a collection',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://news.ycombinator.com',
+        fn: `({ page }) => page.extract({
+  stories: {
+    selectorAll: '.athing',
+    attr: {
+      title: { selector: '.titleline > a', attr: 'text' },
+      href: { selector: '.titleline > a', attr: 'href', type: 'url' }
+    }
+  }
+})`
+      })
+    )
+  },
+  {
+    id: 'extract-evaluate',
+    label: 'Extract with evaluate',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://vercel.com',
+        fn: `({ page }) => page.extract({
+  version: {
+    evaluate: 'window.next.version',
+    type: 'string'
+  }
+})`
+      })
+    )
+  },
+  {
     id: 'sitemap',
     label: 'List sitemap URLs',
     files: filesFromEntry(

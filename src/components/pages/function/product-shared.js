@@ -25,6 +25,22 @@ export const HERO = {
 export const GLANCE = {
   items: [
     {
+      id: 'extract-css',
+      title: 'Extract with CSS rules',
+      href: editorTemplateHref('extract-css'),
+      span: 2,
+      code: `const { value } = await microlink.function(
+  'https://microlink.io',
+  ({ page }) => page.extract({
+    title: { selector: 'h1', attr: 'text' },
+    description: {
+      selector: 'meta[name="description"]',
+      attr: 'content'
+    }
+  })
+)`
+    },
+    {
       id: 'extract',
       title: 'Read the page',
       href: editorTemplateHref('extract'),

@@ -24,6 +24,8 @@ export const PUPPETEER_CORE_TYPES = `declare module 'puppeteer-core' {
     title(): Promise<string>
     url(): string
     content(): Promise<string>
+    metadata(): Promise<Record<string, unknown>>
+    extract(rules: Record<string, unknown>): Promise<Record<string, unknown>>
     $(selector: string): Promise<unknown>
     $$(selector: string): Promise<unknown[]>
     $eval<T>(selector: string, fn: (el: Element) => T): Promise<Awaited<T>>
