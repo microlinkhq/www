@@ -17,6 +17,9 @@ writeFileSync(
     `export const GOOGLE_DTS = ${JSON.stringify(
       readFileSync(join(googleSrc, 'index.d.ts'), 'utf8')
     )}`,
+    `export const PUPPETEER_DTS = ${JSON.stringify(
+      readFileSync(join(microlinkSrc, 'puppeteer-core.d.ts'), 'utf8')
+    )}`,
     ''
   ].join('\n')
 )

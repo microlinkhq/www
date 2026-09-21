@@ -1,5 +1,6 @@
 ---
-title: 'Microlink API: Introducing Custom Rules'
+title: 'Extract any field from a website with custom rules'
+subtitle: 'Three properties turn a CSS selector into a new API field'
 description: 'Learn how to use Microlink Custom Rules to extract specific data from any website by defining jQuery-like selectors, attributes, and data types via API parameters.'
 authors:
   - kiko
@@ -9,33 +10,33 @@ date: '2018-05-31'
 import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 
-The [Microlink API](/docs/api/getting-started/overview) is used for extracting information from **any** link.
+The [Microlink API](/docs/api/getting-started/overview) now supports **Custom Rules**: you declare a `selector`, an `attr`, and a `type` as query parameters, and the API returns that value as a new field in the response. The rules ride on the same request that already returns the metadata.
 
-Just enter a URL and you will receive data.
+**TL;DR**
 
-It was designed to get generic information present in the target website, based on metadata normalization using [metascraper](https://metascraper.js.org/#/).
+- The Microlink API now supports **Custom Rules**: declare a `selector`, an `attr`, and a `type`, and the API returns that value as a new field in the response.
+- Rules travel as query parameters, written in dot notation under `data.<field>`.
+- Several rules per field handle changing markup: the field takes the value of the first rule that resolves successfully.
+- A custom rule with the same name as a basic field acts as its fallback: for Instagram profiles, `author` resolves to `"Elon Musk"` instead of `null`.
+- Custom rules combine with every API parameter, such as `palette` and `filter`.
 
-Although this is expected, many use cases are left out of the scope if we need to get specific data information.
+Until now, the API returned the generic information a page exposes, normalized from its metadata by [metascraper](https://metascraper.js.org/#/). That covers `title`, `description`, `image`, and `logo`, but not the data specific to one site, such as the avatar on a profile page.
 
-Today we’re happy to introduce a new core functionality called **Custom Rules** 🎉.
+## The default response stops at metadata
 
-## Leveraging Custom Rules
-
-**Custom Rules** provide you an interface to interact with the API, specifying new data fields that can be extracted from an specific URL.
-
-Imagine you want ot interact with an Instagram profile url, like [@elonmusk](https://x.com/elonmusk)'s profile.
+Take an Instagram profile, like [@elonmusk](https://x.com/elonmusk)'s. The page shows an avatar, a follower count, and a grid of photos.
 
 ![](/images/subDjQ1.png)
 
 <Figcaption>A website is just an interface for a database, let's convert the web into real data 🤘.</Figcaption>
 
-By using [Microlink API](/docs/api/getting-started/overview) we can obtain well structured and normalized data from any Instagram URL:
+Pass the profile URL to the [Microlink API](/docs/api/getting-started/overview) and you get normalized data back:
 
 ```bash
 curl https://api.microlink.io/?url=https://instagram.com/elonmusk
 ```
 
-The API response will look like the following:
+The response contains the fields metascraper resolves for every URL, including `title`, `publisher`, `image`, and `logo`:
 
 ```json
 {
@@ -65,39 +66,33 @@ The API response will look like the following:
 }
 ```
 
-Although this is enough to have a global vision of what's behind a link (or to build a previsualization using our [SDK](/docs/sdk-legacy/getting-started/overview/)), you may be interested in specific information that we don't expose because it isn't generic.
+That is enough to understand what a link points to, or to render a preview with the [SDK](/docs/sdk-legacy/getting-started/overview/). The profile avatar is not in it, because an avatar is not a generic field. A custom rule adds it.
 
-Let's define a **rule** for extracting the avatar profile.
+## A rule is a selector, an attribute, and a type
 
-## Defining rules
+A **rule** tells the API which data to extract through three **properties**: `selector`, `attr`, and `type`.
 
-A **rule** is a way to interact with the API. You’ve to declare the type of data you want to extract through **properties**. These properties are:
+### selector picks the HTML element
 
-### selector
-
-It defines the HTML element you want to get from the HTML of the targeted URL.
+`selector` defines which element of the target page's HTML to read, for example `img` for an image tag or `.avatar` for a class.
 
 ![](/images/3yy4kDD.png)
 
 <Figcaption>A simple way to get the selector could be copy it directly from DevTools.</Figcaption>
 
-The way to specify selectors is jQuery-like, so you can specify the selector using:
+Selectors are jQuery-like, so you can write:
 
-- An HTML tag, (e.g., `img`).
-- An CSS class or pseudo class, id or data-attribute, (e.g., `.avatar`).
-- A combination of both, (e.g., `first:img`).
+- An HTML tag, such as `img`.
+- A CSS class, pseudo class, id, or data-attribute, such as `.avatar`.
+- A combination of both, such as `first:img`.
 
-### attr
+### attr picks the property of the element
 
-It defines which property from the matched selector should be picked.
+`attr` defines which property of the matched element the API returns. For an `img`, that is usually `src`.
 
-That means, for example, if you want to extract an `img`, probably you are interested in `src` property.
+### type validates the value
 
-### type
-
-It defines a **check validator** to be run against the extracted value defined by `selector` and `attr`.
-
-It's possible to validate all the [basic](/docs/api/getting-started/overview) properties that can be extracted using the API:
+`type` runs a **check validator** against the value that `selector` and `attr` extract. It accepts every [basic](/docs/api/getting-started/overview) property the API extracts:
 
 - `author`
 - `date`
@@ -111,17 +106,11 @@ It's possible to validate all the [basic](/docs/api/getting-started/overview) pr
 - `title`
 - `url`
 
-Each validator `type` will be applied to a set of mutations from the original extracted value.
+Each `type` applies its own set of mutations to the extracted value. With `type` set to `image`, the value is guaranteed to be an image-compatible URL that a browser can render. With `type` set to `author`, the value is capitalized.
 
-For example, if you define the `type` as `image`, then you'll be sure that the value extracted will be an image-compatible url, and your browser will be able to render it.
+## Rules travel as query parameters
 
-But it'll be different if you declare the `type` as `author`, because the value will be capitalized.
-
-## Querying using the API
-
-Now that we know how to define rules, let's see how to add them into the [API](https://api.microlink.io/) request.
-
-They need to be declared as **query parameters** using **dot notation**:
+Custom rules go into the [API](https://api.microlink.io/) request as **query parameters**, written in **dot notation** under `data.<field>`. This rule defines a new field called `avatar`, read from the `src` of the first `img`:
 
 ```json
 {
@@ -133,7 +122,7 @@ They need to be declared as **query parameters** using **dot notation**:
 
 <Figcaption>Defining a new custom rule for 'avatar' field.</Figcaption>
 
-Here we are defining our **custom rule** for a new data field called **avatar**.
+Encoded into the request URL, next to `prerender` and `video=false`, it looks like this:
 
 ```bash
 curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img%3Afirst&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
@@ -141,7 +130,7 @@ curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&da
 
 <Figcaption>Encoding the custom rule as query paramter in the API request.</Figcaption>
 
-After that, the API will return the new data field `avatar` as part of the response payload 🎉
+The response now includes `avatar` next to the basic fields:
 
 ```json
 {
@@ -179,22 +168,16 @@ After that, the API will return the new data field `avatar` as part of the respo
 
 <Figcaption>The payload now have a new 'avatar' field.</Figcaption>
 
-In this case, we've defined the `type` as `image`. The API can handle the property value and then provide us extra information. Like, for instance, the image dimensions.
+Because the rule sets `type` to `image`, the API treats `avatar` as an image and adds its `width`, `height`, and `type` to the value, not just the `url`.
 
-## Adding more rules per field
+## Several rules per field handle changing markup
 
-Some scenarios need to contemplate that HTML markup can change.
+HTML markup changes, and the `selector` you pick decides how well a rule survives it:
 
-This is specially remarkable in the way to define your custom rules `selector`:
+- **A specific selector** (`.avatar`) is more accurate, but the element is not guaranteed to be present.
+- **A generic selector** (`img`) is found more often, but it does not always hold the expected value.
 
-- A very specific selector (e.g., `.avatar`) has better accuracy, but you don't have the guarantee that it's always present.
-- A more generic selector (e.g., `img`) is easier to be found in the HTML markup, but it doesn't always have the expected value.
-
-Ideally, a good solution needs to contemplate both approaches: first, resolve with an specific selector, and second, fallback into one more generic if it can't resolve the first selector.
-
-This could be done with **custom rules** in the same API request 🎊.
-
-You just need to declare the conditions as part of the same rule:
+You can use both in the same API request. Give each rule of the field its own index after the field name, from the most specific selector to the most generic:
 
 ```json
 {
@@ -209,11 +192,11 @@ You just need to declare the conditions as part of the same rule:
 
 <Figcaption>Adding more than one rule per data field.</Figcaption>
 
-Note that **order is important**: The data value extracted will be first value resolved successfully.
+**Order matters**: the field takes the value of the first rule that resolves successfully. Here `.avatar` is tried first, and `img:first` is the fallback.
 
-## More than one result
+## A selector with several matches returns a collection
 
-What happens if you declare a `selector` that matches with more than one result?
+A `selector` like `article img` matches more than one element on a profile page:
 
 ```json
 {
@@ -229,7 +212,7 @@ What happens if you declare a `selector` that matches with more than one result?
 curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&data.avatar.selector=img&data.avatar.type=image&data.avatar.attr=src&prerender&video=false
 ```
 
-Can the API extract them? The answer is **yes**!
+The API extracts every match:
 
 ```json
 {
@@ -275,15 +258,13 @@ Can the API extract them? The answer is **yes**!
 
 <Figcaption>The new 'photos' field is a collection.</Figcaption>
 
-The only difference is that this time the result is a collection.
+The only difference from a single match is the shape: the field holds an array of image URLs instead of one value.
 
-## Adding fallback for basic rules
+## Custom rules fill the gaps in basic fields
 
-When you see a `null` in the API response, it means that it couldn't resolve the value properly.
+A `null` in the API response means the API could not resolve that field. For Instagram profile URLs, `author` comes back `null`.
 
-You can define **custom rules** as fallback rules for an existing data field.
-
-For example, we are seeing that the API is not resolving the `author` field for Instagram profile urls. Let's add it!
+A custom rule with the same name as a basic field acts as its fallback. This one reads the text of the last `h1` inside a `section` and validates it as an `author`:
 
 ```json
 {
@@ -327,11 +308,11 @@ curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&pr
 }
 ```
 
-Now the value is resolved properly 👌.
+`author` now resolves to `"Elon Musk"` instead of `null`.
 
-## Combine it with the rest of API Parameters
+## Custom rules combine with every API parameter
 
-One thing that makes [Microlink API](/docs/api/getting-started/overview) powerful is that you can combine every [API Parameter](/docs/api/getting-started/overview) to work together.
+Every [API Parameter](/docs/api/getting-started/overview) of the [Microlink API](/docs/api/getting-started/overview) works together with custom rules. This request adds `palette` to extract the colors of the image and `filter` to return only the `avatar` field:
 
 ```json
 {
@@ -388,4 +369,8 @@ curl https://api.microlink.io/?url=https%3A%2F%2Fwww.instagram.com%2Felonmusk&da
 
 <Figcaption>Detecting predominant color for an image extracted using a custom rule and filtering it 🤯.</Figcaption>
 
-This is specially useful when you want to optimize your API calls response time.
+The payload shrinks to the one field you asked for, with its `palette`, `background_color`, `color`, and `alternative_color`. Filtering the response this way is how you optimize the response time of your API calls.
+
+## Start with one field
+
+Pick a value on a page, copy its selector from DevTools, and send it as `data.<field>.selector`, `data.<field>.attr`, and `data.<field>.type` with your next request to the [Microlink API](/docs/api/getting-started/overview).

@@ -31,7 +31,18 @@ export const toAlias = (name = '') => {
 const HTML_COMMENT_START = /^\s*<!--/
 const HTML_COMMENT_END = /-->/
 
+const PLAINTEXT_LANGUAGES = new Set(['text', 'txt', 'plain', 'plaintext'])
+
+const escapeHtml = value =>
+  String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+
 export const highlightSource = (source, language) => {
+  if (PLAINTEXT_LANGUAGES.has(language)) return escapeHtml(source)
+
   const options = { lang: lang(language) }
 
   if (language === 'bash') {

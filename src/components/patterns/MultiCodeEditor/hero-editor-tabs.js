@@ -8,7 +8,8 @@ const tablistCss = theme({
   alignItems: 'stretch',
   width: '100%',
   minWidth: 0,
-  overflowX: 'auto'
+  overflowX: 'auto',
+  overflowY: 'hidden'
 })
 
 const tabCss = isActive =>
@@ -18,6 +19,8 @@ const tabCss = isActive =>
     alignItems: 'center',
     justifyContent: 'center',
     flex: '0 0 auto',
+    gap: 2,
+    height: [touchTargets.minHeight, '36px', '36px', '36px'],
     minHeight: [touchTargets.minHeight, '36px', '36px', '36px'],
     px: 2,
     py: 0,
@@ -78,7 +81,7 @@ export const HeroEditorTabs = ({
       onKeyDown={onKeyDown}
       css={tablistCss}
     >
-      {examples.map(({ label }, index) => {
+      {examples.map(({ label, icon }, index) => {
         const isActive = index === selectedIndex
         const tabId = `${idPrefix}-${index}`
         return (
@@ -100,6 +103,7 @@ export const HeroEditorTabs = ({
               }
             ]}
           >
+            {icon}
             {label}
           </Box>
         )

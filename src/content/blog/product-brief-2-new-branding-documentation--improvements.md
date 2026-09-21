@@ -1,5 +1,5 @@
 ---
-title: 'Product Brief #2: New Branding, Documentation & Improvements'
+title: 'Product brief #2: new brand, unified docs, instant API credentials'
 description: 'Discover Microlink second product brief, featuring a fresh brand identity, unified documentation portal, and key improvements to metascraper and the SDK.'
 authors:
   - kiko
@@ -10,19 +10,17 @@ import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Microlink } from 'components/markdown/Microlink'
 
-## Website Refresh
+Microlink has a new brand, designed by [Silvia Calavera](http://silviacalavera.es/), and the website now follows it. This brief also covers a single home for all the documentation, the metascraper work on video, and a more responsive Microlink SDK.
+
+## A new brand and instant API credentials
 
 ![the new microlink.io swag logo!](https://cdn-images-1.medium.com/max/800/1*qnT4Rmic-FA4_Kf8LdZs_g.png)
 
 <Figcaption children='the new shiny microlink brand.' />
 
-We have a new fresh branding 🎉
+When the project started, the time went into a small API that worked efficiently, and nobody stopped to design a brand for microlink.io. The design was a debt we knew we would pay later. Silvia's logo and the rebuilt website pay it.
 
-When the project started, we invested the time in creating something small but efficiently working, so we didn’t really stop to think about creating a brand product.
-
-Our design needed a little love and we knew it was a debt that we would pay in the future… Now, thanks to [Silvia Calavera](http://silviacalavera.es/) we have a better branding design and the website was according to it.
-
-In addition, we took this opportunity to improve our payment process, you’ll now receive your [API credentials](/docs/api/#api-basics/authentication) *immediately* after payment.
+We also used the redesign to fix the payment process. You now receive your [API credentials](/docs/api/#api-basics/authentication) *immediately* after payment, handled by a dedicated payments microservice.
 
 ![](https://cdn-images-1.medium.com/max/800/1*k7dpxXR6YBtpvHlnw3vrXw.png)
 
@@ -32,7 +30,7 @@ In addition, we took this opportunity to improve our payment process, you’ll n
   process.
 </Figcaption>
 
-## Unified Documentation
+## All documentation in one portal
 
 ![](/images/tJxodpG.jpg)
 
@@ -41,35 +39,25 @@ In addition, we took this opportunity to improve our payment process, you’ll n
   <Link href='/docs' children='/docs' />.
 </Figcaption>
 
-As we announced on [newsletter #1](https://medium.com/microlink/microlink-newsletter-1-13b8a055cd6c), we started shipping a set of front end libraries to make consuming the [Microlink API](/docs/api/getting-started/overview) as easy as possible.
+As announced in [newsletter #1](https://medium.com/microlink/microlink-newsletter-1-13b8a055cd6c), we started shipping a set of front end libraries that make the [Microlink API](/docs/api/getting-started/overview) as easy to consume as possible. Next to them, we want examples and integrations for popular frameworks such as WordPress and Jekyll.
 
-We also want to provide examples, and ways to integrate it with popular frameworks, like WordPress, Jekyll, etc.
-
-Maintaining documentation is laborious and requires effort. We needed to combine **all** the documentation associated with [microlink.io](https://microlink.io) into one place.
-
-After comparing multiple approaches on the matter and seeing how other companies take on the challenge, we decided on [Vercel documentation](https://vercel.com/docs) portal.
+Maintaining documentation for several libraries is laborious, so we combined **all** the documentation for [microlink.io](https://microlink.io) into one place. After comparing multiple approaches and how other companies handle it, we based the portal on the [Vercel documentation](https://vercel.com/docs).
 
 <Microlink size='large' url={'https://x.com/Kikobeats/status/956221717319421952'} />
 
-Although it required some laborious work, the final result is impressive. We are very grateful to [Vercel](https://vercel.com) for making it possible.
+The migration took laborious work, and `/docs` is now the only place to check the API and SDK documentation. We are grateful to [Vercel](https://vercel.com) for making it possible.
 
-## Metascraper Improvements
+## Metascraper targets video accuracy
 
 ![](https://cdn-images-1.medium.com/max/800/1*ns3f8OrzX3xOaPiS81Lc_w.png)
 
-[metascraper](https://metascraper.js.org/) is our metadata extractor and we improve it every week.
+[metascraper](https://metascraper.js.org/) is our metadata extractor, and it gets improvements every week. The current target is data accuracy for **video** content.
 
-Our current target is improving the data accuracy related with **video** content.
+This period brought internal improvements and a new package, [metascraper-youtube](https://www.npmjs.com/package/metascraper-youtube), which improves the results when the target is a YouTube URL.
 
-On this period, we did a lot of internal improvements and developed [metascraper-youtube](https://www.npmjs.com/package/metascraper-youtube) for enhancing the results when you want to get information from a YouTube url.
+We are also testing a new **video property** for the [Microlink API](/docs/api) ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)). It returns any video detected in the target URL, which lets the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) build a richer content preview. Results will be in a following newsletter.
 
-Under the hood, we’re testing something pretty exciting: Adding a new **video property** ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)) into the [Microlink API](/docs/api).
-
-It would return any video detected in the target URL. This also allowing us to build a richer content preview (with the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/)).
-
-We seem to be heading in the right direction, stay tuned for our next newsletters to see how it turns out 👀.
-
-## Microlink SDK Improvements
+## A responsive Microlink SDK and 100 GitHub stars
 
 ![](https://cdn-images-1.medium.com/max/800/1*kCqm2r2HwPYMceWwj5cwbA.gif)
 
@@ -79,10 +67,8 @@ We seem to be heading in the right direction, stay tuned for our next newsletter
   <Link href='https://microlink.io/' children='microlink.io' />.
 </Figcaption>
 
-First of all, we reached [100 stars 🌟 on GitHub](https://github.com/microlinkhq/microlinkjs)!
+The [Microlink SDK repository](https://github.com/microlinkhq/microlinkjs) reached 100 stars on GitHub.
 
-We wanted to be sure the cards responded properly to different viewports, so we put extra effort into improving the responsive aspect of things.
+Extra effort went into how the SDK cards respond to different viewports, to be sure every preview renders properly at each size. A new demo on microlink.io shows what you can build with the SDK.
 
-We’ve also added a new demo at [microlink.io](https://microlink.io) showing a quick look of what you can achieve with the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/).
-
-With the above-mentioned *documentation unification* we’ve also added more examples and API parameters that you can use to customize your previews.
+With the unified documentation, the SDK docs also gained more examples and the API parameters you can use to customize your previews. To try them, open the demo on microlink.io, then copy an example from the SDK section of `/docs` into your own page.

@@ -5,6 +5,10 @@ import { cx } from 'theme'
 import React from 'react'
 
 const CodeCopyWrapper = styled('div')`
+  position: relative;
+  z-index: 2;
+  overflow: visible;
+
   .codecopy__button {
     box-shadow: none;
     background: none;

@@ -1,5 +1,5 @@
 ---
-title: 'Microlink CDN: Global Edge Cache'
+title: 'Cached API responses are now free and edge-served'
 description: 'Learn how Microlink CDN uses Global Edge Caching to speed up API responses, optimize images with WebP, and save your API quota by serving cached requests for free.'
 authors:
   - kiko
@@ -8,29 +8,26 @@ date: '2020-03-31'
 
 import { Figcaption } from 'components/markdown/Figcaption'
 
-From the beginning, [Microlink API](/docs/api/getting-started/overview) shipped with a built-in cache layer for speeding up consecutive API calls, aiming to improve response times for the same resource.
+Starting today, any [Microlink API](/docs/api/getting-started/overview) response served from the cache no longer counts toward your API quota. Cached responses are also served from the [CloudFlare Network](https://www.cloudflare.com/network), and screenshots get lossless compression and WebP on the fly.
 
-## How cache works
+**TL;DR**
 
-When you query against [Microlink API](/docs/api/getting-started/overview), the first time you query for a resource that wasn't previously served it will be created, what is known as a cache *MISS*.
+- Responses served from the cache no longer count toward your API quota.
+- An `og:image` tag on a page with **1000 pageviews** used to consume 1000 requests. Now it consumes one.
+- Cached responses come from the CloudFlare Network, the nearest of more than **240 edge servers** in over 90 countries.
+- Screenshots get lossless compression on the fly, and WebP when the browser supports it, which can decrease average image size up to **42%**.
 
-The successive requests for the resource will consume the cached version, what is known as a cache *HIT*.
+Microlink API has shipped with a built-in cache layer from the beginning, to speed up consecutive calls for the same resource. This release reworks that layer in three ways: what it costs, where it is served from, and what it does to images.
 
-## What's new
+The first time you query a resource that was not served before, such as a screenshot of `https://example.com`, the API generates it. That is a cache *MISS*. Every successive request for the same resource returns the cached version, a cache *HIT*, and hits are the part this release changes.
 
-We revisited the cache layer and implemented some improvements, making it more powerful than ever.
-
-### Cache saves your API quota
+## Cache hits no longer count toward your quota
 
 ```bash
 npx microlink.io screenshot https://example.com
 ```
 
-Starting from today, any response served from the cache won't count towards your API quota.
-
-This drastically changes how users consume the API. Let me clarify with an example.
-
-One of the [Microlink API](/docs/api/getting-started/overview) use cases is to [embed](/docs/api/parameters/embed) it directly in your HTML markup:
+Any response served from the cache won't count towards your API quota. That changes how you can use the API, and the clearest case is [embed](/docs/api/parameters/embed): pointing your HTML markup straight at an API URL.
 
 ```html
 <meta name="og:image" content="https://api.microlink.io?url=https://example.com&screenshot&embed=screenshot.url">
@@ -38,36 +35,35 @@ One of the [Microlink API](/docs/api/getting-started/overview) use cases is to [
 
 <Figcaption>A screenshot generated on the fly, always up to date.</Figcaption>
 
-In the past, if you did this and your website had *1000 pageviews*, it meant you consumed *1000 requests* from your API quota.
+Before, if your website had *1000 pageviews* with this tag, you consumed *1000 requests* from your API quota.
 
-Now, you only consume \*one request\*, serving the rest from the cache and **not counting them in your API quota plan**.
+Now you consume \*one request\*. The rest are served from the cache and **don't count toward your API quota plan**.
 
-### Cache is served around the world
+## Cached responses come from the nearest edge server
 
 ![](/images/image1-3.png)
 
 <Figcaption>The CloudFlare Network has more than 240 edge servers in over 90 countries.</Figcaption>
 
-The first time you hit [Microlink API](/docs/api/getting-started/overview), the response will come from one of the servers located somewhere.
-
-Once cached, the successive requests to the same resource will be served using the [CloudFlare Network](https://www.cloudflare.com/network), meaning the cached response will come from the nearest edge server in the world (and they're a lot, more than 240 edge servers in over 90 countries).
+The first request for a resource is answered by one of our origin servers, wherever it is located. Once cached, every successive request for that resource is served through the CloudFlare Network, from the nearest of more than 240 edge servers in over 90 countries.
 
 ![](/images/VsS5RwW.png)
 
 <Figcaption>Cached response (blue) vs. Uncached response (gray).</Figcaption>
 
-You can see how cached resources **always** have the lowest response time associated, **no matter where you are**.
+In the chart, the cached response (blue) **always** has a lower response time than the uncached one (gray), **no matter where you are**, because it never leaves the CloudFlare edge.
 
-### Cache optimizes screenshots on the fly
+## Screenshots are compressed and served as WebP
 
 ![](/images/webp.png)
 
 <Figcaption>WebP browser adoption.</Figcaption>
 
-[Microlink screenshot](/screenshot) is one of the most used product features these days: we’re serving around 100K fresh screenshots every day, generated in an average of ~1.5 seconds.
+[Microlink screenshot](/screenshot) is one of the most used features: we serve around 100K fresh screenshots every day, generated in an average of ~1.5 seconds. We host every image generated, and the cache now optimizes it on the way out:
 
-When you take a screenshot the image generated is hosted by us, additionally taking some special cache considerations into account.
+- **Lossless compression on the fly:** the image is identical to the original, with fewer bytes.
+- **WebP when the browser supports it:** most modern browsers do, and WebP can [decrease up to 42% in average image size](https://www.keycdn.com/support/png-to-webp).
 
-First, **the image will apply lossless compression on the fly**. The image will be the same as the original but the size will be smaller, saving some bytes there.
+## Try it
 
-Second, **WebP will be served if the browser supports it**. Most modern browsers support WebP and it can [decrease up to 42% in average image size](https://www.keycdn.com/support/png-to-webp).
+Run `npx microlink.io screenshot https://example.com` twice. The first call is a *MISS* and counts toward your quota. The second is a *HIT* from the nearest edge server and is free. Read the [embed](/docs/api/parameters/embed) docs to put the same screenshot URL in your `og:image` tag.

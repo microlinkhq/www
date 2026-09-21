@@ -33,7 +33,7 @@ const CustomCodeBlock = styled.pre`
 
   margin: 0;
   padding: 0;
-  overflow: auto;
+  overflow: ${props => (props.$wrap ? 'visible' : 'auto')};
   position: relative;
   background: ${props => (props.$theme === 'dark' ? cx('black') : cx('white'))};
   color: ${props => (props.$theme === 'dark' ? cx('white') : cx('black'))};
@@ -46,8 +46,8 @@ const CustomCodeBlock = styled.pre`
     ${props =>
       theme({
         display: props.$blinkCursor ? 'inline' : 'block',
-        whiteSpace: 'pre',
-        overflowX: 'auto',
+        whiteSpace: props.$blinkCursor || !props.$wrap ? 'pre' : 'pre-wrap',
+        overflowX: props.$wrap ? 'visible' : 'auto',
         pl: props.$showLineNumbers ? '3rem' : 0,
         fontFamily: 'mono',
         fontSize: 0,
@@ -95,7 +95,8 @@ export const Code = ({
   firstHighlightLine,
   lastHighlightLine,
   language,
-  blinkCursor = false
+  blinkCursor = false,
+  wrap = false
 }) => {
   const textHtml = wrapLinesWithHighlight(
     highlightSource(children, language),
@@ -105,6 +106,7 @@ export const Code = ({
   return (
     <CustomCodeBlock
       $blinkCursor={blinkCursor}
+      $wrap={wrap}
       $language={language}
       css={`
         ${String(highLightLinesSelector)} {
@@ -163,7 +165,7 @@ const TerminalTextWrapper = styled('div')`
   ${wordBreak};
   width: 100%;
   font-size: 14px;
-  white-space: pre;
+  white-space: ${props => (props.$wrap ? 'pre-wrap' : 'pre')};
 
   ${props => props.$blinkCursor && blinkCursorCodeLayoutStyle}
   ${props => props.$blinkCursor && blinkCursorStyle}
@@ -220,6 +222,7 @@ const CodeEditor = ({
     (blinkCursor !== false &&
       ['bash', 'shell', 'sh'].includes(language) &&
       !text.includes('\n'))
+  const wrapText = autoHeight && !showBlinkCursor
 
   return (
     <Terminal
@@ -235,7 +238,7 @@ const CodeEditor = ({
       blinkCursor={false}
       {...props}
     >
-      <TerminalTextWrapper $blinkCursor={showBlinkCursor}>
+      <TerminalTextWrapper $blinkCursor={showBlinkCursor} $wrap={wrapText}>
         <Code
           blinkCursor={showBlinkCursor}
           firstHighlightLine={firstHighlightLine}
@@ -244,6 +247,7 @@ const CodeEditor = ({
           language={language}
           lastHighlightLine={lastHighlightLine}
           showLineNumbers={showLineNumbers}
+          wrap={wrapText}
         >
           {text}
         </Code>
