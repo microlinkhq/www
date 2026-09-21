@@ -12,14 +12,14 @@ const tablistCss = theme({
   overflowY: 'hidden'
 })
 
-const tabCss = (isActive, hasIcon) =>
+const tabCss = isActive =>
   theme({
     appearance: 'none',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     flex: '0 0 auto',
-    gap: hasIcon ? 2 : 0,
+    gap: 2,
     height: [touchTargets.minHeight, '36px', '36px', '36px'],
     minHeight: [touchTargets.minHeight, '36px', '36px', '36px'],
     px: 2,
@@ -96,32 +96,14 @@ export const HeroEditorTabs = ({
             tabIndex={isActive ? 0 : -1}
             onClick={() => onSelect(index)}
             css={[
-              tabCss(isActive, Boolean(icon)),
+              tabCss(isActive),
               {
                 touchAction: 'manipulation',
                 transition: `color ${transition.short}, background-color ${transition.short}, border-color ${transition.short}`
               }
             ]}
           >
-            {icon
-              ? (
-                <Box
-                  as='span'
-                  aria-hidden='true'
-                  css={theme({
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    width: '16px',
-                    height: '16px',
-                    overflow: 'hidden'
-                  })}
-                >
-                  {icon}
-                </Box>
-                )
-              : null}
+            {icon}
             {label}
           </Box>
         )
