@@ -5,6 +5,27 @@ export const ACCENT = {
   highlight: 'blue5'
 }
 
+export const CUSTOMERS_PATH = '/use-cases/customers'
+
+export const customerPath = slug => `${CUSTOMERS_PATH}/${slug}`
+
+export const CUSTOMERS_HUB = {
+  name: 'Customer stories',
+  title: 'Customer stories: teams building with Microlink',
+  description:
+    'Real teams running Microlink in production: link previews, screenshots, metadata and search behind products people use every day.',
+  h1: 'How teams build with Microlink',
+  intro:
+    'One team per page. Each story shows the product they built, the Microlink API behind it, and what changed once it shipped.',
+  cta: {
+    headlinePrefix: 'Ready to ship',
+    headlineAccent: 'your own story',
+    body: 'Every team on this page started on the free tier with a single API call. Add an API key when you need more volume, proxies or longer caching.',
+    href: '/docs/api/getting-started/overview',
+    label: 'Start with the Microlink API'
+  }
+}
+
 export const CUSTOMERS = [
   {
     slug: 'mymahi',

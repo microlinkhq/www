@@ -56,3 +56,7 @@ Check the full <Link href='/docs/api/basics/error-codes' children='error codes r
 ## Back to guides
 
 See the <Link href='/docs/guides' children='guides overview' /> for more Microlink guides.
+
+## See also
+
+- <Link href='/use-cases/website-metadata/missing-or-wrong-metadata' children='Fix missing or wrong og:image' /> — override fields and chain fallbacks.

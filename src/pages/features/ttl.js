@@ -14,16 +14,18 @@ import { Hero } from 'components/pages/ttl/hero'
 import { Overview } from 'components/pages/ttl/overview'
 import { Parameters } from 'components/pages/ttl/parameters'
 import { Related } from 'components/pages/ttl/related'
-import { META } from 'components/pages/ttl/shared'
+import { RelatedUseCases } from 'components/pages/ttl/related-use-cases'
+import { META, TOC } from 'components/pages/ttl/shared'
 
 const TtlFeaturePage = () => (
   <Layout>
-    <FeaturePageShell>
+    <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

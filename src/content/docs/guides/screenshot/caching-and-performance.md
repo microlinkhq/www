@@ -40,3 +40,8 @@ A recommended production setup for screenshots:
 ## Next step
 
 Learn how to capture logged-in and header-dependent pages safely in [private pages](/docs/guides/screenshot/private-pages).
+
+## See also
+
+- <Link href='/use-cases/website-screenshot/traffic-spikes' children='Screenshots under traffic spikes' /> — caching and parallel requests when traffic is not linear.
+- <Link href='/use-cases/website-screenshot/open-graph-images' children='Dynamic Open Graph images' /> — cache-friendly og:image screenshots.

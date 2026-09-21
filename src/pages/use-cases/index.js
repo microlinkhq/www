@@ -5,7 +5,6 @@ import { Link as GatsbyLink } from 'gatsby'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import LineBreak from 'components/elements/LineBreak'
 import Heading from 'components/elements/Heading'
@@ -13,62 +12,22 @@ import Text from 'components/elements/Text'
 
 import {
   ACCENT,
+  Avatar,
+  CompanyLogo,
+  CompanyName,
   CUSTOMERS,
   DashedGridOverlay,
   Eyebrow,
+  Initials,
   Section,
   SectionInner,
-  StoryTag
+  StoryTag,
+  customerPath
 } from 'components/patterns/CustomerStory'
-import { USE_CASES } from 'components/patterns/UseCaseStory'
+import { UseCaseGroups } from 'components/patterns/UseCaseStory'
 import Layout from 'components/patterns/Layout'
 
 const ROTATE_MS = 6000
-
-const CompanyName = styled(Text)`
-  ${theme({
-    color: 'black',
-    fontSize: 2,
-    fontWeight: 'bold',
-    lineHeight: 1
-  })}
-`
-
-const CompanyLogo = styled('img')`
-  ${theme({
-    display: 'block',
-    borderRadius: 2
-  })}
-  object-fit: cover;
-`
-
-const Avatar = styled('img')`
-  ${theme({
-    borderRadius: '50%',
-    flex: '0 0 auto',
-    display: 'block'
-  })}
-  object-fit: cover;
-`
-
-const Initials = styled(Box).withConfig({
-  shouldForwardProp: prop => !['size'].includes(prop)
-})`
-  ${theme({
-    borderRadius: '50%',
-    flex: '0 0 auto',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'mono',
-    fontWeight: 'bold',
-    letterSpacing: '0.04em',
-    textTransform: 'uppercase'
-  })}
-  width: ${({ size }) => size}px;
-  height: ${({ size }) => size}px;
-  font-size: ${({ size }) => Math.round(size * 0.36)}px;
-`
 
 const HeroGrid = styled(Box)`
   display: grid;
@@ -294,7 +253,7 @@ const Hero = () => {
           >
             <FeaturedCard
               as={GatsbyLink}
-              to={`/use-cases/${current.slug}`}
+              to={customerPath(current.slug)}
               css={{
                 textDecoration: 'none',
                 color: 'inherit',
@@ -457,192 +416,17 @@ const LogoBar = () => (
   </LogoBarSection>
 )
 
-const Grid = styled(Box)`
-  display: grid;
-  grid-template-columns: 1fr;
-  ${theme({ gap: [3, 3, 4, 4] })}
-
-  @media (min-width: ${breakpoints[1]}) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: ${breakpoints[2]}) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`
-
-const Card = styled(Box)`
-  ${theme({
-    bg: 'white',
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 3,
-    p: [3, 3, 4, 4],
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 3
-  })}
-  box-shadow: ${shadows[1]};
-`
-
-const CardLink = styled(Link)`
-  ${theme({
-    fontWeight: 'bold',
-    fontSize: [0, 1, 1, 1]
-  })}
-  margin-top: auto;
-`
-
-const CardQuote = styled(Text)`
-  ${theme({
-    color: 'black60',
-    fontSize: 0,
-    fontStyle: 'italic',
-    lineHeight: 2
-  })}
-`
-
-const CustomerGrid = () => (
-  <Section id='stories' css={theme({ scrollMarginTop: 4 })}>
-    <SectionInner>
-      <Eyebrow
-        accent={ACCENT}
-        css={theme({ pb: [3, 3, 4, 4], display: 'block' })}
-      >
-        Customer stories
-      </Eyebrow>
-
-      <Grid>
-        {CUSTOMERS.map(
-          ({
-            slug,
-            name,
-            blurb,
-            icon,
-            quote,
-            author,
-            role,
-            initials,
-            avatar
-          }) => (
-            <Card key={slug}>
-              <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-                <CompanyLogo
-                  src={icon}
-                  alt=''
-                  width='40'
-                  height='40'
-                  loading='lazy'
-                  decoding='async'
-                  css={theme({ width: '40px', height: '40px' })}
-                />
-                <CompanyName>{name}</CompanyName>
-              </Flex>
-              <Text
-                css={theme({ color: 'black70', fontSize: 1, lineHeight: 2 })}
-              >
-                {blurb}
-              </Text>
-              <CardQuote>“{quote}”</CardQuote>
-              <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-                {avatar
-                  ? (
-                    <Avatar
-                      src={avatar}
-                      alt={author}
-                      width='28'
-                      height='28'
-                      loading='lazy'
-                      decoding='async'
-                      css={theme({ width: '28px', height: '28px' })}
-                    />
-                    )
-                  : (
-                    <Initials
-                      size={28}
-                      aria-hidden='true'
-                      css={theme({ bg: 'black05', color: 'black60' })}
-                    >
-                      {initials}
-                    </Initials>
-                    )}
-                <Box>
-                  <Text
-                    css={theme({
-                      color: 'black',
-                      fontSize: 0,
-                      fontWeight: 'bold',
-                      lineHeight: 1
-                    })}
-                  >
-                    {author}
-                  </Text>
-                  <Text css={theme({ color: 'black60', fontSize: '11px' })}>
-                    {role}, {name}
-                  </Text>
-                </Box>
-              </Flex>
-              <CardLink
-                href={`/use-cases/${slug}`}
-                css={theme({ color: 'link' })}
-              >
-                Read story →
-              </CardLink>
-            </Card>
-          )
-        )}
-      </Grid>
-    </SectionInner>
-  </Section>
-)
-
-const UseCaseCardsGrid = styled(Box)`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 560px));
-  ${theme({ gap: [3, 3, 4, 4] })}
-  justify-content: center;
-`
-
 const UseCaseGrid = () => (
   <Section id='use-cases' css={theme({ scrollMarginTop: 4 })}>
     <SectionInner>
       <Eyebrow
+        forwardedAs='h2'
         accent={ACCENT}
-        css={theme({ pb: [3, 3, 4, 4], display: 'block' })}
+        css={theme({ m: 0, pb: [3, 3, 4, 4], display: 'block' })}
       >
         Use cases
       </Eyebrow>
-
-      <UseCaseCardsGrid>
-        {USE_CASES.map(({ slug, name, blurb, icon, category }) => (
-          <Card key={slug}>
-            <Flex css={theme({ alignItems: 'center', gap: 2 })}>
-              <CompanyLogo
-                src={icon}
-                alt=''
-                width='40'
-                height='40'
-                loading='lazy'
-                decoding='async'
-                css={theme({ width: '40px', height: '40px' })}
-              />
-              <CompanyName>{name}</CompanyName>
-            </Flex>
-            <Text css={theme({ color: 'black70', fontSize: 1, lineHeight: 2 })}>
-              {blurb}
-            </Text>
-            <StoryTag accent={ACCENT} css={theme({ alignSelf: 'flex-start' })}>
-              {category}
-            </StoryTag>
-            <CardLink
-              href={`/use-cases/${slug}`}
-              css={theme({ color: 'link' })}
-            >
-              View use case →
-            </CardLink>
-          </Card>
-        ))}
-      </UseCaseCardsGrid>
+      <UseCaseGroups />
     </SectionInner>
   </Section>
 )
@@ -653,7 +437,6 @@ const UseCasesIndexPage = () => (
     <Box css={theme({ position: 'relative', zIndex: 1 })}>
       <Hero />
       <LogoBar />
-      <CustomerGrid />
       <UseCaseGrid />
     </Box>
   </Layout>

@@ -102,3 +102,7 @@ Check these response headers to confirm the request behaved as expected:
 | `x-cache-ttl` | The effective cache lifetime in milliseconds |
 | `cf-cache-status` | CloudFlare edge cache status |
 | `x-response-time` | Total request duration — fast times usually indicate a cache hit |
+
+## See also
+
+- <Link href='/use-cases/website-to-markdown/bulk-conversion' children='Bulk Markdown conversion with caching' /> — ttl and staleTtl for crawl-scale re-indexing.

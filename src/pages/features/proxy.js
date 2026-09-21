@@ -14,16 +14,18 @@ import { Hero } from 'components/pages/proxy/hero'
 import { Overview } from 'components/pages/proxy/overview'
 import { Parameters } from 'components/pages/proxy/parameters'
 import { Related } from 'components/pages/proxy/related'
-import { META } from 'components/pages/proxy/shared'
+import { RelatedUseCases } from 'components/pages/proxy/related-use-cases'
+import { META, TOC } from 'components/pages/proxy/shared'
 
 const ProxyFeaturePage = () => (
   <Layout>
-    <FeaturePageShell>
+    <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

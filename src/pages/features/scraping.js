@@ -14,16 +14,18 @@ import { Hero } from 'components/pages/scraping/hero'
 import { Overview } from 'components/pages/scraping/overview'
 import { Parameters } from 'components/pages/scraping/parameters'
 import { Related } from 'components/pages/scraping/related'
-import { META } from 'components/pages/scraping/shared'
+import { RelatedUseCases } from 'components/pages/scraping/related-use-cases'
+import { META, TOC } from 'components/pages/scraping/shared'
 
 const ScrapingFeaturePage = () => (
   <Layout>
-    <FeaturePageShell>
+    <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>
