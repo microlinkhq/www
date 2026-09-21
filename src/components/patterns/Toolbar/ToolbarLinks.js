@@ -464,9 +464,14 @@ export const NAVIGATION_SECTIONS = [
   }
 ]
 
+export const getSectionItems = ({ label, items }) =>
+  label === 'Tools' ? [...items, ...TOOLS_INTEGRATIONS_ITEMS] : items
+
 export const getToolbarSectionFromPathname = pathname => {
-  const section = NAVIGATION_SECTIONS.find(({ items }) =>
-    items.some(({ href }) => href.startsWith('/') && pathname.startsWith(href))
+  const section = NAVIGATION_SECTIONS.find(section =>
+    getSectionItems(section).some(
+      ({ href }) => href.startsWith('/') && pathname.startsWith(href)
+    )
   )
 
   return section ? section.label : ''
