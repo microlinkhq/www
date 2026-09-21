@@ -166,7 +166,8 @@ const InstallPanel = ({ hint, snippet }) => (
       fontFamily: 'sans',
       px: [3, 4],
       py: [3, 4],
-      textAlign: 'left'
+      textAlign: 'left',
+      whiteSpace: 'normal'
     })}
   >
     <Text
