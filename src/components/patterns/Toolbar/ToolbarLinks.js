@@ -36,6 +36,7 @@ import { PDF as PDFIcon } from 'components/icons/PDF'
 import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
 import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
+import { Sparkles as SparklesIcon } from 'components/icons/Sparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
 import { Grid as GridIcon } from 'components/icons/Grid'
 import { Brain as BrainIcon } from 'components/icons/Brain'
@@ -198,6 +199,13 @@ export const NAVIGATION_SECTIONS = [
         actively: 'exact',
         description: 'One REST endpoint for every Microlink product',
         icon: ServerIcon
+      }),
+      createNavigationItem({
+        label: 'AI',
+        href: '/ai',
+        actively: 'exact',
+        description: 'Prompt your agent to use Microlink',
+        icon: SparklesIcon
       }),
       createNavigationItem({
         label: 'Screenshot',

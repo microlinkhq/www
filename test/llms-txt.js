@@ -67,6 +67,7 @@ describe('sectionFor', () => {
     expect(sectionFor('/features/screenshot')).toBe('Features')
     expect(sectionFor('/blog/some-post')).toBe('Blog')
     expect(sectionFor('/api')).toBe('API overview')
+    expect(sectionFor('/ai')).toBe('AI overview')
   })
 
   test('falls back to a single section for standalone pages', () => {
