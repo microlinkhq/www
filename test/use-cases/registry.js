@@ -24,6 +24,8 @@ const TITLE_LENGTH = [30, 58]
 const HUB_TITLE_LENGTH = [20, 58]
 const DESCRIPTION_LENGTH = [70, 155]
 const FAQ_LENGTH = [3, 5]
+const RELATED_LENGTHS = [3, 6]
+const INLINE_LINK = /\[[^\]]+\]\((\/[^)\s]*)\)/g
 const BANNED_TEXT = [
   ['—', 'an em dash'],
   ['...', 'three dots instead of an ellipsis']
@@ -72,6 +74,22 @@ const docsFileFor = href => {
     path.join(DOCS_DIR, relative, 'index.md')
   ].some(exists)
 }
+
+const SITE_PAGES_DIR = path.join(ROOT, 'src', 'pages')
+
+const pageFileFor = href => {
+  const relative = href.replace(/^\//, '').replace(/[#?].*$/, '')
+  return [
+    path.join(SITE_PAGES_DIR, `${relative}.js`),
+    path.join(SITE_PAGES_DIR, relative, 'index.js')
+  ].some(exists)
+}
+
+const resolvesInternally = href =>
+  href.startsWith('/docs/') ? docsFileFor(href) : pageFileFor(href)
+
+const inlineLinksOf = content =>
+  [...JSON.stringify(content).matchAll(INLINE_LINK)].map(([, href]) => href)
 
 const flattenKeys = (value, prefix = '') =>
   value && typeof value === 'object' && !Array.isArray(value)
@@ -153,7 +171,7 @@ describe('use case registry', () => {
 
   test.each(landings)('$slug related slugs resolve', entry => {
     const slugs = USE_CASES.map(({ slug }) => slug)
-    expect(entry.related.length).toBeGreaterThanOrEqual(2)
+    expect(RELATED_LENGTHS).toContain(entry.related.length)
     expect(entry.related).not.toContain(entry.slug)
     expect(entry.related.filter(slug => !slugs.includes(slug))).toEqual([])
     expect(
@@ -252,6 +270,15 @@ describe('use case content', () => {
         expect(Array.isArray(request.params[key.split('.')[0]]), key).toBe(false)
       }
     }
+  })
+
+  test.each(landings)('$slug inline links resolve to a page or a doc', entry => {
+    const content = contents.get(entry.slug)
+    const broken = inlineLinksOf(content).filter(
+      href => !resolvesInternally(href)
+    )
+    expect(broken).toEqual([])
+    expect(inlineLinksOf(content)).not.toContain(`/use-cases/${entry.slug}`)
   })
 
   test.each(landings)('$slug copy avoids banned characters', entry => {

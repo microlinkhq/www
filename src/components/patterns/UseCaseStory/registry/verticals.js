@@ -13,10 +13,10 @@ export const VERTICALS = [
     hub: {
       title: 'Website screenshot API use cases',
       description:
-        'Recipes for the Screenshot API: mobile viewports, cookie banners, single elements, traffic spikes and proxies, each with copy-pasteable code.',
+        'Screenshot API recipes with code: mobile and dark mode captures, single elements, pages behind a login, blocked sites and Open Graph images.',
       h1: 'Website screenshot use cases',
       intro:
-        'One problem per page. Each recipe shows the exact Screenshot API options that solve it, the code to run, and when it is not the right tool.',
+        'Recipes for the jobs a website screenshot API gets hired for: mobile and dark mode captures, single elements, pages behind a login, bot-protected sites, Open Graph images and bursty traffic. One problem per page, with the exact options that solve it, code you can paste, and a note on when it is not the right tool.',
       cta: {
         headlinePrefix: 'Ready to capture',
         headlineAccent: 'any website',
@@ -39,10 +39,10 @@ export const VERTICALS = [
     hub: {
       title: 'Website to PDF API use cases',
       description:
-        'Recipes for turning any URL into a PDF: invoices behind a login, clean print layouts, paper sizes, download links, archives and bulk generation.',
+        'Website to PDF recipes with code: invoices behind a login, clean layouts without ads, paper size and margins, download links and bulk generation.',
       h1: 'Website to PDF use cases',
       intro:
-        'One problem per page. Each recipe shows the PDF API options that produce the document you need, the code to run, and the limits to plan for.',
+        'Recipes for turning any URL into a PDF: invoices and receipts behind a login, clean print layouts without ads, paper size and margins, direct download links, article archives and bulk generation. One problem per page, with the PDF API options that produce the document, code you can paste, and the limits to plan for.',
       cta: {
         headlinePrefix: 'Ready to print',
         headlineAccent: 'any URL to PDF',
@@ -65,10 +65,10 @@ export const VERTICALS = [
     hub: {
       title: 'URL to Markdown API use cases',
       description:
-        'Recipes for converting web pages, documents and videos into clean Markdown for LLMs: frontmatter, scoped content, YouTube transcripts and office files.',
+        'URL to Markdown recipes for LLM and RAG pipelines: clean article bodies, metadata frontmatter, JavaScript apps, PDFs, office files and YouTube.',
       h1: 'Website to Markdown use cases',
       intro:
-        'One problem per page. Each recipe shows how to get exactly the Markdown your pipeline needs, the code to run, and what the conversion does not cover.',
+        'Recipes for converting web pages, documents and videos into clean Markdown for LLMs and RAG pipelines: boilerplate-free articles, metadata frontmatter, JavaScript-rendered apps, PDFs and office files, YouTube transcripts and crawl-scale conversion. One problem per page, with the code to run and what the conversion does not cover.',
       cta: {
         headlinePrefix: 'Ready to convert',
         headlineAccent: 'any URL to Markdown',
@@ -91,10 +91,10 @@ export const VERTICALS = [
     hub: {
       title: 'Website metadata API use cases',
       description:
-        'Recipes for the Metadata API: custom fields next to Open Graph data, missing og:image fixes, single-page apps, brand colors and link previews at scale.',
+        'Link preview and metadata extraction recipes: custom fields, missing og:image fixes, single-page apps, brand colors and unfurling at scale.',
       h1: 'Website metadata use cases',
       intro:
-        'One problem per page. Each recipe shows how to shape the normalized metadata, the code to run, and when a custom extraction rule is the better tool.',
+        'Recipes for link previews and website metadata extraction: custom fields next to Open Graph data, fixes for a missing og:image, single-page apps, brand colors, localized pages, bot-protected sites and unfurling at scale. One problem per page, with the code to run and a note on when a custom extraction rule is the better tool.',
       cta: {
         headlinePrefix: 'Ready to extract',
         headlineAccent: 'metadata from any URL',

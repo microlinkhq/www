@@ -13,11 +13,15 @@ export const WEBSITE_TO_PDF = [
     keywords: [
       'generate invoice pdf from url',
       'html invoice to pdf api',
-      'pdf of authenticated page'
+      'pdf of authenticated page',
+      'receipt pdf api'
     ],
     related: [
       'website-to-pdf/download-links-and-previews',
       'website-to-pdf/batch-generation',
+      'website-to-pdf/paper-size-and-margins',
+      'website-to-pdf/clean-layout',
+      'website-to-pdf/dynamic-content',
       'website-screenshot/behind-login'
     ]
   },
@@ -28,15 +32,18 @@ export const WEBSITE_TO_PDF = [
     name: 'Clean PDFs without ads or banners',
     cta: 'Export clean PDFs',
     blurb:
-      'Ads and consent popups blocked by default, sticky navigation removed with one CSS rule, print or screen styles.',
+      'Get a document, not a browser tab: ads and consent popups blocked by default, sticky chrome removed with one CSS rule.',
     keywords: [
       'webpage to pdf without ads',
       'clean pdf from url',
-      'remove cookie banner pdf'
+      'remove cookie banner pdf',
+      'print stylesheet pdf api'
     ],
     related: [
       'website-to-pdf/archive-articles',
       'website-to-pdf/paper-size-and-margins',
+      'website-to-pdf/dynamic-content',
+      'website-to-pdf/download-links-and-previews',
       'website-screenshot/block-cookie-banners-and-ads',
       'website-to-markdown/clean-content'
     ]
@@ -48,16 +55,18 @@ export const WEBSITE_TO_PDF = [
     name: 'Paper size, margins and orientation',
     cta: 'Set paper size and margins',
     blurb:
-      'A4 or Letter, custom dimensions, per-side margins, landscape, scale and page ranges from one request.',
+      'Print any URL on A4, Letter or custom paper, with per-side margins, landscape, scale and page ranges.',
     keywords: [
+      'pdf paper size api',
       'html to pdf a4 api',
       'pdf margins api',
-      'landscape pdf from url'
+      'landscape pdf from url',
+      'custom pdf page size'
     ],
     related: [
       'website-to-pdf/clean-layout',
-      'website-to-pdf/download-links-and-previews',
-      'website-to-pdf/archive-articles'
+      'website-to-pdf/invoices-and-receipts',
+      'website-to-pdf/dynamic-content'
     ]
   },
   {
@@ -67,15 +76,19 @@ export const WEBSITE_TO_PDF = [
     name: 'PDF download links and previews',
     cta: 'Create PDF download links',
     blurb:
-      'Make the API URL return the PDF itself for one-click downloads and iframe previews.',
+      'Turn the API URL into the PDF itself for one-click download links and iframe previews, with no storage pipeline.',
     keywords: [
       'pdf download link from url',
       'embed pdf preview iframe',
-      'url to pdf direct response'
+      'url to pdf direct response',
+      'download web page as pdf button'
     ],
     related: [
       'website-to-pdf/invoices-and-receipts',
       'website-to-pdf/paper-size-and-margins',
+      'website-to-pdf/batch-generation',
+      'website-to-pdf/archive-articles',
+      'website-to-pdf/clean-layout',
       'website-screenshot/open-graph-images'
     ]
   },
@@ -86,17 +99,20 @@ export const WEBSITE_TO_PDF = [
     name: 'Archive web articles as PDF',
     cta: 'Archive articles as PDF',
     blurb:
-      'Readable, searchable PDFs of articles and docs, printed with their print styles and trimmed to the pages you need.',
+      'Keep readable, searchable PDFs of articles and docs, printed with their print styles and trimmed to the pages you need.',
     keywords: [
       'save web article as pdf api',
       'archive web pages pdf',
-      'web page to pdf for research'
+      'web page to pdf for research',
+      'save webpage as pdf programmatically'
     ],
     related: [
       'website-to-pdf/clean-layout',
       'website-to-pdf/paper-size-and-margins',
       'website-to-pdf/batch-generation',
-      'website-to-markdown/clean-content'
+      'website-to-pdf/download-links-and-previews',
+      'website-to-markdown/clean-content',
+      'website-to-markdown/with-metadata'
     ]
   },
   {
@@ -106,15 +122,18 @@ export const WEBSITE_TO_PDF = [
     name: 'PDFs in bulk',
     cta: 'Generate PDFs in bulk',
     blurb:
-      'Thousands of documents from URLs in one job: parallel requests, server-side retries and per-document caching.',
+      'Render thousands of documents from URLs in one job: parallel requests, server-side retries and per-document caching.',
     keywords: [
       'bulk pdf generation api',
       'generate thousands of pdfs',
-      'batch html to pdf'
+      'batch html to pdf',
+      'bulk url to pdf'
     ],
     related: [
       'website-to-pdf/invoices-and-receipts',
       'website-to-pdf/dynamic-content',
+      'website-to-pdf/download-links-and-previews',
+      'website-to-pdf/archive-articles',
       'website-screenshot/traffic-spikes',
       'website-to-markdown/bulk-conversion'
     ]
@@ -126,16 +145,20 @@ export const WEBSITE_TO_PDF = [
     name: 'PDFs of JavaScript-rendered pages',
     cta: 'Render dynamic pages to PDF',
     blurb:
-      'Wait for charts and single-page apps to render, open tabs and sections, then print.',
+      'Print dashboards and single-page apps after they render: wait for the chart, open tabs and sections, then print.',
     keywords: [
-      'pdf of spa api',
+      'javascript rendered page to pdf',
       'print dashboard to pdf',
+      'pdf of single page app',
       'wait for chart pdf'
     ],
     related: [
       'website-to-pdf/batch-generation',
       'website-to-pdf/clean-layout',
-      'website-screenshot/dynamic-content'
+      'website-to-pdf/paper-size-and-margins',
+      'website-to-pdf/invoices-and-receipts',
+      'website-screenshot/dynamic-content',
+      'website-to-markdown/javascript-rendered-pages'
     ]
   }
 ]

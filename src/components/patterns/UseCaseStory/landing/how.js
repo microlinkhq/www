@@ -50,6 +50,7 @@ export const HowSection = ({ how }) => (
               key={step.label}
               step={step.label}
               language={languageOf(step)}
+              note={step.note}
             >
               {sourceOf(step)}
             </CodeBlock>

@@ -1,22 +1,23 @@
 export const CONTENT = {
   slug: 'website-metadata/brand-colors',
   head: {
-    title: "Extract brand colors from a website's images",
+    title: 'Extract brand colors from a website’s logo and images',
     description:
-      'Get the dominant palette and accessible text and background pairs from any site’s logo and preview image in one request, ready to theme your cards.'
+      'Get the dominant color palette of any site’s logo and og:image, plus a readable background and text pair, in one metadata request. Made for themed cards.'
   },
   hero: {
-    title: 'Extract brand colors from any website’s logo and images',
+    title: 'Extract brand colors from any website’s logo and preview image',
     intro:
-      'A preview card looks native when it borrows the brand’s colors. Instead of picking them by hand, ask the Metadata API for the palette of the page’s logo and image, with a background color and a readable text color already computed.',
+      'Extract brand colors from a website without downloading a single image: the Metadata API returns the dominant palette of the page’s logo and preview image, with a background color and readable text colors already picked. Link cards, bookmark managers, CRMs and directory listings use it to tint each entry to the brand it points at.',
     cta: { label: 'Start with the Metadata API', href: '/metadata' }
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Theming previews by hand does not scale',
+    title: 'Picking brand colors by hand does not scale past a few domains',
     paragraphs: [
-      'Cards, embeds and link lists look generic in one shade of gray. Tinting each one to the linked brand requires a color you do not have, and extracting it from images means downloading them and running a quantizer yourself.',
-      'With palette enabled, every image field in the metadata, the logo and the preview image, gains a palette array of dominant colors plus background_color, color and alternative_color chosen for contrast. One request, theme included.'
+      'Cards, embeds and link lists look generic in one shade of gray. Tinting each one to the linked brand needs a color you do not have, for thousands of domains you have never seen.',
+      'Doing it yourself means finding the logo and the og:image, downloading both, running a color quantizer and then checking contrast, because the most dominant color of an image is often unusable behind text. A hand-curated table of brand colors goes stale at the first rebrand.',
+      'With [palette](/docs/api/parameters/palette) enabled, every image field in the metadata gains a palette array ordered from most to least dominant, plus background_color, color and alternative_color chosen for contrast. The colors arrive in the same response as the [normalized metadata](/metadata), so the card and its theme come from one request.'
     ],
     live: {
       label: 'Open the live JSON with palettes',
@@ -27,19 +28,19 @@ export const CONTENT = {
     }
   },
   how: {
-    title: 'Ask for the palette, use the pairs',
+    title: 'How to get a color palette from a logo or og:image',
     intro:
-      'palette is a boolean. The computed colors arrive on the image and logo fields; use the pair fields directly in your CSS.',
+      'palette is a boolean and defaults to false. The computed colors arrive on the image and logo fields as hexadecimal strings, ready to drop into your CSS. The [extending results guide](/docs/guides/metadata/extending-results) lists the other enrichments that ride on the same request.',
     steps: [
       {
         label: '1 · Palette with the SDK',
         sdk: "const { image, logo } = await microlink.metadata('https://example.com', {\n  palette: true\n})\n\nconsole.log(image.palette, image.background_color, image.color)",
-        note: 'Each image field carries its palette and the accessible foreground and background pair.'
+        note: 'Each image field now carries palette, an array of hex colors from most to least dominant, next to background_color, color and alternative_color.'
       },
       {
         label: '2 · Theme a preview card',
         sdk: "const { title, logo } = await microlink.metadata('https://example.com', {\n  palette: true,\n  meta: { title: true, logo: true }\n})\n\nconst card = {\n  backgroundColor: logo.background_color,\n  color: logo.color,\n  accent: logo.alternative_color\n}",
-        note: 'Restrict meta to the fields you need; the logo palette is often the truest brand color.'
+        note: 'Restricting [meta](/docs/api/parameters/meta) to title and logo skips the detection you do not render. The logo palette is often the truest brand color, because preview images tend to be photographs.'
       },
       {
         label: '3 · The same request as a URL',
@@ -47,14 +48,14 @@ export const CONTENT = {
           url: 'https://example.com',
           params: { palette: true, meta: { image: true, logo: true } }
         },
-        note: 'palette=true adds the color fields to every image-like field in the response.'
+        note: 'palette=true adds the color fields to every image field in the JSON. The request runs on the free endpoint, with no API key.'
       }
     ],
     params: [
       {
         name: 'palette',
         href: '/docs/api/parameters/palette',
-        note: 'Adds palette, background_color, color and alternative_color to image fields.'
+        note: 'Boolean, default false. Adds palette, background_color, color and alternative_color to every detected image field.'
       },
       {
         name: 'meta',
@@ -64,62 +65,69 @@ export const CONTENT = {
       {
         name: 'data',
         href: '/docs/api/parameters/data',
-        note: 'Extract a different image with a rule and type image to get its palette too.'
+        note: 'Extract a different image with a rule of type image and it gets a palette too.'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Brand colors change rarely; cache them for the maximum on Pro plans.'
+        note: 'Brand colors change rarely; cache them for up to 31 days. Pro plans.'
       }
     ],
     outro:
-      'background_color is the palette color chosen as the background, and color and alternative_color are text colors picked to read on it.'
+      'background_color is the palette color with the best WCAG contrast ratio for use as a background, color is the best color to lay over it, and alternative_color is the second best. When only two colors can be parsed, alternative_color equals color.'
   },
   why: {
-    title: 'Why compute colors at the API',
+    title: 'Why compute dominant colors in the metadata API',
     intro:
-      'The image is already fetched to measure it. Extracting its colors in the same pass costs nothing extra on your side.',
+      'The image is already fetched to measure its dimensions and size. Extracting its colors in the same pass saves you a download, a quantizer and a contrast library.',
     cards: [
       {
         kicker: 'Accessible by default',
         title: 'The pairs are chosen for contrast, not just dominance.',
-        body: 'A dominant color is often unusable as a background. Microlink returns a background_color with a readable color and an alternative_color, so cards meet contrast expectations without a second library.',
-        note: 'Use the raw palette array when you want to pick your own accent from the top colors.'
+        body: 'A dominant color is often unusable behind text. Microlink returns a background_color picked for a good WCAG contrast ratio, the color that reads best over it and an alternative, so cards stay legible without a second library.',
+        note: 'Use the raw palette array when you want to pick your own accent from the most dominant colors.'
       },
       {
         kicker: 'From the real assets',
         title: 'Logo and preview image, not a guess.',
-        body: 'The palette is computed from the page’s own logo and image, which is where brand color lives. No lookup tables, no manual curation per domain.',
-        note: 'For a custom image, add a [data rule](/use-cases/website-metadata/custom-fields) with type image and it gets a palette as well.'
+        body: 'The palette is computed from the page’s own logo and preview image, which is where brand color lives. There are no lookup tables and no manual curation per domain, so a rebrand shows up when the cache expires.',
+        note: 'For a different image, add a [custom data rule](/use-cases/website-metadata/custom-fields) with type image and it carries the same color fields.'
       },
       {
         kicker: 'Cached with the preview',
         title: 'Colors ride along with the metadata you already fetch.',
-        body: 'Because palette is part of the same response, a link preview and its theme share one request and one cache entry.',
-        note: 'When not to: sites with a monochrome logo or a photographic hero image produce palettes that are not brand colors; fall back to your own accent when the pair looks off.'
+        body: 'Because palette is part of the metadata response, a link preview and its theme share one request and one cache entry. Responses are cached for 24 hours by default, and cache hits do not count against your quota.',
+        note: 'When not to: a monochrome logo or a photographic hero image produces a palette that is not the brand color. Fall back to your own accent when the pair looks off.'
       }
     ]
   },
   faq: [
     {
-      question: 'Which fields does palette add?',
+      question: 'Which fields does palette add to the metadata response?',
       answer:
-        'For each image-like field, such as image and logo: palette, an array of dominant colors; background_color, chosen for contrast; and color plus alternative_color, text colors that read on that background.'
+        'For each image field, such as image and logo: palette, an array of hex colors from most to least dominant; background_color, the color with the best contrast ratio for a background; and color plus alternative_color, the two best colors to place over it. The rest of the asset object (url, type, width, height, size) is unchanged.'
     },
     {
-      question: 'Does palette work with custom extracted images?',
+      question:
+        'How do I extract brand colors from a website without downloading its images?',
       answer:
-        'Yes. A data rule with type image resolves to an asset object, and with palette enabled it carries the same color fields.'
+        'Request the page’s metadata with palette: true. Microlink finds the logo and the preview image, computes their palettes server-side and returns the colors as hex strings in the JSON, so your code never touches the image files.'
     },
     {
-      question: 'Are the extracted colors accessible?',
+      question:
+        'Does palette work with a custom image extracted next to the metadata?',
       answer:
-        'The background and text pairs are selected for contrast so text stays readable. Verify against your own contrast target when the card carries small text.'
+        'Yes. A data rule with type image resolves to an asset object, and with palette enabled it carries the same color fields as image and logo. The [type reference](/docs/sdk/methods/extract/type) lists every media type a rule can resolve to.'
     },
     {
-      question: 'Does palette slow down the request?',
+      question: 'Are the colors from the metadata palette accessible?',
       answer:
-        'It adds image processing to the request. Keep meta scoped to image and logo, and cache the result with ttl, since brand colors rarely change.'
+        'background_color is chosen for a good WCAG contrast ratio and color is the best match over it, so regular body text stays readable. Verify against your own contrast target when the card carries small or light text.'
+    },
+    {
+      question: 'Does palette slow down a metadata request?',
+      answer:
+        'It adds image processing, which is why the [caching and performance guide](/docs/guides/metadata/caching-and-performance) lists it among the enrichments to skip when you do not need them. Keep meta scoped to image and logo, and cache the result with ttl on Pro plans, since brand colors rarely change.'
     }
   ],
   cta: {
@@ -128,5 +136,25 @@ export const CONTENT = {
     body: 'Palettes and accessible pairs from the logo and image of any site. Start on the free tier and tint your first preview card today.',
     href: '/metadata',
     label: 'Extract a palette'
+  },
+  howTo: {
+    name: 'How to extract brand colors from a website',
+    steps: [
+      {
+        title: 'Enable palette on a metadata request',
+        description:
+          'Call the Metadata API with palette set to true. Every detected image field, such as image and logo, gains the color fields.'
+      },
+      {
+        title: 'Read the accessible pair',
+        description:
+          'Use background_color as the card background, color as the text color and alternative_color as the accent. The palette array holds the raw dominant colors.'
+      },
+      {
+        title: 'Scope and cache the request',
+        description:
+          'Restrict meta to image and logo so nothing else is detected, and cache the result with ttl because brand colors rarely change.'
+      }
+    ]
   }
 }

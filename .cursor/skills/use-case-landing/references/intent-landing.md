@@ -22,11 +22,18 @@ Product use cases live under a vertical hub and are rendered by the shared
   blurb: 'One sentence, what the developer gets.',
   category: 'Screenshot API',
   keywords: ['mobile website screenshot api', 'screenshot viewport'],
-  related: ['website-screenshot/capture-element', 'website-to-pdf/clean-layout']
+  related: [
+    'website-screenshot/capture-element',
+    'website-screenshot/dark-mode',
+    'website-to-pdf/clean-layout'
+  ]
 }
 ```
 
-`related` needs at least two slugs, at least one from the same vertical, never itself.
+`related` holds exactly 3 or exactly 6 slugs, at least one from the same vertical, never
+itself. They render as the same `UseCaseCard` grid as `/use-cases`, so those two counts
+are the ones that fill the rows. Prefer 6 when real relations exist: same-vertical
+siblings plus the cross-vertical twin (`blocked-sites` with `built-in-proxy`).
 
 2. Content module `src/components/pages/use-cases/<vertical>/<intent>.js` exporting
 `CONTENT`. It must stay import-free (strings, arrays, objects only) so
@@ -40,7 +47,7 @@ export const CONTENT = {
   problem: {
     eyebrow: 'The problem',
     title: 'h2',
-    paragraphs: ['…', '…'],
+    paragraphs: ['the pain', 'why the workaround fails', 'how the API solves it'],
     figure: { request: { url, params }, alt, width, height, caption },
     live: { label: 'Open the live response', request: { url, params } }
   },
@@ -48,9 +55,9 @@ export const CONTENT = {
     title: 'h2',
     intro: '…',
     steps: [
-      { label: '1 · Emulate the device', sdk: 'SDK body without the client boilerplate' },
-      { label: '2 · Raw API URL', request: { url: 'https://example.com', params: { screenshot: true } } },
-      { label: '3 · Anything else', code: '…', language: 'bash' }
+      { label: '1 · Emulate the device', sdk: 'SDK body without the client boilerplate', note: '…' },
+      { label: '2 · Raw API URL', request: { url: 'https://example.com', params: { screenshot: true } }, note: '…' },
+      { label: '3 · Anything else', code: '…', language: 'bash', note: '…' }
     ],
     params: [{ name: 'viewport', href: '/docs/api/parameters/viewport', note: '…' }],
     outro: '…'
@@ -69,7 +76,13 @@ Rules the test enforces:
 - `request.params` keys must be documented under `src/content/docs/api/parameters/`
   and must not contain arrays (pass a single string; arrays only in `sdk` snippets).
 - `params[].href` must resolve to a docs page.
-- Inline links use `[label](/href)` in `intro`, `paragraphs`, `note`, `outro` and FAQ answers.
+- Inline links use `[label](/href)` in `hero.intro`, `problem.paragraphs`, `figure.caption`,
+  `how.intro`, `steps[].note`, `how.outro`, `why.intro`, `cards[].note` and FAQ answers.
+  `cards[].body`, `params[].note` and `cta.body` render as plain text.
+- Every inline link must resolve to a file under `src/pages` or `src/content/docs`, and a
+  landing never links to itself.
+- `steps[].note` renders under its code block: one or two sentences on what the code does
+  and what comes back.
 - No em dash, no `...` (use `…`), exactly three `why.cards`, three to five FAQ items.
 - Titles, h1s and FAQ questions are unique across the whole catalog.
 
@@ -103,7 +116,21 @@ export default UseCaseMobileScreenshotPage
 
 ## Copy rules
 
-- Only documented claims: 25 req/day free, 99.9% SLA on paid plans, no throttling,
+- Depth: 750 to 1000 words of visible prose. Three problem paragraphs (the pain, why the
+  usual workaround fails, how the API solves it), five FAQ items, and a `howTo` object
+  mirroring `how.steps` in plain text.
+- The registry `keywords` are the semantic targets. The primary keyword appears in the
+  title, the h1, the first sentence of the intro, one H2 and one FAQ question. `how.title`
+  reads as "How to <task>", `problem.title` names the concrete pain, `why.title` starts
+  with "Why".
+- FAQ questions are phrased the way a developer searches (How do I, Can I, Why does) and
+  name the vertical's noun (screenshot, PDF, Markdown, metadata) so they stay unique.
+- Six to ten inline links per page, mixing parameter docs, the matching guide under
+  `/docs/guides`, a `/features` page, the product page, a `/tools` page and sibling use
+  cases. Descriptive anchors only.
+- Cache hits do not count against the quota. Never write that cached responses count or
+  cost less.
+- Only documented claims: 25 req/day free, 99.9% SLA on every paid plan, no throttling,
   24 h default cache, `ttl` 1 min to 31 d (Pro), automatic proxy resolution (Pro),
   `proxy.location` ISO country codes. Never say autoscaling.
 - Task-shaped, verb-first titles that name the output and the constraint. Never

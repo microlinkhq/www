@@ -9,16 +9,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Mobile screenshots at any viewport',
     cta: 'Capture mobile screenshots',
     blurb:
-      'Emulate a phone, a tablet or any custom viewport and capture the page exactly as those users see it.',
+      'Emulate an iPhone, a Pixel, an iPad or any custom viewport and capture the page exactly as those visitors see it.',
     keywords: [
       'mobile website screenshot api',
       'screenshot viewport',
-      'device emulation screenshot'
+      'device emulation screenshot',
+      'responsive website screenshot'
     ],
     related: [
       'website-screenshot/capture-element',
       'website-screenshot/dark-mode',
-      'website-screenshot/faster-smaller-screenshots'
+      'website-screenshot/faster-smaller-screenshots',
+      'website-screenshot/browser-frame',
+      'website-screenshot/dynamic-content',
+      'website-to-pdf/paper-size-and-margins'
     ]
   },
   {
@@ -28,17 +32,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshots without cookie banners or ads',
     cta: 'Block cookie banners and ads',
     blurb:
-      'Ads, trackers and consent banners are blocked before the page renders, and first-party banners get dismissed with one option.',
+      'Ads, trackers and consent popups are blocked before the page renders, and one option dismisses first-party banners.',
     keywords: [
       'screenshot without cookie banner',
       'remove cookie consent popup screenshot',
-      'ad free screenshot api'
+      'ad free screenshot api',
+      'clean website screenshot'
     ],
     related: [
       'website-screenshot/capture-element',
       'website-screenshot/dynamic-content',
       'website-screenshot/behind-login',
-      'website-to-pdf/clean-layout'
+      'website-screenshot/faster-smaller-screenshots',
+      'website-to-pdf/clean-layout',
+      'website-to-markdown/clean-content'
     ]
   },
   {
@@ -48,16 +55,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshot a single element',
     cta: 'Capture a single element',
     blurb:
-      'Crop the capture to one CSS selector, with a transparent background if you need it.',
+      'Crop the capture to one CSS selector, such as a chart or a pricing table, with a transparent background if you need it.',
     keywords: [
       'screenshot element css selector',
       'screenshot specific element api',
-      'transparent screenshot'
+      'transparent screenshot',
+      'capture dom element as image'
     ],
     related: [
       'website-screenshot/block-cookie-banners-and-ads',
       'website-screenshot/dynamic-content',
-      'website-screenshot/mobile'
+      'website-screenshot/mobile',
+      'website-screenshot/faster-smaller-screenshots',
+      'website-screenshot/browser-frame',
+      'website-to-markdown/clean-content'
     ]
   },
   {
@@ -67,17 +78,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshots under traffic spikes',
     cta: 'Handle traffic spikes',
     blurb:
-      'Bursty screenshot traffic without provisioning browsers: no throttling, parallel requests and a cache that absorbs repeats.',
+      'Absorb bursts of screenshot traffic without a browser pool: no throttling, parallel requests and a cache whose hits are free.',
     keywords: [
-      'screenshot api scale',
+      'high volume screenshots',
       'screenshot api rate limits',
-      'high volume screenshots'
+      'screenshot api scale',
+      'screenshot traffic spikes'
     ],
     related: [
-      'website-screenshot/open-graph-images',
       'website-screenshot/faster-smaller-screenshots',
+      'website-screenshot/open-graph-images',
       'website-screenshot/built-in-proxy',
-      'website-to-pdf/batch-generation'
+      'website-to-pdf/batch-generation',
+      'website-to-markdown/bulk-conversion',
+      'website-metadata/high-volume-link-previews'
     ]
   },
   {
@@ -87,17 +101,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshot blocked websites',
     cta: 'Screenshot blocked websites',
     blurb:
-      'When a target blocks headless browsers, one option routes the capture through the built-in proxy.',
+      'When a site blocks headless browsers, one option routes the capture through a managed, rotating proxy pool.',
     keywords: [
-      'screenshot api proxy',
+      'screenshot blocked website',
       'screenshot cloudflare protected site',
-      'screenshot blocked website'
+      'screenshot api proxy',
+      'bypass bot protection screenshot'
     ],
     related: [
       'website-screenshot/proxy-geolocation',
       'website-screenshot/behind-login',
+      'website-screenshot/dynamic-content',
       'website-screenshot/traffic-spikes',
-      'website-to-markdown/blocked-sites'
+      'website-to-markdown/blocked-sites',
+      'website-metadata/blocked-sites'
     ]
   },
   {
@@ -107,17 +124,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshot a site from another country',
     cta: 'Capture from another country',
     blurb:
-      'Pin the request to a country and capture the page the way a local visitor sees it.',
+      'Pin the request to a country with a two-letter code and capture the prices and copy a local visitor sees.',
     keywords: [
       'screenshot website from another country',
       'geolocated screenshot api',
-      'proxy location screenshot'
+      'proxy location screenshot',
+      'screenshot geo-targeted page'
     ],
     related: [
       'website-screenshot/built-in-proxy',
-      'website-screenshot/behind-login',
+      'website-screenshot/block-cookie-banners-and-ads',
       'website-screenshot/mobile',
-      'website-metadata/localized-metadata'
+      'website-screenshot/behind-login',
+      'website-metadata/localized-metadata',
+      'website-to-markdown/blocked-sites'
     ]
   },
   {
@@ -127,8 +147,13 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshots in dark mode',
     cta: 'Capture dark mode',
     blurb:
-      'Force prefers-color-scheme before the capture and get the dark variant of any page that supports it.',
-    keywords: ['screenshot dark mode', 'prefers-color-scheme screenshot api'],
+      'Set prefers-color-scheme before the capture and get the dark or light theme of any page that supports it.',
+    keywords: [
+      'screenshot dark mode',
+      'prefers-color-scheme screenshot api',
+      'dark mode website screenshot',
+      'light and dark theme screenshots'
+    ],
     related: [
       'website-screenshot/mobile',
       'website-screenshot/browser-frame',
@@ -142,18 +167,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Dynamic Open Graph images',
     cta: 'Generate Open Graph images',
     blurb:
-      'Point og:image at an API URL and every share gets a fresh, cached screenshot of the page.',
+      'Point og:image at an API URL and every share shows a current, cached screenshot of the page.',
     keywords: [
       'dynamic open graph image',
       'og image from screenshot',
-      'social preview image api'
+      'social preview image api',
+      'og:image screenshot url'
     ],
     related: [
       'website-screenshot/browser-frame',
       'website-screenshot/traffic-spikes',
       'website-screenshot/dark-mode',
       'website-to-pdf/download-links-and-previews',
-      'website-metadata/missing-or-wrong-metadata'
+      'website-metadata/missing-or-wrong-metadata',
+      'website-metadata/high-volume-link-previews'
     ]
   },
   {
@@ -165,11 +192,14 @@ export const WEBSITE_SCREENSHOT = [
     blurb:
       'Forward a session cookie or a bearer token as a request header and capture pages only your users can see.',
     keywords: [
-      'screenshot logged in page api',
+      'screenshot page behind login',
       'screenshot authenticated page',
-      'screenshot with cookies api'
+      'screenshot with cookies api',
+      'screenshot logged in page api'
     ],
     related: [
+      'website-screenshot/capture-element',
+      'website-screenshot/dynamic-content',
       'website-screenshot/built-in-proxy',
       'website-screenshot/block-cookie-banners-and-ads',
       'website-screenshot/traffic-spikes',
@@ -183,17 +213,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshots of JavaScript-rendered pages',
     cta: 'Capture JavaScript-rendered pages',
     blurb:
-      'Wait for the right element, event or delay so single-page apps and lazy sections are fully rendered before capture.',
+      'Wait for a selector, a lifecycle event or a delay so single-page apps and lazy sections finish rendering before capture.',
     keywords: [
-      'screenshot spa api',
+      'screenshot javascript rendered page',
       'screenshot after javascript loads',
-      'wait for selector screenshot'
+      'wait for selector screenshot',
+      'screenshot single page app'
     ],
     related: [
       'website-screenshot/capture-element',
       'website-screenshot/block-cookie-banners-and-ads',
       'website-screenshot/faster-smaller-screenshots',
-      'website-to-pdf/dynamic-content'
+      'website-to-pdf/dynamic-content',
+      'website-to-markdown/javascript-rendered-pages',
+      'website-metadata/javascript-rendered-pages'
     ]
   },
   {
@@ -203,16 +236,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshots with a browser frame',
     cta: 'Add a browser frame',
     blurb:
-      'Compose the capture inside a light or dark browser window over a color, gradient or image background.',
+      'Wrap the capture in a light or dark browser window over a color, gradient or image background.',
     keywords: [
-      'website screenshot browser mockup api',
       'screenshot with browser frame',
-      'browser window mockup generator api'
+      'website screenshot browser mockup api',
+      'browser window mockup api',
+      'framed website screenshot'
     ],
     related: [
       'website-screenshot/open-graph-images',
       'website-screenshot/dark-mode',
-      'website-screenshot/mobile'
+      'website-screenshot/mobile',
+      'website-screenshot/capture-element',
+      'website-screenshot/block-cookie-banners-and-ads',
+      'website-metadata/brand-colors'
     ]
   },
   {
@@ -222,16 +259,20 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Faster, smaller screenshots',
     cta: 'Speed up your screenshots',
     blurb:
-      'Skip metadata, pick JPEG quality and pixel density, and wait for a selector instead of a timer.',
+      'Skip metadata, pick JPEG quality and pixel density, and wait for a selector instead of a timer to cut time and bytes.',
     keywords: [
       'fast screenshot api',
-      'reduce screenshot size api',
-      'screenshot jpeg quality'
+      'reduce screenshot file size',
+      'screenshot jpeg quality',
+      'screenshot api performance'
     ],
     related: [
       'website-screenshot/traffic-spikes',
       'website-screenshot/dynamic-content',
-      'website-screenshot/mobile'
+      'website-screenshot/capture-element',
+      'website-screenshot/mobile',
+      'website-screenshot/open-graph-images',
+      'website-metadata/only-the-fields-you-need'
     ]
   }
 ]
