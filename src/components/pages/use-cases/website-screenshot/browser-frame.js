@@ -31,8 +31,7 @@ export const CONTENT = {
               background:
                 'linear-gradient(225deg, #FF057C 0%, #8D0B93 50%, #321575 100%)'
             }
-          },
-          viewport: { width: 1200, height: 750, deviceScaleFactor: 1 }
+          }
         }
       },
       alt: 'A website capture composed inside a dark browser frame over a gradient',
