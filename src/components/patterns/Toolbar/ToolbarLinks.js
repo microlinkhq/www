@@ -141,6 +141,13 @@ export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
+    label: 'AI',
+    href: '/ai',
+    actively: 'exact',
+    description: 'Prompt your agent to use Microlink',
+    icon: SparklesIcon
+  }),
+  createNavigationItem({
     label: 'SDK',
     href: '/integrations/sdk',
     description: 'Every product, one import',
@@ -199,13 +206,6 @@ export const NAVIGATION_SECTIONS = [
         actively: 'exact',
         description: 'One REST endpoint for every Microlink product',
         icon: ServerIcon
-      }),
-      createNavigationItem({
-        label: 'AI',
-        href: '/ai',
-        actively: 'exact',
-        description: 'Prompt your agent to use Microlink',
-        icon: SparklesIcon
       }),
       createNavigationItem({
         label: 'Screenshot',
@@ -464,9 +464,14 @@ export const NAVIGATION_SECTIONS = [
   }
 ]
 
+export const getSectionItems = ({ label, items }) =>
+  label === 'Tools' ? [...items, ...TOOLS_INTEGRATIONS_ITEMS] : items
+
 export const getToolbarSectionFromPathname = pathname => {
-  const section = NAVIGATION_SECTIONS.find(({ items }) =>
-    items.some(({ href }) => href.startsWith('/') && pathname.startsWith(href))
+  const section = NAVIGATION_SECTIONS.find(section =>
+    getSectionItems(section).some(
+      ({ href }) => href.startsWith('/') && pathname.startsWith(href)
+    )
   )
 
   return section ? section.label : ''
