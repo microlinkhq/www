@@ -23,6 +23,7 @@ import {
   Maximize,
   Server as ServerIcon,
   Package as PackageIcon,
+  Share2 as Share2Icon,
   Repeat as RepeatIcon,
   Video as VideoIcon,
   Zap,
@@ -156,6 +157,12 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/integrations/cli',
     description: 'Microlink from your terminal',
     icon: TerminalIcon
+  }),
+  createNavigationItem({
+    label: 'n8n',
+    href: '/integrations/n8n',
+    description: 'Microlink in your workflows',
+    icon: Share2Icon
   }),
   createNavigationItem({
     label: 'Component Builder',

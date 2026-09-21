@@ -56,6 +56,7 @@ const FOOTER_COLUMNS = [
       { label: 'SDK', href: '/integrations/sdk' },
       { label: 'CLI', href: '/integrations/cli' },
       { label: 'MCP', href: '/integrations/mcp' },
+      { label: 'n8n', href: '/integrations/n8n' },
       { label: 'Editor', href: '/editor' },
       { label: 'Blog', href: '/blog' },
       { label: 'Use cases', href: '/use-cases' },

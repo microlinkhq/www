@@ -14,7 +14,8 @@ import {
   Database,
   Package,
   Repeat,
-  Server
+  Server,
+  Share2
 } from 'react-feather'
 
 import Box from 'components/elements/Box'
@@ -351,6 +352,18 @@ export const INTEGRATIONS = [
     hue: 'violet',
     description: 'Give an AI agent the same URL-to-data API you use in code.',
     docs: { href: '/docs/api/getting-started/mcp', label: 'MCP docs' }
+  },
+  {
+    label: 'n8n',
+    href: '/integrations/n8n',
+    icon: Share2,
+    hue: 'red',
+    description:
+      'Drop any URL into a workflow: metadata, screenshots, PDFs, text.',
+    docs: {
+      href: 'https://www.npmjs.com/package/n8n-nodes-microlink',
+      label: 'Community node'
+    }
   },
   {
     label: 'Editor',
