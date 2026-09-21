@@ -14,7 +14,6 @@ import {
 } from 'components/patterns/CustomerStory/primitives'
 
 import { inline } from './inline-links'
-import { VerticalIconTile } from './vertical-icon'
 import { ACCENT, pathToUseCase } from '../use-cases'
 
 const crumbStyle = {
@@ -71,19 +70,17 @@ export const UseCaseHero = ({ vertical, hero }) => (
           { label: vertical.name, href: pathToUseCase(vertical.slug) }
         ]}
       />
-      <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
-        <VerticalIconTile vertical={vertical} size={40} />
-        <Text
-          css={theme({
-            color: 'black',
-            fontSize: 2,
-            fontWeight: 'bold',
-            lineHeight: 1
-          })}
-        >
-          {vertical.product} · Use case
-        </Text>
-      </Flex>
+      <Text
+        css={theme({
+          color: 'black',
+          fontSize: 2,
+          fontWeight: 'bold',
+          lineHeight: 1,
+          pb: [3, 3, 4, 4]
+        })}
+      >
+        {vertical.product} · Use case
+      </Text>
       <Heading
         variant={null}
         css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
