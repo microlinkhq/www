@@ -46,13 +46,18 @@ export const getFaqQuestions = () => {
     {
       question: 'Can my AI agent use Microlink?',
       answer: (
-        <div>
-          Yes. Install the <Link href='/integrations/mcp'>Microlink MCP</Link>{' '}
-          server with one config block and Claude, Cursor, or any MCP client
-          gets screenshots, PDFs, markdown, search, and more as callable tools.
-          The free tier works out of the box for every tool except Search; add
-          an API key for Search or when you need volume.
-        </div>
+        <>
+          <div>
+            Yes. Open <Link href='/ai'>Microlink AI</Link> and paste the prompt
+            into your agent. It installs the{' '}
+            <Link href='/skills/microlink'>Microlink skill</Link>, the entry
+            point for screenshots, PDFs, markdown, and the rest of the API.
+          </div>
+          <div>
+            The free tier works out of the box for every product except Search;
+            add an API key for Search or when you need volume.
+          </div>
+        </>
       )
     },
     {
@@ -64,8 +69,8 @@ export const getFaqQuestions = () => {
             features such as{' '}
             <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
             <Link href='/docs/api/parameters/ttl'>ttl</Link>, or{' '}
-            <Link href='/docs/api/parameters/proxy'>proxy</Link>, plus access
-            to Search.
+            <Link href='/docs/api/parameters/proxy'>proxy</Link>, plus access to
+            Search.
           </div>
           <div>
             It comes with an API key and a monthly quota. Not sure how much you

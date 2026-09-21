@@ -33,6 +33,7 @@ const FOOTER_COLUMNS = [
     title: 'Products',
     links: [
       { label: 'Microlink API', href: '/api' },
+      { label: 'Microlink AI', href: '/ai' },
       { label: 'Screenshot', href: '/screenshot' },
       { label: 'Link Preview', href: '/link-preview' },
       { label: 'Markdown', href: '/markdown' },
