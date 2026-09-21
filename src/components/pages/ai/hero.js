@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
@@ -18,36 +17,17 @@ import {
 
 import { HERO, HERO_PROOF, INSTALL_PROMPT } from './shared'
 
-const EditorStage = styled(Flex)`
-  ${theme({
-    width: '100%',
-    maxWidth: '700px',
-    justifyContent: 'center',
-    pb: [4, 4, 4, 5],
-    px: [2, 3, 0, 0]
-  })};
-
-  & > div,
-  & > div > div:first-child {
-    width: 100%;
+const EDITOR_FRAME = {
+  '& > div, & > div > div:first-child': {
+    width: '100%'
   }
-`
+}
 
 const proofItemCss = theme({
-  m: 0,
-  mb: 0,
   color: 'black80',
   fontSize: [1, 1, 2, 2],
   textAlign: 'left'
 })
-
-const NOTE_CSS = {
-  m: 0,
-  fontFamily: 'sans',
-  fontSize: 0,
-  lineHeight: 3,
-  hyphens: 'none'
-}
 
 const InstallPanel = () => (
   <Box
@@ -61,12 +41,9 @@ const InstallPanel = () => (
   >
     <Text
       css={theme({
-        m: 0,
         color: 'black',
-        fontFamily: 'sans',
         fontSize: 1,
         fontWeight: 'regular',
-        letterSpacing: 0,
         lineHeight: 2
       })}
     >
@@ -74,10 +51,8 @@ const InstallPanel = () => (
     </Text>
     <Text
       css={theme({
-        m: 0,
         mt: 1,
         color: 'black60',
-        fontFamily: 'sans',
         fontSize: 0,
         lineHeight: 2
       })}
@@ -99,11 +74,9 @@ const InstallPanel = () => (
       <Text
         as='pre'
         css={theme({
-          m: 0,
           color: 'black80',
           fontFamily: 'mono',
           fontSize: 0,
-          letterSpacing: 0,
           lineHeight: 2,
           overflowWrap: 'break-word',
           whiteSpace: 'pre-wrap'
@@ -112,7 +85,14 @@ const InstallPanel = () => (
         {INSTALL_PROMPT}
       </Text>
     </Box>
-    <Text css={theme({ ...NOTE_CSS, mt: 3, color: 'black60' })}>
+    <Text
+      css={theme({
+        mt: 3,
+        color: 'black60',
+        fontSize: 0,
+        hyphens: 'none'
+      })}
+    >
       One skill. It covers every Microlink product.
     </Text>
   </Box>
@@ -183,12 +163,7 @@ export const Hero = () => (
           <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
             <ArrowLink href={HERO.skillHref}>{HERO.skillLabel}</ArrowLink>
           </Flex>
-          <List
-            css={theme({
-              pt: [4, 4, 4, 4],
-              alignItems: 'flex-start'
-            })}
-          >
+          <List css={theme({ pt: 4, alignItems: 'flex-start' })}>
             {HERO_PROOF.map((point, index) => (
               <List.Item
                 key={point}
@@ -210,7 +185,18 @@ export const Hero = () => (
           alignItems: 'center'
         })}
       >
-        <EditorStage>
+        <Flex
+          css={[
+            theme({
+              width: '100%',
+              maxWidth: '700px',
+              justifyContent: 'center',
+              pb: [4, 4, 4, 5],
+              px: [2, 3, 0, 0]
+            }),
+            EDITOR_FRAME
+          ]}
+        >
           <Terminal
             autoHeight
             blinkCursor={false}
@@ -219,7 +205,7 @@ export const Hero = () => (
           >
             <InstallPanel />
           </Terminal>
-        </EditorStage>
+        </Flex>
       </Flex>
     </Flex>
   </Container>

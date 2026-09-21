@@ -5,8 +5,7 @@ export {
   CardGrid,
   StaticCard,
   CardText,
-  CardTitle,
-  tileColors
+  CardTitle
 } from 'components/pages/api/shared'
 
 export const ACCENT = colors.link

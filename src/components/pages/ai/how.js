@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from 'styled-components'
 import { theme } from 'theme'
 
 import Box from 'components/elements/Box'
@@ -11,24 +10,28 @@ import {
   CardText,
   CardTitle,
   SectionBlock,
-  StaticCard,
-  tileColors
+  StaticCard
 } from './shared'
 
-const STEP_TILE = tileColors('blue')
-
-const StepNumber = styled(Flex)(
-  theme({
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '40px',
-    height: '40px',
-    borderRadius: 3,
-    fontFamily: 'mono',
-    fontSize: 1,
-    fontWeight: 'bold',
-    flexShrink: 0
-  })
+const StepNumber = ({ children }) => (
+  <Flex
+    aria-hidden='true'
+    css={theme({
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: '40px',
+      height: '40px',
+      borderRadius: 3,
+      fontFamily: 'mono',
+      fontSize: 1,
+      fontWeight: 'bold',
+      flexShrink: 0,
+      bg: 'blue0',
+      color: 'blue7'
+    })}
+  >
+    {children}
+  </Flex>
 )
 
 export const How = () => (
@@ -37,12 +40,7 @@ export const How = () => (
       {HOW.steps.map((step, index) => (
         <Box as='li' key={step.title} css={theme({ minWidth: 0 })}>
           <StaticCard>
-            <StepNumber
-              aria-hidden='true'
-              css={{ background: STEP_TILE.bg, color: STEP_TILE.color }}
-            >
-              {index + 1}
-            </StepNumber>
+            <StepNumber>{index + 1}</StepNumber>
             <CardTitle>{step.title}</CardTitle>
             <CardText>{step.description}</CardText>
           </StaticCard>
