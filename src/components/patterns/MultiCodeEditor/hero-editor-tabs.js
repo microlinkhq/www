@@ -8,16 +8,19 @@ const tablistCss = theme({
   alignItems: 'stretch',
   width: '100%',
   minWidth: 0,
-  overflowX: 'auto'
+  overflowX: 'auto',
+  overflowY: 'hidden'
 })
 
-const tabCss = isActive =>
+const tabCss = (isActive, hasIcon) =>
   theme({
     appearance: 'none',
     display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
     flex: '0 0 auto',
+    gap: hasIcon ? 2 : 0,
+    height: [touchTargets.minHeight, '36px', '36px', '36px'],
     minHeight: [touchTargets.minHeight, '36px', '36px', '36px'],
     px: 2,
     py: 0,
@@ -78,7 +81,7 @@ export const HeroEditorTabs = ({
       onKeyDown={onKeyDown}
       css={tablistCss}
     >
-      {examples.map(({ label }, index) => {
+      {examples.map(({ label, icon }, index) => {
         const isActive = index === selectedIndex
         const tabId = `${idPrefix}-${index}`
         return (
@@ -93,13 +96,32 @@ export const HeroEditorTabs = ({
             tabIndex={isActive ? 0 : -1}
             onClick={() => onSelect(index)}
             css={[
-              tabCss(isActive),
+              tabCss(isActive, Boolean(icon)),
               {
                 touchAction: 'manipulation',
                 transition: `color ${transition.short}, background-color ${transition.short}, border-color ${transition.short}`
               }
             ]}
           >
+            {icon
+              ? (
+                <Box
+                  as='span'
+                  aria-hidden='true'
+                  css={theme({
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexShrink: 0,
+                    width: '16px',
+                    height: '16px',
+                    overflow: 'hidden'
+                  })}
+                >
+                  {icon}
+                </Box>
+                )
+              : null}
             {label}
           </Box>
         )

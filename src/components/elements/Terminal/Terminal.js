@@ -79,15 +79,17 @@ const TerminalHeader = styled('div')`
   position: sticky;
   height: 36px;
   top: 0;
-  z-index: 1;
+  z-index: 2;
 
   ${props =>
     props.$flush &&
     css`
       padding: 0;
-      height: auto;
+      height: fit-content;
       min-height: 36px;
+      flex-shrink: 0;
       align-items: stretch;
+      overflow: visible;
       background: ${cx('gray1')};
       border-bottom: ${borders[1]};
       border-bottom-color: ${cx('black10')};
@@ -328,7 +330,10 @@ const TerminalProvider = ({
                       display: ['none', 'flex', 'flex', 'flex'],
                       alignItems: 'center',
                       px: 3,
-                      flexShrink: 0
+                      flexShrink: 0,
+                      position: 'relative',
+                      zIndex: 2,
+                      overflow: 'visible'
                     })}
                   >
                     <ActionComponent text={text} />
