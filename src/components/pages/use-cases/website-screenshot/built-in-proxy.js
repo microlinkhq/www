@@ -90,7 +90,7 @@ export const CONTENT = {
         kicker: 'An explicit signal',
         title: 'EPROXYNEEDED tells you exactly when a target needs Pro.',
         body: 'Instead of guessing from a blank image, the free tier rejects a bot-protected target with a code you can catch. Send only those targets to your Pro key, and every other capture stays on the free route.',
-        note: 'The signal surfaces on the free tier. Automatic proxy resolution is a [Pro capability](/pricing), so a Pro request never needs the retry.'
+        note: 'The signal surfaces on the free tier. Automatic proxy resolution is a [Pro capability](/pricing), so a request sent to your Pro key from the start never needs the free-tier fallback.'
       },
       {
         kicker: 'Bring your own if you must',

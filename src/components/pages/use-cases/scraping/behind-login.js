@@ -37,10 +37,11 @@ export const CONTENT = {
     headers: {
       'x-api-header-cookie': \`session=\${process.env.SESSION_COOKIE}\`
     },
+    cacheKey: \`user-\${userId}\`,
     waitForSelector: '[data-testid=balance]'
   }
 )`,
-        note: 'The SDK sends headers as real HTTP request headers, never in the URL. waitForSelector on an element that only exists when signed in doubles as a check that the session was accepted.'
+        note: 'The SDK sends headers as real HTTP request headers, never in the URL. Forwarded headers are not part of the cache key, so cacheKey keeps each user in a separate cache entry, and waitForSelector on an element that only exists when signed in doubles as a check that the session was accepted.'
       },
       {
         label: '2 · A bearer token for an authenticated API',
@@ -51,14 +52,15 @@ export const CONTENT = {
     prerender: false,
     headers: {
       'x-api-header-authorization': \`Bearer \${process.env.APP_TOKEN}\`
-    }
+    },
+    cacheKey: \`tenant-\${tenantId}\`
   }
 )`,
-        note: 'For endpoints that answer with JSON, attr json parses the whole body and returns it with its original shape. prerender: false skips the browser because there is nothing to render.'
+        note: 'For endpoints that answer with JSON, attr json parses the whole body and returns it with its original shape. prerender: false skips the browser because there is nothing to render, and cacheKey scopes the cached response to the tenant that owns the token.'
       },
       {
         label: '3 · The same request with curl',
-        code: "curl -G https://pro.microlink.io \\\n  -d url=https://app.example.com/account \\\n  -d 'data.balance.selector=[data-testid=balance]' \\\n  -d data.balance.attr=text \\\n  -d meta=false \\\n  -H \"x-api-key: $MICROLINK_API_KEY\" \\\n  -H 'x-api-header-cookie: session=abc123'",
+        code: "curl -G https://pro.microlink.io \\\n  -d url=https://app.example.com/account \\\n  -d 'data.balance.selector=[data-testid=balance]' \\\n  -d data.balance.attr=text \\\n  -d meta=false \\\n  -d cacheKey=user-42 \\\n  -H \"x-api-key: $MICROLINK_API_KEY\" \\\n  -H 'x-api-header-cookie: session=abc123'",
         language: 'bash',
         note: 'x-api-key authenticates you against pro.microlink.io and the x-api-header-cookie value is what the target receives. The rules travel as data query parameters and the secret only as a header.'
       }
