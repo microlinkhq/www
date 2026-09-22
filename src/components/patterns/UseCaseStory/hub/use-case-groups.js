@@ -15,6 +15,7 @@ import { ProductTabs, panelId, tabId } from './product-tabs'
 import { useActiveGroup } from './use-active-group'
 import { CardGrid, UseCaseCard } from './use-case-card'
 import {
+  INDUSTRIES,
   PARTNER_ACCENT,
   VERTICALS,
   partnerUseCases,
@@ -32,6 +33,14 @@ const CUSTOMERS_GROUP = {
   linkLabel: 'All customer stories',
   Card: CustomerCard,
   entries: CUSTOMERS.slice(0, MAX_CARDS_PER_TAB)
+}
+
+const INDUSTRIES_GROUP = {
+  id: 'industries',
+  label: 'By industry',
+  accent: PARTNER_ACCENT,
+  Card: UseCaseCard,
+  entries: INDUSTRIES
 }
 
 const PARTNERS_GROUP = {
@@ -66,6 +75,7 @@ const toGroups = () => {
   return [
     CUSTOMERS_GROUP,
     ...verticals,
+    INDUSTRIES_GROUP,
     ...(partners.length > 0 ? [{ ...PARTNERS_GROUP, entries: partners }] : [])
   ].filter(({ entries }) => entries.length > 0)
 }

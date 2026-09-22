@@ -1,13 +1,23 @@
 import { theme } from 'theme'
 import React from 'react'
+import { Code, Search } from 'react-feather'
 
 import Flex from 'components/elements/Flex'
 import { Camera } from 'components/icons/Camera'
 import { Globe } from 'components/icons/Globe'
 import { Markdown } from 'components/icons/Markdown'
 import { PDF } from 'components/icons/PDF'
+import { ShieldUser } from 'components/icons/ShieldUser'
 
-const ICONS = { camera: Camera, globe: Globe, markdown: Markdown, pdf: PDF }
+const ICONS = {
+  camera: Camera,
+  code: Code,
+  globe: Globe,
+  markdown: Markdown,
+  pdf: PDF,
+  search: Search,
+  shield: ShieldUser
+}
 
 export const VerticalIconTile = ({ vertical, size = 40, ...props }) => {
   const Icon = ICONS[vertical.icon] || Globe

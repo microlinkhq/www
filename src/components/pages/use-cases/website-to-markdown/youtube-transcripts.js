@@ -17,22 +17,22 @@ export const CONTENT = {
     paragraphs: [
       'A summarizer or a RAG index cannot read a video. The knowledge in a conference talk or a product walkthrough stays out of reach of search, of your support bot and of the model you want to ask about it.',
       'Turning a YouTube video to text yourself means downloading the media and running speech recognition: minutes of compute per video, a model to host and transcripts that stumble over names and technical terms. The captions that already exist on YouTube would be better, but they sit behind a player and behind bot protection.',
-      'Microlink recognizes YouTube watch, youtu.be, shorts and embed URLs and returns the video’s caption transcript as the Markdown body, with the title, author, image and date resolved from the video metadata. YouTube blocks automated access, so the request goes through the [built-in proxy](/features/proxy), a Pro capability.'
+      'Microlink recognizes YouTube watch, youtu.be, shorts and embed URLs and returns the video’s caption transcript as the Markdown body, with the title, author, image and date resolved from the video metadata. YouTube blocks automated access, so the request needs the [built-in proxy](/features/proxy): send it with a Pro key and the proxy resolves automatically, with no parameter.'
     ]
   },
   how: {
     title: 'How to get a YouTube transcript as Markdown',
     intro:
-      'The transcript uses the same Markdown rule as any page, as the [URL to Markdown guide](/docs/guides/content-conversion/url-to-markdown) shows. Add proxy so the request reaches YouTube, and keep the metadata when you want the title and author alongside.',
+      'The transcript uses the same Markdown rule as any page, as the [URL to Markdown guide](/docs/guides/content-conversion/url-to-markdown) shows. Send it with a Pro key so the automatic proxy reaches YouTube, and keep the metadata when you want the title and author alongside.',
     steps: [
       {
         label: '1 · Transcript with the SDK',
-        sdk: "const transcript = await microlink.markdown(\n  'https://www.youtube.com/watch?v=tY2M2g-tG1Q',\n  { proxy: true }\n)",
-        note: 'The call resolves to a string: the caption transcript of the video as Markdown. proxy: true routes the request through automatic proxy resolution so it reaches YouTube.'
+        sdk: "const transcript = await microlink.markdown(\n  'https://www.youtube.com/watch?v=tY2M2g-tG1Q'\n)",
+        note: 'The call resolves to a string: the caption transcript of the video as Markdown. The client carries your Pro key, so automatic proxy resolution reaches YouTube with no extra option.'
       },
       {
         label: '2 · Transcript plus video metadata',
-        sdk: "const { title, author, date, transcript } = await microlink.metadata(\n  'https://youtu.be/tY2M2g-tG1Q',\n  {\n    proxy: true,\n    data: { transcript: { attr: 'markdown' } }\n  }\n)",
+        sdk: "const { title, author, date, transcript } = await microlink.metadata(\n  'https://youtu.be/tY2M2g-tG1Q',\n  {\n    data: { transcript: { attr: 'markdown' } }\n  }\n)",
         note: 'Name the rule transcript and it rides along with the normalized video fields, so one request gives you the text plus the title, channel and publication date to cite it with.'
       },
       {
@@ -41,12 +41,11 @@ export const CONTENT = {
           url: 'https://www.youtube.com/watch?v=tY2M2g-tG1Q',
           params: {
             data: { transcript: { attr: 'markdown' } },
-            meta: false,
-            proxy: true
+            meta: false
           },
           pro: true
         },
-        note: 'The URL form targets the pro endpoint because proxy is a Pro option. Read the transcript from data.transcript in the JSON response, or add embed=transcript to receive it directly as the response body.'
+        note: 'The URL form targets the pro endpoint because YouTube needs the proxy that comes with a Pro key. Read the transcript from data.transcript in the JSON response, or add embed=transcript to receive it directly as the response body.'
       }
     ],
     params: [
@@ -58,7 +57,7 @@ export const CONTENT = {
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Required for YouTube, which blocks automated access. Pro plans.'
+        note: 'Automatic on Pro plans with no value needed. YouTube blocks automated access, so transcripts need a Pro key.'
       },
       {
         name: 'meta',
@@ -108,7 +107,7 @@ export const CONTENT = {
     {
       question: 'How do I get the transcript of a YouTube video as Markdown?',
       answer:
-        'Send the video URL with a Markdown rule, for example data.transcript.attr=markdown, and proxy=true on a [Pro plan](/pricing). Microlink resolves the video and returns its caption transcript as Markdown, with the title, author, image and date when meta is on.'
+        'Send the video URL with a Markdown rule, for example data.transcript.attr=markdown, and send it with a [Pro plan](/pricing) key so the proxy resolves automatically. Microlink resolves the video and returns its caption transcript as Markdown, with the title, author, image and date when meta is on.'
     },
     {
       question: 'Which YouTube URLs return a Markdown transcript?',
@@ -118,7 +117,7 @@ export const CONTENT = {
     {
       question: 'Why does my YouTube Markdown request fail with EPROXYNEEDED?',
       answer:
-        'YouTube uses antibot protection, so the request needs the built-in proxy. Add proxy: true on a Pro plan. The free endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
+        'YouTube uses antibot protection, so the request needs the built-in proxy. Send it with a Pro key and the proxy resolves automatically, with no parameter. The free endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
     },
     {
       question: 'What language is the YouTube Markdown transcript in?',
@@ -144,17 +143,17 @@ export const CONTENT = {
       {
         title: 'Request the transcript with the SDK',
         description:
-          'Call the Markdown method with the YouTube URL and proxy: true. It resolves to the caption transcript of the video as a Markdown string.'
+          'Call the Markdown method with the YouTube URL on a Pro key. It resolves to the caption transcript of the video as a Markdown string.'
       },
       {
         title: 'Add the video metadata',
         description:
-          'Call the metadata method with proxy: true and a data rule named transcript with attr set to markdown. The title, author and date come back next to the transcript.'
+          'Call the metadata method on a Pro key with a data rule named transcript with attr set to markdown. The title, author and date come back next to the transcript.'
       },
       {
         title: 'Call the same request as a URL',
         description:
-          'Request the pro endpoint with url, data.transcript.attr=markdown, meta=false and proxy=true, and read the transcript from data.transcript in the JSON response.'
+          'Request the pro endpoint with url, data.transcript.attr=markdown, and meta=false with your API key, and read the transcript from data.transcript in the JSON response.'
       }
     ]
   }

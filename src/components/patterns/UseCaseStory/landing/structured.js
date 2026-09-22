@@ -134,3 +134,30 @@ export const customersStructured = () => {
     }
   ]
 }
+
+export const industryStructured = industry => {
+  const url = `${SITE_URL}${pathToUseCase(industry.slug)}`
+
+  return [
+    breadcrumbList(url, [
+      { name: 'Microlink', item: SITE_URL },
+      { name: 'Use cases', item: `${SITE_URL}/use-cases` },
+      { name: industry.name, item: url }
+    ]),
+    {
+      '@context': CONTEXT,
+      '@type': 'ItemList',
+      '@id': `${url}#use-cases`,
+      name: industry.h1,
+      itemListElement: industry.useCases.map(getUseCase).map(
+        (entry, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: entry.name,
+          url: `${SITE_URL}${pathToUseCase(entry.slug)}`
+        })
+      )
+    },
+    faqPage(url, industry.faq)
+  ]
+}

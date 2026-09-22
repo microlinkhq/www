@@ -101,7 +101,7 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Screenshot blocked websites',
     cta: 'Screenshot blocked websites',
     blurb:
-      'When a site blocks headless browsers, one option routes the capture through a managed, rotating proxy pool.',
+      'When a site blocks headless browsers, a Pro key escalates the capture through proxy tiers automatically.',
     keywords: [
       'screenshot blocked website',
       'screenshot cloudflare protected site',

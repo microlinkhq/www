@@ -1,3 +1,4 @@
+import { VERTICALS } from '../components/patterns/UseCaseStory/registry/verticals.js'
 import { toMarkdownPath } from './page-markdown.js'
 
 const SITE_URL = 'https://microlink.io'
@@ -21,6 +22,12 @@ const SECTIONS = [
   ['/docs/guides', 'Guides'],
   ['/docs/sdk', 'SDK'],
   ['/features', 'Features'],
+  ['/use-cases/customers', 'Customer stories'],
+  ['/use-cases/industries', 'Use cases by industry'],
+  ...VERTICALS.map(({ slug, product }) => [
+    `/use-cases/${slug}`,
+    `Use cases: ${product}`
+  ]),
   ['/use-cases', 'Use cases'],
   ['/alternative', 'Alternatives'],
   ['/integrations', 'Integrations'],

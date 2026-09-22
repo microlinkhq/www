@@ -3,6 +3,10 @@ import { WEBSITE_SCREENSHOT } from './registry/website-screenshot'
 import { WEBSITE_TO_PDF } from './registry/website-to-pdf'
 import { WEBSITE_TO_MARKDOWN } from './registry/website-to-markdown'
 import { WEBSITE_METADATA } from './registry/website-metadata'
+import { SCRAPING } from './registry/scraping'
+import { PROXY } from './registry/proxy'
+import { SEARCH_API } from './registry/search-api'
+import { INDUSTRIES } from './registry/industries'
 
 export const ACCENT = {
   text: 'link',
@@ -32,14 +36,20 @@ export const USE_CASES = [
   ...WEBSITE_SCREENSHOT,
   ...WEBSITE_TO_PDF,
   ...WEBSITE_TO_MARKDOWN,
-  ...WEBSITE_METADATA
+  ...WEBSITE_METADATA,
+  ...SCRAPING,
+  ...PROXY,
+  ...SEARCH_API
 ]
 
-export { VERTICALS }
+export { INDUSTRIES, VERTICALS }
 
 export const pathToUseCase = slug => `/use-cases/${slug}`
 
 export const getUseCase = slug => USE_CASES.find(entry => entry.slug === slug)
+
+export const getIndustry = slug =>
+  INDUSTRIES.find(industry => industry.slug === slug)
 
 export const getVertical = slug =>
   VERTICALS.find(vertical => vertical.slug === slug)

@@ -183,11 +183,12 @@ export const TOC = [
 
 export const RELATED_USE_CASES = {
   useCases: [
-    'website-to-markdown/clean-content',
-    'website-to-markdown/llm-context',
-    'website-to-markdown/javascript-rendered-pages',
+    'scraping/website-to-json',
+    'scraping/product-prices',
+    'scraping/tables-and-lists',
+    'scraping/javascript-rendered-pages',
     'website-metadata/custom-fields',
-    'website-metadata/missing-or-wrong-metadata'
+    'website-to-markdown/clean-content'
   ],
   title: 'Extraction in practice.'
 }
