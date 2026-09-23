@@ -1,8 +1,12 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 const BASE_URL = (
   process.env.AGENT_ROUTES_URL || 'https://microlink.io'
 ).replace(/\/+$/, '')
+
+const IS_PREVIEW = Boolean(process.env.AGENT_ROUTES_PREVIEW)
 
 const REQUEST_TIMEOUT = 15_000
 
@@ -10,12 +14,22 @@ const ACCEPT_HTML = 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8'
 const ACCEPT_MARKDOWN = 'text/markdown'
 const ACCEPT_ANY = '*/*'
 
-const SECURITY_HEADERS = [
-  'content-security-policy',
-  'x-frame-options',
-  'permissions-policy',
-  'x-content-type-options'
-]
+const CDN_MERGED_HEADERS = ['vary']
+
+const { headers: headerRules } = JSON.parse(
+  fs.readFileSync(path.join(process.cwd(), 'vercel.json'), 'utf8')
+)
+
+const SECURITY_HEADERS = headerRules
+  .find(
+    ({ source, headers }) =>
+      source === '/(.*)' &&
+      headers.some(({ key }) => key.toLowerCase() === 'x-frame-options')
+  )
+  .headers.map(({ key, value }) => [key.toLowerCase(), value])
+  .filter(([name]) => !CDN_MERGED_HEADERS.includes(name))
+
+const testWithMarkdownFiles = IS_PREVIEW ? test.skip : test
 
 const MISSING_PATHNAME = '/notexist-agent-routes-probe'
 
@@ -40,7 +54,7 @@ const varyTokens = ({ vary }) =>
 const isHtmlDocument = ({ body }) => /^\s*<!doctype html/i.test(body)
 
 describe(`agent routes on ${BASE_URL}`, () => {
-  test(
+  testWithMarkdownFiles(
     'home negotiates to markdown for curl -L -H "Accept: text/markdown"',
     async () => {
       const response = await request('/', ACCEPT_MARKDOWN, { follow: true })
@@ -84,7 +98,7 @@ describe(`agent routes on ${BASE_URL}`, () => {
     REQUEST_TIMEOUT
   )
 
-  test(
+  testWithMarkdownFiles(
     'page .md is markdown, varying by Accept',
     async () => {
       const response = await request('/pricing.md', ACCEPT_ANY)
@@ -129,11 +143,12 @@ describe(`agent routes on ${BASE_URL}`, () => {
   )
 
   test(
-    'pages carry the security headers',
+    'pages carry the security headers configured in vercel.json',
     async () => {
       const response = await request('/pricing', ACCEPT_HTML)
-      for (const name of SECURITY_HEADERS) {
-        expect(response.headers.has(name), name).toBe(true)
+      expect(SECURITY_HEADERS.length).toBeGreaterThan(0)
+      for (const [name, value] of SECURITY_HEADERS) {
+        expect(response.headers.get(name), name).toBe(value)
       }
     },
     REQUEST_TIMEOUT
