@@ -4,6 +4,7 @@ import { theme } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 
+import { AgentNames, agentLead } from './agent-names'
 import {
   HOW,
   CardGrid,
@@ -42,7 +43,18 @@ export const How = () => (
           <StaticCard>
             <StepNumber>{index + 1}</StepNumber>
             <CardTitle>{step.title}</CardTitle>
-            <CardText>{step.description}</CardText>
+            <CardText>
+              {step.description.startsWith(agentLead())
+                ? (
+                  <>
+                    <AgentNames />
+                    {step.description.slice(agentLead().length)}
+                  </>
+                  )
+                : (
+                    step.description
+                  )}
+            </CardText>
           </StaticCard>
         </Box>
       ))}

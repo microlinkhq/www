@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link } from 'components/elements/Link'
+import { AgentNames, FAQ_AGENTS } from './agent-names'
 
 export const FAQ_ITEMS = [
   {
@@ -40,12 +41,13 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Which agents work?',
-    text: 'Any agent that can load a SKILL.md playbook: Claude Code, Cursor, ChatGPT, Codex, and others that speak the same install command. Paste the prompt. The agent installs the skill.',
+    text: 'Any agent that can load a SKILL.md playbook: Claude Code, Cursor, ChatGPT, and others that speak the same install command. Paste the prompt. The agent installs the skill.',
     answer: (
       <>
         <div>
-          Any agent that can load a SKILL.md playbook: Claude Code, Cursor,
-          ChatGPT, Codex, and others that speak the same install command.
+          Any agent that can load a SKILL.md playbook:{' '}
+          <AgentNames agents={FAQ_AGENTS} />, and others that speak the same
+          install command.
         </div>
         <div>Paste the prompt. The agent installs the skill.</div>
       </>

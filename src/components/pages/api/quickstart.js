@@ -47,6 +47,7 @@ const StepCode = styled(Box).attrs({ as: 'code' })(
     fontSize: 0,
     lineHeight: 2,
     color: 'black80',
+    whiteSpace: 'pre-wrap',
     overflowWrap: 'anywhere'
   })
 )
