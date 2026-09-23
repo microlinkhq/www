@@ -81,7 +81,7 @@ const { price } = await microlink.extract(
 
 It resolves to an object with one key per rule. Values are normalized by their [type](#type): a `'string'` is a string, a `'number'` is a number, and `'image'`, `'video'`, `'audio'`, and `'logo'` become asset objects carrying `url`, `type`, `width`, `height`, `size`, and `size_pretty`. A rule that matches nothing, or whose value fails its type, resolves to `null`, so destructuring is always safe.
 
-The complete API response — its [status](/docs/api/basics/format#status), the payload, and the HTTP response with its headers — stays available on `microlink.last` after every call; see [inspect the last request](/docs/sdk/getting-started/errors#inspect-the-last-request). Failures throw a [`MicrolinkError`](/docs/sdk/getting-started/errors) like every other method.
+The complete API response — its [status](/docs/api/basics/format#status), the payload, and the HTTP response with its headers — stays available on `microlink.last` after every call; see [inspect the last request](/docs/sdk/getting-started/errors#inspect-the-last-request). Failures throw a [MicrolinkError](/docs/sdk/getting-started/errors) like every other method.
 
 ## Rules alongside metadata
 

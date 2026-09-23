@@ -76,7 +76,7 @@ export const HERO = {
   eyebrow: 'One request. Any URL.',
   title: 'Microlink API',
   description:
-    'Screenshots, PDFs, metadata, markdown, HTML, text, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
+    'The headless browser cloud. We run the fleet. You get the output.',
   ctaHref: '/pricing',
   ctaLabel: 'Start for free',
   docsHref: '/docs/api/getting-started/overview',
@@ -116,6 +116,10 @@ export const TIMINGS = {
 const { DEMO_URLS } = heroDemoRequests
 
 export const HERO_EXAMPLES = [
+  {
+    label: 'AI',
+    prompt: true
+  },
   {
     label: 'Metadata',
     mqlCode: { url: DEMO_URLS.metadata }
@@ -173,7 +177,8 @@ export const QUICKSTART = {
   title: 'Call the API. No key needed.',
   caption:
     'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
-  request: 'https://api.microlink.io?url=https://github.com&screenshot=true',
+  request:
+    'https://api.microlink.io?url=https://github.com&screenshot=true&data.markdown.attr=markdown',
   steps: [
     {
       title: 'Pick any URL',
@@ -197,7 +202,7 @@ export const QUICKSTART = {
     },
     {
       title: 'Ask for what you need',
-      code: '&screenshot=true',
+      code: '&screenshot=true\n&data.markdown.attr=markdown',
       description: (
         <>
           Add <Link href='/docs/api/parameters/screenshot'>screenshot</Link>,{' '}

@@ -65,7 +65,7 @@ export const HOW = {
     {
       title: 'Paste it into your agent',
       description:
-        'Claude, Cursor, ChatGPT, Codex, or any agent that loads skills. The agent installs the Microlink skill itself.'
+        'Claude, Cursor, ChatGPT, or any agent that loads skills. The agent installs the Microlink skill itself.'
     },
     {
       title: 'Ask for what you need',

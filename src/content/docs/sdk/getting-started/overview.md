@@ -30,7 +30,7 @@ The same code runs in Node.js 24 or later, browsers, and Deno, returning the sam
 
 ## Authentication
 
-`createClient()` works without an API key on the [free plan](/pricing) out of the box. Pass an `apiKey` to unlock pro quotas — it travels as the [`x-api-key`](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
+`createClient()` works without an API key on the [free plan](/pricing) out of the box. Pass an `apiKey` to unlock pro quotas — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
 
 ```js
 const microlink = createClient({
@@ -38,13 +38,13 @@ const microlink = createClient({
 })
 ```
 
-[`search`](/docs/sdk/methods/search) is the exception: it requires an `apiKey` on every request.
+[search](/docs/sdk/methods/search) is the exception: it requires an `apiKey` on every request.
 
-Any other option passed to `createClient` is merged into every API call, which makes it the right place for defaults such as [`ttl`](/docs/api/parameters/ttl) or [`prerender`](/docs/api/parameters/prerender). See [options](/docs/sdk/getting-started/options) for the full list.
+Any other option passed to `createClient` is merged into every API call, which makes it the right place for defaults such as [ttl](/docs/api/parameters/ttl) or [prerender](/docs/api/parameters/prerender). See [options](/docs/sdk/getting-started/options) for the full list.
 
 ## Methods
 
-Every product is a method on the client. URL-based methods share the `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap. [`search`](/docs/sdk/methods/search) takes a query string instead:
+Every product is a method on the client. URL-based methods share the `method(url, options)` shape and resolve to the product's result directly, with no envelope to unwrap. [search](/docs/sdk/methods/search) takes a query string instead:
 
 - [metadata](/docs/sdk/methods/metadata) — unified metadata from Open Graph, Twitter Cards, JSON-LD, and HTML.
 - [screenshot](/docs/sdk/methods/screenshot) — any URL as a hosted image, or a short video recording.
@@ -67,7 +67,7 @@ Every product is a method on the client. URL-based methods share the `method(url
 - [technologies](/docs/sdk/methods/technologies) — the tech stack powering a site.
 - [lighthouse](/docs/sdk/methods/lighthouse) — a full Lighthouse report.
 
-Every method throws a typed [`MicrolinkError`](/docs/sdk/getting-started/errors) when the API call fails, so one `try/catch` covers the whole client.
+Every method throws a typed [MicrolinkError](/docs/sdk/getting-started/errors) when the API call fails, so one `try/catch` covers the whole client.
 
 ## How it fits together
 
@@ -75,7 +75,7 @@ Every method is a call to Microlink API with the right parameters set for you an
 
 Custom data extraction is part of the SDK too: write the rules and pass them to [extract](/docs/sdk/methods/extract), or as the `data` option of [metadata](/docs/sdk/methods/metadata). The `extract` pages cover the rules grammar — [selector](/docs/sdk/methods/extract/selector), [attr](/docs/sdk/methods/extract/attr), [type](/docs/sdk/methods/extract/type), [nested](/docs/sdk/methods/extract/attr#nested-rules) and [fallback](/docs/sdk/methods/extract#fallback-rules) rules — shared by `extract`, the content methods, and the collections.
 
-Installing the package also ships a [`microlink` binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
+Installing the package also ships a [microlink binary](/docs/sdk/getting-started/cli) where every product is a subcommand.
 
 ## Runtimes
 
@@ -100,6 +100,6 @@ export default {
 }
 ```
 
-Keep your `apiKey` out of browser code: requests from a page run on the free tier of the API, and the [`x-api-key`](/docs/api/basics/authentication) header belongs on a server you control.
+Keep your `apiKey` out of browser code: requests from a page run on the free tier of the API, and the [x-api-key](/docs/api/basics/authentication) header belongs on a server you control.
 
 Looking for the drop-in link preview component for React, Vue, and vanilla JavaScript? That's a different product: see [link preview](/link-preview).

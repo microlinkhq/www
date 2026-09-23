@@ -16,7 +16,7 @@ const { url } = await microlink.screenshot('https://example.com', {
 })
 ```
 
-Here `fullPage` nests under [`screenshot`](/docs/api/parameters/screenshot) while `device` stays a top-level [query parameter](/docs/api/parameters/device).
+Here `fullPage` nests under [screenshot](/docs/api/parameters/screenshot) while `device` stays a top-level [query parameter](/docs/api/parameters/device).
 
 ## Shared options
 
