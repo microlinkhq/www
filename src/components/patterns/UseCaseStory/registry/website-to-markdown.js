@@ -147,7 +147,7 @@ export const WEBSITE_TO_MARKDOWN = [
     name: 'Markdown from bot-protected pages',
     cta: 'Convert bot-protected pages',
     blurb:
-      'Convert pages behind Cloudflare, DataDome or Akamai: one option routes the request through the built-in proxy.',
+      'Convert pages behind Cloudflare, DataDome or Akamai: on a Pro key the built-in proxy resolves automatically.',
     keywords: [
       'convert blocked page to markdown',
       'scrape cloudflare site to markdown',

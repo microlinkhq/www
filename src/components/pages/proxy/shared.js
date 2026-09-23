@@ -153,11 +153,12 @@ export const TOC = [
 
 export const RELATED_USE_CASES = {
   useCases: [
+    'proxy/scrape-cloudflare-protected-sites',
+    'proxy/fix-403-and-429-errors',
+    'proxy/geo-blocked-websites',
+    'proxy/rotating-proxy-alternative',
     'website-screenshot/built-in-proxy',
-    'website-screenshot/proxy-geolocation',
-    'website-to-markdown/blocked-sites',
-    'website-metadata/blocked-sites',
-    'website-metadata/localized-metadata'
+    'website-to-markdown/blocked-sites'
   ],
   title: 'Reach the page, then capture it.'
 }

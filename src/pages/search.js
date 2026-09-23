@@ -18,6 +18,7 @@ import HeroSection from 'components/pages/search/Hero'
 import RetrievalSection from 'components/pages/search/RetrievalSection'
 import PricingSection from 'components/pages/search/PricingSection'
 import IntegrationSection from 'components/pages/search/IntegrationSection'
+import UseCasesSection from 'components/pages/search/UseCasesSection'
 import FinalCtaSection from 'components/pages/search/FinalCtaSection'
 
 const GooglePage = () => (
@@ -26,6 +27,7 @@ const GooglePage = () => (
     <RetrievalSection />
     <PricingSection />
     <IntegrationSection />
+    <UseCasesSection />
     <FinalCtaSection />
 
     <Faq

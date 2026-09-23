@@ -8,17 +8,25 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 
 import { CardGrid, UseCaseCard } from './use-case-card'
-import { getVertical, pathToUseCase, verticalUseCases } from '../use-cases'
+import {
+  getUseCase,
+  getVertical,
+  pathToUseCase,
+  verticalUseCases
+} from '../use-cases'
 
 export const ProductUseCases = ({
   vertical: verticalSlug,
   title,
   caption,
   limit = 6,
+  slugs,
   ...props
 }) => {
   const vertical = getVertical(verticalSlug)
-  const entries = verticalUseCases(verticalSlug).slice(0, limit)
+  const entries = (
+    slugs ? slugs.map(getUseCase).filter(Boolean) : verticalUseCases(verticalSlug)
+  ).slice(0, limit)
   if (!entries.length) return null
 
   return (

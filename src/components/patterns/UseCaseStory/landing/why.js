@@ -21,12 +21,12 @@ const UseCaseItem = styled(Text).attrs({ as: 'p' })`
   ${theme({ color: 'black70', lineHeight: 2 })}
 `
 
-export const WhySection = ({ why }) => (
+export const WhySection = ({ why, eyebrow = 'Why it works' }) => (
   <Section>
     <SectionInner>
       <Box css={theme({ pb: [4, 4, 5, 5], maxWidth: layout.large })}>
         <Eyebrow accent={ACCENT} css={theme({ pb: 2, display: 'block' })}>
-          Why it works
+          {eyebrow}
         </Eyebrow>
         <Subhead css={theme({ textAlign: 'left' })}>{why.title}</Subhead>
         <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
