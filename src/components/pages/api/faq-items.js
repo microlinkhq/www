@@ -211,14 +211,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do I know how much quota is left?',
-    text: 'The free endpoint returns x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset headers on every response. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On Pro you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
+    text: 'All requests return x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset. The free endpoint reports the daily window. Pro reports your plan quota, resets at the start of the next month in UTC, and can lag the live counter by a few minutes. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On Pro you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
     answer: (
       <>
         <div>
-          The free endpoint returns <b>x-rate-limit-limit</b>,{' '}
-          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b> headers
-          on every response. Past the limit you get HTTP 429 with the ERATE
-          code.
+          All requests return <b>x-rate-limit-limit</b>,{' '}
+          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b>. The free
+          endpoint reports the daily window. Pro reports your plan quota, resets
+          at the start of the next month in UTC, and can lag the live counter by
+          a few minutes. Past the limit you get HTTP 429 with the ERATE code.
         </div>
         <div>
           There is no throttling, so parallel requests are fine within your
