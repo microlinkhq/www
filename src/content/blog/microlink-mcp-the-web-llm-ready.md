@@ -44,25 +44,25 @@ Every Microlink MCP request routes through Microlink’s headless browser infras
 
 ## Markdown uses 80% fewer tokens than raw HTML
 
-Ask your agent to fetch a page via [`microlink_markdown`](/markdown) and it gets clean Markdown: body content, structured headings, and relevant links. Headers, footers, cookie banners, and ads are stripped out, which leaves 80% fewer tokens than raw HTML.
+Ask your agent to fetch a page via [microlink_markdown](/markdown) and it gets clean Markdown: body content, structured headings, and relevant links. Headers, footers, cookie banners, and ads are stripped out, which leaves 80% fewer tokens than raw HTML.
 
 `microlink_text` goes further and returns plain text only. It is the lightest option when you just need the words.
 
 ## Screenshots at any viewport, returned as CDN URLs
 
-[`microlink_screenshot`](/screenshot) captures any URL and returns a CDN-hosted image in seconds. It supports full-page captures, element-level crops via CSS selector, any viewport, and any device, plus dark mode, browser chrome overlays, and custom CSS injection before capture.
+[microlink_screenshot](/screenshot) captures any URL and returns a CDN-hosted image in seconds. It supports full-page captures, element-level crops via CSS selector, any viewport, and any device, plus dark mode, browser chrome overlays, and custom CSS injection before capture.
 
 A designer can ask for one URL at mobile, tablet, and desktop in a single prompt, and `microlink_screenshot` returns three CDN URLs with no browser open and no manual resizing.
 
 ## Ten tools behind one config block
 
-- [`microlink_screenshot`](/screenshot): full-page, element crops, device emulation, overlays, custom CSS/JS injection.
-- [`microlink_pdf`](/pdf): any URL as a PDF, with paper size, margins, orientation, and page ranges.
-- [`microlink_markdown`](/markdown): any webpage as clean Markdown, with 80% fewer tokens.
+- [microlink_screenshot](/screenshot): full-page, element crops, device emulation, overlays, custom CSS/JS injection.
+- [microlink_pdf](/pdf): any URL as a PDF, with paper size, margins, orientation, and page ranges.
+- [microlink_markdown](/markdown): any webpage as clean Markdown, with 80% fewer tokens.
 - `microlink_text`: plain text only, the lightest way to read a page.
-- [`microlink_meta`](/metadata): normalized metadata, including title, description, author, date, image, and favicon.
+- [microlink_meta](/metadata): normalized metadata, including title, description, author, date, image, and favicon.
 - `microlink_extract`: metadata, CSS selector scraping, screenshot, PDF, video, and [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) in one request.
-- [`microlink_insights`](/insights): a Lighthouse audit plus [Wappalyzer](https://www.wappalyzer.com) tech-stack detection.
+- [microlink_insights](/insights): a Lighthouse audit plus [Wappalyzer](https://www.wappalyzer.com) tech-stack detection.
 - `microlink_video` and `microlink_audio`: direct playable sources from YouTube, Vimeo, TikTok, SoundCloud, Spotify, and hundreds more.
 - `microlink_palette`: the dominant color palette of any page, as hex codes plus [WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/)-safe colors.
 

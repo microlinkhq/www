@@ -73,7 +73,7 @@ If your agent only needs article text, paying for a complete compositor is waste
 
 You do not have to pick between full desktop Chrome and a new engine.
 
-Google maintains [`chrome-headless-shell`](https://developer.chrome.com/blog/chrome-headless-shell/), the standalone version of Chrome's old Headless implementation. It is a lightweight wrapper around Chromium's `//content` module with fewer dependencies than full Chrome. Puppeteer runs it with `headless: 'shell'`.
+Google maintains [chrome-headless-shell](https://developer.chrome.com/blog/chrome-headless-shell/), the standalone version of Chrome's old Headless implementation. It is a lightweight wrapper around Chromium's `//content` module with fewer dependencies than full Chrome. Puppeteer runs it with `headless: 'shell'`.
 
 Chrome also exposes the common one-shot jobs directly from its CLI:
 

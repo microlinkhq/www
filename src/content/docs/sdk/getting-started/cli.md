@@ -68,7 +68,7 @@ microlink pdf https://example.com --http.header.authorization 'Bearer …'
 
 ## Structured input
 
-Commands that take structured arguments accept inline JSON. [`extract`](/docs/sdk/methods/extract) reads its rules from `--data`, and [`function`](/docs/sdk/methods/function) reads its code from a file:
+Commands that take structured arguments accept inline JSON. [extract](/docs/sdk/methods/extract) reads its rules from `--data`, and [function](/docs/sdk/methods/function) reads its code from a file:
 
 ```bash
 microlink extract https://microlink.io --data '{"image":{"selector":"meta[property=og:image]","attr":"content","type":"image"}}'
