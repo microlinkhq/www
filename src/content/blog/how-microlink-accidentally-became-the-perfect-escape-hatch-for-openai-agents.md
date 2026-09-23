@@ -47,7 +47,7 @@ The agents sent us a standard GET request that launched a browser on our servers
 
 Their target was USAspending, the US federal spending API, where the numbers they needed sit behind endpoints that take a JSON body. One of them, `/api/v2/download/accounts/`, still answers a GET with `Method "GET" not allowed`.
 
-Decoded, the [`function`](/docs/api/parameters/function) they passed us reads:
+Decoded, the [function](/docs/api/parameters/function) they passed us reads:
 
 ```js
 async ({ page }) => page.evaluate(async x => {
@@ -65,9 +65,9 @@ async ({ page }) => page.evaluate(async x => {
 
 Three details make it work, and all three are ordinary API usage:
 
-- **Same origin:** the [`url`](/docs/api/parameters/url) parameter points at the target’s own origin, `https://api.usaspending.gov`, so the browser lands there first and the `fetch` runs same-origin against a relative path. No CORS, no preflight.
+- **Same origin:** the [url](/docs/api/parameters/url) parameter points at the target’s own origin, `https://api.usaspending.gov`, so the browser lands there first and the `fetch` runs same-origin against a relative path. No CORS, no preflight.
 - **Base64 payload:** the endpoint path and the JSON body travel base64-encoded, which keeps a nested JSON document intact through a query string.
-- **No metadata:** [`meta=false`](/docs/api/parameters/meta) skips metadata extraction. They didn’t want a link preview. They wanted the response body.
+- **No metadata:** [meta=false](/docs/api/parameters/meta) skips metadata extraction. They didn’t want a link preview. They wanted the response body.
 
 Most variants also base64-encoded the literal string `POST` and the `application/json` header. The agents were hiding the verb from something, though not from us.
 
