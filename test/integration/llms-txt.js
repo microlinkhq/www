@@ -1,0 +1,172 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { describe, expect, test } from 'vitest'
+
+import {
+  buildLlmsTxt,
+  cleanTitle,
+  sectionFor,
+  titleFromPathname,
+  toMarkdownUrl
+} from '../../src/helpers/llms-txt.js'
+
+const PAGES = [
+  {
+    pathname: '/docs/api/basics/cache',
+    title: 'Microlink API: cache — Microlink Docs',
+    description: 'Optimize API performance.'
+  },
+  {
+    pathname: '/pricing',
+    title: 'Pricing — Microlink',
+    description: 'Simple, predictable pricing.'
+  },
+  { pathname: '/', title: 'Microlink | The web, ready for AI' },
+  {
+    pathname: '/blog/some-post',
+    title: 'Some post — Microlink',
+    description: 'A post.'
+  }
+]
+
+const content = buildLlmsTxt(PAGES)
+
+describe('cleanTitle', () => {
+  test('drops the site name', () => {
+    expect(cleanTitle('Pricing — Microlink')).toBe('Pricing')
+    expect(cleanTitle('Microlink API: cache — Microlink Docs')).toBe(
+      'Microlink API: cache'
+    )
+    expect(cleanTitle('What is a headless browser? — Microlink Blog')).toBe(
+      'What is a headless browser?'
+    )
+  })
+
+  test('leaves a title that does not carry it', () => {
+    expect(cleanTitle('Microlink | The web, ready for AI')).toBe(
+      'Microlink | The web, ready for AI'
+    )
+  })
+})
+
+describe('titleFromPathname', () => {
+  test('names a page with no metadata', () => {
+    expect(titleFromPathname('/use-cases/link-preview')).toBe('Link preview')
+    expect(titleFromPathname('/')).toBe('Home')
+  })
+})
+
+describe('sectionFor', () => {
+  test('splits the docs by product', () => {
+    expect(sectionFor('/docs/api/basics/cache')).toBe('API')
+    expect(sectionFor('/docs/sdk/methods/extract')).toBe('SDK')
+    expect(sectionFor('/docs/guides')).toBe('Guides')
+  })
+
+  test('groups the rest of the site by its first segment', () => {
+    expect(sectionFor('/features/screenshot')).toBe('Features')
+    expect(sectionFor('/blog/some-post')).toBe('Blog')
+    expect(sectionFor('/api')).toBe('API overview')
+    expect(sectionFor('/ai')).toBe('AI overview')
+  })
+
+  test('falls back to a single section for standalone pages', () => {
+    expect(sectionFor('/pricing')).toBe('Pages')
+    expect(sectionFor('/')).toBe('Pages')
+  })
+})
+
+describe('toMarkdownUrl', () => {
+  test('points at the markdown file', () => {
+    expect(toMarkdownUrl('/pricing')).toBe('https://microlink.io/pricing.md')
+  })
+
+  test('names the home page index', () => {
+    expect(toMarkdownUrl('/')).toBe('https://microlink.io/index.md')
+  })
+})
+
+describe('buildLlmsTxt', () => {
+  test('starts with an H1 and a summary', () => {
+    expect(content.startsWith('# Microlink\n\n> ')).toBe(true)
+  })
+
+  test('points agents at the OpenAPI spec', () => {
+    expect(content).toContain(
+      '- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification'
+    )
+  })
+
+  test('writes one link per page', () => {
+    const pageLinks = content
+      .split('## Machine-readable')[1]
+      .split(/^## /m)
+      .slice(1)
+      .join('\n')
+      .split('\n')
+      .filter(line => line.startsWith('- ['))
+    expect(pageLinks).toHaveLength(PAGES.length)
+  })
+
+  test('links every page to an absolute .md URL', () => {
+    const pageLinks = content
+      .split('## Machine-readable')[1]
+      .split(/^## /m)
+      .slice(1)
+      .join('\n')
+      .split('\n')
+      .filter(line => line.startsWith('- ['))
+    for (const line of pageLinks) {
+      expect(line).toMatch(/^- \[[^\]]+\]\(https:\/\/microlink\.io\/.+\.md\)/)
+    }
+  })
+
+  test('appends the description when there is one', () => {
+    expect(content).toContain(
+      '- [Pricing](https://microlink.io/pricing.md): Simple, predictable pricing.'
+    )
+    expect(content).toContain(
+      '- [Microlink | The web, ready for AI](https://microlink.io/index.md)\n'
+    )
+  })
+
+  test('groups the links under H2 sections', () => {
+    expect(content.match(/^## .+$/gm)).toEqual([
+      '## Machine-readable',
+      '## API',
+      '## Blog',
+      '## Pages'
+    ])
+  })
+
+  test('omits a section with no pages', () => {
+    expect(content).not.toContain('## SDK')
+  })
+})
+
+describe('the build', () => {
+  const gatsbyNode = fs.readFileSync(
+    path.join(process.cwd(), 'gatsby-node.js'),
+    'utf8'
+  )
+
+  const bodyOf = name =>
+    gatsbyNode.slice(gatsbyNode.indexOf(`const ${name} = `)).split('\n}\n')[0]
+
+  test('indexes the same pages it writes markdown for', () => {
+    const body = bodyOf('createPageMarkdownFiles')
+    expect(body).toContain('markdownPathnames(')
+    expect(body).toContain('buildLlmsTxt(')
+  })
+
+  test('writes both only on a production build', () => {
+    expect(bodyOf('createPageMarkdownFiles')).toContain('isProductionBuild()')
+  })
+
+  test('busts a cached 404 when converting a page', () => {
+    expect(bodyOf('markdownFetcher')).toContain(
+      'retryStaleNotFound(force => requestMarkdown'
+    )
+    expect(bodyOf('requestMarkdown')).toContain('force')
+  })
+})

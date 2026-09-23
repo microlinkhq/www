@@ -255,6 +255,9 @@
     "release:tags": "git push --follow-tags origin HEAD:master",
     "storybook": "storybook dev -p 6006",
     "test": "vitest --no-watch",
+    "test:e2e": "vitest --no-watch --project e2e",
+    "test:integration": "vitest --no-watch --project integration",
+    "test:unit": "vitest --no-watch --project unit",
     "transpile": "node scripts/editor-monaco-dts.js && echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
     "update": "ncu -i"
   },

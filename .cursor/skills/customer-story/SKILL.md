@@ -113,7 +113,7 @@ enough; **you do not edit `index.js` per customer.** The cards link to
 
 Ask one question at a time:
 
-1. **Customer name** — compute slug, verify no collision in `src/pages/use-cases/customers/` or with a use-case route (`test/use-cases/registry.js` enforces it).
+1. **Customer name** — compute slug, verify no collision in `src/pages/use-cases/customers/` or with a use-case route (`test/integration/use-cases/registry.js` enforces it).
 2. **Website URL** — WebFetch homepage + key pages. Build factual notes.
 3. **How they use Microlink** — which products, where in stack. Feeds How/Why sections + CTA routing.
 4. **Testimonial** — real quote (author + role + avatar), placeholder, or none.

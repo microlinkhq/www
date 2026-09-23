@@ -9,10 +9,22 @@ Concise rules for building accessible, fast, delightful UIs. Use MUST/SHOULD/NEV
 
 - MUST: Product pages are thin. `src/pages/<name>.js` keeps only imports, `FEATURES`, `REPOS`, the exported `Head`, and the page component. Sections live one-per-file in `src/components/pages/<name>/` with a `shared.js` for cross-section primitives. That layout (PR #2153) is what lets parallel sessions work without colliding — follow it for new pages.
 - MUST: Keep every React component under ~300 lines (react-doctor CI gate). Decompose the way the `hero/` directories do: `index.js` owns state/handlers/composition, effects live in `use-*.js` hooks with their bodies intact, JSX regions become presentational components whose prop names match the original bindings.
-- MUST: `const REPOS = [...]` and `repos={REPOS}` stay literally in the page file — `test/components/open-source-pattern.js` regex-parses page source. `test/components/home-hero-*.js` also read source; when moving code, repoint those tests, never weaken them.
+- MUST: `const REPOS = [...]` and `repos={REPOS}` stay literally in the page file — `test/integration/components/open-source-pattern.js` regex-parses page source. `test/integration/components/home-hero-*.js` also read source; when moving code, repoint those tests, never weaken them.
 - MUST: Reuse the shared patterns instead of copying: `patterns/Diagram` (editorial SVG primers), `patterns/LiveTiming` (live stat display), `patterns/SpeedSection` (competitor benchmark section, copy/data as props), `hook/use-demo-ui` (attract/focus flag reducer), `hook/use-error-modal-focus` (dialog focus trap/Escape/restore). Each existed as 4-7 diverging copies before being unified.
 - NEVER: Rewrite a working idiom to satisfy a lint matcher. `doctor.config.json` is the ledger of verified false positives — suppress there with evidence in the commit message. When decomposing files, repoint any suppression pinned to the old path.
 - NEVER: Delete an "unused" file or export on a dead-code scanner's word alone. MDX content imports (`src/content/**/*.md` has real `import` statements), Gatsby conventions (`src/html.js`, GraphQL fragment spreading) and `scripts/` usage are invisible to it — grep those first.
+
+## Tests
+
+`npm test` runs three vitest projects. Put a new test in the layer that matches what it touches:
+
+| Layer | Folder | Touches | Run alone |
+| --- | --- | --- | --- |
+| unit | `test/unit/` | only the imported module (mocked `fs`/network is still unit) | `npm run test:unit` |
+| integration | `test/integration/` | real repo files: source, config, `static/`, `data/`, temp dirs | `npm run test:integration` |
+| e2e | `test/e2e/` | the real network: the live site (`AGENT_ROUTES_URL=<url>` targets another deploy; add `AGENT_ROUTES_PREVIEW=1` for a preview without generated `.md` files) or third-party services, directly or through the module under test | `npm run test:e2e` |
+
+- MUST: Mirror the source path under the layer folder (`src/helpers/x.js` → `test/unit/helpers/x.js`). Shared helpers stay in `test/utils/`.
 
 ## Demo Correctness
 
@@ -61,7 +73,7 @@ The typography components own their size. Compose pages from them; do not restyl
 - MUST: Left-aligned editorial pages (`/features/*`, the `CustomerStory`/`UseCaseStory`/`ExtensionStory` patterns) use these SAME components — pass `textAlign: 'left'` (an allowed layout prop) and `variant={null}` for a plain, non-gradient `Heading`. Do not fork a parallel size system with `SubheadBase` + a custom `fontSize`; that drift was folded back in.
 - SHOULD: Author a page hero as `Heading` and a section title as `Subhead` — not `Text as='h1'` / `Text as='h2'` with a hand-tuned `fontSize`. The guard cannot catch this (a heading role authored on `Text`, the body component), so it is a review rule, not an enforced one. `Text as='h2'` stays valid for a card/list-item title (the card-title tier, e.g. FeatureStory `CardTitle`, the CLI hero-feature titles) and for a page with a deliberate, named-constant heading scale (`src/pages/search.js`).
 - Sanctioned escapes only (each is a real, reviewed reason a heading needs a different size): `fontSize: 'inherit'` (a gradient sub-span tracking its parent), `forwardedAs='div'` (a stat-number display reusing the heading style), or a named `UPPER_SNAKE_CASE` constant (a deliberate, centrally-defined token, e.g. `CARD_TITLE_FONT_SIZE`, `SUBSECTION_TITLE_FONT_SIZE`).
-- ENFORCED: `test/typography-overrides.js` fails the build on any per-call override outside those escapes — including the raw `SubheadBase`/`HeadingBase`/`CaptionBase` import aliases, so renaming the import does not bypass it. Run `npm test`; do not weaken the test to pass — fix the call site.
+- ENFORCED: `test/integration/typography-overrides.js` fails the build on any per-call override outside those escapes — including the raw `SubheadBase`/`HeadingBase`/`CaptionBase` import aliases, so renaming the import does not bypass it. Run `npm test`; do not weaken the test to pass — fix the call site.
 
 ## Interactions
 
