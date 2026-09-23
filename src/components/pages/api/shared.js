@@ -76,7 +76,7 @@ export const HERO = {
   eyebrow: 'One request. Any URL.',
   title: 'Microlink API',
   description:
-    'Screenshots, PDFs, metadata, markdown, HTML, text, embeds, and browser functions from a single REST endpoint. No browser fleet to run.',
+    'The headless browser cloud. We run the fleet. You get the output.',
   ctaHref: '/pricing',
   ctaLabel: 'Start for free',
   docsHref: '/docs/api/getting-started/overview',
