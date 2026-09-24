@@ -37,7 +37,7 @@ siblings plus the cross-vertical twin (`blocked-sites` with `built-in-proxy`).
 
 2. Content module `src/components/pages/use-cases/<vertical>/<intent>.js` exporting
 `CONTENT`. It must stay import-free (strings, arrays, objects only) so
-`test/use-cases/registry.js` can load and validate it:
+`test/integration/use-cases/registry.js` can load and validate it:
 
 ```js
 export const CONTENT = {
@@ -140,4 +140,4 @@ export default UseCaseMobileScreenshotPage
 
 ## Verification
 
-`npm test` runs `standard` and the two use-case suites (`test/use-cases/*.js`).
+`npm test` runs `standard` and the two use-case suites (`test/integration/use-cases/*.js`).
