@@ -9,6 +9,7 @@ const BASE_URL = (
 const IS_PREVIEW = Boolean(process.env.AGENT_ROUTES_PREVIEW)
 
 const REQUEST_TIMEOUT = 15_000
+const REQUEST_ABORT_TIMEOUT = REQUEST_TIMEOUT - 1_000
 
 const ACCEPT_HTML = 'text/html,application/xhtml+xml;q=0.9,*/*;q=0.8'
 const ACCEPT_MARKDOWN = 'text/markdown'
@@ -36,7 +37,8 @@ const MISSING_PATHNAME = '/notexist-agent-routes-probe'
 const request = async (pathname, accept, { follow = false } = {}) => {
   const response = await fetch(`${BASE_URL}${pathname}`, {
     headers: { accept },
-    redirect: follow ? 'follow' : 'manual'
+    redirect: follow ? 'follow' : 'manual',
+    signal: AbortSignal.timeout(REQUEST_ABORT_TIMEOUT)
   })
   return {
     status: response.status,

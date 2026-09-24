@@ -274,9 +274,10 @@ describe('use case content', () => {
       expect(request.url).toMatch(/^https?:\/\//)
       for (const key of flattenKeys(request.params || {})) {
         expect(isDocumentedParameter(key), key).toBe(true)
-        expect(Array.isArray(request.params[key.split('.')[0]]), key).toBe(
-          false
-        )
+        const value = key
+          .split('.')
+          .reduce((current, part) => current[part], request.params)
+        expect(Array.isArray(value), key).toBe(false)
       }
     }
   })
@@ -351,16 +352,23 @@ describe('industry hubs', () => {
     expect(typeof industry.cta).toBe('string')
   })
 
-  test.each(INDUSTRIES)('$slug inline links resolve and copy avoids banned characters', industry => {
-    expect(inlineLinksOf(industry).filter(href => !resolvesInternally(href))).toEqual([])
-    const text = JSON.stringify(industry)
-    for (const [needle, reason] of BANNED_TEXT) {
-      expect(text.includes(needle), reason).toBe(false)
+  test.each(INDUSTRIES)(
+    '$slug inline links resolve and copy avoids banned characters',
+    industry => {
+      expect(
+        inlineLinksOf(industry).filter(href => !resolvesInternally(href))
+      ).toEqual([])
+      const text = JSON.stringify(industry)
+      for (const [needle, reason] of BANNED_TEXT) {
+        expect(text.includes(needle), reason).toBe(false)
+      }
     }
-  })
+  )
 
   test('industry titles and questions never repeat a landing', () => {
-    const titles = [...contents.values()].map(({ head }) => head.title.toLowerCase())
+    const titles = [...contents.values()].map(({ head }) =>
+      head.title.toLowerCase()
+    )
     const questions = [...contents.values()].flatMap(({ faq }) =>
       faq.map(({ question }) => question.toLowerCase())
     )
