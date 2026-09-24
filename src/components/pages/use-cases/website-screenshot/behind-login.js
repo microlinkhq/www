@@ -81,7 +81,7 @@ export const CONTENT = {
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Add it when the authenticated site also sits behind antibot protection. Pro plans.'
+        note: 'Automatic on the Pro key these requests already use, so an authenticated site behind antibot protection needs no extra option.'
       }
     ],
     outro:
@@ -133,7 +133,7 @@ export const CONTENT = {
       question: 'Why does my screenshot still show the login form?',
       answer: [
         'Check that the cookie name and domain match what the application sets, that the session has not expired, and that you are sending the request to pro.microlink.io with a valid x-api-key.',
-        'If the site also uses antibot protection, add proxy: true; an EPROXYNEEDED error confirms it is needed. The [built-in proxy recipe](/use-cases/website-screenshot/built-in-proxy) covers that case.'
+        'If the site also uses antibot protection, the Pro key you already need for headers resolves the proxy automatically; an x-fetch-mode value ending in -proxy confirms it was used. The [built-in proxy recipe](/use-cases/website-screenshot/built-in-proxy) covers that case.'
       ]
     },
     {

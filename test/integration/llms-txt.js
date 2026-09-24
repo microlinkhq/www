@@ -70,6 +70,23 @@ describe('sectionFor', () => {
     expect(sectionFor('/ai')).toBe('AI overview')
   })
 
+  test('splits use cases by vertical, industry and customer story', () => {
+    expect(sectionFor('/use-cases/website-screenshot/mobile')).toBe(
+      'Use cases: Screenshot API'
+    )
+    expect(sectionFor('/use-cases/website-screenshot')).toBe(
+      'Use cases: Screenshot API'
+    )
+    expect(sectionFor('/use-cases/customers/handinger')).toBe(
+      'Customer stories'
+    )
+    expect(sectionFor('/use-cases/industries/ecommerce')).toBe(
+      'Use cases by industry'
+    )
+    expect(sectionFor('/use-cases')).toBe('Use cases')
+    expect(sectionFor('/use-cases/upscale-extracted-images')).toBe('Use cases')
+  })
+
   test('falls back to a single section for standalone pages', () => {
     expect(sectionFor('/pricing')).toBe('Pages')
     expect(sectionFor('/')).toBe('Pages')

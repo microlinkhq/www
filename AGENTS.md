@@ -178,6 +178,7 @@ The typography components own their size. Compose pages from them; do not restyl
 - MUST: Accessible names exist even when visuals omit labels
 - MUST: Use `…` character (not `...`)
 - NEVER: Use an em dash (`—`) in UI copy. It reads as generated. Use a period, comma, colon, or parentheses.
+- NEVER: Wrap markdown link text in code spans. Write `[function](/path)`, not link text with inner backticks.
 - MUST: `scroll-margin-top` on headings; "Skip to content" link; hierarchical `<h1>`–`<h6>`
 - MUST: Resilient to user-generated content (short/avg/very long)
 - MUST: Locale-aware dates/times/numbers (`Intl.DateTimeFormat`, `Intl.NumberFormat`)

@@ -1,7 +1,9 @@
 export {
   ACCENT,
+  INDUSTRIES,
   USE_CASES,
   VERTICALS,
+  getIndustry,
   getUseCase,
   getVertical,
   partnerUseCases,
@@ -28,12 +30,14 @@ export {
   UseCaseFaqSection,
   VerticalIconTile,
   customersStructured,
+  industryStructured,
   useCaseStructured,
   verticalStructured
 } from './landing'
 export {
   CardGrid,
   CustomersHub,
+  IndustryHub,
   ProductUseCases,
   RelatedUseCasesSection,
   UseCaseCard,

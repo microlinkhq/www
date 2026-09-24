@@ -4,6 +4,7 @@ import { pathToFileURL } from 'node:url'
 import { describe, expect, test } from 'vitest'
 
 import {
+  INDUSTRIES,
   USE_CASES,
   VERTICALS,
   verticalUseCases
@@ -155,7 +156,7 @@ describe('use case registry', () => {
   })
 
   test('card link labels are present and never repeat', () => {
-    const labels = USE_CASES.map(({ cta }) => cta)
+    const labels = [...USE_CASES, ...INDUSTRIES].map(({ cta }) => cta)
     expect(labels.filter(label => !label)).toEqual([])
     expect(new Set(labels).size).toBe(labels.length)
   })
@@ -165,6 +166,7 @@ describe('use case registry', () => {
       ...USE_CASES.map(({ slug }) => slug),
       'customers',
       ...CUSTOMERS.map(({ slug }) => `customers/${slug}`),
+      ...INDUSTRIES.map(({ slug }) => slug),
       ...verticalSlugs
     ])
     const orphans = walk(PAGES_DIR)
@@ -311,6 +313,62 @@ describe('use case content', () => {
     }
     for (const list of [titles, headlines, questions]) {
       expect(new Set(list).size).toBe(list.length)
+    }
+  })
+})
+
+describe('industry hubs', () => {
+  test.each(INDUSTRIES)('$slug ships a page', industry => {
+    expect(industry.slug.startsWith('industries/')).toBe(true)
+    const page = read(pageFile(industry.slug))
+    expect(page).toContain(`getIndustry('${industry.slug}')`)
+    expect(page).toContain('industryStructured(')
+    expect(page).toContain('<IndustryHub')
+  })
+
+  test.each(INDUSTRIES)('$slug head copy fits the SEO budgets', industry => {
+    expect(industry.head.title).toSatisfy(between(TITLE_LENGTH))
+    expect(industry.head.description).toSatisfy(between(DESCRIPTION_LENGTH))
+    expect(industry.head.title).not.toMatch(/microlink/i)
+  })
+
+  test.each(INDUSTRIES)('$slug groups landings that exist', industry => {
+    const slugs = landings.map(({ slug }) => slug)
+    expect(RELATED_LENGTHS).toContain(industry.useCases.length)
+    expect(industry.useCases.filter(slug => !slugs.includes(slug))).toEqual([])
+    expect(new Set(industry.useCases).size).toBe(industry.useCases.length)
+  })
+
+  test.each(INDUSTRIES)('$slug has every section filled', industry => {
+    expect(industry.h1).toBeTruthy()
+    expect(industry.intro).toBeTruthy()
+    expect(industry.productHref).toBeTruthy()
+    expect(industry.productLabel).toBeTruthy()
+    expect(industry.pipeline.cards).toHaveLength(3)
+    expect(industry.build.paragraphs.length).toBeGreaterThan(0)
+    expect(industry.faq).toSatisfy(between(FAQ_LENGTH))
+    expect(industry.ctaSection.href).toBeTruthy()
+    expect(typeof industry.cta).toBe('string')
+  })
+
+  test.each(INDUSTRIES)('$slug inline links resolve and copy avoids banned characters', industry => {
+    expect(inlineLinksOf(industry).filter(href => !resolvesInternally(href))).toEqual([])
+    const text = JSON.stringify(industry)
+    for (const [needle, reason] of BANNED_TEXT) {
+      expect(text.includes(needle), reason).toBe(false)
+    }
+  })
+
+  test('industry titles and questions never repeat a landing', () => {
+    const titles = [...contents.values()].map(({ head }) => head.title.toLowerCase())
+    const questions = [...contents.values()].flatMap(({ faq }) =>
+      faq.map(({ question }) => question.toLowerCase())
+    )
+    for (const industry of INDUSTRIES) {
+      expect(titles).not.toContain(industry.head.title.toLowerCase())
+      for (const { question } of industry.faq) {
+        expect(questions).not.toContain(question.toLowerCase())
+      }
     }
   })
 })

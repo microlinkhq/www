@@ -160,5 +160,27 @@ export const WEBSITE_TO_PDF = [
       'website-screenshot/dynamic-content',
       'website-to-markdown/javascript-rendered-pages'
     ]
+  },
+  {
+    slug: 'website-to-pdf/blocked-sites',
+    vertical,
+    category,
+    name: 'PDFs of bot-protected pages',
+    cta: 'Print bot-protected pages',
+    blurb:
+      'Print the real page, not the challenge screen: on Pro plans the PDF request reaches protected sites through the built-in proxy.',
+    keywords: [
+      'pdf of cloudflare protected page',
+      'save blocked page as pdf',
+      'website to pdf proxy'
+    ],
+    related: [
+      'website-to-pdf/archive-articles',
+      'website-to-pdf/batch-generation',
+      'website-screenshot/built-in-proxy',
+      'website-to-markdown/blocked-sites',
+      'website-metadata/blocked-sites',
+      'proxy/scrape-cloudflare-protected-sites'
+    ]
   }
 ]

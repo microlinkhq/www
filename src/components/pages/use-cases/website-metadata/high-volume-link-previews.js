@@ -134,7 +134,7 @@ export const CONTENT = {
     {
       question: 'What happens when a site blocks my link preview requests?',
       answer:
-        'A detected block returns the EPROXYNEEDED error code. On Pro plans, retry with proxy: true and the request routes through the managed proxy pool; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
+        'On the free tier a detected block returns the EPROXYNEEDED error code, the signal to send that link through a Pro key. On Pro plans the proxy resolves automatically, with no parameter; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
     }
   ],
   cta: {

@@ -7,6 +7,7 @@ export { inline, plain } from './inline-links'
 export { apiUrlFor, curlFor } from './request'
 export {
   customersStructured,
+  industryStructured,
   useCaseStructured,
   verticalStructured
 } from './structured'
