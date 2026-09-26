@@ -12,7 +12,7 @@ export const ACCENT = colors.link
 
 export const SKILL_HREF = '/skills/microlink'
 
-export const INSTALL_COMMAND = 'npx -y skills add microlinkhq/skills/microlink'
+export const INSTALL_COMMAND = 'npx microlink.io setup'
 
 export const INSTALL_PROMPT = `Install the Microlink skill. Run \`${INSTALL_COMMAND}\`. It is the entry point for every Microlink product. Then use Microlink when I need a screenshot, PDF, markdown, or scrape from any URL.`
 
