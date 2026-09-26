@@ -1,6 +1,6 @@
 ---
 title: 'CLI'
-description: 'Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options, plus login, tracing, and structured input.'
+description: 'Use the microlink binary bundled with the Microlink SDK. Every product is a subcommand, with flags mapping one-to-one to the SDK options, plus setup, login, tracing, and structured input.'
 ---
 
 Installing [microlink.io](https://www.npmjs.com/package/microlink.io) also ships a `microlink` binary where every product is a subcommand. Flags map one-to-one to the [options](/docs/sdk/getting-started/options) each method accepts:
@@ -51,6 +51,14 @@ microlink login
 ```
 
 `login` opens your [dashboard](https://dashboard.microlink.io) in the browser, lets you pick one of your API keys, and saves it under `~/.config/microlink/config.json` with owner-only permissions. `microlink logout` removes it.
+
+## Coding agents
+
+`microlink setup` detects the coding agents on this machine and installs the [Microlink skill](/skills/microlink) for them. When it finishes, type `/microlink` in the agent to start.
+
+```bash
+microlink setup
+```
 
 ## Headers
 

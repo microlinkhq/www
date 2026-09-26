@@ -25,6 +25,6 @@ microlink logo https://github.com --square
 microlink search "best coffee" --limit 10 --location es
 ```
 
-Strings print raw; objects pretty-print as JSON. Run `microlink login` to save an API key from your account, or pass `--api-key` / `$MICROLINK_API_KEY`. Add `--trace` to print the request and response.
+Strings print raw; objects pretty-print as JSON. Run `microlink login` to save an API key from your account, or pass `--api-key` / `$MICROLINK_API_KEY`. Run `microlink setup` to install the Microlink skill for the coding agents on this machine, then type `/microlink` to use it. Add `--trace` to print the request and response.
 
 See the [SDK CLI](/docs/sdk/getting-started/cli) page for authentication, headers, and structured input.
