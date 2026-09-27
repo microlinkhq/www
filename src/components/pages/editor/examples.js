@@ -210,28 +210,47 @@ export const EXAMPLES = [
       }
       return \`body>\${path.join('>')}\`
     }
-    const roles = { A: 'link', BUTTON: 'button', INPUT: 'input', SELECT: 'select', TEXTAREA: 'textbox' }
+    const roles = { A: 'link', BUTTON: 'button', SELECT: 'select', TEXTAREA: 'textbox' }
+    const inputRoles = {
+      checkbox: 'checkbox',
+      radio: 'radio',
+      button: 'button',
+      submit: 'button',
+      reset: 'button',
+      image: 'button'
+    }
     const visible = element => {
       const style = getComputedStyle(element)
       return element.getClientRects().length && style.visibility !== 'hidden'
     }
     const text = element => {
-      const labelledBy = (element.getAttribute('aria-labelledby') || '')
-        .split(/\\s+/)
-        .map(id => document.getElementById(id)?.textContent || '')
-        .join(' ')
-        .trim()
+      const clean = value => (value || '').replace(/\\s+/g, ' ').trim()
+      const labelledBy = clean(
+        (element.getAttribute('aria-labelledby') || '')
+          .split(/\\s+/)
+          .map(id => document.getElementById(id)?.textContent || '')
+          .join(' ')
+      )
       const label = element.labels
-        ? [...element.labels].map(node => node.textContent).join(' ').trim()
+        ? clean([...element.labels].map(node => node.textContent).join(' '))
         : ''
-      return element.getAttribute('aria-label') ||
-        element.getAttribute('placeholder') ||
-        (element.tagName === 'SELECT'
-          ? element.selectedOptions[0]?.textContent
-          : element.innerText) ||
+      const own = element.tagName === 'SELECT'
+        ? element.selectedOptions[0]?.textContent
+        : element.tagName === 'IMG'
+          ? element.getAttribute('alt')
+          : element.innerText
+      const value = element.tagName === 'INPUT' &&
+        /^(button|submit|reset|image)$/.test(element.type)
+        ? element.value
+        : ''
+      const image = element.querySelector('img[alt]')?.getAttribute('alt')
+      return clean(element.getAttribute('aria-label')) ||
+        clean(element.getAttribute('placeholder')) ||
+        clean(own) ||
         labelledBy ||
         label ||
-        ''
+        clean(value) ||
+        clean(image)
     }
     return {
       title: document.title,
@@ -239,8 +258,12 @@ export const EXAMPLES = [
       elements: elements.filter(visible)
         .map((element, index) => ({
           index,
-          role: element.getAttribute('role') || roles[element.tagName] || element.localName,
-          text: text(element).replace(/\\s+/g, ' ').trim(),
+          role: element.getAttribute('role') ||
+            (element.tagName === 'INPUT'
+              ? inputRoles[element.type] || 'input'
+              : roles[element.tagName]) ||
+            element.localName,
+          text: text(element),
           selector: selector(element)
         }))
     }
@@ -279,7 +302,7 @@ export const EXAMPLES = [
     .filter(heading => heading.getClientRects().length)
     .map(heading => ({
       level: Number(heading.tagName.slice(1)),
-      text: heading.textContent.replace(/\\s+/g, ' ').trim()
+      text: heading.innerText.replace(/\\s+/g, ' ').trim()
     }))
     .filter(heading => heading.text)
 )`
