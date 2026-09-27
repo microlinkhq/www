@@ -215,11 +215,24 @@ export const EXAMPLES = [
       const style = getComputedStyle(element)
       return element.getClientRects().length && style.visibility !== 'hidden'
     }
-    const text = element => element.getAttribute('aria-label') ||
-      element.getAttribute('placeholder') ||
-      (element.tagName === 'SELECT'
-        ? element.selectedOptions[0]?.textContent
-        : element.innerText) || ''
+    const text = element => {
+      const labelledBy = (element.getAttribute('aria-labelledby') || '')
+        .split(/\\s+/)
+        .map(id => document.getElementById(id)?.textContent || '')
+        .join(' ')
+        .trim()
+      const label = element.labels
+        ? [...element.labels].map(node => node.textContent).join(' ').trim()
+        : ''
+      return element.getAttribute('aria-label') ||
+        element.getAttribute('placeholder') ||
+        (element.tagName === 'SELECT'
+          ? element.selectedOptions[0]?.textContent
+          : element.innerText) ||
+        labelledBy ||
+        label ||
+        ''
+    }
     return {
       title: document.title,
       url: location.href,
