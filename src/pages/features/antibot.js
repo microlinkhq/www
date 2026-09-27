@@ -15,6 +15,7 @@ import { How } from 'components/pages/antibot/how'
 import { Overview } from 'components/pages/antibot/overview'
 import { Providers } from 'components/pages/antibot/providers'
 import { Related } from 'components/pages/antibot/related'
+import { RelatedUseCases } from 'components/pages/antibot/related-use-cases'
 import { META, TOC } from 'components/pages/antibot/shared'
 
 const AntibotFeaturePage = () => (
@@ -26,6 +27,7 @@ const AntibotFeaturePage = () => (
       <Providers />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

@@ -122,3 +122,8 @@ Disabling JavaScript means SPAs (React, Vue, Angular) will often render their in
 ## Next step
 
 Learn how to interact with the page before capturing — clicking elements, scrolling, waiting, and injecting code — in [page interaction](/docs/guides/screenshot/page-interaction).
+
+## See also
+
+- <Link href='/use-cases/website-screenshot/mobile' children='Mobile screenshots at any viewport' /> — device presets and custom viewports in a copy-pasteable recipe.
+- <Link href='/use-cases/website-screenshot/dark-mode' children='Screenshots in dark mode' /> — force prefers-color-scheme before capture.

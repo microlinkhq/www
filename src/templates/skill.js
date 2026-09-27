@@ -38,7 +38,9 @@ const toIsoDate = value => {
 }
 
 const getInstallCommand = value =>
-  `npx skills add https://github.com/microlinkhq/skills --skill ${value}`
+  value === 'microlink'
+    ? 'npx microlink.io setup'
+    : `npx skills add https://github.com/microlinkhq/skills --skill ${value}`
 
 export const Head = ({ pageContext }) => {
   const { frontmatter = {}, skillSlug, lastEdited } = pageContext

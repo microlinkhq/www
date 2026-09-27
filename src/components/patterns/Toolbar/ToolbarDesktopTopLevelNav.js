@@ -14,6 +14,7 @@ import {
 import { theme } from 'theme'
 
 import {
+  DASHBOARD_NAV_ITEM,
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
   ToolbarActionLink
@@ -126,12 +127,14 @@ const ToolbarDesktopTopLevelNav = ({
         </Box>
       )
     })}
-    {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
+    {DIRECT_NAV_ITEMS.map(({ label, href, actively, title, externalIcon }) => (
       <TopLevelDirectLink
         key={label}
         forwardedAs='li'
         href={href}
         actively={actively}
+        title={title}
+        externalIcon={externalIcon}
         data-event-location='Toolbar'
         data-event-name={label}
         onClick={onClosePanel}
@@ -167,6 +170,24 @@ const ToolbarDesktopTopLevelNav = ({
         {BOOK_CALL_LABEL}
       </Caps>
     </ToolbarActionLink>
+    <TopLevelDirectLink
+      forwardedAs='li'
+      href={DASHBOARD_NAV_ITEM.href}
+      title={DASHBOARD_NAV_ITEM.title}
+      externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
+      data-event-location='Toolbar'
+      data-event-name={DASHBOARD_NAV_ITEM.label}
+      onClick={onClosePanel}
+      onMouseEnter={onClosePanel}
+      css={theme({
+        ...TOP_LEVEL_LINK_LAYOUT_STYLES,
+        ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+      })}
+    >
+      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+        {DASHBOARD_NAV_ITEM.label}
+      </Caps>
+    </TopLevelDirectLink>
   </Flex>
 )
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { SECTION_VERTICAL_SPACING, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, colors, theme } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -18,6 +18,7 @@ import {
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { LogoCapabilitiesVisual } from 'components/pages/logo/capabilities-visual'
+import { LANG_LANDINGS } from 'components/pages/logo/lang/registry'
 import {
   ACCENT,
   TIMINGS_ACCENT,
@@ -140,7 +141,12 @@ const LogoPage = () => (
       }
       features={FEATURES}
     />
-    <ProductCta {...CTA} accent={ACCENT} />
+    <ProductCta
+      {...CTA}
+      accent={ACCENT}
+      langLandings={LANG_LANDINGS}
+      langLandingsAccent={colors.yellow9}
+    />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
   </Layout>
 )

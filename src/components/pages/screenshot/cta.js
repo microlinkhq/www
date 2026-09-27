@@ -133,7 +133,7 @@ export const CallToAction = () => (
       <Box css={theme({ pt: [4, 4, 5, 5] })}>
         <LangLandingsNav
           langs={LANG_LANDINGS}
-          label='Also available for'
+          label='Language guides'
           accent={colors.red6}
         />
       </Box>

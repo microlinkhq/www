@@ -1,4 +1,3 @@
-import CliBanner from 'components/pages/home/cli-banner'
 import GradualBlur from 'components/pages/home/gradual-blur'
 import Hero from 'components/pages/home/hero'
 import { getFaqQuestions } from 'components/pages/home/faqs'
@@ -10,6 +9,7 @@ import toPlainText from 'components/patterns/Faq/to-plain-text'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 
 const Products = lazy(() => import('components/pages/home/products'))
+const CliBanner = lazy(() => import('components/pages/home/cli-banner'))
 const Examples = lazy(() => import('components/pages/home/examples'))
 const Analytics = lazy(() => import('components/pages/home/analytics'))
 const Pricing = lazy(() => import('components/pages/home/pricing'))
@@ -155,9 +155,11 @@ const HomePage = () => {
     <CurrencyProvider>
       <Layout toolbarAnimated>
         <Hero />
-        <CliBanner />
         <Deferred force={forceDeferred} minHeight='80vh'>
           <Products />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='60vh'>
+          <CliBanner />
         </Deferred>
         <Deferred force={forceDeferred} minHeight='40vh'>
           <Examples />

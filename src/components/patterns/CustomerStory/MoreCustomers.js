@@ -8,7 +8,7 @@ import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { CUSTOMERS } from './customers'
+import { CUSTOMERS, customerPath } from './customers'
 import { Eyebrow } from './chrome'
 import {
   SECTION_PX,
@@ -148,7 +148,7 @@ export const MoreCustomers = ({ accent, currentSlug }) => {
               </Flex>
               <CarouselCardBlurb>{blurb}</CarouselCardBlurb>
               <CarouselCardLink
-                href={`/use-cases/${slug}`}
+                href={customerPath(slug)}
                 css={theme({ color: accent.text })}
               >
                 Read story →

@@ -1,5 +1,5 @@
 ---
-title: 'Microlink adblock now handles cookie banners'
+title: 'Microlink adblock now dismisses cookie banners automatically'
 description: 'Microlink adblock now combines network-level blocking with automatic cookie consent handling, so you get cleaner screenshots and metadata without custom scripts.'
 authors:
   - kiko
@@ -11,62 +11,56 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { SliderCompare } from 'components/markdown/SliderCompare'
 import { Figcaption } from 'components/markdown/Figcaption'
 
-Cookie banners are one of the most annoying things on today’s internet.
+When [adblock](/docs/api/parameters/adblock) is enabled, the Microlink API now handles cookie consent banners automatically, on top of blocking ads and trackers. Adblock is on by default, so every request gets it without a code change.
 
 ![](/images/cookies.jpeg)
 
-If you take [screenshots](/docs/api/parameters/screenshot), generate [PDFs](/docs/api/parameters/pdf), or extract [metadata](/docs/api/parameters/meta), you eventually hit the same problem: the page loads, but a consent popup covers the content.
+**TL;DR**
 
-Today, we’re announcing a major upgrade to Microlink adblock, powered by [browserless](https://browserless.js.org/), our own headless browser runner behind the [Microlink API](/docs/api/getting-started/overview).
+- When adblock is enabled, the Microlink API now handles cookie consent banners automatically, on top of blocking ads and trackers.
+- Adblock is on by default, so every request gets it without a code change.
+- For common cases, that replaces a custom Puppeteer script.
+- Inside browserless, three layers do the work: ad and tracker blocking, autoconsent-based opt-out, and cosmetic prehide rules.
+- Set `adblock=false` when your workflow needs to load ads and trackers, or when you are validating the site's default consent UX.
 
-## What's new
+A consent popup is the usual reason a [screenshot](/docs/api/parameters/screenshot), [PDF](/docs/api/parameters/pdf), or [metadata](/docs/api/parameters/meta) request comes back wrong: the page loads, and the banner covers the content. The upgrade runs inside [browserless](https://browserless.js.org/), our own headless browser runner behind the [Microlink API](/docs/api/getting-started/overview).
 
-From today, when Microlink’s [adblock](/docs/api/parameters/adblock) is enabled, cookie consent banners are handled automatically.
+## One parameter blocks trackers and consent popups
 
 <SliderCompare before={{src: '/images/M4jeZNS.png'}} after={{ src: '/images/FrmIQOj.png'}} />
 
 <Figcaption>The same request with adblock disabled and enabled</Figcaption>
 
-With this release, one parameter now covers both:
+With this release, `adblock` covers two jobs:
 
-- ad and tracker request blocking.
-- automatic cookie banner handling for supported CMPs.  
+- **Request blocking:** ad and tracker requests are blocked before they load.
+- **Consent handling:** cookie banners from supported CMPs (consent management platforms) are dismissed automatically.
 
-For common cases, you no longer need custom Puppeteer scripts. This also speed up response resolution.
-
-## Why this matters
+For common cases, that replaces a custom Puppeteer script.
 
 ![](/images/cookies2.jpeg)
 
-Historically, hide cookie banners popup require site-specific scripts, brittle selectors, and constant maintenance. This could be achieved in many ways:
+Until now, hiding a cookie banner meant site-specific work: hardcoded selectors per site, generic "click accept" scripts, filter lists, CMP-specific logic, or browser extensions. Each one breaks as soon as the target URL's markup changes.
 
-- hardcoded selectors per site.
-- generic "click accept" scripts.
-- filter lists only.
-- CMP-specific logic.
-- browser extensions.
-
-In fact we ways for doing that:
-
-- [click](/docs/api/parameters/click) to interact with selectors.
-- [styles](/docs/api/parameters/styles) to inject CSS overrides.
-- [scripts](/docs/api/parameters/scripts) to inject JavaScript.
-- [modules](/docs/api/parameters/modules) to load module-based logic.
-- [waitForSelector](/docs/api/parameters/waitForSelector) to wait for stable states before capture
-
-However, the issue is always there: as soon as the target URL markup changes, the approaches needed to be updated.
-
-Now [Microlink API](/docs/api/getting-started/overview) is enough smart to detect cookies banners common case, avoid you to write domain-specific one-offs while keeping the rest of your request flow unchanged.
+The API now detects the common cookie banner cases itself. You stop writing domain-specific one-offs, and the rest of your request flow (the `url`, `screenshot`, and other parameters) stays the same.
 
 <SliderCompare before={{src: '/images/dsGYcxo.png'}} after={{ src: '/images/2afO5FJ.png'}} />
 
 <Figcaption>The same request with adblock disabled and enabled</Figcaption>
 
-Still, for complicated or corner cases you can continue use query parameters, but that should be less common than before.
+For complicated or corner cases, the existing query parameters still work, and you should need them less often than before: [click](/docs/api/parameters/click) to interact with selectors, [styles](/docs/api/parameters/styles) to inject CSS overrides, [scripts](/docs/api/parameters/scripts) to inject JavaScript, [modules](/docs/api/parameters/modules) to load module-based logic, and [waitForSelector](/docs/api/parameters/waitForSelector) to wait for a stable state before capture.
 
-## How to use it
+## How browserless removes the banner
 
-The [adblock](/docs/api/parameters/adblock) capabilities are enabled by default, so you don't need to do nothing special, just continue using [Microlink API](/docs/api/getting-started/overview) as normal:
+For broader context on the runner itself, see [what is a headless browser?](/blog/what-is-a-headless-browser). Inside browserless, [@browserless/goto](https://github.com/microlinkhq/browserless/tree/master/packages/goto) now combines three layers:
+
+- **Blocking:** an ad and tracker engine for abusive third-party requests, powered by [ghostery/adblocker](https://github.com/ghostery/adblocker).
+- **Opt-out:** autoconsent-based cookie handling, configured for automatic opt-out and powered by [DuckDuckGo’s autoconsent](https://github.com/duckduckgo/autoconsent).
+- **Prehide:** cosmetic rules that reduce visual cookie overlays before capture.
+
+## No configuration, and adblock=false to opt out
+
+The adblock capabilities are enabled by default, so there is nothing to configure. A screenshot of `https://www.nytimes.com/` with `adblock: true` looks like this:
 
 <MultiCodeEditorInteractive 
   mqlCode={{ 
@@ -76,31 +70,10 @@ The [adblock](/docs/api/parameters/adblock) capabilities are enabled by default,
   }} 
 />
 
-## Under the hood
-
-Microlink uses [browserless](https://browserless.js.org/), our own headless browser runner. For broader context, see [what is a headless browser?](/blog/what-is-a-headless-browser).
-
-Inside that runner, [@browserless/goto](https://github.com/microlinkhq/browserless/tree/master/packages/goto) now combines:
-
-- ad/tracker blocking engine for third-party abusive requests, powered by [ghostery/adblocker](https://github.com/ghostery/adblocker).
-- autoconsent-based cookie handling configured for automatic opt-out powered by [DuckDuckGo’s autoconsent](https://github.com/duckduckgo/autoconsent).
-- prehide/cosmetic behavior to reduce visual cookie overlays before capture.
-
-## When to disable it
-
-You can set [adblock=false](/docs/api/parameters/adblock) if your workflow requires loading ads/trackers or validating the default consent UX.
+No cookie-banner strategy is perfect for every page on the internet. Set [adblock=false](/docs/api/parameters/adblock) when your workflow needs to load ads and trackers, or when you are validating the site's default consent UX:
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://www.nytimes.com/', adblock: false }} />
 
-## Final notes
+## Try it on the New York Times
 
-No cookie-banner strategy is perfect for every page on the internet.
-
-But this release moves Microlink closer to what most teams need in production: cleaner captures, less custom code, and fewer brittle fixes.
-
-If you want more context around the stack, read:
-
-- [Microlink API: Browser automation](/blog/browser-automation)
-- [What is a headless browser?](/blog/what-is-a-headless-browser)
-- [Antibot detection at scale](/blog/antibot-detection-at-scale)
-- [Microlink Proxy: How it works](/blog/microlink-proxy-how-it-works)
+Run the first snippet above against `https://www.nytimes.com/`, then the same URL with `adblock: false`, and compare the two screenshots. For the rest of the stack behind that request, read [Microlink API: Browser automation](/blog/browser-automation), [Antibot detection at scale](/blog/antibot-detection-at-scale), and [Microlink Proxy: How it works](/blog/microlink-proxy-how-it-works).

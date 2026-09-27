@@ -13,6 +13,7 @@ import { Hero } from 'components/pages/markdown/hero'
 import { Playground } from 'components/pages/markdown/playground'
 import { Pricing } from 'components/pages/markdown/pricing'
 import { ProductInformation } from 'components/pages/markdown/product-information'
+import { UseCases } from 'components/pages/markdown/use-cases'
 import { HERO_LAYOUT, Subhead } from 'components/pages/markdown/shared'
 import { Timings } from 'components/pages/markdown/timings'
 import { TokenSavings } from 'components/pages/markdown/token-savings'
@@ -320,6 +321,7 @@ const MarkdownPage = () => {
         }
         features={FEATURES}
       />
+      <UseCases />
       <CallToAction />
       <ProductInformation />
     </Layout>

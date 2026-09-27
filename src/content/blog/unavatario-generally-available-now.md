@@ -1,6 +1,6 @@
 ---
-title: "unavatar.io: Generally available now"
-description: 'Discover unavatar.io, the unified API for resolving user avatars from any social network. New PRO plan for scaling past bot protection and residential proxies.'
+title: "unavatar.io is now generally available with a PRO plan"
+description: 'unavatar.io, the unified API for resolving user avatars from any social network, is generally available. The new PRO plan removes the daily cap and resolves avatars behind bot protection using residential proxies.'
 authors:
   - kiko
 date: '2026-01-05'
@@ -9,15 +9,23 @@ date: '2026-01-05'
 import { Since } from 'components/markdown/Since'
 import { Microlink } from 'components/markdown/Microlink'
 
-Resolving user avatars across different social networks can be a surprisingly difficult task: from handling different API formats to bypassing bot protection on platforms like Instagram or LinkedIn, it’s a constant battle to keep things working.
+[unavatar](https://unavatar.io) is now **Generally Available**, and it launches with a pay-as-you-go [PRO](https://unavatar.io/checkout) plan at $0.001 per avatar token. The free tier stays at 50 avatar resolutions a day per IP address.
 
 <Microlink url='https://unavatar.io' />
 
-That's why we built [unavatar](https://unavatar.io), and today we're excited to announce that it's now **Generally Available**.
+**TL;DR**
 
-## Unified avatar resolution
+- unavatar is now **Generally Available**, with a pay-as-you-go PRO plan at **$0.001 per avatar token**.
+- The free tier stays at **50 avatar resolutions a day** per IP address.
+- PRO removes the daily cap and resolves avatars behind bot protection on platforms like Instagram or LinkedIn.
+- unavatar supports over 18 providers and resolves more than **200 million requests per month**.
+- The default cache duration is now **7 days**, and the `ttl` parameter sets it anywhere between 1 hour and 28 days.
 
-[unavatar](https://unavatar.io) is the simplest way to get a user avatar from across the web. Whether you have a username, an email address, or a domain name, unavatar resolves it and returns the avatar URL instantly.
+Resolving a user avatar across social networks means handling a different API format per network and getting past bot protection on platforms like Instagram or LinkedIn. unavatar puts all of that behind one URL.
+
+## One URL for any username, email, or domain
+
+You pass unavatar a username, an email address, or a domain name, and it resolves it and returns the avatar URL:
 
 ```bash
 
@@ -31,35 +39,33 @@ curl https://unavatar.io/microlink.io
 curl https://unavatar.io/hello@microlink.io
 ```
 
-The core value of unavatar is that it eliminates the need for developers to integrate with dozens of different APIs just to show a profile picture. It provides a single, reliable endpoint that works across the entire internet.
+Instead of integrating with dozens of different APIs just to show a profile picture, you call one endpoint that works across X, email addresses, and domains with the same URL shape.
 
-## Scaling to the next level
+## 200 million requests a month outgrew the free tier
 
 The project started almost **<Since from='2018' /> years ago**. Today, unavatar supports over 18 providers and resolves more than **200 million requests per month**.
 
-Throughout this journey, we've faced significant challenges in keeping the service both reliable and free. As platforms introduced increasingly aggressive bot protection and stricter rate limits, resolving avatars became a complex game of cat and mouse.
+Keeping that reliable and free got harder every year. Platforms like Instagram and LinkedIn introduced increasingly aggressive bot protection and stricter rate limits, and resolving their avatars became a game of cat and mouse.
 
-At the same time, the daily limits (originally designed to protect our infrastructure from automated abuse) became a significant bottleneck for users moving from side projects to production-grade applications.
+The daily limits, originally designed to protect our infrastructure from automated abuse, became a bottleneck for users moving from side projects to production-grade applications that need more than 50 avatars a day. A high success rate across all providers required a level of infrastructure and complexity that the original free-tier architecture was never designed to handle.
 
-We found that maintaining a high success rate across all providers required a level of infrastructure and complexity that the original free-tier architecture was never designed to handle.
+## The free tier stays at 50 resolutions a day
 
-## What's unchanged
+Microlink is committed to always providing a free solution without expecting anything in return. That commitment is rooted in our open source core values, which is why [unavatar](https://unavatar.io) keeps a free tier.
 
-As a company, we are committed to always providing a free solution without expecting anything in return. This is deeply rooted in our Open Source core values: ensuring that our tools remain accessible to everyone.
+**unavatar** remains free to use for everyone. You get **50 avatar resolutions every day** per IP address, which is enough for side projects, small experiments, and local development.
 
-This is why **unavatar** remains free to use for everyone. You get **50 avatar resolutions every day** per IP address, which is plenty for side projects, small experiments, and local development.
+## PRO removes the daily cap
 
-## What's new
+The [PRO](https://unavatar.io/checkout) plan lifts the 50-a-day limit of the free plan, so you can scale at the moment your usage requires it:
 
-We’re thrilled to announce a major milestone for the project: **the official launch of the [PRO](https://unavatar.io/checkout) plan**.
+- **No daily cap:** Your application keeps resolving avatars without interruptions.
+- **Advanced resolution:** unavatar jumps CAPTCHAs, handles bot protection, and bypasses restrictive challenges on platforms like Instagram or LinkedIn.
+- **Dynamic pricing:** unavatar adjusts its strategy and cost to each provider's complexity to get the highest success rate.
 
-Designed to unlock the free plan limitations, [PRO](https://unavatar.io/checkout) allows you to scale just in time when your usage requires it:
+## You control the cache with ttl
 
-- **No daily cap**: Scale your application without interruptions.
-- **Advanced resolution**: Jump CAPTCHAs, handle bot protection, and bypass restrictive challenges on platforms like Instagram or LinkedIn.
-- **Dynamic pricing**: Automatically adjusts its strategy and cost based on each provider's complexity to ensure the highest success rate.
-
-Also, we've shortened the cache duration: instead of 1 year (the fixed value prior to introducing the [PRO](https://unavatar.io/checkout) plan), we've lowered the new default to **7 days**. Additionally, you can now control this value yourself and set anything between **1 hour and 28 days** using the `ttl` parameter.
+We shortened the default cache duration from 1 year, the fixed value before the [PRO](https://unavatar.io/checkout) plan existed, to **7 days**. You can now set it yourself to anything between **1 hour and 28 days** with the `ttl` parameter:
 
 ```bash
 https://unavatar.io/x/microlinkhq?ttl=1d # 86400000
@@ -67,44 +73,45 @@ https://unavatar.io/x/microlinkhq?ttl=1day # 86400000
 https://unavatar.io/x/microlinkhq?ttl=1h # 3600000
 ```
 
-## What's the pricing
+## Pricing is $0.001 per avatar token
 
-The [PRO](https://unavatar.io/checkout) plan uses a simple pay-as-you-go model at **$0.001 per avatar token**. 
+The [PRO](https://unavatar.io/checkout) plan is pay-as-you-go at **$0.001 per avatar token**. The number of tokens an avatar resolution costs depends on the strategy unavatar needs to resolve it:
 
-unavatar uses different resolution strategies depending on what's required. An avatar resolution may cost:
+| Tokens | Resolved by |
+| --- | --- |
+| **1 token** | unavatar servers |
+| **2 tokens** | a datacenter proxy |
+| **4 tokens** | a residential proxy |
 
-- **1 token**: Resolved by unavatar servers.
-- **2 tokens**: Resolved using a datacenter proxy.
-- **4 tokens**: Resolved using a residential proxy.
+The service suggests an upgrade to [PRO](https://unavatar.io/checkout) only when it detects that a request failing under the free tier could be resolved with the PRO strategies, so you pay for proxies only on the requests that need them.
 
-Our goal is to stay out of your way: the service will proactively suggest an upgrade to [PRO](https://unavatar.io/checkout) only when it detects that a request failing under the free tier could be successfully resolved using our advanced strategies. This ensures you only pay for what you actually need, when you need it.
+### What a resolution costs
 
-### Real-world emulation
+A simple avatar resolves normally, for `1 × $0.001 = $0.001 total`. A complex provider such as Instagram or LinkedIn requires a residential proxy, for `1 × $0.001 + 2 × $0.001 + 4 × $0.001 = $0.007 total`.
 
-- **Simple avatar**: Resolved normally (`1 × $0.001 = $0.001 total`).
-- **Complex provider** (e.g., Instagram, LinkedIn): Requires a residential proxy (`1 × $0.001 + 2 × $0.001 + 4 × $0.001 = $0.007 total`).
-
-Key points:
+The billing rules:
 
 - You are only charged for the **first successful resolution**.
 - All subsequent requests served from cache are **free**.
 - We do **not** charge for failed resolutions.
-- Only a few providers require a residential proxy (e.g., Instagram and similar complex platforms).
+- Only a few providers require a residential proxy, for example Instagram and similar complex platforms.
 
-You can verify this information using the response headers:
+You can verify the tier and cost of a resolution in the response headers:
 
-- `x-pricing-tier` (`free` / `pro`): indicates which pricing tier was used.
-- `x-proxy-tier` (`origin` / `datacenter` / `residential`): indicates which resolution method was required.
-- `x-unavatar-cost` (`n`): number of tokens consumed for the avatar resolution.
+| Header | Values | Meaning |
+| --- | --- | --- |
+| `x-pricing-tier` | `free` / `pro` | which pricing tier was used |
+| `x-proxy-tier` | `origin` / `datacenter` / `residential` | which resolution method was required |
+| `x-unavatar-cost` | `n` | number of tokens consumed for the avatar resolution |
 
-## What's next
+## Coming next: analytics and Bluesky, Vimeo, and WhatsApp
 
-We're continuing to build and ship new features to make unavatar even better:
+We are working on three additions:
 
-- **Built-in analytics**: Detailed usage metrics and insights.
-- **Improved detection**: Better domain and brand detection for automatic resolution.
-- **New providers**: Upcoming support for Vimeo, Bluesky, and WhatsApp.
+- **Built-in analytics:** detailed usage metrics and insights.
+- **Improved detection:** better domain and brand detection for automatic resolution.
+- **New providers:** support for Vimeo, Bluesky, and WhatsApp.
 
-You can upgrade to [PRO](https://unavatar.io/checkout) anytime at [unavatar.io/checkout](https://unavatar.io/checkout).
+## Upgrade to PRO
 
-Thank you for being part of the journey from beta to GA!
+Try the free tier with `curl https://unavatar.io/microlink.io`, and upgrade to [PRO](https://unavatar.io/checkout) anytime at [unavatar.io/checkout](https://unavatar.io/checkout).

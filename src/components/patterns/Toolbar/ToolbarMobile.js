@@ -22,10 +22,13 @@ import { setMobileMenuOpen } from 'helpers/mobile-menu'
 import React, { useEffect, useState } from 'react'
 
 import {
+  DASHBOARD_NAV_ITEM,
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
+  TOOLS_INTEGRATIONS_ITEMS,
   ToolbarActionLink,
   ToolbarNavLink,
+  getSectionItems,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
 import { NavMicrolinkLogo } from './NavLogo'
@@ -252,6 +255,62 @@ const prefetchPath = href => {
   window.___loader?.enqueue?.(href)
 }
 
+const MobileMenuItem = ({
+  label,
+  href,
+  actively,
+  title,
+  externalIcon,
+  description,
+  logo,
+  icon,
+  onItemClick
+}) => (
+  <MobileMenuItemLink
+    forwardedAs='li'
+    href={href}
+    actively={actively}
+    title={title}
+    externalIcon={externalIcon}
+    data-event-location='Toolbar'
+    data-event-name={label}
+    onClick={onItemClick}
+    css={theme(MOBILE_MENU_ITEM_STYLES)}
+  >
+    <MenuItemIcon as='span'>
+      <ToolbarMenuItemMedia
+        label={label}
+        logo={logo}
+        icon={icon}
+        iconCss={theme(getMenuItemMediaStyles(label))}
+        imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
+      />
+    </MenuItemIcon>
+    <Box as='span'>
+      <MenuItemTitle as='span' className='menu-item-title'>
+        {label}
+      </MenuItemTitle>
+      {description && (
+        <MenuItemDescription as='span' className='menu-item-description'>
+          {description}
+        </MenuItemDescription>
+      )}
+    </Box>
+  </MobileMenuItemLink>
+)
+
+const MobileMenuItems = ({ items, onItemClick, ...props }) => (
+  <Flex
+    as='ul'
+    css={theme({ flexDirection: 'column', ...TOOLBAR_LIST_RESET_STYLES })}
+    {...props}
+  >
+    {items.map(item => (
+      <MobileMenuItem key={item.label} {...item} onItemClick={onItemClick} />
+    ))}
+  </Flex>
+)
+
 const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
   const [isOpen, setOpen] = useState(false)
@@ -275,7 +334,9 @@ const ToolbarMobile = ({ animated }) => {
       const section = NAVIGATION_SECTIONS.find(
         ({ label: name }) => name === next
       )
-      section?.items?.forEach(({ href }) => prefetchPath(href))
+      if (section) {
+        getSectionItems(section).forEach(({ href }) => prefetchPath(href))
+      }
     }
   }
 
@@ -287,7 +348,9 @@ const ToolbarMobile = ({ animated }) => {
       const section = NAVIGATION_SECTIONS.find(
         ({ label }) => label === activeSection
       )
-      section?.items?.forEach(({ href }) => prefetchPath(href))
+      if (section) {
+        getSectionItems(section).forEach(({ href }) => prefetchPath(href))
+      }
     }
   }, [isOpen, location.pathname])
 
@@ -408,88 +471,61 @@ const ToolbarMobile = ({ animated }) => {
                     )}
                   </SectionContainer>
                   {isExpanded && (
-                    <Flex
+                    <Box
                       id={toMobileSectionDomId(label)}
-                      as='ul'
-                      css={theme({
-                        flexDirection: 'column',
-                        ...TOOLBAR_LIST_RESET_STYLES,
-                        mt: 1,
-                        mb: 2
-                      })}
+                      css={theme({ mt: 1, mb: 2 })}
                     >
-                      {items.map(
-                        ({
-                          label: itemLabel,
-                          href,
-                          actively,
-                          title,
-                          externalIcon,
-                          description: itemDescription,
-                          logo,
-                          icon: Icon
-                        }) => (
-                          <MobileMenuItemLink
-                            key={itemLabel}
-                            forwardedAs='li'
-                            href={href}
-                            actively={actively}
-                            title={title}
-                            externalIcon={externalIcon}
-                            data-event-location='Toolbar'
-                            data-event-name={itemLabel}
-                            onClick={closeMenu}
-                            css={theme(MOBILE_MENU_ITEM_STYLES)}
+                      <MobileMenuItems items={items} onItemClick={closeMenu} />
+                      {label === 'Tools' && (
+                        <>
+                          <Caps
+                            as='p'
+                            id={toMobileSectionDomId('Integrations')}
+                            css={theme({
+                              ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+                              color: 'black60',
+                              m: 0,
+                              pt: 3,
+                              pb: 1,
+                              px: '12px'
+                            })}
                           >
-                            <MenuItemIcon as='span'>
-                              <ToolbarMenuItemMedia
-                                label={itemLabel}
-                                logo={logo}
-                                icon={Icon}
-                                iconCss={theme(
-                                  getMenuItemMediaStyles(itemLabel)
-                                )}
-                                imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
-                              />
-                            </MenuItemIcon>
-                            <Box as='span'>
-                              <MenuItemTitle
-                                as='span'
-                                className='menu-item-title'
-                              >
-                                {itemLabel}
-                              </MenuItemTitle>
-                              <MenuItemDescription
-                                as='span'
-                                className='menu-item-description'
-                              >
-                                {itemDescription}
-                              </MenuItemDescription>
-                            </Box>
-                          </MobileMenuItemLink>
-                        )
+                            Integrations
+                          </Caps>
+                          <MobileMenuItems
+                            items={TOOLS_INTEGRATIONS_ITEMS}
+                            onItemClick={closeMenu}
+                            aria-labelledby={toMobileSectionDomId(
+                              'Integrations'
+                            )}
+                          />
+                        </>
                       )}
-                    </Flex>
+                    </Box>
                   )}
                 </Box>
               )
             })}
-            {DIRECT_NAV_ITEMS.map(({ label, href, actively }) => (
-              <MobileDirectNavLink
-                key={label}
-                forwardedAs='li'
-                href={href}
-                actively={actively}
-                data-event-location='Toolbar'
-                data-event-name={label}
-                onClick={closeMenu}
-                css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
-              >
-                <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
-                  {label}
-                </Caps>
-              </MobileDirectNavLink>
-            ))}
+            {DIRECT_NAV_ITEMS.map(
+              ({ label, href, actively, title, externalIcon }) => (
+                <MobileDirectNavLink
+                  key={label}
+                  forwardedAs='li'
+                  href={href}
+                  actively={actively}
+                  title={title}
+                  externalIcon={externalIcon}
+                  data-event-location='Toolbar'
+                  data-event-name={label}
+                  onClick={closeMenu}
+                  css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+                >
+                  <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                    {label}
+                  </Caps>
+                </MobileDirectNavLink>
+              )
+            )}
             <ToolbarActionLink
               forwardedAs='li'
               href={bookCallUrl('mobile_menu')}
@@ -514,6 +550,20 @@ const ToolbarMobile = ({ animated }) => {
                 {BOOK_CALL_LABEL}
               </Caps>
             </ToolbarActionLink>
+            <MobileDirectNavLink
+              forwardedAs='li'
+              href={DASHBOARD_NAV_ITEM.href}
+              title={DASHBOARD_NAV_ITEM.title}
+              externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
+              data-event-location='Toolbar'
+              data-event-name={DASHBOARD_NAV_ITEM.label}
+              onClick={closeMenu}
+              css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
+            >
+              <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
+                {DASHBOARD_NAV_ITEM.label}
+              </Caps>
+            </MobileDirectNavLink>
           </Box>
         </MobileMenuPanel>
       )}

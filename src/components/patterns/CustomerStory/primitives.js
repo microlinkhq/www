@@ -1,4 +1,4 @@
-import { layout, theme } from 'theme'
+import { breakpoints, layout, theme } from 'theme'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
@@ -27,6 +27,20 @@ export const SectionInner = styled(Box)`
     maxWidth: SECTION_MAX_WIDTH,
     mx: 'auto'
   })}
+`
+
+export const CardGrid = styled(Box)`
+  display: grid;
+  grid-template-columns: 1fr;
+  ${theme({ gap: [3, 3, 4, 4], width: '100%' })}
+
+  @media (min-width: ${breakpoints[1]}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: ${breakpoints[2]}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
 `
 
 export const Figure = styled('figure')`

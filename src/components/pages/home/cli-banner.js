@@ -186,8 +186,8 @@ const CliBanner = () => {
               minWidth: 0,
               flex: ['none', 'none', 'none', 1],
               px: [4, 4, 5, 5],
-              pt: [4, 4, 5, 5],
-              pb: [4, 4, 4, 5],
+              pt: [4, 4, 4, 4],
+              pb: [4, 4, 4, 4],
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center'
@@ -223,9 +223,8 @@ const CliBanner = () => {
               as='p'
               css={theme({ m: 0, mt: 2, color: 'black80', lineHeight: 2 })}
             >
-              Or give it to your agent - one config block and any MCP client
-              gets every product as a tool.{' '}
-              <Link href='/integrations/mcp'>Set up Microlink MCP</Link>.
+              Pass a URL for metadata, or a subcommand like markdown,
+              screenshot, or pdf. Results print as pretty JSON.
             </Text>
             <Command
               as='button'
@@ -316,8 +315,7 @@ const CliBanner = () => {
               data-event-name='Try now'
             >
               <DeviceWell>
-                <Box
-                  as='img'
+                <img
                   src={DEVICE_SRC}
                   alt='Microlink CLI running in a browser on a phone'
                   width={DEVICE_WIDTH}

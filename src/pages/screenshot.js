@@ -14,6 +14,7 @@ import { Hero } from 'components/pages/screenshot/hero'
 import { Playground } from 'components/pages/screenshot/playground'
 import { Pricing } from 'components/pages/screenshot/pricing'
 import { ProductInformation } from 'components/pages/screenshot/product-information'
+import { UseCases } from 'components/pages/screenshot/use-cases'
 import { HERO_LAYOUT, Subhead } from 'components/pages/screenshot/shared'
 import { Timings } from 'components/pages/screenshot/timings'
 import { CDN_EDGES } from 'helpers/cdn-edges'
@@ -210,6 +211,7 @@ const ScreenshotPage = () => {
         }
         features={FEATURES}
       />
+      <UseCases />
       <CallToAction />
       <ProductInformation />
     </Layout>

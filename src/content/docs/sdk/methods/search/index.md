@@ -15,7 +15,7 @@ import Scholar from './scholar.md'
 import Patents from './patents.md'
 import Autocomplete from './autocomplete.md'
 
-Google results as structured data. Unlike the other methods, `search` takes a query instead of a URL and requires an [`apiKey`](/docs/sdk/getting-started/overview#authentication) on every request:
+Google results as structured data. Unlike the other methods, `search` takes a query instead of a URL and requires an [apiKey](/docs/sdk/getting-started/overview#authentication) on every request:
 
 ```js
 const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })

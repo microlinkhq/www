@@ -15,6 +15,7 @@ import { How } from 'components/pages/adblock/how'
 import { Overview } from 'components/pages/adblock/overview'
 import { Parameters } from 'components/pages/adblock/parameters'
 import { Related } from 'components/pages/adblock/related'
+import { RelatedUseCases } from 'components/pages/adblock/related-use-cases'
 import { META, TOC } from 'components/pages/adblock/shared'
 
 const AdblockFeaturePage = () => (
@@ -26,6 +27,7 @@ const AdblockFeaturePage = () => (
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

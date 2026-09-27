@@ -144,6 +144,7 @@ import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 ## Guardrails
 
+- Never wrap markdown link text in code spans: write `[function](…)` with plain link text.
 - Do not mirror the API reference page-for-page.
 - Do not add pages just for symmetry.
 - Do not duplicate universal patterns that belong in `common/`. Link instead.

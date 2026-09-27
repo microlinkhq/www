@@ -130,3 +130,8 @@ Read more in the <Link href='/docs/api/basics/authentication' children='authenti
 ## Next step
 
 Learn how to optimize PDF requests for freshness, cache behavior, and response time in [caching and performance](/docs/guides/pdf/caching-and-performance).
+
+## See also
+
+- <Link href='/use-cases/website-to-pdf/download-links-and-previews' children='PDF download links and previews' /> — anchors, iframes and named files from one URL.
+- <Link href='/use-cases/website-to-pdf/invoices-and-receipts' children='PDF invoices from authenticated pages' /> — print the invoice your app already renders.

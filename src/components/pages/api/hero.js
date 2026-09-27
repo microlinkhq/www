@@ -9,6 +9,8 @@ import List from 'components/patterns/List/List'
 import { Eyebrow } from 'components/patterns/FeatureStory'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
+
+import { HeroPrompt } from './hero-prompt'
 import {
   Heading,
   Caption,
@@ -73,6 +75,16 @@ const proofItemCss = theme({
 export const Hero = () => {
   const [exampleIndex, setExampleIndex] = useState(0)
   const active = HERO_EXAMPLES[exampleIndex]
+  const tabs = (
+    <HeroEditorTabs
+      examples={HERO_EXAMPLES}
+      selectedIndex={exampleIndex}
+      onSelect={setExampleIndex}
+      ariaLabel='API examples'
+      idPrefix='api-hero-tab'
+      controlsId='api-hero-editor'
+    />
+  )
 
   return (
     <Container
@@ -181,23 +193,23 @@ export const Hero = () => {
           })}
         >
           <EditorStage>
-            <MultiCodeEditorInteractive
-              mqlCode={active.mqlCode}
-              showAction={false}
-              contentId='api-hero-editor'
-              contentRole='tabpanel'
-              contentLabelledBy={`api-hero-tab-${exampleIndex}`}
-              headerContent={
-                <HeroEditorTabs
-                  examples={HERO_EXAMPLES}
-                  selectedIndex={exampleIndex}
-                  onSelect={setExampleIndex}
-                  ariaLabel='API examples'
-                  idPrefix='api-hero-tab'
-                  controlsId='api-hero-editor'
+            {active.prompt
+              ? (
+                <HeroPrompt
+                  tabs={tabs}
+                  labelledBy={`api-hero-tab-${exampleIndex}`}
                 />
-              }
-            />
+                )
+              : (
+                <MultiCodeEditorInteractive
+                  mqlCode={active.mqlCode}
+                  showAction={false}
+                  contentId='api-hero-editor'
+                  contentRole='tabpanel'
+                  contentLabelledBy={`api-hero-tab-${exampleIndex}`}
+                  headerContent={tabs}
+                />
+                )}
           </EditorStage>
         </Flex>
       </Flex>

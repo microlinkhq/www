@@ -5,6 +5,7 @@ description: 'Render the right version of the page before metadata extraction. C
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
+import { Link } from 'components/elements/Link'
 
 Metadata extraction is only as good as the page Microlink sees. On static sites, the default behavior is usually enough. On dynamic or hydration-heavy sites, you may need to control how the page is fetched and when extraction happens.
 
@@ -107,3 +108,7 @@ If you still cannot get the right result, continue with [troubleshooting](/docs/
 ## Next step
 
 Learn how to keep metadata requests fast and fresh in [caching and performance](/docs/guides/metadata/caching-and-performance).
+
+## See also
+
+- <Link href='/use-cases/website-metadata/javascript-rendered-pages' children='Metadata from single-page apps' /> — prerender and waits before reading the tags.

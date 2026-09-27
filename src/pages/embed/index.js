@@ -35,7 +35,7 @@ import { Check as CheckIcon } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import CaptionBase from 'components/patterns/Caption/Caption'
-import { CUSTOMERS } from 'components/patterns/CustomerStory'
+import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
@@ -1671,7 +1671,7 @@ const CustomerStories = () => {
         {stories.map(({ slug, name, blurb, icon }) => (
           <CustomerStoryCard
             key={slug}
-            href={`/use-cases/${slug}`}
+            href={customerPath(slug)}
             data-event-location='Embed'
             data-event-name={`Customer Story ${name}`}
           >

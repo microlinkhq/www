@@ -39,6 +39,7 @@ const Faq = ({ title, caption, questions, css, ...props }) => {
           </Subhead>
           {caption && (
             <Caption
+              forwardedAs='p'
               css={theme({
                 px: [4, 0, 0, 0],
                 pt: [3, 4, 4, 4],

@@ -1,4 +1,4 @@
-import { borders, layout, colors, fonts, theme } from 'theme'
+import { borders, layout, colors, fonts, radii, theme } from 'theme'
 import React, { useState, useMemo, useCallback, useRef } from 'react'
 
 import Box from 'components/elements/Box'
@@ -20,6 +20,9 @@ import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
+import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
+import { ProseTable, TableCard } from 'components/patterns/ProductStory/table'
+import { UNAVATAR_FALLBACK, UNAVATAR_TOKEN } from 'helpers/unavatar'
 
 const FEATURES = [
   {
@@ -84,17 +87,170 @@ const FEATURES = [
   }
 ]
 
-const MCP_CONFIG_WITH_KEY = `{
+const CLAUDE_CODE_INSTALL =
+  'claude mcp add --transport stdio microlink -- npx -y @microlink/mcp'
+
+const CHATGPT_INSTALL = 'codex mcp add microlink -- npx -y @microlink/mcp'
+
+const MCP_CONFIG_NPX = `{
   "mcpServers": {
     "microlink": {
       "command": "npx",
-      "args": ["-y", "@microlink/mcp"],
-      "env": {
-        "MICROLINK_API_KEY": "your-api-key" // Optional - Free tier 25 reqs/day
-      }
+      "args": ["-y", "@microlink/mcp"]
     }
   }
 }`
+
+const PROMPT_TAIL =
+  'No API key is required for the free tier (25 requests/day). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
+
+const commandPrompt = command =>
+  `Install the Microlink MCP server. Run \`${command}\`. ${PROMPT_TAIL}`
+
+const configPrompt = where =>
+  `Install the Microlink MCP server. ${where}
+
+${MCP_CONFIG_NPX}
+
+${PROMPT_TAIL}`
+
+const TabLogo = ({ domain }) => (
+  <img
+    alt=''
+    width={16}
+    height={16}
+    decoding='async'
+    src={`https://unavatar.io/domain/${domain}?token=${UNAVATAR_TOKEN}&fallback=${UNAVATAR_FALLBACK}`}
+    style={{
+      display: 'block',
+      objectFit: 'contain',
+      flexShrink: 0,
+      borderRadius: radii[2]
+    }}
+  />
+)
+
+const INSTALL_TABS = [
+  {
+    label: 'Claude Code',
+    icon: <TabLogo domain='claude.ai' />,
+    hint: 'Run this in your terminal.',
+    snippet: CLAUDE_CODE_INSTALL,
+    prompt: commandPrompt(CLAUDE_CODE_INSTALL)
+  },
+  {
+    label: 'ChatGPT',
+    icon: <TabLogo domain='chatgpt.com' />,
+    hint: 'Run this in your terminal.',
+    snippet: CHATGPT_INSTALL,
+    prompt: commandPrompt(CHATGPT_INSTALL)
+  },
+  {
+    label: 'Cursor',
+    icon: <TabLogo domain='cursor.com' />,
+    hint: 'Add this to .cursor/mcp.json.',
+    snippet: MCP_CONFIG_NPX,
+    prompt: configPrompt('Add this to `.cursor/mcp.json`:')
+  },
+  {
+    label: 'Other agents',
+    hint: 'Add this to your MCP client config.',
+    snippet: MCP_CONFIG_NPX,
+    prompt: configPrompt('Add this to your MCP client config.')
+  }
+]
+
+const MCP_CLIENTS = [
+  ['https://code.claude.com/docs/en/mcp', 'Claude Code'],
+  ['https://learn.chatgpt.com/docs/extend/mcp', 'ChatGPT'],
+  ['https://cursor.com/docs/mcp', 'Cursor'],
+  ['https://docs.windsurf.com/windsurf/cascade/mcp', 'Windsurf'],
+  [
+    'https://code.visualstudio.com/docs/copilot/customization/mcp-servers',
+    'VS Code'
+  ]
+]
+
+const NOTE_CSS = {
+  m: 0,
+  fontFamily: 'sans',
+  fontSize: 0,
+  lineHeight: 3,
+  hyphens: 'none'
+}
+
+const InstallPanel = ({ hint, snippet }) => (
+  <Box
+    css={theme({
+      fontFamily: 'sans',
+      px: [3, 4],
+      py: [3, 4],
+      textAlign: 'left',
+      whiteSpace: 'normal'
+    })}
+  >
+    <Text
+      css={theme({
+        m: 0,
+        color: 'black',
+        fontFamily: 'sans',
+        fontSize: 1,
+        fontWeight: 'regular',
+        letterSpacing: 0,
+        lineHeight: 2
+      })}
+    >
+      Install the Microlink MCP server.
+    </Text>
+    <Text
+      css={theme({
+        m: 0,
+        mt: 1,
+        color: 'black60',
+        fontFamily: 'sans',
+        fontSize: 0,
+        lineHeight: 2
+      })}
+    >
+      {hint}
+    </Text>
+    <Box
+      css={theme({
+        mt: 3,
+        px: 3,
+        py: 3,
+        bg: 'gray1',
+        border: 1,
+        borderColor: 'black10',
+        borderRadius: 2,
+        overflow: 'auto'
+      })}
+    >
+      <Text
+        as='pre'
+        css={theme({
+          m: 0,
+          color: 'black80',
+          fontFamily: 'mono',
+          fontSize: 0,
+          letterSpacing: 0,
+          lineHeight: 2,
+          wordBreak: 'break-word',
+          whiteSpace: 'pre-wrap'
+        })}
+      >
+        {snippet}
+      </Text>
+    </Box>
+    <Text css={theme({ ...NOTE_CSS, mt: 3, color: 'black60' })}>
+      No API key needed for the free tier (25 requests/day).
+    </Text>
+    <Text css={theme({ ...NOTE_CSS, mt: 1, color: 'black50' })}>
+      Then use it for screenshots, PDFs, markdown, metadata, or scraping any
+      URL.
+    </Text>
+  </Box>
+)
 
 const Hero = () => (
   <Flex
@@ -104,23 +260,22 @@ const Hero = () => (
     <Heading
       css={theme({
         mt: [3, 3, 0, 0],
-        maxWidth: layout.large,
+        maxWidth: layout.normal,
         textAlign: 'center'
       })}
     >
-      The web browser your <br /> AI agent never had
+      Give your agent the live web
     </Heading>
     <Caption
       forwardedAs='h2'
+      titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
         px: 4,
-        maxWidth: layout.large
+        maxWidth: layout.small
       })}
     >
-      One config block gives Claude, Cursor, and any MCP client access to
-      screenshots, PDFs, web scraping, markdown conversion, and metadata
-      extraction. No API wrangling, no extra SDKs.
+      One MCP config. Then screenshot, scrape, or convert any URL.
     </Caption>
     <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
       <ArrowLink
@@ -136,52 +291,65 @@ const Hero = () => (
   </Flex>
 )
 
-const Installation = () => (
-  <Container
-    as='section'
-    id='installation'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: layout.small,
-      pt: [4, 4, 5, 5],
-      mb: [4, 4, 4, 5]
-    })}
-  >
-    <Flex
+const Installation = () => {
+  const [selectedIndex, setSelectedIndex] = useState(0)
+  const active = INSTALL_TABS[selectedIndex]
+
+  return (
+    <Container
+      as='section'
+      id='installation'
       css={theme({
-        flexDirection: 'column',
-        alignItems: ['center', 'center', 'flex-start', 'flex-start'],
-        width: '100%',
-        mt: [2, 2, 0]
+        alignItems: 'center',
+        maxWidth: layout.normal,
+        pt: [4, 4, 5, 5],
+        mb: [4, 4, 4, 5]
       })}
     >
-      <Terminal title='mcp.json'>{MCP_CONFIG_WITH_KEY}</Terminal>
-      <Text
+      <Flex
         css={theme({
-          pt: 4,
-          fontSize: [1, 1, 2, 2],
-          color: 'black60',
-          textAlign: ['center', 'center', 'left', 'left'],
-          width: '100%'
+          flexDirection: 'column',
+          alignItems: ['center', 'center', 'flex-start', 'flex-start'],
+          width: '100%',
+          mt: [2, 2, 0]
         })}
       >
-        Paste this into your MCP client config file.{' '}
-        <Link href='https://claude.ai/download' logoIcon>
-          Claude Desktop
-        </Link>
-        ,{' '}
-        <Link href='https://cursor.com' logoIcon>
-          Cursor
-        </Link>
-        ,{' '}
-        <Link href='https://openai.com/codex' logoIcon>
-          Codex
-        </Link>
-        , and every other MCP-compatible client gets access immediately.
-      </Text>
-    </Flex>
-  </Container>
-)
+        <Terminal
+          autoHeight
+          blinkCursor={false}
+          text={active.prompt}
+          headerContent={
+            <HeroEditorTabs
+              examples={INSTALL_TABS}
+              selectedIndex={selectedIndex}
+              onSelect={setSelectedIndex}
+              ariaLabel='MCP client'
+              idPrefix='mcp-install-tab'
+              controlsId='mcp-install-snippet'
+            />
+          }
+          contentId='mcp-install-snippet'
+          contentRole='tabpanel'
+          contentLabelledBy={`mcp-install-tab-${selectedIndex}`}
+        >
+          <InstallPanel hint={active.hint} snippet={active.snippet} />
+        </Terminal>
+        <Text
+          css={theme({
+            pt: 4,
+            fontSize: [1, 1, 2, 2],
+            color: 'black60',
+            textAlign: ['center', 'center', 'left', 'left'],
+            width: '100%'
+          })}
+        >
+          The prompt installs Microlink MCP and starts using it. No API key
+          needed for the free tier (25 requests/day).
+        </Text>
+      </Flex>
+    </Container>
+  )
+}
 
 const MediaPlaceholder = () => (
   <Block
@@ -262,6 +430,196 @@ const MediaPlaceholder = () => (
   </Block>
 )
 
+const FAQ_ITEMS = [
+  {
+    question: 'What is Microlink MCP?',
+    text: 'Microlink MCP is a Model Context Protocol server that connects AI agents to the Microlink API. It lets AI assistants like Claude and Cursor take screenshots, generate PDFs, convert pages to markdown, extract metadata, and scrape structured data from any website.',
+    answer: (
+      <>
+        <div>
+          Microlink MCP is a Model Context Protocol server that gives AI
+          assistants direct access to the Microlink API. Claude, Cursor,
+          Windsurf, and any other MCP-compatible client can take screenshots,
+          generate PDFs, scrape structured data, convert pages to markdown, and
+          extract metadata — through natural language.
+        </div>
+        <div>
+          MCP is an open standard for connecting AI applications to external
+          tools. Microlink MCP implements that standard for browser and web-data
+          capabilities.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'Which AI clients are supported?',
+    text: 'Microlink MCP works with any client that supports the Model Context Protocol, including Claude Code, ChatGPT, Cursor, Windsurf, Continue, and more. Claude Code and ChatGPT install with one command; Cursor and every other client use the same config block.',
+    answer: (
+      <>
+        <div>
+          Any client that supports the Model Context Protocol works:{' '}
+          {MCP_CLIENTS.map(([href, label], i) => (
+            <React.Fragment key={href}>
+              {i > 0 ? ', ' : null}
+              <Link href={href} logoIcon>
+                {label}
+              </Link>
+            </React.Fragment>
+          ))}
+          , and more.
+        </div>
+        <div>
+          As new MCP-compatible tools ship, Microlink MCP works with them
+          automatically — no updates needed on your end.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'What can my AI agent do with it?',
+    text: "Screenshot any URL, generate a PDF, convert a webpage to clean Markdown or HTML, pull normalized metadata and brand logos, scrape custom fields with CSS selectors, extract video and audio sources, collect every link, image, and email, run a Lighthouse audit, detect a site's tech stack, search Google as structured data, and run custom JavaScript in a browser sandbox — all through natural language.",
+    answer: (
+      <>
+        <div>
+          Screenshot any URL, generate a PDF, convert a webpage to clean
+          Markdown or HTML, pull normalized metadata and brand logos, scrape
+          custom fields with CSS selectors, extract video and audio sources,
+          collect every link, image, and email, run a Lighthouse audit, detect a
+          site&apos;s tech stack, search Google as structured data, and run
+          custom JavaScript in a browser sandbox.
+        </div>
+        <div>
+          All twenty tools are available through natural language — no code, no
+          API calls, no configuration beyond the initial setup.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'Do I need an API key?',
+    text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Add your Microlink API key for Search, production volume, or pro features.',
+    answer: (
+      <>
+        <div>
+          No API key required to get started. The free tier covers 25 requests
+          per day — enough to explore the toolset. The one exception is Search,
+          which runs on paid plans and needs an API key.
+        </div>
+        <div>
+          Add your <Link href='/#pricing'>Microlink API key</Link> when you need
+          Search, production volume, configurable TTL, custom headers, or proxy
+          support.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'Is there a free tier?',
+    text: 'Yes. Microlink has a free tier of 25 requests per day, no credit card required. Every tool except Search is available on the free tier; Search runs on paid plans. When you need more volume or pro features, ask MCP or a Microlink skill to log in or upgrade the account.',
+    answer: (
+      <>
+        <div>
+          Yes. Start immediately with 25 free requests per day — no credit card,
+          no signup required. Every tool except Search is available on the free
+          tier; Search runs on paid plans.
+        </div>
+        <div>
+          When you need more throughput or pro features, ask MCP or a{' '}
+          <Link href='/skills'>Microlink skill</Link> to log in or upgrade the
+          account.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'How is this different from calling the Microlink API directly?',
+    text: 'The Microlink API requires writing code. Microlink MCP lets your AI agent call the same API through natural language, with no code needed. MCP translates requests into Microlink API calls and returns structured results.',
+    answer: (
+      <>
+        <div>
+          Calling the API directly means writing HTTP requests, handling auth,
+          parsing responses, and wiring everything up in code. Microlink MCP
+          removes all of that — your AI agent calls the same API through natural
+          language, and structured results come back automatically.
+        </div>
+        <div>
+          Use the API directly when you need full programmatic control. Use the
+          MCP server when you want your AI assistant to handle web tasks on its
+          own.
+        </div>
+      </>
+    )
+  },
+  {
+    question: 'How is MCP different from a Microlink skill?',
+    text: 'They overlap in what Microlink can do and differ in who runs the call. A skill is a playbook: markdown loaded into the agent so it can write microlink.screenshot(), npx microlink.io, or api.microlink.io itself. MCP is a runtime: the assistant invokes a tool such as microlink_screenshot, and @microlink/mcp hits the API. Use MCP to do Microlink in the assistant. Use a skill to teach the assistant to write Microlink. They compose, so install both when you chat with URLs and ship integration code.',
+    answer: (
+      <>
+        <div>
+          They overlap in what Microlink can do. They differ in who runs the
+          call.
+        </div>
+        <div>
+          A <Link href='/skills'>skill</Link> is a playbook. Markdown loaded
+          into the agent so it can write <code>microlink.screenshot()</code>,{' '}
+          <code>npx microlink.io</code>, or <code>api.microlink.io</code>{' '}
+          itself. MCP is a runtime: the assistant invokes a tool such as{' '}
+          <code>microlink_screenshot</code>, and <code>@microlink/mcp</code>{' '}
+          hits the API.
+        </div>
+        <TableCard>
+          <ProseTable>
+            <thead>
+              <tr>
+                <Text as='th' scope='col'>
+                  User wants
+                </Text>
+                <Text as='th' scope='col'>
+                  Recommend
+                </Text>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>“Screenshot this URL” in chat</td>
+                <td>MCP</td>
+              </tr>
+              <tr>
+                <td>“Add Microlink to my app, script, or CLI”</td>
+                <td>
+                  Skill (<Link href='/skills/microlink'>microlink</Link>)
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  “Query params or embed URL for an <code>&lt;img&gt;</code>”
+                </td>
+                <td>
+                  Skill (<Link href='/skills/microlink-api'>microlink-api</Link>
+                  )
+                </td>
+              </tr>
+              <tr>
+                <td>“Wire Microlink into Cursor or Claude as a tool”</td>
+                <td>MCP</td>
+              </tr>
+              <tr>
+                <td>“Buy a key from the assistant”</td>
+                <td>MCP</td>
+              </tr>
+            </tbody>
+          </ProseTable>
+        </TableCard>
+        <div>
+          They compose. A coding agent with the skill generates SDK code. An
+          assistant with MCP executes products without writing code. Install
+          both when you chat with URLs and ship integration code.
+        </div>
+      </>
+    )
+  }
+]
+
 const ProductInformation = () => (
   <Faq
     css={theme({
@@ -272,191 +630,7 @@ const ProductInformation = () => (
       borderBottom: 1,
       borderBottomColor: 'black10'
     })}
-    questions={[
-      {
-        question: 'What is Microlink MCP?',
-        answer: (
-          <>
-            <div>
-              Microlink MCP is a Model Context Protocol server that gives AI
-              assistants direct access to the Microlink API. Claude, Cursor,
-              Windsurf, and any other MCP-compatible client can take
-              screenshots, generate PDFs, scrape structured data, convert pages
-              to markdown, and extract metadata — through natural language.
-            </div>
-            <div>
-              MCP is an open standard for connecting AI applications to external
-              tools. Microlink MCP implements that standard for browser and
-              web-data capabilities.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'Do I need an API key?',
-        answer: (
-          <>
-            <div>
-              No API key required to get started. The free tier covers 25
-              requests per day — enough to explore the toolset. The one
-              exception is Search, which runs on paid plans and needs an API
-              key.
-            </div>
-            <div>
-              Add your <Link href='/#pricing'>Microlink API key</Link> when you
-              need Search, production volume, configurable TTL, custom headers,
-              or proxy support.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'Which AI clients are supported?',
-        answer: (
-          <>
-            <div>
-              Any client that supports the Model Context Protocol works: Claude
-              Desktop, Cursor, Windsurf, VS Code, Continue, and more. The same
-              config block works everywhere.
-            </div>
-            <div>
-              As new MCP-compatible tools ship, Microlink MCP works with them
-              automatically — no updates needed on your end.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'What can my AI agent do with it?',
-        answer: (
-          <>
-            <div>
-              Screenshot any URL, generate a PDF, convert a webpage to clean
-              Markdown or HTML, pull normalized metadata and brand logos, scrape
-              custom fields with CSS selectors, extract video and audio sources,
-              collect every link, image, and email, run a Lighthouse audit,
-              detect a site&apos;s tech stack, search Google as structured data,
-              and run custom JavaScript in a browser sandbox.
-            </div>
-            <div>
-              All twenty tools are available through natural language — no code,
-              no API calls, no configuration beyond the initial setup.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'Is there a free tier?',
-        answer: (
-          <>
-            <div>
-              Yes. Start immediately with 25 free requests per day — no credit
-              card, no signup required. Every tool except Search is available on
-              the free tier; Search runs on paid plans.
-            </div>
-            <div>
-              When you need more throughput or pro features, upgrade to a paid
-              plan at any time from{' '}
-              <Link href='/#pricing'>microlink.io/#pricing</Link>.
-            </div>
-          </>
-        )
-      },
-      {
-        question:
-          'How is this different from calling the Microlink API directly?',
-        answer: (
-          <>
-            <div>
-              Calling the API directly means writing HTTP requests, handling
-              auth, parsing responses, and wiring everything up in code.
-              Microlink MCP removes all of that — your AI agent calls the same
-              API through natural language, and structured results come back
-              automatically.
-            </div>
-            <div>
-              Use the API directly when you need full programmatic control. Use
-              the MCP server when you want your AI assistant to handle web tasks
-              on its own.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'How does Microlink MCP compare to Browserbase?',
-        answer: (
-          <>
-            <div>
-              Browserbase gives an agent a full cloud browser to drive with
-              Playwright, Puppeteer, Selenium, or Stagehand. Microlink MCP gives
-              an agent 20 web tools it calls in natural language — screenshot,
-              PDF, Markdown, extract, and more — so it gets the result without
-              scripting a browser.
-            </div>
-            <div>
-              See the{' '}
-              <Link href='/alternative/browserbase'>
-                Browserbase alternative
-              </Link>{' '}
-              comparison for where each one fits.
-            </div>
-          </>
-        )
-      },
-      {
-        question: 'How do I install it?',
-        answer: (
-          <>
-            <div>
-              The recommended way requires no installation. Use <code>npx</code>{' '}
-              directly in your MCP client config:
-            </div>
-            <Terminal
-              title='mcp.json'
-              css={{
-                marginTop: '12px',
-                marginBottom: '12px',
-                maxWidth: 'calc(100vw - 32px)'
-              }}
-            >
-              {
-                '{\n  "mcpServers": {\n    "microlink": {\n      "command": "npx",\n      "args": ["-y", "@microlink/mcp"]\n    }\n  }\n}'
-              }
-            </Terminal>
-            <div>
-              Optionally, install globally to run it as a named command:
-            </div>
-            <Terminal
-              title='Terminal'
-              shellSymbol='$'
-              css={{
-                marginTop: '12px',
-                marginBottom: '12px',
-                maxWidth: 'calc(100vw - 32px)'
-              }}
-            >
-              npm install -g @microlink/mcp
-            </Terminal>
-            <div>
-              And then reference it via <code>node</code> with the absolute path
-              to the local entry point:
-            </div>
-            <Terminal
-              title='mcp.json'
-              css={{
-                marginTop: '12px',
-                marginBottom: '12px',
-                maxWidth: 'calc(100vw - 32px)'
-              }}
-            >
-              {
-                '{\n  "mcpServers": {\n    "microlink": {\n      "command": "node",\n      "args": ["/absolute/path/to/mcp/src/index.js"],\n      "env": {\n        "MICROLINK_API_KEY": "YOUR_MICROLINK_API_KEY"\n      }\n    }\n  }\n}'
-              }
-            </Terminal>
-          </>
-        )
-      }
-    ]}
+    questions={FAQ_ITEMS}
   />
 )
 
@@ -529,64 +703,11 @@ export const Head = () => (
         '@type': 'FAQPage',
         '@id': 'https://microlink.io/integrations/mcp#faq',
         url: 'https://microlink.io/integrations/mcp',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: 'What is Microlink MCP?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Microlink MCP is a Model Context Protocol server that connects AI agents to the Microlink API. It lets AI assistants like Claude and Cursor take screenshots, generate PDFs, convert pages to markdown, extract metadata, and scrape structured data from any website.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Do I need an API key?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Add your Microlink API key for Search, production volume, or pro features.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Which AI clients are supported?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Microlink MCP works with any client that supports the Model Context Protocol, including Claude Desktop, Cursor, Windsurf, Continue, and more.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'What can my AI agent do with it?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Screenshot any URL, generate a PDF, convert a webpage to clean Markdown or HTML, pull normalized metadata and brand logos, scrape custom fields with CSS selectors, extract video and audio sources, collect every link, image, and email, run a Lighthouse audit, detect a site's tech stack, search Google as structured data, and run custom JavaScript in a browser sandbox — all through natural language."
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'Is there a free tier?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'Yes. Microlink has a free tier of 25 requests per day, no credit card required. Every tool except Search is available on the free tier; Search runs on paid plans. When you need more volume or pro features, upgrade to a paid plan at any time.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How is this different from calling the Microlink API directly?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'The Microlink API requires writing code. Microlink MCP lets your AI agent call the same API through natural language, with no code needed. MCP translates requests into Microlink API calls and returns structured results.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How do I install it?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'The recommended way requires no installation — use npx directly in your MCP client config with @microlink/mcp as the command. Optionally, install globally with npm install -g @microlink/mcp and reference it via node with the absolute path to the local entry point.'
-            }
-          }
-        ]
+        mainEntity: FAQ_ITEMS.map(({ question, text }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: { '@type': 'Answer', text }
+        }))
       }
     ]}
   />

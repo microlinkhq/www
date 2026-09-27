@@ -178,3 +178,8 @@ See the full <Link href='/docs/api/basics/error-codes' children='error codes ref
 - <Link href='/docs/guides/common/private-pages' children='Private pages' /> — forward cookies, authorization headers, and other credentials to target pages.
 - <Link href='/docs/guides/common/troubleshooting' children='Troubleshooting' /> — fix timeouts, blocked sites, and auth errors across all workflows.
 - <Link href='/docs/guides/common/production-patterns' children='Production patterns' /> — endpoint selection, retries, rate limits, and credential safety.
+- <Link href='/use-cases/website-screenshot/built-in-proxy' children='Screenshot blocked websites' /> — the built-in proxy applied to captures.
+- <Link href='/use-cases/website-screenshot/proxy-geolocation' children='Screenshot a site from a specific country' /> — proxy.location in practice.
+- <Link href='/use-cases/website-to-markdown/blocked-sites' children='Markdown from bot-protected pages' /> — the proxy applied to conversions.
+- <Link href='/use-cases/website-metadata/blocked-sites' children='Link previews for bot-protected sites' /> — the proxy applied to metadata.
+- <Link href='/use-cases/website-metadata/localized-metadata' children='Region-specific metadata' /> — proxy.location plus Accept-Language.

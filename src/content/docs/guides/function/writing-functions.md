@@ -20,7 +20,7 @@ console.log(result.isFulfilled) // true
 console.log(result.value)       // 42
 ```
 
-Every example on this page assumes the `microlink` client above. See [`function`](/docs/sdk/methods/function) for the method reference.
+Every example on this page assumes the `microlink` client above. See [function](/docs/sdk/methods/function) for the method reference.
 
 <Figcaption>When your function does not reference <code>page</code>, no browser is started. This makes execution faster and cheaper.</Figcaption>
 

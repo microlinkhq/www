@@ -23,7 +23,7 @@ console.log(result.value.name)     // 'TypeError'
 console.log(result.value.message)  // 'name is not a function'
 ```
 
-The promise only rejects when the API call itself fails — an invalid URL, an expired API key, a timeout — and then it throws a [`MicrolinkError`](/docs/sdk/getting-started/errors) like every other SDK method.
+The promise only rejects when the API call itself fails — an invalid URL, an expired API key, a timeout — and then it throws a [MicrolinkError](/docs/sdk/getting-started/errors) like every other SDK method.
 
 Non-Error throws (like `throw 'oh no'`) are normalized into a `NonError` with the thrown value as the message.
 

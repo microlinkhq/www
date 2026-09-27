@@ -497,11 +497,13 @@ const PREVIEWS = [
 
 export const IframePreviewsShowcase = ({
   minHeight = ['480px', '520px', '560px', '560px'],
-  exclude = []
+  exclude = [],
+  headingAs = 'h3'
 }) => {
   const previews = PREVIEWS.filter(({ id }) => !exclude.includes(id))
   const count = previews.length
   const [index, setIndex] = useState(0)
+  const NameHeading = headingAs
 
   useEffect(() => {
     if (count === 0) return undefined
@@ -523,7 +525,7 @@ export const IframePreviewsShowcase = ({
           $active={i === activeIndex}
           aria-hidden={i !== activeIndex}
         >
-          <h3
+          <NameHeading
             style={{
               position: 'absolute',
               width: 1,
@@ -533,7 +535,7 @@ export const IframePreviewsShowcase = ({
             }}
           >
             {name}
-          </h3>
+          </NameHeading>
           <Variant />
         </Layer>
       ))}

@@ -3,10 +3,12 @@ import styled, { keyframes } from 'styled-components'
 import { SECTION_VERTICAL_SPACING, layout, colors, theme } from 'theme'
 import { Check as CheckIcon } from 'react-feather'
 
+import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { LangLandingsNav } from 'components/patterns/LangLandings'
 
 import { Subhead, NARROW_MAX_WIDTH } from './shared'
 
@@ -54,7 +56,9 @@ export const ProductCta = ({
   ctaHref,
   ctaLabel = 'Get started free',
   badges = DEFAULT_BADGES,
-  accent
+  langLandings,
+  accent,
+  langLandingsAccent = accent
 }) => (
   <Container
     as='section'
@@ -128,6 +132,15 @@ export const ProductCta = ({
           </Flex>
         ))}
       </Flex>
+      {langLandings && (
+        <Box css={theme({ pt: [4, 4, 5, 5] })}>
+          <LangLandingsNav
+            langs={langLandings}
+            label='Language guides'
+            accent={langLandingsAccent}
+          />
+        </Box>
+      )}
     </Flex>
   </Container>
 )
