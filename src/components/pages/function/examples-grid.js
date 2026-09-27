@@ -25,23 +25,25 @@ const Grid = styled(Box)(
 )
 
 const Card = styled(Link)(
-  theme({
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    height: ['220px', '220px', '260px', '280px'],
-    minWidth: 0,
-    bg: 'white',
-    color: 'black',
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: 5,
-    overflow: 'hidden',
-    boxShadow: shadows[2],
-    textDecoration: 'none',
-    _hover: { color: 'black' }
-  }),
-  ({ $span }) => `
+  ({ $clip }) =>
+    theme({
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      minHeight: ['220px', '220px', '260px', '280px'],
+      ...($clip ? { height: ['220px', '220px', '260px', '280px'] } : {}),
+      minWidth: 0,
+      bg: 'white',
+      color: 'black',
+      border: 1,
+      borderColor: 'gray2',
+      borderRadius: 5,
+      overflow: 'hidden',
+      boxShadow: shadows[2],
+      textDecoration: 'none',
+      _hover: { color: 'black' }
+    }),
+  ({ $span, $clip }) => `
   touch-action: manipulation;
 
   > a {
@@ -49,9 +51,8 @@ const Card = styled(Link)(
     flex-direction: column;
     flex: 1;
     min-width: 0;
-    min-height: 0;
-    height: 100%;
-    overflow: hidden;
+    min-height: ${$clip ? 0 : 'inherit'};
+    ${$clip ? 'height: 100%; overflow: hidden;' : ''}
     color: inherit;
     text-decoration: none;
   }
@@ -119,8 +120,8 @@ const Explore = styled(Text)(
   })
 )
 
-export const FunctionExampleCard = ({ href, title, code, span }) => (
-  <Card href={href} $span={span}>
+export const FunctionExampleCard = ({ href, title, code, span, clip }) => (
+  <Card href={href} $span={span} $clip={clip}>
     <CodeTile code={code} />
     <Foot>
       <Title as='span'>{title}</Title>
@@ -140,6 +141,7 @@ export const FunctionExamplesGrid = () => (
         title={item.title}
         code={item.code}
         span={item.span}
+        clip
       />
     ))}
   </Grid>
