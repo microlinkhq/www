@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { GLANCE } from './product-shared'
+import { glanceItems } from './glance-items'
 import { CodeTile } from './examples-tiles'
 
 const Grid = styled(Box)(
@@ -29,7 +29,7 @@ const Card = styled(Link)(
     display: 'flex',
     flexDirection: 'column',
     width: '100%',
-    minHeight: ['220px', '220px', '260px', '280px'],
+    height: ['220px', '220px', '260px', '280px'],
     minWidth: 0,
     bg: 'white',
     color: 'black',
@@ -49,7 +49,9 @@ const Card = styled(Link)(
     flex-direction: column;
     flex: 1;
     min-width: 0;
-    min-height: inherit;
+    min-height: 0;
+    height: 100%;
+    overflow: hidden;
     color: inherit;
     text-decoration: none;
   }
@@ -131,7 +133,7 @@ export const FunctionExampleCard = ({ href, title, code, span }) => (
 
 export const FunctionExamplesGrid = () => (
   <Grid>
-    {GLANCE.items.map(item => (
+    {glanceItems.map(item => (
       <FunctionExampleCard
         key={item.id}
         href={item.href}
