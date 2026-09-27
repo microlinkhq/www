@@ -236,21 +236,22 @@ export const EXAMPLES = [
         : ''
       const own = element.tagName === 'SELECT'
         ? element.selectedOptions[0]?.textContent
-        : element.tagName === 'IMG'
-          ? element.getAttribute('alt')
-          : element.innerText
+        : element.innerText
       const value = element.tagName === 'INPUT' &&
-        /^(button|submit|reset|image)$/.test(element.type)
+        /^(button|submit|reset)$/.test(element.type)
         ? element.value
         : ''
-      const image = element.querySelector('img[alt]')?.getAttribute('alt')
+      const alt = element.tagName === 'IMG' ||
+        (element.tagName === 'INPUT' && element.type === 'image')
+        ? element.getAttribute('alt')
+        : element.querySelector('img[alt]')?.getAttribute('alt')
       return clean(element.getAttribute('aria-label')) ||
         clean(element.getAttribute('placeholder')) ||
         clean(own) ||
         labelledBy ||
         label ||
         clean(value) ||
-        clean(image)
+        clean(alt)
     }
     return {
       title: document.title,
