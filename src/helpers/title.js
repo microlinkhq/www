@@ -49,6 +49,7 @@ const special = [
   'SEO',
   'selector',
   'selectorAll',
+  'SerpApi',
   'staleTtl',
   'timeout',
   'type',
