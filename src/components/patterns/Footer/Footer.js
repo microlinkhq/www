@@ -147,6 +147,7 @@ const FOOTER_COLUMNS = [
       { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
       { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
       { label: 'vs ScreenshotOne', href: '/alternative/screenshotone' },
+      { label: 'vs SerpApi', href: '/alternative/serpapi' },
       { label: 'vs Thum.io', href: '/alternative/thumio' },
       { label: 'vs Url2Png', href: '/alternative/url2png' },
       { label: 'vs Urlbox', href: '/alternative/urlbox' }

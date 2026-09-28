@@ -3,7 +3,9 @@ export {
   Subhead,
   Caption,
   STORY_LAYOUT,
-  NARROW_MAX_WIDTH
+  NARROW_MAX_WIDTH,
+  CENTERED_TO_LEFT,
+  CENTERED_TO_START
 } from './shared'
 export { ProductHero } from './hero'
 export { ProductTimings } from './timings'
