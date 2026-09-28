@@ -70,9 +70,23 @@ const { value } = await microlink.function('https://example.com', ({ page }) => 
 
 See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for endpoint and quota details.
 
-## Skip metadata
+## When the page is fetched
 
-Most function-only workflows do not need normalized metadata. `microlink.function()` already sends `meta: false`, so the request only pays for the function itself; set it yourself if you call the API directly:
+A function-only request pays for the function and nothing else: normalized metadata is off by
+default, and the page is resolved only when your code needs it.
+
+| your function | what the request does |
+| --- | --- |
+| never mentions `page` | nothing is fetched |
+| calls `page.content()`, `page.extract()` or `page.metadata()` | the page is fetched for you |
+| drives the browser, such as `page.click()` or `page.evaluate()` | the page is loaded once and your function runs on it |
+
+Destructure `page` itself rather than its methods. `({ page }) => page.content()` is answered from
+fetched HTML with no browser, while `({ page: { content } }) => content()` cannot be read ahead of
+time and starts a full browser.
+
+Ask for [meta](/docs/api/parameters/meta) explicitly when you want normalized metadata alongside the
+function, or call `page.metadata()` inside it to get the same data for one page load:
 
 ```js
 import createClient from 'microlink.io'
@@ -102,7 +116,7 @@ If you call the API directly, prefix the compressed payload with the algorithm a
 
 ## Optimization checklist
 
-1. Skip normalized metadata — `microlink.function()` already sends `meta: false`; set it yourself when calling the API directly. This is usually the biggest win.
+1. Leave metadata off — a function-only request already skips it. Ask for `meta: true` only when you genuinely want it, since it is usually the largest cost in the request.
 2. Use `page.title()` and `page.$eval()` instead of `page.evaluate()` when possible — they are faster and easier to debug.
 3. Replace fixed waits like `page.waitForTimeout(3000)` with `page.waitForSelector()` — they resolve as soon as the element appears.
 4. Check `profiling.phases` to find the bottleneck — a high install on first run is normal, but a high run means the function itself needs work.

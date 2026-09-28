@@ -27,8 +27,7 @@ The target URL of the request. Available whether or not the function uses `page`
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ url }) => new URL("/robots.txt", url).href',
-  meta: false
+  function: '({ url }) => new URL("/robots.txt", url).href'
 }} />
 
 ### page
@@ -37,24 +36,21 @@ The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the 
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ page }) => page.title()',
-  meta: false
+  function: '({ page }) => page.title()'
 }} />
 
 <Figcaption>Get the document title.</Figcaption>
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: `({ page }) => page.$eval('h1', el => el.textContent)`,
-  meta: false
+  function: `({ page }) => page.$eval('h1', el => el.textContent)`
 }} />
 
 <Figcaption>Extract text from a DOM element.</Figcaption>
 
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
-  function: `({ page }) => page.$$eval('a', links => links.map(a => a.href))`,
-  meta: false
+  function: `({ page }) => page.$$eval('a', links => links.map(a => a.href))`
 }} />
 
 <Figcaption>Collect all links on the page.</Figcaption>
@@ -65,8 +61,7 @@ The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the 
   viewport: { width: window.innerWidth, height: window.innerHeight },
   cookies: document.cookie.length,
   resources: performance.getEntriesByType('resource').length
-}))`,
-  meta: false
+}))`
 }} />
 
 <Figcaption>Run arbitrary JavaScript in the browser page context via <code>page.evaluate</code>.</Figcaption>
@@ -77,8 +72,7 @@ The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result 
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://edge-ping.vercel.app',
-  function: '({ page, response }) => response.status()',
-  meta: false
+  function: '({ page, response }) => response.status()'
 }} />
 
 ### headers
@@ -87,8 +81,7 @@ The request headers used to fetch the target URL:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ headers }) => headers["user-agent"]',
-  meta: false
+  function: '({ headers }) => headers["user-agent"]'
 }} />
 
 ### Custom parameters
@@ -98,8 +91,7 @@ Any extra query parameter is forwarded to the function:
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
   function: '({ greetings }) => greetings',
-  greetings: 'hello world',
-  meta: false
+  greetings: 'hello world'
 }} />
 
 ## Response

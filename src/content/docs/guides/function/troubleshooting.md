@@ -62,7 +62,7 @@ Each error message is plan-aware:
 **TimeoutError** — the function exceeded its plan timeout (15s free, ~60s pro):
 
 1. Reduce the function to a trivial check such as `({ page }) => page.title()` to confirm the page itself loads in time.
-2. Set `meta: false` unless metadata is part of the requirement.
+2. Drop anything else from the request — a function asked for on its own skips metadata, while adding `screenshot`, `pdf` or a `data` rule brings it back.
 3. Replace fixed waits with `waitForSelector` whenever possible.
 4. Move heavy post-processing to your own server.
 
@@ -100,7 +100,7 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 ## General debugging
 
 1. Start simple — reduce the function to `({ page }) => page.title()` to isolate whether the problem is in your code or the target page.
-2. Disable metadata — set `meta: false` unless metadata is part of the requirement.
+2. Check what else you asked for — a function on its own skips metadata, while `screenshot`, `pdf`, `insights` or a `data` rule keeps it on.
 3. Check profiling — inspect `result.profiling` to understand where time is being spent.
 4. Use the right context — keep orchestration in the outer function and DOM-only code inside `page.evaluate`.
 5. Watch for null — DOM queries like `document.querySelector()` return null when the element doesn't exist. Always use optional chaining or null checks.

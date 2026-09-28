@@ -76,8 +76,7 @@ const { value } = await microlink.function(
 <MultiCodeEditorInteractive height={250} mqlCode={{
   url: 'https://microlink.io',
   function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
-  scripts: ['https://code.jquery.com/jquery-3.5.0.min.js'],
-  meta: false
+  scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
 }} />
 
 <Figcaption>The <code>scripts</code> parameter injects jQuery before the function runs, making it available inside <code>page.evaluate</code>.</Figcaption>
