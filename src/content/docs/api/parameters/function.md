@@ -23,12 +23,22 @@ The function will receive any extra query parameter provided, plus:
 
 ### url
 
-The target URL of the request. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
+The URL you asked for. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
   function: '({ url }) => new URL("/robots.txt", url).href'
 }} />
+
+It is the requested URL, not the one a redirect settles on, because a function that never reads the page never fetches it and so never learns where it would have landed. Use `page.url()` when you need the settled one, and note that asking for it resolves the page:
+
+```js
+// requested http://github.com
+({ url }) => url                  // => "http://github.com/"
+async ({ page }) => page.url()    // => "https://github.com/"
+```
+
+`data.url` in the response stays the settled URL.
 
 ### page
 
