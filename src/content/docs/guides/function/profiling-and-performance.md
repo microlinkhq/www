@@ -78,8 +78,17 @@ default, and the page is resolved only when your code needs it.
 | your function | what the request does |
 | --- | --- |
 | never mentions `page` | nothing is fetched |
-| calls `page.content()`, `page.extract()` or `page.metadata()` | the page is fetched for you |
+| calls `page.content()`, `page.extract()` or `page.metadata()` | the page is fetched at the moment you call it |
 | drives the browser, such as `page.click()` or `page.evaluate()` | the page is loaded once and your function runs on it |
+
+The fetch happens on the call, not before your function starts, so a branch you do not take costs
+nothing:
+
+```js
+async ({ page }) => (shouldRead ? await page.content() : 'skipped')
+```
+
+With `shouldRead` false nothing is fetched at all, even though `page.content` appears in your code.
 
 Destructure `page` itself rather than its methods. `({ page }) => page.content()` is answered from
 fetched HTML with no browser, while `({ page: { content } }) => content()` cannot be read ahead of
