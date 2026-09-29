@@ -30,7 +30,9 @@ The URL you asked for. Available whether or not the function uses `page`, so you
   function: '({ url }) => new URL("/robots.txt", url).href'
 }} />
 
-It is the requested URL, not the one a redirect settles on, because a function that never reads the page never fetches it and so never learns where it would have landed. Use `page.url()` when you need the settled one, and note that asking for it resolves the page:
+It is the URL you requested, not the one a redirect settles on. A function asked for on its own skips the [ping](/docs/api/parameters/ping) that would resolve that hop, so `data.url` in the response is the same URL, and the two agree.
+
+Use `page.url()` when you need the settled one, which resolves the page:
 
 ```js
 // requested http://github.com
@@ -38,7 +40,7 @@ It is the requested URL, not the one a redirect settles on, because a function t
 async ({ page }) => page.url()    // => "https://github.com/"
 ```
 
-`data.url` in the response stays the settled URL.
+Asking for `ping` explicitly settles `data.url` without changing the argument.
 
 ### page
 

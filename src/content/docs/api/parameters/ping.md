@@ -8,9 +8,13 @@ import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
-Default: <Type children='true'/>
+Default: <Type children='true'/>, or <Type children='false'/> when [function](/docs/api/parameters/function) is the only thing requested
 
 It ensures that any URL present on the response payload is publicly reachable.
+
+When a function is all you ask for, the response carries no extracted URLs to verify, so the check is skipped along with [meta](/docs/api/parameters/meta). One consequence is worth knowing: `data.url` is then the URL you requested rather than the one a redirect settles on, which is the same URL your function receives as its `url` argument. Ask for `ping` explicitly to resolve it:
+
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://example.com', function: '() => 420', ping: true }} />
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://microlink.io', ping: true }} />
 
