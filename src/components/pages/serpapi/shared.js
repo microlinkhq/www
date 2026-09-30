@@ -15,21 +15,26 @@ const PAGE_URL = 'https://microlink.io/alternative/serpapi'
 const SERPAPI_PRICING = 'https://serpapi.com/pricing'
 const SERPAPI_MARKDOWN = 'https://serpapi.com/markdown-output'
 const SERPAPI_SPEED = 'https://serpapi.com/ludicrous-speed'
+const SERPAPI_LEGAL_SHIELD = 'https://serpapi.com/us-legal-shield'
 
 export const META = {
   title: 'SerpApi Alternative Without Hourly Caps',
   description:
-    'A SerpApi alternative for Google results as JSON: 10 surfaces from one SDK call, a monthly request quota, and no per-hour throughput ceiling.'
+    'Compare SerpApi with Microlink Search: 10 Google surfaces as JSON, $1.07 per 1,000 requests on every plan, and no hourly throughput limit to plan around.'
 }
+
+const FAIR_USE_NOTE =
+  'No hourly limit applies to legitimate use. Traffic that is fraudulent, illegal or aimed at attacking third parties is restricted.'
 
 export const HERO = {
   title: 'The SerpApi alternative without an hourly ceiling',
   description: (
     <Text as='span'>
-      Microlink Search turns a Google query into JSON: web, news, images,
-      videos, places, maps, shopping, scholar, patents, autocomplete. One SDK
-      call per surface, one request against a monthly quota, and no per-hour
-      throughput tier to size a worker pool against.
+      Microlink Search turns a Google query into JSON across ten surfaces: web,
+      news, images, videos, places, maps, shopping, scholar, patents and
+      autocomplete. Call it from the SDK, the CLI or MCP. Each search is one
+      request against a monthly quota, with no hourly throughput tier to size a
+      worker pool against.
     </Text>
   ),
   ctaHref: '/docs/guides/search',
@@ -51,48 +56,63 @@ export const THROUGHPUT = {
     </>
   ),
   caption:
-    'SerpApi publishes two numbers on every plan: the searches you may run in a month, and the successful searches it guarantees in an hour. The second one is what a queue of workers has to be built around. Microlink publishes one number, and it is monthly.',
-  columns: ['Plan', 'Included per month', 'Guaranteed per hour'],
+    'Every SerpApi plan carries two numbers: searches per month, and successful searches per hour. Their pricing page calls the second one guaranteed throughput, their FAQ calls it the hourly throughput limit, and below a million searches it is 20% of the monthly volume. A queue of workers has to be sized against it. Microlink publishes one number, it is monthly, and the price per 1,000 does not move with the plan.',
+  columns: ['Plan', 'Per month', 'Per hour', 'Per 1,000'],
   rows: [
-    { plan: 'SerpApi Free, $0', volume: '250 searches', rate: '50 / hour' },
+    {
+      plan: 'SerpApi Free, $0',
+      cells: ['250 searches', '50', '$0']
+    },
     {
       plan: 'SerpApi Starter, $25',
-      volume: '1,000 searches',
-      rate: '200 / hour'
+      cells: ['1,000 searches', '200', '$25.00']
     },
     {
       plan: 'SerpApi Developer, $75',
-      volume: '5,000 searches',
-      rate: '1,000 / hour'
+      cells: ['5,000 searches', '1,000', '$15.00']
     },
     {
       plan: 'SerpApi Production, $150',
-      volume: '15,000 searches',
-      rate: '3,000 / hour'
+      cells: ['15,000 searches', '3,000', '$10.00']
     },
     {
       plan: 'SerpApi Big Data, $275',
-      volume: '30,000 searches',
-      rate: '6,000 / hour'
+      cells: ['30,000 searches', '6,000', '$9.17']
+    },
+    {
+      plan: 'SerpApi Searcher, $725',
+      cells: ['100,000 searches', '20,000', '$7.25']
     },
     {
       plan: 'Microlink Pro, $49',
-      volume: '46,000 requests',
-      rate: 'No hourly cap',
+      cells: ['46,000 requests', 'No limit*', '$1.07'],
+      highlight: true
+    },
+    {
+      plan: 'Microlink Pro, $150',
+      cells: ['140,000 requests', 'No limit*', '$1.07'],
+      highlight: true
+    },
+    {
+      plan: 'Microlink Pro, $450',
+      cells: ['420,000 requests', 'No limit*', '$1.07'],
       highlight: true
     }
   ],
   footnote: (
     <>
-      SerpApi plan volumes and hourly throughput figures are their own,
-      published on their <Link href={SERPAPI_PRICING}>pricing page</Link>. The
-      Microlink row is the entry Pro plan on{' '}
+      SerpApi volumes and hourly figures are published on their{' '}
+      <Link href={SERPAPI_PRICING}>pricing page</Link>, which also lists
+      higher tiers from 250,000 searches a month ($1,475) to 54 million
+      ($106,050). The per-1,000 column is arithmetic on each monthly price.
+      Microlink rows are self-serve Pro plans from{' '}
       <Link href='/pricing'>pricing</Link>, and{' '}
       <Link href='/docs/api/basics/rate-limit'>rate limit</Link> states that no
-      throttling is applied: parallel requests are bounded by the monthly quota
-      and nothing else. Read the volumes carefully, because the units differ. A
-      SerpApi search is a search, while a Microlink request is any API call, so
-      the same 46,000 also covers screenshots, PDFs and metadata, and a result
+      throttling is applied: parallel requests are bounded by the monthly quota.
+      * {FAIR_USE_NOTE} The units differ, so read the volumes carefully. A
+      SerpApi search is a search, and it does not count when it errors or is
+      served from their one-hour cache. A Microlink request is any API call, so
+      the same quota also covers screenshots, PDFs and metadata, and a result
       you expand with <code>.markdown()</code> costs one request of its own.
     </>
   )
@@ -101,61 +121,69 @@ export const THROUGHPUT = {
 export const COMPARISON = {
   title: (
     <>
-      <GradientText>Feature by feature</GradientText>, side by side.
+      What each one <GradientText>puts in writing</GradientText>.
     </>
   ),
   caption: (
     <>
       Both products return public Google results as structured JSON, paginated,
       geo-targetable, and callable from an agent. What differs is the surface
-      catalogue, what arrives with each result, and what the vendor guarantees
-      in writing. Every SerpApi row comes from their{' '}
+      catalog, what arrives with each result, and what the vendor guarantees
+      on paper. Every SerpApi row comes from their{' '}
       <Link href={SERPAPI_PRICING}>pricing page</Link>,{' '}
-      <Link href={SERPAPI_MARKDOWN}>Markdown Output</Link> and{' '}
-      <Link href={SERPAPI_SPEED}>Ludicrous Speed</Link> pages, including the
-      four rows where SerpApi has capabilities Microlink does not.
+      <Link href={SERPAPI_MARKDOWN}>Markdown Output</Link>,{' '}
+      <Link href={SERPAPI_SPEED}>Ludicrous Speed</Link> and{' '}
+      <Link href={SERPAPI_LEGAL_SHIELD}>U.S. Legal Shield</Link> pages,
+      including the rows where SerpApi has capabilities Microlink does not.
     </>
   ),
   columns: ['Microlink', 'SerpApi'],
   rows: [
     {
-      feature: 'Hourly throughput cap',
+      feature: 'Hourly throughput limit',
       href: '/docs/api/basics/rate-limit',
       microlink: 'None',
-      serpapi: '50 to 6,000 / hour',
+      serpapi: '20% of plan',
       highlight: true,
-      note: 'Microlink applies no throttling: concurrency is limited by the monthly quota. SerpApi guarantees a successful-search rate per plan.'
+      note: 'SerpApi sets the hourly limit at 20% of monthly volume below a million searches: 50 an hour on Free, 6,000 on Big Data. Microlink applies no throttling to legitimate use; the monthly quota is the only bound.'
     },
     {
       feature: 'Cost per 1,000',
       href: '/pricing',
       microlink: '$1.07',
-      serpapi: '$15.00',
+      serpapi: '$1.96 to $25',
       highlight: true,
-      note: 'Arithmetic on both published plans: $49 for 46,000 Microlink requests, $75 for 5,000 SerpApi searches on Developer. SerpApi gets cheaper per search on higher tiers, down to $9.17 on Big Data.'
+      note: 'Arithmetic on published monthly plans. Microlink is $1.07 on every self-serve plan, from $49 for 46,000 to $450 for 420,000. SerpApi falls with volume: $15.00 on Developer, $9.17 on Big Data, $3.75 at a million a month, $1.96 at 54 million.'
     },
     {
       feature: 'Billing unit',
       href: '/docs/guides/search/content-expansion',
       microlink: '1 request',
       serpapi: '1 search',
-      note: 'One query is one unit on both, whatever it returns. On Microlink that unit is shared with every other product, and expanding a result costs one more.'
-    },
-    {
-      feature: 'Search surfaces',
-      href: '/search',
-      microlink: '10 Google',
-      serpapi: 'Google + 20 sites',
-      highlight: true,
-      note: 'Microlink covers web, news, images, videos, places, maps, shopping, scholar, patents and autocomplete. SerpApi adds Amazon, Bing, YouTube, Yandex, Yelp, Walmart, Zillow, Baidu, DuckDuckGo and more.'
+      note: 'One query is one unit on both, however many results it returns. SerpApi does not count errored searches or one-hour cache hits. A Microlink request is shared with every other product, and expanding a result costs one more.'
     },
     {
       feature: 'Page content of each result',
-      href: '/markdown',
+      href: '/docs/guides/search/content-expansion',
       microlink: true,
       serpapi: false,
       highlight: true,
       note: 'result.markdown() and result.html() fetch the linked page itself, at one request per result. SerpApi returns the results page; its Markdown Output renders that page as Markdown rather than reading the links.'
+    },
+    {
+      feature: 'Screenshots, PDF and metadata',
+      href: '/api',
+      microlink: true,
+      serpapi: false,
+      highlight: true,
+      note: 'The same key, SDK and quota also capture a page, print it to PDF, or return normalized metadata. SerpApi is a search product.'
+    },
+    {
+      feature: 'One results array across surfaces',
+      href: '/docs/sdk/methods/search',
+      microlink: true,
+      serpapi: false,
+      note: 'Every Microlink surface returns page.results, with fields that fit the surface. SerpApi names the array per engine: organic_results, news_results, images_results, video_results, shopping_results, local_results, suggestions.'
     },
     {
       feature: 'Results page as Markdown',
@@ -166,22 +194,23 @@ export const COMPARISON = {
     },
     {
       feature: 'Recency and country filters',
+      href: '/docs/sdk/methods/search',
       microlink: true,
       serpapi: true,
-      note: 'Microlink takes period for recency and a two-letter country code for location.'
-    },
-    {
-      feature: 'Screenshots, PDF and metadata',
-      href: '/api',
-      microlink: true,
-      serpapi: false,
-      note: 'The same key, SDK and quota also capture a page, print it to PDF, or return normalized metadata. SerpApi is a search product.'
+      note: 'Microlink takes period for recency and a two-letter country code for location. SerpApi takes gl, hl, a free-text location and tbs.'
     },
     {
       feature: 'MCP server',
       href: '/integrations/mcp',
       microlink: true,
       serpapi: true
+    },
+    {
+      feature: 'Search surfaces',
+      href: '/search',
+      microlink: '10 Google',
+      serpapi: '100+ APIs',
+      note: 'Microlink covers web, news, images, videos, places, maps, shopping, scholar, patents and autocomplete. SerpApi lists 57 Google APIs, including AI Overview, AI Mode, Trends, Flights, Hotels, Jobs and Lens, plus Amazon, Bing, YouTube, Walmart, Yelp, Baidu and more.'
     },
     {
       feature: 'Free tier for search',
@@ -195,7 +224,20 @@ export const COMPARISON = {
       href: '/integrations/sdk',
       microlink: 'JavaScript',
       serpapi: '10 languages',
-      note: 'Search is a method of the JavaScript SDK. SerpApi publishes clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI.'
+      note: 'Search is a method of the JavaScript SDK, a subcommand of the microlink.io CLI and a tool in the MCP server. SerpApi publishes clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI.'
+    },
+    {
+      feature: 'Paid latency tier',
+      microlink: false,
+      serpapi: true,
+      note: 'Ludicrous Speed at 2× the standard price, Ludicrous Speed Max at 4×, on any paid plan.'
+    },
+    {
+      feature: 'Uptime SLA',
+      href: '/pricing',
+      microlink: '99.9%',
+      serpapi: '99.95%',
+      note: 'SerpApi applies it to every plan, with service credits. Microlink applies 99.9% to every paid plan, with service credits on Enterprise.'
     },
     {
       feature: 'Audited compliance',
@@ -207,10 +249,117 @@ export const COMPARISON = {
       feature: 'Legal indemnity',
       microlink: false,
       serpapi: 'Up to $2M',
-      note: 'The SerpApi U.S. Legal Shield covers scraping and parsing of search engine data for lawful use. Microlink offers no comparable cover.'
+      note: 'From the Production plan up, the SerpApi U.S. Legal Shield covers the lawful collection of public search data, not how the data is used. Microlink offers no comparable cover.'
     }
   ],
   note: 'Last verified: September 2026. Check each product’s own pages for the latest.'
+}
+
+export const MIGRATION = {
+  title: (
+    <>
+      From <GradientText>engine</GradientText> to type.
+    </>
+  ),
+  caption:
+    'A SerpApi integration is an HTTP call plus a parser per engine. On Microlink it is one method call, and the per-engine unwrapping goes away because every surface resolves to page.results. Most of the migration is this lookup table.',
+  columns: ['SerpApi', 'Microlink'],
+  rows: [
+    {
+      id: 'endpoint',
+      serpapi: <code>GET serpapi.com/search.json</code>,
+      microlink: <code>microlink.search(query, options)</code>
+    },
+    {
+      id: 'api-key',
+      serpapi: <code>api_key</code>,
+      microlink: <code>createClient({'{ apiKey }'})</code>
+    },
+    {
+      id: 'q',
+      serpapi: <code>q</code>,
+      microlink: 'The first argument, operators such as site: included'
+    },
+    {
+      id: 'google',
+      serpapi: <code>engine=google</code>,
+      microlink: (
+        <>
+          <code>type</code> omitted, or <code>'search'</code>
+        </>
+      )
+    },
+    {
+      id: 'news',
+      serpapi: <code>engine=google_news</code>,
+      microlink: <code>type: 'news'</code>
+    },
+    {
+      id: 'images',
+      serpapi: <code>engine=google_images</code>,
+      microlink: <code>type: 'images'</code>
+    },
+    {
+      id: 'videos',
+      serpapi: <code>engine=google_videos</code>,
+      microlink: <code>type: 'videos'</code>
+    },
+    {
+      id: 'local',
+      serpapi: <code>engine=google_local</code>,
+      microlink: <code>type: 'places'</code>
+    },
+    {
+      id: 'maps',
+      serpapi: <code>engine=google_maps</code>,
+      microlink: <code>type: 'maps'</code>
+    },
+    {
+      id: 'shopping',
+      serpapi: <code>engine=google_shopping</code>,
+      microlink: <code>type: 'shopping'</code>
+    },
+    {
+      id: 'scholar',
+      serpapi: <code>engine=google_scholar</code>,
+      microlink: <code>type: 'scholar'</code>
+    },
+    {
+      id: 'patents',
+      serpapi: <code>engine=google_patents</code>,
+      microlink: <code>type: 'patents'</code>
+    },
+    {
+      id: 'autocomplete',
+      serpapi: <code>engine=google_autocomplete</code>,
+      microlink: <code>type: 'autocomplete'</code>
+    },
+    {
+      id: 'gl',
+      serpapi: <code>gl=us</code>,
+      microlink: <code>location: 'us'</code>
+    },
+    {
+      id: 'start',
+      serpapi: <code>start=10</code>,
+      microlink: (
+        <>
+          <code>page: 2</code>, or <code>await page.next()</code>
+        </>
+      )
+    },
+    {
+      id: 'results',
+      serpapi: <code>organic_results, news_results, …</code>,
+      microlink: <code>page.results</code>
+    },
+    {
+      id: 'markdown',
+      serpapi: <code>output=md</code>,
+      microlink: <code>await page.markdown()</code>
+    }
+  ],
+  note: 'SerpApi parameters from their Google engine docs, checked September 2026. Microlink options from the search method reference.'
 }
 
 export const HONESTY = {
@@ -220,37 +369,33 @@ export const HONESTY = {
     </>
   ),
   caption:
-    'A comparison page that only flatters the vendor writing it is worth nothing. Five cases where the answer is SerpApi.',
+    'SerpApi covers more engines, sells more guarantees and signs more paperwork. Four cases where that settles the question in its favor.',
   items: [
     {
-      title: 'Anything that is not Google',
-      body: 'SerpApi sells more than a hundred search APIs, from Amazon and Walmart to Bing, YouTube, Yandex, Yelp, Zillow, Baidu and DuckDuckGo. Microlink Search covers ten Google surfaces and nothing else. If the job is Amazon pricing or App Store reviews, there is no Microlink answer to compare.'
+      title: 'Anything past ten Google surfaces',
+      body: 'SerpApi lists more than a hundred APIs: Amazon, Walmart, Bing, YouTube, Yandex, Yelp, Zillow, Baidu, DuckDuckGo and the App Store, plus 57 Google APIs that include AI Overview, AI Mode, Trends, Flights, Hotels, Jobs and Lens. Microlink Search covers ten Google surfaces. If the job is Amazon pricing or tracking AI Overviews, there is no Microlink answer to compare.'
     },
     {
       title: 'A throughput number in the contract',
-      body: 'Every SerpApi plan states the successful searches it guarantees per hour, from 50 on Free to 6,000 on Big Data. Microlink applies no throttling and sells no parallelism tier, so there is nothing to throttle, but there is also no figure to size a worker pool against or point to in a review.'
+      body: 'Every SerpApi plan states the successful searches it guarantees per hour, from 50 on Free to 640,000 on its largest Cloud tier. Microlink applies no throttling and sells no parallelism tier, so there is nothing to throttle, but there is also no figure to size a worker pool against or point to in a review.'
     },
     {
       title: 'Certifications and legal cover',
-      body: 'SerpApi publishes SOC 2 Type II, SOC 3 and ISO 27001 certification, uptime SLAs of up to 99.97%, a ZeroTrace mode that retains no query or result, and a legal shield covering up to $2 million. If procurement is the gate, that list is the answer.'
+      body: 'SerpApi publishes SOC 2 Type II, SOC 3 and ISO 27001 certification, a 99.95% uptime SLA with credits on every plan, a U.S. Legal Shield of up to $2 million from the Production plan up, and a ZeroTrace mode on Enterprise that retains no query or result. If procurement is the gate, that list is the answer.'
     },
     {
-      title: 'A latency tier you can buy',
-      body: 'Ludicrous Speed costs twice the standard rate and SerpApi reports it averaging 2.2 times faster, and 4.2 times faster at p99, over a 10,000-request sample. Microlink has no paid speed tier, so latency is whatever the surface returns.'
-    },
-    {
-      title: 'Ten languages and a free tier',
-      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method on a paid plan. If the service is written in Java, that settles it.'
+      title: 'Native clients and a free tier',
+      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, on a paid plan. If the service is written in Java and wants a native client, that settles it.'
     }
   ]
 }
 
 export const PRICING_CAPTION = (
   <Text>
-    Search runs on any Pro plan, and the quota it draws from is the same one
-    every other product uses. Pick the plan by monthly volume, then spend it on
-    searches, screenshots or <Link href='/markdown'>Markdown</Link> in whatever
-    mix the month needs.
+    Search runs on any Pro plan, at the same price per 1,000 on every tier, and
+    the quota it draws from is the one every other product uses. Pick the plan
+    by monthly volume, then spend it on searches, screenshots or{' '}
+    <Link href='/markdown'>Markdown</Link> in whatever mix the month needs.
   </Text>
 )
 
@@ -262,27 +407,45 @@ export const CTA = {
   badges: [
     '10 Google surfaces',
     'One SDK import',
-    'Monthly quota, no hourly cap'
+    'Monthly quota, no hourly limit'
   ]
 }
 
 export const FAQ_CAPTION =
-  'What changes, what does not, and what a migration actually involves.'
+  'Cost, quota, surfaces, and what happens to the parsing code you already have.'
 
 export const FAQ_ITEMS = [
   {
     question: 'Is Microlink a drop-in replacement for SerpApi?',
-    text: 'No. SerpApi is an HTTP endpoint that takes an engine parameter and a query, and returns a payload shaped per engine. Microlink Search is a method of the JavaScript SDK that takes a query plus a type, and returns the same result shape across surfaces. A migration is usually one module: the engine name becomes type, the parsing layer goes away, and the field names change once.',
+    text: 'No. SerpApi is an HTTP endpoint that takes an engine parameter and a query, and returns a payload shaped per engine. Microlink Search is a method of the JavaScript SDK that takes a query plus a type, and always resolves to page.results. A migration is usually one module: the engine name becomes type, the per-engine unwrapping goes away, and the field names change once. The lookup table above maps every Google engine and parameter.',
     answer: (
       <div>
         No. SerpApi is an HTTP endpoint that takes an engine parameter and a
         query, and returns a payload shaped per engine. Microlink Search is the{' '}
         <Link href='/docs/sdk/methods/search'>search</Link> method of the{' '}
         <Link href='/integrations/sdk'>JavaScript SDK</Link>: it takes a query
-        plus a <code>type</code>, and returns the same result shape across
-        surfaces. A migration is usually one module: the engine name becomes{' '}
-        <code>type</code>, the parsing layer goes away, and the field names
-        change once.
+        plus a <code>type</code>, and always resolves to{' '}
+        <code>page.results</code>. A migration is usually one module: the engine
+        name becomes <code>type</code>, the per-engine unwrapping goes away, and
+        the field names change once. The{' '}
+        <Link href='#migration'>lookup table</Link> maps every Google engine and
+        parameter.
+      </div>
+    )
+  },
+  {
+    question: 'Is Microlink Search cheaper than SerpApi?',
+    text: 'Per unit, yes on every published plan. Microlink costs $1.07 per 1,000 requests on every self-serve plan, from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on Starter, $9.17 on Big Data and $3.75 at a million searches a month. The units are not identical: a Microlink request also pays for screenshots, PDFs and page expansions, while SerpApi does not charge for errored searches or one-hour cache hits.',
+    answer: (
+      <div>
+        Per unit, yes on every published plan. Microlink costs $1.07 per 1,000
+        requests on every self-serve <Link href='/pricing'>plan</Link>, from $49
+        for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on
+        Starter, $9.17 on Big Data and $3.75 at a million searches a month. The
+        units are not identical: a Microlink request also pays for screenshots,
+        PDFs and page expansions, while SerpApi does not charge for errored
+        searches or one-hour cache hits. The{' '}
+        <Link href='#throughput'>plan table</Link> has the arithmetic.
       </div>
     )
   },
@@ -317,17 +480,19 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Are there hourly rate limits to plan around?',
-    text: 'No. Microlink applies no throttling: you can run as many parallel requests as the quota allows, and the quota resets monthly on Pro. Every response carries x-rate-limit-limit, x-rate-limit-remaining and x-rate-limit-reset, and requests return HTTP 429 once the quota is spent. SerpApi instead guarantees a successful-search rate per hour on each plan, from 50 to 6,000.',
+    text: 'No. Microlink applies no throttling: you can run as many parallel requests as the quota allows, and the quota resets monthly on Pro. This applies to legitimate use: traffic that is fraudulent, illegal or aimed at third parties is restricted. Every response carries x-rate-limit-limit, x-rate-limit-remaining and x-rate-limit-reset, and requests return HTTP 429 once the quota is spent. SerpApi instead sets an hourly throughput limit on each plan, 20% of the monthly volume below a million searches.',
     answer: (
       <div>
         No. Microlink applies no throttling: you can run as many parallel
-        requests as the quota allows, and the quota resets monthly on Pro. Every
-        response carries <code>x-rate-limit-limit</code>,{' '}
+        requests as the quota allows, and the quota resets monthly on Pro. This
+        applies to legitimate use: traffic that is fraudulent, illegal or aimed
+        at third parties is restricted. Every response carries{' '}
+        <code>x-rate-limit-limit</code>,{' '}
         <code>x-rate-limit-remaining</code> and <code>x-rate-limit-reset</code>,
         and requests return HTTP 429 once the quota is spent. See{' '}
         <Link href='/docs/api/basics/rate-limit'>rate limit</Link>. SerpApi
-        instead guarantees a successful-search rate per hour on each plan, from
-        50 to 6,000.
+        instead sets an hourly throughput limit on each plan, 20% of the monthly
+        volume below a million searches.
       </div>
     )
   },
@@ -385,9 +550,20 @@ export const STRUCTURED = [
     name: META.title,
     description: META.description,
     url: PAGE_URL,
+    about: {
+      '@type': 'Thing',
+      name: 'SerpApi',
+      sameAs: 'https://serpapi.com'
+    },
     mainEntity: {
       '@type': 'SoftwareApplication',
       name: 'Microlink Search',
+      keywords: [
+        'serpapi alternative',
+        'google search api',
+        'serp api',
+        'search api for ai agents'
+      ],
       applicationCategory: ['DeveloperApplication', 'WebAPI'],
       url: 'https://microlink.io/search',
       offers: {

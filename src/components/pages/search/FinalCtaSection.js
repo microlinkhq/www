@@ -103,9 +103,10 @@ const FinalCtaSection = () => (
               maxWidth: layout.small
             })}
           >
-            Coming from a SERP API? See the detailed comparison against{' '}
-            <Link href='/alternative/serpapi'>SerpApi</Link> for the feature
-            table, the throughput numbers, and migration notes.
+            Coming from another SERP API? The{' '}
+            <Link href='/alternative/serpapi'>SerpApi comparison</Link> has the
+            plan-by-plan cost, the hourly limits, and an engine-to-type
+            migration table.
           </Text>
           <Flex css={theme({ mt: [4, 4, 5, 5] })}>
             <ArrowLink

@@ -13,6 +13,7 @@ export { ProductCapabilities } from './capabilities'
 export { ProductPricing } from './pricing'
 export { ProductCta } from './cta'
 export { ProductFaq } from './faq'
+export { ProductComparison } from './comparison'
 export { productStructured, toFaqQuestions } from './structured'
 export { Section, SectionHeader, SectionNote, GradientText } from './section'
 export {

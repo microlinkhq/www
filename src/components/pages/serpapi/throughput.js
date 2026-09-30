@@ -14,6 +14,9 @@ import {
 
 import { THROUGHPUT } from './shared'
 
+const PLAN_CELL = { '&&': { minWidth: '168px' } }
+const NUMERIC_CELL = { '&&': { whiteSpace: 'nowrap', wordBreak: 'normal' } }
+
 export const Throughput = () => (
   <Section id='throughput' bg='pinky'>
     <SectionHeader title={THROUGHPUT.title} caption={THROUGHPUT.caption} />
@@ -35,7 +38,7 @@ export const Throughput = () => (
           </tr>
         </thead>
         <tbody>
-          {THROUGHPUT.rows.map(({ plan, volume, rate, highlight }) => (
+          {THROUGHPUT.rows.map(({ plan, cells, highlight }) => (
             <tr
               key={plan}
               css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
@@ -43,32 +46,29 @@ export const Throughput = () => (
               <Text
                 as='th'
                 scope='row'
-                css={theme({ fontWeight: highlight ? 'bold' : 'regular' })}
+                css={[
+                  theme({ fontWeight: highlight ? 'bold' : 'regular' }),
+                  PLAN_CELL
+                ]}
               >
                 {plan}
               </Text>
-              <Text
-                as='td'
-                css={[
-                  theme({ textAlign: 'right', color: 'black60' }),
-                  { whiteSpace: 'nowrap' }
-                ]}
-              >
-                {volume}
-              </Text>
-              <Text
-                as='td'
-                css={[
-                  theme({
-                    textAlign: 'right',
-                    fontWeight: 'bold',
-                    color: 'black'
-                  }),
-                  { whiteSpace: 'nowrap' }
-                ]}
-              >
-                {rate}
-              </Text>
+              {cells.map((cell, index) => (
+                <Text
+                  key={THROUGHPUT.columns[index + 1]}
+                  as='td'
+                  css={[
+                    theme(
+                      index === 1
+                        ? { textAlign: 'right', fontWeight: 'bold', color: 'black' }
+                        : { textAlign: 'right', color: 'black60' }
+                    ),
+                    NUMERIC_CELL
+                  ]}
+                >
+                  {cell}
+                </Text>
+              ))}
             </tr>
           ))}
         </tbody>

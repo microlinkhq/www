@@ -316,6 +316,17 @@ const FAQ_ENTRIES = [
     ]
   },
   {
+    question: 'How does Microlink Search compare to SerpApi?',
+    answers: [
+      'Both return public Google results as structured JSON. SerpApi covers more engines and sets an hourly throughput limit on every plan; Microlink covers ten Google surfaces, applies no hourly limit, and costs the same per 1,000 requests on every plan.',
+      'Microlink results can also be expanded into the full Markdown or HTML of the linked page, and the same quota covers screenshots, PDFs and metadata.'
+    ],
+    related: {
+      href: '/alternative/serpapi',
+      label: 'Read the full SerpApi comparison'
+    }
+  },
+  {
     question: 'How do pagination and HTML enrichment work?',
     answers: [
       'Every result page can call `.next()` to fetch the following page, so pagination can be chained naturally.',

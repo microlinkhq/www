@@ -7,6 +7,7 @@ import {
   ProductHero,
   ProductTimings,
   ProductPricing,
+  ProductComparison,
   ProductCta,
   ProductFaq,
   productStructured,
@@ -15,10 +16,10 @@ import {
 
 import { Capabilities } from 'components/pages/browserbase/capabilities'
 import { Paths } from 'components/pages/browserbase/paths'
-import { Comparison } from 'components/pages/browserbase/comparison'
 import { Honesty } from 'components/pages/browserbase/honesty'
 import {
   ACCENT,
+  COMPARISON,
   HERO,
   PRICING_CAPTION,
   CTA,
@@ -56,7 +57,7 @@ const BrowserbaseAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductCta {...CTA} accent={ACCENT} />
-    <Comparison />
+    <ProductComparison {...COMPARISON} competitorKey='browserbase' />
     <Honesty />
     <OpenSource
       repos={REPOS}

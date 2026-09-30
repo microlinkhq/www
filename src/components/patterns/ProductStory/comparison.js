@@ -1,21 +1,17 @@
-import React from 'react'
 import { textGradient, theme } from 'theme'
+import React from 'react'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
+import { Section, SectionHeader, SectionNote } from './section'
 import {
   CellNote,
   CellValue,
   FeatureTable,
   HIGHLIGHT_BG,
-  Section,
-  SectionHeader,
-  SectionNote,
   TableCard
-} from 'components/patterns/ProductStory'
-
-import { COMPARISON } from './shared'
+} from './table'
 
 const FEATURE_MIN_WIDTH = '240px'
 const VALUE_MIN_WIDTH = '112px'
@@ -36,9 +32,16 @@ const ValueHeader = ({ children, gradient }) => (
   </Text>
 )
 
-export const Comparison = () => (
+export const ProductComparison = ({
+  title,
+  caption,
+  columns,
+  rows,
+  note,
+  competitorKey
+}) => (
   <Section id='comparison' bordered>
-    <SectionHeader title={COMPARISON.title} caption={COMPARISON.caption} />
+    <SectionHeader title={title} caption={caption} />
 
     <TableCard>
       <FeatureTable>
@@ -47,26 +50,26 @@ export const Comparison = () => (
             <Text as='th' scope='col' css={{ minWidth: FEATURE_MIN_WIDTH }}>
               Capability
             </Text>
-            <ValueHeader gradient>{COMPARISON.columns[0]}</ValueHeader>
-            <ValueHeader>{COMPARISON.columns[1]}</ValueHeader>
+            <ValueHeader gradient>{columns[0]}</ValueHeader>
+            <ValueHeader>{columns[1]}</ValueHeader>
           </tr>
         </thead>
         <tbody>
-          {COMPARISON.rows.map(
-            ({ feature, href, microlink, browserbase, note, highlight }) => (
+          {rows.map(
+            ({ feature, href, microlink, note: rowNote, highlight, ...row }) => (
               <tr
                 key={feature}
                 css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
               >
                 <Text as='th' scope='row' css={theme({ fontWeight: 'bold' })}>
                   {href ? <Link href={href}>{feature}</Link> : feature}
-                  {note && <CellNote>{note}</CellNote>}
+                  {rowNote && <CellNote>{rowNote}</CellNote>}
                 </Text>
                 <td>
                   <CellValue value={microlink} />
                 </td>
                 <td>
-                  <CellValue value={browserbase} />
+                  <CellValue value={row[competitorKey]} />
                 </td>
               </tr>
             )
@@ -75,6 +78,6 @@ export const Comparison = () => (
       </FeatureTable>
     </TableCard>
 
-    <SectionNote>{COMPARISON.note}</SectionNote>
+    <SectionNote>{note}</SectionNote>
   </Section>
 )

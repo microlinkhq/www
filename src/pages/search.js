@@ -3,6 +3,7 @@ import React from 'react'
 import { layout, theme } from 'theme'
 
 import Container from 'components/elements/Container'
+import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 import Faq from 'components/patterns/Faq/Faq'
@@ -33,7 +34,7 @@ const GooglePage = () => (
     <Faq
       title='Product Information'
       caption='Everything you need to know about Microlink Search, pricing, and supported search surfaces.'
-      questions={FAQ_ENTRIES.map(({ question, answers }) => ({
+      questions={FAQ_ENTRIES.map(({ question, answers, related }) => ({
         question,
         answer: (
           <>
@@ -42,6 +43,11 @@ const GooglePage = () => (
                 {answer}
               </Text>
             ))}
+            {related && (
+              <Text as='p' css={theme({ m: 0 })}>
+                <Link href={related.href}>{related.label}</Link>.
+              </Text>
+            )}
           </>
         )
       }))}

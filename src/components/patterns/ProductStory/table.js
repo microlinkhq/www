@@ -128,14 +128,12 @@ export const TableCard = ({ children }) => (
   </Box>
 )
 
-const NOTE_FONT_SIZE = '11px'
-
 export const CellNote = ({ children }) => (
   <Text
     as='div'
     css={theme({
       pt: 1,
-      fontSize: NOTE_FONT_SIZE,
+      fontSize: 0,
       fontWeight: 'normal',
       color: 'black60',
       lineHeight: 1,
