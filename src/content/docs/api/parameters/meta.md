@@ -63,7 +63,8 @@ Or read it inside the function, which costs one page load rather than two:
 Asking for anything else at the same time — [screenshot](/docs/api/parameters/screenshot),
 [pdf](/docs/api/parameters/pdf), [insights](/docs/api/parameters/insights),
 [iframe](/docs/api/parameters/iframe), [video](/docs/api/parameters/video),
-[audio](/docs/api/parameters/audio), or a [data](/docs/api/parameters/data) rule — keeps metadata on.
+[audio](/docs/api/parameters/audio), [palette](/docs/api/parameters/palette), or a
+[data](/docs/api/parameters/data) rule — keeps metadata on.
 
 ## Configurable Detection
 

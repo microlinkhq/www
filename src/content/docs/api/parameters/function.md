@@ -44,7 +44,7 @@ Asking for `ping` explicitly settles `data.url` without changing the argument.
 
 ### page
 
-The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the function references `page`, Microlink navigates to the URL in a browser before calling your function. Any Puppeteer page method is available:
+The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. `page.content()`, `page.extract()`, and `page.metadata()` fetch the page when you call them, with no browser. Other methods, such as `page.title()`, `page.click()`, or `page.evaluate()`, load the page in a browser once and run your function on it. Any Puppeteer page method is available:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
@@ -80,7 +80,7 @@ The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the 
 
 ### response
 
-The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function uses `page`:
+The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://edge-ping.vercel.app',
