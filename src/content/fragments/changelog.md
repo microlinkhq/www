@@ -1,5 +1,17 @@
 ### September 2026
 
+- [Microlink](https://dashboard.microlink.io): Sign up without a card and get a development key (100 requests/month).
+- [Microlink API](/docs/api/parameters/meta): Prefers a wordmark over a favicon for [logo](/docs/api/parameters/meta).
+- [Microlink CLI](/docs/sdk/getting-started/cli): Added `microlink setup` to install the Microlink skill.
+- [Browserless v13.12](https://browserless.js.org): Screenshots wait for lazy images in the viewport.
+- [Browserless v13.12](https://browserless.js.org): Screenshot and PDF retries wait for a full network-idle window.
+- [Microlink Blog](/blog): Published [Why we still run Chrome](/blog/why-we-still-run-chrome).
+- [Microlink](/use-cases): Added [scraping](/use-cases/scraping), [proxy](/use-cases/proxy), and [search](/use-cases/search-api) use cases, plus industry hubs.
+- [Microlink](/ai): Added the [AI](/ai) skill hub.
+- [Microlink](/integrations/mcp): [MCP](/integrations/mcp) install is tabbed for Claude, ChatGPT, and Cursor.
+- [Microlink API](/docs/api/parameters/function): [data](/docs/api/parameters/data) `evaluate` and `page.extract` snippets run in the page.
+- [Microlink API](/docs/api/getting-started/overview): Ignores `path` and `encoding` on screenshot and PDF requests, and accepts comma-separated [insights](/docs/api/parameters/insights) lighthouse lists.
+- [Microlink API](/docs/api/parameters/function): Added `page.metadata` and `page.extract` to [function](/docs/api/parameters/function).
 - [Microlink](/): Added the [PDF](/pdf/ruby) landing for Ruby.
 - [Microlink API](/docs/api/parameters/function): Raised heap limits to 64 MB (free) and 128 MB (pro).
 - [Microlink Tools](/tools): Added [sitemap](/tools/sitemap) page.
