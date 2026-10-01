@@ -1,7 +1,3 @@
-<!-- ### October 2026
-
-- [Microlink API](/docs/api/getting-started/overview): Unfurls [Kahoot](https://create.kahoot.it) quizzes and [Claude](https://claude.ai) artifact and share links. -->
-
 ### September 2026
 
 - [Microlink](https://dashboard.microlink.io): Sign up without a card and get a development key (100 requests/month).
