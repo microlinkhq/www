@@ -40,8 +40,7 @@ When your function references `page`, Microlink starts a headless browser and gi
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',
-  function: '({ page }) => page.title()',
-  meta: false
+  function: '({ page }) => page.title()'
 }} />
 
 ## Choose the lightest tool

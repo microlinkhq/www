@@ -46,12 +46,13 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What can I get from one request?',
-    text: 'Normalized metadata by default: title, description, image, logo, and more. The same request can also return a screenshot, PDF, markdown, HTML, iframe embed, or the return value of a browser function. When you only need one of those, add meta=false to skip metadata, which is usually the biggest speedup.',
+    text: 'Normalized metadata by default: title, description, image, logo, and more, except when function is the only requested output. Set meta=true to include metadata for a function-only request. The same request can also return a screenshot, PDF, markdown, HTML, iframe embed, or the return value of a browser function. When you only need a screenshot, PDF, markdown, HTML, or iframe, add meta=false to skip metadata, which is usually the biggest speedup.',
     answer: (
       <>
         <div>
           Normalized metadata by default: title, description, image, logo, and
-          more.
+          more, except when function is the only requested output. Set{' '}
+          <b>meta=true</b> to include metadata for a function-only request.
         </div>
         <div>
           The same request can also return a screenshot, PDF, markdown, HTML,
@@ -62,8 +63,9 @@ export const FAQ_ITEMS = [
           .
         </div>
         <div>
-          When you only need one of those, add <b>meta=false</b> to skip
-          metadata, which is usually the biggest speedup. More in{' '}
+          When you only need a screenshot, PDF, markdown, HTML, or iframe, add{' '}
+          <b>meta=false</b> to skip metadata, which is usually the biggest
+          speedup. More in{' '}
           <Link href='/docs/guides/common/production-patterns'>
             production patterns
           </Link>
