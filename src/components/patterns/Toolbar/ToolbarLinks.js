@@ -198,7 +198,7 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Products',
     description: 'APIs and tooling to turn any URL into structured output.',
-    columns: 3,
+    columns: 4,
     items: [
       createNavigationItem({
         label: 'API',
