@@ -114,6 +114,12 @@ describe('buildLlmsTxt', () => {
     )
   })
 
+  test('points agents at the feedback discovery document', () => {
+    expect(content).toContain(
+      '- [Agent feedback](https://microlink.io/.well-known/agent-feedback.json): How agents report Microlink API problems'
+    )
+  })
+
   test('writes one link per page', () => {
     const pageLinks = content
       .split('## Machine-readable')[1]

@@ -1,5 +1,11 @@
 {
   "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
+  "rewrites": [
+    {
+      "source": "/.well-known/agent-feedback.json",
+      "destination": "https://feedback.microlink.io/.well-known/agent-feedback.json"
+    }
+  ],
   "headers": [
     {
       "source": "/static/(.*)",
