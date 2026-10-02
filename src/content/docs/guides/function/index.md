@@ -36,7 +36,7 @@ console.log(result.value)       // 42
 
 <Figcaption>The function runs remotely. The result includes the returned value at <code>result.value</code> and execution metrics at <code>result.profiling</code>.</Figcaption>
 
-When your function references `page`, Microlink starts a headless browser and gives you full Puppeteer access:
+`page` is a Puppeteer Page for the URL you asked for. The [page API](/docs/api/parameters/function#page) is supported, including [page.extract](/docs/api/parameters/function#pageextract) and [page.metadata](/docs/api/parameters/function#pagemetadata):
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://developer.mozilla.org/en-US/docs/Web/API/Document/title',

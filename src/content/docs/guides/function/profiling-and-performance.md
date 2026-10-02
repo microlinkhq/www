@@ -81,31 +81,29 @@ default, and the page is resolved only when your code needs it.
 | calls `page.content()`, `page.extract()` or `page.metadata()` | the page is fetched at the moment you call it |
 | drives the browser, such as `page.click()` or `page.evaluate()` | the page is loaded once and your function runs on it |
 
-The fetch happens on the call, not before your function starts, so a branch you do not take costs
-nothing:
-
-```js
-async ({ page }) => (shouldRead ? await page.content() : 'skipped')
-```
-
-With `shouldRead` false nothing is fetched at all, even though `page.content` appears in your code.
+The fetch happens on the call, not before your function starts.
 
 Destructure `page` itself rather than its methods. `({ page }) => page.content()` is answered from
 fetched HTML with no browser, while `({ page: { content } }) => content()` cannot be read ahead of
 time and starts a full browser.
 
 Ask for [meta](/docs/api/parameters/meta) explicitly when you want normalized metadata alongside the
-function, or call `page.metadata()` inside it to get the same data for one page load:
+function, or call [page.metadata](/docs/api/parameters/function#pagemetadata) inside it to get the same data for one page load:
 
 ```js
 import createClient from 'microlink.io'
 
 const microlink = createClient()
 
-const { value } = await microlink.function('https://example.com', ({ page }) => page.title())
+const { value } = await microlink.function(
+  'https://example.com',
+  async ({ page }) => (await page.metadata()).title
+)
+
+console.log(value)
 ```
 
-<Figcaption>Skipping metadata is usually the biggest speedup for function requests. If you still need the rendered markup, call <code>page.content()</code> inside the function.</Figcaption>
+<Figcaption><code>page.metadata()</code> returns the same fields as meta.</Figcaption>
 
 ## Compress large functions
 
