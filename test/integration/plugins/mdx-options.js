@@ -2,7 +2,7 @@ import { createRequire } from 'module'
 import { pathToFileURL } from 'url'
 import { expect, it } from 'vitest'
 
-import gatsbyConfig from '../../gatsby-config'
+import mdxOptions from '../../../src/plugins/mdx-options'
 
 const require = createRequire(import.meta.url)
 
@@ -15,10 +15,6 @@ const GFM_MARKDOWN = `| a | b |
 - [x] done
 `
 
-const getMdxOptions = () =>
-  gatsbyConfig.plugins.find(plugin => plugin.resolve === 'gatsby-plugin-mdx')
-    .options.mdxOptions
-
 const loadGatsbyMdxCompiler = () => {
   const requireFromPlugin = createRequire(require.resolve('gatsby-plugin-mdx'))
   return import(pathToFileURL(requireFromPlugin.resolve('@mdx-js/mdx')).href)
@@ -26,9 +22,7 @@ const loadGatsbyMdxCompiler = () => {
 
 it('compiles GFM with the MDX version gatsby-plugin-mdx ships', async () => {
   const { compile } = await loadGatsbyMdxCompiler()
-  const { remarkPlugins } = getMdxOptions()
-
-  const output = String(await compile(GFM_MARKDOWN, { remarkPlugins }))
+  const output = String(await compile(GFM_MARKDOWN, mdxOptions))
 
   expect(output).toContain('_components.table')
   expect(output).toContain('_components.del')
