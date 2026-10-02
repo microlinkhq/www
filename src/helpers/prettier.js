@@ -118,6 +118,8 @@ const formatHeaders = content => {
     .join('\n')
 }
 
+const withoutLeadingSemicolon = code => (code[0] === ';' ? code.slice(1) : code)
+
 export const prettier = async (code, language = 'js') => {
   // Handle headers formatting (no prettier needed)
   if (language === 'headers') {
@@ -134,7 +136,7 @@ export const prettier = async (code, language = 'js') => {
       ...formatterOpts({ babel, typescript })
     }
     const formatted = format(code, opts)
-    return formatted.replace(';<', '<')
+    return withoutLeadingSemicolon(formatted.replace(';<', '<'))
   } catch (error) {
     if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code
