@@ -24,7 +24,8 @@ import { inline } from '../landing/inline-links'
 import { WhySection } from '../landing/why'
 import { ACCENT, INDUSTRIES, getUseCase, pathToUseCase } from '../use-cases'
 
-const linkStyle = size => theme({ color: 'link', fontWeight: 'bold', fontSize: size })
+const linkStyle = size =>
+  theme({ color: 'link', fontWeight: 'bold', fontSize: size })
 
 const otherIndustries = industry =>
   INDUSTRIES.filter(other => other.slug !== industry.slug)
@@ -38,7 +39,10 @@ const IndustryHeader = ({ industry }) => (
           { label: industry.name }
         ]}
       />
-      <Heading variant={null} css={theme({ textAlign: 'left', scrollMarginTop: 4 })}>
+      <Heading
+        variant={null}
+        css={theme({ textAlign: 'left', scrollMarginTop: 4 })}
+      >
         {industry.h1}
       </Heading>
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
@@ -82,7 +86,11 @@ const IndustryBuild = ({ build }) => (
       </Subhead>
       <Flex css={theme({ flexDirection: 'column', gap: 3 })}>
         {build.paragraphs.map(paragraph => (
-          <Text as='p' key={paragraph} css={theme({ color: 'black70', lineHeight: 2 })}>
+          <Text
+            as='p'
+            key={paragraph}
+            css={theme({ color: 'black70', lineHeight: 2 })}
+          >
             {inline(paragraph)}
           </Text>
         ))}

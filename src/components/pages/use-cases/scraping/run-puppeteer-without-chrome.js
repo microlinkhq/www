@@ -114,7 +114,8 @@ export const CONTENT = {
         '15 seconds on the free plan and up to 60 seconds on Pro. Past that the function returns isFulfilled false with a TimeoutError. Replace fixed waits with waitForSelector and set meta: false to stay well inside the limit.'
     },
     {
-      question: 'Can the hosted headless Chrome reach localhost or a private network?',
+      question:
+        'Can the hosted headless Chrome reach localhost or a private network?',
       answer:
         'No. Private, loopback and link-local addresses are rejected with EFORBIDDENURL before the browser starts. The target must be a public URL.'
     },

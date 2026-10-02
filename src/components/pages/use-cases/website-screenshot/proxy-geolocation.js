@@ -21,8 +21,7 @@ export const CONTENT = {
     ]
   },
   how: {
-    title:
-      'How to take a geolocated screenshot of a website',
+    title: 'How to take a geolocated screenshot of a website',
     intro:
       'Two parameters cover most localization logic: the exit country for IP-based targeting and Accept-Language for language negotiation. The [proxy guide](/docs/guides/common/proxy) shows both next to the other proxy patterns.',
     steps: [
@@ -123,7 +122,8 @@ export const CONTENT = {
         'Pass proxy.location with the country code, for example de for Germany, on a Pro key. The request exits from a proxy in that country, so the site serves its regional version with no VPN, no browser extension and no manual step.'
     },
     {
-      question: 'Can I combine proxy.location with my own proxy for screenshots?',
+      question:
+        'Can I combine proxy.location with my own proxy for screenshots?',
       answer:
         'No. location and proxy.url are exclusive. If you already pay for a country-specific proxy, pass its URL as proxy.url instead and Microlink routes every sub-request of the page through it.'
     },

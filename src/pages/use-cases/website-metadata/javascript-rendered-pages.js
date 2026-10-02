@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-metadata/javascript-rendered-pages'
 
-const UseCaseMetadataJavascriptRenderedPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMetadataJavascriptRenderedPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

@@ -121,7 +121,8 @@ export const CONTENT = {
         'Set them to false in the meta object: meta: { image: false, logo: false }. The rest of the default set is still detected, so you keep title, description, author, publisher and date without fetching any media.'
     },
     {
-      question: 'What is the difference between meta and filter in the metadata API?',
+      question:
+        'What is the difference between meta and filter in the metadata API?',
       answer:
         'meta controls which fields are detected, so it changes the work the request does. filter controls which keys appear in the JSON, so it only changes the response shape. Use both when you want a fast request and a small payload.'
     },

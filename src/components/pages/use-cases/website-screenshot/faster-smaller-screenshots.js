@@ -146,7 +146,8 @@ export const CONTENT = {
         'No. A cache hit is served from the edge without launching a browser, and it does not count against your quota. Speed settings matter for the first capture of each URL and for pipelines with many unique URLs, while [ttl](/docs/api/parameters/ttl) decides how long the rest stay cached.'
     },
     {
-      question: 'Is there a screenshot option that prioritizes speed automatically?',
+      question:
+        'Is there a screenshot option that prioritizes speed automatically?',
       answer:
         'The SDK exposes optimizeForSpeed on the [screenshot method](/docs/sdk/methods/screenshot), which prioritizes capture speed over image size and fidelity and is off by default. The explicit settings above give you finer control over the trade-off.'
     },

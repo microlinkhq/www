@@ -141,7 +141,8 @@ await writeFile('archive/long-read.pdf', Buffer.from(await response.arrayBuffer(
         'Fetch the hosted URL from the response and store the file in your own storage. The API response is cached for 24 hours by default, and up to 31 days with ttl on Pro plans, which is a delivery window, not a retention policy.'
     },
     {
-      question: 'How do I remove comments and related posts from the article PDF?',
+      question:
+        'How do I remove comments and related posts from the article PDF?',
       answer:
         'Hide them with styles, for example .comments, .related { display: none !important }, or use pdf.pageRanges to keep only the pages that contain the article. The [page preparation guide](/docs/guides/pdf/page-preparation) lists the other cleanup options.'
     },

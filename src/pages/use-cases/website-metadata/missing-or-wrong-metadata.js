@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-metadata/missing-or-wrong-metadata'
 
-const UseCaseMetadataMissingOrWrongPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMetadataMissingOrWrongPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

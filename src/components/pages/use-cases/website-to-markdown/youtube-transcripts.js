@@ -125,7 +125,8 @@ export const CONTENT = {
         'The video’s own caption language: manual subtitles when the creator provided them, otherwise the auto-generated captions. The transcript is not translated, so a Spanish talk returns Spanish text.'
     },
     {
-      question: 'What does the Markdown request return for a video with no captions?',
+      question:
+        'What does the Markdown request return for a video with no captions?',
       answer:
         'The request succeeds and returns the standard video metadata, but there is no transcript body. Live streams and private videos behave the same way, so check the field before passing it to a summarizer. For a playlist or a channel, run the URLs through [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion).'
     }

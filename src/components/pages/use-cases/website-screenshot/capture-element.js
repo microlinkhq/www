@@ -119,7 +119,7 @@ export const CONTENT = {
     {
       question: 'How do I screenshot a specific element with a CSS selector?',
       answer:
-        'Pass the selector as screenshot.element, for example screenshot.element=#pricing-table in the URL or element: \'#pricing-table\' in the SDK. The API waits for the node to be visible and returns an image cropped to its box.'
+        "Pass the selector as screenshot.element, for example screenshot.element=#pricing-table in the URL or element: '#pricing-table' in the SDK. The API waits for the node to be visible and returns an image cropped to its box."
     },
     {
       question: 'What if my element screenshot selector matches several nodes?',

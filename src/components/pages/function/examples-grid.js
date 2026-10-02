@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { GLANCE } from './product-shared'
+import { glanceItems } from './glance-items'
 import { CodeTile } from './examples-tiles'
 
 const Grid = styled(Box)(
@@ -25,23 +25,25 @@ const Grid = styled(Box)(
 )
 
 const Card = styled(Link)(
-  theme({
-    display: 'flex',
-    flexDirection: 'column',
-    width: '100%',
-    minHeight: ['220px', '220px', '260px', '280px'],
-    minWidth: 0,
-    bg: 'white',
-    color: 'black',
-    border: 1,
-    borderColor: 'gray2',
-    borderRadius: 5,
-    overflow: 'hidden',
-    boxShadow: shadows[2],
-    textDecoration: 'none',
-    _hover: { color: 'black' }
-  }),
-  ({ $span }) => `
+  ({ $clip }) =>
+    theme({
+      display: 'flex',
+      flexDirection: 'column',
+      width: '100%',
+      minHeight: ['220px', '220px', '260px', '280px'],
+      ...($clip ? { height: ['220px', '220px', '260px', '280px'] } : {}),
+      minWidth: 0,
+      bg: 'white',
+      color: 'black',
+      border: 1,
+      borderColor: 'gray2',
+      borderRadius: 5,
+      overflow: 'hidden',
+      boxShadow: shadows[2],
+      textDecoration: 'none',
+      _hover: { color: 'black' }
+    }),
+  ({ $span, $clip }) => `
   touch-action: manipulation;
 
   > a {
@@ -49,7 +51,8 @@ const Card = styled(Link)(
     flex-direction: column;
     flex: 1;
     min-width: 0;
-    min-height: inherit;
+    min-height: ${$clip ? 0 : 'inherit'};
+    ${$clip ? 'height: 100%; overflow: hidden;' : ''}
     color: inherit;
     text-decoration: none;
   }
@@ -117,8 +120,8 @@ const Explore = styled(Text)(
   })
 )
 
-export const FunctionExampleCard = ({ href, title, code, span }) => (
-  <Card href={href} $span={span}>
+export const FunctionExampleCard = ({ href, title, code, span, clip }) => (
+  <Card href={href} $span={span} $clip={clip}>
     <CodeTile code={code} />
     <Foot>
       <Title as='span'>{title}</Title>
@@ -131,13 +134,14 @@ export const FunctionExampleCard = ({ href, title, code, span }) => (
 
 export const FunctionExamplesGrid = () => (
   <Grid>
-    {GLANCE.items.map(item => (
+    {glanceItems.map(item => (
       <FunctionExampleCard
         key={item.id}
         href={item.href}
         title={item.title}
         code={item.code}
         span={item.span}
+        clip
       />
     ))}
   </Grid>

@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/scholar-citations'
 
-const UseCaseSearchScholarCitationsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchScholarCitationsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

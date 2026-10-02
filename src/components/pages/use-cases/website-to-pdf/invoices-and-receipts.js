@@ -119,7 +119,8 @@ export const CONTENT = {
   },
   faq: [
     {
-      question: 'How do I generate a PDF of an invoice page that requires login?',
+      question:
+        'How do I generate a PDF of an invoice page that requires login?',
       answer:
         'Send the session cookie or bearer token as an x-api-header-cookie or x-api-header-authorization header on your request to pro.microlink.io. Microlink strips the prefix and forwards the header to the target, so the browser loads the page as that user. Forwarding headers requires a Pro plan; the [private pages patterns](/docs/guides/common/private-pages) explain when to use each header path.'
     },
@@ -139,7 +140,8 @@ export const CONTENT = {
         'The response is cached for 24 hours by default, and from 1 minute up to 31 days with ttl on Pro plans, so repeat requests return the same hosted document without rendering again. Invoices usually carry legal retention periods, so download the file and keep it in your own storage rather than relying on the cache.'
     },
     {
-      question: 'Is my invoice PDF rendered in a browser shared with other requests?',
+      question:
+        'Is my invoice PDF rendered in a browser shared with other requests?',
       answer:
         'No. Every request runs in its own isolated browser instance, so cookies, storage and forwarded headers from one render are never visible to another. Keep the API call on your backend so the session value never reaches client-side code.'
     }

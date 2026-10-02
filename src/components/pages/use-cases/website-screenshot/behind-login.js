@@ -21,8 +21,7 @@ export const CONTENT = {
     ]
   },
   how: {
-    title:
-      'How to screenshot a page behind a login',
+    title: 'How to screenshot a page behind a login',
     intro:
       'Two paths exist: the headers query parameter for public values such as a language, and x-api-header-* request headers for cookies and tokens. Use the second for anything secret. The [private pages guide](/docs/guides/screenshot/private-pages) covers both.',
     steps: [

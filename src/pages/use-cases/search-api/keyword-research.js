@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/keyword-research'
 
-const UseCaseSearchKeywordResearchPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchKeywordResearchPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/blocked-sites'
 
-const UseCaseMarkdownBlockedSitesPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownBlockedSitesPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

@@ -133,7 +133,8 @@ export const CONTENT = {
         'No, one request produces one image. Send two requests with colorScheme set to light and dark. They run in parallel and are cached independently.'
     },
     {
-      question: 'Can I take a dark mode screenshot of the mobile version of a site?',
+      question:
+        'Can I take a dark mode screenshot of the mobile version of a site?',
       answer:
         'Yes. colorScheme is a browser setting for the whole request, so it combines with a device preset or a custom viewport. The [mobile screenshot tool](/tools/website-screenshot/mobile) lets you preview the phone layout first.'
     },

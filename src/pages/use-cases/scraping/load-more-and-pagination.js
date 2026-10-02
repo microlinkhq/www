@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/load-more-and-pagination'
 
-const UseCaseScrapeLoadMoreAndPaginationPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeLoadMoreAndPaginationPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

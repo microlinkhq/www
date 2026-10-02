@@ -13,7 +13,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Geo-restricted content serves your servers a different page, or none',
+    title:
+      'Geo-restricted content serves your servers a different page, or none',
     paragraphs: [
       'Geo-restrictions read the IP, not your intent. A crawler in a US datacenter asking for a page reserved for Japan gets “not available in your region”, a redirect to the international homepage, or the same URL with half the content missing. The request succeeds, so a pipeline that only checks the status code stores the wrong page.',
       'The workarounds cost more than the fetch. A VPN covers one country at a time and does not belong in a server fleet. Buying a proxy per market means one contract, one credential and one integration per country, plus a way to prove each exit actually sits where the vendor says. Setting Accept-Language changes the language you ask for, not the country you appear to come from.',
@@ -121,7 +122,8 @@ export const CONTENT = {
         'Request geolocation.microlink.io with the same proxy.location. It returns the IP address and country the server sees, which is exactly what the geo-restricted site will see.'
     },
     {
-      question: 'Can I access geo-blocked content through my own proxy instead?',
+      question:
+        'Can I access geo-blocked content through my own proxy instead?',
       answer:
         'Yes. Pass your provider’s URL as proxy.url, for example a country-specific endpoint you already pay for. proxy.url and proxy.location are exclusive, so use one or the other per request.'
     },

@@ -113,7 +113,8 @@ for (const url of urls) {
   },
   faq: [
     {
-      question: 'What is a good alternative to a rotating proxy API for scraping?',
+      question:
+        'What is a good alternative to a rotating proxy API for scraping?',
       answer:
         'A scraping API with built-in proxies, where the service decides when a request needs a proxy and which kind. On Microlink Pro plans that decision is automatic: blocked requests escalate through proxy tiers up to residential IPs, and the result comes back as a screenshot, PDF, Markdown or extracted data.'
     },

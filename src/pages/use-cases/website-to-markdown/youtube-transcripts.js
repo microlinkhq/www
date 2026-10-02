@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/youtube-transcripts'
 
-const UseCaseMarkdownYoutubeTranscriptsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownYoutubeTranscriptsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

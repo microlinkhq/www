@@ -128,7 +128,8 @@ export const CONTENT = {
         'The value resolves to null, so your code can detect it and fall back to a broader selector or to the whole page. To declare the fallback in the request, write the rule with [extract](/docs/sdk/methods/extract) and pass an array of selectors: the first one that yields a value wins.'
     },
     {
-      question: 'How do I get clean Markdown from a URL without the navigation?',
+      question:
+        'How do I get clean Markdown from a URL without the navigation?',
       answer:
         'Scope the conversion with selector so only the content container is converted. Navigation, sidebars and footers live outside that element, so they are never part of the output and there is nothing to strip afterwards.'
     },

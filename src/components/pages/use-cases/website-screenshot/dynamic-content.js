@@ -138,7 +138,8 @@ export const CONTENT = {
         'The capture fired before the app finished rendering. Add waitForSelector for an element that only exists once the data has loaded, or switch waitUntil to networkidle0 when the page keeps fetching. The [screenshot troubleshooting guide](/docs/guides/screenshot/troubleshooting) covers the other causes.'
     },
     {
-      question: 'How long can the screenshot API wait for JavaScript to finish?',
+      question:
+        'How long can the screenshot API wait for JavaScript to finish?',
       answer:
         'Up to the request timeout of your plan: 30 seconds on the free endpoint and 60 seconds on Pro. A waitForTimeout larger than that is ignored, so prefer a selector wait that ends as soon as the content is there.'
     },

@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/proxy/scrape-cloudflare-protected-sites'
 
-const UseCaseScrapeCloudflareProtectedSitesPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeCloudflareProtectedSitesPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

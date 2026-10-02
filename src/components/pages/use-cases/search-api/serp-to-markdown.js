@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/serp-to-markdown',
   head: {
     title: 'SERP to Markdown or HTML from any Google query',
-    description: 'Turn a search query into the Google results page as Markdown or HTML, next to the structured results. For SERP archives, feature checks and LLMs.'
+    description:
+      'Turn a search query into the Google results page as Markdown or HTML, next to the structured results. For SERP archives, feature checks and LLMs.'
   },
   hero: {
     title: 'SERP to Markdown: the whole Google results page from a query',
-    intro: 'SERP to Markdown means reading the whole results page, not only the ten links: the snippets, the questions and the order everything appears in. SEO teams archive it, analysts watch search features come and go, and models summarize what a query looks like today. The [Search API](/search) takes a query, not a URL, and returns the results page as Markdown or HTML next to the structured results.',
+    intro:
+      'SERP to Markdown means reading the whole results page, not only the ten links: the snippets, the questions and the order everything appears in. SEO teams archive it, analysts watch search features come and go, and models summarize what a query looks like today. The [Search API](/search) takes a query, not a URL, and returns the results page as Markdown or HTML next to the structured results.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -14,7 +16,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Structured results drop the page, raw scraping drops the reliability',
+    title:
+      'Structured results drop the page, raw scraping drops the reliability',
     paragraphs: [
       'Structured search results are the right input for most code, but they flatten the page: they tell you which links ranked, not what else the page showed around them. Questions about SERP features, how crowded a query is, or what a searcher saw on a given day need the page itself.',
       'Fetching the results page yourself means building the search URL, getting blocked from the first requests, and running an HTML to Markdown converter on whatever comes back. URL to Markdown tools cannot help either: they expect a URL you already have, not a query and a country.',
@@ -23,7 +26,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to convert Google results to Markdown with the SDK',
-    intro: 'Search once for the structured results, then ask the same page object for its Markdown or HTML. The [content expansion guide](/docs/guides/search/content-expansion) covers both the page and the result level.',
+    intro:
+      'Search once for the structured results, then ask the same page object for its Markdown or HTML. The [content expansion guide](/docs/guides/search/content-expansion) covers both the page and the result level.',
     steps: [
       {
         label: '1 · Get the results page as Markdown',
@@ -68,11 +72,13 @@ export const CONTENT = {
         note: 'Two-letter country code; the page you get is the one for that country.'
       }
     ],
-    outro: 'Converting a page whose URL you already have is a different job: [website to Markdown for LLM context](/use-cases/website-to-markdown/llm-context) and the [Markdown API](/markdown) take a URL instead of a query. You can also try that conversion in the browser with [URL to Markdown](/tools/url-to-markdown).'
+    outro:
+      'Converting a page whose URL you already have is a different job: [website to Markdown for LLM context](/use-cases/website-to-markdown/llm-context) and the [Markdown API](/markdown) take a URL instead of a query. You can also try that conversion in the browser with [URL to Markdown](/tools/url-to-markdown).'
   },
   why: {
     title: 'Why SERP to Markdown beats saving raw Google HTML yourself',
-    intro: 'The results page is data about the query. Getting it next to the structured results means you never choose between the two.',
+    intro:
+      'The results page is data about the query. Getting it next to the structured results means you never choose between the two.',
     cards: [
       {
         kicker: 'Two views, one query',
@@ -97,23 +103,29 @@ export const CONTENT = {
   faq: [
     {
       question: 'How do I convert a Google SERP to Markdown?',
-      answer: 'Run microlink.search with your query and options, then call page.markdown() on the result. It fetches the Google results page for that same query and returns it as Markdown, next to the structured page.results.'
+      answer:
+        'Run microlink.search with your query and options, then call page.markdown() on the result. It fetches the Google results page for that same query and returns it as Markdown, next to the structured page.results.'
     },
     {
       question: 'Can I get the raw HTML of Google search results?',
-      answer: 'Yes. page.html() returns the results page as HTML, useful for archiving and for detecting search features with your own selectors. Pass html: true to fetch it, and the HTML of every result, up front.'
+      answer:
+        'Yes. page.html() returns the results page as HTML, useful for archiving and for detecting search features with your own selectors. Pass html: true to fetch it, and the HTML of every result, up front.'
     },
     {
-      question: 'What is the difference between SERP to Markdown and URL to Markdown?',
-      answer: 'SERP to Markdown starts from a query and returns the Google results page for it. URL to Markdown starts from a page address and converts that page. Use the [Markdown API](/markdown) when you already have the URL.'
+      question:
+        'What is the difference between SERP to Markdown and URL to Markdown?',
+      answer:
+        'SERP to Markdown starts from a query and returns the Google results page for it. URL to Markdown starts from a page address and converts that page. Use the [Markdown API](/markdown) when you already have the URL.'
     },
     {
       question: 'How many requests does fetching a SERP as Markdown use?',
-      answer: 'The search is one request, and each page or result you expand is fetched through the Microlink API as well. markdown: true expands the results page and every result, so pair it with a small limit. Search has no free tier; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+      answer:
+        'The search is one request, and each page or result you expand is fetched through the Microlink API as well. markdown: true expands the results page and every result, so pair it with a small limit. Search has no free tier; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is the SERP to Markdown API affiliated with Google?',
-      answer: 'No. Microlink Search is an independent product that queries public Google surfaces. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google surfaces. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -128,15 +140,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Get the results page as Markdown',
-        description: 'Call microlink.search with the query and a location code, then call page.markdown() to fetch the results page itself as Markdown.'
+        description:
+          'Call microlink.search with the query and a location code, then call page.markdown() to fetch the results page itself as Markdown.'
       },
       {
         title: 'Archive the HTML per country',
-        description: 'Run the query once per country code and store the ranked links, a timestamp and page.html() side by side for later analysis.'
+        description:
+          'Run the query once per country code and store the ranked links, a timestamp and page.html() side by side for later analysis.'
       },
       {
         title: 'Fetch everything up front',
-        description: 'Pass markdown: true with a small limit to prefetch the results page and every result, so the markdown() calls resolve immediately.'
+        description:
+          'Pass markdown: true with a small limit to prefetch the results page and every result, so the markdown() calls resolve immediately.'
       }
     ]
   }

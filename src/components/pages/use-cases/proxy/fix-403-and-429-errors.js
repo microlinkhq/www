@@ -13,7 +13,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Your scraper is blocked, and the status code alone does not say why',
+    title:
+      'Your scraper is blocked, and the status code alone does not say why',
     paragraphs: [
       'A 403 from a protected site usually means an antibot service scored the request as automated: a datacenter IP, a header set that does not match a real browser, a TLS handshake that gives the client away. A 429 means the site is rate limiting the address the requests come from. Both arrive as a failed fetch, and a scraper that logs only the status code treats them as the same flaky error.',
       'The reflex fixes make it worse. Retrying a 403 immediately, or with a new user agent on the same IP, sends the same signals again and looks more suspicious each time; a real browser profile is the whole header set, not one string. Retrying a 429 in a tight loop extends the throttle. And if you call a scraping API, its own 429 for an exhausted quota is a third case that no proxy will fix.',
@@ -128,7 +129,8 @@ export const CONTENT = {
         'The free endpoint detected antibot protection on the target: “The URL provided uses antibot protection. Upgrade to a Pro plan.” It is the signal to upgrade, not to add a parameter. With a Pro key, the same request is routed through the proxy automatically.'
     },
     {
-      question: 'Is a 429 from the scraping API the same as a 429 from the site?',
+      question:
+        'Is a 429 from the scraping API the same as a 429 from the site?',
       answer:
         'No. A 429 with the ERATE code comes from the API and means your quota is used up; the [production patterns guide](/docs/guides/common/production-patterns) shows how to wait for the reset. A 429 from the target shows up as the statusCode of the page you asked for.'
     }

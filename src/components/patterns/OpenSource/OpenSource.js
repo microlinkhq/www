@@ -344,8 +344,7 @@ const OpenSource = ({
             >
               open source
             </span>
-            ,{' '}
-            <br />
+            , <br />
             trusted by developers
           </Subhead>
           <Caption

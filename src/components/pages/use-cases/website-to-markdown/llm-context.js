@@ -108,12 +108,14 @@ export const CONTENT = {
         'Call microlink.markdown(url) with a selector such as main to get the body as clean Markdown, then add metadata(), links() or emails() for the facts that are not in the text. Combine the results into one object and pass it to the model as context or as a tool result.'
     },
     {
-      question: 'Do the Markdown, links and metadata facets count as one request or several?',
+      question:
+        'Do the Markdown, links and metadata facets count as one request or several?',
       answer:
         'Each method is one API request, so five facets are five requests on a cold cache. Cache hits do not count against your quota and are served from the edge, so an agent that revisits the same URL within the cache lifetime pays nothing extra.'
     },
     {
-      question: 'Can I get Markdown and metadata for an agent in a single request?',
+      question:
+        'Can I get Markdown and metadata for an agent in a single request?',
       answer:
         'Yes. metadata() accepts custom rules through the data option, so a markdown rule rides along with the normalized fields. Links and emails are extraction rules too, so they can join the same data object. [Markdown with metadata frontmatter](/use-cases/website-to-markdown/with-metadata) shows the single-request pattern.'
     },

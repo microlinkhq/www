@@ -129,12 +129,14 @@ const document = [
         'The normalized metadata: title, author, date, publisher, lang, description and url, the image and logo with their type, size and dimensions, plus word_count and reading_time. Fields the page does not expose are left out or empty, so treat every key as optional.'
     },
     {
-      question: 'How do I convert a URL to Markdown with metadata in one request?',
+      question:
+        'How do I convert a URL to Markdown with metadata in one request?',
       answer:
         'Send data.markdown.attr=markdown with meta=true and embed=markdown. The response is a Markdown file that starts with a YAML frontmatter block and continues with the converted page. Without embed, the same fields and the Markdown arrive together as JSON.'
     },
     {
-      question: 'Can I get the Markdown frontmatter fields as JSON instead of YAML?',
+      question:
+        'Can I get the Markdown frontmatter fields as JSON instead of YAML?',
       answer:
         'Yes. Call metadata() with a data.markdown rule and you get the same fields as JSON next to the Markdown body, then compose the frontmatter however you like. The same pattern extends to your own rules, as in [custom fields alongside the metadata](/use-cases/website-metadata/custom-fields).'
     },

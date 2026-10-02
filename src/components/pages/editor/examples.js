@@ -190,6 +190,149 @@ export const EXAMPLES = [
     )
   },
   {
+    id: 'page-state',
+    label: 'Get agent-ready page state',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://example.com',
+        fn: `({ page }) => page.$$eval(
+  'a[href],button,input:not([type=hidden]),select,textarea,[role=button],[role=link]',
+  elements => {
+    const selector = element => {
+      const path = []
+      for (let node = element; node && node !== document.body; node = node.parentElement) {
+        const siblings = [...node.parentElement.children].filter(
+          sibling => sibling.tagName === node.tagName
+        )
+        path.unshift(node.localName + (siblings.length > 1
+          ? \`:nth-of-type(\${siblings.indexOf(node) + 1})\`
+          : ''))
+      }
+      return \`body>\${path.join('>')}\`
+    }
+    const roles = { A: 'link', BUTTON: 'button', SELECT: 'select', TEXTAREA: 'textbox' }
+    const inputRoles = {
+      checkbox: 'checkbox',
+      radio: 'radio',
+      button: 'button',
+      submit: 'button',
+      reset: 'button',
+      image: 'button'
+    }
+    const visible = element => {
+      const style = getComputedStyle(element)
+      return element.getClientRects().length && style.visibility !== 'hidden'
+    }
+    const text = element => {
+      const clean = value => (value || '').replace(/\\s+/g, ' ').trim()
+      const labelledBy = clean(
+        (element.getAttribute('aria-labelledby') || '')
+          .split(/\\s+/)
+          .map(id => document.getElementById(id)?.textContent || '')
+          .join(' ')
+      )
+      const label = element.labels
+        ? clean([...element.labels].map(node => node.textContent).join(' '))
+        : ''
+      const own = element.tagName === 'SELECT'
+        ? element.selectedOptions[0]?.textContent
+        : element.innerText
+      const value = element.tagName === 'INPUT' &&
+        /^(button|submit|reset)$/.test(element.type)
+        ? element.value
+        : ''
+      const alt = element.tagName === 'IMG' ||
+        (element.tagName === 'INPUT' && element.type === 'image')
+        ? element.getAttribute('alt')
+        : element.querySelector('img[alt]')?.getAttribute('alt')
+      return clean(element.getAttribute('aria-label')) ||
+        clean(element.getAttribute('placeholder')) ||
+        clean(own) ||
+        labelledBy ||
+        label ||
+        clean(value) ||
+        clean(alt)
+    }
+    return {
+      title: document.title,
+      url: location.href,
+      elements: elements.filter(visible)
+        .map((element, index) => ({
+          index,
+          role: element.getAttribute('role') ||
+            (element.tagName === 'INPUT'
+              ? inputRoles[element.type] || 'input'
+              : roles[element.tagName]) ||
+            element.localName,
+          text: text(element),
+          selector: selector(element)
+        }))
+    }
+  }
+)`
+      })
+    )
+  },
+  {
+    id: 'structured-data',
+    label: 'Extract structured data',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.$$eval('script[type="application/ld+json"]', scripts =>
+  scripts.flatMap(script => {
+    try {
+      const value = JSON.parse(script.textContent)
+      return Array.isArray(value) ? value : [value]
+    } catch (_) {
+      return []
+    }
+  })
+)`
+      })
+    )
+  },
+  {
+    id: 'page-outline',
+    label: 'Build a page outline',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.$$eval('h1, h2, h3, h4, h5, h6', headings =>
+  headings
+    .filter(heading => heading.getClientRects().length)
+    .map(heading => ({
+      level: Number(heading.tagName.slice(1)),
+      text: heading.innerText.replace(/\\s+/g, ' ').trim()
+    }))
+    .filter(heading => heading.text)
+)`
+      })
+    )
+  },
+  {
+    id: 'technology-signals',
+    label: 'Inspect technology signals',
+    files: filesFromEntry(
+      toSdkSnippet({
+        url: 'https://microlink.io',
+        fn: `({ page }) => page.evaluate(() => ({
+  generator: document.querySelector('meta[name="generator"]')?.content || null,
+  scripts: [...document.scripts]
+    .map(script => script.src)
+    .filter(Boolean)
+    .map(src => new URL(src).hostname)
+    .filter((host, index, hosts) => hosts.indexOf(host) === index),
+  stylesheets: [...document.querySelectorAll('link[rel="stylesheet"][href]')]
+    .map(link => new URL(link.href).hostname)
+    .filter((host, index, hosts) => hosts.indexOf(host) === index),
+  globals: ['React', 'Vue', 'angular', 'jQuery', 'Shopify', 'WordPress']
+    .filter(name => name in window)
+}))`
+      })
+    )
+  },
+  {
     id: 'multiple-files',
     label: 'Multiple files',
     files: {

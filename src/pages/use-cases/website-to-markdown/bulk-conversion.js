@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/bulk-conversion'
 
-const UseCaseMarkdownBulkConversionPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownBulkConversionPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta
