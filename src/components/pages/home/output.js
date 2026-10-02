@@ -2,6 +2,7 @@ import Box from 'components/elements/Box'
 import Dot from 'components/elements/Dot/Dot'
 import Flex from 'components/elements/Flex'
 import Microlink from 'components/patterns/Microlink/Microlink'
+import { Stat, StatRow } from 'components/patterns/Stats/Stats'
 import { HeroCard } from 'components/pages/embed/PreviewCards'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
 import { lighthouseViewerUrl } from 'helpers/lighthouse'
@@ -981,35 +982,6 @@ const fmtBytes = bytes => {
 const fmtMemory = memory =>
   fmtBytes(typeof memory === 'number' ? memory : memory?.used)
 
-const Stat = ({ label, value }) => (
-  <Box css={theme({ textAlign: 'center' })}>
-    <Box
-      as='span'
-      css={theme({
-        display: 'block',
-        fontFamily: 'mono',
-        fontSize: 3,
-        fontWeight: 'bold',
-        color: 'black',
-        letterSpacing: '-.02em'
-      })}
-    >
-      {value}
-    </Box>
-    <Box
-      as='span'
-      css={theme({
-        fontSize: '11px',
-        letterSpacing: '.08em',
-        textTransform: 'uppercase',
-        color: 'gray7'
-      })}
-    >
-      {label}
-    </Box>
-  </Box>
-)
-
 const Profiling = ({ profiling }) => {
   const { cpu, memory, size, phases = {} } = profiling
   const total =
@@ -1019,19 +991,12 @@ const Profiling = ({ profiling }) => {
 
   return (
     <Box css={theme({ p: 4, borderBottom: 1, borderBottomColor: 'gray1' })}>
-      <Flex
-        css={theme({
-          justifyContent: 'space-around',
-          flexWrap: 'wrap',
-          gap: 3,
-          mb: 4
-        })}
-      >
+      <StatRow mb={4}>
         <Stat label='Total' value={fmtMs(total)} />
         <Stat label='CPU' value={fmtMs(cpu)} />
         <Stat label='Memory' value={fmtMemory(memory)} />
         <Stat label='Size' value={fmtBytes(size)} />
-      </Flex>
+      </StatRow>
 
       <Flex
         css={theme({
