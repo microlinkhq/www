@@ -1,5 +1,6 @@
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
+import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
 import { backDrop } from 'helpers/style'
@@ -20,14 +21,28 @@ export const LABEL_STYLE = {
   maxWidth: 560
 }
 
-export const getMegaMenuGridStyles = columns => ({
-  display: 'grid',
-  gridTemplateColumns: `repeat(${columns}, minmax(180px, 1fr))`,
-  gap: '4px 32px',
-  listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
-  margin: TOOLBAR_LIST_RESET_STYLES.m,
-  padding: TOOLBAR_LIST_RESET_STYLES.p
-})
+const MEGA_MENU_MAX_WIDTH_PX = 1140
+const MEGA_MENU_GUTTER_PX = 48
+
+const THREE_COLUMN_GRID = 'repeat(3, minmax(180px, 1fr))'
+
+export const getMegaMenuGridStyles = columns =>
+  theme({
+    display: 'grid',
+    gridTemplateColumns:
+      columns > 3
+        ? [
+            THREE_COLUMN_GRID,
+            THREE_COLUMN_GRID,
+            THREE_COLUMN_GRID,
+          `repeat(${columns}, minmax(180px, 1fr))`
+          ]
+        : `repeat(${columns}, minmax(180px, 1fr))`,
+    gap: '4px 32px',
+    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
+    margin: TOOLBAR_LIST_RESET_STYLES.m,
+    padding: TOOLBAR_LIST_RESET_STYLES.p
+  })
 
 export const TOP_LEVEL_LINK_LAYOUT_STYLES = {
   px: 3,
@@ -133,11 +148,20 @@ export const MegaMenuPanel = styled(Box).withConfig({
   shouldForwardProp: prop => !['isVisible'].includes(prop)
 })`
   position: absolute;
-  left: 0;
-  right: 0;
   top: 100%;
+  left: calc(
+    50% -
+      min(${MEGA_MENU_MAX_WIDTH_PX / 2}px, 50vw - ${MEGA_MENU_GUTTER_PX / 2}px)
+  );
+  width: min(
+    ${MEGA_MENU_MAX_WIDTH_PX}px,
+    calc(100vw - ${MEGA_MENU_GUTTER_PX}px)
+  );
+  max-height: calc(100dvh - ${TOOLBAR_PRIMARY_HEIGHT} - 12px);
   margin-top: 8px;
   margin-bottom: 12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
   border: 1px solid ${colors.black10};
   border-radius: 20px;
   background: white;

@@ -15,7 +15,7 @@ console.log(value) // 42
 
 ## Browser access
 
-Ask for `page` and Microlink starts a headless browser, navigates to the URL, and hands you the full [Puppeteer Page](https://pptr.dev/api/puppeteer.page) object:
+`page.content()`, `page.extract()`, and `page.metadata()` fetch the page when you call them, with no browser. Other methods, such as `page.title()`, `page.click()`, or `page.evaluate()`, load the page in a browser once and hand you the full [Puppeteer Page](https://pptr.dev/api/puppeteer.page) object:
 
 ```js
 const { value } = await microlink.function('https://example.com', async ({ page }) => {
@@ -24,7 +24,7 @@ const { value } = await microlink.function('https://example.com', async ({ page 
 })
 ```
 
-The function always receives `url`, the target of the request, without starting a browser. It also receives `response` (the Puppeteer response of the implicit navigation, when `page` is used) and `headers`. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
+The function always receives `url`, the target of the request, without starting a browser. It also receives `response` (the Puppeteer response of that navigation) when the function loads the page in a browser, and `headers`. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
 
 ## Result
 

@@ -23,38 +23,46 @@ The function will receive any extra query parameter provided, plus:
 
 ### url
 
-The target URL of the request. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
+The URL you asked for. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ url }) => new URL("/robots.txt", url).href',
-  meta: false
+  function: '({ url }) => new URL("/robots.txt", url).href'
 }} />
+
+It is the URL you requested, not the one a redirect settles on. A function asked for on its own skips the [ping](/docs/api/parameters/ping) that would resolve that hop, so `data.url` in the response is the same URL, and the two agree.
+
+Use `page.url()` when you need the settled one, which resolves the page:
+
+```js
+// requested http://github.com
+({ url }) => url                  // => "http://github.com/"
+async ({ page }) => page.url()    // => "https://github.com/"
+```
+
+Asking for `ping` explicitly settles `data.url` without changing the argument.
 
 ### page
 
-The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the function references `page`, Microlink navigates to the URL in a browser before calling your function. Any Puppeteer page method is available:
+The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. `page.content()`, `page.extract()`, and `page.metadata()` fetch the page when you call them, with no browser. Other methods, such as `page.title()`, `page.click()`, or `page.evaluate()`, load the page in a browser once and run your function on it. Any Puppeteer page method is available:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ page }) => page.title()',
-  meta: false
+  function: '({ page }) => page.title()'
 }} />
 
 <Figcaption>Get the document title.</Figcaption>
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: `({ page }) => page.$eval('h1', el => el.textContent)`,
-  meta: false
+  function: `({ page }) => page.$eval('h1', el => el.textContent)`
 }} />
 
 <Figcaption>Extract text from a DOM element.</Figcaption>
 
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
-  function: `({ page }) => page.$$eval('a', links => links.map(a => a.href))`,
-  meta: false
+  function: `({ page }) => page.$$eval('a', links => links.map(a => a.href))`
 }} />
 
 <Figcaption>Collect all links on the page.</Figcaption>
@@ -65,20 +73,18 @@ The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the 
   viewport: { width: window.innerWidth, height: window.innerHeight },
   cookies: document.cookie.length,
   resources: performance.getEntriesByType('resource').length
-}))`,
-  meta: false
+}))`
 }} />
 
 <Figcaption>Run arbitrary JavaScript in the browser page context via <code>page.evaluate</code>.</Figcaption>
 
 ### response
 
-The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function uses `page`:
+The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://edge-ping.vercel.app',
-  function: '({ page, response }) => response.status()',
-  meta: false
+  function: '({ page, response }) => response.status()'
 }} />
 
 ### headers
@@ -87,8 +93,7 @@ The request headers used to fetch the target URL:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ headers }) => headers["user-agent"]',
-  meta: false
+  function: '({ headers }) => headers["user-agent"]'
 }} />
 
 ### Custom parameters
@@ -98,8 +103,7 @@ Any extra query parameter is forwarded to the function:
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
   function: '({ greetings }) => greetings',
-  greetings: 'hello world',
-  meta: false
+  greetings: 'hello world'
 }} />
 
 ## Response

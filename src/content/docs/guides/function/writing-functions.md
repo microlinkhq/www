@@ -61,8 +61,7 @@ console.log(result.value) // 'Hello, Kiko!'
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
   function: '({ greetings }) => greetings',
-  greetings: 'hello world',
-  meta: false
+  greetings: 'hello world'
 }} />
 
 ## The target URL
