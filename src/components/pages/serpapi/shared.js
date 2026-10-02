@@ -437,12 +437,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Microlink Search cheaper than SerpApi?',
-    text: 'Per unit, yes on every published plan. Microlink costs $1.07 per 1,000 requests on every self-serve plan, from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on Starter, $9.17 on Big Data and $3.75 at a million searches a month. The units are not identical: a Microlink request also pays for screenshots, PDFs and page expansions, while SerpApi does not charge for errored searches or one-hour cache hits.',
+    text: 'Per unit, yes on every published paid plan. Microlink costs $1.07 per 1,000 requests on every self-serve Pro plan, from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on Starter, $9.17 on Big Data and $3.75 at a million searches a month. The units are not identical: a Microlink request also pays for screenshots, PDFs and page expansions, while SerpApi does not charge for errored searches or one-hour cache hits.',
     answer: (
       <div>
-        Per unit, yes on every published plan. Microlink costs $1.07 per 1,000
-        requests on every self-serve <Link href='/pricing'>plan</Link>, from $49
-        for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on
+        Per unit, yes on every published paid plan. Microlink costs $1.07 per
+        1,000 requests on every self-serve Pro <Link href='/pricing'>plan</Link>,
+        from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on
         Starter, $9.17 on Big Data and $3.75 at a million searches a month. The
         units are not identical: a Microlink request also pays for screenshots,
         PDFs and page expansions, while SerpApi does not charge for errored
