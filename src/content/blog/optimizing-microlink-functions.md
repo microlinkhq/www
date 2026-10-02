@@ -24,7 +24,7 @@ We iterate [Microlink Functions](/docs/api/parameters/function) to speed up the 
 - A Function used to fetch the page whether your code read it or not. For code that never reads it, that was **79% of the request**.
 - Now the page is fetched when your code asks for it, through a channel from the isolate to the host. A function that never reads the page is **3.76x faster**.
 - Every request on that channel is treated as untrusted, and the host only answers ones that grant nothing new.
-- With the fetch gone, a slow tail showed up: `browser.pages()` touched every page on the browser. Matching our own page instead made the slowest requests **26x faster** at p90.
+- With the fetch gone, a slow tail showed up: `browser.pages()` touched every page on the browser. Matching our own page instead made the slowest requests **19–26x faster** at p90.
 
 ## Every Function paid for a page it might never read
 
@@ -211,9 +211,9 @@ Here is the 10.7-second request from above with the fix applied:
 
 <Figcaption>The 6.4 seconds of fn.pages become 25ms of fn.target, its median in production after the fix. Every other phase is unchanged.</Figcaption>
 
-That is the second speedup. In a 30-sample benchmark of the same function, before and after the fix, p90 went from 761ms to 29ms, **26x faster**, and `fn.run` finally meant what it said: the snippet's own time. What we are not claiming: the median request barely moved, because the fetch and process spawn dominate it. And a rare outlier survives, because building our own page can still block. You can stop touching other people's pages. You cannot stop waiting for your own.
+That is the second speedup. In a 30-sample benchmark of the same function before the fix, and three 30-sample runs after it, p90 went from 761ms to 29–41ms, **19–26x faster**, and `fn.run` finally meant what it said: the snippet's own time. What we are not claiming: the median request barely moved, because the fetch and process spawn dominate it. And a rare outlier survives, because building our own page can still block. You can stop touching other people's pages. You cannot stop waiting for your own.
 
-**Improved:** A function builds only its own page, and the slowest requests are 26x faster at p90.
+**Improved:** A function builds only its own page, and the slowest requests are 19–26x faster at p90.
 
 ## Conclusions
 
@@ -223,7 +223,7 @@ Here is everything that changed in Microlink Functions, and what each change imp
 - **The page is fetched only when your code asks.** An IPC channel lets `page.content()`, `page.metadata()` and `page.extract()` request it at runtime, so a branch that is not taken fetches nothing. A function that never reads the page is **3.76x faster**.
 - **One tab, loaded once.** The fetch and your function share the same tab, loaded through our proxies and antibot handling.
 - **Every phase has a name.** `Server-Timing` now reports each step before your code runs as its own span, so a slow request shows its own cause.
-- **A function builds only its own page.** Matching the target id instead of calling `browser.pages()` made the slowest requests **26x faster** at p90.
+- **A function builds only its own page.** Matching the target id instead of calling `browser.pages()` made the slowest requests **19–26x faster** at p90.
 
 The bug hunt taught us more than the fix. Three plausible guesses failed because `fn.run` covered four operations and none of them was measured. The instrumentation that settled it was about forty lines, and we could have written it first. If a number you cannot explain covers more than one operation, split it before forming a hypothesis.
 

@@ -27,8 +27,8 @@ const ServerTiming = ({ bars, maxHeight }) =>
           ...(maxHeight ? { maxHeight, overflow: 'auto' } : {})
         })}
       >
-        {bars.map(b => (
-          <Box key={b.name} css={theme({ mb: 3 })}>
+        {bars.map((b, index) => (
+          <Box key={`${b.name}-${index}`} css={theme({ mb: 3 })}>
             <Flex
               css={theme({
                 alignItems: 'center',
