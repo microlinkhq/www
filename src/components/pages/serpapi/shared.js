@@ -390,12 +390,14 @@ export const HONESTY = {
   ]
 }
 
+export const PRICING_TITLE = 'Pay per month, not per hour'
+
 export const PRICING_CAPTION = (
   <Text>
     Search runs on any Pro plan, at the same price per 1,000 on every tier, and
-    the quota it draws from is the one every other product uses. Pick the plan
-    by monthly volume, then spend it on searches, screenshots or{' '}
-    <Link href='/markdown'>Markdown</Link> in whatever mix the month needs.
+    the quota it draws from is the one every other product uses. Spend it on
+    searches, screenshots or <Link href='/markdown'>Markdown</Link> in whatever
+    mix the month needs. The free plan covers every product except Search.
   </Text>
 )
 

@@ -24,6 +24,7 @@ import {
   FAQ_ITEMS,
   META,
   PRICING_CAPTION,
+  PRICING_TITLE,
   STRUCTURED
 } from 'components/pages/serpapi/shared'
 
@@ -31,7 +32,7 @@ const SerpApiAlternativePage = () => (
   <Layout>
     <Hero />
     <Throughput />
-    <ProductPricing caption={PRICING_CAPTION} />
+    <ProductPricing title={PRICING_TITLE} caption={PRICING_CAPTION} />
     <ProductCta {...CTA} accent={ACCENT} />
     <ProductComparison {...COMPARISON} competitorKey='serpapi' />
     <Honesty />
