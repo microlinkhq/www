@@ -6,33 +6,31 @@ import { withContainer } from 'helpers/hoc/with-container'
 import { parseServerTiming } from 'helpers/server-timing'
 import { theme } from 'theme'
 
-const Panel = ({ padded, children }) => (
-  <withContainer.Container>
-    <Box
-      css={theme({
-        border: 1,
-        borderColor: 'black10',
-        borderRadius: 3,
-        p: padded ? 4 : undefined
-      })}
-    >
-      {children}
-    </Box>
-  </withContainer.Container>
-)
+const Frame = withContainer(({ p, children }) => (
+  <Box
+    css={theme({
+      border: 1,
+      borderColor: 'black10',
+      borderRadius: 3,
+      ...(p != null && { p })
+    })}
+  >
+    {children}
+  </Box>
+))
 
 export const ServerTiming = ({ header }) => (
-  <Panel>
+  <Frame>
     <ServerTimingBars bars={parseServerTiming(header).bars} />
-  </Panel>
+  </Frame>
 )
 
 export const Stats = ({ items }) => (
-  <Panel padded>
+  <Frame p={4}>
     <StatRow>
       {items.map(({ label, value }) => (
         <Stat key={label} label={label} value={value} />
       ))}
     </StatRow>
-  </Panel>
+  </Frame>
 )
