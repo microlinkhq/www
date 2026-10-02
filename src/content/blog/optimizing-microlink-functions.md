@@ -1,6 +1,6 @@
 ---
 title: 'Optimizing Microlink Functions'
-subtitle: 'A walkthrough of making Microlink Functions faster: skipping the pages nobody reads, and the slow tail we found along the way.'
+subtitle: 'Two speedups and a bug hunt'
 description: 'Microlink Functions now fetch the page only when your code reads it, through an IPC channel into the isolate, and find their own page without touching other requests. How each speedup was built, and the three wrong guesses before the second one.'
 authors:
   - kiko
