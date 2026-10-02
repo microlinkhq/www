@@ -4,11 +4,12 @@ import { wordBreak } from 'helpers/style'
 import Text from 'components/elements/Text'
 
 const codeStyle = css`
-  color: ${({ theme }) => theme.colors.secondary};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-weight: ${({ theme }) => theme.fontWeights.normal};
-  font-size: 0.9rem;
+  font-size: 0.98rem;
   text-shadow: rgba(0, 0, 0, 0.05) 0px 1px;
+  letter-spacing: ${({ theme }) => theme.letterSpacings[2]};
+  color: ${({ theme }) => theme.colors.secondary};
 `
 
 const StyledCodeInline = styled(Text)`
@@ -16,11 +17,6 @@ const StyledCodeInline = styled(Text)`
   ${wordBreak};
   display: inline;
   padding: 0 4px;
-
-  &::before,
-  &::after {
-    content: '\`';
-  }
 `
 
 export const CodeInline = props => <StyledCodeInline as='code' {...props} />
