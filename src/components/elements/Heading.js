@@ -15,7 +15,7 @@ export const commonHeadingStyles = {
 const StyledHeading = styled(Text)(
   theme({
     ...commonHeadingStyles,
-    textWrap: 'balance',
+    textWrap: 'pretty',
     fontSize: ['36px', 4, 5, 5]
   })
 )

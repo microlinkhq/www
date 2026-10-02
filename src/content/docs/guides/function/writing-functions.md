@@ -77,6 +77,8 @@ const result = await microlink.function(
 console.log(result.value) // 'https://example.com/robots.txt'
 ```
 
+`url` is the URL you requested, not the one a redirect settles on. Use `page.url()` when you need the settled one. See [url](/docs/api/parameters/function#url).
+
 ## Using npm packages
 
 You can `require()` any npm package inside your function. Dependencies are detected automatically and installed on-the-fly:
@@ -127,7 +129,7 @@ The runtime restricts certain system capabilities for security. Operations such 
 
 ## When to add page
 
-When your function references `page`, Microlink starts a headless browser and navigates to the URL before calling your function. This gives you full Puppeteer access but takes more time:
+Add `page` when you need the page for the URL you asked for. It is a [Puppeteer Page](https://pptr.dev/api/puppeteer.page), and the [page API](https://pptr.dev/api/puppeteer.page) is supported:
 
 ```js
 const getTitle = ({ page }) => page.title()
@@ -137,7 +139,9 @@ const result = await microlink.function('https://example.com', getTitle)
 console.log(result.value) // 'Example Domain'
 ```
 
-If you only need to compute a value or call an external API, skip `page` entirely — your function will run faster.
+Two methods extend it: [page.extract](/docs/api/parameters/function#pageextract) takes the same rules as [data](/docs/api/parameters/data), and [page.metadata](/docs/api/parameters/function#pagemetadata) returns the same normalized metadata as [meta](/docs/api/parameters/meta).
+
+If you only need to compute a value, skip `page`. Your function will run faster.
 
 See <Link href='/docs/guides/function/browser-interaction' children='Browser interaction' /> for Puppeteer helpers, execution contexts, and browser automation.
 

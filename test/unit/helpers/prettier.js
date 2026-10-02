@@ -56,3 +56,14 @@ test('.serializeFmt', () => {
 
   expect(output).toMatchSnapshot()
 })
+
+test('drops the leading semicolon prettier adds without semi', async () => {
+  const code =
+    "async ({ page }) => (shouldRead ? await page.content() : 'skipped')"
+  expect(await prettier(code, 'js')).toBe(`${code}\n`)
+})
+
+test('keeps a semicolon that guards a later line', async () => {
+  const code = 'const a = 1\n;(async () => a)()'
+  expect(await prettier(code, 'js')).toBe(code + '\n')
+})
