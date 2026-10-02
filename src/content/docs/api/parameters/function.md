@@ -44,7 +44,7 @@ Asking for `ping` explicitly settles `data.url` without changing the argument.
 
 ### page
 
-The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. `page.content()`, `page.extract()`, and `page.metadata()` fetch the page when you call them, with no browser. Other methods, such as `page.title()`, `page.click()`, or `page.evaluate()`, load the page in a browser once and run your function on it. Any Puppeteer page method is available:
+The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object, plus two Microlink methods: [page.metadata()](#pagemetadata) and [page.extract()](#pageextract). `page.content()`, `page.extract()`, and `page.metadata()` fetch the page when you call them, with no browser. Other methods, such as `page.title()`, `page.click()`, or `page.evaluate()`, load the page in a browser once and run your function on it. Any Puppeteer page method is available:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
@@ -77,6 +77,39 @@ The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. `page.con
 }} />
 
 <Figcaption>Run arbitrary JavaScript in the browser page context via <code>page.evaluate</code>.</Figcaption>
+
+### page.metadata()
+
+A Microlink method, not a Puppeteer one. It returns the same normalized metadata as [meta](/docs/api/parameters/meta) for the target URL, with `image` and `logo` checked the same way, and it resolves without a browser:
+
+<MultiCodeEditorInteractive mqlCode={{
+  url: 'https://example.com',
+  function: 'async ({ page }) => (await page.metadata()).title'
+}} />
+
+It takes no arguments. The result is computed once per request, so calling it twice costs one pass.
+
+### page.extract()
+
+A Microlink method, not a Puppeteer one. It takes the same rules as [data](/docs/api/parameters/data) and returns one value per rule:
+
+<MultiCodeEditorInteractive height={250} mqlCode={{
+  url: 'https://news.ycombinator.com',
+  function: `({ page }) => page.extract({
+  stories: {
+    selectorAll: '.athing',
+    attr: {
+      title: { selector: '.titleline > a', attr: 'text' },
+      href: { selector: '.titleline > a', attr: 'href', type: 'url' }
+    }
+  }
+})`
+}} />
+
+The rules run over the fetched HTML, so no browser starts. Two cases load the page in a browser instead:
+
+- A rule uses `evaluate`, which runs JavaScript inside the page.
+- The rules are not written inline as an object, for example `page.extract(rules)`, so they cannot be read before the function runs.
 
 ### response
 
