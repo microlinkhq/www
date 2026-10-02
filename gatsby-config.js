@@ -121,10 +121,7 @@ module.exports = {
       resolve: 'gatsby-plugin-mdx',
       options: {
         extensions: ['.mdx', '.md'],
-        mdxOptions: {
-          remarkPlugins: [require('remark-gfm').default],
-          rehypePlugins: [require('./src/plugins/rehype-slug-trim')]
-        }
+        mdxOptions: require('./src/plugins/mdx-options')
       }
     },
     'gatsby-transformer-yaml',

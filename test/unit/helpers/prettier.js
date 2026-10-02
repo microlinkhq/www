@@ -67,3 +67,14 @@ test('keeps a semicolon that guards a later line', async () => {
   const code = 'const a = 1\n;(async () => a)()'
   expect(await prettier(code, 'js')).toBe(code + '\n')
 })
+
+test('ts', async () => {
+  const code =
+    "import mql from '@microlink/mql'\nconst run = async (url: string): Promise<void> => { const { data } = await mql(url, { screenshot: true }); console.log(data) }"
+  expect(await prettier(code, 'ts')).toBe(`import mql from '@microlink/mql'
+const run = async (url: string): Promise<void> => {
+  const { data } = await mql(url, { screenshot: true })
+  console.log(data)
+}
+`)
+})
