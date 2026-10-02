@@ -18,7 +18,7 @@ const data = {
     'animoto video embed',
     'embed animoto slideshow'
   ],
-  heroTitle: 'Animoto Embed Code Generator',
+  heroTitle: 'Animoto embed code generator',
   heroSubtitle:
     'Paste an Animoto video URL — get a ready-to-paste iframe player for your slideshows and marketing videos.',
   howItWorksHeading: 'How to embed an Animoto video',

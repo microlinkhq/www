@@ -19,7 +19,7 @@ const data = {
     'hihaho player embed',
     'embed interactive video'
   ],
-  heroTitle: 'Hihaho Embed Code Generator',
+  heroTitle: 'Hihaho embed code generator',
   heroSubtitle:
     'Paste a Hihaho player URL — get a ready-to-paste iframe for interactive videos with questions, buttons, and clickable links.',
   howItWorksHeading: 'How to embed a Hihaho interactive video',

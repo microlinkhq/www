@@ -18,7 +18,7 @@ const data = {
     'cueup profile link card',
     'embed cueup dj'
   ],
-  heroTitle: 'Cueup Embed Code Generator',
+  heroTitle: 'Cueup embed code generator',
   heroSubtitle:
     'Paste a Cueup DJ profile URL — get a ready-to-paste preview card with the DJ name, photo, and a link to book.',
   howItWorksHeading: 'How to embed a Cueup DJ profile',

@@ -19,7 +19,7 @@ const data = {
     'embed lottiefiles animation',
     'lottiefiles iframe code'
   ],
-  heroTitle: 'LottieFiles Embed Code Generator',
+  heroTitle: 'LottieFiles embed code generator',
   heroSubtitle:
     'Paste any LottieFiles animation URL — get ready-to-paste HTML to embed lightweight, scalable Lottie motion graphics on your site.',
   howItWorksHeading: 'How to embed a LottieFiles animation',

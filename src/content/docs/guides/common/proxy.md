@@ -118,7 +118,7 @@ Some proxy endpoints are temporarily unreachable or the target site intermittent
 
 <Figcaption>Server-side retries with exponential backoff reduce failures from temporarily blocked or slow proxy connections.</Figcaption>
 
-## Geolocation: target region-specific content
+## Geolocation: Target region-specific content
 
 A common use case is scraping a site that serves different content depending on the visitor's country. Pin Microlink's proxy to that country with <Link href='/docs/api/parameters/proxy/location' children='proxy.location' /> <ProBadge />:
 

@@ -18,7 +18,7 @@ const data = {
     'embed cacoo flowchart',
     'cacoo diagram embed'
   ],
-  heroTitle: 'Cacoo Embed Code Generator',
+  heroTitle: 'Cacoo embed code generator',
   heroSubtitle:
     'Paste any Cacoo diagram URL — get ready-to-paste embed HTML for flowcharts, wireframes, and diagrams.',
   howItWorksHeading: 'How to embed Cacoo diagrams',

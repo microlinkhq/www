@@ -19,7 +19,7 @@ const data = {
     'getty images html embed',
     'getty embed photo'
   ],
-  heroTitle: 'Getty Images Embed Code Generator',
+  heroTitle: 'Getty Images embed code generator',
   heroSubtitle:
     'Paste any Getty Images URL — get a ready-to-paste embed for editorial photos, illustrations, and stock imagery.',
   howItWorksHeading: 'How to embed Getty Images content',

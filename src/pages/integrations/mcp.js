@@ -268,7 +268,6 @@ const Hero = () => (
     </Heading>
     <Caption
       forwardedAs='h2'
-      titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
         px: 4,

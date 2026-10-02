@@ -18,7 +18,7 @@ const data = {
     'jovian notebook embed',
     'embed data science notebook'
   ],
-  heroTitle: 'Jovian Embed Code Generator',
+  heroTitle: 'Jovian embed code generator',
   heroSubtitle:
     'Paste any Jovian URL — get a ready-to-paste embed for shared Jupyter notebooks and data science projects.',
   howItWorksHeading: 'How to embed Jovian content',

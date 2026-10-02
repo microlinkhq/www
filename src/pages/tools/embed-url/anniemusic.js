@@ -18,7 +18,7 @@ const data = {
     'anniemusic.app embed',
     'embed song smart link'
   ],
-  heroTitle: 'Annie Music Embed Code Generator',
+  heroTitle: 'Annie Music embed code generator',
   heroSubtitle:
     'Paste an Annie Music smart link — get a clean preview card you can drop into any page.',
   howItWorksHeading: 'How to embed an Annie Music smart link',

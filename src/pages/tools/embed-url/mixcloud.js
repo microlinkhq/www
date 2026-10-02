@@ -18,7 +18,7 @@ const data = {
     'mixcloud player embed',
     'embed mixcloud radio show'
   ],
-  heroTitle: 'Mixcloud Embed Code Generator',
+  heroTitle: 'Mixcloud embed code generator',
   heroSubtitle:
     'Paste any Mixcloud URL — get a ready-to-paste player for DJ mixes, radio shows, and podcasts.',
   howItWorksHeading: 'How to embed a Mixcloud mix',

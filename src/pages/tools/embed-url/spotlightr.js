@@ -18,7 +18,7 @@ const data = {
     'embed vooplayer',
     'spotlightr player embed'
   ],
-  heroTitle: 'Spotlightr Embed Code Generator',
+  heroTitle: 'Spotlightr embed code generator',
   heroSubtitle:
     'Paste any Spotlightr URL — get a ready-to-paste embed for videos hosted on the interactive, marketing-focused player.',
   howItWorksHeading: 'How to embed Spotlightr content',

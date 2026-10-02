@@ -18,7 +18,7 @@ const data = {
     'ludus slide deck embed',
     'ludus presentation embed'
   ],
-  heroTitle: 'Ludus Embed Code Generator',
+  heroTitle: 'Ludus embed code generator',
   heroSubtitle:
     'Paste any Ludus URL — get a ready-to-paste embed for presentations and slide decks.',
   howItWorksHeading: 'How to embed Ludus presentations',

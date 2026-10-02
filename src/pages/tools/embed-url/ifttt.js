@@ -18,7 +18,7 @@ const data = {
     'ifttt link preview',
     'embed ifttt service'
   ],
-  heroTitle: 'IFTTT Embed Code Generator',
+  heroTitle: 'IFTTT embed code generator',
   heroSubtitle:
     'Paste a public IFTTT Applet or service URL — get a clean preview card you can paste anywhere.',
   howItWorksHeading: 'How to embed an IFTTT Applet',

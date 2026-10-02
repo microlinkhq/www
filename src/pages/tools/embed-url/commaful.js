@@ -20,7 +20,7 @@ const data = {
     'embed visual story commaful',
     'commaful flash fiction embed'
   ],
-  heroTitle: 'Commaful Embed Code Generator',
+  heroTitle: 'Commaful embed code generator',
   heroSubtitle:
     'Paste a Commaful story or poem URL to get a ready-to-paste embed or a customizable preview card.',
   howItWorksHeading: 'How to embed Commaful stories',

@@ -19,7 +19,7 @@ const data = {
     'backtracks iframe code',
     'embed backtracks episode'
   ],
-  heroTitle: 'Backtracks Embed Code Generator',
+  heroTitle: 'Backtracks embed code generator',
   heroSubtitle:
     'Paste a Backtracks player URL — get a ready-to-paste podcast player for episodes and shows.',
   howItWorksHeading: 'How to embed a Backtracks podcast player',

@@ -18,7 +18,7 @@ const data = {
     'linkstackz page embed',
     'linkstackz preview card'
   ],
-  heroTitle: 'LinkStackz Embed Code Generator',
+  heroTitle: 'LinkStackz embed code generator',
   heroSubtitle:
     'Paste any LinkStackz URL — get a ready-to-paste embed or preview card for your link-in-bio page.',
   howItWorksHeading: 'How to embed LinkStackz content',

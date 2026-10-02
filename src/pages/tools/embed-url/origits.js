@@ -18,7 +18,7 @@ const data = {
     'origits interactive video embed',
     'origits player embed'
   ],
-  heroTitle: 'Origits Embed Code Generator',
+  heroTitle: 'Origits embed code generator',
   heroSubtitle:
     'Paste any Origits URL — get a ready-to-paste embed for interactive, clickable videos.',
   howItWorksHeading: 'How to embed Origits content',

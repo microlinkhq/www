@@ -18,7 +18,7 @@ const data = {
     'embed show the way directions',
     'show the way map embed'
   ],
-  heroTitle: 'Show the Way Embed Code Generator',
+  heroTitle: 'Show the Way embed code generator',
   heroSubtitle:
     'Paste any Show the Way URL — get a ready-to-paste embed for maps, directions, and wayfinding.',
   howItWorksHeading: 'How to embed Show the Way maps',

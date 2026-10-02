@@ -42,7 +42,6 @@ const ShowcaseFeature = ({ title, description, href, cta, mql }) => (
       })}
     >
       <Subhead
-        titleize={false}
         css={theme({
           textAlign: ['center', 'center', 'center', 'left'],
           width: '100%'
@@ -52,7 +51,6 @@ const ShowcaseFeature = ({ title, description, href, cta, mql }) => (
       </Subhead>
       <Caption
         forwardedAs='p'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           textAlign: ['center', 'center', 'center', 'left'],
@@ -128,10 +126,9 @@ export const FunctionShowcase = () => (
           px: [3, 3, 4, 0]
         })}
       >
-        <Subhead titleize={false}>{SHOWCASE.title}</Subhead>
+        <Subhead>{SHOWCASE.title}</Subhead>
         <Caption
           forwardedAs='p'
-          titleize={false}
           css={theme({
             pt: [3, 3, 4, 4],
             mx: 'auto',

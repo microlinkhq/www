@@ -18,7 +18,7 @@ const data = {
     'outplayed highlight embed',
     'outplayed clip player embed'
   ],
-  heroTitle: 'Outplayed Embed Code Generator',
+  heroTitle: 'Outplayed embed code generator',
   heroSubtitle:
     'Paste any Outplayed URL — get a ready-to-paste player for gaming clips and highlights.',
   howItWorksHeading: 'How to embed Outplayed content',

@@ -18,7 +18,7 @@ const data = {
     'gong link preview',
     'embed gong.io url'
   ],
-  heroTitle: 'Gong Embed Code Generator',
+  heroTitle: 'Gong embed code generator',
   heroSubtitle:
     'Paste a Gong call or page URL — get a styled preview card you can paste into any blog, doc, or CMS.',
   howItWorksHeading: 'How to embed a Gong link',

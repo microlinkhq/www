@@ -18,7 +18,7 @@ const data = {
     'yumpu magazine embed',
     'embed digital flipbook'
   ],
-  heroTitle: 'Yumpu Embed Code Generator',
+  heroTitle: 'Yumpu embed code generator',
   heroSubtitle:
     'Paste any Yumpu URL — get a ready-to-paste embed for digital flipbook magazines converted from PDFs.',
   howItWorksHeading: 'How to embed Yumpu flipbooks',

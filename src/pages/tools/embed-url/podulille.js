@@ -19,7 +19,7 @@ const data = {
     'embed lecture video lille',
     'pod univ lille player embed'
   ],
-  heroTitle: 'Pod Université de Lille Embed Code Generator',
+  heroTitle: 'Pod Université de Lille embed code generator',
   heroSubtitle:
     'Paste any pod.univ-lille.fr URL — get a ready-to-paste player for lecture recordings and academic podcasts.',
   howItWorksHeading: 'How to embed Pod Université de Lille content',

@@ -18,7 +18,7 @@ const data = {
     'embed byzart exhibition',
     'byzantine art digital archive embed'
   ],
-  heroTitle: 'BYZART Embed Code Generator',
+  heroTitle: 'BYZART embed code generator',
   heroSubtitle:
     'Paste a BYZART archive URL — get a ready-to-paste preview card for Byzantine art photos, exhibitions, and archive records.',
   howItWorksHeading: 'How to embed a BYZART archive item',

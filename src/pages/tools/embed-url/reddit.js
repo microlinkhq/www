@@ -19,7 +19,7 @@ const data = {
     'embed reddit thread',
     'reddit post embed html'
   ],
-  heroTitle: 'Reddit Embed Code Generator',
+  heroTitle: 'Reddit embed code generator',
   heroSubtitle:
     'Paste any Reddit URL — get ready-to-paste embed HTML for posts, comments, and threads.',
   howItWorksHeading: 'How to embed Reddit content',

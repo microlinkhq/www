@@ -1,17 +1,13 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
-import SubheadBase from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
+import Subhead from 'components/elements/Subhead'
 import { extractDomain } from 'helpers/extract-domain'
 import { highlight } from 'components/keyframes'
-import { withTitle } from 'helpers/hoc/with-title'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import { radii, theme } from 'theme'
-
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const HIGHLIGHT_DURATION = 1000
 const IDLE_ROTATE_MS = 5000
@@ -103,7 +99,6 @@ export const LiveTiming = ({ timingMs, timingUrl, timingHistory }) => {
                   fontWeight: 'bold',
                   fontSize: TIMING_UNIT_FONT_SIZE
                 })}
-                titleize={false}
               >
                 {unit}
               </Caption>

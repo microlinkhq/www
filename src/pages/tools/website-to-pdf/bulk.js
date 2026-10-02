@@ -44,18 +44,18 @@ import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Select from 'components/elements/Select/Select'
 import Spinner from 'components/elements/Spinner'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import PdfViewer from 'components/elements/PdfViewer/PdfViewer'
 
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import ChromeExtensionBanner, {
   PDF_EXTENSION_URL
 } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -69,7 +69,6 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { withTitle } from 'helpers/hoc/with-title'
 import { trackEvent } from 'helpers/gtag'
 import {
   extractNerdStats,
@@ -99,10 +98,6 @@ import {
   LAYOUT_PIVOT,
   MOBILE_BP
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const CompareSliderBlock = styled('span')`
   display: block;
@@ -2920,7 +2915,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Bulk Convert Multiple URLs to PDF
+      Bulk convert multiple URLs to PDF
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -3264,11 +3259,7 @@ const UseCases = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize={false}
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Box
@@ -3519,7 +3510,7 @@ const PdfApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={FileText} />
       </Flex>
-      <Subhead>Bulk URL to PDF API Documentation</Subhead>
+      <Subhead>Bulk URL to PDF API documentation</Subhead>
       <Caption css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto' })}>
         Automate batch URL to PDF conversion with a single REST call. Explore
         the full API reference with interactive examples, SDKs for every

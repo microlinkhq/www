@@ -18,7 +18,7 @@ const data = {
     'kurozora series embed',
     'kurozora iframe code'
   ],
-  heroTitle: 'Kurozora Embed Code Generator',
+  heroTitle: 'Kurozora embed code generator',
   heroSubtitle:
     'Paste any Kurozora URL — get a ready-to-paste embed or preview card for anime, manga, and series pages.',
   howItWorksHeading: 'How to embed Kurozora content',

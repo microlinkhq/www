@@ -20,7 +20,7 @@ const data = {
     'animatron embed generator',
     'embed html5 animation'
   ],
-  heroTitle: 'Animatron Embed Code Generator',
+  heroTitle: 'Animatron embed code generator',
   heroSubtitle:
     'Paste an Animatron Studio link and get ready-to-paste embed HTML for your animation or video.',
   howItWorksHeading: 'How to embed an Animatron animation',

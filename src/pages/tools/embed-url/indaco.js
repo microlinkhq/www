@@ -18,7 +18,7 @@ const data = {
     'indaco live stream embed',
     'indaco video embed'
   ],
-  heroTitle: 'Indaco Embed Code Generator',
+  heroTitle: 'Indaco embed code generator',
   heroSubtitle:
     'Paste any Indaco Live URL — get a ready-to-paste player for live streams and on-demand video.',
   howItWorksHeading: 'How to embed Indaco content',

@@ -18,7 +18,7 @@ const data = {
     'simplecast iframe code',
     'embed simplecast podcast'
   ],
-  heroTitle: 'Simplecast Embed Code Generator',
+  heroTitle: 'Simplecast embed code generator',
   heroSubtitle:
     'Paste any Simplecast URL — get a ready-to-paste web player for your podcast episodes and shows.',
   howItWorksHeading: 'How to embed a Simplecast episode',

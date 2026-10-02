@@ -7,11 +7,8 @@ import styled from 'styled-components'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { withTitle } from 'helpers/hoc/with-title'
-
-const Subhead = withTitle(SubheadBase)
 
 const hexToRgb = hex => {
   const h = hex.replace('#', '')

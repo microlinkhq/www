@@ -1,7 +1,6 @@
 import React from 'react'
 import { theme, layout } from 'theme'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 import Meta from 'components/elements/Meta/Meta'
 import { Hero } from 'components/pages/sitemap/hero'
 import Faq from 'components/patterns/Faq/Faq'
@@ -334,4 +333,4 @@ const SitemapTool = () => (
   </Layout>
 )
 
-export default withTitle(SitemapTool)
+export default SitemapTool

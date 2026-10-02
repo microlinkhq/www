@@ -18,7 +18,7 @@ const data = {
     'embed funny image',
     'share meme embed'
   ],
-  heroTitle: 'Meme Embed Code Generator',
+  heroTitle: 'Meme embed code generator',
   heroSubtitle:
     'Paste any meme URL — get a ready-to-paste embed for memes and images you can drop into any page.',
   howItWorksHeading: 'How to embed memes and images',

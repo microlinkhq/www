@@ -18,7 +18,7 @@ const data = {
     'embed open brush sketch',
     'icosa 3d viewer embed'
   ],
-  heroTitle: 'Icosa Gallery Embed Code Generator',
+  heroTitle: 'Icosa Gallery embed code generator',
   heroSubtitle:
     'Paste any Icosa Gallery URL — get a ready-to-paste interactive 3D viewer for Open Brush sketches, Blocks models, and glTF assets.',
   howItWorksHeading: 'How to embed Icosa Gallery content',

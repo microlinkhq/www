@@ -10,8 +10,7 @@ import {
   breakpoints,
   shadows
 } from 'theme'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -26,10 +25,10 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
@@ -54,10 +53,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -783,7 +778,6 @@ const Hero = () => (
           maxWidth: layout.large,
           color: 'black80'
         })}
-        titleize={false}
       >
         <b>Screenshot Machine</b> is a reliable, no-frills screenshot and PDF
         API. When your workflow outgrows that simpler surface and you need
@@ -848,7 +842,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -858,7 +852,6 @@ const ComparisonSection = () => (
           maxWidth: layout.normal,
           color: 'black60'
         })}
-        titleize={false}
       >
         An honest look at what each API offers.
       </Caption>
@@ -1050,10 +1043,7 @@ const WhySwitchNumber = styled(Text)`
 const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
-      <Subhead
-        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
+      <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
         Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
@@ -1062,7 +1052,6 @@ const WhySwitchSection = () => (
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
-        titleize={false}
       >
         The top reasons teams move from Screenshot Machine to Microlink.
       </Caption>
@@ -1153,7 +1142,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 5 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
         Where <GradientText>Screenshot Machine</GradientText>
         <br /> Might Be the Right Choice
       </Subhead>
@@ -1232,7 +1221,7 @@ const HonestySection = () => (
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })}>
         More requests. <GradientText>Less glue code.</GradientText>
       </Subhead>
       <Caption
@@ -1241,7 +1230,6 @@ const PricingSection = () => (
           maxWidth: layout.large,
           color: 'black60'
         })}
-        titleize={false}
       >
         Compare Microlink's <b>46,000&nbsp;requests</b> at &euro;39/month with
         Screenshot Machine Pro's <b>20,000&nbsp;fresh screenshots</b> at
@@ -1469,7 +1457,6 @@ const CTASection = () => (
           color: 'white',
           pb: [2, 2, 3, 3]
         })}
-        titleize={false}
       >
         Upgrade without rebuilding everything
       </Subhead>
@@ -1480,7 +1467,6 @@ const CTASection = () => (
           pb: [3, 3, 4, 4],
           maxWidth: layout.large
         })}
-        titleize={false}
       >
         Keep the screenshot and PDF workflow you already know.
       </Caption>

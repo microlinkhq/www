@@ -18,7 +18,7 @@ const data = {
     'overflow flow diagram embed',
     'embed overflow.io'
   ],
-  heroTitle: 'Overflow Embed Code Generator',
+  heroTitle: 'Overflow embed code generator',
   heroSubtitle:
     'Paste any overflow.io URL — get a ready-to-paste player for interactive, playable user-flow diagrams.',
   howItWorksHeading: 'How to embed Overflow user flows',

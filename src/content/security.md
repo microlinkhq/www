@@ -10,7 +10,7 @@ We implement comprehensive security measures across our infrastructure, applicat
 
 For more information about our data processing practices, please see our [Data Processing Agreement](/dpa), [Subprocessors](/subprocessors), and [Privacy Policy](/privacy).
 
-## Infrastructure Security
+## Infrastructure security
 
 **Cloud Infrastructure**
 
@@ -26,7 +26,7 @@ For more information about our data processing practices, please see our [Data P
 - Isolated customer data processing.
 - Malware detection and content security scanning.
 
-## Access & Authentication
+## Access & authentication
 
 **API Security**
 
@@ -40,7 +40,7 @@ For more information about our data processing practices, please see our [Data P
 - Role-based access controls with least privilege principles.
 - Regular access reviews and security training.
 
-## Monitoring & Response
+## Monitoring & response
 
 **Security Monitoring**
 
@@ -68,14 +68,14 @@ For more information about our data processing practices, please see our [Data P
 - Disaster recovery procedures and regular testing.
 - Defined recovery objectives for critical systems.
 
-## Security Contact
+## Security contact
 
 For security-related questions or to report a vulnerability:
 
 **Email**: [hello@microlink.io](mailto:hello@microlink.io?subject=Security%20Inquiry)  
 **Subject**: Security Inquiry
 
-## Responsible Disclosure
+## Responsible disclosure
 
 We consider the security of our systems a top priority, but no matter how much effort we put into it, vulnerabilities can still be present. If you discover one, we want to know so we can address it as quickly as possible.
 

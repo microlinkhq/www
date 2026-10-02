@@ -19,7 +19,7 @@ const data = {
     'embed codepen collection',
     'codepen embed html'
   ],
-  heroTitle: 'CodePen Embed Code Generator',
+  heroTitle: 'CodePen embed code generator',
   heroSubtitle:
     'Paste any CodePen URL — get a ready-to-paste iframe for Pens, Projects, and Collections with a live, interactive preview.',
   howItWorksHeading: 'How to embed CodePen content',

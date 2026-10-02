@@ -12,11 +12,11 @@ As part of our commitment to transparency under the EU General Data Protection R
 
 For more information about our data processing practices, please see our [Data Processing Agreement](/dpa) and [Privacy Policy](/privacy).
 
-## Current Subprocessors
+## Current subprocessors
 
 The following companies act as subprocessors and may have access to personal data in the course of providing services to Microlink:
 
-### Infrastructure & Hosting
+### Infrastructure & hosting
 
 **Vercel Inc.**
 
@@ -62,7 +62,7 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: United States  
 - **Website**: [sentry.io](https://sentry.io)
 
-### Payment Processing
+### Payment processing
 
 **Stripe Inc.**
 
@@ -71,7 +71,7 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: Global (with regional data processing)  
 - **Website**: [stripe.com](https://stripe.com)
 
-### Communication & Support
+### Communication & support
 
 **Zoho Corporation Pvt. Ltd.**
 
@@ -87,7 +87,7 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: United States (international transfers under standard contractual clauses)  
 - **Website**: [sequenzy.com](https://sequenzy.com)  
 
-## Data Protection Standards
+## Data protection standards
 
 All subprocessors listed above:
 
@@ -96,7 +96,7 @@ All subprocessors listed above:
 - **Implement Security Measures**: Maintain technical and organizational measures to protect personal data
 - **Support Data Subject Rights**: Assist in fulfilling data subject requests (access, deletion, portability, etc.)
 
-## Changes to Subprocessors
+## Changes to subprocessors
 
 We will update this list whenever we:
 
@@ -108,7 +108,7 @@ We will update this list whenever we:
 
 **Objection Rights**: If you object to the use of a new subprocessor, please contact us at [hello@microlink.io](mailto:hello@microlink.io) to discuss your concerns.
 
-## Contact Information
+## Contact information
 
 If you have questions about our subprocessors or data processing practices:
 

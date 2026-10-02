@@ -412,7 +412,6 @@ export const Stack = ({ currentUrl }) => {
                     {item.eyebrow}
                   </StackEyebrow>
                   <Subhead
-                    titleize={false}
                     css={theme({
                       fontSize: CARD_TITLE_FONT_SIZE,
                       textAlign: 'left'

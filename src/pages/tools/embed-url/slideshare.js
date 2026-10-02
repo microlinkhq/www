@@ -19,7 +19,7 @@ const data = {
     'embed slideshare slides',
     'slideshare slide deck embed'
   ],
-  heroTitle: 'SlideShare Embed Code Generator',
+  heroTitle: 'SlideShare embed code generator',
   heroSubtitle:
     'Paste any SlideShare URL — get a ready-to-paste embed for slide decks, presentations, documents, and infographics.',
   howItWorksHeading: 'How to embed a SlideShare presentation',

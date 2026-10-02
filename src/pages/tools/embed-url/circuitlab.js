@@ -21,7 +21,7 @@ const data = {
     'embed electronic schematic',
     'circuitlab embed generator'
   ],
-  heroTitle: 'CircuitLab Embed Code Generator',
+  heroTitle: 'CircuitLab embed code generator',
   heroSubtitle:
     'Paste a CircuitLab URL to get ready-to-paste embed code for interactive schematics and circuit simulations.',
   howItWorksHeading: 'How to embed a CircuitLab schematic',

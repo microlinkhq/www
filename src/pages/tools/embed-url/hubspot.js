@@ -19,7 +19,7 @@ const data = {
     'hubspot blog embed',
     'hubspot preview card'
   ],
-  heroTitle: 'HubSpot Embed Code Generator',
+  heroTitle: 'HubSpot embed code generator',
   heroSubtitle:
     'Paste a HubSpot meetings, blog, or landing page URL and get ready-to-paste embed HTML or a styled preview card.',
   howItWorksHeading: 'How to embed HubSpot content',

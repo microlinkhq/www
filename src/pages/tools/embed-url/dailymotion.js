@@ -18,7 +18,7 @@ const data = {
     'dailymotion player embed',
     'embed dailymotion playlist'
   ],
-  heroTitle: 'Dailymotion Embed Code Generator',
+  heroTitle: 'Dailymotion embed code generator',
   heroSubtitle:
     'Paste any Dailymotion URL — get a ready-to-paste iframe player for videos, playlists, and channels.',
   howItWorksHeading: 'How to embed a Dailymotion video',

@@ -15,27 +15,22 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 
 import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
 
 import { EmbedTool } from 'components/pages/embed-url'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const FEATURES_LIST = [
   {
@@ -193,7 +188,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Embed Code Generator
+      Embed code generator
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -350,11 +345,7 @@ const UseCasesSection = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize='false'
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Box
@@ -500,7 +491,7 @@ const EmbedApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead>Embed Code Generator API Documentation</Subhead>
+      <Subhead>Embed code generator API documentation</Subhead>
       <Caption
         css={theme({
           pt: 3,

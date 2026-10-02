@@ -18,7 +18,7 @@ const data = {
     'celero oembed',
     'celero microsite embed'
   ],
-  heroTitle: 'Celero Embed Code Generator',
+  heroTitle: 'Celero embed code generator',
   heroSubtitle:
     'Paste a Celero microsite URL — get a ready-to-paste embed or styled preview card.',
   howItWorksHeading: 'How to embed a Celero microsite',

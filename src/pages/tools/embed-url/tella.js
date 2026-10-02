@@ -18,7 +18,7 @@ const data = {
     'tella iframe code',
     'tella demo video embed'
   ],
-  heroTitle: 'Tella Embed Code Generator',
+  heroTitle: 'Tella embed code generator',
   heroSubtitle:
     'Paste any Tella URL — get a ready-to-paste player for screen recordings, demos, and explainer videos.',
   howItWorksHeading: 'How to embed Tella videos',

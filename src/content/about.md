@@ -50,7 +50,7 @@ Every capability should be accessible through a clear, predictable API. It’s h
 
 A great API is only as good as its documentation. We treat docs as part of the product, not an afterthought — they should be readable, discoverable, and always in sync with the experience you get when you build with Microlink.
 
-## Get Started
+## Get started
 
 Check out our [API documentation](/docs/api/getting-started/overview) to get started, explore our [recipes](/recipes) for common use cases, or [join our community](/community) to connect with other developers.
 

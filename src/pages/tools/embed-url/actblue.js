@@ -18,7 +18,7 @@ const data = {
     'actblue donate link card',
     'embed actblue fundraising page'
   ],
-  heroTitle: 'ActBlue Embed Code Generator',
+  heroTitle: 'ActBlue embed code generator',
   heroSubtitle:
     'Paste an ActBlue contribution page URL — get a ready-to-paste preview card that links to your donation form.',
   howItWorksHeading: 'How to embed an ActBlue donation page',

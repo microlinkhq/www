@@ -19,7 +19,7 @@ const data = {
     'embases chart embed',
     'embed embases dashboard'
   ],
-  heroTitle: 'Embases Embed Code Generator',
+  heroTitle: 'Embases embed code generator',
   heroSubtitle:
     'Paste an Embases chart URL — get a ready-to-paste responsive iframe for your charts and data visualizations.',
   howItWorksHeading: 'How to embed an Embases chart',

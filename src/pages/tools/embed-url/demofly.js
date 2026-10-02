@@ -18,7 +18,7 @@ const data = {
     'demofly interactive demo embed',
     'demofly walkthrough embed'
   ],
-  heroTitle: 'Demofly Embed Code Generator',
+  heroTitle: 'Demofly embed code generator',
   heroSubtitle:
     'Paste a Demofly demo URL — get ready-to-paste embed HTML or a styled preview card.',
   howItWorksHeading: 'How to embed a Demofly demo',

@@ -18,7 +18,7 @@ const data = {
     'subscribi newsletter embed',
     'embed subscription form'
   ],
-  heroTitle: 'Subscribi Embed Code Generator',
+  heroTitle: 'Subscribi embed code generator',
   heroSubtitle:
     'Paste any Subscribi URL — get a ready-to-paste embed for subscription forms and newsletter signups.',
   howItWorksHeading: 'How to embed Subscribi forms',

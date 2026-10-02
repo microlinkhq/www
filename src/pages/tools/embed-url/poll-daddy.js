@@ -18,7 +18,7 @@ const data = {
     'polldaddy quiz embed',
     'polldaddy iframe code'
   ],
-  heroTitle: 'Polldaddy Embed Code Generator',
+  heroTitle: 'Polldaddy embed code generator',
   heroSubtitle:
     'Paste any Polldaddy URL — get a ready-to-paste embed for polls, surveys, and quizzes.',
   howItWorksHeading: 'How to embed Polldaddy content',

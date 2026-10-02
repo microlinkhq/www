@@ -18,7 +18,7 @@ const data = {
     'embed prezi video',
     'prezi presentation embed'
   ],
-  heroTitle: 'Prezi Embed Code Generator',
+  heroTitle: 'Prezi embed code generator',
   heroSubtitle:
     'Paste any Prezi URL — get a ready-to-paste embed for zooming presentations and Prezi Video.',
   howItWorksHeading: 'How to embed a Prezi presentation',

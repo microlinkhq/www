@@ -5,26 +5,21 @@ import { Globe, Code, Clipboard } from 'react-feather'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 
 import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import { EmbedTool } from 'components/pages/embed-url'
 import WhyChoose from './WhyChoose'
 import { embedRobots } from './indexable'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const DEFAULT_HOW_IT_WORKS_ICONS = [Globe, Code, Clipboard]
 

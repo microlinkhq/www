@@ -19,7 +19,7 @@ const data = {
     'audius player embed',
     'embed audius album'
   ],
-  heroTitle: 'Audius Embed Code Generator',
+  heroTitle: 'Audius embed code generator',
   heroSubtitle:
     'Paste any Audius URL — get a ready-to-paste player for tracks, albums, playlists, and artist profiles.',
   howItWorksHeading: 'How to embed Audius content',

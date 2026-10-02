@@ -17,7 +17,7 @@ const data = {
     'canva presentation embed',
     'canva embed html'
   ],
-  heroTitle: 'Canva Embed Code Generator',
+  heroTitle: 'Canva embed code generator',
   heroSubtitle:
     'Paste any Canva URL — get a ready-to-paste embed for designs, presentations, and documents.',
   howItWorksHeading: 'How to embed Canva content',

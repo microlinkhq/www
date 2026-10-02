@@ -18,7 +18,7 @@ const data = {
     'embed codesandbox in blog',
     'codesandbox embed html'
   ],
-  heroTitle: 'CodeSandbox Embed Code Generator',
+  heroTitle: 'CodeSandbox embed code generator',
   heroSubtitle:
     'Paste any CodeSandbox URL — get a ready-to-paste iframe with a live, editable sandbox and preview.',
   howItWorksHeading: 'How to embed CodeSandbox content',

@@ -18,7 +18,7 @@ const data = {
     'orbitvu spin embed',
     'embed orbitvu product view'
   ],
-  heroTitle: 'Orbitvu Embed Code Generator',
+  heroTitle: 'Orbitvu embed code generator',
   heroSubtitle:
     'Paste any Orbitvu URL — get a ready-to-paste embed for 360° interactive product views and spins.',
   howItWorksHeading: 'How to embed Orbitvu content',

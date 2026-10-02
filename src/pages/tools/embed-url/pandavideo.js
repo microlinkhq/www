@@ -18,7 +18,7 @@ const data = {
     'embed panda video course',
     'panda video player embed'
   ],
-  heroTitle: 'Panda Video Embed Code Generator',
+  heroTitle: 'Panda Video embed code generator',
   heroSubtitle:
     'Paste any Panda Video URL — get a ready-to-paste secure player for hosted videos and course lessons.',
   howItWorksHeading: 'How to embed Panda Video content',

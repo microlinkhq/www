@@ -18,7 +18,7 @@ const data = {
     'streamio video player embed',
     'streamio player embed'
   ],
-  heroTitle: 'Streamio Embed Code Generator',
+  heroTitle: 'Streamio embed code generator',
   heroSubtitle:
     'Paste any Streamio URL — get a ready-to-paste player for hosted video.',
   howItWorksHeading: 'How to embed Streamio video',

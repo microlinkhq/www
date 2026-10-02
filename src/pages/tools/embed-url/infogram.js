@@ -20,7 +20,7 @@ const data = {
     'embed infogram report',
     'infogram interactive chart embed'
   ],
-  heroTitle: 'Infogram Embed Code Generator',
+  heroTitle: 'Infogram embed code generator',
   heroSubtitle:
     'Paste any Infogram URL — get a ready-to-paste embed for interactive infographics, charts, maps, and reports.',
   howItWorksHeading: 'How to embed Infogram content',

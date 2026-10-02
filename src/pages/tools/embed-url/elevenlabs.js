@@ -18,7 +18,7 @@ const data = {
     'embed elevenlabs voice',
     'elevenlabs text to speech embed'
   ],
-  heroTitle: 'ElevenLabs Embed Code Generator',
+  heroTitle: 'ElevenLabs embed code generator',
   heroSubtitle:
     'Paste any ElevenLabs URL — get a clean, customizable preview card for AI voice, text-to-speech, and audio pages.',
   howItWorksHeading: 'How to embed an ElevenLabs page',

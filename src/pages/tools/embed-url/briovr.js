@@ -19,7 +19,7 @@ const data = {
     'embed briovr vr scene',
     'embed briovr ar scene'
   ],
-  heroTitle: 'BrioVR Embed Code Generator',
+  heroTitle: 'BrioVR embed code generator',
   heroSubtitle:
     'Paste any BrioVR scene URL — get a ready-to-paste embed for interactive 3D, VR, and AR scenes.',
   howItWorksHeading: 'How to embed a BrioVR scene',

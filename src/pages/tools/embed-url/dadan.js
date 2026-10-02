@@ -18,7 +18,7 @@ const data = {
     'dadan screen recording embed',
     'embed dadan video message'
   ],
-  heroTitle: 'Dadan Embed Code Generator',
+  heroTitle: 'Dadan embed code generator',
   heroSubtitle:
     'Paste a Dadan share link — get a ready-to-paste responsive player for screen recordings and webcam video messages.',
   howItWorksHeading: 'How to embed a Dadan video',

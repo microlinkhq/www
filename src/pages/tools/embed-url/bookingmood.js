@@ -20,7 +20,7 @@ const data = {
     'bookingmood booking widget',
     'bookingmood embed generator'
   ],
-  heroTitle: 'Bookingmood Embed Code Generator',
+  heroTitle: 'Bookingmood embed code generator',
   heroSubtitle:
     'Paste a Bookingmood widget URL to embed an availability calendar or booking widget for your rental.',
   howItWorksHeading: 'How to embed a Bookingmood widget',

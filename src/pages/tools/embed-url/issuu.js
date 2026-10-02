@@ -19,7 +19,7 @@ const data = {
     'issuu iframe code',
     'embed issuu magazine'
   ],
-  heroTitle: 'Issuu Embed Code Generator',
+  heroTitle: 'Issuu embed code generator',
   heroSubtitle:
     'Paste any Issuu URL — get a ready-to-paste flipbook reader for magazines, catalogs, and digital publications.',
   howItWorksHeading: 'How to embed an Issuu publication',

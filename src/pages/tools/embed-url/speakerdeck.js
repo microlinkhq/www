@@ -19,7 +19,7 @@ const data = {
     'embed speaker deck slides',
     'speakerdeck player embed'
   ],
-  heroTitle: 'Speaker Deck Embed Code Generator',
+  heroTitle: 'Speaker Deck embed code generator',
   heroSubtitle:
     'Paste any Speaker Deck URL — get a ready-to-paste iframe player for slide decks and presentations.',
   howItWorksHeading: 'How to embed a Speaker Deck presentation',

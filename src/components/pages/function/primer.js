@@ -78,7 +78,7 @@ export const FunctionPrimer = () => (
           gap: [3, 3, 4, 4]
         })}
       >
-        <Subhead titleize={false}>
+        <Subhead>
           {PRIMER.title}
           <LineBreak />
           <span css={{ color: 'var(--capability-accent)' }}>

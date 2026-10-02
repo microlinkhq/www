@@ -18,7 +18,7 @@ const data = {
     'lumiere iframe code',
     'lumiere player embed'
   ],
-  heroTitle: 'Lumiere Embed Code Generator',
+  heroTitle: 'Lumiere embed code generator',
   heroSubtitle:
     'Paste any Lumiere URL — get a ready-to-paste video player or preview card.',
   howItWorksHeading: 'How to embed Lumiere videos',

@@ -18,7 +18,7 @@ const data = {
     'mind map embed',
     'ideamapper html embed'
   ],
-  heroTitle: 'ideaMapper Embed Code Generator',
+  heroTitle: 'ideaMapper embed code generator',
   heroSubtitle:
     'Paste any ideaMapper URL — get a ready-to-paste embed for interactive mind maps and structured documents.',
   howItWorksHeading: 'How to embed ideaMapper content',

@@ -18,7 +18,7 @@ const data = {
     'gtchannel video embed',
     'embed automotive video gtchannel'
   ],
-  heroTitle: 'GTChannel Embed Code Generator',
+  heroTitle: 'GTChannel embed code generator',
   heroSubtitle:
     'Paste a GTChannel URL — get ready-to-paste embed HTML for automotive and car culture videos.',
   howItWorksHeading: 'How to embed a GTChannel video',

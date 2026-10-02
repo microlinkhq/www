@@ -18,7 +18,7 @@ const data = {
     'mixpanel dashboard embed',
     'mixpanel iframe code'
   ],
-  heroTitle: 'Mixpanel Embed Code Generator',
+  heroTitle: 'Mixpanel embed code generator',
   heroSubtitle:
     'Paste a Mixpanel board or report URL — get a ready-to-paste embed or a styled preview card.',
   howItWorksHeading: 'How to embed a Mixpanel board',

@@ -18,7 +18,7 @@ const data = {
     'insight timer player embed',
     'embed meditation audio'
   ],
-  heroTitle: 'Insight Timer Embed Code Generator',
+  heroTitle: 'Insight Timer embed code generator',
   heroSubtitle:
     'Paste any Insight Timer URL — get a ready-to-paste player for guided meditations, tracks, and talks.',
   howItWorksHeading: 'How to embed Insight Timer content',

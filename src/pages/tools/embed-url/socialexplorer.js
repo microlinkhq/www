@@ -18,7 +18,7 @@ const data = {
     'demographic map embed',
     'embed census data map'
   ],
-  heroTitle: 'Social Explorer Embed Code Generator',
+  heroTitle: 'Social Explorer embed code generator',
   heroSubtitle:
     'Paste any Social Explorer URL — get a ready-to-paste embed for interactive data maps and demographic reports.',
   howItWorksHeading: 'How to embed Social Explorer content',

@@ -19,7 +19,7 @@ const data = {
     'embed hearthis.at mix',
     'embed hearthis.at track'
   ],
-  heroTitle: 'hearthis.at Embed Code Generator',
+  heroTitle: 'hearthis.at embed code generator',
   heroSubtitle:
     'Paste any hearthis.at URL — get a ready-to-paste player for DJ sets, mixes, and tracks.',
   howItWorksHeading: 'How to embed hearthis.at content',

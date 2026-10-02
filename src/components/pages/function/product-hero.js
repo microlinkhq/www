@@ -52,7 +52,6 @@ export const FunctionProductHero = () => (
       </Heading>
       <Caption
         forwardedAs='p'
-        titleize={false}
         css={theme({
           pt: [3, 3, 3, 3],
           mx: 'auto',

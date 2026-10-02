@@ -18,7 +18,7 @@ const data = {
     'text to audio embed',
     'embed audio version of article'
   ],
-  heroTitle: 'Trinity Audio Embed Code Generator',
+  heroTitle: 'Trinity Audio embed code generator',
   heroSubtitle:
     'Paste any Trinity Audio URL — get a ready-to-paste audio player for the spoken version of an article.',
   howItWorksHeading: 'How to embed Trinity Audio content',

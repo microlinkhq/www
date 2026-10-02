@@ -18,7 +18,7 @@ const data = {
     'embed hopvue link',
     'hopvue preview card'
   ],
-  heroTitle: 'Hopvue Embed Code Generator',
+  heroTitle: 'Hopvue embed code generator',
   heroSubtitle:
     'Paste a Hopvue URL — get ready-to-paste embed HTML, or a styled preview card as a fallback.',
   howItWorksHeading: 'How to embed Hopvue content',

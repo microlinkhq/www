@@ -18,7 +18,7 @@ const data = {
     'embed scribd pdf',
     'embed scribd presentation'
   ],
-  heroTitle: 'Scribd Embed Code Generator',
+  heroTitle: 'Scribd embed code generator',
   heroSubtitle:
     'Paste any Scribd URL — get a ready-to-paste iframe for documents, PDFs, presentations, and ebooks.',
   howItWorksHeading: 'How to embed Scribd documents',

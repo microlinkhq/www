@@ -18,7 +18,7 @@ const data = {
     'wearebumper embed',
     'embed bumper blog post'
   ],
-  heroTitle: 'Bumper Embed Code Generator',
+  heroTitle: 'Bumper embed code generator',
   heroSubtitle:
     'Paste any Bumper URL — get a ready-to-paste preview card for blog posts, dashboard pages, and service pages.',
   howItWorksHeading: 'How to embed Bumper content',

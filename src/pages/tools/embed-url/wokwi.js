@@ -18,7 +18,7 @@ const data = {
     'embed arduino simulation',
     'embed esp32 simulator'
   ],
-  heroTitle: 'Wokwi Embed Code Generator',
+  heroTitle: 'Wokwi embed code generator',
   heroSubtitle:
     'Paste any Wokwi project URL — get a ready-to-paste iframe for Arduino, ESP32, and Raspberry Pi Pico simulations.',
   howItWorksHeading: 'How to embed a Wokwi project',

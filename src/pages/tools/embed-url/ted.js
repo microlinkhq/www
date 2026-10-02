@@ -19,7 +19,7 @@ const data = {
     'ted iframe code',
     'ted talk player embed'
   ],
-  heroTitle: 'TED Embed Code Generator',
+  heroTitle: 'TED embed code generator',
   heroSubtitle:
     'Paste any TED Talk URL — get a ready-to-paste iframe player for talks from ted.com.',
   howItWorksHeading: 'How to embed a TED Talk',

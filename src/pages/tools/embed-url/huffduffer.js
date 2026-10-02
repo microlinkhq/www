@@ -18,7 +18,7 @@ const data = {
     'huffduffer audio embed',
     'embed huffduffer podcast'
   ],
-  heroTitle: 'Huffduffer Embed Code Generator',
+  heroTitle: 'Huffduffer embed code generator',
   heroSubtitle:
     'Paste a Huffduffer profile, tag, or audio link and get ready-to-paste embed HTML for your personal podcast feed.',
   howItWorksHeading: 'How to embed Huffduffer audio',

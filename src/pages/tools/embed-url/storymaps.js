@@ -18,7 +18,7 @@ const data = {
     'arcgis storymaps embed',
     'embed interactive story map'
   ],
-  heroTitle: 'StoryMaps Embed Code Generator',
+  heroTitle: 'StoryMaps embed code generator',
   heroSubtitle:
     'Paste any Esri StoryMaps URL — get a ready-to-paste embed for interactive, place-based stories.',
   howItWorksHeading: 'How to embed StoryMaps content',

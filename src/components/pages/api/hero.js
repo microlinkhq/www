@@ -140,7 +140,6 @@ export const Hero = () => {
             </Heading>
             <Caption
               forwardedAs='p'
-              titleize={false}
               css={theme({
                 pt: [3, 3, 4, 4],
                 textAlign: 'center'

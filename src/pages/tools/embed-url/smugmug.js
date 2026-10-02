@@ -18,7 +18,7 @@ const data = {
     'smugmug iframe code',
     'embed smugmug video'
   ],
-  heroTitle: 'SmugMug Embed Code Generator',
+  heroTitle: 'SmugMug embed code generator',
   heroSubtitle:
     'Paste any SmugMug URL — get a ready-to-paste embed for photos, galleries, and videos.',
   howItWorksHeading: 'How to embed SmugMug content',

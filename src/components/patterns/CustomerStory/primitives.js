@@ -3,11 +3,7 @@ import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
-
-import { withTitle } from 'helpers/hoc/with-title'
-
-export const Caption = withTitle(CaptionBase)
+import Caption from 'components/patterns/Caption/Caption'
 
 export const SECTION_PX = [3, 3, 4, 4]
 export const SECTION_PY = [3, 3, 4, 5]
@@ -61,3 +57,5 @@ export const FigureImage = styled('img')`
     boxShadow: 1
   })}
 `
+
+export { Caption }

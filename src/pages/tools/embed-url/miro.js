@@ -18,7 +18,7 @@ const data = {
     'miro iframe code',
     'embed miro diagram'
   ],
-  heroTitle: 'Miro Embed Code Generator',
+  heroTitle: 'Miro embed code generator',
   heroSubtitle:
     'Paste any Miro board URL — get a ready-to-paste iframe for interactive whiteboards, diagrams, and templates.',
   howItWorksHeading: 'How to embed a Miro board',

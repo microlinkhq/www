@@ -195,7 +195,6 @@ export const Clients = () => (
           >
             <Subhead
               forwardedAs='div'
-              titleize={false}
               css={theme({
                 fontSize: CLIENTS_STATS_VALUE_FONT_SIZE,
                 fontWeight: 'bold',

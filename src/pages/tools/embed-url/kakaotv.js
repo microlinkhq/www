@@ -18,7 +18,7 @@ const data = {
     'embed kakao tv clip',
     'kakao tv player embed'
   ],
-  heroTitle: 'Kakao TV Embed Code Generator',
+  heroTitle: 'Kakao TV embed code generator',
   heroSubtitle:
     'Paste any Kakao TV URL — get a ready-to-paste player for videos, live streams, and clips.',
   howItWorksHeading: 'How to embed a Kakao TV video',

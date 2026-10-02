@@ -18,7 +18,7 @@ const data = {
     'embed ceros interactive content',
     'ceros experience embed'
   ],
-  heroTitle: 'Ceros Embed Code Generator',
+  heroTitle: 'Ceros embed code generator',
   heroSubtitle:
     'Paste any Ceros URL — get a ready-to-paste iframe for interactive experiences, infographics, and animated content.',
   howItWorksHeading: 'How to embed a Ceros experience',

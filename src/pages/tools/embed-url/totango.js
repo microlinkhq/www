@@ -18,7 +18,7 @@ const data = {
     'totango link embed',
     'embed totango content'
   ],
-  heroTitle: 'Totango Embed Code Generator',
+  heroTitle: 'Totango embed code generator',
   heroSubtitle:
     'Paste any Totango URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Totango content',

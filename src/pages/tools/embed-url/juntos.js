@@ -18,7 +18,7 @@ const data = {
     'juntos live stream embed',
     'embed virtual event'
   ],
-  heroTitle: 'Juntos Embed Code Generator',
+  heroTitle: 'Juntos embed code generator',
   heroSubtitle:
     'Paste any Juntos URL — get a ready-to-paste player for live streams and virtual events.',
   howItWorksHeading: 'How to embed Juntos content',

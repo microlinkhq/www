@@ -11,14 +11,9 @@ import {
   transition
 } from 'theme'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
 import { dash, rotate } from 'components/keyframes'
-import { withTitle } from 'helpers/hoc/with-title'
-
-export const Subhead = withTitle(SubheadBase)
-
-export const Caption = withTitle(CaptionBase)
 
 export const DocumentViewer = styled('div')`
   ${theme({
@@ -419,3 +414,5 @@ export const highlightMarkdown = text => {
     )
   })
 }
+
+export { Subhead, Caption }

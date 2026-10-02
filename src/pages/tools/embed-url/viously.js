@@ -18,7 +18,7 @@ const data = {
     'viously player embed',
     'viously video embed'
   ],
-  heroTitle: 'Viously Embed Code Generator',
+  heroTitle: 'Viously embed code generator',
   heroSubtitle:
     'Paste any Viously URL — get a ready-to-paste player for your hosted video, ready for any page.',
   howItWorksHeading: 'How to embed Viously videos',

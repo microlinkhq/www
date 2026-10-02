@@ -18,7 +18,7 @@ const data = {
     'sketch iframe code',
     'sketch document embed'
   ],
-  heroTitle: 'Sketch Embed Code Generator',
+  heroTitle: 'Sketch embed code generator',
   heroSubtitle:
     'Paste a Sketch share link — get a ready-to-paste embed for designs, frames, and prototypes.',
   howItWorksHeading: 'How to embed a Sketch document',

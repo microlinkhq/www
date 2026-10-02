@@ -18,7 +18,7 @@ const data = {
     'tonic audio player embed',
     'embed audio track'
   ],
-  heroTitle: 'Tonic Audio Embed Code Generator',
+  heroTitle: 'Tonic Audio embed code generator',
   heroSubtitle:
     'Paste any Tonic Audio URL — get a ready-to-paste audio player for tracks, or a styled preview card.',
   howItWorksHeading: 'How to embed Tonic Audio content',

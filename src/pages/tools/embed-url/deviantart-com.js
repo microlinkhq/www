@@ -18,7 +18,7 @@ const data = {
     'deviantart iframe code',
     'embed deviantart artwork'
   ],
-  heroTitle: 'DeviantArt Embed Code Generator',
+  heroTitle: 'DeviantArt embed code generator',
   heroSubtitle:
     'Paste any DeviantArt deviation URL — get ready-to-paste HTML to embed artwork, illustrations, and photography.',
   howItWorksHeading: 'How to embed DeviantArt artwork',

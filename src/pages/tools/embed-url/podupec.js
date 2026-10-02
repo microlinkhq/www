@@ -18,7 +18,7 @@ const data = {
     'embed lecture video upec',
     'pod upec player embed'
   ],
-  heroTitle: 'Pod UPEC Embed Code Generator',
+  heroTitle: 'Pod UPEC embed code generator',
   heroSubtitle:
     'Paste any pod.u-pec.fr URL — get a ready-to-paste player for lecture recordings and academic podcasts from Université Paris-Est Créteil.',
   howItWorksHeading: 'How to embed Pod UPEC content',

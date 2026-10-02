@@ -18,7 +18,7 @@ const data = {
     'toornament bracket embed',
     'embed esports schedule'
   ],
-  heroTitle: 'Toornament Embed Code Generator',
+  heroTitle: 'Toornament embed code generator',
   heroSubtitle:
     'Paste any Toornament URL — get a ready-to-paste widget for tournament brackets, schedules, standings, and results.',
   howItWorksHeading: 'How to embed Toornament content',

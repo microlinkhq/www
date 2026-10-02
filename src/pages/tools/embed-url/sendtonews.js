@@ -18,7 +18,7 @@ const data = {
     'embed sports highlights',
     'sendtonews player embed'
   ],
-  heroTitle: 'SendtoNews Embed Code Generator',
+  heroTitle: 'SendtoNews embed code generator',
   heroSubtitle:
     'Paste any SendtoNews URL — get a ready-to-paste player for sports highlights and video clips.',
   howItWorksHeading: 'How to embed SendtoNews clips',

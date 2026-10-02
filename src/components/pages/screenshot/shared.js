@@ -1,14 +1,9 @@
 import styled from 'styled-components'
 import { borders, colors, layout, radii, theme, transition } from 'theme'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
 import { fadeInDown } from 'components/keyframes'
-import { withTitle } from 'helpers/hoc/with-title'
-
-export const Subhead = withTitle(SubheadBase)
-
-export const Caption = withTitle(CaptionBase)
 
 export const ScreenshotApiBar = styled(Flex)`
   background: white;
@@ -79,3 +74,5 @@ export const HERO_LAYOUT = {
   secondaryWidth: '45%',
   gap: [1, 1, 1, 5]
 }
+
+export { Subhead, Caption }

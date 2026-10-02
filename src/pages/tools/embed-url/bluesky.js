@@ -19,7 +19,7 @@ const data = {
     'embed skeet',
     'bsky embed code'
   ],
-  heroTitle: 'Bluesky Embed Code Generator',
+  heroTitle: 'Bluesky embed code generator',
   heroSubtitle:
     'Paste any Bluesky post URL — get ready-to-paste embed HTML for skeets, replies, and quote posts.',
   howItWorksHeading: 'How to embed a Bluesky post',

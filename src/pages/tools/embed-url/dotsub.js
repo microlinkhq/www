@@ -18,7 +18,7 @@ const data = {
     'dotsub subtitled video embed',
     'embed dotsub player'
   ],
-  heroTitle: 'Dotsub Embed Code Generator',
+  heroTitle: 'Dotsub embed code generator',
   heroSubtitle:
     'Paste a Dotsub video URL — get a ready-to-paste player with multilingual subtitles and captions.',
   howItWorksHeading: 'How to embed a Dotsub video',

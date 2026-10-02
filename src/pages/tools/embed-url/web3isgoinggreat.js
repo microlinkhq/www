@@ -19,7 +19,7 @@ const data = {
     'molly white timeline embed',
     'embed crypto timeline'
   ],
-  heroTitle: 'Web3 is Going Just Great Embed Code Generator',
+  heroTitle: 'Web3 is Going Just Great embed code generator',
   heroSubtitle:
     'Paste any timeline entry URL — get a ready-to-paste card for crypto scams, hacks, and failures tracked by Molly White.',
   howItWorksHeading: 'How to embed Web3 is Going Just Great entries',

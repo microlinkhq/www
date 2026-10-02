@@ -18,7 +18,7 @@ const data = {
     'neetorecord iframe code',
     'neetorecord player embed'
   ],
-  heroTitle: 'neetoRecord Embed Code Generator',
+  heroTitle: 'neetoRecord embed code generator',
   heroSubtitle:
     'Paste any neetoRecord URL — get a ready-to-paste player for screen recordings and async video messages.',
   howItWorksHeading: 'How to embed neetoRecord content',

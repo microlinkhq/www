@@ -18,7 +18,7 @@ const data = {
     'embed bookmark list',
     'raindrop bookmark embed'
   ],
-  heroTitle: 'Raindrop.io Embed Code Generator',
+  heroTitle: 'Raindrop.io embed code generator',
   heroSubtitle:
     'Paste any Raindrop.io URL — get a ready-to-paste embed for bookmarks and collections.',
   howItWorksHeading: 'How to embed Raindrop.io content',

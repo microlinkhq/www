@@ -21,7 +21,7 @@ const data = {
     'apple music player embed',
     'embed apple music song'
   ],
-  heroTitle: 'Apple Music Embed Code Generator',
+  heroTitle: 'Apple Music embed code generator',
   heroSubtitle:
     'Paste any Apple Music URL — get a ready-to-paste player for songs, albums, playlists, and music videos.',
   howItWorksHeading: 'How to embed Apple Music content',

@@ -18,7 +18,7 @@ const data = {
     'smart music link embed',
     'embed song.link'
   ],
-  heroTitle: 'Songlink Embed Code Generator',
+  heroTitle: 'Songlink embed code generator',
   heroSubtitle:
     'Paste any Songlink URL — get a ready-to-paste embed for smart links that open a song or album in any streaming service.',
   howItWorksHeading: 'How to embed Songlink content',

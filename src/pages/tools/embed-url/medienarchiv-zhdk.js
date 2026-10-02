@@ -19,7 +19,7 @@ const data = {
     'embed zhdk video',
     'embed zhdk image'
   ],
-  heroTitle: 'Medienarchiv ZHdK Embed Code Generator',
+  heroTitle: 'Medienarchiv ZHdK embed code generator',
   heroSubtitle:
     'Paste any Medienarchiv ZHdK URL — get a ready-to-paste embed for archived images, video, and audio from the Zurich University of the Arts.',
   howItWorksHeading: 'How to embed Medienarchiv ZHdK content',

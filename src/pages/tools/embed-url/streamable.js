@@ -18,7 +18,7 @@ const data = {
     'streamable video player embed',
     'embed streamable clip'
   ],
-  heroTitle: 'Streamable Embed Code Generator',
+  heroTitle: 'Streamable embed code generator',
   heroSubtitle:
     'Paste any Streamable URL — get a ready-to-paste iframe player for your uploaded videos and clips.',
   howItWorksHeading: 'How to embed a Streamable video',

@@ -19,7 +19,7 @@ const data = {
     'audio.com player embed',
     'embed audio.com collection'
   ],
-  heroTitle: 'Audio.com Embed Code Generator',
+  heroTitle: 'Audio.com embed code generator',
   heroSubtitle:
     'Paste any Audio.com URL — get a ready-to-paste player for tracks and collections hosted on Muse Group’s Audio.com.',
   howItWorksHeading: 'How to embed Audio.com content',

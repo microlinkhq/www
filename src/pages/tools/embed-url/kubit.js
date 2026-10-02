@@ -18,7 +18,7 @@ const data = {
     'kubit report embed',
     'embed analytics dashboard'
   ],
-  heroTitle: 'Kubit Embed Code Generator',
+  heroTitle: 'Kubit embed code generator',
   heroSubtitle:
     'Paste any Kubit URL — get a ready-to-paste embed for analytics dashboards and reports.',
   howItWorksHeading: 'How to embed Kubit content',
