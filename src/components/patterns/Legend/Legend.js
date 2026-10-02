@@ -1,13 +1,9 @@
 import React from 'react'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
-import SubheadBase from 'components/elements/Subhead'
-import { withTitle } from 'helpers/hoc/with-title'
+import Heading from 'components/elements/Heading'
+import Subhead from 'components/elements/Subhead'
 import { theme } from 'theme'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
 
 const Legend = ({ title, sup, textAlign = 'center', children }) => (
   <Flex

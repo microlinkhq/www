@@ -18,7 +18,7 @@ const data = {
     'wave video player embed',
     'embed wave video live stream'
   ],
-  heroTitle: 'Wave.video Embed Code Generator',
+  heroTitle: 'Wave.video embed code generator',
   heroSubtitle:
     'Paste any Wave.video URL — get a ready-to-paste player for hosted videos and live streams.',
   howItWorksHeading: 'How to embed Wave.video content',

@@ -18,7 +18,7 @@ const data = {
     'embed how-to guide',
     'minerva iframe code'
   ],
-  heroTitle: 'Minerva Embed Code Generator',
+  heroTitle: 'Minerva embed code generator',
   heroSubtitle:
     'Paste any Minerva URL — get a ready-to-paste embed for interactive, step-by-step how-to guides and walkthroughs.',
   howItWorksHeading: 'How to embed Minerva guides',

@@ -18,7 +18,7 @@ const data = {
     'kickstarter widget embed',
     'kickstarter iframe code'
   ],
-  heroTitle: 'Kickstarter Embed Code Generator',
+  heroTitle: 'Kickstarter embed code generator',
   heroSubtitle:
     'Paste any Kickstarter project URL — get a ready-to-paste embed for the pitch video or a project widget with funding stats.',
   howItWorksHeading: 'How to embed a Kickstarter project',

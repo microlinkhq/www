@@ -1,7 +1,6 @@
 import React from 'react'
 import { theme, layout } from 'theme'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 import Box from 'components/elements/Box'
 import Meta from 'components/elements/Meta/Meta'
 import { Hero } from 'components/pages/sharing-debugger/hero'
@@ -358,4 +357,4 @@ const SharingDebugger = () => {
   )
 }
 
-export default withTitle(SharingDebugger)
+export default SharingDebugger

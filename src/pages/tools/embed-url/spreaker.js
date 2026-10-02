@@ -18,7 +18,7 @@ const data = {
     'spreaker player embed',
     'spreaker iframe code'
   ],
-  heroTitle: 'Spreaker Embed Code Generator',
+  heroTitle: 'Spreaker embed code generator',
   heroSubtitle:
     'Paste any Spreaker URL — get a ready-to-paste player for podcast episodes and shows.',
   howItWorksHeading: 'How to embed Spreaker content',

@@ -19,7 +19,7 @@ const data = {
     'brightcove player embed',
     'embed brightcove playlist'
   ],
-  heroTitle: 'Brightcove Embed Code Generator',
+  heroTitle: 'Brightcove embed code generator',
   heroSubtitle:
     'Paste a Brightcove player URL — get a ready-to-paste iframe for videos and playlists.',
   howItWorksHeading: 'How to embed a Brightcove video',

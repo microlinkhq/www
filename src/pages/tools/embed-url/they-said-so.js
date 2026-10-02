@@ -18,7 +18,7 @@ const data = {
     'they said so iframe code',
     'they said so quote embed'
   ],
-  heroTitle: 'They Said So Embed Code Generator',
+  heroTitle: 'They Said So embed code generator',
   heroSubtitle:
     'Paste any They Said So URL — get a ready-to-paste embed for famous and inspirational quotes.',
   howItWorksHeading: 'How to embed They Said So quotes',

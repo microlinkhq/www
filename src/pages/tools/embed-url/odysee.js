@@ -18,7 +18,7 @@ const data = {
     'odysee video player embed',
     'embed odysee channel'
   ],
-  heroTitle: 'Odysee Embed Code Generator',
+  heroTitle: 'Odysee embed code generator',
   heroSubtitle:
     'Paste any Odysee URL — get a ready-to-paste iframe player for videos and channels on the decentralized LBRY network.',
   howItWorksHeading: 'How to embed an Odysee video',

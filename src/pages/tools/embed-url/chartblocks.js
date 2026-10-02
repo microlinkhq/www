@@ -18,7 +18,7 @@ const data = {
     'embed interactive chart',
     'chartblocks chart embed'
   ],
-  heroTitle: 'ChartBlocks Embed Code Generator',
+  heroTitle: 'ChartBlocks embed code generator',
   heroSubtitle:
     'Paste any ChartBlocks chart URL — get a ready-to-paste iframe for interactive bar, line, and scatter charts.',
   howItWorksHeading: 'How to embed a ChartBlocks chart',

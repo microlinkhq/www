@@ -18,7 +18,7 @@ const data = {
     'ustudio iframe code',
     'ustudio player embed'
   ],
-  heroTitle: 'uStudio Embed Code Generator',
+  heroTitle: 'uStudio embed code generator',
   heroSubtitle:
     'Paste any uStudio URL — get a ready-to-paste embed for business video and podcast content.',
   howItWorksHeading: 'How to embed uStudio content',

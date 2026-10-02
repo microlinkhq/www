@@ -19,7 +19,7 @@ const data = {
     'embed ppv event',
     'fite combat sports embed'
   ],
-  heroTitle: 'FITE Embed Code Generator',
+  heroTitle: 'FITE embed code generator',
   heroSubtitle:
     'Paste a FITE TV event URL — get a ready-to-paste preview card for boxing, MMA, wrestling, and PPV streams.',
   howItWorksHeading: 'How to embed a FITE event',

@@ -18,7 +18,7 @@ const data = {
     'embed omniscope report',
     'omniscope dashboard embed'
   ],
-  heroTitle: 'Omniscope Embed Code Generator',
+  heroTitle: 'Omniscope embed code generator',
   heroSubtitle:
     'Paste any Omniscope URL — get a ready-to-paste embed for interactive dashboards and data reports.',
   howItWorksHeading: 'How to embed Omniscope content',

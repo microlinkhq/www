@@ -19,7 +19,7 @@ const data = {
     'embed dtube channel',
     'decentralized video embed'
   ],
-  heroTitle: 'DTube Embed Code Generator',
+  heroTitle: 'DTube embed code generator',
   heroSubtitle:
     'Paste any DTube URL — get a ready-to-paste embed for decentralized videos and channels.',
   howItWorksHeading: 'How to embed a DTube video',

@@ -19,7 +19,7 @@ const data = {
     'balsamiq public review embed',
     'balsamiq iframe code'
   ],
-  heroTitle: 'Balsamiq Embed Code Generator',
+  heroTitle: 'Balsamiq embed code generator',
   heroSubtitle:
     'Paste a Balsamiq Cloud public review link — get a ready-to-paste embed for your wireframes and mockups.',
   howItWorksHeading: 'How to embed a Balsamiq wireframe',

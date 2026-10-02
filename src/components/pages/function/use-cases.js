@@ -13,7 +13,7 @@ export const FunctionUseCases = () => (
   <ProductUseCases
     vertical='scraping'
     slugs={FUNCTION_USE_CASES}
-    title={<Subhead titleize={false}>Browser code, in practice.</Subhead>}
+    title={<Subhead>Browser code, in practice.</Subhead>}
     caption='Puppeteer without hosting Chrome, npm packages on any URL and Load more buttons. Each use case shows the function to run and the limits to plan for.'
   />
 )

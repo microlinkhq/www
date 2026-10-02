@@ -19,7 +19,7 @@ const data = {
     'audioboom iframe code',
     'embed audioboom podcast'
   ],
-  heroTitle: 'Audioboom Embed Code Generator',
+  heroTitle: 'Audioboom embed code generator',
   heroSubtitle:
     'Paste an Audioboom URL — get a ready-to-paste player for podcast episodes and channels.',
   howItWorksHeading: 'How to embed Audioboom content',

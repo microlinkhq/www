@@ -18,7 +18,7 @@ const data = {
     'voxsnap audio player embed',
     'embed audio article'
   ],
-  heroTitle: 'VoxSnap Embed Code Generator',
+  heroTitle: 'VoxSnap embed code generator',
   heroSubtitle:
     'Paste any VoxSnap URL — get a ready-to-paste audio player for spoken versions of your articles.',
   howItWorksHeading: 'How to embed VoxSnap audio',

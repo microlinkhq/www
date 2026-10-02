@@ -18,7 +18,7 @@ const data = {
     'embed snagit recording',
     'embed camtasia video'
   ],
-  heroTitle: 'Screencast.com Embed Code Generator',
+  heroTitle: 'Screencast.com embed code generator',
   heroSubtitle:
     'Paste any Screencast.com URL — get a ready-to-paste embed for screen recordings, videos, and images.',
   howItWorksHeading: 'How to embed Screencast.com content',

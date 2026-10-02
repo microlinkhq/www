@@ -19,7 +19,7 @@ const data = {
     'sway iframe code',
     'microsoft sway embed html'
   ],
-  heroTitle: 'Microsoft Sway Embed Code Generator',
+  heroTitle: 'Microsoft Sway embed code generator',
   heroSubtitle:
     'Paste any Microsoft Sway URL — get a ready-to-paste iframe for interactive presentations, newsletters, and stories.',
   howItWorksHeading: 'How to embed Microsoft Sway content',

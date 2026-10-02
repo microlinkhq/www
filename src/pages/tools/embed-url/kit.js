@@ -18,7 +18,7 @@ const data = {
     'kit product list embed',
     'embed kit co'
   ],
-  heroTitle: 'Kit Embed Code Generator',
+  heroTitle: 'Kit embed code generator',
   heroSubtitle:
     'Paste any Kit URL — get a ready-to-paste embed for curated gear and product lists.',
   howItWorksHeading: 'How to embed Kit content',

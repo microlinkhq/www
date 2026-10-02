@@ -18,7 +18,7 @@ const data = {
     'viostream player embed',
     'viostream business video embed'
   ],
-  heroTitle: 'Viostream Embed Code Generator',
+  heroTitle: 'Viostream embed code generator',
   heroSubtitle:
     'Paste any Viostream URL — get a ready-to-paste player for your hosted business video, ready for any page.',
   howItWorksHeading: 'How to embed Viostream videos',

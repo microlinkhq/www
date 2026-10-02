@@ -18,7 +18,7 @@ const data = {
     'dream broker iframe code',
     'dream broker video embed'
   ],
-  heroTitle: 'Dream Broker Embed Code Generator',
+  heroTitle: 'Dream Broker embed code generator',
   heroSubtitle:
     'Paste any Dream Broker Studio video URL — get a ready-to-paste iframe player or preview card.',
   howItWorksHeading: 'How to embed a Dream Broker video',

@@ -18,7 +18,7 @@ const data = {
     'nebula iframe code',
     'nebula player embed'
   ],
-  heroTitle: 'Nebula Embed Code Generator',
+  heroTitle: 'Nebula embed code generator',
   heroSubtitle:
     'Paste any Nebula URL — get a ready-to-paste player for videos and series from independent educational creators.',
   howItWorksHeading: 'How to embed Nebula content',

@@ -18,7 +18,7 @@ const data = {
     'supercut iframe code',
     'supercut video player embed'
   ],
-  heroTitle: 'Supercut Embed Code Generator',
+  heroTitle: 'Supercut embed code generator',
   heroSubtitle:
     'Paste any Supercut URL — get a ready-to-paste player for video clips and supercuts.',
   howItWorksHeading: 'How to embed Supercut clips',

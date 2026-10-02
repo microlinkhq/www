@@ -9,9 +9,8 @@ import {
   radii,
   breakpoints
 } from 'theme'
-import { withTitle } from 'helpers/hoc/with-title'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -24,18 +23,14 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -646,7 +641,6 @@ const Hero = () => (
           maxWidth: layout.large,
           color: 'black80'
         })}
-        titleize={false}
       >
         <b>Context.dev</b> prices every answer on a credit menu: markdown is 1,
         a screenshot is <b>5</b>, brand data is <b>10</b>. <b>Microlink</b>{' '}
@@ -837,7 +831,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -847,7 +841,6 @@ const ComparisonSection = () => (
           maxWidth: layout.normal,
           color: 'black60'
         })}
-        titleize={false}
       >
         One bundled request against a credit-metered endpoint menu.
       </Caption>
@@ -1009,10 +1002,7 @@ const WhySwitchNumber = styled(Text)`
 const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
-      <Subhead
-        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
+      <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
         Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
@@ -1021,7 +1011,6 @@ const WhySwitchSection = () => (
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
-        titleize={false}
       >
         The top reasons teams pick Microlink over Context.dev for URL data.
       </Caption>
@@ -1112,7 +1101,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
         Where <GradientText>Context.dev</GradientText>
         <br /> Might Be the Right Choice
       </Subhead>
@@ -1210,7 +1199,7 @@ const CREDIT_MENU_ROWS = [
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })}>
         One request price. <br />
         <GradientText>No endpoint menu.</GradientText>
       </Subhead>
@@ -1220,7 +1209,6 @@ const PricingSection = () => (
           maxWidth: layout.large,
           color: 'black60'
         })}
-        titleize={false}
       >
         On Context.dev the question isn't how many URLs — it's{' '}
         <b>how many endpoints you touch per URL</b>. On Microlink, one request
@@ -1536,7 +1524,6 @@ const CTASection = () => (
           color: 'white',
           pb: [2, 2, 3, 3]
         })}
-        titleize={false}
       >
         Get the whole answer in one request
       </Subhead>
@@ -1548,7 +1535,6 @@ const CTASection = () => (
           pb: [3, 3, 4, 4],
           maxWidth: layout.large
         })}
-        titleize={false}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —

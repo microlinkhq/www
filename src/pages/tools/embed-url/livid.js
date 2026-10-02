@@ -18,7 +18,7 @@ const data = {
     'embed livid page',
     'livid link embed'
   ],
-  heroTitle: 'Livid Embed Code Generator',
+  heroTitle: 'Livid embed code generator',
   heroSubtitle:
     'Paste any Livid URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Livid content',

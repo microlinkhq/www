@@ -95,13 +95,11 @@ const PageTemplate = ({
       </Text>
 
       <Box css={theme({ pt: [3, null, 4] })}>
-        <Markdown isBlogPage titleize={!isBlogPage}>
-          {content}
-        </Markdown>
+        <Markdown isBlogPage>{content}</Markdown>
       </Box>
 
       {isBlogPage && (
-        <Markdown isBlogPage={isBlogPage} titleize={false}>
+        <Markdown isBlogPage={isBlogPage}>
           <PostFooter />
         </Markdown>
       )}

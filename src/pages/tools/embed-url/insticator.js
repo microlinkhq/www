@@ -18,7 +18,7 @@ const data = {
     'insticator quiz embed',
     'engagement unit embed'
   ],
-  heroTitle: 'Insticator Embed Code Generator',
+  heroTitle: 'Insticator embed code generator',
   heroSubtitle:
     'Paste any Insticator URL — get a ready-to-paste embed for polls, quizzes, and community engagement units.',
   howItWorksHeading: 'How to embed Insticator content',

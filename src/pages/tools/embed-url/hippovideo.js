@@ -20,7 +20,7 @@ const data = {
     'hippo video sales video embed',
     'embed hippo video recording'
   ],
-  heroTitle: 'Hippo Video Embed Code Generator',
+  heroTitle: 'Hippo Video embed code generator',
   heroSubtitle:
     'Paste a Hippo Video URL — get a ready-to-paste player for screen and camera recordings, sales videos, and video hubs.',
   howItWorksHeading: 'How to embed a Hippo Video video',

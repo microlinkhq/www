@@ -18,7 +18,7 @@ const data = {
     'bitchute video embed',
     'embed bitchute channel'
   ],
-  heroTitle: 'BitChute Embed Code Generator',
+  heroTitle: 'BitChute embed code generator',
   heroSubtitle:
     'Paste any BitChute URL — get a ready-to-paste iframe player for videos and channels.',
   howItWorksHeading: 'How to embed a BitChute video',

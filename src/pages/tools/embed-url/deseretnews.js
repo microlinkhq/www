@@ -19,7 +19,7 @@ const data = {
     'deseret news link preview',
     'embed deseret.com article'
   ],
-  heroTitle: 'Deseret News Embed Code Generator',
+  heroTitle: 'Deseret News embed code generator',
   heroSubtitle:
     'Paste any Deseret News article URL — get a ready-to-paste preview card with the headline, image, and summary.',
   howItWorksHeading: 'How to embed a Deseret News article',

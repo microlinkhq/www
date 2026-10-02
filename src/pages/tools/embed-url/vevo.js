@@ -18,7 +18,7 @@ const data = {
     'vevo iframe code',
     'vevo video embed'
   ],
-  heroTitle: 'Vevo Embed Code Generator',
+  heroTitle: 'Vevo embed code generator',
   heroSubtitle:
     'Paste a Vevo music video link — get a ready-to-paste embed for official music videos, or a styled preview card.',
   howItWorksHeading: 'How to embed a Vevo video',

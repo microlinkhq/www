@@ -18,7 +18,7 @@ const data = {
     'digiteka video player embed',
     'embed ultimedia video'
   ],
-  heroTitle: 'Digiteka Embed Code Generator',
+  heroTitle: 'Digiteka embed code generator',
   heroSubtitle:
     'Paste an Ultimedia by Digiteka video URL — get a ready-to-paste player for premium news, sports, and entertainment videos.',
   howItWorksHeading: 'How to embed a Digiteka video',

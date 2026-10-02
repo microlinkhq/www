@@ -18,7 +18,7 @@ const data = {
     'behance project embed',
     'behance embed html'
   ],
-  heroTitle: 'Behance Embed Code Generator',
+  heroTitle: 'Behance embed code generator',
   heroSubtitle:
     'Paste any Behance URL — get a ready-to-paste embed for creative projects and portfolios.',
   howItWorksHeading: 'How to embed a Behance project',

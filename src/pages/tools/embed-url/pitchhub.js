@@ -18,7 +18,7 @@ const data = {
     'pitchhub iframe code',
     'pitchhub pitch deck embed'
   ],
-  heroTitle: 'PitchHub Embed Code Generator',
+  heroTitle: 'PitchHub embed code generator',
   heroSubtitle:
     'Paste any PitchHub URL — get a ready-to-paste embed for pitch decks and presentations.',
   howItWorksHeading: 'How to embed PitchHub decks',

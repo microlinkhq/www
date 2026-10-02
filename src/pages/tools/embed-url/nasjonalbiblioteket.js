@@ -19,7 +19,7 @@ const data = {
     'embed digitized books',
     'national library norway embed'
   ],
-  heroTitle: 'Nasjonalbiblioteket Embed Code Generator',
+  heroTitle: 'Nasjonalbiblioteket embed code generator',
   heroSubtitle:
     'Paste any nb.no URL — get a ready-to-paste embed for digitized books, photos, and media from the National Library of Norway.',
   howItWorksHeading: 'How to embed Nasjonalbiblioteket content',

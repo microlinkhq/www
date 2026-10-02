@@ -18,7 +18,7 @@ const data = {
     'wizer worksheet embed',
     'embed interactive worksheet'
   ],
-  heroTitle: 'Wizer Embed Code Generator',
+  heroTitle: 'Wizer embed code generator',
   heroSubtitle:
     'Paste any Wizer URL — get a ready-to-paste embed for interactive, digital worksheets with questions, images, audio, and video.',
   howItWorksHeading: 'How to embed Wizer worksheets',

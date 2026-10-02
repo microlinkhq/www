@@ -18,7 +18,7 @@ const data = {
     'screenr player embed',
     'screenr screencast embed'
   ],
-  heroTitle: 'Screenr Embed Code Generator',
+  heroTitle: 'Screenr embed code generator',
   heroSubtitle:
     'Paste any Screenr URL — get a ready-to-paste embed for web-based screencasts.',
   howItWorksHeading: 'How to embed Screenr screencasts',

@@ -4,20 +4,16 @@ import React from 'react'
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
 import ContactButton from 'components/pages/enterprise/ContactButton'
 import Markdown from 'components/markdown'
-import { withTitle } from 'helpers/hoc/with-title'
 
 import Content from '../content/fragments/enterprise.md'
-
-const Heading = withTitle(HeadingBase)
-const Caption = withTitle(CaptionBase)
 
 export const Head = () => (
   <Meta description='Microlink Business and Enterprise: the Microlink API bought the way your company buys. Card or invoice with your PO number, net 30 terms, NDA, DPA and service agreement on Business. Dedicated endpoint, browser pool, storage and CDN on Enterprise.' />
@@ -37,7 +33,6 @@ const EnterprisePage = () => (
         })}
       >
         <Heading
-          titleize={false}
           css={theme({
             px: [3, 3],
             maxWidth: layout.large
@@ -46,7 +41,6 @@ const EnterprisePage = () => (
           Microlink for Business & Enterprise
         </Heading>
         <Caption
-          titleize={false}
           forwardedAs='h2'
           css={theme({
             pt: [2, 2, 3, 3],
@@ -54,8 +48,8 @@ const EnterprisePage = () => (
             maxWidth: layout.large
           })}
         >
-          The Microlink API, bought the way your company buys. A contract and
-          an invoice on Business. Your own infrastructure on Enterprise.
+          The Microlink API, bought the way your company buys. A contract and an
+          invoice on Business. Your own infrastructure on Enterprise.
         </Caption>
       </Flex>
       <Container
@@ -66,7 +60,7 @@ const EnterprisePage = () => (
         })}
       >
         <Box>
-          <Markdown titleize={false}>
+          <Markdown>
             <Content />
           </Markdown>
         </Box>

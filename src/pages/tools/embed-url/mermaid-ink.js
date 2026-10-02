@@ -19,9 +19,9 @@ const data = {
     'embed flowchart image',
     'mermaid ink iframe code'
   ],
-  heroTitle: 'Mermaid.ink Embed Code Generator',
+  heroTitle: 'Mermaid.ink embed code generator',
   heroSubtitle:
-    'Paste any Mermaid.ink URL — get a ready-to-paste embed for Mermaid diagrams rendered as shareable images: flowcharts, sequence diagrams, gantt charts, and more.',
+    'Paste any Mermaid.ink URL — get a ready-to-paste embed for Mermaid diagrams rendered as shareable images: Flowcharts, sequence diagrams, gantt charts, and more.',
   howItWorksHeading: 'How to embed Mermaid.ink diagrams',
   howItWorksSteps: [
     {

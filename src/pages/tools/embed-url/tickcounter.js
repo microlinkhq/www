@@ -18,7 +18,7 @@ const data = {
     'countdown timer embed',
     'embed tickcounter clock'
   ],
-  heroTitle: 'TickCounter Embed Code Generator',
+  heroTitle: 'TickCounter embed code generator',
   heroSubtitle:
     'Paste any TickCounter URL — get a ready-to-paste widget for countdown timers, count-up timers, and clocks.',
   howItWorksHeading: 'How to embed TickCounter content',

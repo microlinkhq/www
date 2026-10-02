@@ -18,7 +18,7 @@ const data = {
     'vouch video player embed',
     'embed video testimonials'
   ],
-  heroTitle: 'Vouch Embed Code Generator',
+  heroTitle: 'Vouch embed code generator',
   heroSubtitle:
     'Paste any Vouch URL — get a ready-to-paste player for video testimonials and customer feedback reels.',
   howItWorksHeading: 'How to embed Vouch testimonials',

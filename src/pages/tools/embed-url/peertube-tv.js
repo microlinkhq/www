@@ -18,7 +18,7 @@ const data = {
     'peertube player embed',
     'embed peertube channel'
   ],
-  heroTitle: 'PeerTube Embed Code Generator',
+  heroTitle: 'PeerTube embed code generator',
   heroSubtitle:
     'Paste any PeerTube URL — get a ready-to-paste player for videos and channels across the federated network.',
   howItWorksHeading: 'How to embed PeerTube content',

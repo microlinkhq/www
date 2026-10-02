@@ -19,7 +19,7 @@ const data = {
     'interactive sheet music embed',
     'flat tablature embed'
   ],
-  heroTitle: 'Flat Embed Code Generator',
+  heroTitle: 'Flat embed code generator',
   heroSubtitle:
     'Paste any Flat.io score URL — get a ready-to-paste interactive embed for sheet music, scores, and guitar tabs.',
   howItWorksHeading: 'How to embed a Flat score',

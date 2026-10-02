@@ -59,7 +59,7 @@ async ({ page }) => page.url()    // => "https://github.com/"
 
 Asking for `ping` explicitly settles `data.url` without changing the argument.
 
-<H3 titleize={false}>page</H3>
+<H3>page</H3>
 
 A [Puppeteer Page](https://pptr.dev/api/puppeteer.page) for the URL you asked for.:
 
@@ -98,7 +98,7 @@ It returns the same normalized metadata as [meta](/docs/api/parameters/meta) for
   function: 'async ({ page }) => (await page.metadata()).title'
 }} />
 
-<H3 titleize={false}>response</H3>
+<H3>response</H3>
 
 The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser:
 
@@ -107,7 +107,7 @@ The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result 
   function: '({ page, response }) => response.status()'
 }} />
 
-<H3 titleize={false}>headers</H3>
+<H3>headers</H3>
 
 The request headers used to fetch the target URL:
 

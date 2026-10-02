@@ -19,7 +19,7 @@ const data = {
     'natural atlas map embed',
     'embed trail map'
   ],
-  heroTitle: 'Natural Atlas Embed Code Generator',
+  heroTitle: 'Natural Atlas embed code generator',
   heroSubtitle:
     'Paste any Natural Atlas URL — get a ready-to-paste embed for topographic maps, trails, peaks, and outdoor place pages.',
   howItWorksHeading: 'How to embed Natural Atlas content',

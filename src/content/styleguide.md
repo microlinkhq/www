@@ -1,31 +1,31 @@
 ---
 title: 'Styleguide'
-description: Explore the Microlink design system and documentation styleguide, including typography, code block formatting, and UI component standards.
+description: 'Explore the Microlink design system and documentation styleguide, including typography, code block formatting, and UI component standards.'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
 
-# A Header 1
+# A header 1
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-## A Header 2
+## A header 2
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-### A Header 3
+### A header 3
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-#### A Header 4
+#### A header 4
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-##### A Header 5
+##### A header 5
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
-###### A Header 6
+###### A header 6
 
 Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
 
@@ -94,11 +94,11 @@ microlink('.link-previews')
 
 Months ago I created [Fink](http://xn--rn8h.ws/), a URL Shortener service that I called it *for masses*.
 
-![](https://placehold.co/450x300)
+![](/images/450x300.svg)
 
-![](https://placehold.co/1000x740)
+![](/images/1000x740.svg)
 
-![](https://placehold.co/1200x800)
+![](/images/1200x800.svg)
 
 
 <Figcaption children='This text is the caption for the image.' />

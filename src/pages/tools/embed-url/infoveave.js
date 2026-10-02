@@ -18,7 +18,7 @@ const data = {
     'embed data dashboard',
     'infoveave report embed'
   ],
-  heroTitle: 'Infoveave Embed Code Generator',
+  heroTitle: 'Infoveave embed code generator',
   heroSubtitle:
     'Paste any Infoveave URL — get a ready-to-paste embed for interactive dashboards, reports, and infographics.',
   howItWorksHeading: 'How to embed Infoveave content',

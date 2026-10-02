@@ -19,7 +19,7 @@ const data = {
     'embed clipland commercial',
     'clipland video embed'
   ],
-  heroTitle: 'Clipland Embed Code Generator',
+  heroTitle: 'Clipland embed code generator',
   heroSubtitle:
     'Paste any Clipland URL — get a ready-to-paste embed or preview card for music videos, short films, trailers, and TV commercials.',
   howItWorksHeading: 'How to embed Clipland content',

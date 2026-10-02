@@ -18,7 +18,7 @@ const data = {
     'social media wall embed',
     'embed social wall website'
   ],
-  heroTitle: 'Everwall Embed Code Generator',
+  heroTitle: 'Everwall embed code generator',
   heroSubtitle:
     'Paste an Everwall social wall URL — get ready-to-paste HTML to display your aggregated social media posts on any page.',
   howItWorksHeading: 'How to embed an Everwall social wall',

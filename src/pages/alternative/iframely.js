@@ -9,9 +9,8 @@ import {
   radii,
   breakpoints
 } from 'theme'
-import { withTitle } from 'helpers/hoc/with-title'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -24,16 +23,12 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -822,7 +817,6 @@ const Hero = () => (
           maxWidth: layout.large,
           color: 'black80'
         })}
-        titleize={false}
       >
         <b>Iframely</b> bills in hits, caps every plan at 50 req/s, and stays
         focused on rich-media embeds. For the same <b>$49</b>, <b>Microlink</b>{' '}
@@ -873,10 +867,7 @@ const Hero = () => (
 const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
-      <Subhead
-        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
+      <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
         Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
@@ -885,7 +876,6 @@ const WhySwitchSection = () => (
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
-        titleize={false}
       >
         The usual reasons teams move from Iframely to Microlink.
       </Caption>
@@ -949,7 +939,7 @@ const WhySwitchSection = () => (
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })}>
         Predictable per-request pricing.
         <br />
         <GradientText>No "hit" math.</GradientText>
@@ -960,7 +950,6 @@ const PricingSection = () => (
           maxWidth: layout.large,
           color: 'black60'
         })}
-        titleize={false}
       >
         <b>46,000 requests at $49</b> vs Iframely's <b>25,000 hits at $49</b>.
       </Caption>
@@ -1187,7 +1176,6 @@ const CTASection = () => (
           color: 'white',
           pb: [2, 2, 3, 3]
         })}
-        titleize={false}
       >
         Ship embeds without the hit math
       </Subhead>
@@ -1199,7 +1187,6 @@ const CTASection = () => (
           pb: [3, 3, 4, 4],
           maxWidth: layout.large
         })}
-        titleize={false}
       >
         Start with{' '}
         <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — no
@@ -1241,7 +1228,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -1251,7 +1238,6 @@ const ComparisonSection = () => (
           maxWidth: layout.normal,
           color: 'black60'
         })}
-        titleize={false}
       >
         Based on Iframely's public docs, plans page, and API limits page.
       </Caption>
@@ -1284,7 +1270,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
         Where <GradientText>Iframely</GradientText>
         <br /> Might Still Be the Right Choice
       </Subhead>

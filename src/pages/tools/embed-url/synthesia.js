@@ -18,7 +18,7 @@ const data = {
     'embed ai avatar video',
     'synthesia share link embed'
   ],
-  heroTitle: 'Synthesia Embed Code Generator',
+  heroTitle: 'Synthesia embed code generator',
   heroSubtitle:
     'Paste a Synthesia share link — get a ready-to-paste embed for your AI avatar video.',
   howItWorksHeading: 'How to embed a Synthesia video',

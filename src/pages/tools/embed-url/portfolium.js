@@ -19,7 +19,7 @@ const data = {
     'portfolium iframe code',
     'portfolium project showcase embed'
   ],
-  heroTitle: 'Portfolium Embed Code Generator',
+  heroTitle: 'Portfolium embed code generator',
   heroSubtitle:
     'Paste any Portfolium URL — get a ready-to-paste embed for student ePortfolios and project showcases.',
   howItWorksHeading: 'How to embed Portfolium content',

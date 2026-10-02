@@ -18,7 +18,7 @@ const data = {
     'acast player embed',
     'acast iframe code'
   ],
-  heroTitle: 'Acast Embed Code Generator',
+  heroTitle: 'Acast embed code generator',
   heroSubtitle:
     'Paste any Acast podcast URL — get a ready-to-paste player for episodes and full shows.',
   howItWorksHeading: 'How to embed Acast content',

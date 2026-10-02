@@ -19,7 +19,7 @@ const data = {
     'embed 3q live stream',
     '3qsdn embed'
   ],
-  heroTitle: '3Q Embed Code Generator',
+  heroTitle: '3Q embed code generator',
   heroSubtitle:
     'Paste a 3Q URL — get a ready-to-paste iframe player for videos, live streams, and webcasts.',
   howItWorksHeading: 'How to embed a 3Q video',

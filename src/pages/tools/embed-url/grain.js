@@ -18,7 +18,7 @@ const data = {
     'grain meeting recording embed',
     'grain video embed'
   ],
-  heroTitle: 'Grain Embed Code Generator',
+  heroTitle: 'Grain embed code generator',
   heroSubtitle:
     'Paste a Grain clip, highlight, or recording link — get ready-to-paste embed HTML for any page.',
   howItWorksHeading: 'How to embed a Grain clip',

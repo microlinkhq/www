@@ -18,7 +18,7 @@ const data = {
     'saooti audio player embed',
     'embed saooti episode'
   ],
-  heroTitle: 'Saooti Embed Code Generator',
+  heroTitle: 'Saooti embed code generator',
   heroSubtitle:
     'Paste any Saooti URL — get a ready-to-paste audio player for podcasts and episodes.',
   howItWorksHeading: 'How to embed Saooti content',

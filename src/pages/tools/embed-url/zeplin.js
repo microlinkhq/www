@@ -18,7 +18,7 @@ const data = {
     'zeplin design handoff embed',
     'embed zeplin styleguide'
   ],
-  heroTitle: 'Zeplin Embed Code Generator',
+  heroTitle: 'Zeplin embed code generator',
   heroSubtitle:
     'Paste a public Zeplin Scene project link — get a ready-to-paste embed of your design handoff, screens, and specs.',
   howItWorksHeading: 'How to embed Zeplin designs',

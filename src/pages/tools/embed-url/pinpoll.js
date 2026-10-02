@@ -18,7 +18,7 @@ const data = {
     'pinpoll survey embed',
     'pinpoll widget embed'
   ],
-  heroTitle: 'Pinpoll Embed Code Generator',
+  heroTitle: 'Pinpoll embed code generator',
   heroSubtitle:
     'Paste any Pinpoll URL — get a ready-to-paste widget for polls, quizzes, and surveys.',
   howItWorksHeading: 'How to embed Pinpoll content',

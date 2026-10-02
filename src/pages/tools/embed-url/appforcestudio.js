@@ -19,7 +19,7 @@ const data = {
     'appforcestudio link card',
     'appforce studio embed'
   ],
-  heroTitle: 'AppForce Studio Embed Code Generator',
+  heroTitle: 'AppForce Studio embed code generator',
   heroSubtitle:
     'Paste an AppForce Studio URL — get a clean preview card with the page title, image, and description.',
   howItWorksHeading: 'How to embed an AppForce Studio link',

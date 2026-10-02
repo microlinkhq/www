@@ -18,7 +18,7 @@ const data = {
     'screen9 player embed',
     'screen9 video embed'
   ],
-  heroTitle: 'Screen9 Embed Code Generator',
+  heroTitle: 'Screen9 embed code generator',
   heroSubtitle:
     'Paste any Screen9 URL — get a ready-to-paste player for hosted business video.',
   howItWorksHeading: 'How to embed Screen9 video',

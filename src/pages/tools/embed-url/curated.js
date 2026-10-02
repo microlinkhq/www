@@ -18,7 +18,7 @@ const data = {
     'curated newsletter archive embed',
     'embed curated issue'
   ],
-  heroTitle: 'Curated Embed Code Generator',
+  heroTitle: 'Curated embed code generator',
   heroSubtitle:
     'Paste a Curated newsletter issue URL — get a ready-to-paste embed or preview card for the web archive.',
   howItWorksHeading: 'How to embed a Curated newsletter issue',

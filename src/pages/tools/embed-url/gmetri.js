@@ -19,7 +19,7 @@ const data = {
     'embed gmetri vr',
     'gmetri xr embed'
   ],
-  heroTitle: 'GMetri Embed Code Generator',
+  heroTitle: 'GMetri embed code generator',
   heroSubtitle:
     'Paste a GMetri experience URL — get a ready-to-paste iframe for VR, 3D, and interactive XR experiences.',
   howItWorksHeading: 'How to embed a GMetri experience',

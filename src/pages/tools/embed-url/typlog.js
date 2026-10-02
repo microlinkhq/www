@@ -18,7 +18,7 @@ const data = {
     'typlog iframe code',
     'typlog episode embed'
   ],
-  heroTitle: 'Typlog Embed Code Generator',
+  heroTitle: 'Typlog embed code generator',
   heroSubtitle:
     'Paste any Typlog URL — get a ready-to-paste embed for blog posts and podcast episodes.',
   howItWorksHeading: 'How to embed Typlog content',

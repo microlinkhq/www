@@ -66,7 +66,7 @@ Notes:
   - Markdown content is in `microlink.data.markdown`
   - Plain text content is in `microlink.data.text`
 
-## Prompt Examples
+## Prompt examples
 
 ### Extract metadata + screenshot in one request
 

@@ -18,7 +18,7 @@ const data = {
     'vlipsy player embed',
     'vlipsy video clip embed'
   ],
-  heroTitle: 'VLIPSY Embed Code Generator',
+  heroTitle: 'VLIPSY embed code generator',
   heroSubtitle:
     'Paste any VLIPSY URL — get a ready-to-paste player for short, shareable clips, reactions, and quotes.',
   howItWorksHeading: 'How to embed VLIPSY clips',

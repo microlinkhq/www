@@ -18,7 +18,7 @@ const data = {
     'odds iframe code',
     'odds link embed'
   ],
-  heroTitle: 'Odds Embed Code Generator',
+  heroTitle: 'Odds embed code generator',
   heroSubtitle:
     'Paste any Odds URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Odds content',

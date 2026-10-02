@@ -20,7 +20,7 @@ const data = {
     'audiomack iframe code',
     'embed audiomack album'
   ],
-  heroTitle: 'Audiomack Embed Code Generator',
+  heroTitle: 'Audiomack embed code generator',
   heroSubtitle:
     'Paste any Audiomack URL — get a ready-to-paste player for hip-hop and afrobeats songs, albums, and playlists.',
   howItWorksHeading: 'How to embed Audiomack content',

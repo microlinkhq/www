@@ -18,7 +18,7 @@ const data = {
     'sutori iframe code',
     'sutori story embed'
   ],
-  heroTitle: 'Sutori Embed Code Generator',
+  heroTitle: 'Sutori embed code generator',
   heroSubtitle:
     'Paste any Sutori URL — get a ready-to-paste embed for interactive timelines and classroom stories.',
   howItWorksHeading: 'How to embed Sutori timelines',

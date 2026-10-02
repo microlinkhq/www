@@ -18,7 +18,7 @@ const data = {
     'spotify player embed',
     'embed spotify track'
   ],
-  heroTitle: 'Spotify Embed Code Generator',
+  heroTitle: 'Spotify embed code generator',
   heroSubtitle:
     'Paste any Spotify URL — get a ready-to-paste iframe player for tracks, albums, playlists, and podcasts.',
   howItWorksHeading: 'How to embed Spotify content',

@@ -18,7 +18,7 @@ const data = {
     'namchey embed widget',
     'embed namchey content'
   ],
-  heroTitle: 'Namchey Embed Code Generator',
+  heroTitle: 'Namchey embed code generator',
   heroSubtitle:
     'Paste any Namchey URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Namchey content',

@@ -19,7 +19,7 @@ const data = {
     'nfb iframe code',
     'national film board embed'
   ],
-  heroTitle: 'NFB Embed Code Generator',
+  heroTitle: 'NFB embed code generator',
   heroSubtitle:
     'Paste any NFB URL — get a ready-to-paste player for films, documentaries, and animation from the National Film Board of Canada.',
   howItWorksHeading: 'How to embed NFB content',

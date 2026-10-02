@@ -18,7 +18,7 @@ const data = {
     'show by animaker video embed',
     'getshow oembed'
   ],
-  heroTitle: 'Show by Animaker Embed Code Generator',
+  heroTitle: 'Show by Animaker embed code generator',
   heroSubtitle:
     'Paste a Show by Animaker video URL — get a ready-to-paste iframe player or a styled preview card.',
   howItWorksHeading: 'How to embed a Show by Animaker video',

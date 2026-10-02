@@ -19,7 +19,7 @@ const data = {
     'mysqlexplain iframe code',
     'embed sql explain visualization'
   ],
-  heroTitle: 'MySQLExplain Embed Code Generator',
+  heroTitle: 'MySQLExplain embed code generator',
   heroSubtitle:
     'Paste any MySQLExplain URL — get a ready-to-paste embed of your MySQL EXPLAIN query plan visualization.',
   howItWorksHeading: 'How to embed MySQLExplain content',

@@ -19,7 +19,7 @@ const data = {
     'datawrapper embed html',
     'datawrapper responsive embed'
   ],
-  heroTitle: 'Datawrapper Embed Code Generator',
+  heroTitle: 'Datawrapper embed code generator',
   heroSubtitle:
     'Paste any Datawrapper URL — get a ready-to-paste responsive iframe for charts, maps, and tables.',
   howItWorksHeading: 'How to embed a Datawrapper chart',

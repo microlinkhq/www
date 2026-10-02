@@ -19,7 +19,7 @@ const data = {
     'embed peertube video',
     'framatube player embed'
   ],
-  heroTitle: 'Framatube Embed Code Generator',
+  heroTitle: 'Framatube embed code generator',
   heroSubtitle:
     'Paste any Framatube video URL — get a ready-to-paste iframe player for this open-source, decentralized PeerTube instance.',
   howItWorksHeading: 'How to embed a Framatube video',

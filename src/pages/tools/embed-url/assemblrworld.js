@@ -19,7 +19,7 @@ const data = {
     'embed ar project',
     'embed 3d model assemblr'
   ],
-  heroTitle: 'Assemblr World Embed Code Generator',
+  heroTitle: 'Assemblr World embed code generator',
   heroSubtitle:
     'Paste an Assemblr World project link to get ready-to-paste embed HTML for your interactive 3D and AR experience.',
   howItWorksHeading: 'How to embed an Assemblr World project',

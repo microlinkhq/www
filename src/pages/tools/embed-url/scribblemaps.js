@@ -18,7 +18,7 @@ const data = {
     'embed annotated map',
     'scribble maps map embed'
   ],
-  heroTitle: 'Scribble Maps Embed Code Generator',
+  heroTitle: 'Scribble Maps embed code generator',
   heroSubtitle:
     'Paste any Scribble Maps URL — get a ready-to-paste embed for custom, annotated maps.',
   howItWorksHeading: 'How to embed Scribble Maps maps',

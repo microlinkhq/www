@@ -21,7 +21,6 @@ export const FeatureHero = ({ title, description, tag }) => (
       </Heading>
       <Caption
         forwardedAs='p'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           textAlign: 'left',

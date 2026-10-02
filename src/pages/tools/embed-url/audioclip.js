@@ -18,7 +18,7 @@ const data = {
     'embed audioclip channel',
     'audioclip podcast embed'
   ],
-  heroTitle: 'Audioclip Embed Code Generator',
+  heroTitle: 'Audioclip embed code generator',
   heroSubtitle:
     'Paste a NAVER Audioclip URL — get a ready-to-paste preview card for audiobooks, podcasts, audio dramas, and ASMR channels.',
   howItWorksHeading: 'How to embed an Audioclip link',

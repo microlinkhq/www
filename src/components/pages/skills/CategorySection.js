@@ -1,7 +1,6 @@
 import { theme, layout, accentBand, accentIcon, accentTile } from 'theme'
 import FeatherIcon from 'components/icons/Feather'
-import SubheadBase from 'components/elements/Subhead'
-import { withTitle } from 'helpers/hoc/with-title'
+import Subhead from 'components/elements/Subhead'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -13,8 +12,6 @@ import {
   CATEGORY_TITLE_FONT_SIZE,
   SECTION_SCROLL_MARGIN
 } from './constants'
-
-const Subhead = withTitle(SubheadBase)
 
 const CategorySection = ({ category }) => (
   <Flex
@@ -62,7 +59,6 @@ const CategorySection = ({ category }) => (
       </Flex>
       <Box>
         <Subhead
-          titleize={false}
           forwardedAs='h2'
           id={`${category.id}-title`}
           css={theme({

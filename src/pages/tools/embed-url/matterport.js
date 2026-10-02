@@ -19,7 +19,7 @@ const data = {
     'matterport virtual tour embed',
     'embed matterport showcase'
   ],
-  heroTitle: 'Matterport Embed Code Generator',
+  heroTitle: 'Matterport embed code generator',
   heroSubtitle:
     'Paste any Matterport URL — get a ready-to-paste iframe for 3D spaces and virtual tours.',
   howItWorksHeading: 'How to embed a Matterport tour',

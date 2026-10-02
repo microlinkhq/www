@@ -18,7 +18,7 @@ const data = {
     'embed flourish story',
     'flourish visualization embed'
   ],
-  heroTitle: 'Flourish Embed Code Generator',
+  heroTitle: 'Flourish embed code generator',
   heroSubtitle:
     'Paste any Flourish URL — get a ready-to-paste iframe for interactive charts, maps, and animated data stories.',
   howItWorksHeading: 'How to embed Flourish content',

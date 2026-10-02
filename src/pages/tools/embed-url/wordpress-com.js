@@ -18,7 +18,7 @@ const data = {
     'wordpress.com oembed',
     'embed wordpress page'
   ],
-  heroTitle: 'WordPress.com Embed Code Generator',
+  heroTitle: 'WordPress.com embed code generator',
   heroSubtitle:
     'Paste any WordPress.com post or page URL — get a ready-to-paste rich preview card or native oEmbed.',
   howItWorksHeading: 'How to embed WordPress.com content',

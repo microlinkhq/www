@@ -18,7 +18,7 @@ const data = {
     'clueso iframe code',
     'clueso product video embed'
   ],
-  heroTitle: 'Clueso Embed Code Generator',
+  heroTitle: 'Clueso embed code generator',
   heroSubtitle:
     'Paste any Clueso URL — get a ready-to-paste embed for AI product videos and step-by-step how-to guides.',
   howItWorksHeading: 'How to embed a Clueso video',

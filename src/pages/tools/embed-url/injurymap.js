@@ -18,7 +18,7 @@ const data = {
     'physiotherapy video embed',
     'injurymap exercise embed'
   ],
-  heroTitle: 'Injurymap Embed Code Generator',
+  heroTitle: 'Injurymap embed code generator',
   heroSubtitle:
     'Paste any Injurymap URL — get a ready-to-paste embed for guided exercise videos and recovery programs.',
   howItWorksHeading: 'How to embed Injurymap content',

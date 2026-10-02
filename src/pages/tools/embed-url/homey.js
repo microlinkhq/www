@@ -18,7 +18,7 @@ const data = {
     'share homey flow',
     'homey automation embed'
   ],
-  heroTitle: 'Homey Embed Code Generator',
+  heroTitle: 'Homey embed code generator',
   heroSubtitle:
     'Paste a shared Homey Flow link and get a ready-to-paste embed or preview card for your smart home automation.',
   howItWorksHeading: 'How to embed a Homey Flow',

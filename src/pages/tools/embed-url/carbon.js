@@ -18,7 +18,7 @@ const data = {
     'embed code snippet image',
     'carbon now sh embed'
   ],
-  heroTitle: 'Carbon Embed Code Generator',
+  heroTitle: 'Carbon embed code generator',
   heroSubtitle:
     'Paste any carbon.now.sh URL — get a ready-to-paste iframe of your beautiful source code snippet.',
   howItWorksHeading: 'How to embed a Carbon snippet',

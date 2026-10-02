@@ -158,7 +158,6 @@
     "jszip": "~3.10.2",
     "lodash": "~4.18.1",
     "microlink.io": "~1.0.2",
-    "microsoft-capitalize": "~1.0.8",
     "normalize.css": "~8.0.1",
     "p-map": "~7.0.8",
     "path-browserify": "~1.0.1",

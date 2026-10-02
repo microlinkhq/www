@@ -16,21 +16,17 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import FaqComponent from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
-import { withTitle } from 'helpers/hoc/with-title'
 import { extractDomain } from 'helpers/extract-domain'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
-
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const PROVIDER_NAMES = {
   microlink: 'Microlink',
@@ -1297,7 +1293,6 @@ const CompetitorComparison = () => {
           </Box>
           <Box>
             <Subhead
-              titleize={false}
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
@@ -1348,7 +1343,6 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
-              titleize={false}
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
@@ -1406,7 +1400,6 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
-              titleize={false}
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,
@@ -1469,7 +1462,6 @@ const CompetitorComparison = () => {
 
           <Box>
             <Subhead
-              titleize={false}
               forwardedAs='h3'
               css={theme({
                 fontSize: SUBSECTION_TITLE_FONT_SIZE,

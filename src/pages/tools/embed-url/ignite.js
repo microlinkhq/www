@@ -18,7 +18,7 @@ const data = {
     'ignite slides embed',
     'ignite html embed'
   ],
-  heroTitle: 'Ignite Embed Code Generator',
+  heroTitle: 'Ignite embed code generator',
   heroSubtitle:
     'Paste any Ignite URL — get a ready-to-paste embed for talks, slides, and shared content.',
   howItWorksHeading: 'How to embed Ignite content',

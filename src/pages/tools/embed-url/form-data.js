@@ -18,7 +18,7 @@ const data = {
     'form-data form embed',
     'embed online form'
   ],
-  heroTitle: 'Form-Data Embed Code Generator',
+  heroTitle: 'Form-Data embed code generator',
   heroSubtitle:
     'Paste a Form-Data URL — get a ready-to-paste embed for your form, or a styled preview card.',
   howItWorksHeading: 'How to embed a Form-Data form',

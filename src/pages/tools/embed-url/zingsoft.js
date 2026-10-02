@@ -18,7 +18,7 @@ const data = {
     'zinggrid embed',
     'embed interactive chart'
   ],
-  heroTitle: 'ZingSoft Embed Code Generator',
+  heroTitle: 'ZingSoft embed code generator',
   heroSubtitle:
     'Paste any ZingSoft URL — get a ready-to-paste embed for interactive charts and data visualizations built with ZingChart and ZingGrid.',
   howItWorksHeading: 'How to embed ZingSoft charts',

@@ -18,7 +18,7 @@ const data = {
     'embed flipbook',
     'heyzine flipbook embed'
   ],
-  heroTitle: 'Heyzine Embed Code Generator',
+  heroTitle: 'Heyzine embed code generator',
   heroSubtitle:
     'Paste any Heyzine flipbook URL — get a ready-to-paste iframe for your interactive page-flip PDF publications.',
   howItWorksHeading: 'How to embed a Heyzine flipbook',

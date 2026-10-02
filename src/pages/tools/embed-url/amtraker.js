@@ -19,7 +19,7 @@ const data = {
     'amtraker embed generator',
     'amtrak train tracking embed'
   ],
-  heroTitle: 'Amtraker Embed Code Generator',
+  heroTitle: 'Amtraker embed code generator',
   heroSubtitle:
     'Paste an Amtraker train or station URL to get a ready-to-paste live train map or preview card.',
   howItWorksHeading: 'How to embed an Amtraker train map',

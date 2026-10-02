@@ -18,7 +18,7 @@ const data = {
     'embed afreecatv',
     'embed soop vod'
   ],
-  heroTitle: 'SOOP Embed Code Generator',
+  heroTitle: 'SOOP embed code generator',
   heroSubtitle:
     'Paste any SOOP URL — get a ready-to-paste embed for live streams and VODs from the platform formerly known as AfreecaTV.',
   howItWorksHeading: 'How to embed SOOP content',

@@ -19,7 +19,7 @@ const data = {
     'podbean iframe code',
     'embed podbean podcast'
   ],
-  heroTitle: 'Podbean Embed Code Generator',
+  heroTitle: 'Podbean embed code generator',
   heroSubtitle:
     'Paste any Podbean URL — get a ready-to-paste iframe player for episodes, podcasts, and playlists.',
   howItWorksHeading: 'How to embed Podbean content',

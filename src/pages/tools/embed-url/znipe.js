@@ -18,7 +18,7 @@ const data = {
     'znipe tv video embed',
     'embed esports stream'
   ],
-  heroTitle: 'Znipe.tv Embed Code Generator',
+  heroTitle: 'Znipe.tv embed code generator',
   heroSubtitle:
     'Paste any Znipe.tv URL — get a ready-to-paste embed for multi-angle and on-demand esports video streams.',
   howItWorksHeading: 'How to embed Znipe.tv streams',

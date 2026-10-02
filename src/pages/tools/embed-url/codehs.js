@@ -18,7 +18,7 @@ const data = {
     'codehs iframe code',
     'codehs sandbox embed'
   ],
-  heroTitle: 'CodeHS Embed Code Generator',
+  heroTitle: 'CodeHS embed code generator',
   heroSubtitle:
     'Paste any CodeHS Sandbox URL — get a ready-to-paste iframe of your running program, or a styled preview card.',
   howItWorksHeading: 'How to embed a CodeHS program',

@@ -18,7 +18,7 @@ const data = {
     'techpostcast iframe code',
     'techpostcast podcast player embed'
   ],
-  heroTitle: 'TechPostCast Embed Code Generator',
+  heroTitle: 'TechPostCast embed code generator',
   heroSubtitle:
     'Paste any TechPostCast URL — get a ready-to-paste player for technology podcast episodes.',
   howItWorksHeading: 'How to embed TechPostCast episodes',

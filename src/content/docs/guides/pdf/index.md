@@ -89,7 +89,7 @@ By default, the API also extracts metadata from the target page. If you only nee
 
 If you still need a few metadata fields, `meta` also accepts an object for selective extraction. See the <Link href='/docs/api/parameters/meta' children='meta reference' />.
 
-## One important default: print CSS
+## One important default: Print CSS
 
 When Microlink generates a PDF, the default `mediaType` is `'print'`. That means print stylesheets are applied automatically.
 

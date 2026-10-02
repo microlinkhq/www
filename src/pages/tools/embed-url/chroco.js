@@ -18,7 +18,7 @@ const data = {
     'chroco timeline embed',
     'chroco.ooo embed'
   ],
-  heroTitle: 'Chroco Embed Code Generator',
+  heroTitle: 'Chroco embed code generator',
   heroSubtitle:
     'Paste a Chroco timeline URL — get a ready-to-paste embed or a styled preview card.',
   howItWorksHeading: 'How to embed a Chroco timeline',

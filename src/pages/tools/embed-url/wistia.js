@@ -18,7 +18,7 @@ const data = {
     'wistia video player embed',
     'embed wistia video in website'
   ],
-  heroTitle: 'Wistia Embed Code Generator',
+  heroTitle: 'Wistia embed code generator',
   heroSubtitle:
     'Paste any Wistia video URL — get a ready-to-paste player for your business videos, webinars, and product demos.',
   howItWorksHeading: 'How to embed a Wistia video',

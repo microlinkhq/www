@@ -18,7 +18,7 @@ const data = {
     'embed gifnote gif',
     'gifnote iframe code'
   ],
-  heroTitle: 'Gifnote Embed Code Generator',
+  heroTitle: 'Gifnote embed code generator',
   heroSubtitle:
     'Paste a Gifnote URL — get a ready-to-paste embed or preview card for music GIFs and Songbytes.',
   howItWorksHeading: 'How to embed Gifnote content',

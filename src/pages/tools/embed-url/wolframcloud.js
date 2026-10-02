@@ -19,7 +19,7 @@ const data = {
     'wolfram notebook embed',
     'embed wolfram computation'
   ],
-  heroTitle: 'Wolfram Cloud Embed Code Generator',
+  heroTitle: 'Wolfram Cloud embed code generator',
   heroSubtitle:
     'Paste any Wolfram Cloud URL — get a ready-to-paste embed for interactive Wolfram Notebooks and computations.',
   howItWorksHeading: 'How to embed Wolfram Cloud notebooks',

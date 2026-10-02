@@ -18,7 +18,7 @@ const data = {
     'vimeo player embed',
     'vimeo embed html'
   ],
-  heroTitle: 'Vimeo Embed Code Generator',
+  heroTitle: 'Vimeo embed code generator',
   heroSubtitle:
     'Paste any Vimeo URL — get a ready-to-paste iframe or preview card. Works with videos, showcases, and channels.',
   howItWorksHeading: 'How to embed Vimeo content',

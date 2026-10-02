@@ -18,7 +18,7 @@ const data = {
     'vidyard player embed',
     'embed vidyard share link'
   ],
-  heroTitle: 'Vidyard Embed Code Generator',
+  heroTitle: 'Vidyard embed code generator',
   heroSubtitle:
     'Paste any Vidyard share link — get a ready-to-paste player for your sales, marketing, and webinar videos.',
   howItWorksHeading: 'How to embed a Vidyard video',

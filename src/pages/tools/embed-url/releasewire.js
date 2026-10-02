@@ -18,7 +18,7 @@ const data = {
     'embed news release',
     'press release embed'
   ],
-  heroTitle: 'ReleaseWire Embed Code Generator',
+  heroTitle: 'ReleaseWire embed code generator',
   heroSubtitle:
     'Paste any ReleaseWire URL — get a ready-to-paste embed or preview card for press releases and news.',
   howItWorksHeading: 'How to embed ReleaseWire content',

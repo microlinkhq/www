@@ -18,7 +18,7 @@ const data = {
     'dalexni iframe code',
     'dalexni image embed'
   ],
-  heroTitle: 'Dalexni Embed Code Generator',
+  heroTitle: 'Dalexni embed code generator',
   heroSubtitle:
     'Paste a Dalexni URL — get a ready-to-paste embed for hosted images and videos.',
   howItWorksHeading: 'How to embed Dalexni content',

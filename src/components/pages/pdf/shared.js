@@ -1,15 +1,11 @@
 import styled from 'styled-components'
 import { borders, layout, colors, theme, transition, radii } from 'theme'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import { fadeInDown } from 'components/keyframes'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 
 export const ACCENT = 'rgb(224, 0, 172)'
-
-export const Subhead = withTitle(SubheadBase)
-export const Caption = withTitle(CaptionBase)
 
 export const FIRST_URL =
   'https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Media_queries/Printing'
@@ -86,3 +82,5 @@ export const CopyButton = styled('button')`
     color: ${colors.green5};
   }
 `
+
+export { Subhead, Caption }

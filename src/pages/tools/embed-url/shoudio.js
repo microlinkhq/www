@@ -18,7 +18,7 @@ const data = {
     'shoudio player embed',
     'embed shoudio soundscape'
   ],
-  heroTitle: 'Shoudio Embed Code Generator',
+  heroTitle: 'Shoudio embed code generator',
   heroSubtitle:
     'Paste any Shoudio URL — get a ready-to-paste player for location-based audio and geo-tagged soundscapes.',
   howItWorksHeading: 'How to embed Shoudio audio',

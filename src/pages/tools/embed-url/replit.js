@@ -18,7 +18,7 @@ const data = {
     'embed replit code',
     'replit editor embed'
   ],
-  heroTitle: 'Replit Embed Code Generator',
+  heroTitle: 'Replit embed code generator',
   heroSubtitle:
     'Paste any Replit URL — get a ready-to-paste iframe with a live, runnable code editor for your repls.',
   howItWorksHeading: 'How to embed a Replit repl',

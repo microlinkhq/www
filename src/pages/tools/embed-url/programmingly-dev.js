@@ -19,7 +19,7 @@ const data = {
     'embed coding tutorial',
     'programmingly snippet embed'
   ],
-  heroTitle: 'Programmingly Embed Code Generator',
+  heroTitle: 'Programmingly embed code generator',
   heroSubtitle:
     'Paste any Programmingly URL — get a ready-to-paste embed for code snippets and coding tutorials.',
   howItWorksHeading: 'How to embed Programmingly content',

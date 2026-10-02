@@ -18,7 +18,7 @@ const data = {
     'sizzle embed link',
     'sizzle page embed'
   ],
-  heroTitle: 'Sizzle Embed Code Generator',
+  heroTitle: 'Sizzle embed code generator',
   heroSubtitle:
     'Paste any Sizzle URL — get a ready-to-paste embed for pages and shared content.',
   howItWorksHeading: 'How to embed Sizzle content',

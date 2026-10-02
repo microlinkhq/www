@@ -18,7 +18,7 @@ const data = {
     'knacki post embed',
     'knacki html embed'
   ],
-  heroTitle: 'Knacki Embed Code Generator',
+  heroTitle: 'Knacki embed code generator',
   heroSubtitle:
     'Paste any Knacki URL — get a ready-to-paste embed for pages, posts, and shared content.',
   howItWorksHeading: 'How to embed Knacki content',

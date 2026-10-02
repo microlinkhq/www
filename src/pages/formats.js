@@ -1,6 +1,5 @@
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Faq from 'components/patterns/Faq/Faq'
-import { withTitle } from 'helpers/hoc/with-title'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
@@ -13,16 +12,13 @@ import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import fileFormats from '../../data/formats'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
 
 const [{ score }, formats] = fileFormats
 

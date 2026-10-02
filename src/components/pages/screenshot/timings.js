@@ -69,7 +69,6 @@ export const Timings = ({ timingMs, timingUrl, timingHistory }) => {
               display: 'inline',
               fontWeight: 'bold'
             })}
-            titleize={false}
           >
             secs
           </Caption>

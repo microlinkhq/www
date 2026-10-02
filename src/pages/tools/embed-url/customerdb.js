@@ -18,7 +18,7 @@ const data = {
     'embed customerdb link',
     'customerdb iframe code'
   ],
-  heroTitle: 'CustomerDB Embed Code Generator',
+  heroTitle: 'CustomerDB embed code generator',
   heroSubtitle:
     'Paste a CustomerDB URL — get a ready-to-paste embed, or a styled preview card when native embedding is not available.',
   howItWorksHeading: 'How to embed a CustomerDB link',

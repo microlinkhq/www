@@ -18,7 +18,7 @@ const data = {
     'typecast text to speech embed',
     'typecast link preview'
   ],
-  heroTitle: 'Typecast Embed Code Generator',
+  heroTitle: 'Typecast embed code generator',
   heroSubtitle:
     'Paste any Typecast URL — get a ready-to-paste preview card linking to AI voice, text-to-speech, and AI video pages.',
   howItWorksHeading: 'How to embed a Typecast page',

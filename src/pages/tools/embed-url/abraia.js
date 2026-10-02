@@ -19,7 +19,7 @@ const data = {
     'abraia preview card',
     'abraia.me embed'
   ],
-  heroTitle: 'Abraia Embed Code Generator',
+  heroTitle: 'Abraia embed code generator',
   heroSubtitle:
     'Paste an abraia.me link to an optimized image, HLS video, or hosted media file — get ready-to-paste embed HTML.',
   howItWorksHeading: 'How to embed Abraia media',

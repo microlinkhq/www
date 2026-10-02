@@ -19,7 +19,7 @@ const data = {
     'docdroid document embed',
     'embed pdf document'
   ],
-  heroTitle: 'DocDroid Embed Code Generator',
+  heroTitle: 'DocDroid embed code generator',
   heroSubtitle:
     'Paste any DocDroid URL — get a ready-to-paste iframe viewer for hosted PDF, DOC, and DOCX documents.',
   howItWorksHeading: 'How to embed DocDroid documents',

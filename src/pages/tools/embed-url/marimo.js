@@ -18,7 +18,7 @@ const data = {
     'marimo iframe code',
     'python notebook embed'
   ],
-  heroTitle: 'marimo Embed Code Generator',
+  heroTitle: 'Marimo embed code generator',
   heroSubtitle:
     'Paste any marimo URL — get a ready-to-paste embed for interactive, runnable Python notebooks.',
   howItWorksHeading: 'How to embed marimo notebooks',

@@ -28,13 +28,13 @@ import Heading from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import { Check as CheckIcon } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
@@ -88,8 +88,6 @@ import {
 import { useMounted } from 'components/hook/use-mounted'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 
-import { withTitle } from 'helpers/hoc/with-title'
-
 import analyticsData from '../../../data/analytics.json'
 
 const ACCENT = '#3e55ff'
@@ -109,9 +107,6 @@ const TYPING_SPEED_MS = 80
 const INITIAL_DELAY_MS = 4000
 const HOLD_AFTER_TYPING_MS = 300
 const VIEW_PREVIEW_MS = 4000
-
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const HeroPreviewShell = styled(Box)`
   ${theme({
@@ -494,7 +489,6 @@ const Hero = function Hero ({
           </Heading>
           <Caption
             forwardedAs='h2'
-            titleize={false}
             css={theme({
               pt: [3, 3, 4, 4],
               px: [1, 2, 4, 0],
@@ -1283,7 +1277,6 @@ const Clients = () => (
           >
             <Subhead
               forwardedAs='div'
-              titleize={false}
               css={theme({
                 fontSize: CLIENTS_STATS_VALUE_FONT_SIZE,
                 fontWeight: 'bold',
@@ -1471,7 +1464,6 @@ const SdkSection = () => (
           <span css={{ color: ACCENT }}>Embed SDK</span>
         </Subhead>
         <Caption
-          titleize={false}
           css={theme({
             pt: [3, 3, 4, 4],
             px: [4, 4, 4, 0],

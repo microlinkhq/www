@@ -470,11 +470,10 @@ export const SectionBlock = ({ id, title, caption, bg, children }) => (
           pb: [4, 4, 5, 5]
         })}
       >
-        <Subhead titleize={false}>{title}</Subhead>
+        <Subhead>{title}</Subhead>
         {caption && (
           <Caption
             forwardedAs='p'
-            titleize={false}
             css={theme({
               pt: [3, 3, 4, 4],
               color: 'black60',

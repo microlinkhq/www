@@ -19,7 +19,7 @@ const data = {
     'embed framer website',
     'framer landing page embed'
   ],
-  heroTitle: 'Framer Embed Code Generator',
+  heroTitle: 'Framer embed code generator',
   heroSubtitle:
     'Paste a Framer URL — get a ready-to-paste iframe for published sites, landing pages, and prototypes.',
   howItWorksHeading: 'How to embed Framer content',

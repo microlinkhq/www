@@ -18,7 +18,7 @@ const data = {
     'embed codepoint',
     'unicode character preview'
   ],
-  heroTitle: 'Codepoints Embed Code Generator',
+  heroTitle: 'Codepoints embed code generator',
   heroSubtitle:
     'Paste any codepoints.net URL — get a ready-to-paste preview card for a Unicode character, block, or plane.',
   howItWorksHeading: 'How to embed Codepoints content',

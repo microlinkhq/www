@@ -18,7 +18,7 @@ const data = {
     'vidmount player embed',
     'vidmount video embed'
   ],
-  heroTitle: 'VidMount Embed Code Generator',
+  heroTitle: 'VidMount embed code generator',
   heroSubtitle:
     'Paste any VidMount URL — get a ready-to-paste video player you can drop into a blog, docs, or any CMS.',
   howItWorksHeading: 'How to embed VidMount videos',

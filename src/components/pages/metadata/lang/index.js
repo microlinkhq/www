@@ -8,15 +8,14 @@ import Caps from 'components/elements/Caps'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { withTitle } from 'helpers/hoc/with-title'
 import ArrowLink from 'components/patterns/ArrowLink'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
@@ -29,10 +28,6 @@ import MetadataDemo from './metadata-demo'
 import { LANG_LANDINGS } from './registry'
 
 const ALL_TOOLS = TOOL_CATALOG.flatMap(section => section.tools)
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const ACCENT = '#3e55ff'
 const SECTION_MAX_WIDTH = '1100px'
@@ -89,7 +84,6 @@ const SectionHead = ({ title, caption, maxWidth = CONTENT_WIDTH, pt }) => (
     })}
   >
     <Subhead
-      titleize={false}
       css={theme({
         textAlign: 'center'
       })}
@@ -99,7 +93,6 @@ const SectionHead = ({ title, caption, maxWidth = CONTENT_WIDTH, pt }) => (
     {caption && (
       <Caption
         forwardedAs='div'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           textAlign: 'center',
@@ -160,7 +153,6 @@ const Hero = ({ hero, breadcrumb }) => (
   >
     {breadcrumb && <Breadcrumb items={breadcrumb} />}
     <Heading
-      titleize={false}
       variant='unset'
       css={theme({
         maxWidth: SECTION_MAX_WIDTH,
@@ -171,7 +163,6 @@ const Hero = ({ hero, breadcrumb }) => (
     </Heading>
     <Caption
       forwardedAs='div'
-      titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
         maxWidth: [layout.small, layout.small, layout.normal, layout.normal]
@@ -409,7 +400,6 @@ const FinalCta = ({ cta, current }) => (
       })}
     >
       <Subhead
-        titleize={false}
         css={theme({
           textAlign: 'center'
         })}
@@ -418,7 +408,6 @@ const FinalCta = ({ cta, current }) => (
       </Subhead>
       <Caption
         forwardedAs='div'
-        titleize={false}
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
@@ -490,7 +479,6 @@ const MetadataLang = ({ config }) => (
         css={theme({ bg: 'transparent', pt: [4, 4, 5, 5], pb: [3, 3, 4, 4] })}
         title={
           <Subhead
-            titleize={false}
             css={theme({
               width: '100%',
               textAlign: 'left'

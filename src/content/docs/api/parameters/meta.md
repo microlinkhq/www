@@ -66,7 +66,7 @@ Asking for anything else at the same time — [screenshot](/docs/api/parameters/
 [audio](/docs/api/parameters/audio), [palette](/docs/api/parameters/palette), or a
 [data](/docs/api/parameters/data) rule — keeps metadata on.
 
-## Configurable Detection
+## Configurable detection
 
 You can configure which specific metadata fields to detect by passing an object with field-specific settings:
 

@@ -1,16 +1,11 @@
 import styled from 'styled-components'
 import { borders, colors, layout, radii, theme, transition } from 'theme'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
-import CaptionBase from 'components/patterns/Caption/Caption'
-import { withTitle } from 'helpers/hoc/with-title'
+import Subhead from 'components/elements/Subhead'
+import Caption from 'components/patterns/Caption/Caption'
 import { fadeInDown } from 'components/keyframes'
 
 export const ACCENT = '#3e55ff'
-
-export const Subhead = withTitle(SubheadBase)
-
-export const Caption = withTitle(CaptionBase)
 
 export const FIRST_URL = 'https://stripe.com'
 
@@ -86,3 +81,5 @@ export const CopyButton = styled('button')`
     color: ${colors.green5};
   }
 `
+
+export { Subhead, Caption }

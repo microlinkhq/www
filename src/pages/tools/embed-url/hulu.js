@@ -19,7 +19,7 @@ const data = {
     'hulu preview card',
     'share hulu link'
   ],
-  heroTitle: 'Hulu Embed Code Generator',
+  heroTitle: 'Hulu embed code generator',
   heroSubtitle:
     'Paste a Hulu series or movie URL — get a styled preview card with the title, artwork, and description ready to paste.',
   howItWorksHeading: 'How to embed a Hulu link',

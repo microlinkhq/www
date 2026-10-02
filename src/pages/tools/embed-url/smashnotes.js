@@ -18,7 +18,7 @@ const data = {
     'smashnotes podcast embed',
     'embed podcast highlight'
   ],
-  heroTitle: 'Smashnotes Embed Code Generator',
+  heroTitle: 'Smashnotes embed code generator',
   heroSubtitle:
     'Paste any Smashnotes URL — get a ready-to-paste player for podcast highlights, clips, and key moments.',
   howItWorksHeading: 'How to embed Smashnotes clips',

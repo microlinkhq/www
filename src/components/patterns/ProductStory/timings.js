@@ -33,7 +33,6 @@ const Stat = ({ value, unit, label }) => (
       {unit && (
         <Caption
           forwardedAs='div'
-          titleize={false}
           css={theme({
             ml: 1,
             color: 'white',

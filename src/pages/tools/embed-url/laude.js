@@ -18,7 +18,7 @@ const data = {
     'laude link embed',
     'laude preview card'
   ],
-  heroTitle: 'Laude Embed Code Generator',
+  heroTitle: 'Laude embed code generator',
   heroSubtitle:
     'Paste any Laude URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Laude content',
