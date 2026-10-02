@@ -15,8 +15,6 @@ export const toAlias = (name = '') => {
       return 'html'
     case 'jekyll':
       return 'markdown'
-    case 'ruby':
-      return 'python'
     case 'curl':
     case 'shell':
       return 'bash'

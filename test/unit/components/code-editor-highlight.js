@@ -82,6 +82,7 @@ describe('highlightSource', () => {
     expect(lang('python')).toBe('python')
     expect(lang('go')).toBe('go')
     expect(lang('php')).toBe('php')
+    expect(lang(toAlias('ruby'))).toBe('ruby')
 
     expect(highlightSource('# wait', 'python')).toContain('sh__token--comment')
     expect(highlightSource('# wait', 'js')).not.toContain('sh__token--comment')
@@ -98,8 +99,6 @@ describe('highlightSource', () => {
   })
 
   test('aliases languages sugar-high does not ship a grammar for', () => {
-    expect(lang('ruby')).toBeUndefined()
-    expect(lang(toAlias('ruby'))).toBe('python')
     expect(lang(toAlias('Node.js'))).toBe('javascript')
     expect(lang(toAlias('cURL'))).toBe('shell')
   })
@@ -113,6 +112,20 @@ describe('highlightSource', () => {
     expect(tokenValues(html, 'sh__token--comment')).toEqual([
       '# GET /pdf?url=https://example.com',
       '# Letter | Legal'
+    ])
+  })
+
+  test('highlights Ruby keywords with the native grammar', () => {
+    const html = highlightSource(
+      'def fetch(url)\n  nil if url\nend',
+      toAlias('ruby')
+    )
+
+    expect(tokenValues(html, 'sh__token--keyword')).toEqual([
+      'def',
+      'nil',
+      'if',
+      'end'
     ])
   })
 })
