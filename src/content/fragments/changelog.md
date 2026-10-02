@@ -1,5 +1,6 @@
 ### September 2026
 
+- [Microlink](/): Added [SerpApi](/alternative/serpapi) alternative.
 - [Microlink](https://dashboard.microlink.io): Sign up without a card and get a development key (100 requests/month).
 - [Microlink API](/docs/api/parameters/meta): Prefers a wordmark over a favicon for [logo](/docs/api/parameters/meta).
 - [Microlink CLI](/docs/sdk/getting-started/cli): Added `microlink setup` to install the Microlink skill.
