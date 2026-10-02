@@ -8,9 +8,11 @@ const fingerprint = content => {
   return (hash >>> 0).toString(36)
 }
 
-export const ogImageUrl = (pathname, base, content) => {
+export const ogImageUrl = (pathname, base, card) => {
   const path = imagePath(pathname)
   if (!base || !path) return null
   const url = `${base}/images${path}`
-  return content ? `${url}?v=${fingerprint(content)}` : url
+  if (!card) return url
+  const { version = '', title = '', description = '' } = card
+  return `${url}?v=${fingerprint(`${version}\n${title}\n${description}`)}`
 }

@@ -37,6 +37,12 @@ const {
   OG_IMAGE_BASE
 } = require('./env')
 
+const OG_IMAGE_VERSION = require(path.join(
+  path.dirname(require.resolve('@microlink/og')),
+  '..',
+  'package.json'
+)).version
+
 module.exports = {
   trailingSlash: 'never',
   flags: {
@@ -55,6 +61,7 @@ module.exports = {
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     ogImageBase: OG_IMAGE_BASE,
+    ogImageVersion: OG_IMAGE_VERSION,
     twitter: '@microlinkhq',
     image: new URL('logo/banner.jpeg', CDN_URL).toString(),
     logo: new URL('logo/logo.png', CDN_URL).toString(),

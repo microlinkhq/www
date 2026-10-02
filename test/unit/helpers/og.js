@@ -20,29 +20,45 @@ describe('ogImageUrl', () => {
     expect(ogImageUrl('/', BASE)).toBe(`${BASE}/images/og/home.png`)
   })
 
-  it('appends a url-safe content fingerprint as `?v=`', () => {
-    const url = ogImageUrl('/pricing', BASE, 'Pricing\nSimple, transparent.')
+  it('appends a url-safe card fingerprint as `?v=`', () => {
+    const url = ogImageUrl('/pricing', BASE, {
+      version: '1.5.0',
+      title: 'Pricing',
+      description: 'Simple, transparent.'
+    })
     expect(url).toMatch(
       /^https:\/\/microlink\.io\/images\/og\/pricing\.png\?v=[0-9a-z]+$/
     )
   })
 
-  it('is deterministic for the same content', () => {
-    const content = 'Pricing\nSimple, transparent.'
-    expect(ogImageUrl('/pricing', BASE, content)).toBe(
-      ogImageUrl('/pricing', BASE, content)
+  it('is deterministic for the same card', () => {
+    const card = { version: '1.5.0', title: 'Pricing', description: 'Simple.' }
+    expect(ogImageUrl('/pricing', BASE, card)).toBe(
+      ogImageUrl('/pricing', BASE, { ...card })
     )
   })
 
-  it('changes the fingerprint when the content changes', () => {
-    const before = ogImageUrl('/pricing', BASE, 'Pricing\nSimple.')
-    const after = ogImageUrl('/pricing', BASE, 'Pricing\nSimple, transparent.')
-    expect(before).not.toBe(after)
+  it('changes the fingerprint when the title or description changes', () => {
+    const card = { version: '1.5.0', title: 'Pricing', description: 'Simple.' }
+    const base = ogImageUrl('/pricing', BASE, card)
+    expect(ogImageUrl('/pricing', BASE, { ...card, title: 'Plans' })).not.toBe(
+      base
+    )
+    expect(
+      ogImageUrl('/pricing', BASE, { ...card, description: 'Transparent.' })
+    ).not.toBe(base)
   })
 
-  it('keeps fingerprints distinct across similar content', () => {
-    const a = ogImageUrl('/pricing', BASE, 'ab')
-    const b = ogImageUrl('/pricing', BASE, 'ba')
+  it('changes the fingerprint when the @microlink/og version changes', () => {
+    const card = { title: 'Pricing', description: 'Simple.' }
+    expect(
+      ogImageUrl('/pricing', BASE, { ...card, version: '1.5.0' })
+    ).not.toBe(ogImageUrl('/pricing', BASE, { ...card, version: '1.6.0' }))
+  })
+
+  it('keeps fields distinct so text cannot shift between them', () => {
+    const a = ogImageUrl('/pricing', BASE, { title: 'ab', description: 'c' })
+    const b = ogImageUrl('/pricing', BASE, { title: 'a', description: 'bc' })
     expect(a).not.toBe(b)
   })
 })
