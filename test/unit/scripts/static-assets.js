@@ -3,6 +3,8 @@ import { describe, expect, it } from 'vitest'
 import {
   generateFilename,
   isImageUrl,
+  outsideCodeFences,
+  replaceOutsideCodeFences,
   resolveExtension
 } from '../../../scripts/static-assets'
 
@@ -114,5 +116,92 @@ describe('isImageUrl', () => {
     expect(isImageUrl('/images/photo.png')).toBe(false)
     expect(isImageUrl('https://example.com/page')).toBe(false)
     expect(isImageUrl('https://example.com/doc.pdf')).toBe(false)
+  })
+})
+
+describe('code fences', () => {
+  const URL =
+    'https://api.microlink.io/?url=https://example.com&embed=screenshot.url'
+  const DOC = [
+    'Embed in any Markdown document:',
+    '',
+    '```md',
+    `![Preview](${URL})`,
+    '```',
+    '',
+    `![Preview](${URL})`,
+    '',
+    '~~~~html',
+    `<img src="${URL}">`,
+    '```',
+    '~~~~',
+    ''
+  ].join('\n')
+
+  it('rewrites the rendered image and leaves code examples untouched', () => {
+    expect(replaceOutsideCodeFences(DOC, URL, '/images/preview.png')).toBe(
+      [
+        'Embed in any Markdown document:',
+        '',
+        '```md',
+        `![Preview](${URL})`,
+        '```',
+        '',
+        '![Preview](/images/preview.png)',
+        '',
+        '~~~~html',
+        `<img src="${URL}">`,
+        '```',
+        '~~~~',
+        ''
+      ].join('\n')
+    )
+  })
+
+  it('scans only prose for image references', () => {
+    const prose = outsideCodeFences(DOC)
+    expect(prose.split(URL)).toHaveLength(2)
+    expect(prose).not.toContain('<img')
+  })
+
+  it('does not close a fence on a marker followed by an info string', () => {
+    const doc = [
+      '```md',
+      '```js',
+      `![Preview](${URL})`,
+      '```',
+      `![Preview](${URL})`,
+      ''
+    ].join('\n')
+    expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(
+      [
+        '```md',
+        '```js',
+        `![Preview](${URL})`,
+        '```',
+        '![Preview](/x.png)',
+        ''
+      ].join('\n')
+    )
+  })
+
+  it('closes a fence on a bare marker with trailing spaces', () => {
+    const doc = ['```', URL, '```   ', URL, ''].join('\n')
+    expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(
+      ['```', URL, '```   ', '/x.png', ''].join('\n')
+    )
+  })
+
+  it('treats an unclosed fence as code until the end', () => {
+    const doc = `before ${URL}\n\`\`\`\nafter ${URL}\n`
+    expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(
+      `before /x.png\n\`\`\`\nafter ${URL}\n`
+    )
+  })
+
+  it('replaces every occurrence when there are no fences', () => {
+    expect(replaceOutsideCodeFences(`a ${URL} b ${URL}`, URL, '/x.png')).toBe(
+      'a /x.png b /x.png'
+    )
   })
 })

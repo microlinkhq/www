@@ -152,12 +152,61 @@ const processFrontmatterImage = async (data, imagesFolder) => {
   return false
 }
 
+const CODE_FENCE_MARKER = /^ {0,3}(`{3,}|~{3,})/
+const BARE_CODE_FENCE = /^ {0,3}(`{3,}|~{3,}) *\r?\n?$/
+
+const splitByCodeFences = content => {
+  const segments = []
+  let fence = null
+  let buffer = ''
+
+  for (const line of content.split(/(?<=\n)/)) {
+    const marker = line.match(CODE_FENCE_MARKER)?.[1]
+
+    if (!fence && marker) {
+      segments.push({ isCode: false, text: buffer })
+      buffer = line
+      fence = marker
+      continue
+    }
+
+    buffer += line
+    const closesFence =
+      fence &&
+      BARE_CODE_FENCE.test(line) &&
+      marker[0] === fence[0] &&
+      marker.length >= fence.length
+    if (closesFence) {
+      segments.push({ isCode: true, text: buffer })
+      buffer = ''
+      fence = null
+    }
+  }
+
+  segments.push({ isCode: fence !== null, text: buffer })
+  return segments
+}
+
+const outsideCodeFences = content =>
+  splitByCodeFences(content)
+    .filter(segment => !segment.isCode)
+    .map(segment => segment.text)
+    .join('')
+
+const replaceOutsideCodeFences = (content, url, localPath) =>
+  splitByCodeFences(content)
+    .map(segment =>
+      segment.isCode ? segment.text : segment.text.replaceAll(url, localPath)
+    )
+    .join('')
+
 const processMarkdownImages = async (content, imagesFolder) => {
   const regex = /!\[([^\]]*)\]\(([^)]+)\)/g
   const matches = []
+  const prose = outsideCodeFences(content)
   let match
 
-  while ((match = regex.exec(content)) !== null) {
+  while ((match = regex.exec(prose)) !== null) {
     matches.push({ alt: match[1], url: match[2] })
   }
 
@@ -169,8 +218,7 @@ const processMarkdownImages = async (content, imagesFolder) => {
     if (urlToLocalPath.has(url)) {
       console.log(`Reusing cached image: ${url}`)
       const localPath = urlToLocalPath.get(url)
-      // Replace ALL occurrences of this URL
-      content = content.replaceAll(url, localPath)
+      content = replaceOutsideCodeFences(content, url, localPath)
       continue
     }
 
@@ -178,8 +226,7 @@ const processMarkdownImages = async (content, imagesFolder) => {
 
     try {
       const localPath = await migrateImage(url, imagesFolder)
-      // Replace ALL occurrences of this URL
-      content = content.replaceAll(url, localPath)
+      content = replaceOutsideCodeFences(content, url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)
     }
@@ -190,18 +237,19 @@ const processMarkdownImages = async (content, imagesFolder) => {
 
 const processJsxImageSources = async (content, imagesFolder) => {
   const matches = []
+  const prose = outsideCodeFences(content)
 
   // Match object-style props: src: 'https://...'
   const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
   let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
+  while ((objectMatch = objectSrcRegex.exec(prose)) !== null) {
     matches.push(objectMatch[1])
   }
 
   // Match JSX attribute style: src="https://..."
   const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
   let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
+  while ((attrMatch = attrSrcRegex.exec(prose)) !== null) {
     matches.push(attrMatch[1])
   }
 
@@ -211,7 +259,7 @@ const processJsxImageSources = async (content, imagesFolder) => {
   for (const url of httpUrls) {
     if (urlToLocalPath.has(url)) {
       console.log(`Reusing cached JSX image: ${url}`)
-      content = content.replaceAll(url, urlToLocalPath.get(url))
+      content = replaceOutsideCodeFences(content, url, urlToLocalPath.get(url))
       continue
     }
 
@@ -219,7 +267,7 @@ const processJsxImageSources = async (content, imagesFolder) => {
 
     try {
       const localPath = await migrateImage(url, imagesFolder)
-      content = content.replaceAll(url, localPath)
+      content = replaceOutsideCodeFences(content, url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)
     }
@@ -229,26 +277,27 @@ const processJsxImageSources = async (content, imagesFolder) => {
 }
 
 const countExternalImageCandidates = content => {
+  const prose = outsideCodeFences(content)
   let total = 0
 
   // Markdown image syntax
   const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
   let markdownMatch
-  while ((markdownMatch = markdownRegex.exec(content)) !== null) {
+  while ((markdownMatch = markdownRegex.exec(prose)) !== null) {
     if (isHttpUrl(markdownMatch[2])) total++
   }
 
   // JSX object-style src: 'https://...'
   const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
   let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
+  while ((objectMatch = objectSrcRegex.exec(prose)) !== null) {
     if (isImageUrl(objectMatch[1])) total++
   }
 
   // JSX attribute style src="https://..."
   const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
   let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
+  while ((attrMatch = attrSrcRegex.exec(prose)) !== null) {
     if (isImageUrl(attrMatch[1])) total++
   }
 
@@ -388,6 +437,8 @@ const main = async () => {
 if (require.main === module) main()
 
 module.exports = {
+  outsideCodeFences,
+  replaceOutsideCodeFences,
   downloadImage,
   generateFilename,
   isImageUrl,
