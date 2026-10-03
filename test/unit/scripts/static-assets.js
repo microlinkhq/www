@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  countExternalImageCandidates,
   generateFilename,
   isImageUrl,
   outsideCodeFences,
@@ -203,5 +204,32 @@ describe('code fences', () => {
     expect(replaceOutsideCodeFences(`a ${URL} b ${URL}`, URL, '/x.png')).toBe(
       'a /x.png b /x.png'
     )
+  })
+})
+
+describe('countExternalImageCandidates', () => {
+  it('counts external markdown images and JSX image sources outside code fences', () => {
+    const doc = [
+      '![a](https://example.com/a.png)',
+      '![b](https://example.com/b)',
+      '![a again](https://example.com/a.png)',
+      '![local](/images/local.png)',
+      "<SliderCompare before={{ src: 'https://example.com/c.jpg' }} />",
+      "<Media src: 'https://example.com/video.mp4' />",
+      '<img src="https://example.com/d.webp" />',
+      '<iframe src="https://example.com/embed" />',
+      "<img src='/images/local.png' />",
+      '```md',
+      '![fenced](https://example.com/fenced.png)',
+      '<img src="https://example.com/fenced.png" />',
+      '```',
+      ''
+    ].join('\n')
+
+    expect(countExternalImageCandidates(doc)).toBe(5)
+  })
+
+  it('returns 0 when there are no external images', () => {
+    expect(countExternalImageCandidates('# Title\n\nPlain text.\n')).toBe(0)
   })
 })
