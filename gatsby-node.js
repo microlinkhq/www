@@ -30,6 +30,13 @@ const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
 const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
+const {
+  authorsByPathname,
+  cardMetadata,
+  inlineAvatars,
+  pageMetadata,
+  withoutTrailingSlash
+} = require('./src/helpers/og-card-metadata')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -147,50 +154,23 @@ exports.onPostBuild = async ({ graphql, reporter }) => {
   await generateOgImages({ graphql, reporter })
 }
 
-// Each page's built HTML already carries its real og:title/og:description (set
-// by Meta). Read them back so the card renders from the page's actual metadata
-// — e.g. "Model Context Protocol (MCP)" instead of the slug-derived "Mcp" — the
-// way the URL-mode service does. @microlink/og cleans and merges them over the
-// slug-derived base; a page whose HTML can't be read falls back to the slug.
-// `fromCodePoint` (not `fromCharCode`) so astral entities like `&#x1F680;`
-// (🚀) round-trip; out-of-range values decode to nothing rather than throwing.
-const entityChar = (code, radix) => {
-  const cp = parseInt(code, radix)
-  return cp <= 0x10ffff ? String.fromCodePoint(cp) : ''
-}
-
-const decodeEntities = value =>
-  value
-    .replace(/&lt;/g, '<')
-    .replace(/&gt;/g, '>')
-    .replace(/&quot;/g, '"')
-    .replace(/&#(\d+);/g, (_, code) => entityChar(code, 10))
-    .replace(/&#x([\da-f]+);/gi, (_, code) => entityChar(code, 16))
-    .replace(/&amp;/g, '&')
-
-const ogContent = (html, name) => {
-  const match = html.match(
-    new RegExp(`<meta property="og:${name}" content="([^"]*)"`)
-  )
-  return match ? decodeEntities(match[1]) : undefined
-}
-
-const pageMetadata = pathname => {
-  // `pathname` is a route ("/integrations/mcp", "/"); strip the leading slash
-  // so it joins as a relative segment under public/.
+const readPageHtml = pathname => {
   const relativePath = pathname.replace(/^\//, '')
   const file = path.join(process.cwd(), 'public', relativePath, 'index.html')
-  let html
   try {
-    html = readFileSync(file, 'utf8')
+    return readFileSync(file, 'utf8')
   } catch {
     return undefined
   }
-  return {
-    title: ogContent(html, 'title'),
-    description: ogContent(html, 'description')
-  }
 }
+
+const OG_CARD_HOST = 'microlink.io'
+
+const OG_CARD_QUERY = `{
+  allSitePage { nodes { path } }
+  allMdx { nodes { fields { slug } frontmatter { authors } } }
+  allAuthorsYaml { nodes { key name avatar } }
+}`
 
 // Render an OG card for every page into `public/images/og/<slug>.png` so the
 // images ship as plain static files (served at /images/og/<slug>.png, like any
@@ -200,12 +180,30 @@ const pageMetadata = pathname => {
 // crashes, or every card fails). A single failed card just warns rather than
 // blocking the deploy — render failures are rare and isolated.
 const generateOgImages = async ({ graphql, reporter }) => {
-  const result = await graphql('{ allSitePage { nodes { path } } }')
+  const result = await graphql(OG_CARD_QUERY)
   if (result.errors) {
     return reporter.panicOnBuild(
       'OG images: failed to query pages',
       result.errors
     )
+  }
+
+  const postAuthors = authorsByPathname({
+    posts: result.data.allMdx.nodes.map(node => ({
+      slug: node.fields?.slug || '',
+      authorKeys: node.frontmatter?.authors
+    })),
+    authors: await inlineAvatars(result.data.allAuthorsYaml.nodes)
+  })
+
+  const ogCardMetadata = pathname => {
+    const html = readPageHtml(pathname)
+    return html === undefined
+      ? undefined
+      : cardMetadata({
+        html,
+        authors: postAuthors.get(withoutTrailingSlash(pathname))
+      })
   }
 
   const pathnames = result.data.allSitePage.nodes.flatMap(
@@ -217,7 +215,8 @@ const generateOgImages = async ({ graphql, reporter }) => {
     cards = await generateOgCards({
       pathnames,
       outDir: path.join(process.cwd(), 'public', 'images', 'og'),
-      metadata: pageMetadata,
+      host: OG_CARD_HOST,
+      metadata: ogCardMetadata,
       onError: (pathname, error) =>
         reporter.warn(`OG ${pathname}: ${error.message}`)
     })
@@ -623,7 +622,7 @@ const createPageMarkdownFiles = async ({ graphql, reporter }) => {
 
   const pages = writtenPathnames.map(pathname => ({
     pathname,
-    ...pageMetadata(pathname)
+    ...pageMetadata(readPageHtml(pathname) || '')
   }))
   writeFileSync(
     path.join(process.cwd(), 'public', 'llms.txt'),

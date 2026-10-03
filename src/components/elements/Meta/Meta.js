@@ -69,19 +69,6 @@ const mergeMeta = (props, location, metadata) => {
     }
   })()
 
-  // Prefer an explicit `image` prop, else the per-page card generated at build
-  // time (served at `/images/og/<slug>.png`), falling back to the default
-  // banner. The card lives on the deploy host (`ogImageBase`) — empty in dev,
-  // and distinct from the canonical `siteUrl` on preview deployments.
-  const image =
-    props.image ||
-    ogImageUrl(location?.pathname, ogImageBase, {
-      version: ogImageVersion,
-      title: fullTitle,
-      description
-    }) ||
-    metadata.image
-
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
 
   if (!modifiedDate) {
@@ -91,6 +78,21 @@ const mergeMeta = (props, location, metadata) => {
   if (!publishedDate) {
     publishedDate = getCreatedFromPathname(location?.pathname) || modifiedDate
   }
+
+  // Prefer an explicit `image` prop, else the per-page card generated at build
+  // time (served at `/images/og/<slug>.png`), falling back to the default
+  // banner. The card lives on the deploy host (`ogImageBase`) — empty in dev,
+  // and distinct from the canonical `siteUrl` on preview deployments.
+  const image =
+    props.image ||
+    ogImageUrl(location?.pathname, ogImageBase, {
+      version: ogImageVersion,
+      title: fullTitle,
+      description,
+      date: toDate(modifiedDate || publishedDate)?.toISOString(),
+      authors: author
+    }) ||
+    metadata.image
 
   return {
     dataLabel1,

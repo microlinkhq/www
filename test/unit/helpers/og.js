@@ -56,6 +56,29 @@ describe('ogImageUrl', () => {
     ).not.toBe(ogImageUrl('/pricing', BASE, { ...card, version: '1.6.0' }))
   })
 
+  it('changes the fingerprint when the card date or authors change', () => {
+    const card = {
+      version: '1.5.0',
+      title: 'Post',
+      description: 'A post.',
+      date: '2026-10-01T00:00:00.000Z',
+      authors: 'Kiko Beats'
+    }
+    const base = ogImageUrl('/blog/post', BASE, card)
+    expect(
+      ogImageUrl('/blog/post', BASE, {
+        ...card,
+        date: '2026-10-02T00:00:00.000Z'
+      })
+    ).not.toBe(base)
+    expect(
+      ogImageUrl('/blog/post', BASE, {
+        ...card,
+        authors: 'Kiko Beats, Joseba Legarreta'
+      })
+    ).not.toBe(base)
+  })
+
   it('keeps fields distinct so text cannot shift between them', () => {
     const a = ogImageUrl('/pricing', BASE, { title: 'ab', description: 'c' })
     const b = ogImageUrl('/pricing', BASE, { title: 'a', description: 'bc' })

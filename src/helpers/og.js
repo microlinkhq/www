@@ -1,5 +1,13 @@
 import { imagePath } from '@microlink/og'
 
+const FINGERPRINT_FIELDS = [
+  'version',
+  'title',
+  'description',
+  'date',
+  'authors'
+]
+
 const fingerprint = content => {
   let hash = 5381
   for (let i = 0; i < content.length; i++) {
@@ -13,6 +21,8 @@ export const ogImageUrl = (pathname, base, card) => {
   if (!base || !path) return null
   const url = `${base}/images${path}`
   if (!card) return url
-  const { version = '', title = '', description = '' } = card
-  return `${url}?v=${fingerprint(`${version}\n${title}\n${description}`)}`
+  const fingerprintInput = FINGERPRINT_FIELDS.map(
+    field => card[field] ?? ''
+  ).join('\n')
+  return `${url}?v=${fingerprint(fingerprintInput)}`
 }
