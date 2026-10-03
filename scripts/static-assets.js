@@ -216,42 +216,22 @@ const jsxImageUrls = prose =>
     ...firstCaptures(prose, JSX_ATTRIBUTE_SRC)
   ].filter(isImageUrl)
 
-const processMarkdownImages = async (content, imagesFolder) => {
-  const httpUrls = [...new Set(markdownImageUrls(outsideCodeFences(content)))]
+const migrateImageUrls = async ({
+  content,
+  imagesFolder,
+  collectUrls,
+  kind
+}) => {
+  const urls = [...new Set(collectUrls(outsideCodeFences(content)))]
 
-  for (const url of httpUrls) {
-    // Check if this URL was already processed (deduplication)
+  for (const url of urls) {
     if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached image: ${url}`)
-      const localPath = urlToLocalPath.get(url)
-      content = replaceOutsideCodeFences(content, url, localPath)
-      continue
-    }
-
-    console.log(`Processing markdown image: ${url}`)
-
-    try {
-      const localPath = await migrateImage(url, imagesFolder)
-      content = replaceOutsideCodeFences(content, url, localPath)
-    } catch (err) {
-      console.error(`Failed to download ${url}: ${err.message}`)
-    }
-  }
-
-  return content
-}
-
-const processJsxImageSources = async (content, imagesFolder) => {
-  const httpUrls = [...new Set(jsxImageUrls(outsideCodeFences(content)))]
-
-  for (const url of httpUrls) {
-    if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached JSX image: ${url}`)
+      console.log(`Reusing cached ${kind}: ${url}`)
       content = replaceOutsideCodeFences(content, url, urlToLocalPath.get(url))
       continue
     }
 
-    console.log(`Processing JSX image source: ${url}`)
+    console.log(`Processing ${kind}: ${url}`)
 
     try {
       const localPath = await migrateImage(url, imagesFolder)
@@ -263,6 +243,22 @@ const processJsxImageSources = async (content, imagesFolder) => {
 
   return content
 }
+
+const processMarkdownImages = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: markdownImageUrls,
+    kind: 'markdown image'
+  })
+
+const processJsxImageSources = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: jsxImageUrls,
+    kind: 'JSX image source'
+  })
 
 const countExternalImageCandidates = content => {
   const prose = outsideCodeFences(content)
