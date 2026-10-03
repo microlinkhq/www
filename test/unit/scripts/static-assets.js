@@ -70,18 +70,36 @@ describe('resolveExtension', () => {
 })
 
 describe('generateFilename', () => {
-  it('keeps a descriptive basename and swaps in the resolved extension', () => {
-    expect(generateFilename('https://placehold.co/450x300', 1, '.svg')).toBe(
-      '450x300.svg'
+  it('keeps a descriptive basename, adds a URL hash and the resolved extension', () => {
+    expect(generateFilename('https://placehold.co/450x300', '.svg')).toBe(
+      '450x300-30e6aa9e.svg'
     )
     expect(
-      generateFilename('https://cdn.example.com/hero-shot.png', 1, '.webp')
-    ).toBe('hero-shot.webp')
+      generateFilename('https://cdn.example.com/hero-shot.png', '.webp')
+    ).toBe('hero-shot-53a9422d.webp')
   })
 
-  it('generates a name when the basename is too short', () => {
-    expect(generateFilename('https://example.com/a.png', 3, '.png')).toBe(
-      'image-3.png'
+  it('names short basenames image plus the URL hash', () => {
+    expect(generateFilename('https://example.com/a.png', '.png')).toBe(
+      'image-b86dafa6.png'
+    )
+  })
+
+  it('gives distinct URLs with the same basename distinct names', () => {
+    const names = [
+      generateFilename('https://a.com/img/logo.png', '.png'),
+      generateFilename('https://b.com/logo.png', '.png'),
+      generateFilename('https://x.com/logo.png', '.svg'),
+      generateFilename('https://y.com/logo.svg', '.svg'),
+      generateFilename('https://a.com/x.png', '.png'),
+      generateFilename('https://b.com/y.png', '.png')
+    ]
+    expect(new Set(names).size).toBe(names.length)
+  })
+
+  it('names the same URL the same way every run', () => {
+    expect(generateFilename('https://b.com/logo.png', '.png')).toBe(
+      generateFilename('https://b.com/logo.png', '.png')
     )
   })
 })
