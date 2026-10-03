@@ -118,11 +118,13 @@ describe('authorsByPathname', () => {
       posts: [
         { slug: '/blog/ghost/', authorKeys: ['nobody'] },
         { slug: '/docs/api/', authorKeys: null },
+        { slug: undefined, authorKeys: ['kiko'] },
         { slug: '/blog/mixed/', authorKeys: ['nobody', 'kiko'] }
       ],
       authors: AUTHORS
     })
     expect(map.has('/blog/ghost')).toBe(false)
+    expect(map.has('/')).toBe(false)
     expect(map.has('/docs/api')).toBe(false)
     expect(map.get('/blog/mixed')).toEqual([
       { name: 'Kiko Beats', avatar: 'https://avatars.test/kiko' }
@@ -137,7 +139,7 @@ describe('inlineAvatars', () => {
       requested.push(url)
       return imageResponse('image/jpeg; charset=binary')
     }
-    const [kiko, joseba] = await inlineAvatars(AUTHORS, fetchImage)
+    const [kiko, joseba] = await inlineAvatars(AUTHORS, { fetchImage })
     expect(kiko).toEqual({
       key: 'kiko',
       name: 'Kiko Beats',
@@ -149,18 +151,44 @@ describe('inlineAvatars', () => {
     expect(requested).toEqual(['https://avatars.test/kiko'])
   })
 
-  it('drops the avatar when the request fails, errors or is not an image', async () => {
+  it('gives every request an abort signal so a stalled host cannot hang the build', async () => {
+    const signals = []
+    const fetchImage = async (_, { signal }) => {
+      signals.push(signal)
+      return imageResponse('image/png')
+    }
+    await inlineAvatars(AUTHORS, { fetchImage })
+    expect(signals).toHaveLength(1)
+    expect(signals[0]).toBeInstanceOf(AbortSignal)
+  })
+
+  it('drops the avatar and reports why when it cannot be inlined', async () => {
     const failures = [
-      async () => ({ ok: false }),
-      async () => {
-        throw new Error('offline')
-      },
-      async () => imageResponse('text/html')
+      [async () => ({ ok: false, status: 429 }), 'responded with 429'],
+      [
+        async () => {
+          throw new Error('offline')
+        },
+        'offline'
+      ],
+      [async () => imageResponse('text/html'), 'is not an image (text/html)']
     ]
-    for (const fetchImage of failures) {
-      const [kiko] = await inlineAvatars(AUTHORS, fetchImage)
+    for (const [fetchImage, reason] of failures) {
+      const reported = []
+      const [kiko] = await inlineAvatars(AUTHORS, {
+        fetchImage,
+        onError: (author, error) => reported.push([author.key, error.message])
+      })
       expect(kiko.name).toBe('Kiko Beats')
       expect(kiko.avatar).toBe(undefined)
+      expect(reported).toEqual([['kiko', reason]])
     }
+  })
+
+  it('still drops the avatar when no error handler is given', async () => {
+    const [kiko] = await inlineAvatars(AUTHORS, {
+      fetchImage: async () => ({ ok: false, status: 500 })
+    })
+    expect(kiko.avatar).toBe(undefined)
   })
 })

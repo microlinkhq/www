@@ -190,10 +190,15 @@ const generateOgImages = async ({ graphql, reporter }) => {
 
   const postAuthors = authorsByPathname({
     posts: result.data.allMdx.nodes.map(node => ({
-      slug: node.fields?.slug || '',
+      slug: node.fields?.slug,
       authorKeys: node.frontmatter?.authors
     })),
-    authors: await inlineAvatars(result.data.allAuthorsYaml.nodes)
+    authors: await inlineAvatars(result.data.allAuthorsYaml.nodes, {
+      onError: (author, error) =>
+        reporter.warn(
+          `OG avatar for ${author.name} dropped: ${author.avatar} ${error.message}`
+        )
+    })
   })
 
   const ogCardMetadata = pathname => {

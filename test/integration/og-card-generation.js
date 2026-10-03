@@ -5,9 +5,10 @@ import { describe, expect, test } from 'vitest'
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
 const gatsbyNode = read('gatsby-node.js')
+const generateCallStart = gatsbyNode.indexOf('generateOgCards({')
 const generateCall = gatsbyNode.slice(
-  gatsbyNode.indexOf('generateOgCards({'),
-  gatsbyNode.indexOf('onError:')
+  generateCallStart,
+  gatsbyNode.indexOf('onError:', generateCallStart)
 )
 
 describe('og card generation', () => {
@@ -29,13 +30,13 @@ describe('og card generation', () => {
   })
 
   test('every blog author key resolves in data/authors.yaml', () => {
-    const authorKeys = new Set(
+    const knownKeys = new Set(
       [...read('data/authors.yaml').matchAll(/^- key: (\S+)$/gm)].map(
         match => match[1]
       )
     )
     const blogDir = path.join(process.cwd(), 'src', 'content', 'blog')
-    const unknown = fs
+    const postAuthorKeys = fs
       .readdirSync(blogDir)
       .filter(file => file.endsWith('.md'))
       .flatMap(file => {
@@ -44,11 +45,18 @@ describe('og card generation', () => {
           .split(/^---$/m)
         const [, block = ''] =
           frontmatter.match(/^authors:\n((?: +- .+\n?)+)/m) || []
-        return [...block.matchAll(/- (\S+)/g)]
-          .map(match => match[1])
-          .filter(key => !authorKeys.has(key))
-          .map(key => `${file}: ${key}`)
+        return [...block.matchAll(/- (\S+)/g)].map(match => ({
+          file,
+          key: match[1]
+        }))
       })
-    expect(unknown).toEqual([])
+    expect(postAuthorKeys.length).toBeGreaterThan(0)
+    expect(postAuthorKeys.filter(({ key }) => !knownKeys.has(key))).toEqual([])
+  })
+
+  test('warns when an author avatar cannot be inlined', () => {
+    expect(gatsbyNode).toMatch(
+      /inlineAvatars\([^)]+onError: \(author, error\) =>\s+reporter\.warn\(/
+    )
   })
 })

@@ -27,6 +27,7 @@ export const withoutTrailingSlash = pathname =>
 export const authorsByPathname = ({ posts, authors }) => {
   const authorByKey = new Map(authors.map(author => [author.key, author]))
   const entries = posts.flatMap(({ slug, authorKeys }) => {
+    if (!slug) return []
     const postAuthors = (authorKeys || []).flatMap(key => {
       const author = authorByKey.get(key)
       return author ? [{ name: author.name, avatar: author.avatar }] : []
@@ -51,23 +52,32 @@ export const cardMetadata = ({ html, authors }) => ({
   authors
 })
 
+const AVATAR_TIMEOUT_MS = 10000
+
 const toDataUri = async (url, fetchImage) => {
+  const response = await fetchImage(url, {
+    signal: AbortSignal.timeout(AVATAR_TIMEOUT_MS)
+  })
+  if (!response.ok) throw new Error(`responded with ${response.status}`)
+  const contentType = response.headers.get('content-type')
+  if (!contentType || !contentType.startsWith('image/')) {
+    throw new Error(`is not an image (${contentType})`)
+  }
+  const body = Buffer.from(await response.arrayBuffer())
+  return `data:${contentType.split(';')[0]};base64,${body.toString('base64')}`
+}
+
+const inlineAvatar = async (author, { fetchImage, onError }) => {
+  if (!author.avatar) return author
   try {
-    const response = await fetchImage(url)
-    if (!response.ok) return undefined
-    const contentType = response.headers.get('content-type')
-    if (!contentType || !contentType.startsWith('image/')) return undefined
-    const body = Buffer.from(await response.arrayBuffer())
-    return `data:${contentType.split(';')[0]};base64,${body.toString('base64')}`
-  } catch {
-    return undefined
+    return { ...author, avatar: await toDataUri(author.avatar, fetchImage) }
+  } catch (error) {
+    if (onError) onError(author, error)
+    return { ...author, avatar: undefined }
   }
 }
 
-export const inlineAvatars = async (authors, fetchImage = fetch) =>
+export const inlineAvatars = (authors, { fetchImage = fetch, onError } = {}) =>
   Promise.all(
-    authors.map(async author => ({
-      ...author,
-      avatar: author.avatar && (await toDataUri(author.avatar, fetchImage))
-    }))
+    authors.map(author => inlineAvatar(author, { fetchImage, onError }))
   )
