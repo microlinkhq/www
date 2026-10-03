@@ -164,6 +164,34 @@ describe('code fences', () => {
     expect(prose).not.toContain('<img')
   })
 
+  it('does not close a fence on a marker followed by an info string', () => {
+    const doc = [
+      '```md',
+      '```js',
+      `![Preview](${URL})`,
+      '```',
+      `![Preview](${URL})`,
+      ''
+    ].join('\n')
+    expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(
+      [
+        '```md',
+        '```js',
+        `![Preview](${URL})`,
+        '```',
+        '![Preview](/x.png)',
+        ''
+      ].join('\n')
+    )
+  })
+
+  it('closes a fence on a bare marker with trailing spaces', () => {
+    const doc = ['```', URL, '```   ', URL, ''].join('\n')
+    expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(
+      ['```', URL, '```   ', '/x.png', ''].join('\n')
+    )
+  })
+
   it('treats an unclosed fence as code until the end', () => {
     const doc = `before ${URL}\n\`\`\`\nafter ${URL}\n`
     expect(replaceOutsideCodeFences(doc, URL, '/x.png')).toBe(

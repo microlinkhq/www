@@ -153,6 +153,7 @@ const processFrontmatterImage = async (data, imagesFolder) => {
 }
 
 const CODE_FENCE_MARKER = /^ {0,3}(`{3,}|~{3,})/
+const BARE_CODE_FENCE = /^ {0,3}(`{3,}|~{3,}) *\r?\n?$/
 
 const splitByCodeFences = content => {
   const segments = []
@@ -171,7 +172,10 @@ const splitByCodeFences = content => {
 
     buffer += line
     const closesFence =
-      fence && marker && marker[0] === fence[0] && marker.length >= fence.length
+      fence &&
+      BARE_CODE_FENCE.test(line) &&
+      marker[0] === fence[0] &&
+      marker.length >= fence.length
     if (closesFence) {
       segments.push({ isCode: true, text: buffer })
       buffer = ''
