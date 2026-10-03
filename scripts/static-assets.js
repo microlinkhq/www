@@ -25,11 +25,9 @@
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
 const { styleText } = require('node:util')
+const { default: mime } = require('mime')
 const optimo = require('optimo')
-const https = require('https')
-const http = require('http')
 const path = require('path')
-const fs = require('fs')
 
 const git = require('../src/helpers/git')
 
@@ -45,68 +43,68 @@ const isHttpUrl = input => /^https?:\/\//.test(input)
 
 const mkdirp = filepath => mkdir(filepath, { recursive: true }).catch(() => {})
 
-const getExtension = url => {
-  const pathname = new URL(url).pathname
-  const ext = path.extname(pathname)
-  return ext || '.png'
-}
+const SUPPORTED_EXTENSIONS = new Set([
+  'avif',
+  'bmp',
+  'gif',
+  'heic',
+  'jpg',
+  'jxl',
+  'png',
+  'svg',
+  'webp'
+])
+
+const GENERIC_MEDIA_TYPES = new Set(['', 'application/octet-stream'])
+
+const urlMediaType = url => mime.getType(new URL(url).pathname)
 
 const isImageUrl = input => {
   if (!isHttpUrl(input)) return false
 
   try {
-    const pathname = new URL(input).pathname.toLowerCase()
-    return /\.(png|jpe?g|webp|gif|svg|avif|heic|jxl|bmp)$/.test(pathname)
+    return SUPPORTED_EXTENSIONS.has(mime.getExtension(urlMediaType(input)))
   } catch (_) {
     return false
   }
 }
 
-const downloadFile = (url, outputPath) => {
-  return new Promise((resolve, reject) => {
-    const client = url.startsWith('https') ? https : http
+const resolveExtension = ({ url, contentType }) => {
+  const servedType = (contentType ?? '').split(';')[0].trim().toLowerCase()
+  const mediaType = GENERIC_MEDIA_TYPES.has(servedType)
+    ? urlMediaType(url)
+    : servedType
+  const extension = mime.getExtension(mediaType)
+  if (SUPPORTED_EXTENSIONS.has(extension)) return `.${extension}`
 
-    client
-      .get(url, response => {
-        if (response.statusCode === 301 || response.statusCode === 302) {
-          return downloadFile(response.headers.location, outputPath)
-            .then(resolve)
-            .catch(reject)
-        }
-
-        if (response.statusCode !== 200) {
-          return reject(
-            new Error(`Failed to download ${url}: ${response.statusCode}`)
-          )
-        }
-
-        const fileStream = fs.createWriteStream(outputPath)
-        response.pipe(fileStream)
-
-        fileStream.on('finish', () => {
-          fileStream.close()
-          console.log(`✓ Downloaded ${path.basename(outputPath)}`)
-          resolve()
-        })
-
-        fileStream.on('error', reject)
-      })
-      .on('error', reject)
-  })
+  throw new Error(
+    `${url} is not a supported image (content-type: ${servedType || 'none'})`
+  )
 }
 
-const generateFilename = (url, index) => {
-  const urlObj = new URL(url)
-  const basename = path.basename(urlObj.pathname, path.extname(urlObj.pathname))
-  const ext = getExtension(url)
+const generateFilename = (url, index, extension) => {
+  const { pathname } = new URL(url)
+  const basename = path.basename(pathname, path.extname(pathname))
+  return basename.length > 3
+    ? `${basename}${extension}`
+    : `image-${index}${extension}`
+}
 
-  // Use existing filename if it looks like an imgur-style hash
-  if (basename && basename.length > 3) {
-    return `${basename}${ext}`
+const downloadImage = async (url, imagesFolder, index) => {
+  const response = await fetch(url)
+  if (response.status !== 200) {
+    throw new Error(`Failed to download ${url}: ${response.status}`)
   }
 
-  // Otherwise generate a name
-  return `image-${index}${ext}`
+  const extension = resolveExtension({
+    url: response.url,
+    contentType: response.headers.get('content-type')
+  })
+  const filename = generateFilename(url, index, extension)
+  const outputPath = path.join(imagesFolder, filename)
+  await writeFile(outputPath, Buffer.from(await response.arrayBuffer()))
+  console.log(`✓ Downloaded ${filename}`)
+  return { filename, outputPath }
 }
 
 const optimizeImage = async outputPath => {
@@ -114,6 +112,15 @@ const optimizeImage = async outputPath => {
     resize: 'w1280'
   })
   console.log(`✓ Optimized ${path.basename(outputPath)}`)
+}
+
+const migrateImage = async (url, imagesFolder, index) => {
+  const { filename, outputPath } = await downloadImage(url, imagesFolder, index)
+  await optimizeImage(outputPath)
+  downloadedAssets.add(outputPath)
+  const localPath = `/images/${filename}`
+  urlToLocalPath.set(url, localPath)
+  return localPath
 }
 
 const processFrontmatterImage = async (data, imagesFolder) => {
@@ -128,16 +135,9 @@ const processFrontmatterImage = async (data, imagesFolder) => {
     }
 
     console.log(`Processing frontmatter image: ${url}`)
-    const filename = generateFilename(url, 0)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
 
     try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
-      data.image = localPath
+      data.image = await migrateImage(url, imagesFolder, 0)
       return true
     } catch (err) {
       console.error(red(`Failed to download frontmatter image: ${err.message}`))
@@ -171,15 +171,9 @@ const processMarkdownImages = async (content, imagesFolder) => {
     }
 
     console.log(`Processing markdown image: ${url}`)
-    const filename = generateFilename(url, index++)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
 
     try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
+      const localPath = await migrateImage(url, imagesFolder, index++)
       // Replace ALL occurrences of this URL
       content = content.replaceAll(url, localPath)
     } catch (err) {
@@ -219,15 +213,9 @@ const processJsxImageSources = async (content, imagesFolder) => {
     }
 
     console.log(`Processing JSX image source: ${url}`)
-    const filename = generateFilename(url, index++)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
 
     try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
+      const localPath = await migrateImage(url, imagesFolder, index++)
       content = content.replaceAll(url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)
@@ -394,4 +382,11 @@ const main = async () => {
   console.log('\n✓ Migration complete!')
 }
 
-main()
+if (require.main === module) main()
+
+module.exports = {
+  downloadImage,
+  generateFilename,
+  isImageUrl,
+  resolveExtension
+}
