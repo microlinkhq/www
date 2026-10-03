@@ -25,6 +25,7 @@
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
 const { styleText } = require('node:util')
+const { default: mime } = require('mime')
 const optimo = require('optimo')
 const path = require('path')
 
@@ -42,48 +43,42 @@ const isHttpUrl = input => /^https?:\/\//.test(input)
 
 const mkdirp = filepath => mkdir(filepath, { recursive: true }).catch(() => {})
 
-const EXTENSION_BY_MEDIA_TYPE = {
-  'image/avif': '.avif',
-  'image/bmp': '.bmp',
-  'image/gif': '.gif',
-  'image/heic': '.heic',
-  'image/jpeg': '.jpg',
-  'image/jxl': '.jxl',
-  'image/png': '.png',
-  'image/svg+xml': '.svg',
-  'image/webp': '.webp'
-}
-
-const IMAGE_EXTENSIONS = new Set([
-  ...Object.values(EXTENSION_BY_MEDIA_TYPE),
-  '.jpeg'
+const SUPPORTED_EXTENSIONS = new Set([
+  'avif',
+  'bmp',
+  'gif',
+  'heic',
+  'jpg',
+  'jxl',
+  'png',
+  'svg',
+  'webp'
 ])
 
 const GENERIC_MEDIA_TYPES = new Set(['', 'application/octet-stream'])
 
-const urlExtension = url => path.extname(new URL(url).pathname).toLowerCase()
+const urlMediaType = url => mime.getType(new URL(url).pathname)
 
 const isImageUrl = input => {
   if (!isHttpUrl(input)) return false
 
   try {
-    return IMAGE_EXTENSIONS.has(urlExtension(input))
+    return SUPPORTED_EXTENSIONS.has(mime.getExtension(urlMediaType(input)))
   } catch (_) {
     return false
   }
 }
 
-const resolveExtension = ({ url, contentType = '' }) => {
-  const mediaType = contentType.split(';')[0].trim().toLowerCase()
-  if (EXTENSION_BY_MEDIA_TYPE[mediaType]) { return EXTENSION_BY_MEDIA_TYPE[mediaType] }
-
-  const extension = urlExtension(url)
-  if (GENERIC_MEDIA_TYPES.has(mediaType) && IMAGE_EXTENSIONS.has(extension)) {
-    return extension
-  }
+const resolveExtension = ({ url, contentType }) => {
+  const servedType = (contentType ?? '').split(';')[0].trim().toLowerCase()
+  const mediaType = GENERIC_MEDIA_TYPES.has(servedType)
+    ? urlMediaType(url)
+    : servedType
+  const extension = mime.getExtension(mediaType)
+  if (SUPPORTED_EXTENSIONS.has(extension)) return `.${extension}`
 
   throw new Error(
-    `${url} is not a supported image (content-type: ${mediaType || 'none'})`
+    `${url} is not a supported image (content-type: ${servedType || 'none'})`
   )
 }
 
@@ -96,14 +91,14 @@ const generateFilename = (url, index, extension) => {
 }
 
 const downloadImage = async (url, imagesFolder, index) => {
-  const response = await fetch(url, { redirect: 'follow' })
+  const response = await fetch(url)
   if (!response.ok) {
     throw new Error(`Failed to download ${url}: ${response.status}`)
   }
 
   const extension = resolveExtension({
     url,
-    contentType: response.headers.get('content-type') ?? ''
+    contentType: response.headers.get('content-type')
   })
   const filename = generateFilename(url, index, extension)
   const outputPath = path.join(imagesFolder, filename)

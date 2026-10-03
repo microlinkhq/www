@@ -50,7 +50,7 @@ describe('resolveExtension', () => {
         url: 'https://example.com/photo.JPEG',
         contentType: 'application/octet-stream'
       })
-    ).toBe('.jpeg')
+    ).toBe('.jpg')
     expect(resolveExtension({ url: 'https://example.com/photo.gif' })).toBe(
       '.gif'
     )
