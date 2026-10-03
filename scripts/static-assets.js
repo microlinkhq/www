@@ -24,6 +24,7 @@
  */
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
+const { createHash } = require('node:crypto')
 const { styleText } = require('node:util')
 const { default: mime } = require('mime')
 const optimo = require('optimo')
@@ -82,15 +83,19 @@ const resolveExtension = ({ url, contentType }) => {
   )
 }
 
-const generateFilename = (url, index, extension) => {
+const URL_HASH_LENGTH = 8
+
+const urlHash = url =>
+  createHash('sha1').update(url).digest('hex').slice(0, URL_HASH_LENGTH)
+
+const generateFilename = (url, extension) => {
   const { pathname } = new URL(url)
   const basename = path.basename(pathname, path.extname(pathname))
-  return basename.length > 3
-    ? `${basename}${extension}`
-    : `image-${index}${extension}`
+  const name = basename.length > 3 ? basename : 'image'
+  return `${name}-${urlHash(url)}${extension}`
 }
 
-const downloadImage = async (url, imagesFolder, index) => {
+const downloadImage = async (url, imagesFolder) => {
   const response = await fetch(url)
   if (response.status !== 200) {
     throw new Error(`Failed to download ${url}: ${response.status}`)
@@ -100,7 +105,7 @@ const downloadImage = async (url, imagesFolder, index) => {
     url: response.url,
     contentType: response.headers.get('content-type')
   })
-  const filename = generateFilename(url, index, extension)
+  const filename = generateFilename(url, extension)
   const outputPath = path.join(imagesFolder, filename)
   await writeFile(outputPath, Buffer.from(await response.arrayBuffer()))
   console.log(`✓ Downloaded ${filename}`)
@@ -114,8 +119,8 @@ const optimizeImage = async outputPath => {
   console.log(`✓ Optimized ${path.basename(outputPath)}`)
 }
 
-const migrateImage = async (url, imagesFolder, index) => {
-  const { filename, outputPath } = await downloadImage(url, imagesFolder, index)
+const migrateImage = async (url, imagesFolder) => {
+  const { filename, outputPath } = await downloadImage(url, imagesFolder)
   await optimizeImage(outputPath)
   downloadedAssets.add(outputPath)
   const localPath = `/images/${filename}`
@@ -137,7 +142,7 @@ const processFrontmatterImage = async (data, imagesFolder) => {
     console.log(`Processing frontmatter image: ${url}`)
 
     try {
-      data.image = await migrateImage(url, imagesFolder, 0)
+      data.image = await migrateImage(url, imagesFolder)
       return true
     } catch (err) {
       console.error(red(`Failed to download frontmatter image: ${err.message}`))
@@ -159,7 +164,6 @@ const processMarkdownImages = async (content, imagesFolder) => {
   // Collect unique HTTP URLs for processing
   const httpUrls = [...new Set(matches.map(m => m.url).filter(isHttpUrl))]
 
-  let index = 1
   for (const url of httpUrls) {
     // Check if this URL was already processed (deduplication)
     if (urlToLocalPath.has(url)) {
@@ -173,7 +177,7 @@ const processMarkdownImages = async (content, imagesFolder) => {
     console.log(`Processing markdown image: ${url}`)
 
     try {
-      const localPath = await migrateImage(url, imagesFolder, index++)
+      const localPath = await migrateImage(url, imagesFolder)
       // Replace ALL occurrences of this URL
       content = content.replaceAll(url, localPath)
     } catch (err) {
@@ -204,7 +208,6 @@ const processJsxImageSources = async (content, imagesFolder) => {
   // Only process unique external image URLs
   const httpUrls = [...new Set(matches.filter(isImageUrl))]
 
-  let index = 1
   for (const url of httpUrls) {
     if (urlToLocalPath.has(url)) {
       console.log(`Reusing cached JSX image: ${url}`)
@@ -215,7 +218,7 @@ const processJsxImageSources = async (content, imagesFolder) => {
     console.log(`Processing JSX image source: ${url}`)
 
     try {
-      const localPath = await migrateImage(url, imagesFolder, index++)
+      const localPath = await migrateImage(url, imagesFolder)
       content = content.replaceAll(url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)

@@ -19,6 +19,8 @@ const ROUTES = {
     body: 'png-bytes'
   },
   '/partial.png': { status: 206, type: 'image/png', body: 'png-bytes' },
+  '/a/logo.png': { status: 200, type: 'image/png', body: 'first-logo' },
+  '/b/logo.png': { status: 200, type: 'image/png', body: 'second-logo' },
   '/broken.png': { status: 200, type: 'text/html', body: '<h1>oops</h1>' },
   '/missing.png': { status: 404, type: 'text/plain', body: 'not found' }
 }
@@ -26,6 +28,9 @@ const ROUTES = {
 let server
 let origin
 let imagesFolder
+
+const hashedName = (basename, extension) =>
+  new RegExp(`^${basename}-[0-9a-f]{8}\\${extension}$`)
 
 beforeAll(async () => {
   server = http.createServer((req, res) => {
@@ -51,44 +56,47 @@ describe('downloadImage', () => {
   it('saves an extension-less SVG response as .svg', async () => {
     const { filename, outputPath } = await downloadImage(
       `${origin}/450x300`,
-      imagesFolder,
-      1
+      imagesFolder
     )
-    expect(filename).toBe('450x300.svg')
+    expect(filename).toMatch(hashedName('450x300', '.svg'))
     expect(fs.readFileSync(outputPath, 'utf8')).toBe(SVG)
   })
 
   it('follows redirects and names the file after the requested URL', async () => {
-    const { filename } = await downloadImage(`${origin}/moved`, imagesFolder, 1)
-    expect(filename).toBe('moved.svg')
+    const { filename } = await downloadImage(`${origin}/moved`, imagesFolder)
+    expect(filename).toMatch(hashedName('moved', '.svg'))
   })
 
   it('falls back to the extension of the URL it was redirected to', async () => {
-    const { filename } = await downloadImage(
-      `${origin}/latest`,
-      imagesFolder,
-      1
-    )
-    expect(filename).toBe('latest.png')
+    const { filename } = await downloadImage(`${origin}/latest`, imagesFolder)
+    expect(filename).toMatch(hashedName('latest', '.png'))
+  })
+
+  it('keeps both files when two URLs share a basename', async () => {
+    const first = await downloadImage(`${origin}/a/logo.png`, imagesFolder)
+    const second = await downloadImage(`${origin}/b/logo.png`, imagesFolder)
+    expect(first.filename).not.toBe(second.filename)
+    expect(fs.readFileSync(first.outputPath, 'utf8')).toBe('first-logo')
+    expect(fs.readFileSync(second.outputPath, 'utf8')).toBe('second-logo')
   })
 
   it('writes nothing for a partial response', async () => {
     await expect(
-      downloadImage(`${origin}/partial.png`, imagesFolder, 1)
+      downloadImage(`${origin}/partial.png`, imagesFolder)
     ).rejects.toThrow('206')
     expect(fs.readdirSync(imagesFolder)).toEqual([])
   })
 
   it('writes nothing when the response is not an image', async () => {
     await expect(
-      downloadImage(`${origin}/broken.png`, imagesFolder, 1)
+      downloadImage(`${origin}/broken.png`, imagesFolder)
     ).rejects.toThrow('not a supported image')
     expect(fs.readdirSync(imagesFolder)).toEqual([])
   })
 
   it('writes nothing on an error status', async () => {
     await expect(
-      downloadImage(`${origin}/missing.png`, imagesFolder, 1)
+      downloadImage(`${origin}/missing.png`, imagesFolder)
     ).rejects.toThrow('404')
     expect(fs.readdirSync(imagesFolder)).toEqual([])
   })
