@@ -12,6 +12,13 @@ const SVG =
 const ROUTES = {
   '/450x300': { status: 200, type: 'image/svg+xml; charset=utf-8', body: SVG },
   '/moved': { status: 308, location: '/450x300' },
+  '/latest': { status: 302, location: '/photo.png' },
+  '/photo.png': {
+    status: 200,
+    type: 'application/octet-stream',
+    body: 'png-bytes'
+  },
+  '/partial.png': { status: 206, type: 'image/png', body: 'png-bytes' },
   '/broken.png': { status: 200, type: 'text/html', body: '<h1>oops</h1>' },
   '/missing.png': { status: 404, type: 'text/plain', body: 'not found' }
 }
@@ -54,6 +61,22 @@ describe('downloadImage', () => {
   it('follows redirects and names the file after the requested URL', async () => {
     const { filename } = await downloadImage(`${origin}/moved`, imagesFolder, 1)
     expect(filename).toBe('moved.svg')
+  })
+
+  it('falls back to the extension of the URL it was redirected to', async () => {
+    const { filename } = await downloadImage(
+      `${origin}/latest`,
+      imagesFolder,
+      1
+    )
+    expect(filename).toBe('latest.png')
+  })
+
+  it('writes nothing for a partial response', async () => {
+    await expect(
+      downloadImage(`${origin}/partial.png`, imagesFolder, 1)
+    ).rejects.toThrow('206')
+    expect(fs.readdirSync(imagesFolder)).toEqual([])
   })
 
   it('writes nothing when the response is not an image', async () => {

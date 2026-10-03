@@ -92,12 +92,12 @@ const generateFilename = (url, index, extension) => {
 
 const downloadImage = async (url, imagesFolder, index) => {
   const response = await fetch(url)
-  if (!response.ok) {
+  if (response.status !== 200) {
     throw new Error(`Failed to download ${url}: ${response.status}`)
   }
 
   const extension = resolveExtension({
-    url,
+    url: response.url,
     contentType: response.headers.get('content-type')
   })
   const filename = generateFilename(url, index, extension)
