@@ -51,22 +51,22 @@ Use embedded URLs directly in stylesheets:
 
 ```css
 .hero-background {
-  background-image: url("/images/image-1.png");
+  background-image: url("https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&meta=false&screenshot=&embed=screenshot.url");
   background-size: cover;
 }
 ```
 
-![Website Preview](/images/image-1.png)
+![Website Preview](/images/image-53061dea.png)
 
 ## Markdown integration
 
 Embed in any Markdown document:
 
 ```md
-![Website Preview](/images/image-1.png)
+![Website Preview](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&meta=false&screenshot=&embed=screenshot.url)
 ```
 
-![Website Preview](/images/image-1.png)
+![Website Preview](/images/image-53061dea.png)
 
 ## Common embed fields
 
