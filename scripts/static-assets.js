@@ -214,7 +214,6 @@ const processMarkdownImages = async (content, imagesFolder) => {
     if (urlToLocalPath.has(url)) {
       console.log(`Reusing cached image: ${url}`)
       const localPath = urlToLocalPath.get(url)
-      // Replace ALL occurrences of this URL
       content = replaceOutsideCodeFences(content, url, localPath)
       continue
     }
@@ -223,7 +222,6 @@ const processMarkdownImages = async (content, imagesFolder) => {
 
     try {
       const localPath = await migrateImage(url, imagesFolder)
-      // Replace ALL occurrences of this URL
       content = replaceOutsideCodeFences(content, url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)
