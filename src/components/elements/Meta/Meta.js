@@ -27,6 +27,7 @@ const mergeMeta = (props, location, metadata) => {
   const {
     siteUrl,
     ogImageBase,
+    ogImageVersion,
     video,
     twitter,
     headline,
@@ -74,11 +75,11 @@ const mergeMeta = (props, location, metadata) => {
   // and distinct from the canonical `siteUrl` on preview deployments.
   const image =
     props.image ||
-    ogImageUrl(
-      location?.pathname,
-      ogImageBase,
-      `${fullTitle}\n${description}`
-    ) ||
+    ogImageUrl(location?.pathname, ogImageBase, {
+      version: ogImageVersion,
+      title: fullTitle,
+      description
+    }) ||
     metadata.image
 
   const author = normalizeAuthor(inputAuthors, fallbackAuthor)
