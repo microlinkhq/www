@@ -200,70 +200,38 @@ const replaceOutsideCodeFences = (content, url, localPath) =>
     )
     .join('')
 
-const processMarkdownImages = async (content, imagesFolder) => {
-  const regex = /!\[([^\]]*)\]\(([^)]+)\)/g
-  const matches = []
-  const prose = outsideCodeFences(content)
-  let match
+const MARKDOWN_IMAGE = /!\[[^\]]*\]\(([^)]+)\)/g
+const JSX_OBJECT_SRC = /src\s*:\s*['"]([^'"]+)['"]/g
+const JSX_ATTRIBUTE_SRC = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
 
-  while ((match = regex.exec(prose)) !== null) {
-    matches.push({ alt: match[1], url: match[2] })
-  }
+const firstCaptures = (text, regex) =>
+  Array.from(text.matchAll(regex), match => match[1])
 
-  // Collect unique HTTP URLs for processing
-  const httpUrls = [...new Set(matches.map(m => m.url).filter(isHttpUrl))]
+const markdownImageUrls = prose =>
+  firstCaptures(prose, MARKDOWN_IMAGE).filter(isHttpUrl)
 
-  for (const url of httpUrls) {
-    // Check if this URL was already processed (deduplication)
+const jsxImageUrls = prose =>
+  [
+    ...firstCaptures(prose, JSX_OBJECT_SRC),
+    ...firstCaptures(prose, JSX_ATTRIBUTE_SRC)
+  ].filter(isImageUrl)
+
+const migrateImageUrls = async ({
+  content,
+  imagesFolder,
+  collectUrls,
+  kind
+}) => {
+  const urls = [...new Set(collectUrls(outsideCodeFences(content)))]
+
+  for (const url of urls) {
     if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached image: ${url}`)
-      const localPath = urlToLocalPath.get(url)
-      content = replaceOutsideCodeFences(content, url, localPath)
-      continue
-    }
-
-    console.log(`Processing markdown image: ${url}`)
-
-    try {
-      const localPath = await migrateImage(url, imagesFolder)
-      content = replaceOutsideCodeFences(content, url, localPath)
-    } catch (err) {
-      console.error(`Failed to download ${url}: ${err.message}`)
-    }
-  }
-
-  return content
-}
-
-const processJsxImageSources = async (content, imagesFolder) => {
-  const matches = []
-  const prose = outsideCodeFences(content)
-
-  // Match object-style props: src: 'https://...'
-  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
-  let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(prose)) !== null) {
-    matches.push(objectMatch[1])
-  }
-
-  // Match JSX attribute style: src="https://..."
-  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
-  let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(prose)) !== null) {
-    matches.push(attrMatch[1])
-  }
-
-  // Only process unique external image URLs
-  const httpUrls = [...new Set(matches.filter(isImageUrl))]
-
-  for (const url of httpUrls) {
-    if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached JSX image: ${url}`)
+      console.log(`Reusing cached ${kind}: ${url}`)
       content = replaceOutsideCodeFences(content, url, urlToLocalPath.get(url))
       continue
     }
 
-    console.log(`Processing JSX image source: ${url}`)
+    console.log(`Processing ${kind}: ${url}`)
 
     try {
       const localPath = await migrateImage(url, imagesFolder)
@@ -276,32 +244,25 @@ const processJsxImageSources = async (content, imagesFolder) => {
   return content
 }
 
+const processMarkdownImages = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: markdownImageUrls,
+    kind: 'markdown image'
+  })
+
+const processJsxImageSources = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: jsxImageUrls,
+    kind: 'JSX image source'
+  })
+
 const countExternalImageCandidates = content => {
   const prose = outsideCodeFences(content)
-  let total = 0
-
-  // Markdown image syntax
-  const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
-  let markdownMatch
-  while ((markdownMatch = markdownRegex.exec(prose)) !== null) {
-    if (isHttpUrl(markdownMatch[2])) total++
-  }
-
-  // JSX object-style src: 'https://...'
-  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
-  let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(prose)) !== null) {
-    if (isImageUrl(objectMatch[1])) total++
-  }
-
-  // JSX attribute style src="https://..."
-  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
-  let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(prose)) !== null) {
-    if (isImageUrl(attrMatch[1])) total++
-  }
-
-  return total
+  return markdownImageUrls(prose).length + jsxImageUrls(prose).length
 }
 
 const parseFrontmatter = fileContent => {
@@ -349,33 +310,15 @@ const processFile = async filepath => {
   const imagesFolder = path.resolve(__dirname, '../static/images')
   await mkdirp(imagesFolder)
 
-  let modified = false
-  let newContent = content
   const externalCandidates = countExternalImageCandidates(content)
-
-  // Process frontmatter image
-  if (await processFrontmatterImage(data, imagesFolder, content)) {
-    modified = true
-  }
-
-  // Process markdown images
-  const updatedContent = await processMarkdownImages(content, imagesFolder)
-  if (updatedContent !== newContent) {
-    newContent = updatedContent
-    modified = true
-  }
-
-  // Process external image URLs used inside JSX component props (e.g. SliderCompare src fields)
-  const updatedJsxContent = await processJsxImageSources(
-    newContent,
+  const frontmatterChanged = await processFrontmatterImage(data, imagesFolder)
+  const markdownMigrated = await processMarkdownImages(content, imagesFolder)
+  const newContent = await processJsxImageSources(
+    markdownMigrated,
     imagesFolder
   )
-  if (updatedJsxContent !== newContent) {
-    newContent = updatedJsxContent
-    modified = true
-  }
 
-  if (modified) {
+  if (frontmatterChanged || newContent !== content) {
     const finalContent = frontmatter
       ? stringifyFrontmatter(data, newContent)
       : newContent
@@ -437,6 +380,7 @@ const main = async () => {
 if (require.main === module) main()
 
 module.exports = {
+  countExternalImageCandidates,
   outsideCodeFences,
   replaceOutsideCodeFences,
   downloadImage,
