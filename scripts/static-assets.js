@@ -310,33 +310,15 @@ const processFile = async filepath => {
   const imagesFolder = path.resolve(__dirname, '../static/images')
   await mkdirp(imagesFolder)
 
-  let modified = false
-  let newContent = content
   const externalCandidates = countExternalImageCandidates(content)
-
-  // Process frontmatter image
-  if (await processFrontmatterImage(data, imagesFolder, content)) {
-    modified = true
-  }
-
-  // Process markdown images
-  const updatedContent = await processMarkdownImages(content, imagesFolder)
-  if (updatedContent !== newContent) {
-    newContent = updatedContent
-    modified = true
-  }
-
-  // Process external image URLs used inside JSX component props (e.g. SliderCompare src fields)
-  const updatedJsxContent = await processJsxImageSources(
-    newContent,
+  const frontmatterChanged = await processFrontmatterImage(data, imagesFolder)
+  const markdownMigrated = await processMarkdownImages(content, imagesFolder)
+  const newContent = await processJsxImageSources(
+    markdownMigrated,
     imagesFolder
   )
-  if (updatedJsxContent !== newContent) {
-    newContent = updatedJsxContent
-    modified = true
-  }
 
-  if (modified) {
+  if (frontmatterChanged || newContent !== content) {
     const finalContent = frontmatter
       ? stringifyFrontmatter(data, newContent)
       : newContent
