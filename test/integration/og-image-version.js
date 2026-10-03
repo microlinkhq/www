@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
 const require = createRequire(import.meta.url)
 
@@ -13,6 +13,9 @@ const installedOgVersion = JSON.parse(
 
 describe('og image version', () => {
   test('siteMetadata exposes the installed @microlink/og version', () => {
+    for (const key of ['STRIPE_KEY', 'PAYMENT_API_KEY', 'PAYMENT_ENDPOINT']) {
+      vi.stubEnv(key, process.env[key] || 'stub')
+    }
     const { siteMetadata } = require(path.join(process.cwd(), 'gatsby-config'))
     expect(siteMetadata.ogImageVersion).toBe(installedOgVersion)
   })
