@@ -10,7 +10,8 @@ const SUMMARY =
 
 const MACHINE_READABLE = `## Machine-readable
 
-- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification`
+- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification
+- [Agent feedback](https://microlink.io/.well-known/agent-feedback.json): How agents report Microlink API problems`
 
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
