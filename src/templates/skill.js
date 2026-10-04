@@ -18,6 +18,7 @@ import {
   getTriggerPhrases,
   stripFrontmatter
 } from 'helpers/skills'
+import { INSTALL_COMMAND } from 'helpers/install-command'
 
 const SITE_URL = 'https://microlink.io'
 
@@ -39,7 +40,7 @@ const toIsoDate = value => {
 
 const getInstallCommand = value =>
   value === 'microlink'
-    ? 'npx microlink.io setup'
+    ? INSTALL_COMMAND
     : `npx skills add https://github.com/microlinkhq/skills --skill ${value}`
 
 export const Head = ({ pageContext }) => {
