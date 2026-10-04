@@ -51,7 +51,9 @@ describe('home hero badge contrast', () => {
 describe('home hero badge copy swap', () => {
   test('badge carries the requests stat and the install command', () => {
     expect(badgeSource).toContain('Handling {reqsPretty}+ requests every month')
-    expect(badgeSource).toContain('<Command>{INSTALL_COMMAND}</Command>')
+    expect(badgeSource).toMatch(
+      /<\/Prompt>\s+\{INSTALL_COMMAND\}\s+<\/CommandCopy>/
+    )
     expect(INSTALL_COMMAND).toBe('npx microlink.io setup')
   })
 

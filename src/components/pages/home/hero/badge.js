@@ -76,11 +76,13 @@ const CommandCopy = styled(Copy).attrs({ as: 'button', type: 'button' })`
   cursor: pointer;
   touch-action: manipulation;
   font: inherit;
-  ${theme({ p: 0, border: 0, bg: 'transparent', color: 'inherit' })};
-
-  &[data-copied='true'] {
-    ${theme({ color: 'green8' })};
-  }
+  ${theme({
+    p: 0,
+    border: 0,
+    bg: 'transparent',
+    color: 'inherit',
+    fontFamily: 'mono'
+  })};
 `
 
 const Pill = styled.span`
@@ -101,6 +103,10 @@ const Pill = styled.span`
 
   &[data-copied='true'] ${Copy} {
     animation-play-state: paused;
+  }
+
+  &[data-copied='true'] ${CommandCopy} {
+    ${theme({ color: 'green8' })};
   }
 
   @media (hover: hover) and (pointer: fine) {
@@ -126,17 +132,12 @@ const Prompt = styled.span`
     display: 'inline-flex',
     justifyContent: 'center',
     width: PROMPT_SIZE,
-    fontFamily: 'mono',
     color: 'gray5'
   })};
 
-  [data-copied='true'] > & {
+  [data-copied='true'] & {
     ${theme({ color: 'inherit' })};
   }
-`
-
-const Command = styled.span`
-  ${theme({ fontFamily: 'mono' })};
 `
 
 const useCopyInstallCommand = () => {
@@ -174,14 +175,13 @@ export const HeroBadge = () => {
         Handling {reqsPretty}+ requests every month
       </Copy>
       <CommandCopy
-        data-copied={copied}
         onClick={copyInstallCommand}
         aria-label={`Copy install command: ${INSTALL_COMMAND}`}
       >
         <Prompt aria-hidden='true'>
           {copied ? <CheckIcon size={PROMPT_SIZE} /> : '$'}
         </Prompt>
-        <Command>{INSTALL_COMMAND}</Command>
+        {INSTALL_COMMAND}
       </CommandCopy>
       <span aria-live='polite' css={visuallyHiddenCss}>
         {copied ? 'Install command copied' : ''}
