@@ -95,7 +95,10 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: variant === 'white' ? `0 0 0 1px ${cx(color)}` : undefined,
+        boxShadow:
+          variant === 'white' || variant === 'link'
+            ? `0 0 0 1px ${cx(color)}`
+            : undefined,
         _disabled: {
           opacity: 0.8,
           cursor: 'not-allowed',

@@ -1,9 +1,10 @@
 import React from 'react'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
+import Caps from 'components/elements/Caps'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
-import ArrowLink from 'components/patterns/ArrowLink'
 import { theme } from 'theme'
 
 import {
@@ -70,7 +71,16 @@ const FreePlanCard = ({ activePlan }) => (
       </PlanCheck>
     </PlanCheckList>
     <PlanAction>
-      <ArrowLink href='/docs/guides'>Get started free</ArrowLink>
+      <Button
+        as='a'
+        href='https://dashboard.microlink.io/signup'
+        variant='link'
+        data-event-location='Plans'
+        data-event-name='Signup'
+        width='100%'
+      >
+        <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Signup</Caps>
+      </Button>
     </PlanAction>
   </PricingCard>
 )
