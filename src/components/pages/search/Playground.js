@@ -14,6 +14,7 @@ import {
 } from 'react-feather'
 
 import { theme } from 'theme'
+import { visuallyHiddenCss } from 'helpers/visually-hidden'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
@@ -80,18 +81,6 @@ const SurfaceIcon = ({ icon, size, style }) => {
       )
     : null
 }
-
-const visuallyHiddenCss = theme({
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
-  p: 0,
-  m: '-1px',
-  overflow: 'hidden',
-  clip: 'rect(0, 0, 0, 0)',
-  whiteSpace: 'nowrap',
-  border: 0
-})
 
 const focusElement = id => {
   const el = typeof document !== 'undefined' && document.getElementById(id)

@@ -6,6 +6,7 @@ import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 
 import { space, theme } from 'theme'
+import { visuallyHiddenCss } from 'helpers/visually-hidden'
 
 import {
   CLI_VERSION,
@@ -15,18 +16,6 @@ import {
 import { useCliTerminal } from './use-cli-terminal'
 
 import '@xterm/xterm/css/xterm.css'
-
-const visuallyHiddenCss = theme({
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
-  p: 0,
-  m: '-1px',
-  overflow: 'hidden',
-  clip: 'rect(0, 0, 0, 0)',
-  whiteSpace: 'nowrap',
-  border: 0
-})
 
 const Fullscreen = () => {
   const surfaceRef = useRef(null)
