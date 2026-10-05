@@ -1,5 +1,6 @@
 import Container from 'components/elements/Container'
 import Heading from 'components/elements/Heading'
+import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
@@ -322,7 +323,7 @@ const Hero = () => {
         <HeroBadge />
 
         <Heading variant={null}>
-          The web,{' '}
+          The web, <LineBreak breakpoints={[0]} />
           <Heading
             forwardedAs='span'
             css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
