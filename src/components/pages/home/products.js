@@ -544,13 +544,15 @@ const ShotStage = styled.div`
   position: relative;
   height: ${SHOT_H}px;
 
-  @container (max-width: ${SHOT_W - 1}px) {
-    width: ${SHOT_W}px;
-    left: 50%;
-    margin-left: -${SHOT_W / 2}px;
-    margin-bottom: calc(${SHOT_H}px * (100cqi / ${SHOT_W}px) - ${SHOT_H}px);
-    transform: scale(calc(100cqi / ${SHOT_W}px));
-    transform-origin: top center;
+  @supports (transform: scale(calc(1px / 1px))) {
+    @container (max-width: ${SHOT_W - 1}px) {
+      width: ${SHOT_W}px;
+      left: 50%;
+      margin-left: -${SHOT_W / 2}px;
+      margin-bottom: calc(${SHOT_H}px * (100cqi / ${SHOT_W}px) - ${SHOT_H}px);
+      transform: scale(calc(100cqi / ${SHOT_W}px));
+      transform-origin: top center;
+    }
   }
 `
 
