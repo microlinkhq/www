@@ -326,7 +326,11 @@ const Hero = () => {
           The web, <LineBreak breakpoints={[0]} />
           <Heading
             forwardedAs='span'
-            css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
+            css={theme({
+              fontSize: 'inherit',
+              fontStyle: 'italic',
+              whiteSpace: 'nowrap'
+            })}
           >
             ready for AI
           </Heading>
