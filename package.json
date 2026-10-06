@@ -135,7 +135,7 @@
     "@xterm/xterm": "~6.0.0",
     "babel-plugin-styled-components": "~2.3.0",
     "beauty-error": "~1.2.23",
-    "cloudflare-bot-directory": "~1.0.49",
+    "cloudflare-bot-directory": "~1.0.50",
     "cssnano": "~9.2.2",
     "cssnano-preset-advanced": "~9.1.4",
     "dlv": "~1.1.3",
@@ -185,7 +185,7 @@
     "sugar-high": "~2.5.1",
     "swr": "~2.5.1",
     "tldts": "~7.4.16",
-    "top-user-agents": "~2.1.138",
+    "top-user-agents": "~2.1.139",
     "truncate-url": "~3.0.0",
     "unique-random-array": "~4.0.0"
   },
