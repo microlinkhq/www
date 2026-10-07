@@ -6,7 +6,6 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
-import { Link } from 'components/elements/Link'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { LANG_LANDINGS } from './lang/registry'
@@ -109,9 +108,6 @@ export const CallToAction = () => (
         >
           Get started free
         </SignupLink>
-        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
-          <Link href='/docs/guides/metadata'>Read the guide</Link>
-        </Box>
       </Flex>
       <Flex
         css={theme({

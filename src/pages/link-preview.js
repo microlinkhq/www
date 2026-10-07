@@ -35,6 +35,7 @@ import {
 } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
@@ -467,9 +468,8 @@ const Hero = function Hero ({
               gap: [3, 4, 4, 4]
             })}
           >
-            <ArrowLink href='/integrations/builder'>
-              Build a link preview
-            </ArrowLink>
+            <SignupLink cta='link-preview:hero'>Get Started</SignupLink>
+            <Link href='/integrations/builder'>Build a link preview</Link>
           </Flex>
         </Flex>
 

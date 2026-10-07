@@ -516,7 +516,6 @@ const Hero = function Hero ({
             })}
           >
             <SignupLink cta='embed:hero'>Get Started</SignupLink>
-            <Link href='/docs/guides/embed'>Read the guide</Link>
           </Flex>
         </Flex>
 

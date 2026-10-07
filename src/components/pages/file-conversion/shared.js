@@ -33,8 +33,6 @@ export const HERO = {
     'Point the API at a document and get HTML, Markdown or clean text back. PDFs, Word files, spreadsheets and slide decks become content your code can read.',
   cta: 'file-conversion:hero',
   ctaLabel: 'Get Started',
-  secondaryHref: '/docs/guides/content-conversion',
-  secondaryLabel: 'Read the guide',
   editorHeight: 100,
   examplesLabel: 'Conversion examples',
   examples: [
@@ -155,9 +153,7 @@ export const CTA = {
   caption:
     'Get 25 requests/day with zero commitment. The file conversion API is free to use, with no account and no credit card. Send a document URL and get readable content back in seconds.',
   cta: 'file-conversion:footer-cta',
-  ctaLabel: 'Get started free',
-  secondaryHref: '/docs/guides/content-conversion',
-  secondaryLabel: 'Read the guide'
+  ctaLabel: 'Get started free'
 }
 
 export const FAQ_CAPTION =
