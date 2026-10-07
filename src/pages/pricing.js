@@ -18,6 +18,7 @@ import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
@@ -1596,9 +1597,10 @@ const Cta = () => {
             justifyContent: 'center'
           })}
         >
-          <Button
+          <SignupLink
+            component={Button}
             as='a'
-            href='/docs/api/getting-started/overview'
+            cta='pricing:final-cta'
             variant='black'
             data-event-location='Pricing'
             data-event-name='Final CTA · Get started free'
@@ -1607,7 +1609,7 @@ const Cta = () => {
             <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
               Get started free
             </Caps>
-          </Button>
+          </SignupLink>
         </Flex>
         <Box css={theme({ pt: [3, 3, 4, 4] })}>
           <Text css={theme({ fontSize: 0, color: 'black60' })}>

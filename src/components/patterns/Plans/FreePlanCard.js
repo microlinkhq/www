@@ -1,9 +1,11 @@
 import React from 'react'
+import { useLocation } from '@gatsbyjs/reach-router'
 
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
+import { eventLocation } from 'helpers/dashboard-url'
 import { theme } from 'theme'
 
 import {
@@ -18,6 +20,16 @@ import {
 } from './shared'
 
 const FREE_PLAN_RATE_LIMIT = 25
+
+const FreePlanSignupLink = () => {
+  const { pathname } = useLocation()
+
+  return (
+    <SignupLink cta={`${eventLocation(pathname)}:free-plan`}>
+      Get started free
+    </SignupLink>
+  )
+}
 
 const FreePlanCard = ({ activePlan }) => (
   <PricingCard
@@ -70,7 +82,7 @@ const FreePlanCard = ({ activePlan }) => (
       </PlanCheck>
     </PlanCheckList>
     <PlanAction>
-      <ArrowLink href='/docs/guides'>Get started free</ArrowLink>
+      <FreePlanSignupLink />
     </PlanAction>
   </PricingCard>
 )
