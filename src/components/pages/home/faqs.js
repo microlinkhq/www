@@ -1,6 +1,7 @@
 import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
+import { DashboardLink } from 'components/patterns/SignupLink'
 import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
@@ -86,9 +87,7 @@ export const getFaqQuestions = () => {
         <>
           <div>
             Once you buy a plan you get access to{' '}
-            <Link href='https://dashboard.microlink.io'>
-              dashboard.microlink.io
-            </Link>
+            <DashboardLink cta='home:faq'>dashboard.microlink.io</DashboardLink>
             , where you will find your API key.
           </div>
           <div>
@@ -166,10 +165,8 @@ export const getFaqQuestions = () => {
       answer: (
         <div>
           Yes. Upgrade, downgrade, or cancel at any time from{' '}
-          <Link href='https://dashboard.microlink.io'>
-            dashboard.microlink.io
-          </Link>
-          , no questions asked. We also notify you when you reach 80% of your
+          <DashboardLink cta='home:faq'>dashboard.microlink.io</DashboardLink>,
+          no questions asked. We also notify you when you reach 80% of your
           quota, so you can move up before you hit the limit.
         </div>
       )
