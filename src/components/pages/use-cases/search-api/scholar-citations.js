@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/scholar-citations',
   head: {
     title: 'Google Scholar API for papers, citations and PDFs',
-    description: 'Search Google Scholar from code: title, year, citation count, byline and PDF link for every paper as JSON, ready to rank, filter and read.'
+    description:
+      'Search Google Scholar from code: title, year, citation count, byline and PDF link for every paper as JSON, ready to rank, filter and read.'
   },
   hero: {
     title: 'Automate literature reviews with a Google Scholar API',
-    intro: 'A Google Scholar API turns a literature search into data: each paper comes back with its title, publication year, citation count and a direct PDF link when one exists. Research teams, R&D groups, grant writers and research agents all start a review the same way, and all lose hours copying results by hand. The [Search API](/search) returns Scholar results as JSON you can sort, filter and read.',
+    intro:
+      'A Google Scholar API turns a literature search into data: each paper comes back with its title, publication year, citation count and a direct PDF link when one exists. Research teams, R&D groups, grant writers and research agents all start a review the same way, and all lose hours copying results by hand. The [Search API](/search) returns Scholar results as JSON you can sort, filter and read.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -22,8 +24,10 @@ export const CONTENT = {
     ]
   },
   how: {
-    title: 'How to collect papers and citation counts with the Google Scholar API',
-    intro: 'Run the queries that define the review, merge and rank the papers, then fetch the full text of the shortlist. The [Scholar guide](/docs/guides/search/scholar) lists every field.',
+    title:
+      'How to collect papers and citation counts with the Google Scholar API',
+    intro:
+      'Run the queries that define the review, merge and rank the papers, then fetch the full text of the shortlist. The [Scholar guide](/docs/guides/search/scholar) lists every field.',
     steps: [
       {
         label: '1 · Query and rank by citations',
@@ -63,11 +67,13 @@ export const CONTENT = {
         note: 'Reads one paper page as Markdown, one request per call.'
       }
     ],
-    outro: 'Scholar results are what Google Scholar ranks for a query, not a complete bibliography, and the citation count is the one Scholar shows. Treat the corpus as a starting point and record the queries and date with every review. For filings rather than papers, [search prior art in Google Patents](/use-cases/search-api/patent-search) with the same client.'
+    outro:
+      'Scholar results are what Google Scholar ranks for a query, not a complete bibliography, and the citation count is the one Scholar shows. Treat the corpus as a starting point and record the queries and date with every review. For filings rather than papers, [search prior art in Google Patents](/use-cases/search-api/patent-search) with the same client.'
   },
   why: {
     title: 'Why a Scholar search API speeds up literature review automation',
-    intro: 'The slow part of a review is not reading, it is finding and triage. Structured results turn triage into a sort.',
+    intro:
+      'The slow part of a review is not reading, it is finding and triage. Structured results turn triage into a sort.',
     cards: [
       {
         kicker: 'Numbers, not strings',
@@ -92,23 +98,28 @@ export const CONTENT = {
   faq: [
     {
       question: 'How do I get citation counts from a Google Scholar API?',
-      answer: "Call microlink.search with your query and type: 'scholar'. Every result carries citations and year as numbers, so sorting by citations surfaces the most cited papers first."
+      answer:
+        "Call microlink.search with your query and type: 'scholar'. Every result carries citations and year as numbers, so sorting by citations surfaces the most cited papers first."
     },
     {
       question: 'Can I download the papers found through the Scholar API?',
-      answer: 'When Scholar lists a direct PDF, the result includes pdf.url and you fetch it like any file. For papers without one, markdown() returns the paper page as Markdown. Access rights stay with the publisher.'
+      answer:
+        'When Scholar lists a direct PDF, the result includes pdf.url and you fetch it like any file. For papers without one, markdown() returns the paper page as Markdown. Access rights stay with the publisher.'
     },
     {
       question: 'How do I automate a literature review with Scholar results?',
-      answer: 'Run the queries that define the review, merge results by id, filter by year and citations in code, then expand the shortlist. Record the queries and the date, since results can change between runs.'
+      answer:
+        'Run the queries that define the review, merge results by id, filter by year and citations in code, then expand the shortlist. Record the queries and the date, since results can change between runs.'
     },
     {
       question: 'How many requests does a Google Scholar search cost?',
-      answer: 'One per results page, plus one per paper you expand with markdown(). Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+      answer:
+        'One per results page, plus one per paper you expand with markdown(). A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is the Microlink Scholar API affiliated with Google?',
-      answer: 'No. Microlink Search is an independent product that queries public Google surfaces, Google Scholar included. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google surfaces, Google Scholar included. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -123,15 +134,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Query and rank by citations',
-        description: "Call microlink.search with the topic and type: 'scholar', sort the results by citations and keep id, title, year, byline, PDF link and url."
+        description:
+          "Call microlink.search with the topic and type: 'scholar', sort the results by citations and keep id, title, year, byline, PDF link and url."
       },
       {
         title: 'Merge several queries into one corpus',
-        description: 'Run the queries that define the review in parallel, keep papers from the years you need and deduplicate them by Scholar id.'
+        description:
+          'Run the queries that define the review in parallel, keep papers from the years you need and deduplicate them by Scholar id.'
       },
       {
         title: 'Read the shortlist',
-        description: 'Take the most cited papers, send those with a PDF link to your PDF pipeline and call markdown() on the rest to read the paper page.'
+        description:
+          'Take the most cited papers, send those with a PDF link to your PDF pipeline and call markdown() on the rest to read the paper page.'
       }
     ]
   }

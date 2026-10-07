@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/rag-grounding',
   head: {
     title: 'Ground LLM answers with a search API for RAG',
-    description: 'Ground chatbot and agent answers in live Google results: search, read the top sources as Markdown and cite them, at one request per source.'
+    description:
+      'Ground chatbot and agent answers in live Google results: search, read the top sources as Markdown and cite them, at one request per source.'
   },
   hero: {
     title: 'Ground chatbot answers in live results with a search API for RAG',
-    intro: 'A search API for RAG gives a model what its training data cannot: what the web says today. Retrieval becomes a query, the top results become sources, and the answer cites them. Support bots, research assistants and agents that answer about releases, prices or news all need that step. The [Search API](/search) returns results as JSON and reads any of them as Markdown on demand.',
+    intro:
+      'A search API for RAG gives a model what its training data cannot: what the web says today. Retrieval becomes a query, the top results become sources, and the answer cites them. Support bots, research assistants and agents that answer about releases, prices or news all need that step. The [Search API](/search) returns results as JSON and reads any of them as Markdown on demand.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -14,7 +16,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'A model without retrieval answers from a snapshot and fills the gaps',
+    title:
+      'A model without retrieval answers from a snapshot and fills the gaps',
     paragraphs: [
       'Every model has a training cutoff. Ask about a release from last week, a price that changed yesterday or a company that pivoted, and it answers confidently from old data or invents a plausible detail. Users only notice when it is wrong, and by then they have stopped trusting the rest.',
       'A vector store grounds answers in documents you already indexed, not in what changed on the web since. Scraping search results for live retrieval means proxies, a parser per results layout and a second scraper for every source page, all before the model writes its first token.',
@@ -23,7 +26,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to ground LLM answers with real-time search',
-    intro: 'Retrieve, expand the top sources, and pass them to the model with their URLs so the answer can cite them. The [content expansion guide](/docs/guides/search/content-expansion) describes the two-step model this follows.',
+    intro:
+      'Retrieve, expand the top sources, and pass them to the model with their URLs so the answer can cite them. The [content expansion guide](/docs/guides/search/content-expansion) describes the two-step model this follows.',
     steps: [
       {
         label: '1 · Retrieve recent results',
@@ -69,11 +73,14 @@ export const CONTENT = {
         note: 'true fetches the Markdown of every result up front instead of on demand.'
       }
     ],
-    outro: 'markdown: true is simpler, but it reads every result whether the model needs it or not, so keep it for small limits. The [agent tool calling pattern](/docs/guides/search/patterns) lets the model decide when to search and which sources to read.'
+    outro:
+      'markdown: true is simpler, but it reads every result whether the model needs it or not, so keep it for small limits. The [agent tool calling pattern](/docs/guides/search/patterns) lets the model decide when to search and which sources to read.'
   },
   why: {
-    title: 'Why search plus selective reading is the right shape for LLM grounding',
-    intro: 'Grounding has two costs: requests and tokens. Splitting retrieval from reading keeps both proportional to what the answer needs.',
+    title:
+      'Why search plus selective reading is the right shape for LLM grounding',
+    intro:
+      'Grounding has two costs: requests and tokens. Splitting retrieval from reading keeps both proportional to what the answer needs.',
     cards: [
       {
         kicker: 'Predictable cost',
@@ -98,23 +105,28 @@ export const CONTENT = {
   faq: [
     {
       question: 'How do I use a search API for RAG?',
-      answer: 'Search the question with microlink.search, expand the top results with result.markdown(), and pass the Markdown to the model with each source’s URL. Restrict freshness with period and cap the page with limit so every answer has a known cost.'
+      answer:
+        'Search the question with microlink.search, expand the top results with result.markdown(), and pass the Markdown to the model with each source’s URL. Restrict freshness with period and cap the page with limit so every answer has a known cost.'
     },
     {
       question: 'How much does grounding an LLM answer with live search cost?',
-      answer: 'One request for the search and one per result you expand, so search plus three sources is four requests per answer. Search has no free tier: [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+      answer:
+        'One request for the search and one per result you expand, so search plus three sources is four requests per answer. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'How fast is real-time search for chatbots?',
-      answer: 'Search results arrive in about a second. Reading a source fetches a full page, which is slower than the search itself, so expand sources in parallel and only the ones the answer needs.'
+      answer:
+        'Search results arrive in about a second. Reading a source fetches a full page, which is slower than the search itself, so expand sources in parallel and only the ones the answer needs.'
     },
     {
       question: 'Should an LLM grounding API return HTML or Markdown?',
-      answer: 'Markdown for the model: it uses fewer tokens than HTML for the same content. Call result.html() when your own code needs the DOM, for example to parse a table with selectors before handing the data to the model.'
+      answer:
+        'Markdown for the model: it uses fewer tokens than HTML for the same content. Call result.html() when your own code needs the DOM, for example to parse a table with selectors before handing the data to the model.'
     },
     {
       question: 'Is the web search for LLMs affiliated with Google?',
-      answer: 'No. Microlink Search is an independent product that queries public Google surfaces. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google surfaces. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -129,15 +141,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Retrieve recent results',
-        description: 'Call microlink.search with the question as a query, a period such as month and a small limit.'
+        description:
+          'Call microlink.search with the question as a query, a period such as month and a small limit.'
       },
       {
         title: 'Expand the top sources as Markdown',
-        description: 'Call markdown() on the first three results in parallel, number them and truncate each one to fit your context budget.'
+        description:
+          'Call markdown() on the first three results in parallel, number them and truncate each one to fit your context budget.'
       },
       {
         title: 'Answer with citations',
-        description: 'Join the numbered sources with their titles and URLs into the prompt and instruct the model to answer only from them and cite each one.'
+        description:
+          'Join the numbered sources with their titles and URLs into the prompt and instruct the model to answer only from them and cite each one.'
       }
     ]
   }

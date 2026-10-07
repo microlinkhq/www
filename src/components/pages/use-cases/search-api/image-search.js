@@ -2,11 +2,14 @@ export const CONTENT = {
   slug: 'search-api/image-search',
   head: {
     title: 'Google image search API with full-size URLs',
-    description: 'Search images by keyword and get full-resolution URLs with width and height, thumbnails, source pages and credits as JSON. Filter by size in code.'
+    description:
+      'Search images by keyword and get full-resolution URLs with width and height, thumbnails, source pages and credits as JSON. Filter by size in code.'
   },
   hero: {
-    title: 'Get full-size image URLs and dimensions from a Google image search API',
-    intro: 'A Google image search API is what you need when the answer to a query is a picture: each result comes back with the full-resolution image URL, its width and height, a thumbnail, the page it came from, and the creator or credit when Google shows one. Content teams source visuals, catalogs find product shots and dataset builders collect examples by keyword. The [Search API](/search) returns them as JSON.',
+    title:
+      'Get full-size image URLs and dimensions from a Google image search API',
+    intro:
+      'A Google image search API is what you need when the answer to a query is a picture: each result comes back with the full-resolution image URL, its width and height, a thumbnail, the page it came from, and the creator or credit when Google shows one. Content teams source visuals, catalogs find product shots and dataset builders collect examples by keyword. The [Search API](/search) returns them as JSON.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -23,7 +26,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to find full-size images with the Google image search API',
-    intro: 'Search by keyword, keep the images that fit your layout, then check the source before you use one. The [images guide](/docs/guides/search/images) documents the result shape.',
+    intro:
+      'Search by keyword, keep the images that fit your layout, then check the source before you use one. The [images guide](/docs/guides/search/images) documents the result shape.',
     steps: [
       {
         label: '1 · Search by keyword',
@@ -64,11 +68,13 @@ export const CONTENT = {
         note: 'More candidates when too few pass your size filter, one request per page.'
       }
     ],
-    outro: 'The search takes a text query. It does not accept an image as input, so it does no reverse image search and finds no visually similar images. For moving pictures, the [videos surface](/docs/guides/search/videos) returns duration, channel and publish date with the same client.'
+    outro:
+      'The search takes a text query. It does not accept an image as input, so it does no reverse image search and finds no visually similar images. For moving pictures, the [videos surface](/docs/guides/search/videos) returns duration, channel and publish date with the same client.'
   },
   why: {
     title: 'Why image results with dimensions save a download step',
-    intro: 'Most image pipelines discard most candidates. Knowing the size up front means the rejected ones are never downloaded.',
+    intro:
+      'Most image pipelines discard most candidates. Knowing the size up front means the rejected ones are never downloaded.',
     cards: [
       {
         kicker: 'Size before download',
@@ -93,23 +99,29 @@ export const CONTENT = {
   faq: [
     {
       question: 'Does the Google image search API return full-size image URLs?',
-      answer: 'Yes. image.url points to the full-resolution file with image.width and image.height, thumbnail carries the smaller preview with its own dimensions, and url is the page the image was published on.'
+      answer:
+        'Yes. image.url points to the full-resolution file with image.width and image.height, thumbnail carries the smaller preview with its own dimensions, and url is the page the image was published on.'
     },
     {
       question: 'Can I filter image search results by size?',
-      answer: 'There is no size parameter. Every result includes its dimensions, so filter in code by minimum width, height or aspect ratio before downloading, and paginate with next() when too few results pass.'
+      answer:
+        'There is no size parameter. Every result includes its dimensions, so filter in code by minimum width, height or aspect ratio before downloading, and paginate with next() when too few results pass.'
     },
     {
       question: 'Can I do a reverse image search with this API?',
-      answer: 'No. The images surface takes a text query and returns matching images. It does not accept an image as input and does not find visually similar images.'
+      answer:
+        'No. The images surface takes a text query and returns matching images. It does not accept an image as input and does not find visually similar images.'
     },
     {
       question: 'Can I publish images found through the image search API?',
-      answer: 'The API returns what Google Images lists, with creator and credit when available and the source page URL. Rights stay with the owner, so check the terms on the source page before you publish an image.'
+      answer:
+        'The API returns what Google Images lists, with creator and credit when available and the source page URL. Rights stay with the owner, so check the terms on the source page before you publish an image.'
     },
     {
-      question: 'How much does the image search API cost, and is it affiliated with Google?',
-      answer: 'Each results page is one request. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.'
+      question:
+        'How much does the image search API cost, and is it affiliated with Google?',
+      answer:
+        'Each results page is one request. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -124,15 +136,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Search by keyword',
-        description: "Call microlink.search with the keyword and type: 'images', and read the full-resolution URL, width, height, thumbnail, source page, creator and credit of each result."
+        description:
+          "Call microlink.search with the keyword and type: 'images', and read the full-resolution URL, width, height, thumbnail, source page, creator and credit of each result."
       },
       {
         title: 'Keep the images that fit',
-        description: 'Filter the results in code by minimum width and aspect ratio using the dimensions each result already carries.'
+        description:
+          'Filter the results in code by minimum width and aspect ratio using the dimensions each result already carries.'
       },
       {
         title: 'Read the source page',
-        description: 'Call markdown() on the image you picked to fetch its source page as Markdown and check the caption, credit and usage terms.'
+        description:
+          'Call markdown() on the image you picked to fetch its source page as Markdown and check the caption, credit and usage terms.'
       }
     ]
   }

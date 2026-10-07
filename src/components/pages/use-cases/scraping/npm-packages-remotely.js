@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'The logic is short: fetch a page, load it into cheerio, pick a few values, return them. Around it you need a function host, a package.json, a bundle, a deploy, logs and a way to update the dependency when it ships a fix.',
       'Serverless platforms solve hosting but not the ceremony. Every new script is a new function to configure and deploy, packages have to be bundled ahead of time, and if the code sometimes needs a browser you are back to shipping Chromium alongside it.',
-      'The function runtime installs dependencies for you. Any require() in your code is detected, installed in a sandbox and cached, and require(\'cheerio@1.0.0\') pins a version. When the function never references page, no browser starts at all, so plain JavaScript runs faster. The [writing functions guide](/docs/guides/function/writing-functions) covers each step.'
+      "The function runtime installs dependencies for you. Any require() in your code is detected, installed in a sandbox and cached, and require('cheerio@1.0.0') pins a version. When the function never references page, no browser starts at all, so plain JavaScript runs faster. The [writing functions guide](/docs/guides/function/writing-functions) covers each step."
     ]
   },
   how: {
@@ -97,7 +97,7 @@ const { isFulfilled, value } = await microlink.function(
       {
         kicker: 'Sandboxed',
         title: 'Clear limits, clear errors.',
-        body: 'Free plans get 15 seconds, 64 MB, 1024 bytes of compressed code and same-origin requests only; Pro gets up to 60 seconds, 128 MB, unlimited code and any outgoing request. Each limit has its own named error.',
+        body: 'The keyless endpoint gets 15 seconds, 64 MB, 1024 bytes of compressed code and same-origin requests only; any API key, the free one included, gets up to 60 seconds, 128 MB, unlimited code and any outgoing request. Each limit has its own named error.',
         note: 'When not to: packages that spawn child processes or write to the filesystem outside the sandbox fail with ERR_ACCESS_DENIED, and heavy CPU work can hit CpuTimeError. If a declarative rule can read the value, [scrape it to JSON](/use-cases/scraping/website-to-json) instead.'
       }
     ]
@@ -106,7 +106,7 @@ const { isFulfilled, value } = await microlink.function(
     {
       question: 'Can I use cheerio in the cloud without deploying a server?',
       answer:
-        'Yes. require(\'cheerio\') inside a function sent with microlink.function. The package is installed on the fly and cached, and the function can load HTML it fetched from the target or the rendered page.content() when it uses page.'
+        "Yes. require('cheerio') inside a function sent with microlink.function. The package is installed on the fly and cached, and the function can load HTML it fetched from the target or the rendered page.content() when it uses page."
     },
     {
       question: 'Which npm packages can I require in a remote function?',
@@ -121,18 +121,18 @@ const { isFulfilled, value } = await microlink.function(
     {
       question: 'Can serverless JavaScript scraping call other domains?',
       answer:
-        'On Pro, yes: outgoing requests are unrestricted. On the free plan a function can only make same-origin requests to the target URL’s host, and a cross-origin call returns OutgoingRequestError. See [pricing](/pricing) for plan details.'
+        'With an API key, yes: outgoing requests are unrestricted. On the keyless endpoint a function can only make same-origin requests to the target URL’s host, and a cross-origin call returns OutgoingRequestError. See [pricing](/pricing) for plan details.'
     },
     {
       question: 'How do I pin an npm package version in a remote function?',
       answer:
-        'Append the version to the package name inside require, for example require(\'cheerio@1.0.0\'). Without a version the latest release is installed.'
+        "Append the version to the package name inside require, for example require('cheerio@1.0.0'). Without a version the latest release is installed."
     }
   ],
   cta: {
     headlinePrefix: 'Ready to run',
     headlineAccent: 'JavaScript remotely',
-    body: 'Any npm package, no deploy step, a browser only when you ask for one. Start on the free tier and send your first function today.',
+    body: 'Any npm package, no deploy step, a browser only when you ask for one. Start on the free API key and send your first function today.',
     href: '/function',
     label: 'Send your first function'
   },

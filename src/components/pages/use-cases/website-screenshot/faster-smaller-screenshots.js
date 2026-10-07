@@ -66,7 +66,7 @@ export const CONTENT = {
             viewport: { deviceScaleFactor: 1 }
           }
         },
-        note: 'The request runs on the free endpoint. Compare the x-response-time header before and after to measure the gain on your own targets, and look for x-fetch-mode: skipped to confirm metadata was bypassed.'
+        note: 'Compare the x-response-time header before and after to measure the gain on your own targets, and look for x-fetch-mode: skipped to confirm metadata was bypassed.'
       }
     ],
     params: [
@@ -146,7 +146,8 @@ export const CONTENT = {
         'No. A cache hit is served from the edge without launching a browser, and it does not count against your quota. Speed settings matter for the first capture of each URL and for pipelines with many unique URLs, while [ttl](/docs/api/parameters/ttl) decides how long the rest stay cached.'
     },
     {
-      question: 'Is there a screenshot option that prioritizes speed automatically?',
+      question:
+        'Is there a screenshot option that prioritizes speed automatically?',
       answer:
         'The SDK exposes optimizeForSpeed on the [screenshot method](/docs/sdk/methods/screenshot), which prioritizes capture speed over image size and fidelity and is off by default. The explicit settings above give you finer control over the trade-off.'
     },
@@ -159,7 +160,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'leaner screenshots',
-    body: 'Skip the work you do not need and capture faster on every plan. Start on the free tier and measure the difference on your own pages.',
+    body: 'Skip the work you do not need and capture faster on every plan. Start on the free API key and measure the difference on your own pages.',
     href: '/screenshot',
     label: 'Speed up your screenshots'
   },

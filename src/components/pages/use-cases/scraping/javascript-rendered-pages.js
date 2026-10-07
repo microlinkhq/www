@@ -133,7 +133,8 @@ export const CONTENT = {
         'Usually the rules ran before the data existed. Add waitForSelector for the exact element you extract; if fields stay null, open the page in your browser and check that the selector matches the rendered DOM and that the same page variant, device or locale, is being loaded.'
     },
     {
-      question: 'Should I use waitForSelector or waitForTimeout on a JavaScript page?',
+      question:
+        'Should I use waitForSelector or waitForTimeout on a JavaScript page?',
       answer:
         'Prefer waitForSelector. It resolves as soon as the element appears, while waitForTimeout always waits the full delay and can still be too short on a slow load. Keep waitForTimeout for pages with no stable selector to wait on.'
     },
@@ -143,7 +144,8 @@ export const CONTENT = {
         'Read the x-fetch-mode response header. prerender means a headless browser rendered the page and fetch means a plain HTTP request was enough. x-fetch-time shows how long that step took.'
     },
     {
-      question: 'Can I scrape the JavaScript state of a page instead of its DOM?',
+      question:
+        'Can I scrape the JavaScript state of a page instead of its DOM?',
       answer:
         'Yes. An evaluate rule runs JavaScript in the page and returns its result, so it can read a global variable or parse the JSON a framework embeds for hydration. For clicks, loops or npm packages, move to a [remote Puppeteer function](/use-cases/scraping/run-puppeteer-without-chrome).'
     }
@@ -151,7 +153,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to scrape',
     headlineAccent: 'JavaScript apps',
-    body: 'A real browser, the right wait and your rules in one request. Start on the free tier and scrape your first single-page app today.',
+    body: 'A real browser, the right wait and your rules in one request. Start on the free API key and scrape your first single-page app today.',
     href: '/features/scraping',
     label: 'Scrape a JavaScript page'
   },

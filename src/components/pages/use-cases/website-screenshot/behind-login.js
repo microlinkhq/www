@@ -21,8 +21,7 @@ export const CONTENT = {
     ]
   },
   how: {
-    title:
-      'How to screenshot a page behind a login',
+    title: 'How to screenshot a page behind a login',
     intro:
       'Two paths exist: the headers query parameter for public values such as a language, and x-api-header-* request headers for cookies and tokens. Use the second for anything secret. The [private pages guide](/docs/guides/screenshot/private-pages) covers both.',
     steps: [
@@ -85,7 +84,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Forwarding headers requires a Pro plan. Sending x-api-key to the free endpoint fails with EPRO, so point authenticated requests at pro.microlink.io, as the [authentication docs](/docs/api/basics/authentication) describe.'
+      'Forwarding headers requires an API key, the free one included. Sending x-api-key to the keyless endpoint fails with EPRO, so point authenticated requests at pro.microlink.io, as the [authentication docs](/docs/api/basics/authentication) describe.'
   },
   why: {
     title: 'Why forwarding headers beats scripting the login for screenshots',
@@ -125,7 +124,7 @@ export const CONTENT = {
         'You can, but query parameters are public and end up in logs and history. Use the headers parameter for values such as Accept-Language, and x-api-header-* request headers for anything sensitive.'
     },
     {
-      question: 'Can I screenshot a page behind a login on the free plan?',
+      question: 'Can I screenshot a page behind a login without an API key?',
       answer:
         'No. Forwarding headers, whether through the headers parameter or x-api-header-* request headers, requires a Pro plan and the pro.microlink.io endpoint. Using the headers parameter without one returns the EHEADERS error.'
     },

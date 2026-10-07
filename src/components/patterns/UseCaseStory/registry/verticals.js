@@ -20,7 +20,7 @@ export const VERTICALS = [
       cta: {
         headlinePrefix: 'Ready to capture',
         headlineAccent: 'any website',
-        body: 'Every recipe on this page runs on the same endpoint. Start on the free tier, add an API key when you need proxies, custom headers or longer caching.',
+        body: 'Every recipe on this page runs on the same endpoint. Start on the free API key, with every Pro feature included, and pick a paid plan when you need volume.',
         label: 'Start with the Screenshot API'
       }
     }
@@ -46,7 +46,7 @@ export const VERTICALS = [
       cta: {
         headlinePrefix: 'Ready to print',
         headlineAccent: 'any URL to PDF',
-        body: 'Every recipe on this page runs on the same endpoint. Start on the free tier, add an API key when you need private pages, custom filenames or longer caching.',
+        body: 'Every recipe on this page runs on the same endpoint. Start on the free API key, with every Pro feature included, and pick a paid plan when you need volume.',
         label: 'Start with the PDF API'
       }
     }
@@ -72,7 +72,7 @@ export const VERTICALS = [
       cta: {
         headlinePrefix: 'Ready to convert',
         headlineAccent: 'any URL to Markdown',
-        body: 'Every recipe on this page runs on the same endpoint. Start on the free tier, add an API key when you need proxies, custom headers or longer caching.',
+        body: 'Every recipe on this page runs on the same endpoint. Start on the free API key, with every Pro feature included, and pick a paid plan when you need volume.',
         label: 'Start with the Markdown API'
       }
     }
@@ -98,7 +98,7 @@ export const VERTICALS = [
       cta: {
         headlinePrefix: 'Ready to extract',
         headlineAccent: 'metadata from any URL',
-        body: 'Every recipe on this page runs on the same endpoint. Start on the free tier, add an API key when you need proxies, custom headers or longer caching.',
+        body: 'Every recipe on this page runs on the same endpoint. Start on the free API key, with every Pro feature included, and pick a paid plan when you need volume.',
         label: 'Start with the Metadata API'
       }
     }
@@ -122,7 +122,7 @@ export const VERTICALS = [
       cta: {
         headlinePrefix: 'Ready to scrape',
         headlineAccent: 'any website to JSON',
-        body: 'Every recipe on this page runs on the same endpoint. Start on the free tier, add an API key when you need proxies, custom headers or longer caching.',
+        body: 'Every recipe on this page runs on the same endpoint. Start on the free API key, with every Pro feature included, and pick a paid plan when you need volume.',
         label: 'Start with the Scraping API'
       }
     }

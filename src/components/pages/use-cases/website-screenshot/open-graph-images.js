@@ -94,7 +94,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Keep API keys out of public og:image URLs. The free endpoint needs no key and allows 25 requests per day, which suits a small site because cache hits do not count. For production, put the request behind your own domain as described in the [authentication docs](/docs/api/basics/authentication).'
+      'Keep API keys out of public og:image URLs: put the request behind your own domain as described in the [authentication docs](/docs/api/basics/authentication).'
   },
   why: {
     title: 'Why a live screenshot works as a social preview image',
@@ -140,7 +140,7 @@ export const CONTENT = {
     {
       question: 'How do I keep my API key out of the og:image screenshot URL?',
       answer: [
-        'On the free endpoint no key is needed. On Pro, do not put the key in the URL: route the request through your own server or edge function with @microlink/proxy or @microlink/edge-proxy, and reference your own domain in og:image.',
+        'Do not put the key in the URL: route the request through your own server or edge function with @microlink/proxy or @microlink/edge-proxy, and reference your own domain in og:image.',
         'The proxy only lets an allowed list of domains consume your quota, so the key never reaches the page source.'
       ]
     },
@@ -153,7 +153,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to ship',
     headlineAccent: 'live social cards',
-    body: 'One URL per page, cached and framed. Start on the free endpoint and point your og:image at a real screenshot today.',
+    body: 'One URL per page, cached and framed. Start on the free API key and point your og:image at a real screenshot today.',
     href: '/screenshot',
     label: 'Generate your first OG image'
   },

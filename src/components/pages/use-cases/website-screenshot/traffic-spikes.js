@@ -6,8 +6,7 @@ export const CONTENT = {
       'Absorb screenshot traffic spikes without a browser pool: no per-second throttling, a 24-hour cache with free hits and a 99.9% SLA on every paid plan.'
   },
   hero: {
-    title:
-      'Serve high-volume screenshots through traffic spikes',
+    title: 'Serve high-volume screenshots through traffic spikes',
     intro:
       'High-volume screenshots rarely arrive at a steady rate. A product launch, a viral post or a Monday morning batch job multiplies demand in minutes, and a self-hosted browser pool has to be sized, and paid for, at that peak. The [Screenshot API](/screenshot) applies no throttling, serves repeats from a cache whose hits do not count against your quota, and spends your plan only on fresh captures.',
     cta: { label: 'Start with the Screenshot API', href: '/screenshot' }
@@ -22,8 +21,7 @@ export const CONTENT = {
     ]
   },
   how: {
-    title:
-      'How to serve high-volume screenshots during a spike',
+    title: 'How to serve high-volume screenshots during a spike',
     intro:
       'Three request options turn a spiky workload into a predictable one, and none of them needs infrastructure on your side. The [screenshot caching and performance guide](/docs/guides/screenshot/caching-and-performance) covers the same setup in more depth.',
     steps: [
@@ -84,7 +82,8 @@ export const CONTENT = {
     cards: [
       {
         kicker: 'No throttling',
-        title: 'Parallel requests are bounded by your quota, not by a rate limiter.',
+        title:
+          'Parallel requests are bounded by your quota, not by a rate limiter.',
         body: 'The API applies no per-second throttling. A burst of a thousand captures is a thousand requests against your quota, processed as they arrive, with no queue for you to drain afterwards.',
         note: 'When the quota runs out you get HTTP 429 with the ERATE error code, plus x-rate-limit-remaining and x-rate-limit-reset headers, so back-pressure is explicit instead of a silent slowdown.'
       },
@@ -98,7 +97,7 @@ export const CONTENT = {
         kicker: 'Availability you can quote',
         title: '99.9% uptime SLA on every paid plan, one browser per request.',
         body: 'Every request runs in its own isolated browser instance, so a slow or broken target never affects another capture. Every paid plan commits to 99.9% uptime, a figure you can plan a launch around.',
-        note: 'When not to: a steady trickle of a few captures per day fits the free tier of 25 requests per day, and a one-off batch of up to 25 URLs is quicker with the [bulk screenshot tool](/tools/website-screenshot/bulk). The API pays off when demand moves faster than you can provision.'
+        note: 'When not to: a steady trickle of a few captures a week fits the free API key of 100 requests per month, and a one-off batch of up to 25 URLs is quicker with the [bulk screenshot tool](/tools/website-screenshot/bulk). The API pays off when demand moves faster than you can provision.'
       }
     ]
   },
@@ -106,7 +105,7 @@ export const CONTENT = {
     {
       question: 'Does the screenshot API rate limit requests per second?',
       answer:
-        'No. Microlink applies no throttling limitation, so you can run as many parallel screenshot requests as your quota allows. The free endpoint has a soft limit of 25 requests per day and paid plans use a monthly quota, both described in the [rate limit docs](/docs/api/basics/rate-limit).'
+        'No. Microlink applies no throttling limitation, so you can run as many parallel screenshot requests as your quota allows. The free API key has a quota of 100 requests per month and paid plans raise it, both described in the [rate limit docs](/docs/api/basics/rate-limit).'
     },
     {
       question: 'What happens when a screenshot spike exceeds my quota?',
@@ -133,7 +132,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'unpredictable traffic',
-    body: 'No browsers to size, no queues to babysit. Start on the free tier with 25 requests per day, then pick a paid plan matched to your monthly volume.',
+    body: 'No browsers to size, no queues to babysit. Start on the free API key with 100 requests per month, then pick a paid plan matched to your monthly volume.',
     href: '/screenshot',
     label: 'Start capturing at scale'
   },

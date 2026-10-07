@@ -129,17 +129,20 @@ export const CONTENT = {
         'Send the URL with data.markdown.attr=markdown, prerender=true and a waitForSelector for the content container. Microlink renders the app in a headless browser, waits for that element and serializes the finished DOM as Markdown.'
     },
     {
-      question: 'How do I know whether a browser render was used for the Markdown?',
+      question:
+        'How do I know whether a browser render was used for the Markdown?',
       answer:
         'Read the x-fetch-mode response header: prerender means a browser rendered the page, fetch means a plain HTTP request was enough. x-fetch-time reports the time spent in that step.'
     },
     {
-      question: 'How long can a Markdown conversion wait for a single-page app?',
+      question:
+        'How long can a Markdown conversion wait for a single-page app?',
       answer:
-        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the free endpoint and 60 seconds on Pro plans. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
+        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the keyless endpoint and 60 seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
     },
     {
-      question: 'Can I convert content to Markdown that only appears after a click?',
+      question:
+        'Can I convert content to Markdown that only appears after a click?',
       answer:
         'Yes. Use click with the selector of the tab or button, then waitForSelector for the content it reveals, and the conversion includes it. [Browser automation](/features/automation) covers the other interactions available on a request.'
     }
@@ -147,7 +150,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to convert',
     headlineAccent: 'rendered apps',
-    body: 'Render first, wait for the data, then convert. Start on the free tier and turn your first single-page app into Markdown today.',
+    body: 'Render first, wait for the data, then convert. Start on the free API key and turn your first single-page app into Markdown today.',
     href: '/markdown',
     label: 'Convert a web app'
   },

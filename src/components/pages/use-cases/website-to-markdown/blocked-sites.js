@@ -17,13 +17,13 @@ export const CONTENT = {
     paragraphs: [
       'Antibot services such as Cloudflare, DataDome and Akamai answer datacenter traffic with a JavaScript challenge, a CAPTCHA or a bare 403. Converted to Markdown, that is a heading that says “Just a moment” and no content. The pipeline records a success, moves on, and your index now has a hole where the article should be.',
       'The usual workaround is a proxy vendor plus your own rotation logic: a list of exits to maintain, retries to tune per target and a second bill. It also splits one job across two systems, so when a conversion fails you have to work out whether the proxy, the browser or the parser was at fault. Scraping a Cloudflare site to Markdown should not need three moving parts.',
-      'On Pro plans [automatic proxy resolution](/features/proxy) is on by default. When a fetch hits a 403, Microlink [identifies the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits, the slowest and most reliable route, then caches the tier that worked for that domain. On the free tier the same target fails with the [EPROXYNEEDED error code](/docs/api/basics/error-codes) instead of returning junk, so you know exactly which URLs need a Pro key.'
+      'With an API key, the free one included, [automatic proxy resolution](/features/proxy) is on by default. When a fetch hits a 403, Microlink [identifies the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits, the slowest and most reliable route, then caches the tier that worked for that domain. On the free tier the same target fails with the [EPROXYNEEDED error code](/docs/api/basics/error-codes) instead of returning junk, so you know exactly which URLs need a Pro key.'
     ]
   },
   how: {
     title: 'How to convert a blocked page to Markdown through the proxy',
     intro:
-      'Send protected pages with a Pro key, or start on the free tier and move only the EPROXYNEEDED URLs to Pro, then cache the result so the proxy path runs once per URL. The [proxy guide](/docs/guides/common/proxy) lists the other signals that a target is blocking you, such as empty results on a known-good URL.',
+      'Send protected pages with your API key, or start on the keyless endpoint and move only the EPROXYNEEDED URLs to the key, then cache the result so the proxy path runs once per URL. The [proxy guide](/docs/guides/common/proxy) lists the other signals that a target is blocking you, such as empty results on a known-good URL.',
     steps: [
       {
         label: '1 · Convert with a Pro key',
@@ -31,9 +31,9 @@ export const CONTENT = {
         note: 'The client carries your Pro key, so a blocked fetch escalates through the proxy tiers with no parameter, and the selector scopes the conversion to the article element. The call resolves to the Markdown string.'
       },
       {
-        label: '2 · Free tier first, Pro when blocked',
+        label: '2 · Keyless first, API key when blocked',
         sdk: "const freeTier = createClient()\n\nconst convert = async url => {\n  try {\n    return await freeTier.markdown(url)\n  } catch (error) {\n    if (error.code !== 'EPROXYNEEDED') throw error\n    return microlink.markdown(url, { retry: 3, ttl: '1d' })\n  }\n}",
-        note: 'The free tier runs first. Only URLs that fail with EPROXYNEEDED move to the Pro client, where the proxy resolves automatically, with three server-side retries for intermittent challenges and a one-day ttl so repeat reads come from the cache.'
+        note: 'The keyless endpoint runs first. Only URLs that fail with EPROXYNEEDED move to the keyed client, where the proxy resolves automatically, with three server-side retries for intermittent challenges and a one-day ttl so repeat reads come from the cache.'
       },
       {
         label: '3 · The same request as a URL',
@@ -89,7 +89,7 @@ export const CONTENT = {
         kicker: 'A signal you can act on',
         title: 'EPROXYNEEDED separates blocked from broken.',
         body: 'A blocked target fails with a specific code instead of returning a challenge page as content. Your pipeline can move it to a Pro key, mark the domain or skip it, and nothing unreadable ever reaches the index.',
-        note: 'The signal surfaces on the free endpoint. Automatic proxy resolution is a Pro capability, and the [pricing page](/pricing) lists the plans.'
+        note: 'The signal surfaces on the keyless endpoint. Automatic proxy resolution comes with every API key, the free one included, and the [pricing page](/pricing) lists the plans.'
       },
       {
         kicker: 'Composable with cleaning and caching',
@@ -144,9 +144,9 @@ export const CONTENT = {
           'Call the Markdown method with a Pro key and a selector such as article. A blocked fetch escalates through proxy tiers automatically and resolves to the Markdown of that element.'
       },
       {
-        title: 'Start on the free tier and move blocked URLs to Pro',
+        title: 'Start keyless and move blocked URLs to your API key',
         description:
-          'Run the request on the free tier first and catch the EPROXYNEEDED error code. Send only those URLs to the Pro client with retry: 3 and a ttl so the unblocked result is cached.'
+          'Run the request on the keyless endpoint first and catch the EPROXYNEEDED error code. Send only those URLs to the keyed client with retry: 3 and a ttl so the unblocked result is cached.'
       },
       {
         title: 'Call the same request as a URL',

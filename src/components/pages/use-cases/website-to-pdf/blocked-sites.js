@@ -109,7 +109,7 @@ const record = {
       {
         kicker: 'A clear failure',
         title: 'EPROXYNEEDED instead of a useless file.',
-        body: 'On the free endpoint, a protected page fails with EPROXYNEEDED rather than producing a PDF of the challenge. You never archive a bot wall by accident; you get an error you can act on.',
+        body: 'On the keyless endpoint, a protected page fails with EPROXYNEEDED rather than producing a PDF of the challenge. You never archive a bot wall by accident; you get an error you can act on.',
         note: 'When not to: pages behind a login or a paywall are not bot walls. Forward your own session as described in the [PDF private pages guide](/docs/guides/pdf/private-pages), and only print content you are permitted to keep.'
       }
     ]

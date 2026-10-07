@@ -36,7 +36,7 @@ export const CONTENT = {
         label: '1 · Download link',
         code: '<a\n  href="https://api.microlink.io/?url=https%3A%2F%2Fexample.com%2Freport&pdf=true&meta=false&embed=pdf.url"\n  download="report.pdf"\n>\n  Download PDF\n</a>',
         language: 'html',
-        note: 'The browser fetches the API URL and receives the PDF, not JSON; the download attribute names the file locally. The free endpoint needs no API key, so this works in public HTML as is.'
+        note: 'The browser fetches the API URL and receives the PDF, not JSON; the download attribute names the file locally. Route the request through your own domain with @microlink/proxy so the API key never appears in public HTML.'
       },
       {
         label: '2 · Embedded preview',
@@ -81,7 +81,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Never put an API key in a public download URL. On the free endpoint none is needed; on Pro, route the request through your own domain with @microlink/proxy or @microlink/edge-proxy, as the [authentication docs](/docs/api/basics/authentication) describe.'
+      'Never put an API key in a public download URL: route the request through your own domain with @microlink/proxy or @microlink/edge-proxy, as the [authentication docs](/docs/api/basics/authentication) describe.'
   },
   why: {
     title: 'Why a direct PDF response beats a storage pipeline',
@@ -132,13 +132,13 @@ export const CONTENT = {
     {
       question: 'Is it safe to put a PDF API URL in public HTML?',
       answer:
-        'Yes on the free endpoint, which needs no credentials: the URL only contains the public page address and the PDF options. Never expose an API key, a cookie or an authorization header in client-side markup. For Pro features, keep the request on your server or put @microlink/proxy or @microlink/edge-proxy in front of it.'
+        'Yes, as long as the URL only contains the public page address and the PDF options. Never expose an API key, a cookie or an authorization header in client-side markup: keep the request on your server or put @microlink/proxy or @microlink/edge-proxy in front of it.'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to serve',
     headlineAccent: 'PDFs from a URL',
-    body: 'Download links and previews without a storage pipeline. Start on the free tier and wire your first download button today.',
+    body: 'Download links and previews without a storage pipeline. Start on the free API key and wire your first download button today.',
     href: '/pdf',
     label: 'Build a PDF download link'
   },

@@ -49,7 +49,9 @@ export const CONTENT = {
         request: {
           url: 'https://example.com/product',
           params: {
-            data: { price: { selector: '.price', attr: 'text', type: 'number' } }
+            data: {
+              price: { selector: '.price', attr: 'text', type: 'number' }
+            }
           }
         },
         note: 'Rules flatten to data.price.selector, data.price.attr and data.price.type query parameters, so the request works from any language or from [the CLI](/docs/sdk/getting-started/cli).'
@@ -147,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to extract',
     headlineAccent: 'the fields you need',
-    body: 'Normalized metadata plus your own rules in one call. Start on the free tier and add your first custom field today.',
+    body: 'Normalized metadata plus your own rules in one call. Start on the free API key and add your first custom field today.',
     href: '/metadata',
     label: 'Add a custom field'
   },

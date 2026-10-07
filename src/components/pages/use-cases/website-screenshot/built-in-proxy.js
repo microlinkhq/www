@@ -17,13 +17,13 @@ export const CONTENT = {
     paragraphs: [
       'Datacenter IPs and headless fingerprints are exactly what antibot services look for. Cloudflare, DataDome, Akamai and similar shields answer with a challenge or a block, and your screenshot shows the wall instead of the page. With a self-hosted browser the navigation still succeeds, so nothing in your pipeline flags the image as useless.',
       'Running your own proxies is a second product to maintain. You buy a pool, rotate exits, retire the burned ones, match the proxy type to each antibot vendor and keep the credentials out of your URLs and logs. The list that works this month stops working the next, and every failure looks like a blank capture.',
-      'On Pro plans the [proxy](/docs/api/parameters/proxy) is on by default. When a capture hits a 403 wall, Microlink [detects the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits: the slowest route, and the one that usually gets through. The tier that worked is cached per domain, so the next capture of that site goes straight to it. On the free tier the same target fails with EPROXYNEEDED instead.'
+      'With an API key the [proxy](/docs/api/parameters/proxy) is on by default, the free key included. When a capture hits a 403 wall, Microlink [detects the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits: the slowest route, and the one that usually gets through. The tier that worked is cached per domain, so the next capture of that site goes straight to it. On the free tier the same target fails with EPROXYNEEDED instead.'
     ]
   },
   how: {
     title: 'How to screenshot a Cloudflare-protected site through the proxy',
     intro:
-      'Send protected targets with a Pro key and the proxy resolves itself. If you start on the free tier, EPROXYNEEDED marks the URLs to move to the Pro key. The [proxy guide](/docs/guides/common/proxy) lists every signal that a target needs one.',
+      'Send protected targets with your API key and the proxy resolves itself. If you start on the keyless endpoint, EPROXYNEEDED marks the URLs to move to the key. The [proxy guide](/docs/guides/common/proxy) lists every signal that a target needs one.',
     steps: [
       {
         label: '1 · Capture with a Pro key',
@@ -31,7 +31,7 @@ export const CONTENT = {
         note: 'The client carries your Pro key, so a blocked capture escalates through the proxy tiers on its own and returns the same asset object as any screenshot: url, width, height, type and size. There is no parameter to add, no list to maintain and no proxy credential in the request.'
       },
       {
-        label: '2 · Free tier first, Pro when blocked',
+        label: '2 · Keyless first, API key when blocked',
         sdk: "const freeTier = createClient()\n\nconst capture = async target => {\n  try {\n    return await freeTier.screenshot(target)\n  } catch (error) {\n    if (error.code !== 'EPROXYNEEDED') throw error\n    return microlink.screenshot(target, { retry: 3 })\n  }\n}",
         note: 'EPROXYNEEDED means the target uses antibot protection and needs a Pro plan. Only those URLs move to the Pro client, where the proxy resolves automatically, with retry raised to 3 for intermittent challenges.'
       },
@@ -89,8 +89,8 @@ export const CONTENT = {
       {
         kicker: 'An explicit signal',
         title: 'EPROXYNEEDED tells you exactly when a target needs Pro.',
-        body: 'Instead of guessing from a blank image, the free tier rejects a bot-protected target with a code you can catch. Send only those targets to your Pro key, and every other capture stays on the free route.',
-        note: 'The signal surfaces on the free tier. Automatic proxy resolution is a [Pro capability](/pricing), so a request sent to your Pro key from the start never needs the free-tier fallback.'
+        body: 'Instead of guessing from a blank image, the keyless endpoint rejects a bot-protected target with a code you can catch. Send only those targets to your API key, and every other capture stays on the keyless route.',
+        note: 'The signal surfaces on the keyless endpoint. Automatic proxy resolution comes with [every API key](/pricing), the free one included, so a request sent with your key from the start never needs the keyless fallback.'
       },
       {
         kicker: 'Bring your own if you must',
@@ -105,7 +105,7 @@ export const CONTENT = {
       question:
         'Is the proxy for screenshots of blocked websites included in the price?',
       answer:
-        'Yes. Automatic proxy resolution is included and on by default in every Pro plan, with no separate proxy bill. The free tier surfaces the EPROXYNEEDED signal but cannot route through the proxy.'
+        'Yes. Automatic proxy resolution is included and on by default with every API key, the free one too, with no separate proxy bill. The keyless endpoint surfaces the EPROXYNEEDED signal but cannot route through the proxy.'
     },
     {
       question: 'How do I know a screenshot was taken through the proxy?',
@@ -144,9 +144,9 @@ export const CONTENT = {
           'Send the screenshot request with a Pro key. A blocked capture escalates through proxy tiers automatically, with no parameter and no proxy list to maintain.'
       },
       {
-        title: 'Start on the free tier and move blocked URLs to Pro',
+        title: 'Start keyless and move blocked URLs to your API key',
         description:
-          'Request the screenshot on the free tier first, catch the EPROXYNEEDED error code and send that target to the Pro client with a higher retry count.'
+          'Request the screenshot on the keyless endpoint first, catch the EPROXYNEEDED error code and send that target to the keyed client with a higher retry count.'
       },
       {
         title: 'Verify the route',

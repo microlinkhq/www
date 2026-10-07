@@ -46,7 +46,7 @@ console.log(detected, provider, detection)
         note: 'Install it with npm install is-antibot. detected says whether a shield answered, provider names it and detection reports which signal matched: statusCode, headers, cookies, html or url.'
       },
       {
-        label: '2 · The API’s answer on the free endpoint',
+        label: '2 · The API’s answer on the keyless endpoint',
         request: {
           url: 'https://www.example.com/pricing',
           params: { meta: false }
@@ -126,7 +126,7 @@ const read = async url => {
       question:
         'Does the Microlink API tell me which antibot provider blocked a request?',
       answer:
-        'No. The API runs antibot detection internally and acts on it: the free endpoint fails with EPROXYNEEDED and Pro routes the request through the proxy. The provider name is only exposed by the is-antibot library.'
+        'No. The API runs antibot detection internally and acts on it: the keyless endpoint fails with EPROXYNEEDED and any API key routes the request through the proxy. The provider name is only exposed by the is-antibot library.'
     },
     {
       question: 'Which bot protection providers can is-antibot detect?',
@@ -141,7 +141,7 @@ const read = async url => {
     {
       question: 'What does EPROXYNEEDED tell me about a site’s bot protection?',
       answer:
-        'That the site uses antibot protection and the request cannot succeed on the free plan. It is the signal to upgrade to Pro, where the same request is routed through the proxy automatically, not a parameter to add.'
+        'That the site uses antibot protection and the request cannot succeed on the keyless endpoint. It is the signal to add an API key, the free one included, where the same request is routed through the proxy automatically, not a parameter to add.'
     }
   ],
   cta: {
@@ -160,7 +160,7 @@ const read = async url => {
           'Install is-antibot, fetch the page and pass the URL, status code, headers and HTML to it. Read detected, provider and detection from the result.'
       },
       {
-        title: 'Check the API’s answer on the free endpoint',
+        title: 'Check the API’s answer on the keyless endpoint',
         description:
           'Request the URL from api.microlink.io without a key. A protected target fails with EPROXYNEEDED, which confirms protection without naming the provider.'
       },

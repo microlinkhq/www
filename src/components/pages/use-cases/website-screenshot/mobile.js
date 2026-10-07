@@ -103,7 +103,8 @@ export const CONTENT = {
     cards: [
       {
         kicker: 'User agent included',
-        title: 'The site serves its mobile variant, not a squeezed desktop page.',
+        title:
+          'The site serves its mobile variant, not a squeezed desktop page.',
         body: 'A device preset changes the user agent along with the viewport. Sites that branch on it, from adaptive layouts to app install banners, return the same markup a phone would receive. The setting applies to the whole request lifecycle, not only to the final capture.',
         note: 'Pair it with a [wait for JavaScript-rendered content](/use-cases/website-screenshot/dynamic-content) when the mobile layout hydrates after load.'
       },
@@ -151,7 +152,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'mobile screenshots',
-    body: 'One request per device, no browsers to run. Start on the free endpoint with 25 requests per day and add an API key when you move to production.',
+    body: 'One request per device, no browsers to run. Start on the free API key with 100 requests per month and pick a paid plan when you move to production.',
     href: '/screenshot',
     label: 'Get your first mobile screenshot'
   },

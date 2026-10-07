@@ -48,7 +48,7 @@ export const CONTENT = {
           url: 'https://example.com',
           params: { palette: true, meta: { image: true, logo: true } }
         },
-        note: 'palette=true adds the color fields to every image field in the JSON. The request runs on the free endpoint, with no API key.'
+        note: 'palette=true adds the color fields to every image field in the JSON. The request works with the free API key.'
       }
     ],
     params: [
@@ -133,7 +133,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to theme',
     headlineAccent: 'with brand colors',
-    body: 'Palettes and accessible pairs from the logo and image of any site. Start on the free tier and tint your first preview card today.',
+    body: 'Palettes and accessible pairs from the logo and image of any site. Start on the free API key and tint your first preview card today.',
     href: '/metadata',
     label: 'Extract a palette'
   },

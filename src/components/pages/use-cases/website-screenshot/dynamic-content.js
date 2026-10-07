@@ -68,7 +68,7 @@ export const CONTENT = {
             waitForSelector: '.chart svg'
           }
         },
-        note: 'Works on the free endpoint with no API key. The request timeout is 30 seconds on the free plan and 60 seconds on Pro, and every wait has to fit inside it.'
+        note: 'The request timeout is 30 seconds on the keyless endpoint and 60 seconds with an API key, and every wait has to fit inside it.'
       }
     ],
     params: [
@@ -138,9 +138,10 @@ export const CONTENT = {
         'The capture fired before the app finished rendering. Add waitForSelector for an element that only exists once the data has loaded, or switch waitUntil to networkidle0 when the page keeps fetching. The [screenshot troubleshooting guide](/docs/guides/screenshot/troubleshooting) covers the other causes.'
     },
     {
-      question: 'How long can the screenshot API wait for JavaScript to finish?',
+      question:
+        'How long can the screenshot API wait for JavaScript to finish?',
       answer:
-        'Up to the request timeout of your plan: 30 seconds on the free endpoint and 60 seconds on Pro. A waitForTimeout larger than that is ignored, so prefer a selector wait that ends as soon as the content is there.'
+        'Up to the request timeout: 30 seconds on the keyless endpoint and 60 seconds with an API key. A waitForTimeout larger than that is ignored, so prefer a selector wait that ends as soon as the content is there.'
     },
     {
       question: 'Do I need prerender to screenshot a single-page app?',
@@ -161,7 +162,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'the finished page',
-    body: 'Wait for the element that matters and capture it once. Start on the free tier and screenshot your first single-page app today.',
+    body: 'Wait for the element that matters and capture it once. Start on the free API key and screenshot your first single-page app today.',
     href: '/screenshot',
     label: 'Capture dynamic content'
   },
@@ -186,7 +187,7 @@ export const CONTENT = {
       {
         title: 'Call the same request as a URL',
         description:
-          'Pass the same options as query parameters. The request works on the free endpoint and every wait has to fit inside the plan timeout: 30 seconds free, 60 seconds Pro.'
+          'Pass the same options as query parameters. Every wait has to fit inside the request timeout: 30 seconds on the keyless endpoint, 60 seconds with an API key.'
       }
     ]
   }

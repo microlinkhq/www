@@ -30,7 +30,7 @@ export const CONTENT = {
   how: {
     title: 'How to select fields for fast metadata extraction',
     intro:
-      'There are two ways to scope detection, include and exclude, and one way to scope the response. All three work on the free endpoint.',
+      'There are two ways to scope detection, include and exclude, and one way to scope the response. All three work on every plan, the free API key included.',
     steps: [
       {
         label: '1 · Include only what you render',
@@ -121,7 +121,8 @@ export const CONTENT = {
         'Set them to false in the meta object: meta: { image: false, logo: false }. The rest of the default set is still detected, so you keep title, description, author, publisher and date without fetching any media.'
     },
     {
-      question: 'What is the difference between meta and filter in the metadata API?',
+      question:
+        'What is the difference between meta and filter in the metadata API?',
       answer:
         'meta controls which fields are detected, so it changes the work the request does. filter controls which keys appear in the JSON, so it only changes the response shape. Use both when you want a fast request and a small payload.'
     },
@@ -139,7 +140,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'lean metadata requests',
-    body: 'Detect only what you render and return only what you read. Start on the free tier and trim your first request today.',
+    body: 'Detect only what you render and return only what you read. Start on the free API key and trim your first request today.',
     href: '/metadata',
     label: 'Scope a metadata request'
   },

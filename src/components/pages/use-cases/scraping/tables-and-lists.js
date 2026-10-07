@@ -47,7 +47,7 @@ export const CONTENT = {
       {
         label: '1 · A table, one object per row',
         sdk: "const { rows } = await microlink.extract(\n  'https://www.w3schools.com/html/html_tables.asp',\n  {\n    rows: {\n      selectorAll: '#customers tr:not(:first-child)',\n      attr: {\n        company: { selector: 'td:nth-child(1)', attr: 'text' },\n        contact: { selector: 'td:nth-child(2)', attr: 'text' },\n        country: { selector: 'td:nth-child(3)', attr: 'text' }\n      }\n    }\n  }\n)",
-        note: 'The :not(:first-child) selector skips the header row. rows resolves to an array such as { company: \'Alfreds Futterkiste\', contact: \'Maria Anders\', country: \'Germany\' } for each data row.'
+        note: "The :not(:first-child) selector skips the header row. rows resolves to an array such as { company: 'Alfreds Futterkiste', contact: 'Maria Anders', country: 'Germany' } for each data row."
       },
       {
         label: '2 · A product grid with typed fields',
@@ -117,7 +117,7 @@ export const CONTENT = {
         kicker: 'Any repeated block',
         title: 'Tables, cards and results share one grammar.',
         body: 'A tr, an article card and a search result item are all a repeated element with children. Change the parent selector and the child rules, and the same code handles all three.',
-        note: 'When not to: if a model or a report only needs to read the table, attr: \'markdown\' on the table element converts it into a Markdown table in one rule, or convert the whole page with the [URL to Markdown tool](/tools/url-to-markdown).'
+        note: "When not to: if a model or a report only needs to read the table, attr: 'markdown' on the table element converts it into a Markdown table in one rule, or convert the whole page with the [URL to Markdown tool](/tools/url-to-markdown)."
       }
     ]
   },
@@ -133,7 +133,8 @@ export const CONTENT = {
         'Target only the data rows: tbody tr when the table has a tbody, or tr:not(:first-child) when the header is the first row. Header cells are usually th, so a td column rule would return null for that row anyway.'
     },
     {
-      question: 'Can I scrape a list from a website when items have different fields?',
+      question:
+        'Can I scrape a list from a website when items have different fields?',
       answer:
         'Yes. Every column rule is evaluated per item, and an item without that element gets null for that key only. Add fallback arrays for fields that appear in more than one markup variant.'
     },
@@ -151,7 +152,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to turn tables into',
     headlineAccent: 'JSON arrays',
-    body: 'Describe one row, get every row. Start on the free tier and scrape your first table today.',
+    body: 'Describe one row, get every row. Start on the free API key and scrape your first table today.',
     href: '/features/scraping',
     label: 'Scrape a table'
   },

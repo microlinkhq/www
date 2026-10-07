@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'One shop prints £51.77, another 51,77 € with a strikethrough list price next to it, a third renders the price after the page loads. The value you want is in there, but it arrives as text in a different element on every domain, and the stock status is a sentence rather than a flag.',
       'A regular expression per store works until the template changes, and parseFloat on the wrong element silently records the old price or the shipping fee. Stores that render prices in the browser return nothing to a plain HTTP fetch, and larger retailers put antibot protection in front of the product pages you care about most.',
-      'Extraction rules make the price a typed field. type: \'number\' returns a number, an array of rules tries structured markup first and the visible label second, and waitForSelector holds the extraction until a client-rendered price exists. The [type reference](/docs/sdk/methods/extract/type) lists every validator.'
+      "Extraction rules make the price a typed field. type: 'number' returns a number, an array of rules tries structured markup first and the visible label second, and waitForSelector holds the extraction until a client-rendered price exists. The [type reference](/docs/sdk/methods/extract/type) lists every validator."
     ],
     live: {
       label: 'Open the live price and stock JSON',
@@ -113,7 +113,7 @@ export const CONTENT = {
       {
         kicker: 'Reachable',
         title: 'Protected stores go through the proxy automatically.',
-        body: 'On Pro plans, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the free tier the same wall returns EPROXYNEEDED.',
+        body: 'With an API key, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the same wall returns EPROXYNEEDED.',
         note: 'When not to: if the price only appears after choosing a size or color, a single rule reads the default variant. Click the option inside a [remote Puppeteer function](/use-cases/scraping/run-puppeteer-without-chrome) and read the price there.'
       }
     ]
@@ -130,7 +130,8 @@ export const CONTENT = {
         'Yes, as a separate field. Stores that use schema.org microdata expose it in an element with itemprop priceCurrency, so a second rule reading its content attribute gives you the ISO code next to the numeric price.'
     },
     {
-      question: 'How do I scrape prices from stores that render with JavaScript?',
+      question:
+        'How do I scrape prices from stores that render with JavaScript?',
       answer:
         'Add prerender: true and waitForSelector with the price selector. The page renders in a real browser and the rules run once the price element exists. [Scraping JavaScript-rendered pages](/use-cases/scraping/javascript-rendered-pages) covers the wait options in depth.'
     },
@@ -142,13 +143,13 @@ export const CONTENT = {
     {
       question: 'What happens when a store blocks my price scraper?',
       answer:
-        'On the free tier the API returns EPROXYNEEDED, which means the store uses antibot protection and needs a Pro plan. On Pro the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
+        'On the keyless endpoint the API returns EPROXYNEEDED, which means the store uses antibot protection and needs an API key. With a key, the free one included, the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to track',
     headlineAccent: 'prices as numbers',
-    body: 'Typed prices and stock from any product URL. Start on the free tier and write the rules for your first store today.',
+    body: 'Typed prices and stock from any product URL. Start on the free API key and write the rules for your first store today.',
     href: '/features/scraping',
     label: 'Scrape a product price'
   },

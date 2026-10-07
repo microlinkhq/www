@@ -119,7 +119,7 @@ export const CONTENT = {
     {
       question: 'How do I screenshot a specific element with a CSS selector?',
       answer:
-        'Pass the selector as screenshot.element, for example screenshot.element=#pricing-table in the URL or element: \'#pricing-table\' in the SDK. The API waits for the node to be visible and returns an image cropped to its box.'
+        "Pass the selector as screenshot.element, for example screenshot.element=#pricing-table in the URL or element: '#pricing-table' in the SDK. The API waits for the node to be visible and returns an image cropped to its box."
     },
     {
       question: 'What if my element screenshot selector matches several nodes?',
@@ -147,7 +147,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'just the element',
-    body: 'One selector, one image, no cropping math. Start on the free endpoint and capture a chart, a table or a component in a single call.',
+    body: 'One selector, one image, no cropping math. Start on the free API key and capture a chart, a table or a component in a single call.',
     href: '/screenshot',
     label: 'Capture an element'
   },

@@ -123,19 +123,22 @@ export const CONTENT = {
         'The banner is probably first-party, built into the site’s own code rather than injected by a consent service, so it is not a third-party request adblock can stop. Hide it with styles, for example .cookie-banner { display: none !important }, or dismiss it with click before printing.'
     },
     {
-      question: 'Should I use print or screen styles when converting a page to PDF?',
+      question:
+        'Should I use print or screen styles when converting a page to PDF?',
       answer:
         'Start with print, the default for PDFs: it applies the site’s print stylesheet and usually gives a document-oriented layout. Switch mediaType to screen when that stylesheet removes images or changes the design in ways you do not want. Injected styles work on top of either.'
     },
     {
-      question: 'How do I remove the sticky header that repeats on every PDF page?',
+      question:
+        'How do I remove the sticky header that repeats on every PDF page?',
       answer:
         'Fixed and sticky headers are the usual cause. Hide them with styles, for example header { display: none !important }. Narrowing the main column with a max-width in the same rule set also produces cleaner page breaks.'
     },
     {
-      question: 'Do I need a paid plan to convert a web page to PDF without ads?',
+      question:
+        'Do I need a paid plan to convert a web page to PDF without ads?',
       answer:
-        'No. adblock, styles, mediaType and click are request options available on every plan, including the free endpoint with 25 requests per day and no API key. A Pro plan adds [custom headers, proxy, filename and configurable caching](/pricing) when you move to production.'
+        'No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with 100 requests per month. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.'
     },
     {
       question: 'Does disabling JavaScript produce a cleaner PDF?',
@@ -146,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'clean PDFs',
-    body: 'Ads and banners gone by default, chrome removed with one rule. Start on the free tier and print your first clean document today.',
+    body: 'Ads and banners gone by default, chrome removed with one rule. Start on the free API key and print your first clean document today.',
     href: '/pdf',
     label: 'Print a clean PDF'
   },

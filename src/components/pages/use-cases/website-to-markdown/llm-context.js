@@ -108,19 +108,21 @@ export const CONTENT = {
         'Call microlink.markdown(url) with a selector such as main to get the body as clean Markdown, then add metadata(), links() or emails() for the facts that are not in the text. Combine the results into one object and pass it to the model as context or as a tool result.'
     },
     {
-      question: 'Do the Markdown, links and metadata facets count as one request or several?',
+      question:
+        'Do the Markdown, links and metadata facets count as one request or several?',
       answer:
         'Each method is one API request, so five facets are five requests on a cold cache. Cache hits do not count against your quota and are served from the edge, so an agent that revisits the same URL within the cache lifetime pays nothing extra.'
     },
     {
-      question: 'Can I get Markdown and metadata for an agent in a single request?',
+      question:
+        'Can I get Markdown and metadata for an agent in a single request?',
       answer:
         'Yes. metadata() accepts custom rules through the data option, so a markdown rule rides along with the normalized fields. Links and emails are extraction rules too, so they can join the same data object. [Markdown with metadata frontmatter](/use-cases/website-to-markdown/with-metadata) shows the single-request pattern.'
     },
     {
       question: 'How do AI agents get Markdown from pages that block bots?',
       answer:
-        'Send the request with a Pro key: automatic proxy resolution is on by default for every method, with no parameter. On the free tier the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the Pro key.'
+        'Send the request with your API key: automatic proxy resolution is on by default for every method, with no parameter. On the keyless endpoint the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the key.'
     },
     {
       question: 'Is there a ready-made Markdown integration for AI agents?',
@@ -131,7 +133,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to give your agent',
     headlineAccent: 'the whole page',
-    body: 'Markdown, links, emails, metadata and stack from one URL and one client. Start on the free tier and build your first read_page tool today.',
+    body: 'Markdown, links, emails, metadata and stack from one URL and one client. Start on the free API key and build your first read_page tool today.',
     href: '/markdown',
     label: 'Build LLM context'
   },

@@ -154,7 +154,8 @@ export const CONTENT = {
         'It zooms the rendered page before printing, from 0.1 to 2 with 0.6 as the default. Smaller values fit more content per page; larger values make it bigger and increase the number of pages. Very long documents that cannot finish in time fail with EPDFTOOLARGE, and a smaller scale is the documented fix.'
     },
     {
-      question: 'How do I create a PDF with a custom page size, like a receipt or a label?',
+      question:
+        'How do I create a PDF with a custom page size, like a receipt or a label?',
       answer:
         'Pass pdf.width and pdf.height instead of pdf.format, each with a unit: px, in, cm or mm. An 80mm by 200mm page with a 4mm margin matches a thermal receipt, and the same approach covers certificates and shipping labels.'
     }
@@ -162,7 +163,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to print',
     headlineAccent: 'on the right paper',
-    body: 'Format, margins, orientation and scale in one request. Start on the free tier and print your first A4 or Letter document today.',
+    body: 'Format, margins, orientation and scale in one request. Start on the free API key and print your first A4 or Letter document today.',
     href: '/pdf',
     label: 'Print with custom paper'
   },

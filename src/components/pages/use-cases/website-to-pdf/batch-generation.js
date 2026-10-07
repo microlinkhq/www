@@ -99,7 +99,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'Per-request budget: 30 seconds on the free endpoint, 60 seconds on Pro.'
+        note: 'Per-request budget: 30 seconds on the keyless endpoint, 60 seconds with an API key.'
       }
     ],
     outro:
@@ -126,7 +126,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
         kicker: 'Cache as a buffer',
         title: 'Consumers download from the cache, not from the renderer.',
         body: 'Each response is cached with its own ttl, so the batch renders once and the downloads, emails or previews that follow are cache hits. Cache hits do not count against your quota.',
-        note: 'When not to: a handful of documents a day does not need a batch pattern; a single request per document as the need arises is simpler and fits the free tier. For text pipelines, [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion) is the lighter output.'
+        note: 'When not to: a handful of documents a day does not need a batch pattern; a single request per document as the need arises is simpler and fits the free API key. For text pipelines, [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion) is the lighter output.'
       }
     ]
   },
@@ -139,7 +139,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
     {
       question: 'What is the time limit for each PDF in a batch?',
       answer:
-        'The request timeout is 30 seconds on the free endpoint and 60 seconds on Pro plans, and values above the plan ceiling are capped. A very long or heavy page that exceeds it fails for that document only, with EPDFTOOLARGE when the PDF cannot be rendered in time. Lower pdf.scale or split the source into shorter pages.'
+        'The request timeout is 30 seconds on the keyless endpoint and 60 seconds with an API key, and values above the plan ceiling are capped. A very long or heavy page that exceeds it fails for that document only, with EPDFTOOLARGE when the PDF cannot be rendered in time. Lower pdf.scale or split the source into shorter pages.'
     },
     {
       question: 'How do I handle failures inside a bulk PDF job?',

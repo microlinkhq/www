@@ -123,10 +123,11 @@ export const CONTENT = {
     {
       question: 'Do I need to enable adblock to get ad-free screenshots?',
       answer:
-        'No. It is enabled by default, including on the free endpoint. Pass adblock: false only when you want ads, trackers and consent flows to stay visible in the capture.'
+        'No. It is enabled by default on every plan, the free API key included. Pass adblock: false only when you want ads, trackers and consent flows to stay visible in the capture.'
     },
     {
-      question: 'Which cookie consent popups does the screenshot adblock remove?',
+      question:
+        'Which cookie consent popups does the screenshot adblock remove?',
       answer:
         'Popups injected by third-party consent management services are blocked at the network level, along with ad networks and trackers. A dialog built into the site’s own code is not a third-party request, so dismiss it with click or hide it with styles.'
     },
@@ -147,7 +148,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'clean screenshots',
-    body: 'Ads and consent popups are gone by default, and first-party banners take one option. Start on the free endpoint and capture your first clean page today.',
+    body: 'Ads and consent popups are gone by default, and first-party banners take one option. Start on the free API key and capture your first clean page today.',
     href: '/screenshot',
     label: 'Capture a clean screenshot'
   },

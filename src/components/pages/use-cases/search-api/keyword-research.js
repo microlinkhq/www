@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/keyword-research',
   head: {
     title: 'Google Autocomplete API for keyword research',
-    description: 'Get keyword ideas from Google Autocomplete, related searches and People Also Ask as JSON, geo-targeted by country. Long-tail variants from one seed.'
+    description:
+      'Get keyword ideas from Google Autocomplete, related searches and People Also Ask as JSON, geo-targeted by country. Long-tail variants from one seed.'
   },
   hero: {
     title: 'Find the queries people type with a Google Autocomplete API',
-    intro: 'A Google Autocomplete API returns the queries people start typing, the most direct record of how a market phrases a problem. SEO teams plan content with it, product teams name features with it, and agents expand a vague prompt into precise searches. The [Search API](/search) returns suggestions, related searches and People Also Ask questions as JSON.',
+    intro:
+      'A Google Autocomplete API returns the queries people start typing, the most direct record of how a market phrases a problem. SEO teams plan content with it, product teams name features with it, and agents expand a vague prompt into precise searches. The [Search API](/search) returns suggestions, related searches and People Also Ask questions as JSON.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -14,7 +16,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Keyword lists come from guesses, or from a tool that guesses for you',
+    title:
+      'Keyword lists come from guesses, or from a tool that guesses for you',
     paragraphs: [
       'Content that ranks answers the question people actually type. A brainstorm produces the phrasing a team uses internally, which rarely matches the long-tail queries buyers enter, and those long-tail variants are where a new page has a chance.',
       'Typing seeds into a search box and copying the dropdown works for five queries, not five hundred. Keyword suites solve scale with their own databases and a seat price, and calling a suggest endpoint yourself means handling blocking and parsing for a result that is only a list of strings.',
@@ -23,7 +26,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to get keyword suggestions from the Google Autocomplete API',
-    intro: 'Expand a seed with autocomplete, add a letter to reach the long tail, then pull the questions from the results page. The [autocomplete guide](/docs/guides/search/autocomplete) shows the result shape.',
+    intro:
+      'Expand a seed with autocomplete, add a letter to reach the long tail, then pull the questions from the results page. The [autocomplete guide](/docs/guides/search/autocomplete) shows the result shape.',
     steps: [
       {
         label: '1 · Expand a seed',
@@ -63,11 +67,13 @@ export const CONTENT = {
         note: 'Related questions with question, snippet, title and link, when Google shows them.'
       }
     ],
-    outro: 'None of these surfaces returns search volume, cost per click or keyword difficulty. Use them to discover phrasing and questions, then size the shortlist with the metrics source you already trust. The [query expansion pattern](/docs/guides/search/patterns) shows autocomplete feeding heavier searches.'
+    outro:
+      'None of these surfaces returns search volume, cost per click or keyword difficulty. Use them to discover phrasing and questions, then size the shortlist with the metrics source you already trust. The [query expansion pattern](/docs/guides/search/patterns) shows autocomplete feeding heavier searches.'
   },
   why: {
     title: 'Why autocomplete beats a brainstorm for keyword research',
-    intro: 'Suggestions are what people type, in the words they type it. That makes them the right raw material for a keyword list.',
+    intro:
+      'Suggestions are what people type, in the words they type it. That makes them the right raw material for a keyword list.',
     cards: [
       {
         kicker: 'Demand in its own words',
@@ -91,24 +97,30 @@ export const CONTENT = {
   },
   faq: [
     {
-      question: 'How do I use the Google Autocomplete API for keyword research?',
-      answer: "Call microlink.search with a seed and type: 'autocomplete'. Each result is a value string with a suggested query. Append letters to the seed to reach long-tail variants, and run the default search type to add related searches and People Also Ask questions."
+      question:
+        'How do I use the Google Autocomplete API for keyword research?',
+      answer:
+        "Call microlink.search with a seed and type: 'autocomplete'. Each result is a value string with a suggested query. Append letters to the seed to reach long-tail variants, and run the default search type to add related searches and People Also Ask questions."
     },
     {
       question: 'Does the keyword suggestions API return search volume?',
-      answer: 'No. Autocomplete returns suggested queries only, and web results add related searches and questions. There is no volume, cost per click or difficulty field, so size your shortlist with a metrics source.'
+      answer:
+        'No. Autocomplete returns suggested queries only, and web results add related searches and questions. There is no volume, cost per click or difficulty field, so size your shortlist with a metrics source.'
     },
     {
       question: 'Can I get People Also Ask questions through the Search API?',
-      answer: 'Yes. The default search type returns peopleAlsoAsk with question, snippet, title and link when Google shows the box for that query, alongside relatedSearches and the organic results.'
+      answer:
+        'Yes. The default search type returns peopleAlsoAsk with question, snippet, title and link when Google shows the box for that query, alongside relatedSearches and the organic results.'
     },
     {
       question: 'How many requests does autocomplete keyword research use?',
-      answer: 'One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. Search has no free tier: it is paid from the first request, with [Pro plans](/pricing) from €39/month for 46,000 requests.'
+      answer:
+        'One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) from €39/month for 46,000 requests.'
     },
     {
       question: 'Is this Google Suggest API an official Google product?',
-      answer: 'No. Microlink Search is an independent product that queries public Google surfaces, autocomplete included. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google surfaces, autocomplete included. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -123,15 +135,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Expand a seed',
-        description: "Call microlink.search with the seed, type: 'autocomplete' and a location code, and read the value of each result."
+        description:
+          "Call microlink.search with the seed, type: 'autocomplete' and a location code, and read the value of each result."
       },
       {
         title: 'Reach the long tail with a letter',
-        description: 'Run the seed followed by each letter of the alphabet in parallel and merge the suggestions into a deduplicated set.'
+        description:
+          'Run the seed followed by each letter of the alphabet in parallel and merge the suggestions into a deduplicated set.'
       },
       {
         title: 'Pull questions and related searches',
-        description: 'Run a default web search for the strongest idea and read peopleAlsoAsk for questions and relatedSearches for the next seeds.'
+        description:
+          'Run a default web search for the strongest idea and read peopleAlsoAsk for questions and relatedSearches for the next seeds.'
       }
     ]
   }

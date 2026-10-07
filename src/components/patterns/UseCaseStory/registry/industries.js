@@ -57,7 +57,8 @@ export const INDUSTRIES = [
     },
     faq: [
       {
-        question: 'Can I monitor competitor prices with an API instead of a scraper?',
+        question:
+          'Can I monitor competitor prices with an API instead of a scraper?',
         answer:
           'Yes. Extraction rules turn any product page into JSON with the fields you name, and the Google Shopping search type lists merchants and prices for a query. You run them on your own schedule and store the results.'
       },
@@ -80,7 +81,7 @@ export const INDUSTRIES = [
     ctaSection: {
       headlinePrefix: 'Ready to track',
       headlineAccent: 'prices from any store',
-      body: 'Start on the free tier with extraction rules, add a Pro key when you need proxies, countries or longer caching.',
+      body: 'Start on the free API key with extraction rules, proxies included, and pick a paid plan when you need volume.',
       href: '/features/scraping',
       label: 'Start with the Scraping API'
     }
@@ -138,7 +139,7 @@ export const INDUSTRIES = [
       title: 'What you still build',
       paragraphs: [
         'The Search API returns Google results for a query; it does not store a ranking history or chart it. Your scheduler runs the keyword list, and your database keeps each day of positions.',
-        'Search runs on paid plans from the first request, because every query goes through managed proxy capacity. Metadata and screenshots start on the free tier. Compare the options on the [pricing page](/pricing).'
+        'Search, metadata and screenshots all start on the free API key, 100 requests a month with proxy included. Compare the paid plans on the [pricing page](/pricing).'
       ]
     },
     faq: [
@@ -312,7 +313,7 @@ export const INDUSTRIES = [
       {
         question: 'How do I give an AI agent access to Google search?',
         answer:
-          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. Search runs on paid plans from the first request.'
+          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. A free API key covers 100 searches a month; paid plans add volume.'
       },
       {
         question: 'Why Markdown instead of HTML for LLM context?',
@@ -325,7 +326,8 @@ export const INDUSTRIES = [
           'Yes, within one call. A browser function receives a Puppeteer page, runs your code and returns its value. Sessions are not kept between calls.'
       },
       {
-        question: 'Does Microlink work with MCP clients like Claude and Cursor?',
+        question:
+          'Does Microlink work with MCP clients like Claude and Cursor?',
         answer:
           'Yes. The [MCP server](/integrations/mcp) connects to Claude, Codex, Cursor and VS Code, and exposes metadata, screenshots, PDFs, Markdown and text as tools.'
       }

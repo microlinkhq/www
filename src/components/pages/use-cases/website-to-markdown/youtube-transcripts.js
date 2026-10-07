@@ -117,7 +117,7 @@ export const CONTENT = {
     {
       question: 'Why does my YouTube Markdown request fail with EPROXYNEEDED?',
       answer:
-        'YouTube uses antibot protection, so the request needs the built-in proxy. Send it with a Pro key and the proxy resolves automatically, with no parameter. The free endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
+        'YouTube uses antibot protection, so the request needs the built-in proxy. Send it with your API key, the free one included, and the proxy resolves automatically, with no parameter. The keyless endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
     },
     {
       question: 'What language is the YouTube Markdown transcript in?',
@@ -125,7 +125,8 @@ export const CONTENT = {
         'The video’s own caption language: manual subtitles when the creator provided them, otherwise the auto-generated captions. The transcript is not translated, so a Spanish talk returns Spanish text.'
     },
     {
-      question: 'What does the Markdown request return for a video with no captions?',
+      question:
+        'What does the Markdown request return for a video with no captions?',
       answer:
         'The request succeeds and returns the standard video metadata, but there is no transcript body. Live streams and private videos behave the same way, so check the field before passing it to a summarizer. For a playlist or a channel, run the URLs through [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion).'
     }

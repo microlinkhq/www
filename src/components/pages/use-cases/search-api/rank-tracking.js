@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/rank-tracking',
   head: {
     title: 'Keyword rank checker API for Google by country',
-    description: 'Track Google rankings per keyword and country: ordered results as JSON, position computed from the index and page offset, history in your database.'
+    description:
+      'Track Google rankings per keyword and country: ordered results as JSON, position computed from the index and page offset, history in your database.'
   },
   hero: {
     title: 'Track Google rankings by country with a keyword rank checker API',
-    intro: 'A keyword rank checker API answers one question on a loop: where does my domain rank for this query, in this country, today? SEO teams, agencies reporting to clients and product teams watching a launch all need that number per keyword and per market. The [Search API](/search) returns the results in order, so the rank is where your domain appears in the list.',
+    intro:
+      'A keyword rank checker API answers one question on a loop: where does my domain rank for this query, in this country, today? SEO teams, agencies reporting to clients and product teams watching a launch all need that number per keyword and per market. The [Search API](/search) returns the results in order, so the rank is where your domain appears in the list.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -23,7 +25,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to track SERP positions by country with the Search API',
-    intro: 'Search the keyword in a country, walk the pages, and compute the position from the index. The [web search guide](/docs/guides/search/search) documents the result fields.',
+    intro:
+      'Search the keyword in a country, walk the pages, and compute the position from the index. The [web search guide](/docs/guides/search/search) documents the result fields.',
     steps: [
       {
         label: '1 · Find the domain in the results',
@@ -64,11 +67,13 @@ export const CONTENT = {
         note: "Omit it: the default 'search' returns title, url and description in order."
       }
     ],
-    outro: 'Results carry title, url and description, with no ads, local pack or position fields, so the rank computed here counts the listed results only. When you need to see everything the page showed around the links, [capture the SERP as Markdown or HTML](/use-cases/search-api/serp-to-markdown) next to the positions.'
+    outro:
+      'Results carry title, url and description, with no ads, local pack or position fields, so the rank computed here counts the listed results only. When you need to see everything the page showed around the links, [capture the SERP as Markdown or HTML](/use-cases/search-api/serp-to-markdown) next to the positions.'
   },
   why: {
     title: 'Why compute rankings yourself instead of renting a rank tracker',
-    intro: 'A position is a derived number. Deriving it yourself means you know exactly what it measures and you own every row.',
+    intro:
+      'A position is a derived number. Deriving it yourself means you know exactly what it measures and you own every row.',
     cards: [
       {
         kicker: 'Your definition',
@@ -93,23 +98,28 @@ export const CONTENT = {
   faq: [
     {
       question: 'How does a keyword rank checker API calculate position?',
-      answer: 'There is no position field in the response. Find the index of your domain in page.results and add the number of results on the pages before it, plus one. That is the 1-based rank among the returned results for that country.'
+      answer:
+        'There is no position field in the response. Find the index of your domain in page.results and add the number of results on the pages before it, plus one. That is the 1-based rank among the returned results for that country.'
     },
     {
       question: 'Can I check Google rankings for a city or on mobile?',
-      answer: 'No. location geo-targets results by two-letter country code, and there is no city, device or language option. Track what the API supports, country-level results, and keep the same settings across runs so positions stay comparable.'
+      answer:
+        'No. location geo-targets results by two-letter country code, and there is no city, device or language option. Track what the API supports, country-level results, and keep the same settings across runs so positions stay comparable.'
     },
     {
       question: 'How many pages deep should SERP position tracking go?',
-      answer: 'Most tracking stops at the first two or three pages. Each page is one request, fetched with page.next() or the page option, so depth multiplies cost. Stop as soon as your domain is found.'
+      answer:
+        'Most tracking stops at the first two or three pages. Each page is one request, fetched with page.next() or the page option, so depth multiplies cost. Stop as soon as your domain is found.'
     },
     {
       question: 'Does the rank tracking API store ranking history?',
-      answer: 'No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. Search has no free tier, and [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+      answer:
+        'No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is the Microlink rank checker affiliated with Google?',
-      answer: 'No. Microlink Search is an independent product that queries public Google results. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google results. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -124,15 +134,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Find the domain in the results',
-        description: 'Search the keyword with a location code, look for your domain in page.results, and walk the following pages with next() up to a fixed depth. The position is the index plus the results on earlier pages, plus one.'
+        description:
+          'Search the keyword with a location code, look for your domain in page.results, and walk the following pages with next() up to a fixed depth. The position is the index plus the results on earlier pages, plus one.'
       },
       {
         title: 'Run the keyword set per country',
-        description: 'Loop over keywords and country codes, and store one row per pair with the position, the ranking URL and a timestamp.'
+        description:
+          'Loop over keywords and country codes, and store one row per pair with the position, the ranking URL and a timestamp.'
       },
       {
         title: 'Compare with the previous run',
-        description: 'Load the last run from your database, keyed by keyword and country, and subtract the new position from the old one to get the movement.'
+        description:
+          'Load the last run from your database, keyed by keyword and country, and subtract the new position from the old one to get the movement.'
       }
     ]
   }

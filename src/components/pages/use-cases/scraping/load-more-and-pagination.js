@@ -121,7 +121,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         kicker: 'Bounded',
         title: 'Every run has a clear ceiling.',
-        body: 'The free plan gives a function 15 seconds and 64 MB, Pro up to 60 seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.',
+        body: 'The keyless endpoint gives a function 15 seconds and 64 MB, any API key up to 60 seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.',
         note: 'When not to: infinite feeds with thousands of items do not fit in one call. Look for the JSON endpoint the page calls as you scroll and read it page by page as [cached JSON](/use-cases/scraping/json-endpoints) instead.'
       }
     ]
@@ -135,17 +135,19 @@ const quotes = results.flatMap(result => result.quotes)`,
     {
       question: 'Can I scrape a paginated website in parallel?',
       answer:
-        'Yes. When pages have their own URLs, build the list of URLs and send one extraction request per page at the same time. The API applies no throttling; the free tier allows 25 requests per day in total.'
+        'Yes. When pages have their own URLs, build the list of URLs and send one extraction request per page at the same time. The API applies no throttling; the free API key allows 100 requests per month in total.'
     },
     {
-      question: 'Why does scroll not load every item on an infinite scroll page?',
+      question:
+        'Why does scroll not load every item on an infinite scroll page?',
       answer:
         'The scroll parameter scrolls a single element into view once. That triggers one batch of lazy content, not an endless feed. Scroll in a loop inside a function, or read the JSON endpoint the page requests as it scrolls.'
     },
     {
-      question: 'How many times can a function click Load more before it times out?',
+      question:
+        'How many times can a function click Load more before it times out?',
       answer:
-        'As many as fit in the time limit: 15 seconds on the free plan and up to 60 seconds on Pro. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
+        'As many as fit in the time limit: 15 seconds on the keyless endpoint and up to 60 seconds with an API key. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
     },
     {
       question: 'Does each scraped page count as a separate request?',
@@ -156,7 +158,7 @@ const quotes = results.flatMap(result => result.quotes)`,
   cta: {
     headlinePrefix: 'Ready to scrape',
     headlineAccent: 'every page of the list',
-    body: 'Parallel requests for numbered pages, a function for Load more. Start on the free tier and get past page one today.',
+    body: 'Parallel requests for numbered pages, a function for Load more. Start on the free API key and get past page one today.',
     href: '/features/scraping',
     label: 'Scrape a paginated list'
   },
