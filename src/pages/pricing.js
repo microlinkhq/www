@@ -57,7 +57,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, markdown, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        text: 'Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with 100 requests per month and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
       }
     },
     {
@@ -195,7 +195,7 @@ export const Head = () => {
       {
         '@type': 'Offer',
         sku: 'free',
-        name: 'Free · 25 requests / day',
+        name: 'Free · 100 requests / month',
         price: '0',
         priceCurrency: 'EUR',
         availability: 'https://schema.org/InStock',
@@ -1278,10 +1278,10 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Yes — the free plan is forever free, no credit card required. You
-              get 25 requests per day against the public{' '}
+              Yes — the free plan is forever free, no credit card required. Sign
+              up and you get an API key with 100&nbsp;requests per month on the{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link>, with the
-              same screenshot, PDF, metadata, markdown, insights and SDK
+              same screenshot, PDF, metadata, markdown, search, insights and SDK
               capabilities used on Pro.
             </div>
             <div>

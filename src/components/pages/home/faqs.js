@@ -33,13 +33,14 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Yes. The free plan gives you 25 requests a day on every product
-            except Search, with no API key and no credit card. Just call the{' '}
-            <Link href='/docs/api/basics/endpoint'>free endpoint</Link>.
+            Yes. Sign up for a free API key and you get 100&nbsp;requests a
+            month on every product, Search included, with every Pro feature and
+            no credit card. See the{' '}
+            <Link href='/docs/api/basics/endpoint'>endpoint docs</Link>.
           </div>
           <div>
             It has limits to prevent abuse: burst rate, concurrency, and the
-            daily quota. Enough for small projects and low-volume usage.
+            monthly quota. Enough for small projects and low-volume usage.
           </div>
         </>
       )
@@ -55,8 +56,8 @@ export const getFaqQuestions = () => {
             point for screenshots, PDFs, markdown, and the rest of the API.
           </div>
           <div>
-            The free tier works out of the box for every product except Search;
-            add an API key for Search or when you need volume.
+            The free API key covers every product, Search included; paid plans
+            add volume.
           </div>
         </>
       )

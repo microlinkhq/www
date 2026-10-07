@@ -18,7 +18,7 @@ These patterns apply once you move from prototyping to a production integration.
 | Staging / CI | `pro.microlink.io` | `x-api-key` header |
 | Production | `pro.microlink.io` | `x-api-key` header |
 
-The free endpoint has a soft limit of **25 requests per day**. The Pro endpoint uses your plan quota. Sending `x-api-key` to the free endpoint fails with `EPRO`.
+The keyless endpoint has a soft limit of **25 requests per day**. With an API key the quota is your plan's, **100 requests per month** on the free key. Sending `x-api-key` to the keyless endpoint fails with `EPRO`.
 
 See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
 
@@ -40,7 +40,7 @@ if (status === 429) {
 }
 ```
 
-The free endpoint resets daily. Pro plan resets depend on your billing cycle. See the <Link href='/docs/api/basics/rate-limit' children='rate limit docs' />.
+The keyless endpoint resets daily. Keyed quotas reset monthly. See the <Link href='/docs/api/basics/rate-limit' children='rate limit docs' />.
 
 ## Use stale-while-revalidate by default <ProBadge />
 

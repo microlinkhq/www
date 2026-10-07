@@ -432,7 +432,7 @@ http
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Pass `apiKey` to `createClient()` when you outgrow it.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -581,13 +581,13 @@ http
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Install the SDK and ship your first PDF in minutes.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Install the SDK and ship your first PDF in minutes.',
     primary: {
       label: 'Read the Node.js docs',
       href: '/docs/sdk/getting-started/overview'
     },
     secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

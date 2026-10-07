@@ -303,14 +303,14 @@ export const PRICING_CAPTION = (
   <Text>
     One request counted whether the call renders or proxies, and a{' '}
     <Link href='/features/ttl'>cache hit</Link> not counted at all — there is no
-    multiplier to budget around. Start on the free tier and move to Pro when the
-    daily ceiling gets in the way.
+    multiplier to budget around. Start on the free API key and move to a paid
+    plan when the monthly ceiling gets in the way.
   </Text>
 )
 
 export const CTA = {
   caption:
-    'Point a request at the URL you are scraping today and compare the response with the one you get back now. No signup for the first call.',
+    'Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first 100 calls a month.',
   cta: 'alternative-scrapingbee:footer-cta',
   ctaLabel: 'Run your first request',
   secondaryHref: '/docs/guides',
@@ -378,7 +378,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What does the free tier include?',
-    text: 'Twenty-five requests per day, forever, with no credit card. Screenshot, PDF, metadata, markdown, insights and the SDK are all included, along with the global edge cache and adblock. The daily allowance renews, so evaluation never runs out mid-test.'
+    text: 'A free API key with 100 requests per month and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.'
   },
   {
     question: 'Do cached responses still cost a request?',

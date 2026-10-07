@@ -54,7 +54,7 @@ The function parameter is available on both free and pro plans:
 | Concurrency       | 1 in-flight per IP | Unlimited      |
 | Outgoing requests | Same-origin only | Unrestricted     |
 
-The free plan is enough to prototype workflows and run the examples in this guide. For production workloads that need more time or memory, or parameters such as `headers`, `proxy`, `ttl`, or `staleTtl`, use a pro plan.
+A free API key is enough to prototype workflows and run the examples in this guide; `headers`, `proxy`, `ttl` and `staleTtl` are included. For production workloads that need more volume, use a paid plan.
 
 To authenticate, pass your API key:
 

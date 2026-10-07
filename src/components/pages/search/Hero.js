@@ -9,6 +9,7 @@ import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import List from 'components/patterns/List/List'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 
 import { GUIDE_URL } from 'helpers/search-landing'
 
@@ -136,9 +137,9 @@ const HeroSection = () => (
             '& > *': { flexShrink: 0 }
           })}
         >
-          <Button as='a' href='/pricing'>
-            Get the API key
-          </Button>
+          <SignupLink component={Button} as='a' cta='search:hero'>
+            Get your free API key
+          </SignupLink>
           <ArrowLink
             href={GUIDE_URL}
             css={theme({

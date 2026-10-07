@@ -1961,7 +1961,7 @@ const LINK_PREVIEW_FEATURES = [
   {
     title: 'Free to Start',
     description:
-      'Preview any URL immediately. 25 requests per day on the free tier — no setup fees, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
+      'Preview any URL immediately. Free API key with 100 requests per month and every Pro feature, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
   }
 ]
 
@@ -2069,22 +2069,20 @@ const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '25 reqs/day free', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
+        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 1,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <CheckIcon size={16} color={colors.close} />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
       </Flex>
     </Flex>
   </Container>
@@ -2139,19 +2137,18 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free link preview API?',
-    text: `Yes. The Microlink link preview API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your daily limit. For production workloads, Pro plans start at €39 per month and include rotating proxy support, higher rate limits, and priority response.`,
+    text: `Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads, Pro plans start at €39 per month with higher rate limits and priority response.`,
     answer: (
       <>
         <div>
-          Yes. The Microlink{' '}
-          <b>link preview API is free with 25 requests per day</b> — no login,
-          no credit card, no setup. Cached responses served from {CDN_EDGES}{' '}
-          Cloudflare edge locations do not count against your daily limit.
+          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
+          with every Pro feature, no credit card. Cached responses served from{' '}
+          {CDN_EDGES} Cloudflare edge locations do not count against your
+          monthly limit.
         </div>
         <div>
           For production workloads, <Link href='/pricing'>Pro plans</Link> start
-          at €39 per month and include rotating proxy support, higher rate
-          limits, and priority response.
+          at €39 per month with higher rate limits and priority response.
         </div>
       </>
     )
@@ -2441,7 +2438,7 @@ export const Head = () => (
             'Rotating residential proxy for URLs behind Cloudflare and CAPTCHAs',
             `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'AI-friendly: pair with Cursor or Claude Code to generate previews',
-            'Free tier with 25 requests per day'
+            'Free API key with 100 requests per month'
           ],
           isPartOf: {
             '@type': 'WebSite',
@@ -2454,7 +2451,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'EUR',
             description:
-              'Free tier available (25 requests/day). Pro plans start at €39/month for production workloads.',
+              'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
             url: 'https://microlink.io/pricing'
           },
           keywords: [

@@ -441,7 +441,7 @@ export const PRICING_CAPTION = (
 
 export const CTA = {
   caption:
-    'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. 25 requests a day, no account, no browser to operate.',
+    'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with 100 requests a month, no browser to operate.',
   cta: 'alternative-browserbase:footer-cta',
   ctaLabel: 'Get started free',
   secondaryHref: '/docs/api/getting-started/overview',
@@ -535,7 +535,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Both ship an MCP server. What is the difference?',
-    text: 'The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. It works without an API key on the free tier, except Search, which needs a paid plan and a key.',
+    text: 'The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with 100 requests a month.',
     answer: (
       <>
         <div>
@@ -546,9 +546,9 @@ export const FAQ_ITEMS = [
         <div>
           <Link href='/integrations/mcp'>Microlink MCP</Link> exposes 20 tools
           that each return a finished artifact: screenshot, PDF, Markdown,
-          metadata, media, Lighthouse insights, and Google search. It works
-          without an API key on the free tier, except{' '}
-          <Link href='/search'>Search</Link>, which needs a paid plan and a key.
+          metadata, media, Lighthouse insights, and Google search. A free API
+          key covers every tool, <Link href='/search'>Search</Link> included,
+          with 100&nbsp;requests a month.
         </div>
       </>
     )

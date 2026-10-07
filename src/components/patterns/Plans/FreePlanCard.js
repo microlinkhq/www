@@ -19,7 +19,7 @@ import {
   planDisplay
 } from './shared'
 
-const FREE_PLAN_RATE_LIMIT = 25
+const FREE_PLAN_RATE_LIMIT = 100
 
 const FreePlanSignupLink = () => {
   const { pathname } = useLocation()
@@ -37,7 +37,7 @@ const FreePlanCard = ({ activePlan }) => (
     css={theme({ display: planDisplay(activePlan, 'free') })}
   >
     <PlanName>Free</PlanName>
-    <PlanTagline>Try the API in seconds. No card.</PlanTagline>
+    <PlanTagline>Every Pro feature. No card.</PlanTagline>
     <Box css={theme({ pt: [3, 3, 4, 4] })}>
       <PriceTag prices={0} />
       <Text
@@ -48,11 +48,11 @@ const FreePlanCard = ({ activePlan }) => (
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {FREE_PLAN_RATE_LIMIT} requests per day
+        {FREE_PLAN_RATE_LIMIT} requests per month
       </Text>
     </Box>
     <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
-      <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / day</PlanCheck>
+      <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / month</PlanCheck>
       <PlanCheck>
         <Link href='/screenshot'>Screenshot</Link>, <Link href='/pdf'>PDF</Link>
         , <Link href='/integrations/sdk'>SDK</Link>
@@ -68,6 +68,10 @@ const FreePlanCard = ({ activePlan }) => (
       <PlanCheck>
         <Link href='/function'>Function</Link>, <Link href='/media'>Media</Link>
         , <Link href='/file-conversion'>File Conversion</Link>
+      </PlanCheck>
+      <PlanCheck>
+        <Link href='/search'>Search</Link>, <Link href='/embed'>Embed</Link>,{' '}
+        <Link href='/features/proxy'>Proxy</Link>
       </PlanCheck>
       <PlanCheck>
         <Link href='/blog/edge-cdn'>Global edge cache</Link>

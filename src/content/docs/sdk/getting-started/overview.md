@@ -30,7 +30,7 @@ The same code runs in Node.js 24 or later, browsers, and Deno, returning the sam
 
 ## Authentication
 
-`createClient()` works without an API key on the [free plan](/pricing) out of the box. Pass an `apiKey` to unlock pro quotas — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 100 requests per month with every Pro feature. Pass it as `apiKey` — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
 
 ```js
 const microlink = createClient({
@@ -100,6 +100,6 @@ export default {
 }
 ```
 
-Keep your `apiKey` out of browser code: requests from a page run on the free tier of the API, and the [x-api-key](/docs/api/basics/authentication) header belongs on a server you control.
+Keep your `apiKey` out of browser code: the [x-api-key](/docs/api/basics/authentication) header belongs on a server you control.
 
 Looking for the drop-in link preview component for React, Vue, and vanilla JavaScript? That's a different product: see [link preview](/link-preview).

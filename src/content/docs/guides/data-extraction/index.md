@@ -136,9 +136,9 @@ That returns JSON. To make the API URL return a single extracted field directly 
 
 ## Free tier and API key
 
-The Microlink API works without an API key. You get **25 free requests per day**, which is enough to test the full data extraction flow and most of the examples in this guide.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **100 free requests per month** with every Pro feature, which is enough to test the full data extraction flow and most of the examples in this guide.
 
-For production usage, you'll usually want a <ProBadge /> plan. It unlocks features such as [configurable TTL](/docs/api/parameters/ttl), [stale-while-revalidate caching](/docs/api/parameters/staleTtl), [custom headers](/docs/api/parameters/headers), and [proxy](/docs/api/parameters/proxy).
+For production volume, pick a <ProBadge /> plan: it raises the quota on the same key. Every plan, the free key included, has features such as [configurable TTL](/docs/api/parameters/ttl), [stale-while-revalidate caching](/docs/api/parameters/staleTtl), [custom headers](/docs/api/parameters/headers), and [proxy](/docs/api/parameters/proxy).
 
 To authenticate, pass your API key as the `x-api-key` header:
 

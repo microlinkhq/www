@@ -39,8 +39,9 @@ export const Pricing = () => {
               ]
             })}
           >
-            No login required. No credit card needed. URL to PDF API free to use
-            just start calling it.
+            Sign up for a free API key: 100 requests per month with every Pro
+            feature, no credit card. Paid plans add volume and production
+            controls.
           </Caption>
         </Container>
         <Plans

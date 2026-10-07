@@ -111,7 +111,7 @@ export const ProductInformation = () => {
             <>
               <div>
                 Microlink bills a flat per-request price with the residential
-                proxy included and a free tier that renews daily, where
+                proxy included and a free API key that renews monthly, where
                 credit-based providers meter stealth proxies, screenshots, and
                 extraction separately.
               </div>
@@ -216,15 +216,13 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. The URL to markdown API is free to use with
-                25&nbsp;requests per day — no login, no credit card, and no
-                setup required. Just call the endpoint and get clean markdown
-                back.
+                Yes. Sign up for a free API key: 100&nbsp;requests per month
+                with every Pro feature, no credit card. Call the endpoint with
+                the key and get clean markdown back.
               </div>
               <div>
-                For production workloads that need higher volume, automatic
-                proxy rotation, and priority support, see our{' '}
-                <Link href='/pricing'>Pro plans</Link>.
+                For production workloads that need higher volume and priority
+                support, see our <Link href='/pricing'>Pro plans</Link>.
               </div>
             </>
           )

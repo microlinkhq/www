@@ -147,11 +147,11 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. The file conversion API is free to start — just call the endpoint.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The file conversion API is free to use, with no account and no credit card. Send a document URL and get readable content back in seconds.',
+    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a document URL and get readable content back in seconds.',
   cta: 'file-conversion:footer-cta',
   ctaLabel: 'Get started free'
 }
@@ -214,7 +214,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'File Conversion API - Files to Markdown & Text',
   description:
-    'Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. 25 free requests/day.',
+    'Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. Free API key, 100 requests/month.',
   structuredName: 'Microlink File Conversion API',
   structuredDescription:
     'A developer-first API that converts documents, presentations and spreadsheets at any URL into HTML, Markdown or clean plain text, with structure preservation and global edge caching.',

@@ -71,7 +71,7 @@ const REPOS = ['browserless', 'metascraper', 'html-get']
 export const Head = () => (
   <Meta
     title='HTML to PDF API - Convert URL to PDF Document'
-    description='Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. 25 free requests/day.'
+    description='Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. Free API key, 100 requests/month.'
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
@@ -99,7 +99,7 @@ export const Head = () => (
         price: '0',
         priceCurrency: 'EUR',
         description:
-          'Free tier available (25 requests/day). Pro plans start at €39/month for production workloads.',
+          'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
         url: 'https://microlink.io/pricing'
       },
       keywords: [

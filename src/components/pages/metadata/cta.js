@@ -90,9 +90,9 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Get 25&nbsp;requests/day with zero commitment — the website metadata API
-        is free to use, no account, and no credit card. Just call the API and go
-        from URL to metadata in seconds.
+        Sign up for a free API key: 100&nbsp;requests per month with every Pro
+        feature, no credit card. Add it to the request and go from URL to
+        metadata in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -117,22 +117,20 @@ export const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '25 reqs/day free', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
+        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 1,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <CheckIcon size={16} color={colors.close} />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
       </Flex>
       <Box css={theme({ pt: [4, 4, 5, 5] })}>
         <LangLandingsNav

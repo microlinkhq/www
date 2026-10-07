@@ -51,7 +51,7 @@ const CtaNow = styled('span')`
   animation: ${ctaNowAnim} ${CTA_DURATION}s step-end infinite;
 `
 
-const DEFAULT_BADGES = ['No login needed', '25 reqs/day free', 'No credit card']
+const DEFAULT_BADGES = ['Free API key', '100 requests/month', 'No credit card']
 
 export const ProductCta = ({
   caption,
