@@ -133,7 +133,7 @@ const php = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in PHP — no headless browser, no readability pipeline, no servers to maintain.',
     demoAlt: 'PHP URL to markdown API example',
-    primaryCta: { label: 'Get started free', cta: 'markdown-php:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'markdown-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'

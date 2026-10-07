@@ -78,7 +78,7 @@ export const HERO = {
   description:
     'The headless browser cloud. We run the fleet. You get the output.',
   cta: 'api:hero',
-  ctaLabel: 'Start for free',
+  ctaLabel: 'Get your free API key',
   pricingHref: '/pricing',
   pricingLabel: 'See pricing',
   docsHref: '/docs/api/getting-started/overview',
@@ -423,7 +423,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month, every Pro feature, no card.',
   cta: 'api:footer-cta',
-  ctaLabel: 'Start for free',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/pricing',
   secondaryLabel: 'See pricing'
 }

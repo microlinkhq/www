@@ -42,7 +42,7 @@ export const HERO = {
     </Text>
   ),
   cta: 'alternative-scrapingbee:hero',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides',
   secondaryLabel: 'Read the guides',
   mqlCode: {
@@ -312,7 +312,7 @@ export const CTA = {
   caption:
     'Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first 100 calls a month.',
   cta: 'alternative-scrapingbee:footer-cta',
-  ctaLabel: 'Run your first request',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides',
   secondaryLabel: 'Read the guides'
 }

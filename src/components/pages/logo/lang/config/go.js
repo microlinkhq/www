@@ -130,7 +130,7 @@ const go = {
     subtitle:
       'Get the logo behind any URL with one HTTP request in Go — markup, BIMI and favicon detection merged, with format, dimensions and brand palette.',
     demoAlt: 'Go logo API example',
-    primaryCta: { label: 'Get started free', cta: 'logo-go:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'logo-go:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

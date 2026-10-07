@@ -130,7 +130,7 @@ const php = {
     subtitle:
       'Get the logo behind any URL with one HTTP request in PHP — markup, BIMI and favicon detection merged, with format, dimensions and brand palette.',
     demoAlt: 'PHP logo API example',
-    primaryCta: { label: 'Get started free', cta: 'logo-php:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'logo-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

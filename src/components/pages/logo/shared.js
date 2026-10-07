@@ -31,7 +31,7 @@ export const HERO = {
   description:
     'Get the logo behind any URL. Microlink walks the page markup, checks the BIMI record in DNS and falls back to the favicon — returning the best asset with its format, dimensions and brand palette.',
   cta: 'logo:hero',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/meta',
   secondaryLabel: 'Read the docs',
   editorHeight: 100,
@@ -101,7 +101,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.',
   cta: 'logo:footer-cta',
-  ctaLabel: 'Get started free',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/meta',
   secondaryLabel: 'Read the docs'
 }

@@ -32,7 +32,7 @@ export const HERO = {
   description:
     'Point the API at a document and get HTML, Markdown or clean text back. PDFs, Word files, spreadsheets and slide decks become content your code can read.',
   cta: 'file-conversion:hero',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get your free API key',
   editorHeight: 100,
   examplesLabel: 'Conversion examples',
   examples: [
@@ -153,7 +153,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a document URL and get readable content back in seconds.',
   cta: 'file-conversion:footer-cta',
-  ctaLabel: 'Get started free'
+  ctaLabel: 'Get your free API key'
 }
 
 export const FAQ_CAPTION =

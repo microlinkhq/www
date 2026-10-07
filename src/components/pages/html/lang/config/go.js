@@ -130,7 +130,7 @@ const go = {
     subtitle:
       'Get the fully rendered HTML of any URL with one HTTP request in Go — real Chromium under the hood, none to maintain.',
     demoAlt: 'Go HTML API example',
-    primaryCta: { label: 'Get started free', cta: 'html-go:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'html-go:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

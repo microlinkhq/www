@@ -48,7 +48,7 @@ export const HeroIntro = () => (
         alignItems: ['flex-start', 'center', 'center', 'center']
       })}
     >
-      <SignupLink cta='metadata:hero'>Get Started</SignupLink>
+      <SignupLink cta='metadata:hero'>Get your free API key</SignupLink>
     </Flex>
   </Flex>
 )

@@ -130,7 +130,7 @@ const ruby = {
     subtitle:
       'Get the fully rendered HTML of any URL with one HTTP request in Ruby — real Chromium under the hood, none to maintain.',
     demoAlt: 'Ruby HTML API example',
-    primaryCta: { label: 'Get started free', cta: 'html-ruby:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'html-ruby:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

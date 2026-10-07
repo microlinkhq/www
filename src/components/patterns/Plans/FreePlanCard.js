@@ -26,7 +26,7 @@ const FreePlanSignupLink = () => {
 
   return (
     <SignupLink cta={`${eventLocation(pathname)}:free-plan`}>
-      Get started free
+      Get your free API key
     </SignupLink>
   )
 }

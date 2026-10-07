@@ -130,7 +130,7 @@ const ruby = {
     subtitle:
       'Get the logo behind any URL with one HTTP request in Ruby — markup, BIMI and favicon detection merged, with format, dimensions and brand palette.',
     demoAlt: 'Ruby logo API example',
-    primaryCta: { label: 'Get started free', cta: 'logo-ruby:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'logo-ruby:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

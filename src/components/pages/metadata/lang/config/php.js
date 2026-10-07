@@ -130,7 +130,7 @@ const php = {
     subtitle:
       'Extract title, description, image and logo from any URL with one HTTP request in PHP — no HTML parsing, no tag soup, no browser to maintain.',
     demoAlt: 'PHP website metadata API example',
-    primaryCta: { label: 'Get started free', cta: 'metadata-php:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'metadata-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

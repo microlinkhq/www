@@ -660,7 +660,7 @@ const Hero = () => (
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'context-dev' })}
         >
-          Get Started Free
+          Get your free API key
         </SignupLink>
         <Link href='/metadata'>Explore the Metadata API</Link>
       </Flex>
@@ -1307,7 +1307,7 @@ const PricingSection = () => (
                 cta='alternative-context-dev:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
+                <Caps>Get your free API key</Caps>
               </SignupLink>
               <Box css={theme({ pt: 2, textAlign: 'center' })}>
                 <Link href='/metadata' css={theme({ fontSize: 0 })}>
@@ -1558,7 +1558,7 @@ const CTASection = () => (
             trackEvent('alternative cta', { competitor: 'context-dev' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
+          Get your free API key
         </SignupLink>
         <Link href='/metadata' css={theme({ color: 'white' })}>
           Explore the Metadata API
@@ -1637,7 +1637,7 @@ const TryItSection = () => {
               trackEvent('alternative cta', { competitor: 'context-dev' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
+            Get your free API key
           </SignupLink>
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href='/docs/guides/metadata'>Read the guide</Link>

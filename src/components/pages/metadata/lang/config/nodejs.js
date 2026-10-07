@@ -133,7 +133,10 @@ const nodejs = {
     subtitle:
       'Extract title, description, image and logo from any URL with one HTTP request in Node.js — no HTML parsing, no tag soup, no browser to maintain.',
     demoAlt: 'Node.js website metadata API example',
-    primaryCta: { label: 'Get started free', cta: 'metadata-nodejs:primary' },
+    primaryCta: {
+      label: 'Get your free API key',
+      cta: 'metadata-nodejs:primary'
+    },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

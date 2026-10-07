@@ -772,7 +772,7 @@ const Hero = () => (
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'urlbox' })}
         >
-          Get Started Free
+          Get your free API key
         </SignupLink>
         <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
@@ -1306,7 +1306,7 @@ const PricingSection = () => (
                 cta='alternative-urlbox:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
+                <Caps>Get your free API key</Caps>
               </SignupLink>
               <Box css={theme({ pt: 2, textAlign: 'center' })}>
                 <Link href='/screenshot' css={theme({ fontSize: 0 })}>
@@ -1473,7 +1473,7 @@ const CTASection = () => (
             trackEvent('alternative cta', { competitor: 'urlbox' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
+          Get your free API key
         </SignupLink>
         <Link href='/screenshot' css={theme({ color: 'white' })}>
           Explore the Screenshot API
@@ -1552,7 +1552,7 @@ const TryItSection = () => {
               trackEvent('alternative cta', { competitor: 'urlbox' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
+            Get your free API key
           </SignupLink>
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href='/docs/guides/screenshot'>Read the guide</Link>

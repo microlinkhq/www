@@ -45,7 +45,7 @@ export const HeroIntro = () => (
         justifyContent: ['center', 'center', 'center', 'flex-start']
       })}
     >
-      <SignupLink cta='pdf:hero'>Get Started</SignupLink>
+      <SignupLink cta='pdf:hero'>Get your free API key</SignupLink>
     </Flex>
   </Flex>
 )

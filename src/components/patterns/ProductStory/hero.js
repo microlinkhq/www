@@ -35,7 +35,7 @@ export const ProductHero = ({
   product,
   redirect,
   ctaHref,
-  ctaLabel = 'Get Started',
+  ctaLabel = 'Get your free API key',
   secondaryHref,
   secondaryLabel,
   mqlCode,

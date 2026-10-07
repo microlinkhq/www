@@ -133,7 +133,10 @@ const ruby = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in Ruby — no headless browser, no readability pipeline, no servers to maintain.',
     demoAlt: 'Ruby URL to markdown API example',
-    primaryCta: { label: 'Get started free', cta: 'markdown-ruby:primary' },
+    primaryCta: {
+      label: 'Get your free API key',
+      cta: 'markdown-ruby:primary'
+    },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'

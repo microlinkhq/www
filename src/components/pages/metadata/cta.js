@@ -106,7 +106,7 @@ export const CallToAction = () => (
           cta='metadata:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Get started free
+          Get your free API key
         </SignupLink>
       </Flex>
       <Flex

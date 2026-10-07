@@ -133,7 +133,10 @@ const nodejs = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in Node.js — no Puppeteer, no readability pipeline, no browser to maintain.',
     demoAlt: 'Node.js URL to markdown API example',
-    primaryCta: { label: 'Get started free', cta: 'markdown-nodejs:primary' },
+    primaryCta: {
+      label: 'Get your free API key',
+      cta: 'markdown-nodejs:primary'
+    },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'

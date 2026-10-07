@@ -1609,7 +1609,7 @@ const Cta = () => {
             onClick={() => trackEvent('pricing cta')}
           >
             <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
-              Get started free
+              Get your free API key
             </Caps>
           </SignupLink>
         </Flex>

@@ -831,7 +831,7 @@ const Hero = () => (
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'embedly' })}
         >
-          Get Started Free
+          Get your free API key
         </SignupLink>
         <Link href='/embed'>Explore the Embed API</Link>
       </Flex>
@@ -1040,7 +1040,7 @@ const PricingSection = () => (
                 cta='alternative-embedly:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
+                <Caps>Get your free API key</Caps>
               </SignupLink>
               <Box css={theme({ pt: 2, textAlign: 'center' })}>
                 <Link href='/embed' css={theme({ fontSize: 0 })}>
@@ -1206,7 +1206,7 @@ const CTASection = () => (
             trackEvent('alternative cta', { competitor: 'embedly' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
+          Get your free API key
         </SignupLink>
         <Link href='/embed' css={theme({ color: 'white' })}>
           Explore the Embed API
@@ -1381,7 +1381,7 @@ const TryItSection = () => (
             trackEvent('alternative cta', { competitor: 'embedly' })}
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
-          Start now for free
+          Get your free API key
         </SignupLink>
         <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
           <Link href='/docs/guides/embed'>Read the guide</Link>

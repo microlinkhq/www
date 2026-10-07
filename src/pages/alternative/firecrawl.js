@@ -641,7 +641,7 @@ const Hero = () => (
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'firecrawl' })}
         >
-          Get Started Free
+          Get your free API key
         </SignupLink>
         <Link href='/markdown'>Explore the Markdown API</Link>
       </Flex>
@@ -1288,7 +1288,7 @@ const PricingSection = () => (
                 cta='alternative-firecrawl:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
+                <Caps>Get your free API key</Caps>
               </SignupLink>
               <Box css={theme({ pt: 2, textAlign: 'center' })}>
                 <Link href='/markdown' css={theme({ fontSize: 0 })}>
@@ -1539,7 +1539,7 @@ const CTASection = () => (
             trackEvent('alternative cta', { competitor: 'firecrawl' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
+          Get your free API key
         </SignupLink>
         <Link href='/markdown' css={theme({ color: 'white' })}>
           Explore the Markdown API
@@ -1623,7 +1623,7 @@ const TryItSection = () => {
               trackEvent('alternative cta', { competitor: 'firecrawl' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
+            Get your free API key
           </SignupLink>
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href='/docs/guides/content-conversion/url-to-markdown'>

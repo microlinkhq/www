@@ -59,7 +59,7 @@ export const ProductCta = ({
   product,
   redirect,
   ctaHref,
-  ctaLabel = 'Get started free',
+  ctaLabel = 'Get your free API key',
   secondaryHref,
   secondaryLabel,
   badges = DEFAULT_BADGES,

@@ -51,7 +51,7 @@ export const HERO = {
     </Text>
   ),
   cta: 'alternative-browserbase:hero',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/getting-started/overview',
   secondaryLabel: 'Read the docs',
   mqlCode: {
@@ -443,7 +443,7 @@ export const CTA = {
   caption:
     'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with 100 requests a month, no browser to operate.',
   cta: 'alternative-browserbase:footer-cta',
-  ctaLabel: 'Get started free',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/getting-started/overview',
   secondaryLabel: 'Read the docs'
 }

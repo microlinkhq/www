@@ -316,7 +316,7 @@ const LiveDemo = React.memo(function LiveDemo ({
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
         <SignupLink cta='insights:hero' css={theme({ pr: [2, 4, 4, 4] })}>
-          Get Started
+          Get your free API key
         </SignupLink>
         <ArrowLink
           css={theme({ pr: [2, 4, 4, 4] })}

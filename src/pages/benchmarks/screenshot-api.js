@@ -1922,7 +1922,7 @@ const BottomCta = () => {
             cta='benchmarks-screenshot-api:try-it'
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
+            Get your free API key
           </SignupLink>
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href='/docs/guides/screenshot'>Read the guide</Link>

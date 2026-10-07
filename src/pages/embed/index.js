@@ -515,7 +515,7 @@ const Hero = function Hero ({
               gap: [3, 4, 4, 4]
             })}
           >
-            <SignupLink cta='embed:hero'>Get Started</SignupLink>
+            <SignupLink cta='embed:hero'>Get your free API key</SignupLink>
           </Flex>
         </Flex>
 

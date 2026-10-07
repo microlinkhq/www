@@ -134,7 +134,7 @@ const php = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF with one HTTP request in PHP — no dompdf, no headless Chrome, no servers to maintain.',
-    primaryCta: { label: 'Get started free', cta: 'pdf-php:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'pdf-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'

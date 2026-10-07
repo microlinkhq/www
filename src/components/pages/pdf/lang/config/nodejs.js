@@ -134,7 +134,7 @@ const nodejs = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF document in three lines of Node.js — no Puppeteer, no Chromium, no servers to maintain.',
-    primaryCta: { label: 'Get started free', cta: 'pdf-nodejs:primary' },
+    primaryCta: { label: 'Get your free API key', cta: 'pdf-nodejs:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'

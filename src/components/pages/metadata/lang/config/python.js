@@ -133,7 +133,10 @@ const python = {
     subtitle:
       'Extract title, description, image and logo from any URL with one HTTP request in Python — no HTML parsing, no tag soup, no browser to maintain.',
     demoAlt: 'Python website metadata API example',
-    primaryCta: { label: 'Get started free', cta: 'metadata-python:primary' },
+    primaryCta: {
+      label: 'Get your free API key',
+      cta: 'metadata-python:primary'
+    },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

@@ -32,7 +32,7 @@ export const HERO = {
   description:
     'Turn any URL into clean, LLM-ready plain text. Navigation, ads, cookie banners and boilerplate stripped out — just the words that matter.',
   cta: 'text:hero',
-  ctaLabel: 'Get Started',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/data',
   secondaryLabel: 'Read the docs',
   editorHeight: 100,
@@ -108,7 +108,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Point it at a URL and start feeding clean content to your models.',
   cta: 'text:footer-cta',
-  ctaLabel: 'Get started free',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/data',
   secondaryLabel: 'Read the docs'
 }

@@ -405,7 +405,7 @@ export const CTA = {
   caption:
     'Run the query you ran this morning and compare the JSON with what you parse today. The Search guide has a working call in the first code block.',
   cta: 'alternative-serpapi:footer-cta',
-  ctaLabel: 'Run your first search',
+  ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/search',
   secondaryLabel: 'Read the Search guide',
   badges: [
