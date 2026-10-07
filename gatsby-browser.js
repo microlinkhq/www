@@ -1,5 +1,8 @@
+const { recordAttribution } = require('./src/helpers/attribution')
+
 exports.onClientEntry = () => {
   window.process = { cwd: () => '/' }
+  recordAttribution()
 }
 
 exports.onRouteUpdate = ({ location, prevLocation }) => {
