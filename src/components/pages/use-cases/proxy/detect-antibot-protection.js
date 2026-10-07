@@ -13,7 +13,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'A blocked response looks like a success until you know who answered',
+    title:
+      'A blocked response looks like a success until you know who answered',
     paragraphs: [
       'Blocks come from named providers, and each one blocks differently. Cloudflare serves a “Just a moment” interstitial, DataDome scores request signatures in real time, Akamai Bot Manager blocks datacenter IPs at the edge, PerimeterX leans on client-side fingerprinting, and a reCAPTCHA or hCaptcha widget can sit in front of all of them. Some of these arrive as a 403, some as a 429, and some as a 200 with a challenge page for a body.',
       'Hand-written detection does not keep up. A check for “Just a moment” in the HTML catches one Cloudflare mode and misses the rest; a status code check misses every challenge served on a 200. And treating all failures alike is costly: a retry strategy that works against one system can make the next request look more suspicious to another.',
@@ -50,7 +51,7 @@ console.log(detected, provider, detection)
           url: 'https://www.example.com/pricing',
           params: { meta: false }
         },
-        note: 'Without an API key, a protected target fails with EPROXYNEEDED: “The URL provided uses antibot protection. Upgrade to a Pro plan.” It confirms protection is there, but the response does not name the provider.'
+        note: 'Without a Pro plan, a protected target fails with EPROXYNEEDED: “The URL provided uses antibot protection. Upgrade to a Pro plan.” It confirms protection is there, but the response does not name the provider.'
       },
       {
         label: '3 · Route only the blocked URLs',
@@ -122,7 +123,8 @@ const read = async url => {
         'Fetch the page and pass the response’s status, headers, URL and HTML to is-antibot. If detected is true and provider is cloudflare, a Cloudflare challenge or block answered instead of the site.'
     },
     {
-      question: 'Does the Microlink API tell me which antibot provider blocked a request?',
+      question:
+        'Does the Microlink API tell me which antibot provider blocked a request?',
       answer:
         'No. The API runs antibot detection internally and acts on it: the free endpoint fails with EPROXYNEEDED and Pro routes the request through the proxy. The provider name is only exposed by the is-antibot library.'
     },

@@ -1,11 +1,11 @@
 ---
 title: Authentication
-description: 'Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for Pro plan integration and protecting tokens via proxy for frontend usage.'
+description: 'Securely authenticate your Microlink API requests using x-api-key headers. Includes best practices for production integration and protecting tokens via proxy for frontend usage.'
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 
-The authentication is done passing your API token associated with your [pro plan](/pricing) as `x-api-key` request header.
+The authentication is done passing the API key of your [Microlink account](https://dashboard.microlink.io/signup) as `x-api-key` request header. Every account gets a free API key; a [paid plan](/pricing) adds quota and pro features to it.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://github.com/microlinkhq', apiKey: 'YOUR_API_TOKEN' }} />
 

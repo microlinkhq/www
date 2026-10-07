@@ -596,7 +596,7 @@ func main() {
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Start with 25 requests per day — no account, no credit card. Sign up for a free API key when you need more.'
       }
     ]
   },

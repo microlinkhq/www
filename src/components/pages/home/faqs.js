@@ -1,7 +1,7 @@
 import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
-import { DashboardLink } from 'components/patterns/SignupLink'
+import { DashboardLink, SignupLink } from 'components/patterns/SignupLink'
 import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
@@ -86,9 +86,12 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Once you buy a plan you get access to{' '}
-            <DashboardLink cta='home:faq'>dashboard.microlink.io</DashboardLink>
-            , where you will find your API key.
+            Sign up at{' '}
+            <SignupLink component={Link} cta='home:faq'>
+              dashboard.microlink.io
+            </SignupLink>{' '}
+            and you get a free API key, no credit card required. Paid plans add
+            quota and pro features to the same account.
           </div>
           <div>
             Attach it to every request:

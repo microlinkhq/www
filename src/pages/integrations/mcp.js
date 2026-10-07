@@ -9,6 +9,7 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Video from 'components/elements/Video/Video'
 import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -496,7 +497,7 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Add your Microlink API key for Search, production volume, or pro features.',
+    text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Every Microlink account gets a free API key: add it for Search (paid plans), production volume, or pro features.',
     answer: (
       <>
         <div>
@@ -505,9 +506,12 @@ const FAQ_ITEMS = [
           which runs on paid plans and needs an API key.
         </div>
         <div>
-          Add your <Link href='/#pricing'>Microlink API key</Link> when you need
-          Search, production volume, configurable TTL, custom headers, or proxy
-          support.
+          Every account gets a{' '}
+          <SignupLink component={Link} cta='mcp:faq'>
+            free Microlink API key
+          </SignupLink>
+          : add it when you need Search (paid plans), production volume,
+          configurable TTL, custom headers, or proxy support.
         </div>
       </>
     )
@@ -1270,7 +1274,7 @@ const buildLaunchPrompt = (task, tool) => {
     ...mcpConfigLines(needsKey),
     '',
     needsKey
-      ? 'Search runs on paid plans, so it needs a Microlink API key — grab one at https://microlink.io/#pricing. Setup guide: https://microlink.io/integrations/mcp'
+      ? 'Search runs on paid plans, so it needs a Microlink API key on a paid plan — sign up at https://dashboard.microlink.io/signup and pick a plan at https://microlink.io/pricing. Setup guide: https://microlink.io/integrations/mcp'
       : 'No API key needed for the free tier (25 requests/day). Setup guide: https://microlink.io/integrations/mcp'
   ].join('\n')
 }

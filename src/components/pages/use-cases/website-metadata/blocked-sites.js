@@ -44,7 +44,7 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'The proxy comes with the Pro key, so the URL targets pro.microlink.io with your API key as a header and no proxy parameter. The meta object keeps detection to the three fields a card renders.'
+        note: 'The proxy comes with the Pro plan, so the URL targets pro.microlink.io with your API key as a header and no proxy parameter. The meta object keeps detection to the three fields a card renders.'
       }
     ],
     params: [

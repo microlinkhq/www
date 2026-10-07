@@ -46,7 +46,7 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'The proxy comes with the Pro key, so the URL targets the pro endpoint with your API key in the x-api-key header and no proxy parameter. embed=markdown returns the Markdown itself with a text/markdown content type.'
+        note: 'The proxy comes with the Pro plan, so the URL targets the pro endpoint with your API key in the x-api-key header and no proxy parameter. embed=markdown returns the Markdown itself with a text/markdown content type.'
       }
     ],
     params: [
@@ -106,7 +106,8 @@ export const CONTENT = {
         'Send the Markdown request with a Pro key, no extra parameter. Microlink detects the antibot provider, escalates through proxy tiers up to residential and converts the page it finally reaches. There is no separate proxy subscription to buy and no exit list to rotate.'
     },
     {
-      question: 'Why does a blocked page convert to a “Just a moment” screen in Markdown?',
+      question:
+        'Why does a blocked page convert to a “Just a moment” screen in Markdown?',
       answer:
         'The target served its antibot challenge instead of the article, and the conversion ran on that. Send the same URL with a Pro key, where the proxy resolves automatically, and scope the result with a selector such as article. If the content is also client-rendered, see [Markdown from JavaScript-rendered pages](/use-cases/website-to-markdown/javascript-rendered-pages).'
     },
@@ -121,7 +122,8 @@ export const CONTENT = {
         'Yes. Pass your proxy server as [proxy.url](/docs/api/parameters/proxy/url) in the form https://username:password@hostname:port, and Microlink routes every sub-request through it while still handling the browser, retries and errors. A custom proxy URL and proxy.location are exclusive.'
     },
     {
-      question: 'Does the proxy let a Markdown conversion bypass paywalls or logins?',
+      question:
+        'Does the proxy let a Markdown conversion bypass paywalls or logins?',
       answer:
         'No. It only avoids the blocks that target automated traffic. Authenticated content still requires your own session forwarded through request headers, and only where you are permitted to access it.'
     }

@@ -3,6 +3,7 @@ import Flex from 'components/elements/Flex'
 import { PANEL_HEIGHT } from 'components/pages/home/output'
 import { theme, colors } from 'theme'
 import React from 'react'
+import { SignupLink } from 'components/patterns/SignupLink'
 import styled from 'styled-components'
 
 import { INSTALL_COMMENT } from './constants'
@@ -119,11 +120,13 @@ export const RateLimitedContent = () => (
         wordBreak: 'break-word'
       })}
     >
-      You&rsquo;ve hit the public demo rate limit. Get an API key for higher
-      limits.
+      You&rsquo;ve hit the public demo rate limit. Sign up for a free API key to
+      get higher limits.
     </Mono>
     <Flex css={theme({ alignItems: 'center', gap: 2, mt: 3 })}>
-      <RateLimitLink href='/pricing'>View plans →</RateLimitLink>
+      <SignupLink component={RateLimitLink} cta='home:rate-limit'>
+        Get a free API key →
+      </SignupLink>
     </Flex>
   </Box>
 )

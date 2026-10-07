@@ -153,7 +153,7 @@ const FAQ_SCHEMA = {
       name: 'How do I get an API key?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'After payment you get access to dashboard.microlink.io, where you will find your API key. Use it as a header in the API or as the apiKey option in the SDK.'
+        text: 'Sign up at dashboard.microlink.io and you get a free API key, no credit card required. Use it as a header in the API or as the apiKey option in the SDK. Paid plans add quota and pro features to the same account.'
       }
     }
   ]
@@ -1474,18 +1474,20 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              After payment you get access to{' '}
-              <Link href='https://dashboard.microlink.io'>
+              Sign up at{' '}
+              <SignupLink component={Link} cta='pricing:faq'>
                 dashboard.microlink.io
-              </Link>
-              , where you will find your API key. Use it as a header in the{' '}
+              </SignupLink>{' '}
+              and you get a free API key, no credit card required. Use it as a
+              header in the{' '}
               <Link href='/docs/api/getting-started/overview'>API</Link> or as
               the{' '}
               <Link href='/docs/sdk/getting-started/overview/#authentication'>
                 apiKey
               </Link>{' '}
               option in the{' '}
-              <Link href='/docs/sdk/getting-started/overview'>SDK</Link>.
+              <Link href='/docs/sdk/getting-started/overview'>SDK</Link>. Paid
+              plans add quota and pro features to the same account.
             </div>
           </>
         )
