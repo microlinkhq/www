@@ -13,7 +13,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -656,16 +656,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/metadata'
+        <SignupLink
+          cta='alternative-context-dev:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'context-dev' })}
         >
           Get Started Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/metadata'>Explore the Metadata API</Link>
       </Flex>
 
       <Flex
@@ -1305,12 +1307,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/metadata'
+              <SignupLink
+                component={Link}
+                cta='alternative-context-dev:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Link>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/metadata' css={theme({ fontSize: 0 })}>
+                  Explore the Metadata API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1545,17 +1553,21 @@ const CTASection = () => (
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/metadata'
+        <SignupLink
+          cta='alternative-context-dev:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'context-dev' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/metadata' css={theme({ color: 'white' })}>
+          Explore the Metadata API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1623,14 +1635,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/metadata'
+          <SignupLink
+            component={Link}
+            cta='alternative-context-dev:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'context-dev' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free
-          </Link>
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/metadata'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>

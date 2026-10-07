@@ -13,7 +13,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -832,16 +832,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-iframely:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
         >
           Get Started Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/embed'>Explore the Embed API</Link>
       </Flex>
 
       <Flex
@@ -1043,12 +1045,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/embed'
+              <SignupLink
+                component={Link}
+                cta='alternative-iframely:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Link>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/embed' css={theme({ fontSize: 0 })}>
+                  Explore the Embed API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1197,17 +1205,21 @@ const CTASection = () => (
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-iframely:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/embed' css={theme({ color: 'white' })}>
+          Explore the Embed API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1371,14 +1383,18 @@ const TryItSection = () => (
           alignItems: 'center'
         })}
       >
-        <Link
-          href='/docs/guides/embed'
+        <SignupLink
+          component={Link}
+          cta='alternative-iframely:try-it'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
           Start now for free
-        </Link>
+        </SignupLink>
+        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed'>Read the guide</Link>
+        </Box>
       </Flex>
     </SectionInner>
   </Section>

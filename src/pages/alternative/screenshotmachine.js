@@ -13,7 +13,7 @@ import {
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import SpeedSectionBase from 'components/patterns/SpeedSection'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
@@ -793,16 +793,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-screenshotmachine:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
         >
           Get Started Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
 
       <Flex
@@ -1324,12 +1326,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/screenshot'
+              <SignupLink
+                component={Link}
+                cta='alternative-screenshotmachine:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
                 <Caps>Start for free</Caps>
-              </Link>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
+                  Explore the Screenshot API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1487,17 +1495,21 @@ const CTASection = () => (
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-screenshotmachine:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
           Start Building Free
-        </ArrowLink>
+        </SignupLink>
+        <Link href='/screenshot' css={theme({ color: 'white' })}>
+          Explore the Screenshot API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1565,14 +1577,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='alternative-screenshotmachine:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'screenshotmachine' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free
-          </Link>
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>

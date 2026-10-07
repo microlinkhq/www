@@ -15,6 +15,7 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -1916,12 +1917,16 @@ const BottomCta = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='benchmarks-screenshot-api:try-it'
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
             Start now for free
-          </Link>
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
         <Flex
           css={theme({
