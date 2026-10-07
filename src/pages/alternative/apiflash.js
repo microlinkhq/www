@@ -673,18 +673,18 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. ApiFlash offers 100 screenshots per month on its free plan.
-          Microlink gives you 25 requests per day with no credit card and no
-          expiry, which adds up to far more room for testing over a month.
+          Both give you 100 free requests a month. Microlink's come on a free
+          API key with no credit card and every Pro feature, so you test the
+          whole browser API, proxy included, not just screenshots.
         </div>
         <div>
-          If you are evaluating an ApiFlash replacement gradually, Microlink's
-          daily-reset model is easier to test in real usage instead of burning a
-          single monthly pool.
+          If you are evaluating an ApiFlash replacement gradually, the same
+          request also returns metadata, PDF or markdown, so one call tests the
+          whole migration.
         </div>
       </>
     ),
-    text: "Yes. ApiFlash offers 100 screenshots per month on its free plan. Microlink gives you 25 requests per day with no credit card and no expiry, which adds up to far more room for testing over a month. If you are evaluating an ApiFlash replacement gradually, Microlink's daily-reset model is easier to test in real usage instead of burning a single monthly pool."
+    text: "Both give you 100 free requests a month. Microlink's come on a free API key with no credit card and every Pro feature, so you test the whole browser API, proxy included, not just screenshots. If you are evaluating an ApiFlash replacement gradually, the same request also returns metadata, PDF or markdown, so one call tests the whole migration."
   }
 ]
 
@@ -915,12 +915,13 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '05',
-    title: 'A free tier you can actually live in',
+    title: 'A free tier with every Pro feature',
     description: (
       <>
-        ApiFlash offers 100 free screenshots per month. Microlink resets daily
-        with <b>25 free requests every day</b>, so you can test real traffic
-        patterns instead of burning a single monthly pool in one afternoon.
+        ApiFlash offers 100 free screenshots per month. Microlink gives you{' '}
+        <b>100 free requests every month</b> on a free API key, with proxy, PDF,
+        metadata and browser automation included, so the free tier covers the
+        whole API.
       </>
     )
   },
@@ -1248,7 +1249,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots, PDF, metadata, link previews, remote JS',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1420,8 +1421,8 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1477,8 +1478,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. Start
-          capturing screenshots at the speed your users&nbsp;deserve.
+          100&nbsp;requests/month free with every Pro feature, no credit card.
+          Start capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
           css={[

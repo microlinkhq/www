@@ -256,9 +256,9 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink gives you <b>25 requests/day free</b> with no credit
-          card and no time limit. You can test the same screenshot API surface
-          before moving to a paid plan.
+          Yes. Microlink gives you <b>100 requests/month free</b> with every Pro
+          feature, no credit card and no time limit. You can test the same
+          screenshot API surface before moving to a paid plan.
         </div>
         <div>
           URL2PNG's{' '}
@@ -270,7 +270,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes. Microlink gives you 25 requests per day free with no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually."
+    text: "Yes. Microlink gives you 100 requests per month free with every Pro feature, no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually."
   },
   {
     question: 'How hard is it to move from URL2PNG signed URLs to Microlink?',
@@ -598,8 +598,9 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         URL2PNG's plans page says there are <b>no free accounts</b>. Microlink
-        gives you <b>25 requests/day free</b> with no credit card and no expiry,
-        so you can test real traffic patterns before paying.
+        gives you <b>100 requests/month free</b> with every Pro feature, no
+        credit card and no expiry, so you can test real traffic patterns before
+        paying.
       </>
     )
   },
@@ -839,8 +840,8 @@ const Hero = () => (
         >
           URL2PNG requires sending them an email to create an account and does
           not offer a free trial. Microlink lets you test the screenshot API
-          immediately, even without an API key, with{' '}
-          <b>25 free requests per day</b>.
+          immediately with a free API key and <b>100 free requests per month</b>
+          .
         </Text>
 
         <Text
@@ -1042,7 +1043,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots, PDF, metadata, previews, and remote JS',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1216,7 +1217,7 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> and
         keep the same browser API when your workload gets more demanding.
       </Caption>
 

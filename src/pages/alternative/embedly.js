@@ -181,7 +181,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Free plan',
-    microlink: '25/day, no expiry',
+    microlink: '100/mo, no expiry',
     embedly: '30-day trial only',
     highlight: true,
     note: 'Embedly offers a 30-day free trial on the API plan; Microlink keeps the free tier indefinitely.'
@@ -474,9 +474,9 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly's API plan offers a <b>30-day free trial</b> at base usage
         levels, then bills. Microlink's free tier is{' '}
-        <b>25 requests/day forever</b>, no credit card, on the same edge network
-        as paid plans — usable in production for low-volume integrations without
-        a renewal clock.
+        <b>100 requests/month forever</b>, with every Pro feature, no credit
+        card, on the same edge network as paid plans — usable in production for
+        low-volume integrations without a renewal clock.
       </>
     )
   },
@@ -503,7 +503,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Cards plan at $14/mo for low-volume sites',
     description:
-      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (25/day) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $49."
+      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (100/month) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $49."
   },
   {
     title: 'Display API for on-the-fly image optimization',
@@ -1014,7 +1014,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-second cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1188,8 +1188,8 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — no
-        credit card, no expiry, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> —
+        every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex

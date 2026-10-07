@@ -204,7 +204,7 @@ const SCREENSHOTLAYER_FREE_REQUESTS = 100
 const SCREENSHOTLAYER_OVERAGE_PER_10K = 79.99
 const MICROLINK_PRICE = 49
 const MICROLINK_REQUESTS = 46000
-const MICROLINK_FREE_MONTHLY_EQUIVALENT = 750
+
 const VOLUME_ADVANTAGE_PCT = Math.floor(
   ((MICROLINK_REQUESTS - SCREENSHOTLAYER_PRO_REQUESTS) /
     SCREENSHOTLAYER_PRO_REQUESTS) *
@@ -228,21 +228,18 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink gives you <b>25&nbsp;requests/day</b> with no credit
-          card and no expiry, which works out to roughly{' '}
-          <b>
-            {MICROLINK_FREE_MONTHLY_EQUIVALENT.toLocaleString()} requests/month
-          </b>{' '}
-          if you use it regularly.
+          Yes. Microlink gives you <b>100&nbsp;requests/month</b> on a free API
+          key with no credit card and no expiry, and every Pro feature is
+          included: proxy, PDF, metadata and browser automation.
         </div>
         <div>
-          Screenshotlayer's free plan is <b>100 screenshots per month</b>. That
-          is useful for light evaluation, but Microlink gives you much more room
-          to test with real traffic patterns instead of one small monthly pool.
+          Screenshotlayer's free plan is <b>100 screenshots per month</b>. The
+          volume is the same; the difference is that Microlink's 100 cover the
+          whole browser API, not just screenshots.
         </div>
       </>
     ),
-    text: `Yes. Microlink gives you 25 requests per day with no credit card and no expiry, which works out to roughly ${MICROLINK_FREE_MONTHLY_EQUIVALENT.toLocaleString()} requests per month if you use it regularly. Screenshotlayer's free plan is 100 screenshots per month, so Microlink gives you much more room to test with real traffic patterns.`
+    text: "Yes. Microlink gives you 100 requests per month on a free API key with no credit card and no expiry, and every Pro feature is included: proxy, PDF, metadata and browser automation. Screenshotlayer's free plan is 100 screenshots per month. The volume is the same; the difference is that Microlink's 100 cover the whole browser API, not just screenshots."
   },
   {
     question: 'Why does this benchmark exclude framer.com?',
@@ -970,14 +967,14 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '04',
-    title: 'A daily-reset free tier beats a tiny monthly pool',
+    title: 'The same 100 free shots, with the whole browser API',
     description: (
       <>
         Screenshotlayer's free plan is{' '}
         <b>{SCREENSHOTLAYER_FREE_REQUESTS} shots a month</b>. Microlink gives
-        you <b>25 requests a day</b>, so you can test incrementally, in
-        production-like bursts, instead of burning your entire evaluation budget
-        in one session.
+        you <b>100 requests a month</b> too, but on a free API key with every
+        Pro feature: proxy, PDF, metadata and browser automation, not just
+        screenshots.
       </>
     )
   },
@@ -1324,7 +1321,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote JS',
-                'Free tier: 25 requests/day, no credit card',
+                'Free tier: 100 requests/month, no credit card',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Built-in proxy + antibot tooling',
@@ -1496,8 +1493,8 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and
-        keep same API surface when traffic gets less predictable.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> and
+        keep the same API surface when traffic gets less predictable.
       </Caption>
 
       <Flex
@@ -1554,9 +1551,9 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free. Start with screenshots, then add metadata,
-          PDF output, previews, or browser logic only when your workflow needs
-          them.
+          100&nbsp;requests/month free with every Pro feature. Start with
+          screenshots, then add metadata, PDF output, previews, or browser logic
+          only when your workflow needs them.
         </Caption>
         <Flex
           css={[

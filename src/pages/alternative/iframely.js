@@ -175,7 +175,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Free plan',
-    microlink: '25/day, no expiry',
+    microlink: '100/mo, no expiry',
     iframely: '2,000/mo pilot only',
     highlight: true,
     note: 'Iframely Starter is single-domain and explicitly pilot-only; Microlink free plan has no expiry and is production-ready.'
@@ -465,9 +465,11 @@ const WHY_SWITCH_ITEMS = [
       <>
         Iframely Starter is <b>2,000 hits/month, single domain, pilot only</b>.
         Microlink's free tier is{' '}
-        <b>25 requests/day with no expiry, no credit card</b>, and same edge
-        network as paid plans — usable in production from day one for low-volume
-        integrations.
+        <b>
+          100 requests/month with every Pro feature, no expiry, no credit card
+        </b>
+        , and the same edge network as paid plans — usable in production from
+        day one for low-volume integrations.
       </>
     )
   },
@@ -1024,7 +1026,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1197,8 +1199,8 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — no
-        credit card, no expiry, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> —
+        every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex

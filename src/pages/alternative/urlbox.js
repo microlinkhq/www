@@ -380,7 +380,7 @@ const COMPARISON_DATA = [
     highlight: true
   },
   {
-    feature: 'Free tier (25 req/day, no expiry)',
+    feature: 'Free tier (100 req/month, no expiry)',
     microlink: true,
     urlbox: false,
     highlight: true
@@ -544,8 +544,9 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
-          25&nbsp;requests/day with no credit card and no time limit. Same API,
-          same quality, same {CDN_EDGES} edge network as paid plans.
+          100&nbsp;requests/month with every Pro feature, no credit card and no
+          time limit. Same API, same quality, same {CDN_EDGES} edge network as
+          paid plans.
         </div>
         <div>
           Urlbox does not offer a free plan. Its entry point is a 7-day free
@@ -554,7 +555,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Urlbox does not offer a free plan. Its entry point is a 7-day free trial on paid plans, after which you need a subscription starting at $19/month.`
+    text: `Yes. Microlink's free tier includes 100 requests/month with every Pro feature, no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Urlbox does not offer a free plan. Its entry point is a 7-day free trial on paid plans, after which you need a subscription starting at $19/month.`
   },
   {
     question: 'How does Microlink compare to Urlbox for screenshot quality?',
@@ -928,8 +929,9 @@ const WHY_SWITCH_ITEMS = [
     title: 'A free tier that never expires',
     description: (
       <>
-        Microlink gives you <b>25 requests/day</b> with no credit card and no
-        time limit. Urlbox only offers a <b>7-day trial</b> — after that, you
+        Microlink gives you <b>100 requests/month</b> with every Pro feature, no
+        credit card and no time limit. Urlbox only offers a <b>7-day trial</b> —
+        after that, you
         {'\u2019'}re on a paid plan or locked out.
       </>
     )
@@ -1278,7 +1280,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote\u00a0JS',
-                'Free tier: 25\u00a0requests/day, no credit card',
+                'Free tier: 100\u00a0requests/month, no credit card',
                 'No requests-per-minute cap',
                 `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT)',
@@ -1451,8 +1453,10 @@ const CTASection = () => (
       >
         <br />
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>
+          100&nbsp;requests/month are free
+        </b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1508,8 +1512,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. Start
-          capturing screenshots at the speed your users&nbsp;deserve.
+          100&nbsp;requests/month free with every Pro feature, no credit card.
+          Start capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
           css={[

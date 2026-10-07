@@ -240,11 +240,11 @@ const COMPARISON_DATA = [
     note: 'Firecrawl: search 2 credits per 10 results, browser interaction 2 per minute, enhanced proxy 5 per request.'
   },
   {
-    feature: 'Free tier that renews daily',
+    feature: 'Free tier that renews monthly',
     microlink: true,
     firecrawl: false,
     highlight: true,
-    note: 'Firecrawl free plan is 1,000 one-time credits; Microlink resets 25 free requests every day.'
+    note: 'Firecrawl free plan is 1,000 one-time credits; Microlink resets 100 free requests every month.'
   },
   {
     feature: 'No concurrency limit*',
@@ -568,17 +568,17 @@ const FAQ_ITEMS = [
       <>
         <div>
           Firecrawl's free plan is 1,000 one-time credits with 2 concurrent
-          requests — once spent, it is gone. Microlink gives you 25 free
-          requests per day, every day, with no credit card and no expiry — over
-          9,000 requests per year for evaluating in real conditions.
+          requests — once spent, it is gone. Microlink gives you 100 free
+          requests every month with every Pro feature, no credit card and no
+          expiry, for evaluating in real conditions.
         </div>
         <div>
-          Microlink's free tier also needs no API key at all: paste the URL in a
-          browser address bar and the response comes back.
+          The free API key takes a minute to get and the residential proxy is
+          included, so blocked pages work from the first request.
         </div>
       </>
     ),
-    text: "Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests — once spent, it is gone. Microlink gives you 25 free requests per day, every day, with no credit card and no expiry — over 9,000 requests per year for evaluating in real conditions. Microlink's free tier also needs no API key at all: paste the URL in a browser address bar and the response comes back."
+    text: "Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests — once spent, it is gone. Microlink gives you 100 free requests every month with every Pro feature, no credit card and no expiry, for evaluating in real conditions. The free API key takes a minute to get and the residential proxy is included, so blocked pages work from the first request."
   }
 ]
 
@@ -769,8 +769,7 @@ const Hero = () => (
           fontFamily: 'mono'
         })}
       >
-        No key, no signup — try that one request right now on{' '}
-        <b>firecrawl.dev</b> itself:
+        Try that one request right now on <b>firecrawl.dev</b> itself:
       </Text>
       <Text
         css={theme({
@@ -874,13 +873,13 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '03',
-    title: 'A free tier that refills every day',
+    title: 'A free tier that refills every month',
     description: (
       <>
         Firecrawl's free plan is <b>1,000 one-time credits</b> — spend them and
-        it's over. Microlink resets <b>25 free requests every day, forever</b>:
-        over 9,000 requests a year, no credit card, no API key, testable from
-        the browser address bar.
+        it's over. Microlink resets{' '}
+        <b>100 free requests every month, forever</b>: every Pro feature, no
+        credit card, one free API key.
       </>
     )
   },
@@ -1265,7 +1264,7 @@ const PricingSection = () => (
                 'Residential proxy and antibot detection included — no 5× multiplier',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
-                'Free: 25 requests/day, renews forever, no credit card',
+                'Free: 100 requests/month, renews forever, no credit card',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 '~$0.00107/request on this tier'
               ].map(item => (
@@ -1522,8 +1521,8 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        renewed daily, no credit card, no API key.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1579,8 +1578,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. 20,000 HTML
-          tokens in, 4,000 markdown tokens&nbsp;out.
+          100&nbsp;requests/month free with every Pro feature, no credit card.
+          20,000 HTML tokens in, 4,000 markdown tokens&nbsp;out.
         </Caption>
         <Flex
           css={[
@@ -1663,7 +1662,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Firecrawl Alternative: LLM-Ready Markdown, No Credit Math',
         description:
-          'Compare Microlink and Firecrawl for LLM-ready web data. Microlink converts URLs, PDFs, and office documents into markdown, metadata, and screenshots at a flat per-request price, with the residential proxy included and a free tier that renews daily.',
+          'Compare Microlink and Firecrawl for LLM-ready web data. Microlink converts URLs, PDFs, and office documents into markdown, metadata, and screenshots at a flat per-request price, with the residential proxy included and a free tier that renews monthly.',
         url: 'https://microlink.io/alternative/firecrawl',
         mainEntity: {
           '@type': 'SoftwareApplication',
