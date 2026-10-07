@@ -133,7 +133,7 @@ const go = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in Go — no headless browser, no readability pipeline, no servers to maintain.',
     demoAlt: 'Go URL to markdown API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'markdown-go:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'

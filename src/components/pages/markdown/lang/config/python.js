@@ -133,7 +133,7 @@ const python = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in Python — no Playwright, no readability pipeline, no browser to maintain.',
     demoAlt: 'Python URL to markdown API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'markdown-python:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'

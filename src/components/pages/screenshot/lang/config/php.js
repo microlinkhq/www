@@ -138,7 +138,7 @@ const php = {
     subtitle:
       'Capture pixel-perfect screenshots of any URL with one HTTP request in PHP — no headless Chrome, no extensions to compile, no servers to maintain.',
     demoAlt: 'PHP website screenshot API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'screenshot-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/screenshot'

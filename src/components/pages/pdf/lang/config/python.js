@@ -134,7 +134,7 @@ const python = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF with one HTTP request in Python — no wkhtmltopdf, no headless Chrome, no servers to maintain.',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'pdf-python:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'

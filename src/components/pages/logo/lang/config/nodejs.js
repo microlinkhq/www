@@ -130,7 +130,7 @@ const nodejs = {
     subtitle:
       'Get the logo behind any URL with one HTTP request in Node.js — markup, BIMI and favicon detection merged, with format, dimensions and brand palette.',
     demoAlt: 'Node.js logo API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'logo-nodejs:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'

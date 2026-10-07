@@ -138,7 +138,7 @@ const nodejs = {
     subtitle:
       'Capture pixel-perfect screenshots of any URL in three lines of Node.js — no Puppeteer, no Chromium, no servers to maintain.',
     demoAlt: 'Node.js website screenshot API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'screenshot-nodejs:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/screenshot'

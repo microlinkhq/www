@@ -130,7 +130,7 @@ const php = {
     subtitle:
       'Get the fully rendered HTML of any URL with one HTTP request in PHP — real Chromium under the hood, none to maintain.',
     demoAlt: 'PHP HTML API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get started free', cta: 'html-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'
