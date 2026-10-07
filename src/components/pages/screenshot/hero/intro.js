@@ -2,7 +2,8 @@ import React from 'react'
 import { layout, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { Caption } from '../shared'
 
 export const HeroIntro = ({ heroLayout }) => (
@@ -41,10 +42,14 @@ export const HeroIntro = ({ heroLayout }) => (
         px: [4, 4, 4, 0],
         width: '100%',
         fontSize: [2, 2, 3, 3],
+        gap: [3, 3, 4, 4],
+        flexDirection: ['column', 'row', 'row', 'row'],
+        alignItems: 'center',
         justifyContent: ['center', 'center', 'center', 'flex-start']
       })}
     >
-      <ArrowLink href='/docs/guides/screenshot'>Get Started</ArrowLink>
+      <SignupLink cta='screenshot:hero'>Get Started</SignupLink>
+      <Link href='/docs/guides/screenshot'>Read the guide</Link>
     </Flex>
   </Flex>
 )

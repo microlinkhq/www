@@ -77,8 +77,10 @@ export const HERO = {
   title: 'Microlink API',
   description:
     'The headless browser cloud. We run the fleet. You get the output.',
-  ctaHref: '/pricing',
+  cta: 'api:hero',
   ctaLabel: 'Start for free',
+  pricingHref: '/pricing',
+  pricingLabel: 'See pricing',
   docsHref: '/docs/api/getting-started/overview',
   docsLabel: 'Read the docs'
 }
@@ -420,8 +422,10 @@ export const PRICING_CAPTION =
 export const CTA = {
   caption:
     'Hit the endpoint with any URL. 25 requests/day, no account, no card.',
-  ctaHref: '/pricing',
-  ctaLabel: 'Start for free'
+  cta: 'api:footer-cta',
+  ctaLabel: 'Start for free',
+  secondaryHref: '/pricing',
+  secondaryLabel: 'See pricing'
 }
 
 export const FAQ_CAPTION =

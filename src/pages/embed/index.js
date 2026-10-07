@@ -34,6 +34,7 @@ import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
@@ -514,7 +515,8 @@ const Hero = function Hero ({
               gap: [3, 4, 4, 4]
             })}
           >
-            <ArrowLink href='/docs/guides/embed'>Get Started</ArrowLink>
+            <SignupLink cta='embed:hero'>Get Started</SignupLink>
+            <Link href='/docs/guides/embed'>Read the guide</Link>
           </Flex>
         </Flex>
 

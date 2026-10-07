@@ -30,8 +30,10 @@ export const HERO = {
   title: 'Brand logo API for developers',
   description:
     'Get the logo behind any URL. Microlink walks the page markup, checks the BIMI record in DNS and falls back to the favicon — returning the best asset with its format, dimensions and brand palette.',
-  ctaHref: '/docs/api/parameters/meta',
+  cta: 'logo:hero',
   ctaLabel: 'Get Started',
+  secondaryHref: '/docs/api/parameters/meta',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://www.cloudflare.com',
@@ -98,8 +100,10 @@ export const PRICING_CAPTION =
 export const CTA = {
   caption:
     'Get 25 requests/day with zero commitment. The logo API is free to use, with no account and no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.',
-  ctaHref: '/docs/api/parameters/meta',
-  ctaLabel: 'Get started free'
+  cta: 'logo:footer-cta',
+  ctaLabel: 'Get started free',
+  secondaryHref: '/docs/api/parameters/meta',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =

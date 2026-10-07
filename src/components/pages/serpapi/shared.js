@@ -102,11 +102,10 @@ export const THROUGHPUT = {
   footnote: (
     <>
       SerpApi volumes and hourly figures are published on their{' '}
-      <Link href={SERPAPI_PRICING}>pricing page</Link>, which also lists
-      higher tiers from 250,000 searches a month ($1,475) to 54 million
-      ($106,050). The per-1,000 column is arithmetic on each monthly price.
-      Microlink rows are self-serve Pro plans from{' '}
-      <Link href='/pricing'>pricing</Link>, and{' '}
+      <Link href={SERPAPI_PRICING}>pricing page</Link>, which also lists higher
+      tiers from 250,000 searches a month ($1,475) to 54 million ($106,050). The
+      per-1,000 column is arithmetic on each monthly price. Microlink rows are
+      self-serve Pro plans from <Link href='/pricing'>pricing</Link>, and{' '}
       <Link href='/docs/api/basics/rate-limit'>rate limit</Link> states that no
       throttling is applied: parallel requests are bounded by the monthly quota.
       * {FAIR_USE_NOTE} The units differ, so read the volumes carefully. A
@@ -128,8 +127,8 @@ export const COMPARISON = {
     <>
       Both products return public Google results as structured JSON, paginated,
       geo-targetable, and callable from an agent. What differs is the surface
-      catalog, what arrives with each result, and what the vendor guarantees
-      on paper. Every SerpApi row comes from their{' '}
+      catalog, what arrives with each result, and what the vendor guarantees on
+      paper. Every SerpApi row comes from their{' '}
       <Link href={SERPAPI_PRICING}>pricing page</Link>,{' '}
       <Link href={SERPAPI_MARKDOWN}>Markdown Output</Link>,{' '}
       <Link href={SERPAPI_SPEED}>Ludicrous Speed</Link> and{' '}
@@ -404,8 +403,10 @@ export const PRICING_CAPTION = (
 export const CTA = {
   caption:
     'Run the query you ran this morning and compare the JSON with what you parse today. The Search guide has a working call in the first code block.',
-  ctaHref: '/docs/guides/search',
+  cta: 'alternative-serpapi:footer-cta',
   ctaLabel: 'Run your first search',
+  secondaryHref: '/docs/guides/search',
+  secondaryLabel: 'Read the Search guide',
   badges: [
     '10 Google surfaces',
     'One SDK import',
@@ -441,12 +442,12 @@ export const FAQ_ITEMS = [
     answer: (
       <div>
         Per unit, yes on every published paid plan. Microlink costs $1.07 per
-        1,000 requests on every self-serve Pro <Link href='/pricing'>plan</Link>,
-        from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per 1,000 on
-        Starter, $9.17 on Big Data and $3.75 at a million searches a month. The
-        units are not identical: a Microlink request also pays for screenshots,
-        PDFs and page expansions, while SerpApi does not charge for errored
-        searches or one-hour cache hits. The{' '}
+        1,000 requests on every self-serve Pro <Link href='/pricing'>plan</Link>
+        , from $49 for 46,000 to $450 for 420,000. SerpApi costs $25.00 per
+        1,000 on Starter, $9.17 on Big Data and $3.75 at a million searches a
+        month. The units are not identical: a Microlink request also pays for
+        screenshots, PDFs and page expansions, while SerpApi does not charge for
+        errored searches or one-hour cache hits. The{' '}
         <Link href='#throughput'>plan table</Link> has the arithmetic.
       </div>
     )
@@ -489,9 +490,9 @@ export const FAQ_ITEMS = [
         requests as the quota allows, and the quota resets monthly on Pro. This
         applies to legitimate use: traffic that is fraudulent, illegal or aimed
         at third parties is restricted. Every response carries{' '}
-        <code>x-rate-limit-limit</code>,{' '}
-        <code>x-rate-limit-remaining</code> and <code>x-rate-limit-reset</code>,
-        and requests return HTTP 429 once the quota is spent. See{' '}
+        <code>x-rate-limit-limit</code>, <code>x-rate-limit-remaining</code> and{' '}
+        <code>x-rate-limit-reset</code>, and requests return HTTP 429 once the
+        quota is spent. See{' '}
         <Link href='/docs/api/basics/rate-limit'>rate limit</Link>. SerpApi
         instead sets an hourly throughput limit on each plan, 20% of the monthly
         volume below a million searches.

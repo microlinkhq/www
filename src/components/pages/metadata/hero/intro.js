@@ -2,7 +2,8 @@ import React from 'react'
 import { layout, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { Caption, HERO_LAYOUT } from '../shared'
 
 export const HeroIntro = () => (
@@ -48,7 +49,8 @@ export const HeroIntro = () => (
         alignItems: ['flex-start', 'center', 'center', 'center']
       })}
     >
-      <ArrowLink href='/docs/guides/metadata'>Get Started</ArrowLink>
+      <SignupLink cta='metadata:hero'>Get Started</SignupLink>
+      <Link href='/docs/guides/metadata'>Read the guide</Link>
     </Flex>
   </Flex>
 )

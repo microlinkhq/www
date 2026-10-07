@@ -39,6 +39,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
@@ -314,11 +315,14 @@ const LiveDemo = React.memo(function LiveDemo ({
         performance trends.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+        <SignupLink cta='insights:hero' css={theme({ pr: [2, 4, 4, 4] })}>
+          Get Started
+        </SignupLink>
         <ArrowLink
           css={theme({ pr: [2, 4, 4, 4] })}
           href='/docs/api/parameters/insights'
         >
-          Get Started
+          Read the docs
         </ArrowLink>
         <ArrowLink href='https://github.com/microlinkhq/browserless'>
           See on GitHub

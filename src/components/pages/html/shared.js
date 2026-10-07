@@ -31,8 +31,10 @@ export const HERO = {
   title: 'Rendered HTML API for developers',
   description:
     'Get the HTML a real browser sees, after JavaScript has run. One REST call returns the fully hydrated DOM of any URL, no headless Chrome to operate.',
-  ctaHref: '/docs/api/parameters/data',
+  cta: 'html:hero',
   ctaLabel: 'Get Started',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://vercel.com',
@@ -105,8 +107,10 @@ export const PRICING_CAPTION =
 export const CTA = {
   caption:
     'Get 25 requests/day with zero commitment. The rendered HTML API is free to use, with no account and no credit card. Call it and start parsing real markup in seconds.',
-  ctaHref: '/docs/api/parameters/data',
-  ctaLabel: 'Get started free'
+  cta: 'html:footer-cta',
+  ctaLabel: 'Get started free',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =

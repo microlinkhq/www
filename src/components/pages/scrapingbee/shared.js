@@ -41,8 +41,10 @@ export const HERO = {
       the screenshot, the markdown and the metadata together.
     </Text>
   ),
-  ctaHref: '/docs/guides',
+  cta: 'alternative-scrapingbee:hero',
   ctaLabel: 'Get Started',
+  secondaryHref: '/docs/guides',
+  secondaryLabel: 'Read the guides',
   mqlCode: {
     url: 'https://stripe.com/blog/payment-api-design',
     screenshot: true,
@@ -309,8 +311,10 @@ export const PRICING_CAPTION = (
 export const CTA = {
   caption:
     'Point a request at the URL you are scraping today and compare the response with the one you get back now. No signup for the first call.',
-  ctaHref: '/docs/guides',
-  ctaLabel: 'Run your first request'
+  cta: 'alternative-scrapingbee:footer-cta',
+  ctaLabel: 'Run your first request',
+  secondaryHref: '/docs/guides',
+  secondaryLabel: 'Read the guides'
 }
 
 export const FAQ_CAPTION =

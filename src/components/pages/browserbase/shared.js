@@ -50,8 +50,10 @@ export const HERO = {
       from a single call.
     </Text>
   ),
-  ctaHref: '/docs/api/getting-started/overview',
+  cta: 'alternative-browserbase:hero',
   ctaLabel: 'Get Started',
+  secondaryHref: '/docs/api/getting-started/overview',
+  secondaryLabel: 'Read the docs',
   mqlCode: {
     url: 'https://vercel.com',
     screenshot: true,
@@ -440,8 +442,10 @@ export const PRICING_CAPTION = (
 export const CTA = {
   caption:
     'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. 25 requests a day, no account, no browser to operate.',
-  ctaHref: '/docs/api/getting-started/overview',
-  ctaLabel: 'Get started free'
+  cta: 'alternative-browserbase:footer-cta',
+  ctaLabel: 'Get started free',
+  secondaryHref: '/docs/api/getting-started/overview',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =

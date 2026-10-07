@@ -7,7 +7,9 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
+import { Link } from 'components/elements/Link'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 
 import { Subhead, NARROW_MAX_WIDTH } from './shared'
@@ -53,8 +55,13 @@ const DEFAULT_BADGES = ['No login needed', '25 reqs/day free', 'No credit card']
 
 export const ProductCta = ({
   caption,
+  cta,
+  product,
+  redirect,
   ctaHref,
   ctaLabel = 'Get started free',
+  secondaryHref,
+  secondaryLabel,
   badges = DEFAULT_BADGES,
   langLandings,
   accent,
@@ -105,9 +112,30 @@ export const ProductCta = ({
           alignItems: 'center'
         })}
       >
-        <ArrowLink href={ctaHref} css={theme({ fontSize: CTA_LINK_FONT_SIZE })}>
-          {ctaLabel}
-        </ArrowLink>
+        {cta
+          ? (
+            <SignupLink
+              cta={cta}
+              product={product}
+              redirect={redirect}
+              css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
+            >
+              {ctaLabel}
+            </SignupLink>
+            )
+          : (
+            <ArrowLink
+              href={ctaHref}
+              css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
+            >
+              {ctaLabel}
+            </ArrowLink>
+            )}
+        {secondaryHref && (
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href={secondaryHref}>{secondaryLabel}</Link>
+          </Box>
+        )}
       </Flex>
       <Flex
         css={theme({

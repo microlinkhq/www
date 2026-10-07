@@ -31,8 +31,10 @@ export const HERO = {
   title: 'Readable text API for developers',
   description:
     'Turn any URL into clean, LLM-ready plain text. Navigation, ads, cookie banners and boilerplate stripped out — just the words that matter.',
-  ctaHref: '/docs/api/parameters/data',
+  cta: 'text:hero',
   ctaLabel: 'Get Started',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://stripe.com/blog/payment-api-design',
@@ -105,8 +107,10 @@ export const PRICING_CAPTION =
 export const CTA = {
   caption:
     'Get 25 requests/day with zero commitment. The readable text API is free to use, with no account and no credit card. Point it at a URL and start feeding clean content to your models.',
-  ctaHref: '/docs/api/parameters/data',
-  ctaLabel: 'Get started free'
+  cta: 'text:footer-cta',
+  ctaLabel: 'Get started free',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =

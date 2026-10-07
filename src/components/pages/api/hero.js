@@ -5,7 +5,9 @@ import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import List from 'components/patterns/List/List'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { Eyebrow } from 'components/patterns/FeatureStory'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
@@ -157,12 +159,13 @@ export const Hero = () => {
                 justifyContent: 'center'
               })}
             >
-              <Button as='a' href={HERO.ctaHref}>
+              <SignupLink component={Button} as='a' cta={HERO.cta}>
                 {HERO.ctaLabel}
-              </Button>
+              </SignupLink>
               <Button as='a' href={HERO.docsHref} variant='white'>
                 {HERO.docsLabel}
               </Button>
+              <Link href={HERO.pricingHref}>{HERO.pricingLabel}</Link>
             </Flex>
             <List
               css={theme({
