@@ -2,9 +2,7 @@ import React from 'react'
 import { colors } from 'theme'
 import { CheckCircle, Code, Globe } from 'react-feather'
 
-import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
-import { sitemapCardCode } from 'helpers/get-sitemap-urls'
 
 export const ACCENT = colors.indigo8
 export const ACCENT_NAME = 'indigo'
@@ -20,110 +18,6 @@ export const HERO = {
   ctaLabel: 'Open editor',
   docsHref: '/docs/guides/function',
   docsLabel: 'Read the docs'
-}
-
-export const GLANCE = {
-  items: [
-    {
-      id: 'extract-css',
-      title: 'Extract with CSS rules',
-      href: editorTemplateHref('extract-css'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://microlink.io',
-  ({ page }) => page.extract({
-    title: { selector: 'h1', attr: 'text' },
-    description: {
-      selector: 'meta[name="description"]',
-      attr: 'content'
-    }
-  })
-)`
-    },
-    {
-      id: 'extract',
-      title: 'Read the page',
-      href: editorTemplateHref('extract'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://microlink.io',
-  ({ page }) => page.evaluate(() => ({
-    title: document.title,
-    links: document.links.length,
-    resources: performance.getEntriesByType('resource').length
-  }))
-)`
-    },
-    {
-      id: 'click',
-      title: 'Click, then scrape',
-      href: editorTemplateHref('click-wait'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://news.ycombinator.com',
-  async ({ page }) => {
-    await Promise.all([
-      page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-      page.click('a.morelink')
-    ])
-    return page.$$eval('.titleline a', els =>
-      els.map(el => el.textContent)
-    )
-  }
-)`
-    },
-    {
-      id: 'proxy',
-      title: 'Run through a proxy',
-      href: editorTemplateHref('proxy'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://github.com/microlinkhq/mql',
-  async ({ page }) => {
-    await page.waitForSelector('#repo-stars-counter-star')
-    return page.$eval('#repo-stars-counter-star', el => el.title)
-  },
-  { proxy: { location: 'us' } }
-)`
-    },
-    {
-      id: 'inject',
-      title: 'Inject a script',
-      href: editorTemplateHref('inject'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://microlink.io',
-  ({ page }) => page.evaluate(() =>
-    $('a[href^="/docs"]').map((i, el) => el.href).get()
-  ),
-  { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
-)`
-    },
-    {
-      id: 'npm',
-      title: 'require() a package',
-      href: editorTemplateHref('cheerio'),
-      span: 2,
-      code: `const { value } = await microlink.function(
-  'https://microlink.io/blog',
-  async ({ page }) => {
-    const cheerio = require('cheerio')
-    const $ = cheerio.load(await page.content())
-    return $('article').map((i, el) => ({
-      title: $(el).find('h2, h3').first().text(),
-      href: $(el).find('a').attr('href')
-    })).get()
-  }
-)`
-    },
-    {
-      id: 'sitemap',
-      title: 'List sitemap URLs',
-      href: editorTemplateHref('sitemap'),
-      span: 2,
-      code: sitemapCardCode('https://microlink.io')
-    }
-  ]
 }
 
 export const PRIMER = {
