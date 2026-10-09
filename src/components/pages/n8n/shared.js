@@ -37,7 +37,8 @@ export const DOCS_URL = '/docs/api/getting-started/overview'
 export const INSTALL_STEPS = [
   {
     title: 'Open Community Nodes',
-    description: 'In your n8n instance, go to Settings, then Community Nodes.'
+    description:
+      'In your self-hosted n8n instance, go to Settings, then Community Nodes.'
   },
   {
     title: 'Install the package',
@@ -56,11 +57,12 @@ export const OPERATIONS = [
     value: 'extract',
     name: 'Extract',
     icon: Tag,
-    description: 'Return metadata and extracted data for a URL.',
+    description: 'Metadata and custom fields from any URL.',
     detail: (
       <>
-        The default operation. Title, description, author, image, logo and your
-        own <Link href='/metadata'>extraction rules</Link>.
+        The default operation. Title, description, author, image and logo, plus
+        your own <Link href='/docs/api/parameters/data'>extraction rules</Link>.
+        See <Link href='/metadata'>metadata</Link>.
       </>
     )
   },
@@ -68,7 +70,7 @@ export const OPERATIONS = [
     value: 'screenshot',
     name: 'Screenshot',
     icon: Camera,
-    description: 'Generate a screenshot.',
+    description: 'A screenshot of the page.',
     detail: (
       <>
         Full page, element, device and format controls, the same ones the{' '}
@@ -80,7 +82,7 @@ export const OPERATIONS = [
     value: 'pdf',
     name: 'PDF',
     icon: Printer,
-    description: 'Generate a PDF.',
+    description: 'A PDF of the page.',
     detail: (
       <>
         Paper format, margin, scale, landscape and page ranges, as on the{' '}
@@ -92,11 +94,11 @@ export const OPERATIONS = [
     value: 'markdown',
     name: 'Markdown',
     icon: FileText,
-    description: 'Return page content in Markdown.',
+    description: 'The page content as Markdown.',
     detail: (
       <>
-        Headings, lists and links preserved, ready for a model.{' '}
-        <Link href='/markdown'>URL to Markdown</Link> in one step.
+        Headings, lists and links preserved, ready for an LLM. See{' '}
+        <Link href='/markdown'>URL to Markdown</Link>.
       </>
     )
   },
@@ -104,11 +106,11 @@ export const OPERATIONS = [
     value: 'text',
     name: 'Text',
     icon: AlignLeft,
-    description: 'Return page content as plain text.',
+    description: 'The page content as plain text.',
     detail: (
       <>
-        Navigation, banners and footers dropped.{' '}
-        <Link href='/text'>Readable text</Link> with the markup stripped out.
+        Every tag stripped, only the words left. See{' '}
+        <Link href='/text'>URL to text</Link>.
       </>
     )
   },
@@ -116,11 +118,11 @@ export const OPERATIONS = [
     value: 'audio',
     name: 'Audio',
     icon: Music,
-    description: 'Detect playable audio sources.',
+    description: 'A playable audio source.',
     detail: (
       <>
-        Podcast and music pages resolve to a playable URL. See{' '}
-        <Link href='/media'>media detection</Link>.
+        Podcast and music pages resolve to a direct audio URL. See{' '}
+        <Link href='/media'>media extraction</Link>.
       </>
     )
   },
@@ -128,11 +130,11 @@ export const OPERATIONS = [
     value: 'video',
     name: 'Video',
     icon: Film,
-    description: 'Detect playable video sources.',
+    description: 'A playable video source.',
     detail: (
       <>
-        Video pages resolve to a browser friendly source, ready to embed or
-        download.
+        Video pages resolve to a direct, browser-friendly file, ready to embed
+        or download. See <Link href='/media'>media extraction</Link>.
       </>
     )
   },
@@ -140,10 +142,10 @@ export const OPERATIONS = [
     value: 'insights',
     name: 'Insights',
     icon: Activity,
-    description: 'Get performance and technology insights.',
+    description: 'Performance scores and tech stack.',
     detail: (
       <>
-        Lighthouse scores and the technology stack behind a site, from the{' '}
+        Lighthouse scores and the technologies behind a site, from the{' '}
         <Link href='/insights'>insights API</Link>.
       </>
     )
@@ -152,10 +154,10 @@ export const OPERATIONS = [
     value: 'logo',
     name: 'Logo',
     icon: Aperture,
-    description: 'Return logo metadata, including logo.palette.',
+    description: 'The logo and its color palette.',
     detail: (
       <>
-        The brand mark behind a domain, plus its colors. See the{' '}
+        The brand mark behind a domain, plus its dominant colors. See the{' '}
         <Link href='/logo'>logo API</Link>.
       </>
     )
@@ -165,14 +167,17 @@ export const OPERATIONS = [
 export const RESPONSE_MODES = [
   {
     name: 'Auto',
-    description: 'JSON, unless the request asks for embedded content.'
+    description: 'JSON, or the raw body when Embed picks a single field.'
   },
   { name: 'JSON', description: 'The full Microlink API response, every time.' },
-  { name: 'Text', description: 'The raw response body as a single field.' },
+  {
+    name: 'Text',
+    description: 'The raw response body, returned under a data field.'
+  },
   {
     name: 'Binary',
     description:
-      'The image or the document itself, attached to the item so the next node can store it.'
+      'The response body as a file on the item. Pair it with Embed to save the image or the PDF itself.'
   }
 ]
 
@@ -181,14 +186,16 @@ URL:              {{ $json.url }}
 Response Mode:    Binary
 Binary Property:  data
 Options:
+  Embed:                 screenshot.url
   Screenshot Full Page:  true
   Viewport Width:        1280
   Wait Until:            networkidle0
   Ad Block:              true`
 
-export const QUESTIONS = [
+export const FAQ_ITEMS = [
   {
-    question: 'What is the Microlink node?',
+    question: 'What is the Microlink node for n8n?',
+    text: 'n8n is a workflow tool where every step is a node. The Microlink node is one of those steps: give it a URL and it returns metadata, a screenshot, a PDF, Markdown, text, media sources, insights or a logo, so a workflow can read the web without a browser, a scraper or a server of your own. It is published as the MIT licensed community node n8n-nodes-microlink.',
     answer: (
       <>
         <div>
@@ -205,52 +212,63 @@ export const QUESTIONS = [
     )
   },
   {
-    question: 'Do I need an API key?',
+    question: 'How do I install it?',
+    text: 'On a self-hosted n8n instance, open Settings, then Community Nodes, enter n8n-nodes-microlink and install it. n8n Cloud only installs community nodes that n8n has verified, and this node is not on that list, so it needs a self-hosted instance.',
     answer: (
       <>
         <div>
-          No. Without credentials the node calls{' '}
-          <code>https://api.microlink.io</code> on the free tier, which allows
-          25 requests per day.
+          On a self-hosted n8n instance, open Settings, then Community Nodes,
+          enter <code>n8n-nodes-microlink</code> and install it. Only the
+          instance owner can install community nodes.
         </div>
         <div>
-          Add a Microlink API credential and every request goes to{' '}
-          <code>https://pro.microlink.io</code> with your key in the{' '}
-          <code>x-api-key</code> header. The key field is optional, and n8n
-          tests the credential when you save it. See{' '}
-          <Link href='/pricing'>pricing</Link>.
+          n8n Cloud only installs community nodes that n8n has verified, and
+          this node is not on that list, so it needs a self-hosted instance.
         </div>
       </>
     )
   },
   {
-    question: 'How do I install it?',
+    question: 'Do I need an API key?',
+    text: 'No. Without credentials the node calls the keyless endpoint, https://api.microlink.io, limited to 25 requests per day. Add a Microlink API credential and every request goes to https://pro.microlink.io with your key in the x-api-key header. n8n tests the credential when you save it.',
     answer: (
       <>
         <div>
-          Open Settings, then Community Nodes, enter{' '}
-          <code>n8n-nodes-microlink</code> and install it. On n8n Cloud the node
-          appears in the editor immediately; a self-hosted instance may need a
-          restart.
+          No. Without credentials the node calls the keyless endpoint,{' '}
+          <code>https://api.microlink.io</code>, limited to 25 requests per day.
+          Enough to build and test a workflow.
+        </div>
+        <div>
+          Add a Microlink API credential and every request goes to{' '}
+          <code>https://pro.microlink.io</code> with your key in the{' '}
+          <code>x-api-key</code> header. n8n tests the credential when you save
+          it. See <Link href='/pricing'>pricing</Link>.
         </div>
       </>
     )
   },
   {
     question: 'How do I save a screenshot or a PDF as a file?',
+    text: 'Set the Embed option to screenshot.url or pdf.url, then set Response Mode to Binary. Embed makes the API answer with the file itself instead of JSON, and Binary attaches it to the item under the binary property you name, data by default. Any node that accepts binary input, such as a storage or an email node, takes it from there.',
     answer: (
       <>
         <div>
-          Set Response Mode to Binary. The node downloads the result and
+          Set the Embed option to <code>screenshot.url</code> or{' '}
+          <code>pdf.url</code>, then set Response Mode to Binary. Embed makes
+          the API answer with the file itself instead of JSON, and Binary
           attaches it to the item under the binary property you name, which
-          defaults to <code>data</code>. Any node that accepts binary input,
-          such as a storage or an email node, takes it from there.
+          defaults to <code>data</code>.
+        </div>
+        <div>
+          Any node that accepts binary input, such as a storage or an email
+          node, takes it from there.
         </div>
       </>
     )
   },
   {
-    question: 'Can an AI Agent use it as a tool?',
+    question: 'Can an n8n AI Agent use it as a tool?',
+    text: 'Yes. The node is marked usable as a tool, so it can be attached to an n8n AI Agent and called when the agent needs to read a page. For an agent outside n8n, the same capabilities ship as an MCP server.',
     answer: (
       <>
         <div>
@@ -264,29 +282,29 @@ export const QUESTIONS = [
   },
   {
     question: 'What if the option I need is not in the list?',
+    text: 'The node exposes 58 options, and Additional Query Parameters covers everything else: any Microlink API parameter as a key and a value, dot notation included. Those entries are applied last, so they override whatever the options set.',
     answer: (
       <>
         <div>
           The node exposes 58 options, and Additional Query Parameters covers
           everything else: any{' '}
-          <Link href='/docs/api/getting-started/overview'>
-            Microlink API parameter
-          </Link>{' '}
-          as a key and a value, dot notation included. Those entries are applied
-          last, so they override whatever the options set.
+          <Link href={DOCS_URL}>Microlink API parameter</Link> as a key and a
+          value, dot notation included. Those entries are applied last, so they
+          override whatever the options set.
         </div>
       </>
     )
   },
   {
     question: 'Is it open source?',
+    text: 'Yes. The node lives at microlinkhq/n8n-nodes-microlink under the MIT license, and every release is published to npm from CI with a provenance statement.',
     answer: (
       <>
         <div>
           Yes. The node lives at{' '}
           <Link href={REPOSITORY_URL}>microlinkhq/n8n-nodes-microlink</Link>{' '}
-          under the MIT license, and is published to npm from CI with a
-          provenance statement.
+          under the MIT license, and every release is published to npm from CI
+          with a provenance statement.
         </div>
       </>
     )

@@ -20,13 +20,13 @@ import {
   WORKFLOW_SNIPPET
 } from 'components/pages/n8n/shared'
 
-import { theme } from 'theme'
+import { space, theme } from 'theme'
 
 const StepNumber = ({ children }) => (
   <Flex
     css={theme({
-      width: '28px',
-      height: '28px',
+      width: space[4],
+      height: space[4],
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center',
@@ -63,7 +63,7 @@ const Step = ({ index, title, description }) => (
           color: 'black',
           fontSize: [1, 1, 2, 2],
           fontWeight: 'bold',
-          lineHeight: 1.2
+          lineHeight: 0
         })}
       >
         {title}
@@ -94,7 +94,7 @@ const NodePanel = () => (
         pb: 2
       })}
     >
-      Node panel
+      Node parameters
     </Caps>
     <CodeEditor
       language='text'
@@ -102,7 +102,7 @@ const NodePanel = () => (
       showFade={false}
       showTitle={false}
       css={theme({ width: '100%', maxWidth: '100%', textAlign: 'left' })}
-      aria-label='Microlink node configured to capture a full page screenshot'
+      aria-label='Microlink node parameters that save a full page screenshot as a file'
     >
       {WORKFLOW_SNIPPET}
     </CodeEditor>
@@ -115,10 +115,11 @@ const NodePanel = () => (
         lineHeight: 2
       })}
     >
-      That node returns a full page PNG as binary data, captured once the
-      network goes quiet and with ads blocked. Fifty-eight options map one to
-      one onto <Link href={DOCS_URL}>Microlink API parameters</Link>, and
-      Additional Query Parameters takes any that are not on the list.
+      That node saves a full page PNG on the item, captured once the network
+      goes quiet and with ads blocked. Embed makes the API answer with the image
+      itself, and Binary mode stores it as a file. The 58 options map onto{' '}
+      <Link href={DOCS_URL}>Microlink API parameters</Link>, and Additional
+      Query Parameters takes any that are not on the list.
     </Text>
   </Box>
 )
@@ -164,7 +165,7 @@ const Workflow = () => (
   <Section id='workflow'>
     <SectionHeader
       title='Three clicks to the first run.'
-      caption='The node is installed from inside n8n, not from a terminal. Nothing else to host, and no browser to keep alive.'
+      caption='The node installs from inside n8n, not from a terminal. Nothing else to host, and no browser to keep alive.'
     />
     <Box
       css={theme({

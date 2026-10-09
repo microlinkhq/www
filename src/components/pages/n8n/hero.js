@@ -40,19 +40,19 @@ const HERO_FEATURES = [
   {
     title: 'No key to start',
     description:
-      'Credentials are optional. Without one, requests run on the free tier at 25 per day.',
+      'Credentials are optional. Without one, the node calls the keyless endpoint at 25 requests per day.',
     icon: <Unlock {...featureIconProps} aria-hidden='true' />
   },
   {
     title: 'Files, not links',
     description:
-      'Binary response mode attaches the image or the document to the item, ready for the next node.',
+      'Embed plus Binary mode attaches the screenshot or the PDF itself to the item, ready for the next node.',
     icon: <Download {...featureIconProps} aria-hidden='true' />
   },
   {
     title: 'Works as an agent tool',
     description:
-      'The node is usable as a tool, so an n8n AI Agent can call it to read a page.',
+      'Attach it to an n8n AI Agent and the agent calls it whenever it needs to read a page.',
     icon: <Cpu {...featureIconProps} aria-hidden='true' />
   }
 ]
@@ -93,7 +93,7 @@ const HeroFeature = ({ icon, title, description }) => (
           color: 'black',
           fontSize: [1, 1, 2, 2],
           fontWeight: 'bold',
-          lineHeight: 1.2
+          lineHeight: 0
         })}
       >
         {title}
@@ -116,8 +116,8 @@ const HeroFeature = ({ icon, title, description }) => (
 const ButtonIcon = ({ children }) => (
   <Flex
     css={theme({
-      width: '16px',
-      height: '16px',
+      width: space[3],
+      height: space[3],
       flexShrink: 0,
       alignItems: 'center',
       justifyContent: 'center'
@@ -148,7 +148,7 @@ const HeroQuickStart = () => (
         pb: 2
       })}
     >
-      Settings, Community Nodes, install
+      Settings › Community Nodes › Install
     </Caps>
     <CodeEditor
       language='shell'
@@ -196,7 +196,7 @@ const Hero = () => (
       >
         One community node turns a URL into metadata, a screenshot, a PDF,
         Markdown, plain text, media sources, performance insights or a logo.
-        Microlink runs the browser; your workflow gets the result.
+        Microlink runs the browser. Your workflow gets the result.
       </Caption>
       <Box css={theme({ pt: [3, 3, 4, 4] })}>
         <Button
@@ -233,9 +233,10 @@ const Hero = () => (
           mx: 'auto'
         })}
       >
-        Every operation is a call to the <Link href='/api'>Microlink API</Link>,
-        the same one behind <Link href='/integrations/sdk'>the SDK</Link> and
-        the CLI.
+        For self-hosted n8n. Every operation is a call to the{' '}
+        <Link href='/api'>Microlink API</Link>, the same one behind the{' '}
+        <Link href='/integrations/sdk'>SDK</Link> and the{' '}
+        <Link href='/integrations/cli'>CLI</Link>.
       </Text>
       <Box
         as='ul'
@@ -249,7 +250,7 @@ const Hero = () => (
           pb: 0,
           m: 0,
           listStyle: 'none',
-          maxWidth: '760px',
+          maxWidth: layout.normal,
           width: '100%',
           textAlign: 'left'
         })}

@@ -9,29 +9,42 @@ import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import Hero from 'components/pages/n8n/hero'
 import Operations from 'components/pages/n8n/operations'
 import Workflow from 'components/pages/n8n/workflow'
-import { ACCENT, NPM_URL, QUESTIONS } from 'components/pages/n8n/shared'
+import {
+  ACCENT,
+  FAQ_ITEMS,
+  INSTALL_STEPS,
+  NPM_URL,
+  REPOSITORY_URL
+} from 'components/pages/n8n/shared'
+import { toFaqQuestions } from 'components/patterns/ProductStory/structured'
 
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
 
-const REPOS = ['n8n-nodes-microlink', 'mql', 'browserless']
+const REPOS = ['n8n-nodes-microlink', 'metascraper', 'browserless']
+
+const PAGE_URL = 'https://microlink.io/integrations/n8n'
+
+const QUESTIONS = toFaqQuestions(FAQ_ITEMS)
 
 export const Head = () => (
   <Meta
-    title='n8n node for screenshots, PDFs and page data'
-    description='Install the Microlink community node in n8n. Any URL becomes metadata, a screenshot, a PDF, Markdown, text, media, insights or a logo.'
+    title='Microlink n8n node: screenshots, PDFs and Markdown'
+    noSuffix
+    description='Add the Microlink community node to n8n and turn any URL into a screenshot, PDF, Markdown, text or metadata. No code, no browser to host, AI Agent ready.'
     schemaType='SoftwareApplication'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'SoftwareApplication',
-        '@id': 'https://microlink.io/integrations/n8n',
+        '@id': PAGE_URL,
         name: 'Microlink node for n8n',
         description:
           'n8n community node for the Microlink API. Nine operations turn any URL into metadata, screenshots, PDFs, Markdown, plain text, audio and video sources, performance insights or logo data.',
-        url: 'https://microlink.io/integrations/n8n',
+        url: PAGE_URL,
         downloadUrl: NPM_URL,
+        codeRepository: REPOSITORY_URL,
         applicationCategory: ['DeveloperApplication', 'API'],
-        operatingSystem: 'n8n Cloud, n8n self-hosted',
+        operatingSystem: 'n8n (self-hosted)',
         license: 'https://opensource.org/licenses/MIT',
         offers: {
           '@type': 'Offer',
@@ -44,16 +57,41 @@ export const Head = () => (
           name: 'Microlink',
           url: 'https://microlink.io'
         },
-        interactionStatistic: {
-          '@type': 'InteractionCounter',
-          interactionType: { '@type': 'https://schema.org/LikeAction' },
-          userInteractionCount: getRepoStars(REPOS[1]),
-          interactionService: {
-            '@type': 'WebSite',
-            name: 'GitHub',
-            url: 'https://github.com/microlinkhq/mql'
+        ...(getRepoStars(REPOS[0]) > 0 && {
+          interactionStatistic: {
+            '@type': 'InteractionCounter',
+            interactionType: { '@type': 'https://schema.org/LikeAction' },
+            userInteractionCount: getRepoStars(REPOS[0]),
+            interactionService: {
+              '@type': 'WebSite',
+              name: 'GitHub',
+              url: REPOSITORY_URL
+            }
           }
-        }
+        })
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        '@id': `${PAGE_URL}#install`,
+        name: 'Install the Microlink node in n8n',
+        step: INSTALL_STEPS.map(({ title, description }, index) => ({
+          '@type': 'HowToStep',
+          position: index + 1,
+          name: title,
+          text: description
+        }))
+      },
+      {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${PAGE_URL}#faq`,
+        url: PAGE_URL,
+        mainEntity: FAQ_ITEMS.map(({ question, text }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: { '@type': 'Answer', text }
+        }))
       }
     ]}
   />
@@ -68,12 +106,12 @@ const N8nPage = () => (
       <OpenSource
         repos={REPOS}
         accent={ACCENT}
-        caption='The node, the client it speaks to, and the browser behind the API are all public. Read the code, open an issue, or run the pieces yourself.'
+        caption='The node, the engine behind Extract, and the browser behind every capture are all public. Read the code, open an issue, or run the pieces yourself.'
       />
       <Faq
         css={theme({ py: SECTION_VERTICAL_SPACING })}
         title='FAQ'
-        caption='Everything about running Microlink inside an n8n workflow.'
+        caption='Installing, authenticating and saving files with the Microlink node.'
         questions={QUESTIONS}
       />
     </Box>
