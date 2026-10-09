@@ -352,7 +352,7 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       browserbase: true,
-      note: 'Google results as JSON on Microlink paid plans. Browserbase does not disclose its index and caps Search at 120 requests per minute.'
+      note: 'Google results as JSON with every Microlink API key, free one included. Browserbase does not disclose its index and caps Search at 120 requests per minute.'
     },
     {
       feature: 'Free tier',

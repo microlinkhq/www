@@ -178,7 +178,7 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       scrapingbee: true,
-      note: 'Microlink Search on paid plans; included on every ScrapingBee plan.'
+      note: 'Microlink Search comes with every API key, free one included; included on every ScrapingBee plan.'
     },
     {
       feature: 'Free tier',

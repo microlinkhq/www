@@ -35,7 +35,7 @@ npx microlink.io screenshot https://example.com --fullPage
 
 ## Authentication
 
-Every [Microlink account](https://dashboard.microlink.io/signup) gets a free API key. The `search` product needs one on a [paid plan](/pricing), and any other product uses it to apply your account quota and plan features. The CLI resolves it, in this order, from the `--api-key` flag, the `MICROLINK_API_KEY` environment variable, or the key saved by `microlink login`:
+Every [Microlink account](https://dashboard.microlink.io/signup) gets a free API key. The `search` product needs it, and any other product uses it to apply your account quota; a [paid plan](/pricing) adds volume. The CLI resolves it, in this order, from the `--api-key` flag, the `MICROLINK_API_KEY` environment variable, or the key saved by `microlink login`:
 
 ```bash
 microlink search "web performance" --api-key YOUR_KEY
