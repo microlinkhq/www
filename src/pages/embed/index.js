@@ -1801,18 +1801,16 @@ const CallToAction = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
-          href='/docs/guides/embed'
+        <SignupLink
+          cta='embed:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Read the embed guide
-        </ArrowLink>
-        <ArrowLink
-          href='/docs/guides/embed/sdk'
-          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
-        >
-          Use the SDK
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Flex css={theme({ gap: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed'>Read the embed guide</Link>
+          <Link href='/docs/guides/embed/sdk'>Use the SDK</Link>
+        </Flex>
       </Flex>
       <Flex
         css={theme({

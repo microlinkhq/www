@@ -2045,7 +2045,7 @@ const CallToAction = () => (
         })}
       >
         Call the link preview API directly for the metadata payload, then render
-        the card style that fits your product — hero, inline, chat bubble,
+        the card style that fits your product: hero, inline, chat bubble,
         notification, or your own. Free to start, no credit card.
       </Caption>
       <Flex
@@ -2056,12 +2056,17 @@ const CallToAction = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
-          href='/docs/guides/embed/metadata-api'
+        <SignupLink
+          cta='link-preview:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Build a link preview
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed/metadata-api'>
+            Build a link preview
+          </Link>
+        </Box>
       </Flex>
       <Flex
         css={theme({
