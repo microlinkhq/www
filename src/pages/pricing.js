@@ -257,21 +257,21 @@ const PLAN_NAMES = ['Free', 'Pro', 'Business', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['25 req/day', 'Unlimited', 'Unlimited', 'Unlimited']
+    values: ['No daily cap', 'Unlimited', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
     values: [
-      '~1.5K req/month',
+      '100 req/month',
       '46K – 420K req/month',
       'Aligned to your usage',
       'Custom'
     ]
   },
-  { label: 'Custom cache key', values: [false, true, true, true] },
-  { label: 'Configurable TTL', values: [false, true, true, true] },
-  { label: 'Custom HTTP headers', values: [false, true, true, true] },
-  { label: 'Automatic proxy resolution', values: [false, true, true, true] },
+  { label: 'Custom cache key', values: [true, true, true, true] },
+  { label: 'Configurable TTL', values: [true, true, true, true] },
+  { label: 'Custom HTTP headers', values: [true, true, true, true] },
+  { label: 'Automatic proxy resolution', values: [true, true, true, true] },
   { label: 'Adblock & cookie banners', values: [true, true, true, true] },
   {
     label: 'Global CDN edge cache',
@@ -283,7 +283,7 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Request timeout',
-    values: ['30 seconds', '60 seconds', '60 seconds', '60 seconds']
+    values: ['60 seconds', '60 seconds', '60 seconds', '60 seconds']
   },
   { label: 'SLA', values: ['Best effort', '99.9%', 'Same as Pro', '99.9%'] },
   { label: 'Dedicated endpoint', values: [false, false, false, true] },
@@ -481,8 +481,8 @@ const Comparison = () => (
         side by <span css={theme({ color: 'secondary' })}>side</span>.
       </Subhead>
       <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
-        Every paid plan unlocks the same toolbox. Pick the volume that matches
-        your traffic — upgrade or downgrade in a click.
+        Every plan, free included, unlocks the same toolbox. Pick the volume
+        that matches your traffic, then upgrade or downgrade in a click.
       </Caption>
     </Box>
 
@@ -745,8 +745,8 @@ const Capabilities = () => (
           maxWidth: layout.normal
         })}
       >
-        Every paid plan unlocks the same set of capabilities. Pay for the volume
-        you need, not for features you don&apos;t.
+        Every plan, free included, unlocks the same set of capabilities. Pay for
+        the volume you need, not for features you don&apos;t.
       </Caption>
     </Box>
     <Flex
