@@ -1175,6 +1175,7 @@
   "src/pages/use-cases/website-metadata/localized-metadata.js": "2026-09-17T00:00:00.000Z",
   "src/pages/use-cases/website-metadata/missing-or-wrong-metadata.js": "2026-09-17T00:00:00.000Z",
   "src/pages/use-cases/website-metadata/only-the-fields-you-need.js": "2026-09-17T00:00:00.000Z",
+  "src/pages/use-cases/website-screenshot/animated-screenshots.js": "2026-10-05T00:00:00.000Z",
   "src/pages/use-cases/website-screenshot/behind-login.js": "2026-09-17T00:00:00.000Z",
   "src/pages/use-cases/website-screenshot/block-cookie-banners-and-ads.js": "2026-09-17T00:00:00.000Z",
   "src/pages/use-cases/website-screenshot/browser-frame.js": "2026-09-17T00:00:00.000Z",
