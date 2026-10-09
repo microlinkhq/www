@@ -411,7 +411,7 @@ const FinalCta = ({ cta, current }) => (
           fontSize: ['24px', '28px', '30px', '32px']
         })}
       >
-        <ArrowLink href={cta.primary.href}>{cta.primary.label}</ArrowLink>
+        <SignupLink cta={cta.primary.cta}>{cta.primary.label}</SignupLink>
         {cta.secondary && (
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href={cta.secondary.href}>{cta.secondary.label}</Link>

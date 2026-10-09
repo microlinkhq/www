@@ -600,10 +600,13 @@ run app`
     caption:
       'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paste the module into a controller and ship a PDF today.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'pdf-ruby:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }

@@ -14,7 +14,6 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import ArrowLink from 'components/patterns/ArrowLink'
 import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
@@ -422,7 +421,7 @@ const FinalCta = ({ cta, current }) => (
           fontSize: ['24px', '28px', '30px', '32px']
         })}
       >
-        <ArrowLink href={cta.primary.href}>{cta.primary.label}</ArrowLink>
+        <SignupLink cta={cta.primary.cta}>{cta.primary.label}</SignupLink>
         {cta.secondary && (
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href={cta.secondary.href}>{cta.secondary.label}</Link>

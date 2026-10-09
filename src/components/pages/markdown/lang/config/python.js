@@ -593,10 +593,13 @@ print(data['markdown'])`
     caption:
       'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship markdown in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'markdown-python:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/guides/content-conversion/url-to-markdown'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }

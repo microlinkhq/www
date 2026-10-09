@@ -583,10 +583,13 @@ header('Location: ' . $res['data']['screenshot']['url']);`
     caption:
       'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship a screenshot in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'screenshot-php:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }

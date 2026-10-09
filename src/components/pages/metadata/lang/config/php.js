@@ -562,10 +562,13 @@ echo json_encode($res['data'], JSON_PRETTY_PRINT);`
     caption:
       'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship metadata in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'metadata-php:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
     badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
