@@ -37,8 +37,10 @@ export const HERO = {
       worker pool against.
     </Text>
   ),
-  ctaHref: '/docs/guides/search',
-  ctaLabel: 'Read the Search guide',
+  cta: 'alternative-serpapi:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/guides/search',
+  secondaryLabel: 'Read the Search guide',
   code: sdkExample(`const page = await microlink.search('electric vehicle tax credit', {
   type: 'news',
   period: 'week',
