@@ -138,7 +138,7 @@ export const CONTENT = {
     {
       question: 'Why does my recording miss the animation on the page?',
       answer:
-        'CSS animations and transitions are disabled by default so that still captures stay identical between runs. Set animations to true to let them play. The setting only covers CSS, so motion driven by JavaScript or WebGL is not affected by it.'
+        'CSS animations and transitions are disabled by default so that still captures stay identical between runs. Set animations to true to let them play. The setting does not control JavaScript or WebGL animation loops directly, but it also changes the prefers-reduced-motion value the page sees, so scripts that check that media query may behave differently.'
     },
     {
       question: 'Can I serve the recording straight into a video tag?',
