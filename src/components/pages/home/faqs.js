@@ -67,17 +67,16 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Pro is built for production: higher quota, better performance, and
-            features such as{' '}
+            Volume. The free API key already includes every feature, such as{' '}
             <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link>, or{' '}
-            <Link href='/docs/api/parameters/proxy'>proxy</Link>, plus access to
-            Search.
+            <Link href='/docs/api/parameters/ttl'>ttl</Link>,{' '}
+            <Link href='/docs/api/parameters/proxy'>proxy</Link>, and Search.
+            Pro is built for production: a higher monthly quota and more
+            concurrency on the same key.
           </div>
           <div>
-            It comes with an API key and a monthly quota. Not sure how much you
-            need? Start with the smallest Pro tier and upgrade the moment you
-            need more.
+            Not sure how much you need? Start with the smallest Pro tier and
+            upgrade the moment you need more.
           </div>
         </>
       )
