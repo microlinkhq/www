@@ -295,10 +295,10 @@ const FAQ_ENTRIES = [
     ]
   },
   {
-    question: 'Why is there no free tier?',
+    question: 'Is there a free tier?',
     answers: [
-      'Search starts on paid plans because reliable public-result collection depends on managed proxy capacity from the first request.',
-      'That cost is part of the product itself, so even small workloads use the same proxy-backed delivery model as production workloads.'
+      'Yes. Every Microlink API key includes 100 free requests a month, and Search draws from the same allowance with proxy-backed delivery from the first call.',
+      'When you need volume, paid plans price Search the same per thousand requests as every other product.'
     ]
   },
   {

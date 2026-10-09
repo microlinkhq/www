@@ -78,7 +78,7 @@ export const WEBSITE_METADATA = [
     name: 'Link previews for bot-protected sites',
     cta: 'Preview bot-protected sites',
     blurb:
-      'Unfurl links to sites behind Cloudflare or DataDome: on a Pro key the built-in proxy resolves automatically.',
+      'Unfurl links to sites behind Cloudflare or DataDome: with any API key the built-in proxy resolves automatically.',
     keywords: [
       'link preview blocked by cloudflare',
       'metadata api proxy',

@@ -24,7 +24,7 @@ All requests return your current quota on the response:
 - `x-rate-limit-remaining`: The number of requests remaining in the current window.
 - `x-rate-limit-reset`: The time at which the window resets, in UTC epoch seconds.
 
-The free endpoint reports the daily window. The pro endpoint reports the quota on your API key, and the reset is the start of the next month in UTC. Pro numbers are refreshed in the background, so they can lag the live counter by a few minutes.
+The keyless endpoint reports the daily window. With an API key the response reports the quota on your key, and the reset is the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
 
 We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you.
 

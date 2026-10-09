@@ -2,7 +2,7 @@ import React from 'react'
 import { layout, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { Caption } from '../shared'
 
 export const HeroIntro = ({ heroLayout }) => (
@@ -44,7 +44,7 @@ export const HeroIntro = ({ heroLayout }) => (
         justifyContent: ['center', 'center', 'center', 'flex-start']
       })}
     >
-      <ArrowLink href='/docs/guides/screenshot'>Get Started</ArrowLink>
+      <SignupLink cta='screenshot:hero'>Get your free API key</SignupLink>
     </Flex>
   </Flex>
 )

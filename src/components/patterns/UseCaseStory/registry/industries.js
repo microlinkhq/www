@@ -35,7 +35,7 @@ export const INDUSTRIES = [
         {
           kicker: 'Localize',
           title: 'See the price a shopper in each country sees.',
-          body: 'Pin the proxy to a country and run the same rules once per market. On Pro plans the proxy also handles the antibot walls that big retailers put in front of product pages.',
+          body: 'Pin the proxy to a country and run the same rules once per market. With any API key the proxy also handles the antibot walls that big retailers put in front of product pages.',
           note: 'When not to: if the store publishes a feed or an affiliate API, read that first. Scraping is for the stores that do not.'
         }
       ]
@@ -65,12 +65,12 @@ export const INDUSTRIES = [
       {
         question: 'How do I get the price shown in another country?',
         answer:
-          'Set proxy.location to a two-letter country code on a Pro plan and run the same extraction rules once per country. See [prices by country](/use-cases/proxy/geo-targeted-prices).'
+          'Set proxy.location to a two-letter country code with any API key and run the same extraction rules once per country. See [prices by country](/use-cases/proxy/geo-targeted-prices).'
       },
       {
         question: 'What happens when a store blocks scrapers?',
         answer:
-          'On Pro plans the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the free tier the API answers with EPROXYNEEDED instead.'
+          'With any API key, the free one included, the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the API answers with EPROXYNEEDED instead.'
       },
       {
         question: 'Does Microlink alert me when a price changes?',
@@ -81,7 +81,7 @@ export const INDUSTRIES = [
     ctaSection: {
       headlinePrefix: 'Ready to track',
       headlineAccent: 'prices from any store',
-      body: 'Start on the free tier with extraction rules, add a Pro key when you need proxies, countries or longer caching.',
+      body: 'Start on the free API key with extraction rules, proxies included, and pick a paid plan when you need volume.',
       href: '/features/scraping',
       label: 'Start with the Scraping API'
     }
@@ -139,7 +139,7 @@ export const INDUSTRIES = [
       title: 'What you still build',
       paragraphs: [
         'The Search API returns Google results for a query; it does not store a ranking history or chart it. Your scheduler runs the keyword list, and your database keeps each day of positions.',
-        'Search runs on paid plans from the first request, because every query goes through managed proxy capacity. Metadata and screenshots start on the free tier. Compare the options on the [pricing page](/pricing).'
+        'Search, metadata and screenshots all start on the free API key, 100 requests a month with proxy included. Compare the paid plans on the [pricing page](/pricing).'
       ]
     },
     faq: [
@@ -313,7 +313,7 @@ export const INDUSTRIES = [
       {
         question: 'How do I give an AI agent access to Google search?',
         answer:
-          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. Search runs on paid plans from the first request.'
+          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. A free API key covers 100 searches a month; paid plans add volume.'
       },
       {
         question: 'Why Markdown instead of HTML for LLM context?',

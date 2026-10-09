@@ -120,7 +120,7 @@ export const CONTENT = {
     {
       question: 'How many requests does fetching a SERP as Markdown use?',
       answer:
-        'The search is one request, and each page or result you expand is fetched through the Microlink API as well. markdown: true expands the results page and every result, so pair it with a small limit. Search has no free tier; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+        'The search is one request, and each page or result you expand is fetched through the Microlink API as well. markdown: true expands the results page and every result, so pair it with a small limit. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is the SERP to Markdown API affiliated with Google?',
@@ -131,7 +131,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to read',
     headlineAccent: 'the whole SERP',
-    body: 'Structured results plus the full results page as Markdown or HTML, from one query. Get a Pro key and take your first snapshot today.',
+    body: 'Structured results plus the full results page as Markdown or HTML, from one query. Get your free API key and take your first snapshot today.',
     href: '/search',
     label: 'Get SERPs as Markdown'
   },

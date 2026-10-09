@@ -146,7 +146,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Is function() available on the free plan?',
-    text: 'Yes. Free runs get a 5-second timeout, 64 MB of memory, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 128 MB, and remove code-size limits.'
+    text: 'Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for 100 requests a month.'
   },
   {
     question: 'When should I use function() instead of extract()?',

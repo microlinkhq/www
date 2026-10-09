@@ -13,7 +13,7 @@ import { HowSection } from './how'
 import { ProblemSection } from './problem'
 import { WhySection } from './why'
 import { MoreUseCases } from '../MoreUseCases'
-import { ACCENT, getUseCase, getVertical } from '../use-cases'
+import { ACCENT, getUseCase, getVertical, useCaseSignupCta } from '../use-cases'
 
 export const UseCaseLanding = ({ content }) => {
   const entry = getUseCase(content.slug)
@@ -36,7 +36,12 @@ export const UseCaseLanding = ({ content }) => {
           title='Solve the next problem with the same API'
           mt={0}
         />
-        <CtaSection accent={ACCENT} mt={0} {...content.cta} />
+        <CtaSection
+          accent={ACCENT}
+          mt={0}
+          signupCta={useCaseSignupCta(content.slug)}
+          {...content.cta}
+        />
       </Box>
     </Layout>
   )

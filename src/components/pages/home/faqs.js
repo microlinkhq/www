@@ -1,6 +1,7 @@
 import Email from 'components/elements/Email'
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
+import { DashboardLink, SignupLink } from 'components/patterns/SignupLink'
 import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
@@ -32,13 +33,14 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Yes. The free plan gives you 25 requests a day on every product
-            except Search, with no API key and no credit card. Just call the{' '}
-            <Link href='/docs/api/basics/endpoint'>free endpoint</Link>.
+            Yes. Sign up for a free API key and you get 100&nbsp;requests a
+            month on every product, Search included, with every Pro feature and
+            no credit card. See the{' '}
+            <Link href='/docs/api/basics/endpoint'>endpoint docs</Link>.
           </div>
           <div>
             It has limits to prevent abuse: burst rate, concurrency, and the
-            daily quota. Enough for small projects and low-volume usage.
+            monthly quota. Enough for small projects and low-volume usage.
           </div>
         </>
       )
@@ -54,8 +56,8 @@ export const getFaqQuestions = () => {
             point for screenshots, PDFs, markdown, and the rest of the API.
           </div>
           <div>
-            The free tier works out of the box for every product except Search;
-            add an API key for Search or when you need volume.
+            The free API key covers every product, Search included; paid plans
+            add volume.
           </div>
         </>
       )
@@ -65,17 +67,16 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Pro is built for production: higher quota, better performance, and
-            features such as{' '}
+            Volume. The free API key already includes every feature, such as{' '}
             <Link href='/docs/api/parameters/headers'>headers</Link>,{' '}
-            <Link href='/docs/api/parameters/ttl'>ttl</Link>, or{' '}
-            <Link href='/docs/api/parameters/proxy'>proxy</Link>, plus access to
-            Search.
+            <Link href='/docs/api/parameters/ttl'>ttl</Link>,{' '}
+            <Link href='/docs/api/parameters/proxy'>proxy</Link>, and Search.
+            Pro is built for production: a higher monthly quota and more
+            concurrency on the same key.
           </div>
           <div>
-            It comes with an API key and a monthly quota. Not sure how much you
-            need? Start with the smallest Pro tier and upgrade the moment you
-            need more.
+            Not sure how much you need? Start with the smallest Pro tier and
+            upgrade the moment you need more.
           </div>
         </>
       )
@@ -85,11 +86,12 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Once you buy a plan you get access to{' '}
-            <Link href='https://dashboard.microlink.io'>
+            Sign up at{' '}
+            <SignupLink component={Link} cta='home:faq'>
               dashboard.microlink.io
-            </Link>
-            , where you will find your API key.
+            </SignupLink>{' '}
+            and you get a free API key, no credit card required. Paid plans add
+            quota to the same account.
           </div>
           <div>
             Attach it to every request:
@@ -166,10 +168,8 @@ export const getFaqQuestions = () => {
       answer: (
         <div>
           Yes. Upgrade, downgrade, or cancel at any time from{' '}
-          <Link href='https://dashboard.microlink.io'>
-            dashboard.microlink.io
-          </Link>
-          , no questions asked. We also notify you when you reach 80% of your
+          <DashboardLink cta='home:faq'>dashboard.microlink.io</DashboardLink>,
+          no questions asked. We also notify you when you reach 80% of your
           quota, so you can move up before you hit the limit.
         </div>
       )

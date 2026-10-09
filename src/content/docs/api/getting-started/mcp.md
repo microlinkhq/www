@@ -33,8 +33,7 @@ Use this `mcpServers` entry:
 }
 ```
 
-For higher/unlimited usage, get an API key at [microlink.io/#pricing](https://microlink.io/#pricing).  
-If no API key is provided, requests go to the free endpoint with a 25 requests/day limit.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 100 requests per month with every Pro feature. Paid plans at [microlink.io/pricing](https://microlink.io/pricing) add volume.
 
 ## Usage
 

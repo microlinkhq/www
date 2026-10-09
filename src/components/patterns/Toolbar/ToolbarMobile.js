@@ -43,6 +43,7 @@ import {
   getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
+import { useDashboardHref } from 'components/patterns/SignupLink'
 
 const MOBILE_MENU_ITEM_STYLES = {
   py: 1,
@@ -313,6 +314,10 @@ const MobileMenuItems = ({ items, onItemClick, ...props }) => (
 
 const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
+  const dashboardHref = useDashboardHref({
+    dashboardPath: '/',
+    cta: 'toolbar:dashboard'
+  })
   const [isOpen, setOpen] = useState(false)
   const [hasOpened, setHasOpened] = useState(false)
   const [openSection, setOpenSection] = useState('')
@@ -552,7 +557,7 @@ const ToolbarMobile = ({ animated }) => {
             </ToolbarActionLink>
             <MobileDirectNavLink
               forwardedAs='li'
-              href={DASHBOARD_NAV_ITEM.href}
+              href={dashboardHref}
               title={DASHBOARD_NAV_ITEM.title}
               externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
               data-event-location='Toolbar'

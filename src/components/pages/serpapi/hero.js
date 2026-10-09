@@ -4,7 +4,8 @@ import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import {
   Caption,
   CENTERED_TO_LEFT,
@@ -74,10 +75,14 @@ export const Hero = () => (
             px: [4, 4, 4, 0],
             width: '100%',
             fontSize: [2, 2, 3, 3],
+            gap: [3, 3, 4, 4],
+            flexDirection: ['column', 'row', 'row', 'row'],
+            alignItems: 'center',
             justifyContent: CENTERED_TO_START
           })}
         >
-          <ArrowLink href={HERO.ctaHref}>{HERO.ctaLabel}</ArrowLink>
+          <SignupLink cta={HERO.cta}>{HERO.ctaLabel}</SignupLink>
+          <Link href={HERO.secondaryHref}>{HERO.secondaryLabel}</Link>
         </Flex>
       </Flex>
       <Flex

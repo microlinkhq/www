@@ -44,7 +44,7 @@ export const CONTENT = {
       {
         label: '2 · Cache it for a day, refresh in the background',
         sdk: "const { content } = await microlink.extract(\n  'https://pokeapi.co/api/v2/pokemon',\n  { content: { attr: 'json' } },\n  { prerender: false, ttl: '1d', staleTtl: 0 }\n)",
-        note: 'ttl keeps the response for a day and [staleTtl](/docs/api/parameters/staleTtl) 0 serves the cached copy instantly while a fresh one is generated in the background. Both are Pro options.'
+        note: 'ttl keeps the response for a day and [staleTtl](/docs/api/parameters/staleTtl) 0 serves the cached copy instantly while a fresh one is generated in the background. Both work with any API key, the free one included.'
       },
       {
         label: '3 · Keep only the part you need',
@@ -74,12 +74,12 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'How long the response stays cached, from 1 minute to 31 days. Default 24 hours. Pro plans.'
+        note: 'How long the response stays cached, from 1 minute to 31 days. Default 24 hours. Any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serves the stale copy while revalidating in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serves the stale copy while revalidating in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'filter',
@@ -115,7 +115,7 @@ export const CONTENT = {
       {
         kicker: 'Private endpoints too',
         title: 'Forward a token without putting it in the URL.',
-        body: 'Authenticated APIs take the same rule. Send the token as an x-api-header-authorization request header on Pro and the target receives it as a regular authorization header.',
+        body: 'Authenticated APIs take the same rule. Send the token as an x-api-header-authorization request header with any API key and the target receives it as a regular authorization header.',
         note: 'When not to: an endpoint you own is better cached with its own HTTP cache headers. For per-user APIs, cached copies are keyed by URL and query parameters, not by token, so read [scraping behind a login](/use-cases/scraping/behind-login) and add a cacheKey per user.'
       }
     ]
@@ -134,7 +134,7 @@ export const CONTENT = {
     {
       question: 'How long are cached API responses kept?',
       answer:
-        'Every response is cached for 24 hours by default. On a Pro plan, ttl sets any lifetime from 1 minute to 31 days, staleTtl serves the cached copy while refreshing it, and force: true skips the cache for a single request.'
+        'Every response is cached for 24 hours by default. With any API key, the free one included, ttl sets any lifetime from 1 minute to 31 days, staleTtl serves the cached copy while refreshing it, and force: true skips the cache for a single request.'
     },
     {
       question: 'Do cached JSON responses count against my quota?',
@@ -150,7 +150,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to cache',
     headlineAccent: 'any JSON endpoint',
-    body: 'Parsed JSON with its shape intact and a cache you set per request. Start on the free tier and add ttl when you move to Pro.',
+    body: 'Parsed JSON with its shape intact and a cache you set per request. Start on the free API key, ttl and staleTtl included.',
     href: '/features/scraping',
     label: 'Fetch a JSON endpoint'
   },

@@ -63,7 +63,7 @@ export const CONTENT = {
       {
         label: '3 · Add a frame and a longer cache',
         sdk: "const { url } = await microlink.screenshot('https://your-site.com/blog/post', {\n  viewport: { width: 1200, height: 630 },\n  overlay: { browser: 'dark', background: '#0473e4' },\n  ttl: '7d',\n  staleTtl: 0\n})",
-        note: 'overlay composes a browser frame over a background, as in the [browser frame recipe](/use-cases/website-screenshot/browser-frame). ttl and staleTtl need a Pro key, so run this from your backend or send the same options through your own proxy.'
+        note: 'overlay composes a browser frame over a background, as in the [browser frame recipe](/use-cases/website-screenshot/browser-frame). ttl and staleTtl need an API key (the free one works), so run this from your backend or send the same options through your own proxy.'
       }
     ],
     params: [
@@ -85,16 +85,16 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days. Defaults to 24 hours. Pro plans.'
+        note: 'Cache lifetime from 1 minute to 31 days. Defaults to 24 hours. Any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serves the cached card instantly and refreshes it in the background. Pro plans.'
+        note: 'Serves the cached card instantly and refreshes it in the background. Any API key.'
       }
     ],
     outro:
-      'Keep API keys out of public og:image URLs. The free endpoint needs no key and allows 25 requests per day, which suits a small site because cache hits do not count. For production, put the request behind your own domain as described in the [authentication docs](/docs/api/basics/authentication).'
+      'Keep API keys out of public og:image URLs: put the request behind your own domain as described in the [authentication docs](/docs/api/basics/authentication).'
   },
   why: {
     title: 'Why a live screenshot works as a social preview image',
@@ -135,12 +135,12 @@ export const CONTENT = {
     {
       question: 'How often does a dynamic Open Graph image screenshot refresh?',
       answer:
-        'Every 24 hours by default, when the cached copy expires. On Pro plans ttl sets the lifetime from 1 minute to 31 days and staleTtl refreshes in the background while serving the cached card. The [caching guide](/docs/guides/screenshot/caching-and-performance) has the recommended production setup.'
+        'Every 24 hours by default, when the cached copy expires. With any API key, ttl sets the lifetime from 1 minute to 31 days and staleTtl refreshes in the background while serving the cached card. The [caching guide](/docs/guides/screenshot/caching-and-performance) has the recommended production setup.'
     },
     {
       question: 'How do I keep my API key out of the og:image screenshot URL?',
       answer: [
-        'On the free endpoint no key is needed. On Pro, do not put the key in the URL: route the request through your own server or edge function with @microlink/proxy or @microlink/edge-proxy, and reference your own domain in og:image.',
+        'Do not put the key in the URL: route the request through your own server or edge function with @microlink/proxy or @microlink/edge-proxy, and reference your own domain in og:image.',
         'The proxy only lets an allowed list of domains consume your quota, so the key never reaches the page source.'
       ]
     },
@@ -153,7 +153,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to ship',
     headlineAccent: 'live social cards',
-    body: 'One URL per page, cached and framed. Start on the free endpoint and point your og:image at a real screenshot today.',
+    body: 'One URL per page, cached and framed. Start on the free API key and point your og:image at a real screenshot today.',
     href: '/screenshot',
     label: 'Generate your first OG image'
   },
@@ -173,7 +173,7 @@ export const CONTENT = {
       {
         title: 'Add a frame and a longer cache',
         description:
-          'Add screenshot.overlay for a browser frame and, on a Pro plan, ttl and staleTtl to keep the card cached and refreshed in the background.'
+          'Add screenshot.overlay for a browser frame and, with any API key, ttl and staleTtl to keep the card cached and refreshed in the background.'
       }
     ]
   }

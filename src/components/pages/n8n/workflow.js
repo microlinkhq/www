@@ -7,6 +7,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { HOME_CONTENT_WIDTH } from 'components/pages/home/catalog'
 
 import {
@@ -256,9 +257,9 @@ const Workflow = () => (
         fontSize: [2, 2, 3, 3]
       })}
     >
-      <ArrowLink css={theme({ pr: [2, 4, 4, 4] })} href={DOCS_URL}>
-        Read the API docs
-      </ArrowLink>
+      <SignupLink css={theme({ pr: [2, 4, 4, 4] })} cta='n8n:workflow'>
+        Get your free API key
+      </SignupLink>
       <ArrowLink href={REPOSITORY_URL}>View the node source</ArrowLink>
     </Flex>
   </Section>

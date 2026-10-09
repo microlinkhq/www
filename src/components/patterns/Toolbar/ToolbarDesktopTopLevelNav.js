@@ -4,6 +4,7 @@ import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { Calendar, ChevronDown } from 'react-feather'
 import React from 'react'
+import { useDashboardHref } from 'components/patterns/SignupLink'
 import {
   BOOK_CALL_LABEL,
   BOOK_CALL_TITLE,
@@ -35,6 +36,15 @@ import {
   canUseHover,
   toSectionDomId
 } from './ToolbarDesktopStyles'
+
+const DashboardTopLevelLink = props => {
+  const href = useDashboardHref({
+    dashboardPath: '/',
+    cta: 'toolbar:dashboard'
+  })
+
+  return <TopLevelDirectLink href={href} {...props} />
+}
 
 const ToolbarDesktopTopLevelNav = ({
   openSection,
@@ -170,9 +180,8 @@ const ToolbarDesktopTopLevelNav = ({
         {BOOK_CALL_LABEL}
       </Caps>
     </ToolbarActionLink>
-    <TopLevelDirectLink
+    <DashboardTopLevelLink
       forwardedAs='li'
-      href={DASHBOARD_NAV_ITEM.href}
       title={DASHBOARD_NAV_ITEM.title}
       externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
       data-event-location='Toolbar'
@@ -187,7 +196,7 @@ const ToolbarDesktopTopLevelNav = ({
       <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
         {DASHBOARD_NAV_ITEM.label}
       </Caps>
-    </TopLevelDirectLink>
+    </DashboardTopLevelLink>
   </Flex>
 )
 

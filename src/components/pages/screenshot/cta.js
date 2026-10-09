@@ -6,7 +6,7 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { LANG_LANDINGS } from './lang/registry'
 import { Caption, Subhead } from './shared'
@@ -86,9 +86,9 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Get 25&nbsp;requests/day with zero commitment — screenshot API free to
-        use, no account, and no credit card. Just call the API and start
-        capturing screenshots in seconds.
+        Sign up for a free API key: 100&nbsp;requests per month with every Pro
+        feature, no credit card. Add it to the request and start capturing
+        screenshots in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -98,12 +98,12 @@ export const CallToAction = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
-          href='/docs/guides/screenshot'
+        <SignupLink
+          cta='screenshot:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Get started free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
       </Flex>
       <Flex
         css={theme({
@@ -113,22 +113,20 @@ export const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '25 reqs/day free', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
+        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 1,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <CheckIcon size={16} color={colors.close} />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
       </Flex>
       <Box css={theme({ pt: [4, 4, 5, 5] })}>
         <LangLandingsNav

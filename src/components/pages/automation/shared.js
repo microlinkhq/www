@@ -156,7 +156,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Do automation options work on the free plan?',
-    text: 'Yes. device, waitUntil, waitForSelector, click, scroll and scripts all work on the free tier. Pro raises the time budget and lets you combine them with proxy, custom headers and configurable TTL.'
+    text: 'Yes. device, waitUntil, waitForSelector, click, scroll and scripts all work on the free tier. Proxy, custom headers and configurable TTL are included on every plan, the free API key too.'
   },
   {
     question: 'When should I use waitUntil vs waitForSelector?',

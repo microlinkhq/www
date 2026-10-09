@@ -45,10 +45,10 @@ export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
 export const META = {
   title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
   description:
-    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. 25 free requests a day, no API key to start.',
+    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with 100 requests a month.',
   structuredName: 'Microlink API',
   structuredDescription:
-    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start, with no API key needed on the free plan.',
+    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes 100 requests a month and every Pro feature.',
   keywords:
     'Microlink API, URL to JSON, screenshot API, PDF API, metadata API, markdown API, headless browser API, web scraping API',
   about: [
@@ -78,15 +78,17 @@ export const HERO = {
   title: 'Microlink API',
   description:
     'The headless browser cloud. We run the fleet. You get the output.',
-  ctaHref: '/pricing',
-  ctaLabel: 'Start for free',
+  cta: 'api:hero',
+  ctaLabel: 'Get your free API key',
+  pricingHref: '/pricing',
+  pricingLabel: 'See pricing',
   docsHref: '/docs/api/getting-started/overview',
   docsLabel: 'Read the docs'
 }
 
 export const HERO_PROOF = [
-  'No API key required to start',
-  '25 requests per day free',
+  'Free API key, no credit card',
+  '100 requests per month free',
   `Cached across ${CDN_EDGES} edge locations`
 ]
 
@@ -177,7 +179,7 @@ export const HERO_EXAMPLES = [
 export const QUICKSTART = {
   title: 'Call the API. No key needed.',
   caption:
-    'The free endpoint is a GET. Pass a URL, read JSON. Add a key later when you need Search, more quota, a proxy, or a custom cache TTL.',
+    'The endpoint is a GET. Pass a URL and your free key, read JSON. Paid plans add quota when you need more.',
   request:
     'https://api.microlink.io?url=https://github.com&screenshot=true&data.markdown.attr=markdown',
   steps: [
@@ -428,13 +430,15 @@ export const HOW_TO = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. 25 requests/day on the free plan. Pro is the same API with more quota and production controls.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Hit the endpoint with any URL. 25 requests/day, no account, no card.',
-  ctaHref: '/pricing',
-  ctaLabel: 'Start for free'
+    'Sign up for a free API key: 100 requests per month, every Pro feature, no card.',
+  cta: 'api:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/pricing',
+  secondaryLabel: 'See pricing'
 }
 
 export const FAQ_CAPTION =

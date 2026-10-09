@@ -31,8 +31,10 @@ export const HERO = {
   title: 'Media extraction API for developers',
   description:
     'Find the playable video or audio behind any URL. Microlink resolves the direct file, its dimensions, duration and type, so you can embed, transcribe or process it without scraping player markup.',
-  ctaHref: '/docs/api/parameters/video',
-  ctaLabel: 'Get Started',
+  cta: 'media:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/video',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   examples: [
     {
@@ -102,13 +104,15 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. The media extraction API is free to start — just call the endpoint.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The media extraction API is free to use, with no account and no credit card. Send a URL and get a playable file back in seconds.',
-  ctaHref: '/docs/api/parameters/video',
-  ctaLabel: 'Get started free'
+    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a URL and get a playable file back in seconds.',
+  cta: 'media:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/video',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =
@@ -162,7 +166,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Media Extraction API - Video & Audio File URLs',
   description:
-    'Extract direct video and audio file URLs from any web page, with dimensions, duration and type. Real browser detection, proxy support, edge caching. 25 free requests/day.',
+    'Extract direct video and audio file URLs from any web page, with dimensions, duration and type. Real browser detection, proxy support, edge caching. Free API key, 100 requests/month.',
   structuredName: 'Microlink Media API',
   structuredDescription:
     'A developer-first API that resolves the direct playable video or audio file behind any URL, returning media type, dimensions and duration, with real browser detection, residential proxy resolution and global edge caching.',

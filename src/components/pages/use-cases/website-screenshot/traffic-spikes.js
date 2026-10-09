@@ -42,19 +42,19 @@ export const CONTENT = {
           params: { screenshot: true, meta: false, ttl: '1d', staleTtl: 0 },
           pro: true
         },
-        note: 'ttl and staleTtl need a Pro key, so the URL targets pro.microlink.io and carries the x-api-key header. Read x-cache-status in the response: MISS on the first call, HIT on every repeat.'
+        note: 'ttl and staleTtl need an API key (the free one works), so the URL targets pro.microlink.io and carries the x-api-key header. Read x-cache-status in the response: MISS on the first call, HIT on every repeat.'
       }
     ],
     params: [
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days, including the min and max aliases. Pro plans; the default is 24 hours everywhere.'
+        note: 'Cache lifetime from 1 minute to 31 days, including the min and max aliases. Any API key; the default is 24 hours everywhere.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serves the cached response immediately while revalidating in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serves the cached response immediately while revalidating in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'retry',
@@ -69,7 +69,7 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier to the cache key to keep separate entries per tenant or variant. Pro plans.'
+        note: 'Appends a custom identifier to the cache key to keep separate entries per tenant or variant. Any API key.'
       }
     ],
     outro:
@@ -90,14 +90,14 @@ export const CONTENT = {
       {
         kicker: 'Cache absorbs repeats',
         title: 'The same URL is captured once and served many times.',
-        body: 'A launch drives thousands of views of the same handful of pages. With the 24-hour default cache, or up to 31 days with ttl on Pro, those views become cache hits served from the nearest CDN edge node. Cache hits do not count against your quota, so a spike costs you the unique captures and nothing else.',
+        body: 'A launch drives thousands of views of the same handful of pages. With the 24-hour default cache, or up to 31 days with ttl on any API key, those views become cache hits served from the nearest CDN edge node. Cache hits do not count against your quota, so a spike costs you the unique captures and nothing else.',
         note: 'staleTtl at 0 is the [caching default worth copying](/features/ttl): visitors always get an instant response while the copy refreshes behind them. The same pattern keeps [dynamic Open Graph images](/use-cases/website-screenshot/open-graph-images) fast when a link goes viral.'
       },
       {
         kicker: 'Availability you can quote',
         title: '99.9% uptime SLA on every paid plan, one browser per request.',
         body: 'Every request runs in its own isolated browser instance, so a slow or broken target never affects another capture. Every paid plan commits to 99.9% uptime, a figure you can plan a launch around.',
-        note: 'When not to: a steady trickle of a few captures per day fits the free tier of 25 requests per day, and a one-off batch of up to 25 URLs is quicker with the [bulk screenshot tool](/tools/website-screenshot/bulk). The API pays off when demand moves faster than you can provision.'
+        note: 'When not to: a steady trickle of a few captures a week fits the free API key of 100 requests per month, and a one-off batch of up to 25 URLs is quicker with the [bulk screenshot tool](/tools/website-screenshot/bulk). The API pays off when demand moves faster than you can provision.'
       }
     ]
   },
@@ -105,7 +105,7 @@ export const CONTENT = {
     {
       question: 'Does the screenshot API rate limit requests per second?',
       answer:
-        'No. Microlink applies no throttling limitation, so you can run as many parallel screenshot requests as your quota allows. The free endpoint has a soft limit of 25 requests per day and paid plans use a monthly quota, both described in the [rate limit docs](/docs/api/basics/rate-limit).'
+        'No. Microlink applies no throttling limitation, so you can run as many parallel screenshot requests as your quota allows. The free API key has a quota of 100 requests per month and paid plans raise it, both described in the [rate limit docs](/docs/api/basics/rate-limit).'
     },
     {
       question: 'What happens when a screenshot spike exceeds my quota?',
@@ -121,7 +121,7 @@ export const CONTENT = {
       question:
         'How do I keep high-volume screenshots fresh without re-rendering on every hit?',
       answer:
-        'Set ttl to how often the page changes and staleTtl to 0, both Pro options. Requests are served from the cache instantly while a background refresh keeps the copy current, and force: true bypasses the cache when you need a one-off refresh.'
+        'Set ttl to how often the page changes and staleTtl to 0, both available with any API key. Requests are served from the cache instantly while a background refresh keeps the copy current, and force: true bypasses the cache when you need a one-off refresh.'
     },
     {
       question: 'Can I get dedicated capacity for screenshot workloads?',
@@ -132,7 +132,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'unpredictable traffic',
-    body: 'No browsers to size, no queues to babysit. Start on the free tier with 25 requests per day, then pick a paid plan matched to your monthly volume.',
+    body: 'No browsers to size, no queues to babysit. Start on the free API key with 100 requests per month, then pick a paid plan matched to your monthly volume.',
     href: '/screenshot',
     label: 'Start capturing at scale'
   },

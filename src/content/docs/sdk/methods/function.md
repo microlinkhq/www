@@ -74,10 +74,10 @@ const { value } = await microlink.function(
 
 ## Compression
 
-Large function bodies are compressed before they're sent, so the free plan's code size limit applies to the compressed payload. The SDK picks the compressor for the runtime — brotli in Node.js, lz-string in browsers — and prefixes the payload accordingly; nothing changes in the call. The code can also be passed as a string of JavaScript source.
+Large function bodies are compressed before they're sent, so the keyless endpoint's code size limit applies to the compressed payload. The SDK picks the compressor for the runtime — brotli in Node.js, lz-string in browsers — and prefixes the payload accordingly; nothing changes in the call. The code can also be passed as a string of JavaScript source.
 
 ## Limits
 
-The free plan allows 15 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; the pro plan lifts those to 60 seconds, 128 MB, unlimited code size and concurrency, and unrestricted requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
+The keyless endpoint allows 15 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; any API key, the free one included, lifts those to 60 seconds, 128 MB, unlimited code size and concurrency, and unrestricted requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
 
 See the [function guide](/docs/guides/function) for writing patterns, package dependencies, and profiling.

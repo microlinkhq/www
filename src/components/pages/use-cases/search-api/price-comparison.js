@@ -116,7 +116,7 @@ export const CONTENT = {
     {
       question: 'How many requests does product price monitoring use?',
       answer:
-        'One per search call. Tracking 200 products in three countries once a day is 600 requests a day, about 18,000 a month, which fits a [Pro plan](/pricing) of 46,000 requests from €39/month. Search has no free tier: it is paid from the first request.'
+        'One per search call. Tracking 200 products in three countries once a day is 600 requests a day, about 18,000 a month, which fits a [Pro plan](/pricing) of 46,000 requests from €39/month. A free API key covers the first 100 requests a month, Search included.'
     },
     {
       question: 'Is the price comparison API affiliated with Google?',
@@ -127,7 +127,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to compare',
     headlineAccent: 'every merchant',
-    body: 'Parsed prices from Google Shopping, per country, as JSON. Get a Pro key and run your first price comparison today.',
+    body: 'Parsed prices from Google Shopping, per country, as JSON. Get your free API key and run your first price comparison today.',
     href: '/search',
     label: 'Compare Shopping prices'
   },

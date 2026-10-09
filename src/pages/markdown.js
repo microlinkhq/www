@@ -70,8 +70,8 @@ const FEATURES = [
 
 export const Head = () => (
   <Meta
-    title='URL to Markdown API — Free, no login required'
-    description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. No login required.'
+    title='URL to Markdown API. Free API key, no credit card'
+    description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. Free API key, no credit card.'
     structured={{
       '@context': 'https://schema.org',
       '@graph': [
@@ -101,7 +101,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'USD',
             description:
-              'Free tier available for experimentation, 25 requests per day. Pro plans scale for high concurrency.'
+              'Free API key with 100 requests per month and every Pro feature. Pro plans scale for high concurrency.'
           },
           keywords:
             'url to markdown api, url to markdown free, web to markdown api, html to markdown api, url to markdown service, markdown for AI agents, RAG ingestion, LLM preprocessing, token-efficient content',
@@ -211,7 +211,7 @@ export const Head = () => (
               name: 'Is the URL to markdown API free?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Yes. The URL to markdown API is free to use with 25 requests per day — no login, no credit card, and no setup required. Just call the endpoint and get clean markdown back. For production workloads that need higher volume, automatic proxy rotation, and priority support, see our Pro plans.'
+                text: 'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the endpoint with the key and get clean markdown back. For production workloads that need higher volume and priority support, see our Pro plans.'
               }
             },
             {

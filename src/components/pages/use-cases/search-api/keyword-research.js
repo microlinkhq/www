@@ -115,7 +115,7 @@ export const CONTENT = {
     {
       question: 'How many requests does autocomplete keyword research use?',
       answer:
-        'One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. Search has no free tier: it is paid from the first request, with [Pro plans](/pricing) from €39/month for 46,000 requests.'
+        'One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) from €39/month for 46,000 requests.'
     },
     {
       question: 'Is this Google Suggest API an official Google product?',
@@ -126,7 +126,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to find',
     headlineAccent: 'what people search',
-    body: 'Autocomplete suggestions, related searches and questions as JSON, per country. Get a Pro key and expand your first seed today.',
+    body: 'Autocomplete suggestions, related searches and questions as JSON, per country. Get your free API key and expand your first seed today.',
     href: '/search',
     label: 'Research keywords'
   },

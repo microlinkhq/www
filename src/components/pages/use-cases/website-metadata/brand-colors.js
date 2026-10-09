@@ -48,7 +48,7 @@ export const CONTENT = {
           url: 'https://example.com',
           params: { palette: true, meta: { image: true, logo: true } }
         },
-        note: 'palette=true adds the color fields to every image field in the JSON. The request runs on the free endpoint, with no API key.'
+        note: 'palette=true adds the color fields to every image field in the JSON. The request works with the free API key.'
       }
     ],
     params: [
@@ -70,7 +70,7 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Brand colors change rarely; cache them for up to 31 days. Pro plans.'
+        note: 'Brand colors change rarely; cache them for up to 31 days. Any API key.'
       }
     ],
     outro:
@@ -127,13 +127,13 @@ export const CONTENT = {
     {
       question: 'Does palette slow down a metadata request?',
       answer:
-        'It adds image processing, which is why the [caching and performance guide](/docs/guides/metadata/caching-and-performance) lists it among the enrichments to skip when you do not need them. Keep meta scoped to image and logo, and cache the result with ttl on Pro plans, since brand colors rarely change.'
+        'It adds image processing, which is why the [caching and performance guide](/docs/guides/metadata/caching-and-performance) lists it among the enrichments to skip when you do not need them. Keep meta scoped to image and logo, and cache the result with ttl using any API key, since brand colors rarely change.'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to theme',
     headlineAccent: 'with brand colors',
-    body: 'Palettes and accessible pairs from the logo and image of any site. Start on the free tier and tint your first preview card today.',
+    body: 'Palettes and accessible pairs from the logo and image of any site. Start on the free API key and tint your first preview card today.',
     href: '/metadata',
     label: 'Extract a palette'
   },

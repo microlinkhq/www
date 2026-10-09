@@ -243,14 +243,14 @@ export const QUESTIONS = [
     answer: (
       <>
         <div>
-          Not to start. <code>createClient()</code> works on the free tier out
-          of the box. Pass <code>{'createClient({ apiKey })'}</code> to unlock{' '}
-          <Link href='/pricing'>pro plans</Link> — the key travels as the{' '}
-          <code>x-api-key</code> header.
+          Yes, and it is free: sign up for an API key with 100&nbsp;requests a
+          month and every Pro feature. Pass{' '}
+          <code>{'createClient({ apiKey })'}</code> and the key travels as the{' '}
+          <code>x-api-key</code> header; <Link href='/pricing'>paid plans</Link>{' '}
+          add volume.
         </div>
         <div>
-          <code>search</code> is the exception: it needs an API key on every
-          request.
+          <code>search</code> draws from the same allowance.
         </div>
       </>
     )

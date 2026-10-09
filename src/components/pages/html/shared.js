@@ -31,8 +31,10 @@ export const HERO = {
   title: 'Rendered HTML API for developers',
   description:
     'Get the HTML a real browser sees, after JavaScript has run. One REST call returns the fully hydrated DOM of any URL, no headless Chrome to operate.',
-  ctaHref: '/docs/api/parameters/data',
-  ctaLabel: 'Get Started',
+  cta: 'html:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://vercel.com',
@@ -100,13 +102,15 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. The rendered HTML API is free to start — just call the endpoint.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The rendered HTML API is free to use, with no account and no credit card. Call it and start parsing real markup in seconds.',
-  ctaHref: '/docs/api/parameters/data',
-  ctaLabel: 'Get started free'
+    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call it and start parsing real markup in seconds.',
+  cta: 'html:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/data',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =
@@ -157,7 +161,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Rendered HTML API - HTML After JavaScript',
   description:
-    'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. 25 free requests/day.',
+    'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, 100 requests/month.',
   structuredName: 'Microlink HTML API',
   structuredDescription:
     'A developer-first API that returns the fully rendered HTML of any URL after JavaScript execution, with CSS selector scoping, configurable readiness conditions, residential proxy resolution and global edge caching.',

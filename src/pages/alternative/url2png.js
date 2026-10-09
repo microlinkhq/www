@@ -13,7 +13,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -256,9 +256,9 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink gives you <b>25 requests/day free</b> with no credit
-          card and no time limit. You can test the same screenshot API surface
-          before moving to a paid plan.
+          Yes. Microlink gives you <b>100 requests/month free</b> with every Pro
+          feature, no credit card and no time limit. You can test the same
+          screenshot API surface before moving to a paid plan.
         </div>
         <div>
           URL2PNG's{' '}
@@ -270,7 +270,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes. Microlink gives you 25 requests per day free with no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually."
+    text: "Yes. Microlink gives you 100 requests per month free with every Pro feature, no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually."
   },
   {
     question: 'How hard is it to move from URL2PNG signed URLs to Microlink?',
@@ -598,8 +598,9 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         URL2PNG's plans page says there are <b>no free accounts</b>. Microlink
-        gives you <b>25 requests/day free</b> with no credit card and no expiry,
-        so you can test real traffic patterns before paying.
+        gives you <b>100 requests/month free</b> with every Pro feature, no
+        credit card and no expiry, so you can test real traffic patterns before
+        paying.
       </>
     )
   },
@@ -806,16 +807,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-url2png:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'url2png' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
 
       <Box
@@ -837,8 +840,8 @@ const Hero = () => (
         >
           URL2PNG requires sending them an email to create an account and does
           not offer a free trial. Microlink lets you test the screenshot API
-          immediately, even without an API key, with{' '}
-          <b>25 free requests per day</b>.
+          immediately with a free API key and <b>100 free requests per month</b>
+          .
         </Text>
 
         <Text
@@ -1040,7 +1043,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots, PDF, metadata, previews, and remote JS',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1061,12 +1064,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/screenshot'
+              <SignupLink
+                component={Link}
+                cta='alternative-url2png:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
+                  Explore the Screenshot API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1208,7 +1217,7 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> and
         keep the same browser API when your workload gets more demanding.
       </Caption>
 
@@ -1216,17 +1225,21 @@ const CTASection = () => (
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-url2png:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'url2png' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot' css={theme({ color: 'white' })}>
+          Explore the Screenshot API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1421,14 +1434,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='alternative-url2png:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'url2png' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
-          </Link>
+            Get your free API key
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>

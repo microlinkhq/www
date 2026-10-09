@@ -14,7 +14,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -265,7 +265,7 @@ const COMPARISON_DATA = [
     highlight: true
   },
   {
-    feature: 'Keyless free tier (no account setup)',
+    feature: 'Free tier with proxy and every paid feature',
     microlink: true,
     cloudflare: false,
     note: 'Cloudflare requires an account ID plus an API token with Browser Rendering permission.'
@@ -504,13 +504,13 @@ const FAQ_ITEMS = [
           Microlink ships the missing piece: when a target refuses datacenter
           traffic, the API signals <b>EPROXYNEEDED</b>, and{' '}
           <Link href='/features/proxy'>proxy: true</Link> reroutes the same
-          request through auto-rotating residential IPs on Pro plans, backed by{' '}
-          <Link href='/features/antibot'>antibot detection</Link> for 30+
+          request through auto-rotating residential IPs with any API key, backed
+          by <Link href='/features/antibot'>antibot detection</Link> for 30+
           providers.
         </div>
       </>
     ),
-    text: "Cloudflare is the world's largest bot-protection vendor — the walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs on Pro plans, backed by antibot detection for 30+ providers."
+    text: "Cloudflare is the world's largest bot-protection vendor — the walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs with any API key, backed by antibot detection for 30+ providers."
   },
   {
     question:
@@ -535,8 +535,8 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Microlink bills finished screenshots at a flat rate: $49/month covers
-          46,000 requests with adblock, proxy routing on Pro, CDN-hosted output,
-          and caching included — a paid-plan TTL of up to 31 days means cache
+          46,000 requests with adblock, proxy routing, CDN-hosted output, and
+          caching included — a TTL of up to 31 days (any API key) means cache
           hits don't spend your quota, and there is no concurrency limit or
           per-minute cap on legitimate usage. A single request can even bundle
           the screenshot with the PDF, metadata, logo, and markdown, where
@@ -544,7 +544,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "The models are different shapes — and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10 — measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours — roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month — before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing on Pro, CDN-hosted output, and caching included — a paid-plan TTL of up to 31 days means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
+    text: "The models are different shapes — and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10 — measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours — roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month — before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing, CDN-hosted output, and caching included — a TTL of up to 31 days (any API key) means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
   },
   {
     question:
@@ -581,13 +581,13 @@ const FAQ_ITEMS = [
           and 120 concurrent browsers per account.
         </div>
         <div>
-          Microlink's free tier is 25 requests per day with no account or token
-          setup, and paid plans have no per-minute cap — you spend your monthly
-          quota at whatever rate your workload needs.
+          Microlink's free API key gives you 100 requests per month with every
+          Pro feature, and paid plans have no per-minute cap — you spend your
+          monthly quota at whatever rate your workload needs.
         </div>
       </>
     ),
-    text: "On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free tier is 25 requests per day with no account or token setup, and paid plans have no per-minute cap — you spend your monthly quota at whatever rate your workload needs."
+    text: "On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free API key gives you 100 requests per month with every Pro feature, and paid plans have no per-minute cap — you spend your monthly quota at whatever rate your workload needs."
   },
   {
     question: 'When is Cloudflare Browser Rendering the better choice?',
@@ -681,16 +681,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-cloudflare:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'cloudflare' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
 
       <Flex
@@ -767,8 +769,7 @@ const Hero = () => (
           fontFamily: 'mono'
         })}
       >
-        No token, no account — try it right now, even on <b>cloudflare.com</b>{' '}
-        itself:
+        Try it right now, even on <b>cloudflare.com</b> itself:
       </Text>
       <Text
         css={theme({
@@ -911,12 +912,12 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '06',
-    title: 'A free tier with zero setup',
+    title: 'A free tier with the whole browser API',
     description: (
       <>
-        Microlink gives you <b>25 free requests per day</b> — no account, no API
-        token, testable from the browser address bar. Cloudflare's free tier
-        needs an account ID plus a scoped API token, and caps you at{' '}
+        Microlink gives you <b>100 free requests per month</b> with every Pro
+        feature on a free API key, no credit card. Cloudflare's free tier needs
+        an account ID plus a scoped API token, and caps you at{' '}
         <b>10 minutes of browser time per day</b> and 1 request every
         10&nbsp;seconds.
       </>
@@ -1283,7 +1284,7 @@ const PricingSection = () => (
                 'Built-in residential proxy and antibot detection',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 '~$0.00107/request on this tier'
               ].map(item => (
@@ -1302,12 +1303,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/screenshot'
+              <SignupLink
+                component={Link}
+                cta='alternative-cloudflare:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
+                  Explore the Screenshot API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1460,7 +1467,7 @@ const PricingSection = () => (
         building storage, caching, and delivery yourself. Microlink's price is
         the finished capture at a flat per-request rate — and one request can
         bundle the screenshot with the PDF, metadata, logo, and markdown, while
-        a paid-plan TTL of up to 31 days means cache hits don't spend your
+        a TTL of up to 31 days (any API key) means cache hits don't spend your
         monthly quota at all.
       </Text>
 
@@ -1538,25 +1545,29 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        no token, no account, no credit card.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-cloudflare:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'cloudflare' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot' css={theme({ color: 'white' })}>
+          Explore the Screenshot API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1591,8 +1602,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. One GET
-          request in, one finished capture&nbsp;back.
+          100&nbsp;requests/month free with every Pro feature, no credit card.
+          One GET request in, one finished capture&nbsp;back.
         </Caption>
         <Flex
           css={[
@@ -1624,14 +1635,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='alternative-cloudflare:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'cloudflare' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
-          </Link>
+            Get your free API key
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>

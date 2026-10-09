@@ -63,7 +63,7 @@ export const CONTENT = {
           url: 'https://example.com',
           params: { screenshot: true, meta: false, colorScheme: 'dark' }
         },
-        note: 'This works on the free endpoint with no API key. meta=false skips metadata detection, which is the biggest speedup for screenshot-only requests.'
+        note: 'This works with the free API key. meta=false skips metadata detection, which is the biggest speedup for screenshot-only requests.'
       }
     ],
     params: [
@@ -139,15 +139,15 @@ export const CONTENT = {
         'Yes. colorScheme is a browser setting for the whole request, so it combines with a device preset or a custom viewport. The [mobile screenshot tool](/tools/website-screenshot/mobile) lets you preview the phone layout first.'
     },
     {
-      question: 'Are dark mode screenshots available on the free plan?',
+      question: 'Are dark mode screenshots available with the free API key?',
       answer:
-        'Yes. colorScheme works on every plan, including the free endpoint with 25 requests per day. See [pricing](/pricing) when you need more volume.'
+        'Yes. colorScheme works on every plan, including the free API key with 100 requests per month. See [pricing](/pricing) when you need more volume.'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'dark mode',
-    body: 'One option, both themes, every plan. Start on the free endpoint and capture the dark variant of your first page today.',
+    body: 'One option, both themes, every plan. Start on the free API key and capture the dark variant of your first page today.',
     href: '/screenshot',
     label: 'Capture in dark mode'
   },

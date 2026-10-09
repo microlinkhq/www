@@ -116,7 +116,7 @@ const COMPONENT_PROPS = [
     type: 'string',
     required: false,
     description:
-      'Your Microlink Pro key. Switches requests to pro.microlink.io for higher rate limits and Pro features. Omit it to use the free tier.'
+      'Your Microlink API key, free or paid. Switches requests to pro.microlink.io with your plan quota and every Pro feature. Omit it to use the keyless endpoint.'
   }
 ]
 

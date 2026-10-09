@@ -134,7 +134,7 @@ const nodejs = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF document in three lines of Node.js — no Puppeteer, no Chromium, no servers to maintain.',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get your free API key', cta: 'pdf-nodejs:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'
@@ -432,7 +432,7 @@ http
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Pass `apiKey` to `createClient()` when you outgrow it.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -483,10 +483,10 @@ http
         answer: (
           <>
             <div>
-              The call resolves to the document itself, so{' '}
-              <code>pdf.url</code> is a hosted file on the CDN. Fetch it and write the buffer to disk, pipe
-              it into an upload, or redirect the browser straight to it — the
-              bytes never have to pass through your server.
+              The call resolves to the document itself, so <code>pdf.url</code>{' '}
+              is a hosted file on the CDN. Fetch it and write the buffer to
+              disk, pipe it into an upload, or redirect the browser straight to
+              it — the bytes never have to pass through your server.
             </div>
             <div>
               If you would rather get the file back inline instead of a URL, the{' '}
@@ -505,8 +505,7 @@ http
             <div>
               Yes. The package ships its own type definitions, so the{' '}
               <code>createClient()</code> client and every PDF option are typed
-              and
-              autocomplete in your editor — no <code>@types</code> package
+              and autocomplete in your editor — no <code>@types</code> package
               required.
             </div>
           </>
@@ -524,7 +523,9 @@ http
             </div>
             <div>
               See the{' '}
-              <Link href='/docs/sdk/getting-started/overview'>SDK overview</Link>{' '}
+              <Link href='/docs/sdk/getting-started/overview'>
+                SDK overview
+              </Link>{' '}
               for runtime details.
             </div>
           </>
@@ -536,10 +537,9 @@ http
           <>
             <div>
               Pass <code>apiKey</code> to <code>createClient()</code>. The SDK
-              sends it
-              as the <code>x-api-key</code> header and switches the request to{' '}
-              <code>pro.microlink.io</code> for you, so there is no endpoint to
-              change by hand.
+              sends it as the <code>x-api-key</code> header and switches the
+              request to <code>pro.microlink.io</code> for you, so there is no
+              endpoint to change by hand.
             </div>
             <div>
               Free usage needs no key at all. See{' '}
@@ -581,13 +581,16 @@ http
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Install the SDK and ship your first PDF in minutes.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Install the SDK and ship your first PDF in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'pdf-nodejs:footer-cta'
+    },
+    secondary: {
       label: 'Read the Node.js docs',
       href: '/docs/sdk/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

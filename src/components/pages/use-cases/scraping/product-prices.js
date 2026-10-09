@@ -82,12 +82,12 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'How long a price stays cached, from 1 minute to 31 days. Pro plans.'
+        note: 'How long a price stays cached, from 1 minute to 31 days. Any API key.'
       },
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'Two-letter country code for stores that show a different price per country. Pro plans.'
+        note: 'Two-letter country code for stores that show a different price per country. Any API key.'
       }
     ],
     outro:
@@ -113,7 +113,7 @@ export const CONTENT = {
       {
         kicker: 'Reachable',
         title: 'Protected stores go through the proxy automatically.',
-        body: 'On Pro plans, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the free tier the same wall returns EPROXYNEEDED.',
+        body: 'With an API key, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the same wall returns EPROXYNEEDED.',
         note: 'When not to: if the price only appears after choosing a size or color, a single rule reads the default variant. Click the option inside a [remote Puppeteer function](/use-cases/scraping/run-puppeteer-without-chrome) and read the price there.'
       }
     ]
@@ -138,18 +138,18 @@ export const CONTENT = {
     {
       question: 'How often can I re-check a scraped product price?',
       answer:
-        'As often as your job calls the API. Responses are cached for 24 hours by default, so on a Pro plan set ttl to your check interval, as low as one minute, or pass force: true to skip the cache. Cache hits never count against your quota.'
+        'As often as your job calls the API. Responses are cached for 24 hours by default, so with any API key set ttl to your check interval, as low as one minute, or pass force: true to skip the cache. Cache hits never count against your quota.'
     },
     {
       question: 'What happens when a store blocks my price scraper?',
       answer:
-        'On the free tier the API returns EPROXYNEEDED, which means the store uses antibot protection and needs a Pro plan. On Pro the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
+        'On the keyless endpoint the API returns EPROXYNEEDED, which means the store uses antibot protection and needs an API key. With a key, the free one included, the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to track',
     headlineAccent: 'prices as numbers',
-    body: 'Typed prices and stock from any product URL. Start on the free tier and write the rules for your first store today.',
+    body: 'Typed prices and stock from any product URL. Start on the free API key and write the rules for your first store today.',
     href: '/features/scraping',
     label: 'Scrape a product price'
   },

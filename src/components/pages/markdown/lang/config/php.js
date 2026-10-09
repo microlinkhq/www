@@ -133,7 +133,7 @@ const php = {
     subtitle:
       'Convert any URL to clean, LLM-ready markdown with one HTTP request in PHP — no headless browser, no readability pipeline, no servers to maintain.',
     demoAlt: 'PHP URL to markdown API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get your free API key', cta: 'markdown-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/content-conversion/url-to-markdown'
@@ -442,7 +442,7 @@ echo $res['data']['markdown'];`
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -531,14 +531,13 @@ echo $res['data']['markdown'];`
         answer: (
           <>
             <div>
-              The free tier gives you 25 requests per day with no account, no
-              credit card, and no API key. Just call the endpoint and start
-              converting.
+              Yes, and it is free: sign up for an API key and you get
+              100&nbsp;requests per month with every Pro feature, no credit
+              card. Add it as x-api-key and start converting.
             </div>
             <div>
-              When you need more throughput or caching control, add an{' '}
-              <code>apiKey</code> header and requests route to the Pro tier. See{' '}
-              <Link href='/pricing'>pricing</Link> for the limits.
+              When you need more volume, pick a paid plan: same key, bigger
+              quota. See <Link href='/pricing'>pricing</Link> for the limits.
             </div>
           </>
         )
@@ -565,13 +564,16 @@ echo $res['data']['markdown'];`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and ship markdown in minutes.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship markdown in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'markdown-php:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/guides/content-conversion/url-to-markdown'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

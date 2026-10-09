@@ -66,7 +66,7 @@ export const CONTENT = {
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards HTTP headers to the target page; send secrets as x-api-header-* request headers. Pro plans.'
+        note: 'Forwards HTTP headers to the target page; send secrets as x-api-header-* request headers. Any API key.'
       },
       {
         name: 'styles',
@@ -76,7 +76,7 @@ export const CONTENT = {
       {
         name: 'filename',
         href: '/docs/api/parameters/filename',
-        note: 'Names the generated file for downloads and archives. Pro plans.'
+        note: 'Names the generated file for downloads and archives. Any API key.'
       },
       {
         name: 'pdf.format',
@@ -122,7 +122,7 @@ export const CONTENT = {
       question:
         'How do I generate a PDF of an invoice page that requires login?',
       answer:
-        'Send the session cookie or bearer token as an x-api-header-cookie or x-api-header-authorization header on your request to pro.microlink.io. Microlink strips the prefix and forwards the header to the target, so the browser loads the page as that user. Forwarding headers requires a Pro plan; the [private pages patterns](/docs/guides/common/private-pages) explain when to use each header path.'
+        'Send the session cookie or bearer token as an x-api-header-cookie or x-api-header-authorization header on your request to pro.microlink.io. Microlink strips the prefix and forwards the header to the target, so the browser loads the page as that user. Forwarding headers needs an API key, the free one included; the [private pages patterns](/docs/guides/common/private-pages) explain when to use each header path.'
     },
     {
       question: 'How do I remove the app navigation from the invoice PDF?',
@@ -132,12 +132,12 @@ export const CONTENT = {
     {
       question: 'Can I name the invoice PDF file that customers download?',
       answer:
-        'Yes. The filename parameter, available on Pro plans, names the generated asset, for example invoice-42.pdf. Combine it with embed=pdf.url when you want the API URL to return the PDF directly instead of JSON. Using filename without a Pro key fails with the EFILENAME error code.'
+        'Yes. The filename parameter, available with any API key, names the generated asset, for example invoice-42.pdf. Combine it with embed=pdf.url when you want the API URL to return the PDF directly instead of JSON. Using filename without an API key fails with the EFILENAME error code.'
     },
     {
       question: 'How long does a generated invoice PDF stay available?',
       answer:
-        'The response is cached for 24 hours by default, and from 1 minute up to 31 days with ttl on Pro plans, so repeat requests return the same hosted document without rendering again. Invoices usually carry legal retention periods, so download the file and keep it in your own storage rather than relying on the cache.'
+        'The response is cached for 24 hours by default, and from 1 minute up to 31 days with ttl and any API key, so repeat requests return the same hosted document without rendering again. Invoices usually carry legal retention periods, so download the file and keep it in your own storage rather than relying on the cache.'
     },
     {
       question:
@@ -149,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to generate',
     headlineAccent: 'invoice PDFs',
-    body: 'Print the invoice page you already render, with the session forwarded and the chrome removed. Get a Pro key and ship downloadable invoices this week.',
+    body: 'Print the invoice page you already render, with the session forwarded and the chrome removed. Get your free API key and ship downloadable invoices this week.',
     href: '/pdf',
     label: 'Generate your first invoice PDF'
   },

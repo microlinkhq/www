@@ -22,7 +22,13 @@ import { UseCaseFaqSection } from '../landing/faq'
 import { UseCaseBreadcrumbs } from '../landing/hero'
 import { inline } from '../landing/inline-links'
 import { WhySection } from '../landing/why'
-import { ACCENT, INDUSTRIES, getUseCase, pathToUseCase } from '../use-cases'
+import {
+  ACCENT,
+  INDUSTRIES,
+  getUseCase,
+  pathToUseCase,
+  useCaseSignupCta
+} from '../use-cases'
 
 const linkStyle = size =>
   theme({ color: 'link', fontWeight: 'bold', fontSize: size })
@@ -133,7 +139,11 @@ export const IndustryHub = ({ industry }) => (
       <IndustryBuild build={industry.build} />
       <OtherIndustries industry={industry} />
       <UseCaseFaqSection questions={industry.faq} />
-      <CtaSection accent={ACCENT} {...industry.ctaSection} />
+      <CtaSection
+        accent={ACCENT}
+        signupCta={useCaseSignupCta(industry.slug)}
+        {...industry.ctaSection}
+      />
     </Box>
   </Layout>
 )

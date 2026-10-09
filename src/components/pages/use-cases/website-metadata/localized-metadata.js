@@ -23,7 +23,7 @@ export const CONTENT = {
   how: {
     title: 'How to fetch metadata from another country',
     intro:
-      'Two request options localize the page, and a rule reads the value that differs. Both options are part of Pro plans, as the [proxy guide](/docs/guides/common/proxy) explains.',
+      'Two request options localize the page, and a rule reads the value that differs. Both options come with every API key, the free one included, as the [proxy guide](/docs/guides/common/proxy) explains.',
     steps: [
       {
         label: '1 · Metadata as seen from a country',
@@ -45,19 +45,19 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'proxy.location and headers are Pro options, so the URL targets pro.microlink.io. Header values in the query string are public, so keep them to non-sensitive ones such as Accept-Language.'
+        note: 'proxy.location and headers need an API key (the free one works), so the URL targets pro.microlink.io. Header values in the query string are public, so keep them to non-sensitive ones such as Accept-Language.'
       }
     ],
     params: [
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'ISO 3166-1 alpha-2 country code, case-insensitive. Default us. Exclusive with proxy.url. Pro plans.'
+        note: 'ISO 3166-1 alpha-2 country code, case-insensitive. Default us. Exclusive with proxy.url. Any API key.'
       },
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards Accept-Language and other non-sensitive headers to the target. Pro plans.'
+        note: 'Forwards Accept-Language and other non-sensitive headers to the target. Any API key.'
       },
       {
         name: 'data',
@@ -67,7 +67,7 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Extra separation when the same URL must be cached per audience. Pro plans.'
+        note: 'Extra separation when the same URL must be cached per audience. Any API key.'
       }
     ],
     outro:
@@ -103,7 +103,7 @@ export const CONTENT = {
       question:
         'Can I get metadata as a visitor from a specific country would see it?',
       answer:
-        'Yes. Pass proxy.location with the two-letter country code on a Pro plan and the request is routed through a proxy IP in that country. The normalized title, description and image then come from the version of the page served to that region.'
+        'Yes. Pass proxy.location with the two-letter country code with any API key and the request is routed through a proxy IP in that country. The normalized title, description and image then come from the version of the page served to that region.'
     },
     {
       question: 'Which countries can a localized metadata request exit from?',
@@ -118,7 +118,7 @@ export const CONTENT = {
     {
       question: 'Are localized link previews cached separately per country?',
       answer:
-        'Yes. Different proxy.location or header values produce different cache keys, so each market keeps its own entry for 24 hours by default. Add cacheKey on Pro plans when you need an extra namespace.'
+        'Yes. Different proxy.location or header values produce different cache keys, so each market keeps its own entry for 24 hours by default. Add cacheKey with any API key when you need an extra namespace.'
     },
     {
       question: 'How do I capture the local price next to the metadata?',
@@ -129,7 +129,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'localized metadata',
-    body: 'Titles, descriptions and prices as each market sees them. Get a Pro key and fetch your first regional version today.',
+    body: 'Titles, descriptions and prices as each market sees them. Get your free API key and fetch your first regional version today.',
     href: '/metadata',
     label: 'Fetch localized metadata'
   },
@@ -139,7 +139,7 @@ export const CONTENT = {
       {
         title: 'Pin the request to a country',
         description:
-          'Pass proxy.location with the ISO 3166-1 alpha-2 code of the target country on a Pro plan, so the request exits from an IP in that country.'
+          'Pass proxy.location with the ISO 3166-1 alpha-2 code of the target country with any API key, so the request exits from an IP in that country.'
       },
       {
         title: 'Send the matching language',

@@ -116,7 +116,7 @@ export const CONTENT = {
       {
         kicker: 'No fleet',
         title: 'Every request gets a fresh browser.',
-        body: 'There is no pool to size, no Chrome version to update and no zombie process to reap. Each call runs in its own isolated browser that is destroyed afterwards, and the request timeout is 30 seconds on free and 60 on Pro.',
+        body: 'There is no pool to size, no Chrome version to update and no zombie process to reap. Each call runs in its own isolated browser that is destroyed afterwards, and the request timeout is 30 seconds on the keyless endpoint and 60 with any API key.',
         note: 'When not to: if you only need the page title, description and image of an app, [metadata from single-page apps](/use-cases/website-metadata/javascript-rendered-pages) returns them without writing rules. For the full text, use [Markdown from JavaScript-rendered pages](/use-cases/website-to-markdown/javascript-rendered-pages).'
       }
     ]
@@ -153,7 +153,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to scrape',
     headlineAccent: 'JavaScript apps',
-    body: 'A real browser, the right wait and your rules in one request. Start on the free tier and scrape your first single-page app today.',
+    body: 'A real browser, the right wait and your rules in one request. Start on the free API key and scrape your first single-page app today.',
     href: '/features/scraping',
     label: 'Scrape a JavaScript page'
   },

@@ -152,7 +152,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'mobile screenshots',
-    body: 'One request per device, no browsers to run. Start on the free endpoint with 25 requests per day and add an API key when you move to production.',
+    body: 'One request per device, no browsers to run. Start on the free API key with 100 requests per month and pick a paid plan when you move to production.',
     href: '/screenshot',
     label: 'Get your first mobile screenshot'
   },

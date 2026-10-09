@@ -30,8 +30,10 @@ export const HERO = {
   title: 'Brand logo API for developers',
   description:
     'Get the logo behind any URL. Microlink walks the page markup, checks the BIMI record in DNS and falls back to the favicon — returning the best asset with its format, dimensions and brand palette.',
-  ctaHref: '/docs/api/parameters/meta',
-  ctaLabel: 'Get Started',
+  cta: 'logo:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/meta',
+  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://www.cloudflare.com',
@@ -93,13 +95,15 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. The logo API is free to start — point it at a domain and get the brand back.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Get 25 requests/day with zero commitment. The logo API is free to use, with no account and no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.',
-  ctaHref: '/docs/api/parameters/meta',
-  ctaLabel: 'Get started free'
+    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.',
+  cta: 'logo:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/parameters/meta',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =
@@ -195,7 +199,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Website Logo API - Logos, Favicons & Brand Colors',
   description:
-    'Get the logo behind any URL — page markup, DNS BIMI records and favicons, plus brand palettes with WCAG-aware color pairs. 25 free requests/day.',
+    'Get the logo behind any URL — page markup, DNS BIMI records and favicons, plus brand palettes with WCAG-aware color pairs. Free API key, 100 requests/month.',
   structuredName: 'Microlink Logo API',
   structuredDescription:
     'A developer-first API that resolves website logos from HTML markup, DNS BIMI records and favicons, with color palette extraction, image metadata, direct embedding and global edge caching.',

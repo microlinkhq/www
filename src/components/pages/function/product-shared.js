@@ -377,7 +377,8 @@ export const FEATURES = [
   {
     icon: 'Lock',
     title: 'API token',
-    description: 'Free is 25 requests/day. Pro raises the daily cap.'
+    description:
+      'Free is 100 requests/month with every Pro feature. Paid plans raise the cap.'
   },
   {
     icon: 'Zap',
@@ -410,13 +411,15 @@ export const HOW_TO = {
 }
 
 export const PRICING_CAPTION =
-  'No signup, no API key, no credit card. Write a function and send it — 25 requests/day on the free plan.'
+  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Write a function in the browser. 25 requests/day, no account, no card.',
-  ctaHref: '/editor',
-  ctaLabel: 'Open editor'
+    'Write a function in the browser. Free API key, 100 requests/month, no card.',
+  cta: 'function:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/editor',
+  secondaryLabel: 'Open editor'
 }
 
 export const FAQ_CAPTION =
@@ -458,7 +461,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Function available on the free plan?',
-    text: 'Yes. Free runs get a 5-second timeout, 64 MB of memory, 1024 bytes of code, and one concurrent execution per IP. Pro plans extend the timeout up to 60 seconds, raise memory to 128 MB, and remove code-size and concurrency limits.'
+    text: 'Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for 100 requests a month.'
   },
   {
     question: 'Does every call execute the function again?',
@@ -469,7 +472,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Browser Functions API — Run JavaScript on Any Page',
   description:
-    'Write a JavaScript function, send a URL, and get the return value. Microlink runs it in a remote sandbox — a headless browser only if you need one. Free to start, 25 requests/day.',
+    'Write a JavaScript function, send a URL, and get the return value. Microlink runs it in a remote sandbox — a headless browser only if you need one. Free API key, 100 requests/month.',
   structuredName: 'Microlink Function API',
   structuredDescription:
     'Write a JavaScript function, send it with a URL, and read the return value. A browser starts only if the function uses page. Optional Puppeteer, on-the-fly npm packages, no fleet to operate.',

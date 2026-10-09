@@ -15,6 +15,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
@@ -175,7 +176,8 @@ const Hero = ({ hero, breadcrumb }) => (
         fontSize: [2, 2, 3, 3]
       })}
     >
-      <ArrowLink href={hero.primaryCta.href}>{hero.primaryCta.label}</ArrowLink>
+      <SignupLink cta={hero.primaryCta.cta}>{hero.primaryCta.label}</SignupLink>
+      <Link href='#quickstart'>See the code</Link>
       <Link href={hero.secondaryCta.href}>{hero.secondaryCta.label}</Link>
     </Flex>
     <Flex
@@ -409,7 +411,7 @@ const FinalCta = ({ cta, current }) => (
           fontSize: ['24px', '28px', '30px', '32px']
         })}
       >
-        <ArrowLink href={cta.primary.href}>{cta.primary.label}</ArrowLink>
+        <SignupLink cta={cta.primary.cta}>{cta.primary.label}</SignupLink>
         {cta.secondary && (
           <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
             <Link href={cta.secondary.href}>{cta.secondary.label}</Link>

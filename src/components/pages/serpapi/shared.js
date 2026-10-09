@@ -37,8 +37,10 @@ export const HERO = {
       worker pool against.
     </Text>
   ),
-  ctaHref: '/docs/guides/search',
-  ctaLabel: 'Read the Search guide',
+  cta: 'alternative-serpapi:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/guides/search',
+  secondaryLabel: 'Read the Search guide',
   code: sdkExample(`const page = await microlink.search('electric vehicle tax credit', {
   type: 'news',
   period: 'week',
@@ -214,9 +216,9 @@ export const COMPARISON = {
     {
       feature: 'Free tier for search',
       href: '/pricing',
-      microlink: false,
+      microlink: '100 / month',
       serpapi: '250 / month',
-      note: 'Microlink Search starts on a paid plan because proxy capacity is part of the product from the first call. The 25-a-day free tier covers the other products.'
+      note: 'SerpApi gives 250 searches a month at no cost. A free Microlink API key gives 100 requests a month, proxy included, shared with every other product.'
     },
     {
       feature: 'Client libraries',
@@ -384,7 +386,7 @@ export const HONESTY = {
     },
     {
       title: 'Native clients and a free tier',
-      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, on a paid plan. If the service is written in Java and wants a native client, that settles it.'
+      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, with 100 free requests a month on the free API key. If the service is written in Java and wants a native client, that settles it.'
     }
   ]
 }
@@ -396,15 +398,18 @@ export const PRICING_CAPTION = (
     Search runs on any Pro plan, at the same price per 1,000 on every tier, and
     the quota it draws from is the one every other product uses. Spend it on
     searches, screenshots or <Link href='/markdown'>Markdown</Link> in whatever
-    mix the month needs. The free plan covers every product except Search.
+    mix the month needs. The free API key covers every product, Search included,
+    with 100&nbsp;requests a month.
   </Text>
 )
 
 export const CTA = {
   caption:
     'Run the query you ran this morning and compare the JSON with what you parse today. The Search guide has a working call in the first code block.',
-  ctaHref: '/docs/guides/search',
-  ctaLabel: 'Run your first search',
+  cta: 'alternative-serpapi:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/guides/search',
+  secondaryLabel: 'Read the Search guide',
   badges: [
     '10 Google surfaces',
     'One SDK import',
@@ -499,13 +504,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier for Search?',
-    text: 'No. Search starts on a paid plan because reliable collection of public results depends on managed proxy capacity from the first call, and that cost is part of the product. The free tier of 25 requests a day covers the other products: screenshot, PDF, metadata, markdown and insights.',
+    text: 'Yes. Sign up for a free API key and you get 100 requests a month with every Pro feature, Search included, no credit card. The same allowance covers screenshot, PDF, metadata, markdown and insights, and paid plans add volume.',
     answer: (
       <div>
-        No. Search starts on a paid <Link href='/pricing'>plan</Link> because
-        reliable collection of public results depends on managed proxy capacity
-        from the first call, and that cost is part of the product. The free tier
-        of 25 requests a day covers the other products:{' '}
+        Yes. Sign up for a free API key and you get 100&nbsp;requests a month
+        with every Pro feature, Search included, no credit card. The same
+        allowance covers
         <Link href='/screenshot'>screenshot</Link>, <Link href='/pdf'>PDF</Link>
         , <Link href='/metadata'>metadata</Link>,{' '}
         <Link href='/markdown'>markdown</Link> and{' '}

@@ -13,7 +13,7 @@ import {
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import SpeedSectionBase from 'components/patterns/SpeedSection'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
@@ -562,16 +562,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-screenshotone:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotone' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
 
       <Flex
@@ -1077,7 +1079,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote\u00a0JS',
-                'Free tier: 25\u00a0requests/day, no credit card',
+                'Free tier: 100\u00a0requests/month, no credit card',
                 'No requests-per-minute cap',
                 `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT)',
@@ -1098,12 +1100,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/screenshot'
+              <SignupLink
+                component={Link}
+                cta='alternative-screenshotone:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
+                  Explore the Screenshot API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1243,25 +1251,31 @@ const CTASection = () => (
       >
         <br />
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>
+          100&nbsp;requests/month are free
+        </b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-screenshotone:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotone' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot' css={theme({ color: 'white' })}>
+          Explore the Screenshot API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1296,8 +1310,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. Start
-          capturing screenshots at the speed your users&nbsp;deserve.
+          100&nbsp;requests/month free with every Pro feature, no credit card.
+          Start capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
           css={[
@@ -1329,14 +1343,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='alternative-screenshotone:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'screenshotone' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
-          </Link>
+            Get your free API key
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>
@@ -1357,14 +1375,14 @@ const FAQSection = () => (
           <>
             <div>
               Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
-              25&nbsp;requests/day with no credit card and no time limit. You
-              get the same API, the same quality, and the same {CDN_EDGES} edge
-              network as paid plans.
+              100&nbsp;requests/month with every Pro feature, no credit card and
+              no time limit. You get the same API, the same quality, and the
+              same {CDN_EDGES} edge network as paid plans.
             </div>
             <div>
               ScreenshotOne also offers a free tier, but it's limited to
-              100&nbsp;screenshots with no daily renewal — once they're gone,
-              you need a paid plan.
+              100&nbsp;screenshots with no renewal — once they're gone, you need
+              a paid plan.
             </div>
           </>
         )
@@ -1549,7 +1567,7 @@ export const Head = () => (
             name: 'Is there a free ScreenshotOne alternative?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes. Microlink's free tier includes 25 requests/day with no credit card and no time limit. You get the same API, the same quality, and the same ${CDN_EDGES} edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no daily renewal — once they're gone, you need a paid plan.`
+              text: `Yes. Microlink's free tier includes 100 requests/month with every Pro feature, no credit card and no time limit. You get the same API, the same quality, and the same ${CDN_EDGES} edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no renewal — once they're gone, you need a paid plan.`
             }
           },
           {

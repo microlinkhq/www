@@ -79,7 +79,7 @@ If you run repeated checks, you can also add [ttl](/docs/api/parameters/ttl) <Pr
 
 ## Free tier and API key
 
-The Microlink API works without an API key and gives you **25 free requests per day**. For production usage, a <ProBadge /> plan unlocks features such as configurable cache TTL, custom headers, and proxy support.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **100 free requests per month** with every Pro feature, including configurable cache TTL, custom headers, and proxy support. For production volume, a <ProBadge /> plan raises the quota on the same key.
 
 See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for details.
 

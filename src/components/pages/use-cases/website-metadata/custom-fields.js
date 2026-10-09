@@ -149,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to extract',
     headlineAccent: 'the fields you need',
-    body: 'Normalized metadata plus your own rules in one call. Start on the free tier and add your first custom field today.',
+    body: 'Normalized metadata plus your own rules in one call. Start on the free API key and add your first custom field today.',
     href: '/metadata',
     label: 'Add a custom field'
   },

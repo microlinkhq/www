@@ -53,8 +53,8 @@ export const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. Our free HTML to PDF API tier provides 25 requests per day
-              with unrestricted access to all{' '}
+              Yes. A free API key gives you 100&nbsp;requests per month with
+              unrestricted access to all{' '}
               <Link href='/docs/api/parameters/pdf'>
                 document generation features
               </Link>
@@ -73,7 +73,7 @@ export const ProductInformation = () => (
               .
             </div>
             <div>
-              No credit card, account creation, or API key is required to start
+              No credit card is required: sign up for a free API key and start
               developing. Try it instantly in the{' '}
               <Link href='/tools/website-to-pdf'>PDF playground</Link> or point
               your code at the endpoint and begin converting.

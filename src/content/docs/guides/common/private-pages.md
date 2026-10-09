@@ -77,7 +77,7 @@ See the <Link href='/docs/sdk/getting-started/options' children='SDK options' />
 - `https://api.microlink.io` — unauthenticated, free-tier requests.
 - `https://pro.microlink.io` — authenticated requests with `x-api-key`.
 
-If you send `x-api-key` to the free endpoint, the request fails with `EPRO`. See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
+If you send `x-api-key` to the keyless endpoint, the request fails with `EPRO`. See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
 
 ## Keep credentials out of the browser
 

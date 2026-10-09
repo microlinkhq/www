@@ -134,7 +134,7 @@ const php = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF with one HTTP request in PHP — no dompdf, no headless Chrome, no servers to maintain.',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get your free API key', cta: 'pdf-php:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'
@@ -456,7 +456,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       {
         title: 'Generous Free Tier',
         description:
-          'Start free at 25 requests per day. Production traffic moves to pro.microlink.io with an x-api-key header.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -596,13 +596,16 @@ header('Location: ' . $res['data']['pdf']['url']);`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account, no credit card. Drop the snippet into a route and ship a PDF today.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Drop the snippet into a route and ship a PDF today.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'pdf-php:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

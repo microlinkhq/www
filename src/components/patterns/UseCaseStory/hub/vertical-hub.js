@@ -21,7 +21,12 @@ import { CardGrid, UseCaseCard } from './use-case-card'
 import { UseCaseBreadcrumbs } from '../landing/hero'
 import { VerticalIconTile } from '../landing/vertical-icon'
 import { MoreUseCases } from '../MoreUseCases'
-import { ACCENT, VERTICALS, verticalUseCases } from '../use-cases'
+import {
+  ACCENT,
+  VERTICALS,
+  useCaseSignupCta,
+  verticalUseCases
+} from '../use-cases'
 
 const linkStyle = size =>
   theme({ color: 'link', fontWeight: 'bold', fontSize: size })
@@ -128,6 +133,7 @@ export const VerticalHub = ({ vertical }) => {
         <CtaSection
           accent={ACCENT}
           href={vertical.productHref}
+          signupCta={useCaseSignupCta(vertical.slug)}
           {...vertical.hub.cta}
         />
         <MoreUseCases

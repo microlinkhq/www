@@ -147,7 +147,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'content-only Markdown',
-    body: 'One selector removes the noise at the source. Start on the free tier and convert your first article body today.',
+    body: 'One selector removes the noise at the source. Start on the free API key and convert your first article body today.',
     href: '/markdown',
     label: 'Convert clean Markdown'
   },

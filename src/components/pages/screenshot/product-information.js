@@ -55,8 +55,8 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. Our free screenshot API tier provides 25 requests per day
-                with unrestricted access to all browser automation features,
+                Yes. A free API key gives you 100&nbsp;requests per month with
+                unrestricted access to all browser automation features,
                 including{' '}
                 <Link href='/docs/api/parameters/device'>device emulation</Link>
                 ,{' '}
@@ -70,8 +70,8 @@ export const ProductInformation = () => {
                 .
               </div>
               <div>
-                No credit card, account creation, or API key is required to
-                start developing. Try it instantly in the{' '}
+                No credit card is required: sign up for a free API key and start
+                developing. Try it instantly in the{' '}
                 <Link href='/tools/website-screenshot'>
                   screenshot playground
                 </Link>{' '}

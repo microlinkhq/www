@@ -121,13 +121,13 @@ export const CONTENT = {
       question:
         'How much does the image search API cost, and is it affiliated with Google?',
       answer:
-        'Each results page is one request. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.'
+        'Each results page is one request. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to find',
     headlineAccent: 'full-size images',
-    body: 'Full-resolution image URLs with dimensions and attribution as JSON. Get a Pro key and run your first image search today.',
+    body: 'Full-resolution image URLs with dimensions and attribution as JSON. Get your free API key and run your first image search today.',
     href: '/search',
     label: 'Search Google Images'
   },

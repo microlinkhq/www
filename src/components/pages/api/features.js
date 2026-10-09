@@ -28,7 +28,7 @@ export const Features = () => (
   <SectionBlock
     id='features'
     title='How every request actually runs'
-    caption='Isolation, adblock, automation, and the edge cache run on every plan. Cards marked PRO need an API key. Open a primitive to see when to use it.'
+    caption='Isolation, adblock, automation, and the edge cache run on every plan. Cards marked PRO need a Pro plan. Open a primitive to see when to use it.'
   >
     <Cards>
       {FEATURES.map(feature => (

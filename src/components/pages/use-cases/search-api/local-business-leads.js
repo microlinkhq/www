@@ -120,7 +120,7 @@ export const CONTENT = {
     {
       question: 'How much does a local business data API cost with Microlink?',
       answer:
-        'Each search page is one request and each emails() call one more. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+        'Each search page is one request and each emails() call one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is this the official Google Maps Platform API?',
