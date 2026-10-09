@@ -183,10 +183,10 @@ export const COMPARISON = {
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '25/day',
+      microlink: '100/month',
       scrapingbee: '1,000 once',
       highlight: true,
-      note: 'Microlink renews every day with no card and no expiry; ScrapingBee gives a one-time trial allowance.'
+      note: 'The free Microlink API key renews 100 requests every month with no card and no expiry; ScrapingBee gives a one-time trial allowance.'
     },
     {
       feature: 'Geotargeting',

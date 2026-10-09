@@ -357,10 +357,10 @@ export const COMPARISON = {
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '25/day',
+      microlink: '100/month',
       browserbase: '1 hour',
       highlight: true,
-      note: 'Microlink renews 25 rendered requests every day with no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.'
+      note: 'The free Microlink API key renews 100 requests every month with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.'
     },
     {
       feature: 'Long-lived, stateful sessions',
@@ -434,8 +434,8 @@ export const HONESTY = {
 export const PRICING_CAPTION = (
   <Text as='span'>
     No browser-hours, no concurrency tier, no proxy GB, no separate meter for
-    fetching and searching. One request is one API call — under €1 per 1,000
-    requests on the entry Pro plan, and 25 a day free with no credit card.
+    fetching and searching. One request is one API call: under €1 per 1,000
+    requests on the entry Pro plan, and 100 a month free with no credit card.
   </Text>
 )
 

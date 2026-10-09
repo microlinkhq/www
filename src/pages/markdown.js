@@ -70,8 +70,8 @@ const FEATURES = [
 
 export const Head = () => (
   <Meta
-    title='URL to Markdown API — Free, no login required'
-    description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. No login required.'
+    title='URL to Markdown API. Free API key, no credit card'
+    description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. Free API key, no credit card.'
     structured={{
       '@context': 'https://schema.org',
       '@graph': [

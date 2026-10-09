@@ -721,14 +721,14 @@ const FAQ_ITEMS = [
         </div>
         <div>
           At the network layer, swap <b>i.embed.ly/1/oembed?url=...&key=...</b>{' '}
-          for <b>api.microlink.io?url=...</b> and add a Microlink API key if you
-          need to go beyond the free 25/day. The{' '}
+          for <b>pro.microlink.io?url=...</b> with your free Microlink API key
+          (100 requests a month, no credit card). The{' '}
           <Link href='/docs/guides/embed'>embed guide</Link> walks through the
           full mapping.
         </div>
       </>
     ),
-    text: 'The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for api.microlink.io?url=... and add a Microlink API key if you need to go beyond the free 25/day.'
+    text: 'The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for pro.microlink.io?url=... with your free Microlink API key (100 requests a month, no credit card).'
   },
   {
     question: 'When does Embedly still make more sense than Microlink?',
