@@ -1,3 +1,13 @@
+### October 2026
+
+- [Microlink API](/docs/api/parameters/data): [data](/docs/api/parameters/data) `evaluate` runs on the function page.
+- [Microlink API](/docs/api/parameters/function): A proxied [function](/docs/api/parameters/function) no longer counts images, CSS, and fonts toward quota.
+- [unavatar.io](https://unavatar.io): Checkout keeps the existing account when the email is already registered.
+- [unavatar.io](https://unavatar.io): Publishable keys can allow localhost.
+- [Microlink](https://dashboard.microlink.io): Free plan for everyone, without a card.
+- [Microlink](/): Serves `/.well-known/agent-feedback.json` so agents can find the feedback endpoint.
+- [Microlink Blog](/blog): Published [Optimizing Microlink Functions](/blog/optimizing-microlink-functions).
+
 ### September 2026
 
 - [Microlink](/): Added [SerpApi](/alternative/serpapi) alternative.
