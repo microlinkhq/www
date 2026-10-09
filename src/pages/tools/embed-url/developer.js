@@ -18,7 +18,7 @@ const data = {
     'developer link preview',
     'developer iframe code'
   ],
-  heroTitle: 'Developer Embed Code Generator',
+  heroTitle: 'Developer embed code generator',
   heroSubtitle:
     'Paste a developer.li URL — get a ready-to-paste embed or a styled preview card.',
   howItWorksHeading: 'How to embed a Developer page',

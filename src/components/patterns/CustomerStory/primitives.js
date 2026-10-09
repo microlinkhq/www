@@ -1,13 +1,9 @@
-import { layout, theme } from 'theme'
+import { breakpoints, layout, theme } from 'theme'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
-
-import { withTitle } from 'helpers/hoc/with-title'
-
-export const Caption = withTitle(CaptionBase)
+import Caption from 'components/patterns/Caption/Caption'
 
 export const SECTION_PX = [3, 3, 4, 4]
 export const SECTION_PY = [3, 3, 4, 5]
@@ -29,6 +25,20 @@ export const SectionInner = styled(Box)`
   })}
 `
 
+export const CardGrid = styled(Box)`
+  display: grid;
+  grid-template-columns: 1fr;
+  ${theme({ gap: [3, 3, 4, 4], width: '100%' })}
+
+  @media (min-width: ${breakpoints[1]}) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: ${breakpoints[2]}) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+`
+
 export const Figure = styled('figure')`
   ${theme({
     m: 0,
@@ -47,3 +57,5 @@ export const FigureImage = styled('img')`
     boxShadow: 1
   })}
 `
+
+export { Caption }

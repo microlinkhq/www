@@ -47,7 +47,7 @@ export const Section = ({ id, bg, bordered, children }) => (
 
 export const SectionHeader = ({ title, caption }) => (
   <Box css={theme({ pb: [4, 4, 5, 5], textAlign: 'center' })}>
-    <Subhead titleize={false}>{title}</Subhead>
+    <Subhead>{title}</Subhead>
     {caption && (
       <Text
         css={theme({

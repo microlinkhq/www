@@ -18,7 +18,7 @@ const data = {
     'loom video embed html',
     'embed loom screen recording'
   ],
-  heroTitle: 'Loom Embed Code Generator',
+  heroTitle: 'Loom embed code generator',
   heroSubtitle:
     'Paste any Loom share link — get a ready-to-paste iframe player for screen recordings and video messages.',
   howItWorksHeading: 'How to embed a Loom video',

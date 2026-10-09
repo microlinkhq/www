@@ -122,3 +122,10 @@ Any HTML page works. Direct file URLs are converted first: PDFs with a text laye
 ## Next step
 
 Use <Link href='/docs/guides/data-extraction/page-preparation' children='Data extraction: Page preparation' /> when the output is noisy or incomplete. Use <Link href='/docs/guides/content-conversion/url-to-text' children='URL to Text' /> when the consumer only needs readable text, or <Link href='/docs/guides/content-conversion/url-to-html' children='URL to HTML' /> when you need markup.
+
+## See also
+
+- <Link href='/use-cases/website-to-markdown/with-metadata' children='Markdown with metadata frontmatter' /> — title, author, date and reading time on top of the body.
+- <Link href='/use-cases/website-to-markdown/clean-content' children='Clean Markdown, no boilerplate' /> — scope the conversion to the content.
+- <Link href='/use-cases/website-to-markdown/documents' children='PDF and office documents to Markdown' /> — the same request for files.
+- <Link href='/use-cases/website-to-markdown/youtube-transcripts' children='YouTube transcripts as Markdown' /> — captions as a document.

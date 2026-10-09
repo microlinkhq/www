@@ -19,7 +19,7 @@ const data = {
     'microsoft link preview',
     'embed microsoft page'
   ],
-  heroTitle: 'Microsoft Embed Code Generator',
+  heroTitle: 'Microsoft embed code generator',
   heroSubtitle:
     'Paste any microsoft.com URL — get a rich preview card with the title, image, and description for news, blog posts, and product pages.',
   howItWorksHeading: 'How to embed a Microsoft page',

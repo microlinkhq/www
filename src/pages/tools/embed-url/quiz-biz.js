@@ -18,7 +18,7 @@ const data = {
     'embed online test',
     'quiz.biz quiz embed'
   ],
-  heroTitle: 'Quiz-Biz Embed Code Generator',
+  heroTitle: 'Quiz-Biz embed code generator',
   heroSubtitle:
     'Paste any quiz.biz URL — get a ready-to-paste embed for quizzes and tests.',
   howItWorksHeading: 'How to embed Quiz-Biz content',

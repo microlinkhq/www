@@ -1,16 +1,13 @@
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import { withTitle } from 'helpers/hoc/with-title'
 import contrast from 'contrast'
 import range from 'lodash/range'
 import { colors, theme } from 'theme'
 import { Story } from 'story'
 import rgbHex from 'rgb-hex'
 import React from 'react'
-
-const Subhead = withTitle(SubheadBase)
 
 const isHexColor = color => color.startsWith('#')
 

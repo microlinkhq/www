@@ -19,7 +19,7 @@ const data = {
     'iheartradio widget embed',
     'iheartradio player embed'
   ],
-  heroTitle: 'iHeartRadio Embed Code Generator',
+  heroTitle: 'iHeartRadio embed code generator',
   heroSubtitle:
     'Paste any iHeartRadio URL — get a ready-to-paste widget for live stations, podcasts, and playlists.',
   howItWorksHeading: 'How to embed iHeartRadio content',

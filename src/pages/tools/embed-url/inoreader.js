@@ -18,7 +18,7 @@ const data = {
     'inoreader feed embed',
     'embed inoreader article'
   ],
-  heroTitle: 'Inoreader Embed Code Generator',
+  heroTitle: 'Inoreader embed code generator',
   heroSubtitle:
     'Paste any Inoreader URL — get a ready-to-paste embed for shared RSS feeds, folders, and articles.',
   howItWorksHeading: 'How to embed Inoreader content',

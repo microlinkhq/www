@@ -2,6 +2,5 @@ import { createContext } from 'react'
 
 export const MarkdownContext = createContext({
   isBlogPage: false,
-  isGuidesPage: false,
-  titleize: true
+  isGuidesPage: false
 })

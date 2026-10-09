@@ -21,7 +21,7 @@ It returns the specified data field as response over the target [url](/docs/api/
 
 <Figcaption children='You can use dot notation to reference a nested data field of the response payload.' />
 
-## Why Use Embed
+## Why use embed
 
 The embed parameter transforms Microlink API from a JSON endpoint into a direct asset server. Instead of receiving JSON and parsing it with JavaScript, you get the actual resource (image, PDF, etc.) that can be used directly in:
 
@@ -30,7 +30,7 @@ The embed parameter transforms Microlink API from a JSON endpoint into a direct 
 - Markdown image syntax
 - Open Graph meta tags
 
-## HTML Integration
+## HTML integration
 
 Embed screenshots directly in your HTML markup:
 
@@ -45,30 +45,30 @@ And it will be rendered as an external image:
 
 ![](/images/embed.jpeg)
 
-## CSS Integration
+## CSS integration
 
 Use embedded URLs directly in stylesheets:
 
 ```css
 .hero-background {
-  background-image: url("/images/image-1.png");
+  background-image: url("https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&meta=false&screenshot=&embed=screenshot.url");
   background-size: cover;
 }
 ```
 
-![Website Preview](/images/image-1.png)
+![Website Preview](/images/image-53061dea.png)
 
-## Markdown Integration
+## Markdown integration
 
 Embed in any Markdown document:
 
 ```md
-![Website Preview](/images/image-1.png)
+![Website Preview](https://api.microlink.io/?url=https%3A%2F%2Fwww.apple.com%2Fiphone%2F&meta=false&screenshot=&embed=screenshot.url)
 ```
 
-![Website Preview](/images/image-1.png)
+![Website Preview](/images/image-53061dea.png)
 
-## Common Embed Fields
+## Common embed fields
 
 | Field            | Description                | Use case                 |
 |------------------|----------------------------|--------------------------|
@@ -79,7 +79,7 @@ Embed in any Markdown document:
 | `video.url`      | Video source URL           | Media embeds             |
 
 
-## Combining with Other Parameters
+## Combining with other parameters
 
 Embed works well with other parameters for customized output:
 
@@ -94,7 +94,7 @@ Embed works well with other parameters for customized output:
 
 <Figcaption children="Generate and embed a mobile screenshot directly." />
 
-## Open Graph Images
+## Open Graph images
 
 A common use case is generating dynamic Open Graph images:
 
@@ -102,7 +102,7 @@ A common use case is generating dynamic Open Graph images:
 <meta property="og:image" content="https://api.microlink.io/?url=https://your-site.com/blog/post&screenshot=true&meta=false&embed=screenshot.url">
 ```
 
-## Security Considerations
+## Security considerations
 
 Asset embeds (images, PDFs, and other remote URLs proxied under the API origin) are served with a strict `Content-Security-Policy` (`script-src 'none'`, `sandbox`) and `X-Content-Type-Options: nosniff`, so hostile SVG/HTML cannot execute in the browser under the API host.
 

@@ -18,7 +18,7 @@ const data = {
     'embed docswell presentation',
     'docswell slide embed'
   ],
-  heroTitle: 'Docswell Embed Code Generator',
+  heroTitle: 'Docswell embed code generator',
   heroSubtitle:
     'Paste any Docswell URL — get a ready-to-paste iframe for slide decks, PDFs, and presentations.',
   howItWorksHeading: 'How to embed Docswell content',

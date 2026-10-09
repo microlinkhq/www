@@ -18,11 +18,13 @@ When you reach the API quota limit, you will experience [HTTP 429 errors](https:
 
 When the API quota is reset, you have a fresh start again.
 
-For the free endpoint, your current rate limit status is reflected as part of your response with the following headers:
+All requests return your current quota on the response:
 
-- `x-rate-limit-limit`: The maximum number of requests that the consumer is permitted to make per minute.
-- `x-rate-limit-remaining`: The number of requests remaining in the current rate limit window.
-- `x-rate-limit-reset`: The time at which the current rate limit window resets in UTC epoch seconds.
+- `x-rate-limit-limit`: The maximum number of requests permitted in the current window.
+- `x-rate-limit-remaining`: The number of requests remaining in the current window.
+- `x-rate-limit-reset`: The time at which the window resets, in UTC epoch seconds.
+
+The free endpoint reports the daily window. The pro endpoint reports the quota on your API key, and the reset is the start of the next month in UTC. Pro numbers are refreshed in the background, so they can lag the live counter by a few minutes.
 
 We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you.
 

@@ -20,7 +20,7 @@ const data = {
     'embed buttondown email',
     'buttondown newsletter preview card'
   ],
-  heroTitle: 'Buttondown Embed Code Generator',
+  heroTitle: 'Buttondown embed code generator',
   heroSubtitle:
     'Paste a public Buttondown newsletter issue or archive URL to generate a clean preview card you can drop into any page.',
   howItWorksHeading: 'How to embed a Buttondown newsletter',

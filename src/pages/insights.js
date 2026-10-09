@@ -27,7 +27,7 @@ import Card from 'components/elements/Card/Card'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Hide from 'components/elements/Hide'
 import { Iframe } from 'components/elements/Iframe/Iframe'
 import Image from 'components/elements/Image/Image'
@@ -35,14 +35,13 @@ import Input from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
@@ -100,11 +99,6 @@ const FEATURES = [
       'Bank-grade security with request isolation. SOC 2 compliant infrastructure protecting your performance data.'
   }
 ]
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-
-const Caption = withTitle(CaptionBase)
 
 const SMALL_BREAKPOINT = Number(breakpoints[0].replace('px', ''))
 
@@ -537,7 +531,6 @@ const Timings = () => {
               display: 'inline',
               fontWeight: 'bold'
             })}
-            titleize={false}
           >
             secs
           </Caption>
@@ -659,7 +652,7 @@ const Resume = () => (
     })}
   >
     <Subhead css={theme({ px: [3, 3, 4, 4] })} variant='gradient'>
-      Instant Web Performance Analytics
+      Instant web performance analytics
     </Subhead>
     <Caption
       css={theme({
@@ -699,7 +692,7 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            On-Demand Audits
+            On-demand audits
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Trigger comprehensive performance audits on-demand by adding the{' '}
@@ -735,7 +728,7 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Cloud-Native Infrastructure
+            Cloud-native infrastructure
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Enterprise-grade cloud infrastructure eliminates infrastructure
@@ -783,7 +776,7 @@ const Resume = () => (
               textAlign: 'left'
             })}
           >
-            Developer-Friendly Integration
+            Developer-friendly integration
           </Subhead>
           <Text css={theme({ pt: [3, 3, 4, 4], maxWidth: 8 })}>
             Seamlessly integrate with your existing development workflow.

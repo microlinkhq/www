@@ -7,7 +7,7 @@ import Text from 'components/elements/Text'
 import Spinner from 'components/elements/Spinner'
 import Dot from 'components/elements/Dot/Dot'
 import JsonView from 'components/elements/JsonView/JsonView'
-import { TimingContent } from 'components/pages/home/hero/result-contents'
+import ServerTiming from 'components/patterns/ServerTiming/ServerTiming'
 import { parseServerTiming } from 'helpers/server-timing'
 
 import { IconCopy } from './icons'
@@ -129,7 +129,7 @@ const ResultBody = ({ tab, status, value, logs, trace, timing }) => {
   }
 
   if (tab === 'timing') {
-    return <TimingContent bars={timing.bars} maxHeight={null} />
+    return <ServerTiming bars={timing.bars} />
   }
 
   if (logCount === 0) return <Centered>No logs</Centered>

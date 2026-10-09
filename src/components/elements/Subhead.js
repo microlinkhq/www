@@ -7,7 +7,7 @@ import React from 'react'
 const StyledSubhead = styled(Text)(
   theme({
     ...commonHeadingStyles,
-    textWrap: 'balance',
+    textWrap: 'pretty',
     fontSize: [3, 4, 4, 4]
   })
 )

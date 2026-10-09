@@ -18,7 +18,7 @@ const data = {
     'giphy gif embed html',
     'giphy embed for website'
   ],
-  heroTitle: 'GIPHY Embed Code Generator',
+  heroTitle: 'GIPHY embed code generator',
   heroSubtitle:
     'Paste any GIPHY URL — get a ready-to-paste embed for GIFs, stickers, and Clips.',
   howItWorksHeading: 'How to embed a GIPHY GIF',

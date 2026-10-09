@@ -19,7 +19,7 @@ const data = {
     'blackfire report embed',
     'embed blackfire.io'
   ],
-  heroTitle: 'Blackfire.io Embed Code Generator',
+  heroTitle: 'Blackfire.io embed code generator',
   heroSubtitle:
     'Paste a Blackfire.io profile or report URL — get a ready-to-paste preview card that links straight to the performance call graph.',
   howItWorksHeading: 'How to embed a Blackfire.io profile',

@@ -19,7 +19,7 @@ const data = {
     'embed padlet wall',
     'padlet board embed'
   ],
-  heroTitle: 'Padlet Embed Code Generator',
+  heroTitle: 'Padlet embed code generator',
   heroSubtitle:
     'Paste any Padlet URL — get a ready-to-paste embed for collaborative boards, walls, maps, and timelines.',
   howItWorksHeading: 'How to embed a Padlet board',

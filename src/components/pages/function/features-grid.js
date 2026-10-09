@@ -115,7 +115,7 @@ export const FunctionFeaturesGrid = () => (
           mb: [4, 4, 5]
         })}
       >
-        <Subhead titleize={false}>{FEATURES_INTRO.title}</Subhead>
+        <Subhead>{FEATURES_INTRO.title}</Subhead>
         <Text
           css={theme({
             pt: [3, 3, 4],

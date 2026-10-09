@@ -18,7 +18,7 @@ const data = {
     'embed geograph grid square photo',
     'geograph britain ireland embed'
   ],
-  heroTitle: 'Geograph Embed Code Generator',
+  heroTitle: 'Geograph embed code generator',
   heroSubtitle:
     'Paste any Geograph URL — get a ready-to-paste embed for geographically tagged photographs of the British Isles.',
   howItWorksHeading: 'How to embed a Geograph photo',

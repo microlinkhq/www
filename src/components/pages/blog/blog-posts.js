@@ -69,7 +69,6 @@ export const BlogPostList = ({
         >
           <H2
             slug={false}
-            titleize={false}
             css={theme({
               mt: 0,
               mb: 0,

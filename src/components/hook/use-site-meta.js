@@ -14,6 +14,7 @@ export const useSiteMetadata = () => {
             logo
             name
             ogImageBase
+            ogImageVersion
             paymentApiKey
             paymentEndpoint
             siteUrl

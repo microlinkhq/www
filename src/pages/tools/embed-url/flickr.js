@@ -17,7 +17,7 @@ const data = {
     'embed flickr album',
     'flickr embed html'
   ],
-  heroTitle: 'Flickr Embed Code Generator',
+  heroTitle: 'Flickr embed code generator',
   heroSubtitle:
     'Paste any Flickr URL — get a ready-to-paste embed for photos and albums.',
   howItWorksHeading: 'How to embed Flickr content',

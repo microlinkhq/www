@@ -4,7 +4,7 @@ const debug = require('debug-logfmt')('data:providers:formats')
 const { default: pMap } = require('p-map')
 const mql = require('@microlink/mql')
 const { sortBy } = require('lodash')
-const { getType } = require('mime')
+const { default: mime } = require('mime')
 const path = require('path')
 
 const MICROLINK_CDN_URL = 'https://cdn.microlink.io/file-examples'
@@ -40,6 +40,12 @@ const getConfidence = formats => {
   return { score: `${Math.round(result * 100) / 100}%` }
 }
 
+const getFileType = fileUrl => {
+  const contentType = mime.getType(fileUrl) || 'application'
+  const [type] = contentType.split('/')
+  return type
+}
+
 const fn = async () => {
   const urls = await fileUrls()
 
@@ -47,8 +53,7 @@ const fn = async () => {
     urls,
     async fileUrl => {
       try {
-        const contentType = getType(fileUrl) || 'application'
-        const [type] = contentType?.split('/') || []
+        const type = getFileType(fileUrl)
         const isImage = type === 'image'
 
         const { data, response } = await mql(
@@ -106,3 +111,4 @@ module.exports = () =>
   require('../create-provider').fromCode(fn, { dist: DIST })
 
 module.exports.dist = DIST
+module.exports.getFileType = getFileType

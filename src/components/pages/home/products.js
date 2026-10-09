@@ -531,101 +531,141 @@ const TextPreview = () => (
   </TextPreviewWrap>
 )
 
+const SHOT_W = 370
+const SHOT_H = 252
+
+const ShotFit = styled.div`
+  container-type: inline-size;
+  width: 100%;
+  margin-top: 16px;
+`
+
+const ShotStage = styled.div`
+  position: relative;
+  height: ${SHOT_H}px;
+
+  @supports (transform: scale(calc(1px / 1px))) {
+    @container (max-width: ${SHOT_W - 1}px) {
+      width: ${SHOT_W}px;
+      left: 50%;
+      margin-left: -${SHOT_W / 2}px;
+      margin-bottom: calc(${SHOT_H}px * (100cqi / ${SHOT_W}px) - ${SHOT_H}px);
+      transform: scale(calc(100cqi / ${SHOT_W}px));
+      transform-origin: top center;
+    }
+  }
+`
+
 const ScreenshotPreview = () => (
   <Flex css={{ flex: 1, flexDirection: 'column', justifyContent: 'center' }}>
-    <Box css={{ position: 'relative', height: '252px', margin: '16px 8px 0' }}>
-      <Box
-        css={{
-          position: 'absolute',
-          left: '72px',
-          top: '28px',
-          right: '8px',
-          bottom: '-8px',
-          background: tone.surface,
-          border: `1px solid ${tone.border}`,
-          borderRadius: radius.panel,
-          transform: 'rotate(2.5deg)'
-        }}
-      />
-      <Box
-        css={{
-          position: 'absolute',
-          left: '38px',
-          top: '14px',
-          right: '34px',
-          bottom: '8px',
-          background: tone.surface,
-          border: `1px solid ${tone.border}`,
-          borderRadius: radius.panel,
-          transform: 'rotate(1.2deg)'
-        }}
-      />
-      <Box
-        css={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          right: '64px',
-          bottom: '18px',
-          background: tone.surface,
-          border: `1px solid ${tone.border}`,
-          borderRadius: radius.panel,
-          overflow: 'hidden'
-        }}
-      >
-        <Flex
+    <ShotFit>
+      <ShotStage>
+        <Box
           css={{
-            padding: '9px 14px',
-            gap: '7px',
-            alignItems: 'center',
-            borderBottom: `1px solid ${tone.neutral}`
+            position: 'absolute',
+            left: '72px',
+            top: '28px',
+            right: '8px',
+            bottom: '-8px',
+            background: tone.surface,
+            border: `1px solid ${tone.border}`,
+            borderRadius: radius.panel,
+            transform: 'rotate(2.5deg)'
+          }}
+        />
+        <Box
+          css={{
+            position: 'absolute',
+            left: '38px',
+            top: '14px',
+            right: '34px',
+            bottom: '8px',
+            background: tone.surface,
+            border: `1px solid ${tone.border}`,
+            borderRadius: radius.panel,
+            transform: 'rotate(1.2deg)'
+          }}
+        />
+        <Box
+          css={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            right: '64px',
+            bottom: '18px',
+            background: tone.surface,
+            border: `1px solid ${tone.border}`,
+            borderRadius: radius.panel,
+            overflow: 'hidden'
           }}
         >
-          <WindowDots />
-        </Flex>
-        <Box css={{ padding: '16px 18px 18px', textAlign: 'center' }}>
           <Flex
             css={{
-              justifyContent: 'space-between',
+              padding: '9px 14px',
+              gap: '7px',
               alignItems: 'center',
-              fontSize: '12px',
-              color: tone.muted,
-              marginBottom: '16px'
+              borderBottom: `1px solid ${tone.neutral}`
             }}
           >
-            <Box as='span' css={{ fontWeight: 700, color: tone.ink900 }}>
-              Microlink
+            <WindowDots />
+          </Flex>
+          <Box css={{ padding: '16px 18px 18px', textAlign: 'center' }}>
+            <Flex
+              css={{
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                fontSize: '12px',
+                color: tone.muted,
+                marginBottom: '16px',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              <Box
+                as='span'
+                css={{ fontWeight: 700, color: tone.ink900, flexShrink: 0 }}
+              >
+                Microlink
+              </Box>
+              <Box as='span' css={{ marginLeft: '12px' }}>
+                Docs&nbsp;&nbsp;Guides&nbsp;&nbsp;Pricing
+              </Box>
+            </Flex>
+            <Box
+              css={{
+                fontSize: '20px',
+                fontWeight: 800,
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+                whiteSpace: 'nowrap'
+              }}
+            >
+              The universal API
+              <br />
+              for web data.
             </Box>
-            <span>Docs&nbsp;&nbsp;Guides&nbsp;&nbsp;Pricing</span>
-          </Flex>
-          <Box
-            css={{
-              fontSize: '20px',
-              fontWeight: 800,
-              lineHeight: 1.15,
-              letterSpacing: '-0.02em'
-            }}
-          >
-            The universal API
-            <br />
-            for web data.
+            <Box
+              css={{
+                fontSize: '12px',
+                color: tone.muted,
+                margin: '10px 0 14px'
+              }}
+            >
+              One API to turn any URL into structured data.
+            </Box>
+            <Flex css={{ gap: '10px', justifyContent: 'center' }}>
+              <MiniButton css={{ background: tone.ink900, color: tone.white }}>
+                Get started
+              </MiniButton>
+              <MiniButton
+                css={{ background: tone.neutral, color: tone.ink900 }}
+              >
+                See pricing
+              </MiniButton>
+            </Flex>
           </Box>
-          <Box
-            css={{ fontSize: '12px', color: tone.muted, margin: '10px 0 14px' }}
-          >
-            One API to turn any URL into structured data.
-          </Box>
-          <Flex css={{ gap: '10px', justifyContent: 'center' }}>
-            <MiniButton css={{ background: tone.ink900, color: tone.white }}>
-              Get started
-            </MiniButton>
-            <MiniButton css={{ background: tone.neutral, color: tone.ink900 }}>
-              See pricing
-            </MiniButton>
-          </Flex>
         </Box>
-      </Box>
-    </Box>
+      </ShotStage>
+    </ShotFit>
   </Flex>
 )
 

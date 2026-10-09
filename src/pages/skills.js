@@ -11,9 +11,8 @@ import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import { withTitle } from 'helpers/hoc/with-title'
 import {
   enrichedSkills,
   getBaseDescription,
@@ -23,8 +22,6 @@ import {
 import CategoryNav from 'components/pages/skills/CategoryNav'
 import CategorySection from 'components/pages/skills/CategorySection'
 import { groupedSkills } from 'components/pages/skills/catalog'
-
-const Subhead = withTitle(SubheadBase)
 
 const REQUEST_SKILL_URL = 'https://github.com/microlinkhq/skills/issues/new'
 const SKILLS_PAGE_DESCRIPTION =

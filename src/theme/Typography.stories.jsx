@@ -1,33 +1,22 @@
 import React from 'react'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Caps from 'components/elements/Caps'
 import Text from 'components/elements/Text'
 import Label from 'components/elements/Label'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Legend from 'components/patterns/Legend/Legend'
 import { Story } from 'story'
 import { theme } from 'theme'
 
-const Heading = withTitle(HeadingBase)
-
-const Caption = withTitle(CaptionBase)
-
 const codeHeading = `
-import { withTitle } from 'helpers/hoc/with-title'
-import HeadingBase from 'components/elements/Heading'
-
-const Heading = withTitle(HeadingBase)
+import Heading from 'components/elements/Heading'
 
 export default () => (
   <Heading children='Browser as API' />
 )`
 
 const codeCaption = `
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
-
-const Caption = withTitle(CaptionBase)
+import Caption from 'components/patterns/Caption/Caption'
 
 export default () => (
   <Caption>
@@ -72,7 +61,7 @@ export default { title: 'Theme/Typography' }
 export const Default = () => (
   <>
     <Story name='Heading' code={codeHeading}>
-      <Heading titleize={false}>Browser as API</Heading>
+      <Heading>Browser as API</Heading>
     </Story>
     <Story name='Caption' code={codeCaption}>
       <Caption>

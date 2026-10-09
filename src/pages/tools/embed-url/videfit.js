@@ -18,7 +18,7 @@ const data = {
     'videfit player embed',
     'videfit video embed'
   ],
-  heroTitle: 'Videfit Embed Code Generator',
+  heroTitle: 'Videfit embed code generator',
   heroSubtitle:
     'Paste any Videfit URL — get a ready-to-paste video player you can drop into a blog, docs, or any CMS.',
   howItWorksHeading: 'How to embed Videfit videos',

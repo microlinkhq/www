@@ -19,7 +19,7 @@ const data = {
     'embed lecture video paris 1',
     'pod paris 1 player embed'
   ],
-  heroTitle: 'Pod Université Paris 1 Embed Code Generator',
+  heroTitle: 'Pod Université Paris 1 embed code generator',
   heroSubtitle:
     'Paste any Panthéon-Sorbonne mediatheque URL — get a ready-to-paste player for lecture recordings and academic podcasts.',
   howItWorksHeading: 'How to embed Pod Université Paris 1 content',

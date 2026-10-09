@@ -170,12 +170,23 @@ export const RELATED = {
   title: 'Pair adblock with these.'
 }
 
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-screenshot/block-cookie-banners-and-ads',
+    'website-screenshot/dynamic-content',
+    'website-to-pdf/clean-layout',
+    'website-to-markdown/clean-content'
+  ],
+  title: 'Clean captures, end to end.'
+}
+
 export const TOC = [
   { id: 'overview', label: 'Overview' },
   { id: 'how', label: 'How it works' },
   { id: 'parameters', label: 'Parameters' },
   { id: 'examples', label: 'Examples' },
   { id: 'related', label: 'Related features' },
+  { id: 'use-cases', label: 'Use cases' },
   { id: 'faq', label: 'FAQ' }
 ]
 

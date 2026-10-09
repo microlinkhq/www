@@ -19,7 +19,7 @@ const data = {
     'exco player embed',
     'exco interactive content embed'
   ],
-  heroTitle: 'EX.CO Embed Code Generator',
+  heroTitle: 'EX.CO embed code generator',
   heroSubtitle:
     'Paste an EX.CO URL to get ready-to-paste embed HTML for its video units, polls, and quizzes — or a preview card.',
   howItWorksHeading: 'How to embed EX.CO content',

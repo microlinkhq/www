@@ -14,16 +14,18 @@ import { Hero } from 'components/pages/headers/hero'
 import { Overview } from 'components/pages/headers/overview'
 import { Parameters } from 'components/pages/headers/parameters'
 import { Related } from 'components/pages/headers/related'
-import { META } from 'components/pages/headers/shared'
+import { RelatedUseCases } from 'components/pages/headers/related-use-cases'
+import { META, TOC } from 'components/pages/headers/shared'
 
 const HeadersFeaturePage = () => (
   <Layout>
-    <FeaturePageShell>
+    <FeaturePageShell toc={TOC}>
       <Hero />
       <Overview />
       <Parameters />
       <Examples />
       <Related />
+      <RelatedUseCases />
     </FeaturePageShell>
     <FaqSection />
   </Layout>

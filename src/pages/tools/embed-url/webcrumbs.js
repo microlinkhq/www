@@ -18,7 +18,7 @@ const data = {
     'webcrumbs code embed',
     'embed web component'
   ],
-  heroTitle: 'Webcrumbs Embed Code Generator',
+  heroTitle: 'Webcrumbs embed code generator',
   heroSubtitle:
     'Paste any Webcrumbs URL — get a ready-to-paste embed for open-source web components and frontend code.',
   howItWorksHeading: 'How to embed Webcrumbs content',

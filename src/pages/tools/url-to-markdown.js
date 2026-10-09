@@ -37,16 +37,16 @@ import { Button } from 'components/elements/Button/Button'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
@@ -64,7 +64,6 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
-import { withTitle } from 'helpers/hoc/with-title'
 
 import {
   OptionLabel,
@@ -77,10 +76,6 @@ import {
   HistoryScrollContainer,
   MOBILE_BP
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -2305,11 +2300,7 @@ const UseCasesSection = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize='false'
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Box
@@ -2454,7 +2445,7 @@ const MarkdownApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead>URL to Markdown API Documentation</Subhead>
+      <Subhead>URL to Markdown API documentation</Subhead>
       <Caption
         css={theme({
           pt: 3,

@@ -18,7 +18,7 @@ const data = {
     'pixdor iframe code',
     'pixdor map embed'
   ],
-  heroTitle: 'Pixdor Embed Code Generator',
+  heroTitle: 'Pixdor embed code generator',
   heroSubtitle:
     'Paste any Pixdor URL — get a ready-to-paste embed for interactive maps and markers.',
   howItWorksHeading: 'How to embed Pixdor maps',

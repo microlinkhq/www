@@ -18,7 +18,7 @@ const data = {
     'soundcloud iframe code',
     'soundcloud player embed'
   ],
-  heroTitle: 'SoundCloud Embed Code Generator',
+  heroTitle: 'SoundCloud embed code generator',
   heroSubtitle:
     'Paste any SoundCloud URL — get a ready-to-paste widget player for tracks, sets, playlists, and user profiles.',
   howItWorksHeading: 'How to embed SoundCloud content',

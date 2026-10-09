@@ -1,6 +1,6 @@
 import Container from 'components/elements/Container'
-import Dot from 'components/elements/Dot/Dot'
 import Heading from 'components/elements/Heading'
+import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
@@ -16,8 +16,6 @@ import React, {
 } from 'react'
 import styled from 'styled-components'
 
-import analyticsData from '../../../../../data/analytics.json'
-
 import {
   CYCLE,
   DEFAULT_URLS,
@@ -26,6 +24,7 @@ import {
   derive,
   parseLocal
 } from './constants'
+import { HeroBadge } from './badge'
 import {
   HeroComposer,
   getCaretOffset,
@@ -49,8 +48,6 @@ import { StatusLine } from './status-line'
 import { useAttractCycle } from './use-attract-cycle'
 import { useMenuBehavior } from './use-menu-behavior'
 import { useRunRequest } from './use-run-request'
-
-const [{ reqs_pretty: reqsPretty }] = analyticsData
 
 const { shortUrl, canonicalDemoUrl } = heroDemoRequests
 
@@ -109,24 +106,6 @@ const Content = styled(Container)`
       animation-name: ${fadeIn};
     }
   }
-`
-
-const Badge = styled.span`
-  ${theme({
-    display: 'inline-flex',
-    alignItems: 'center',
-    gap: '9px',
-    fontSize: 0,
-    fontWeight: 'regular',
-    bg: 'white',
-    color: 'gray8',
-    border: 1,
-    borderColor: 'gray2',
-    py: '7px',
-    px: 3,
-    borderRadius: '999px',
-    mb: '26px'
-  })};
 `
 
 const Hero = () => {
@@ -341,16 +320,17 @@ const Hero = () => {
       <HeroGradientDefs />
       <Overlay start='60%' />
       <Content>
-        <Badge>
-          <Dot.Success />
-          Handling {reqsPretty}+ requests every month
-        </Badge>
+        <HeroBadge />
 
         <Heading variant={null}>
-          The web,{' '}
+          The web, <LineBreak breakpoints={[0]} />
           <Heading
             forwardedAs='span'
-            css={theme({ fontSize: 'inherit', fontStyle: 'italic' })}
+            css={theme({
+              fontSize: 'inherit',
+              fontStyle: 'italic',
+              whiteSpace: 'nowrap'
+            })}
           >
             ready for AI
           </Heading>

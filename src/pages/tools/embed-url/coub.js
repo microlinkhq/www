@@ -18,7 +18,7 @@ const data = {
     'coub looping video embed',
     'embed coub loop'
   ],
-  heroTitle: 'Coub Embed Code Generator',
+  heroTitle: 'Coub embed code generator',
   heroSubtitle:
     'Paste any Coub URL — get a ready-to-paste iframe player for looping short videos with sound.',
   howItWorksHeading: 'How to embed a Coub video',

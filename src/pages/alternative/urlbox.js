@@ -10,8 +10,7 @@ import {
   breakpoints,
   shadows
 } from 'theme'
-import { withTitle } from 'helpers/hoc/with-title'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -26,10 +25,10 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
@@ -54,10 +53,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -752,7 +747,6 @@ const Hero = () => (
           maxWidth: layout.large,
           color: 'black80'
         })}
-        titleize={false}
       >
         <b>Urlbox</b> is a respected screenshot service with 10+&nbsp;years of
         experience. If you care about cost per render and broader browser
@@ -817,7 +811,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -827,7 +821,6 @@ const ComparisonSection = () => (
           maxWidth: layout.normal,
           color: 'black60'
         })}
-        titleize={false}
       >
         An honest look at what each API offers.
       </Caption>
@@ -1015,10 +1008,7 @@ const WhySwitchNumber = styled(Text)`
 const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
-      <Subhead
-        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
+      <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
         Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
@@ -1027,7 +1017,6 @@ const WhySwitchSection = () => (
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
-        titleize={false}
       >
         The top reasons teams move from Urlbox to Microlink.
       </Caption>
@@ -1128,7 +1117,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
         Where <GradientText>Urlbox</GradientText>
         <br /> Might Be the Right Choice
       </Subhead>
@@ -1207,7 +1196,7 @@ const HonestySection = () => (
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })}>
         Same price. <GradientText>Way more volume.</GradientText>
       </Subhead>
       <Caption
@@ -1216,7 +1205,6 @@ const PricingSection = () => (
           maxWidth: layout.large,
           color: 'black60'
         })}
-        titleize={false}
       >
         Get <b>9.2&times; more</b> volume for the same $49&nbsp;per month.
       </Caption>
@@ -1441,7 +1429,6 @@ const CTASection = () => (
           color: 'white',
           pb: [2, 2, 3, 3]
         })}
-        titleize={false}
       >
         Cut Urlbox cost per render
         <br /> without trimming features
@@ -1453,7 +1440,6 @@ const CTASection = () => (
           pb: [3, 3, 4, 4],
           maxWidth: layout.large
         })}
-        titleize={false}
       >
         <br />
         Your first{' '}

@@ -18,7 +18,7 @@ const data = {
     'official.fm player embed',
     'embed official.fm playlist'
   ],
-  heroTitle: 'Official.fm Embed Code Generator',
+  heroTitle: 'Official.fm embed code generator',
   heroSubtitle:
     'Paste any Official.fm URL — get a ready-to-paste player for tracks, playlists, and artist pages.',
   howItWorksHeading: 'How to embed Official.fm content',

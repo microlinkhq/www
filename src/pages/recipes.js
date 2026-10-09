@@ -1,7 +1,6 @@
 import { space, layout, toPx, toRaw, theme } from 'theme'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 import Caption from 'components/patterns/Caption/Caption'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
@@ -21,12 +20,10 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import recipes from '../../data/recipes.json'
-
-const Subhead = withTitle(SubheadBase)
 
 const allRecipesKeys = recipes.map(([key]) => key)
 

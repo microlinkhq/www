@@ -19,7 +19,7 @@ const data = {
     'gyazo image embed',
     'embed gyazo video'
   ],
-  heroTitle: 'Gyazo Embed Code Generator',
+  heroTitle: 'Gyazo embed code generator',
   heroSubtitle:
     'Paste any Gyazo capture URL — get a ready-to-paste embed for screenshots, animated GIFs, and screen-capture video.',
   howItWorksHeading: 'How to embed a Gyazo capture',

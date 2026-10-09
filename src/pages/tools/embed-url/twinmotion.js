@@ -18,7 +18,7 @@ const data = {
     'embed 3d visualization',
     'twinmotion render embed'
   ],
-  heroTitle: 'Twinmotion Embed Code Generator',
+  heroTitle: 'Twinmotion embed code generator',
   heroSubtitle:
     'Paste any Twinmotion URL — get a ready-to-paste embed for interactive 3D visualizations and presentations.',
   howItWorksHeading: 'How to embed Twinmotion visualizations',

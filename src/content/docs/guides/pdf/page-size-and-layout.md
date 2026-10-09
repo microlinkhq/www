@@ -115,3 +115,8 @@ You can specify a single page such as `'1-1'` or intervals such as `'1-5, 8, 11-
 ## Next step
 
 Learn how to prepare the page before Microlink prints it — print vs screen CSS, waits, clicks, and injected styles — in [page preparation](/docs/guides/pdf/page-preparation).
+
+## See also
+
+- <Link href='/use-cases/website-to-pdf/paper-size-and-margins' children='Paper size, margins and orientation' /> — the layout options in one copy-pasteable recipe.
+- <Link href='/use-cases/website-to-pdf/archive-articles' children='Archive web articles as PDF' /> — readable documents for research archives.

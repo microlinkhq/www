@@ -37,6 +37,7 @@ import { PDF as PDFIcon } from 'components/icons/PDF'
 import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
 import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
+import { Sparkles as SparklesIcon } from 'components/icons/Sparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
 import { Grid as GridIcon } from 'components/icons/Grid'
 import { Brain as BrainIcon } from 'components/icons/Brain'
@@ -141,6 +142,13 @@ export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
+    label: 'AI',
+    href: '/ai',
+    actively: 'exact',
+    description: 'Prompt your agent to use Microlink',
+    icon: SparklesIcon
+  }),
+  createNavigationItem({
     label: 'SDK',
     href: '/integrations/sdk',
     description: 'Every product, one import',
@@ -197,7 +205,7 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Products',
     description: 'APIs and tooling to turn any URL into structured output.',
-    columns: 3,
+    columns: 4,
     items: [
       createNavigationItem({
         label: 'API',
@@ -463,9 +471,14 @@ export const NAVIGATION_SECTIONS = [
   }
 ]
 
+export const getSectionItems = ({ label, items }) =>
+  label === 'Tools' ? [...items, ...TOOLS_INTEGRATIONS_ITEMS] : items
+
 export const getToolbarSectionFromPathname = pathname => {
-  const section = NAVIGATION_SECTIONS.find(({ items }) =>
-    items.some(({ href }) => href.startsWith('/') && pathname.startsWith(href))
+  const section = NAVIGATION_SECTIONS.find(section =>
+    getSectionItems(section).some(
+      ({ href }) => href.startsWith('/') && pathname.startsWith(href)
+    )
   )
 
   return section ? section.label : ''

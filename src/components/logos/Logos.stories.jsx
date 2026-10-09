@@ -1,12 +1,9 @@
 import React, { useState } from 'react'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
-import { withTitle } from 'helpers/hoc/with-title'
+import Subhead from 'components/elements/Subhead'
 import { LogoBrand } from 'components/logos'
 import { theme } from 'theme'
-
-const Subhead = withTitle(SubheadBase)
 
 const logos = Object.entries(LogoBrand)
 

@@ -20,7 +20,7 @@ const data = {
     'embed omny studio podcast',
     'embed omny studio playlist'
   ],
-  heroTitle: 'Omny Studio Embed Code Generator',
+  heroTitle: 'Omny Studio embed code generator',
   heroSubtitle:
     'Paste any omny.fm URL — get a ready-to-paste audio player for podcast clips, episodes, and playlists.',
   howItWorksHeading: 'How to embed Omny Studio content',

@@ -18,7 +18,7 @@ const data = {
     'firework shoppable video embed',
     'fw.tv embed code'
   ],
-  heroTitle: 'Firework Embed Code Generator',
+  heroTitle: 'Firework embed code generator',
   heroSubtitle:
     'Paste any Firework video or channel URL — get a ready-to-paste embed for short-form shoppable videos.',
   howItWorksHeading: 'How to embed a Firework video',

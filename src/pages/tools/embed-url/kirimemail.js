@@ -18,7 +18,7 @@ const data = {
     'kirim email form embed',
     'embed subscription form'
   ],
-  heroTitle: 'Kirim.Email Embed Code Generator',
+  heroTitle: 'Kirim.Email embed code generator',
   heroSubtitle:
     'Paste any Kirim.Email URL — get a ready-to-paste embed for newsletters and subscription forms.',
   howItWorksHeading: 'How to embed Kirim.Email content',

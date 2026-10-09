@@ -18,7 +18,7 @@ const data = {
     'embed box office buz trailer',
     'box office buz movie embed'
   ],
-  heroTitle: 'Box Office Buz Embed Code Generator',
+  heroTitle: 'Box Office Buz embed code generator',
   heroSubtitle:
     'Paste any Box Office Buz URL — get a ready-to-paste embed or preview card for movies, trailers, and celebrity coverage.',
   howItWorksHeading: 'How to embed Box Office Buz content',

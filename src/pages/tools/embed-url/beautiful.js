@@ -18,7 +18,7 @@ const data = {
     'embed beautiful.ai deck',
     'beautiful.ai presentation preview'
   ],
-  heroTitle: 'Beautiful.ai Embed Code Generator',
+  heroTitle: 'Beautiful.ai embed code generator',
   heroSubtitle:
     'Paste a Beautiful.ai presentation URL — get a ready-to-paste preview card for your slides and decks.',
   howItWorksHeading: 'How to embed a Beautiful.ai presentation',

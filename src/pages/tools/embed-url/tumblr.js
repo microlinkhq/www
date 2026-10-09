@@ -18,7 +18,7 @@ const data = {
     'embed tumblr photo',
     'embed tumblr video'
   ],
-  heroTitle: 'Tumblr Embed Code Generator',
+  heroTitle: 'Tumblr embed code generator',
   heroSubtitle:
     'Paste any Tumblr post URL — get a ready-to-paste embed for text, photo, and video posts.',
   howItWorksHeading: 'How to embed a Tumblr post',

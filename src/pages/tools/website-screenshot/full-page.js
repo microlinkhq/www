@@ -28,15 +28,15 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { ScreenshotExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
@@ -46,7 +46,6 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
   buildSdkQuery
@@ -79,10 +78,6 @@ import {
   createThumbnail,
   ApiDocsCard
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 /* ─── Page-specific Constants ────────────────────────────── */
 
@@ -767,7 +762,7 @@ const HowItWorks = () => (
         maxWidth: layout.large
       })}
     >
-      How to Take a Full Page Screenshot of Any Website
+      How to take a full page screenshot of any website
     </Subhead>
     <Flex
       css={theme({
@@ -838,7 +833,7 @@ const Explanation = () => (
     })}
   >
     <Subhead variant='gradient'>
-      Why Choose Our Full Page Screen Capture Tool?
+      Why choose our full page screen capture tool?
     </Subhead>
     <Box
       css={theme({
@@ -1033,7 +1028,7 @@ const UseCases = () => (
     })}
   >
     <Subhead variant='gradient'>
-      Who Needs Full Page Website Screenshots?
+      Who needs full page website screenshots?
     </Subhead>
     <Caption css={theme({ pt: [3, 3, 4, 4], maxWidth: layout.small })}>
       From design reviews to automated testing, website screenshots power
@@ -1059,11 +1054,7 @@ const UseCases = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize={false}
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Text

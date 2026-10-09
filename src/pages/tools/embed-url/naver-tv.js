@@ -19,7 +19,7 @@ const data = {
     'embed tv.naver.com video',
     'naver tv channel embed'
   ],
-  heroTitle: 'Naver TV Embed Code Generator',
+  heroTitle: 'Naver TV embed code generator',
   heroSubtitle:
     'Paste any Naver TV URL — get ready-to-paste embed HTML for videos, clips, and channels from tv.naver.com.',
   howItWorksHeading: 'How to embed a Naver TV video',

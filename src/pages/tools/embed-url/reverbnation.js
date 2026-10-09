@@ -19,7 +19,7 @@ const data = {
     'reverbnation player widget',
     'reverbnation widget embed'
   ],
-  heroTitle: 'ReverbNation Embed Code Generator',
+  heroTitle: 'ReverbNation embed code generator',
   heroSubtitle:
     'Paste any ReverbNation URL — get a ready-to-paste player widget for songs and independent artist profiles.',
   howItWorksHeading: 'How to embed ReverbNation content',

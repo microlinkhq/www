@@ -19,7 +19,7 @@ const data = {
     'good for job slide embed',
     'embed recruitment pitch deck'
   ],
-  heroTitle: 'Good for Job Embed Code Generator',
+  heroTitle: 'Good for Job embed code generator',
   heroSubtitle:
     'Paste a Good for Job slide URL — get a ready-to-paste iframe for recruitment pitch decks.',
   howItWorksHeading: 'How to embed a Good for Job slide',

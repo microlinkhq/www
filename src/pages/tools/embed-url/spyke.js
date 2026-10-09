@@ -18,7 +18,7 @@ const data = {
     'spyke link embed',
     'embed spyke content'
   ],
-  heroTitle: 'Spyke Embed Code Generator',
+  heroTitle: 'Spyke embed code generator',
   heroSubtitle:
     'Paste any Spyke URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Spyke content',

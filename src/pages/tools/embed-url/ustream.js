@@ -18,7 +18,7 @@ const data = {
     'ustream live stream embed',
     'embed ustream video'
   ],
-  heroTitle: 'Ustream Embed Code Generator',
+  heroTitle: 'Ustream embed code generator',
   heroSubtitle:
     'Paste any Ustream URL — now IBM Video Streaming — to get a ready-to-paste iframe player for live streams and recorded videos.',
   howItWorksHeading: 'How to embed a Ustream video',

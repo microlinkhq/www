@@ -18,7 +18,7 @@ const data = {
     'tuxx link embed',
     'embed tuxx content'
   ],
-  heroTitle: 'Tuxx Embed Code Generator',
+  heroTitle: 'Tuxx embed code generator',
   heroSubtitle:
     'Paste any Tuxx URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Tuxx content',

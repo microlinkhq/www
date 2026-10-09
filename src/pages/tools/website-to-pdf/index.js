@@ -38,18 +38,18 @@ import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Select from 'components/elements/Select/Select'
 import Spinner from 'components/elements/Spinner'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import PdfViewer from 'components/elements/PdfViewer/PdfViewer'
 
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import ChromeExtensionBanner, {
   PDF_EXTENSION_URL
 } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -73,7 +73,6 @@ import {
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
-import { withTitle } from 'helpers/hoc/with-title'
 
 import {
   PanelSection,
@@ -101,10 +100,6 @@ import {
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 /* ─── Compare Slider ──────────────────────────────────── */
 
@@ -1519,7 +1514,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Save HTML Webpage as PDF
+      Save HTML webpage as PDF
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1902,11 +1897,7 @@ const UseCases = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize='false'
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Box
@@ -2170,7 +2161,7 @@ const PdfApiDocsCard = () => (
       <Flex css={theme({ justifyContent: 'center', pb: 4 })}>
         <SectionIcon icon={Code} />
       </Flex>
-      <Subhead>HTML to PDF API Documentation</Subhead>
+      <Subhead>HTML to PDF API documentation</Subhead>
       <Caption css={theme({ pt: 3, maxWidth: layout.normal, mx: 'auto' })}>
         Convert any URL to a PDF document programmatically. Explore the full API
         reference, SDKs for every language, and ready-to-use code snippets.

@@ -59,24 +59,19 @@ import {
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
-import { withTitle } from 'helpers/hoc/with-title'
 import { UNAVATAR_TOKEN } from 'helpers/unavatar'
 
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const UNAVATAR = 'https://unavatar.io'
 
@@ -1896,7 +1891,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Embed Code Providers
+      Embed code providers
     </Heading>
     <Caption
       forwardedAs='h2'

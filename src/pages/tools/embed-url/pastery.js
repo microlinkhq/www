@@ -18,7 +18,7 @@ const data = {
     'embed code snippet',
     'pastery paste embed'
   ],
-  heroTitle: 'Pastery Embed Code Generator',
+  heroTitle: 'Pastery embed code generator',
   heroSubtitle:
     'Paste any Pastery URL — get a ready-to-paste embed for code and text snippets with syntax highlighting.',
   howItWorksHeading: 'How to embed Pastery pastes',

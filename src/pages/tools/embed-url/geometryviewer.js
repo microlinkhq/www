@@ -20,7 +20,7 @@ const data = {
     'embed glb model',
     'embed 3d model'
   ],
-  heroTitle: 'Geometry Viewer Embed Code Generator',
+  heroTitle: 'Geometry Viewer embed code generator',
   heroSubtitle:
     'Paste a geometryviewer.com link — get a ready-to-paste embed for an interactive 3D model viewer.',
   howItWorksHeading: 'How to embed a Geometry Viewer model',

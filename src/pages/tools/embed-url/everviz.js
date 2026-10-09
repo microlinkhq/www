@@ -18,7 +18,7 @@ const data = {
     'embed everviz map',
     'everviz interactive chart embed'
   ],
-  heroTitle: 'everviz Embed Code Generator',
+  heroTitle: 'Everviz embed code generator',
   heroSubtitle:
     'Paste any everviz URL — get a ready-to-paste iframe for interactive charts, maps, and tables.',
   howItWorksHeading: 'How to embed an everviz chart',

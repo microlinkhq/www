@@ -18,7 +18,7 @@ const data = {
     'pingvp video player embed',
     'pingvp player embed'
   ],
-  heroTitle: 'PingVP Embed Code Generator',
+  heroTitle: 'PingVP embed code generator',
   heroSubtitle:
     'Paste any PingVP video URL — get a ready-to-paste player you can drop into a blog post, CMS, or landing page.',
   howItWorksHeading: 'How to embed PingVP videos',

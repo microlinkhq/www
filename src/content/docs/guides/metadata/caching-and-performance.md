@@ -59,3 +59,7 @@ A recommended production setup for metadata:
 ## Next step
 
 Learn how to extract metadata from authenticated and header-dependent pages in [private pages](/docs/guides/metadata/private-pages).
+
+## See also
+
+- <Link href='/use-cases/website-metadata/high-volume-link-previews' children='Link previews at scale' /> — caching and background refresh for bursty unfurls.

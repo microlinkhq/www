@@ -18,7 +18,7 @@ const data = {
     'online menu embed',
     'imenupro menu embed'
   ],
-  heroTitle: 'iMenuPro Embed Code Generator',
+  heroTitle: 'iMenuPro embed code generator',
   heroSubtitle:
     'Paste any iMenuPro URL — get a ready-to-paste embed for your restaurant menu.',
   howItWorksHeading: 'How to embed iMenuPro content',

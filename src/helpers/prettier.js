@@ -3,10 +3,12 @@ import { once } from './once'
 const loadPrettier = once(() =>
   Promise.all([
     import('prettier/standalone'),
-    import('prettier/parser-babel'),
-    import('prettier/parser-typescript')
-  ]).then(([{ format }, babel, typescript]) => ({
+    import('prettier/plugins/estree'),
+    import('prettier/plugins/babel'),
+    import('prettier/plugins/typescript')
+  ]).then(([{ format }, estree, babel, typescript]) => ({
     format,
+    estree: estree.default || estree,
     babel: babel.default || babel,
     typescript: typescript.default || typescript
   }))
@@ -25,19 +27,19 @@ const PRETTIER_CONFIG = {
   trailingComma: 'none'
 }
 
-const jsFormatterOpts = ({ babel }) => ({
+const jsFormatterOpts = ({ estree, babel }) => ({
   parser: 'babel',
-  plugins: [babel]
+  plugins: [estree, babel]
 })
 
-const jsonFormatterOpts = ({ babel }) => ({
+const jsonFormatterOpts = ({ estree, babel }) => ({
   parser: 'json',
-  plugins: [babel]
+  plugins: [estree, babel]
 })
 
-const tsFormatterOpts = ({ typescript }) => ({
+const tsFormatterOpts = ({ estree, typescript }) => ({
   parser: 'typescript',
-  plugins: [typescript]
+  plugins: [estree, typescript]
 })
 
 const getFormatterOpts = {
@@ -118,6 +120,8 @@ const formatHeaders = content => {
     .join('\n')
 }
 
+const withoutLeadingSemicolon = code => (code[0] === ';' ? code.slice(1) : code)
+
 export const prettier = async (code, language = 'js') => {
   // Handle headers formatting (no prettier needed)
   if (language === 'headers') {
@@ -128,13 +132,13 @@ export const prettier = async (code, language = 'js') => {
   if (!formatterOpts) return code
 
   try {
-    const { format, babel, typescript } = await loadPrettier()
+    const plugins = await loadPrettier()
     const opts = {
       ...PRETTIER_CONFIG,
-      ...formatterOpts({ babel, typescript })
+      ...formatterOpts(plugins)
     }
-    const formatted = format(code, opts)
-    return formatted.replace(';<', '<')
+    const formatted = await plugins.format(code, opts)
+    return withoutLeadingSemicolon(formatted.replace(';<', '<'))
   } catch (error) {
     if (error.name !== 'SyntaxError') console.error('[prettier]', error)
     return code

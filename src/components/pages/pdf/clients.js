@@ -179,7 +179,6 @@ export const Clients = () => (
           >
             <Subhead
               forwardedAs='div'
-              titleize={false}
               css={theme({
                 fontSize: [3, 3, '42px'],
                 fontWeight: 'bold',

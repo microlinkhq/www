@@ -19,7 +19,7 @@ const data = {
     'embed interactive chart',
     'amcharts chart embed'
   ],
-  heroTitle: 'amCharts Live Editor Embed Code Generator',
+  heroTitle: 'amCharts Live Editor embed code generator',
   heroSubtitle:
     'Paste an amCharts Live Editor URL — get a ready-to-paste iframe for interactive charts and data visualizations.',
   howItWorksHeading: 'How to embed an amCharts Live Editor chart',

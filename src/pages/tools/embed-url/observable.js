@@ -18,7 +18,7 @@ const data = {
     'embed observable chart',
     'observable d3 embed'
   ],
-  heroTitle: 'Observable Embed Code Generator',
+  heroTitle: 'Observable embed code generator',
   heroSubtitle:
     'Paste any Observable URL — get a ready-to-paste iframe for interactive notebooks, D3 charts, and data visualizations.',
   howItWorksHeading: 'How to embed an Observable notebook',

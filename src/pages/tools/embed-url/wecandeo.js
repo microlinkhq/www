@@ -18,7 +18,7 @@ const data = {
     'wecandeo video player embed',
     'embed hosted video'
   ],
-  heroTitle: 'Wecandeo Embed Code Generator',
+  heroTitle: 'Wecandeo embed code generator',
   heroSubtitle:
     'Paste any Wecandeo URL — get a ready-to-paste player for hosted online video.',
   howItWorksHeading: 'How to embed Wecandeo video',

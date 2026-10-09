@@ -18,7 +18,7 @@ const data = {
     '23hq photo embed',
     '23hq iframe code'
   ],
-  heroTitle: '23hq Embed Code Generator',
+  heroTitle: '23hq embed code generator',
   heroSubtitle:
     'Paste a 23hq photo or album URL — get a ready-to-paste embed or preview card in seconds.',
   howItWorksHeading: 'How to embed 23hq photos',

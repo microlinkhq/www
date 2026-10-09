@@ -18,7 +18,7 @@ const data = {
     'embed game asset',
     'land of assets product embed'
   ],
-  heroTitle: 'Land of Assets Embed Code Generator',
+  heroTitle: 'Land of Assets embed code generator',
   heroSubtitle:
     'Paste any Land of Assets URL — get a ready-to-paste embed or preview card for 3D models and digital game assets.',
   howItWorksHeading: 'How to embed Land of Assets content',

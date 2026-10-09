@@ -121,3 +121,8 @@ See the <Link href='/docs/api/parameters/function' children='function reference'
 ## Next step
 
 Learn how to deliver generated PDFs as JSON, direct downloads, or embedded previews in [delivery and embedding](/docs/guides/pdf/embedding).
+
+## See also
+
+- <Link href='/use-cases/website-to-pdf/clean-layout' children='Clean PDFs without ads or banners' /> — adblock, styles and media type working together.
+- <Link href='/use-cases/website-to-pdf/dynamic-content' children='PDFs of JavaScript-rendered pages' /> — wait strategies before printing.

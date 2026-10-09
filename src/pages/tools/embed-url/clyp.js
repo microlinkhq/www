@@ -18,7 +18,7 @@ const data = {
     'clyp player embed',
     'embed clyp.it audio'
   ],
-  heroTitle: 'Clyp Embed Code Generator',
+  heroTitle: 'Clyp embed code generator',
   heroSubtitle:
     'Paste any clyp.it link — get a ready-to-paste audio player for recordings, songs, and voice clips.',
   howItWorksHeading: 'How to embed Clyp audio',

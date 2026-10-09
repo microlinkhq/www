@@ -1,5 +1,11 @@
 {
   "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
+  "rewrites": [
+    {
+      "source": "/.well-known/agent-feedback.json",
+      "destination": "https://feedback.microlink.io/.well-known/agent-feedback.json"
+    }
+  ],
   "headers": [
     {
       "source": "/static/(.*)",
@@ -58,10 +64,6 @@
     {
       "source": "/((?!tools/embed-url/|(?:recipes|dev-404-page|offline-plugin-app-shell-fallback)(?:/|\\.md$)).*)\\.md",
       "headers": [
-        {
-          "key": "content-type",
-          "value": "text/markdown; charset=utf-8"
-        },
         {
           "key": "Vary",
           "value": "Accept, Accept-Encoding"
@@ -619,11 +621,27 @@
     },
     {
       "source": "/customers",
-      "destination": "/use-cases"
+      "destination": "/use-cases/customers"
     },
     {
       "source": "/customers/:path*",
-      "destination": "/use-cases/:path*"
+      "destination": "/use-cases/customers/:path*"
+    },
+    {
+      "source": "/use-cases/mymahi",
+      "destination": "/use-cases/customers/mymahi"
+    },
+    {
+      "source": "/use-cases/r-advertising",
+      "destination": "/use-cases/customers/r-advertising"
+    },
+    {
+      "source": "/use-cases/luckynote",
+      "destination": "/use-cases/customers/luckynote"
+    },
+    {
+      "source": "/use-cases/handinger",
+      "destination": "/use-cases/customers/handinger"
     },
     {
       "source": "/feature/:path*",
@@ -660,36 +678,6 @@
           "value": ".*text/markdown.*"
         }
       ]
-    }
-  ],
-  "routes": [
-    { "handle": "filesystem" },
-    {
-      "src": "/(.+)\\.md",
-      "dest": "/404.md",
-      "status": 404,
-      "headers": {
-        "Content-Type": "text/markdown; charset=utf-8",
-        "Vary": "Accept, Accept-Encoding",
-        "X-Robots-Tag": "noindex"
-      }
-    },
-    {
-      "src": "/(.*)",
-      "missing": [
-        {
-          "type": "header",
-          "key": "accept",
-          "value": ".*text/html.*"
-        }
-      ],
-      "dest": "/404.md",
-      "status": 404,
-      "headers": {
-        "Content-Type": "text/markdown; charset=utf-8",
-        "Vary": "Accept, Accept-Encoding",
-        "X-Robots-Tag": "noindex"
-      }
     }
   ]
 }

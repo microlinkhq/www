@@ -19,7 +19,7 @@ const data = {
     'embed investor presentation',
     'quartr transcript embed'
   ],
-  heroTitle: 'Quartr Embed Code Generator',
+  heroTitle: 'Quartr embed code generator',
   heroSubtitle:
     'Paste any Quartr URL — get a ready-to-paste embed for earnings calls, investor presentations, and transcripts.',
   howItWorksHeading: 'How to embed Quartr content',

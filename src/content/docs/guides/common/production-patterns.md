@@ -103,3 +103,8 @@ curl -H 'Accept-Encoding: br' 'https://api.microlink.io?url=https://example.com'
 ```
 
 The SDK enables compression by default. See the <Link href='/docs/api/basics/compression' children='compression docs' />.
+
+## See also
+
+- <Link href='/use-cases/website-screenshot/traffic-spikes' children='Screenshots under traffic spikes' /> — a production recipe for bursty screenshot workloads.
+- <Link href='/use-cases/website-to-pdf/batch-generation' children='PDFs in bulk' /> — a production recipe for batch document generation.

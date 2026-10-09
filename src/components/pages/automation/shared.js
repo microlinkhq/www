@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
+import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
 
 export const META = {
   title: 'Browser Automation API: Shape the Page Before Capture',
@@ -130,6 +131,22 @@ export const EXAMPLES = {
 export const RELATED = {
   relatedSlugs: ['function', 'scraping', 'proxy', 'antibot', 'adblock'],
   title: 'Pair automation with these.'
+}
+
+export const TOC = [
+  ...FEATURE_TOC.slice(0, 4),
+  { id: 'use-cases', label: 'Use cases' },
+  FEATURE_TOC[4]
+]
+
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-screenshot/block-cookie-banners-and-ads',
+    'website-screenshot/capture-element',
+    'website-screenshot/dynamic-content',
+    'website-to-pdf/dynamic-content'
+  ],
+  title: 'Shape the page for a real job.'
 }
 
 export const FAQ_ITEMS = faqFromItems([

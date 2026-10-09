@@ -18,7 +18,7 @@ const data = {
     'qtpi link embed',
     'qtpi shared content embed'
   ],
-  heroTitle: 'QtPi Embed Code Generator',
+  heroTitle: 'QtPi embed code generator',
   heroSubtitle:
     'Paste any QtPi URL — get a ready-to-paste embed for pages and shared content.',
   howItWorksHeading: 'How to embed QtPi content',

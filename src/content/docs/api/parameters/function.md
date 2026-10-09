@@ -19,76 +19,101 @@ It runs JavaScript code with runtime access to a headless browser.
   }}
 />
 
-The function will receive any extra query parameter provided, plus:
-
-### url
-
-The target URL of the request. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
-
-<MultiCodeEditorInteractive mqlCode={{
-  url: 'https://example.com',
-  function: '({ url }) => new URL("/robots.txt", url).href',
-  meta: false
-}} />
-
-### page
-
-The full [puppeteer#page](https://pptr.dev/api/puppeteer.page) object. When the function references `page`, Microlink navigates to the URL in a browser before calling your function. Any Puppeteer page method is available:
-
-<MultiCodeEditorInteractive mqlCode={{
-  url: 'https://example.com',
-  function: '({ page }) => page.title()',
-  meta: false
-}} />
-
-<Figcaption>Get the document title.</Figcaption>
-
-<MultiCodeEditorInteractive mqlCode={{
-  url: 'https://example.com',
-  function: `({ page }) => page.$eval('h1', el => el.textContent)`,
-  meta: false
-}} />
-
-<Figcaption>Extract text from a DOM element.</Figcaption>
+The function runtime supports `require()` for any npm package:
 
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
-  function: `({ page }) => page.$$eval('a', links => links.map(a => a.href))`,
-  meta: false
+  function: `() => {
+  const cheerio = require('cheerio')
+  const $ = cheerio.load('<h1>Hello world</h1>')
+  return $('h1').text()
+}`
 }} />
 
-<Figcaption>Collect all links on the page.</Figcaption>
+Dependencies are detected automatically from your code and installed on-the-fly during the install phase.
+
+The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted.
+
+## Request
+
+The function will receive the parameters explained below as part of the user's request code.
+
+### url
+
+The URL you asked for. Available whether or not the function uses `page`, so you do not need a browser just to know which origin you are running against:
+
+<MultiCodeEditorInteractive mqlCode={{
+  url: 'https://example.com',
+  function: '({ url }) => new URL("/robots.txt", url).href'
+}} />
+
+It is the URL you requested, not the one a redirect settles on. A function asked for on its own skips the [ping](/docs/api/parameters/ping) that would resolve that hop, so `data.url` in the response is the same URL, and the two agree.
+
+Use `page.url()` when you need the settled one, which resolves the page:
+
+```js
+// requested http://github.com
+({ url }) => url                  // => "http://github.com/"
+async ({ page }) => page.url()    // => "https://github.com/"
+```
+
+Asking for `ping` explicitly settles `data.url` without changing the argument.
+
+<H3>page</H3>
+
+A [Puppeteer Page](https://pptr.dev/api/puppeteer.page) for the URL you asked for.:
+
+<MultiCodeEditorInteractive mqlCode={{
+  url: 'https://example.com',
+  function: '({ page }) => page.title()'
+}} />
+
+The [page API](https://pptr.dev/api/puppeteer.page) is supported, so any method on that object is available.
+
+Additionally, we provide methods that extend the page:
+
+#### page.extract()
+
+It takes the same rules as [data](/docs/api/parameters/data) and returns one value per rule:
 
 <MultiCodeEditorInteractive height={250} mqlCode={{
-  url: 'https://example.com',
-  function: `({ page }) => page.evaluate(() => ({
-  viewport: { width: window.innerWidth, height: window.innerHeight },
-  cookies: document.cookie.length,
-  resources: performance.getEntriesByType('resource').length
-}))`,
-  meta: false
+  url: 'https://news.ycombinator.com',
+  function: `({ page }) => page.extract({
+  stories: {
+    selectorAll: '.athing',
+    attr: {
+      title: { selector: '.titleline > a', attr: 'text' },
+      href: { selector: '.titleline > a', attr: 'href', type: 'url' }
+    }
+  }
+})`
 }} />
 
-<Figcaption>Run arbitrary JavaScript in the browser page context via <code>page.evaluate</code>.</Figcaption>
+#### page.metadata()
 
-### response
+It returns the same normalized metadata as [meta](/docs/api/parameters/meta) for the target URL:
 
-The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function uses `page`:
+<MultiCodeEditorInteractive mqlCode={{
+  url: 'https://example.com',
+  function: 'async ({ page }) => (await page.metadata()).title'
+}} />
+
+<H3>response</H3>
+
+The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://edge-ping.vercel.app',
-  function: '({ page, response }) => response.status()',
-  meta: false
+  function: '({ page, response }) => response.status()'
 }} />
 
-### headers
+<H3>headers</H3>
 
 The request headers used to fetch the target URL:
 
 <MultiCodeEditorInteractive mqlCode={{
   url: 'https://example.com',
-  function: '({ headers }) => headers["user-agent"]',
-  meta: false
+  function: '({ headers }) => headers["user-agent"]'
 }} />
 
 ### Custom parameters
@@ -98,8 +123,7 @@ Any extra query parameter is forwarded to the function:
 <MultiCodeEditorInteractive height={200} mqlCode={{
   url: 'https://example.com',
   function: '({ greetings }) => greetings',
-  greetings: 'hello world',
-  meta: false
+  greetings: 'hello world'
 }} />
 
 ## Response
@@ -210,43 +234,3 @@ If you call the API yourself, compress the function body and send it prefixed wi
 - lz-string (`lz`)
 
 Read [how to compress](/blog/compress) to know more.
-
-## NPM packages
-
-The function runtime supports `require()` for any npm package. Dependencies are detected automatically from your code and installed on-the-fly during the install phase.
-
-```js
-import createClient from 'microlink.io'
-
-const microlink = createClient()
-
-const code = () => {
-  const cheerio = require('cheerio')
-  const $ = cheerio.load('<h1>Hello world</h1>')
-  return $('h1').text()
-}
-
-const { value } = await microlink.function('https://example.com', code)
-```
-
-<Figcaption>Dependencies are parsed from your function code, installed in a sandbox, and cached for subsequent runs.</Figcaption>
-
-The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted.
-
-## SDK
-
-The most convenient way to use `function` is through the [`function`](/docs/sdk/methods/function) method of the [Microlink SDK](/docs/sdk/getting-started/overview):
-
-```js
-import createClient from 'microlink.io'
-
-const microlink = createClient()
-
-const result = await microlink.function('https://example.com', ({ page }) => page.title())
-
-console.log(result.value) // 'Example Domain'
-```
-
-It lets you write normal JavaScript functions instead of managing string serialization and compression yourself, and it resolves to the `data.function` object directly.
-
-See the [function guide](/docs/guides/function) for practical examples covering page interaction, npm packages, error handling, and profiling.

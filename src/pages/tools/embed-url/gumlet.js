@@ -18,7 +18,7 @@ const data = {
     'gumlet video player embed',
     'gumlet video embed'
   ],
-  heroTitle: 'Gumlet Embed Code Generator',
+  heroTitle: 'Gumlet embed code generator',
   heroSubtitle:
     'Paste a Gumlet video URL — get a ready-to-paste iframe player for your hosted and streamed videos.',
   howItWorksHeading: 'How to embed a Gumlet video',

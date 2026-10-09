@@ -1,7 +1,6 @@
 import Meta from 'components/elements/Meta/Meta'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Box from 'components/elements/Box'
-import { withTitle } from 'helpers/hoc/with-title'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Flex from 'components/elements/Flex'
@@ -10,8 +9,6 @@ import { layout, theme } from 'theme'
 import React from 'react'
 
 import Content from '../content/fragments/changelog.md'
-
-const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta description='We’re constantly improving the platform. See here notable changes in our lineup of products & improvements over the time.' />

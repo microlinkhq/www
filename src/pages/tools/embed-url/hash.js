@@ -18,7 +18,7 @@ const data = {
     'core.hash.ai embed',
     'hash simulation iframe'
   ],
-  heroTitle: 'HASH Embed Code Generator',
+  heroTitle: 'HASH embed code generator',
   heroSubtitle:
     'Paste a HASH simulation URL — get a ready-to-paste embed or styled preview card.',
   howItWorksHeading: 'How to embed a HASH simulation',

@@ -19,7 +19,7 @@ const data = {
     'embed stanford archive',
     'stanford digital repository image embed'
   ],
-  heroTitle: 'Stanford Digital Repository Embed Code Generator',
+  heroTitle: 'Stanford Digital Repository embed code generator',
   heroSubtitle:
     'Paste any purl.stanford.edu URL — get a ready-to-paste embed for archived documents, images, maps, and media.',
   howItWorksHeading: 'How to embed Stanford Digital Repository content',

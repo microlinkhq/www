@@ -20,7 +20,7 @@ const data = {
     'embed new york times article',
     'nyt preview card generator'
   ],
-  heroTitle: 'New York Times Embed Code Generator',
+  heroTitle: 'New York Times embed code generator',
   heroSubtitle:
     'Paste any New York Times article URL — get a styled preview card with the headline, image, and summary, ready to paste anywhere.',
   howItWorksHeading: 'How to embed a New York Times article',

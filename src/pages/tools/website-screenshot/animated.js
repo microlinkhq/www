@@ -33,16 +33,16 @@ import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Spinner from 'components/elements/Spinner'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
@@ -55,7 +55,6 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
-import { withTitle } from 'helpers/hoc/with-title'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
@@ -91,10 +90,6 @@ import {
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 /* ─── Animated-specific layout extensions (min-height 550px) ─── */
 
@@ -1112,7 +1107,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Animated Screenshot Tool
+      Animated screenshot tool
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -1383,11 +1378,7 @@ const UseCases = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize={false}
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Box
@@ -1552,8 +1543,12 @@ const ProductInformation = () => (
             </div>
             <div>
               Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
-              the easiest integration, or call the HTTP endpoint directly. If
-              something goes wrong, check the{' '}
+              the easiest integration, or call the HTTP endpoint directly. See{' '}
+              <Link href='/use-cases/website-screenshot/animated-screenshots'>
+                animated screenshots on the API
+              </Link>{' '}
+              for the duration, frame rate and container options. If something
+              goes wrong, check the{' '}
               <Link href='/docs/guides/screenshot/troubleshooting'>
                 troubleshooting guide
               </Link>

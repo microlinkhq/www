@@ -19,7 +19,7 @@ const data = {
     'eventlive player embed',
     'embed live event stream'
   ],
-  heroTitle: 'EventLive Embed Code Generator',
+  heroTitle: 'EventLive embed code generator',
   heroSubtitle:
     'Paste an EventLive event link to get ready-to-paste embed code for the live stream, or a styled preview card.',
   howItWorksHeading: 'How to embed an EventLive stream',

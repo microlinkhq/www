@@ -18,7 +18,7 @@ const data = {
     'ifixit teardown embed',
     'repair guide embed'
   ],
-  heroTitle: 'iFixit Embed Code Generator',
+  heroTitle: 'iFixit embed code generator',
   heroSubtitle:
     'Paste any iFixit URL — get a ready-to-paste embed for step-by-step repair guides and teardowns.',
   howItWorksHeading: 'How to embed iFixit content',

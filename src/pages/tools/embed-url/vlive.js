@@ -18,7 +18,7 @@ const data = {
     'vlive player embed',
     'vlive broadcast embed'
   ],
-  heroTitle: 'V LIVE Embed Code Generator',
+  heroTitle: 'V LIVE embed code generator',
   heroSubtitle:
     'Paste any V LIVE URL — get a ready-to-paste player for celebrity broadcasts and videos.',
   howItWorksHeading: 'How to embed V LIVE videos',

@@ -18,7 +18,7 @@ const data = {
     'ndla iframe code',
     'embed ndla learning resource'
   ],
-  heroTitle: 'NDLA Embed Code Generator',
+  heroTitle: 'NDLA embed code generator',
   heroSubtitle:
     'Paste any NDLA URL — get a ready-to-paste embed for learning resources, articles, and videos from the Norwegian Digital Learning Arena.',
   howItWorksHeading: 'How to embed NDLA content',

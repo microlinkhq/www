@@ -19,7 +19,7 @@ const data = {
     'redlof medien page embed',
     'redlof medien link embed'
   ],
-  heroTitle: 'Redlof Medien Embed Code Generator',
+  heroTitle: 'Redlof Medien embed code generator',
   heroSubtitle:
     'Paste any Redlof Medien URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed Redlof Medien content',

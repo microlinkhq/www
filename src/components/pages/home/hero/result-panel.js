@@ -2,6 +2,7 @@ import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Output, { PANEL_HEIGHT } from 'components/pages/home/output'
 import { SEARCH_EXAMPLE } from 'components/pages/home/catalog'
+import ServerTiming from 'components/patterns/ServerTiming/ServerTiming'
 import { trackEvent } from 'helpers/gtag'
 import { transition, theme } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
@@ -16,8 +17,7 @@ import {
   CodeContent,
   ErrorContent,
   HeadersContent,
-  RateLimitedContent,
-  TimingContent
+  RateLimitedContent
 } from './result-contents'
 import { RESULT_TABS, ResultTabs } from './tab-bar'
 import { useTabIndicator } from './use-tab-indicator'
@@ -309,7 +309,13 @@ export const ResultPanel = React.memo(({ tab, setTab, req }) => {
 
         {!hideTabs &&
           tab === 'timing' &&
-          (isLoading || !bars ? <Skeleton /> : <TimingContent bars={bars} />)}
+          (isLoading || !bars
+            ? (
+              <Skeleton />
+              )
+            : (
+              <ServerTiming bars={bars} maxHeight={PANEL_HEIGHT} />
+              ))}
 
         {!hideTabs && tab === 'code' && (
           <CodeContent snippet={snippet} snippetArg={snippetArg} />

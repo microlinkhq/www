@@ -19,7 +19,7 @@ const data = {
     'embed bynder image',
     'bynder embed code generator'
   ],
-  heroTitle: 'HubSpot Bynder Embed Code Generator',
+  heroTitle: 'HubSpot Bynder embed code generator',
   heroSubtitle:
     'Paste a Bynder asset URL — get a clean, ready-to-paste preview card for your digital asset management images and videos.',
   howItWorksHeading: 'How to embed a Bynder asset',

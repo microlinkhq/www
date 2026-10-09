@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
+import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
 
 export const META = {
   title: 'Configurable Caching API: Cache Hits Are Free',
@@ -122,6 +123,23 @@ export const EXAMPLES = {
 export const RELATED = {
   relatedSlugs: ['scraping', 'proxy', 'function', 'headers'],
   title: 'Make every product cheaper.'
+}
+
+export const TOC = [
+  ...FEATURE_TOC.slice(0, 4),
+  { id: 'use-cases', label: 'Use cases' },
+  FEATURE_TOC[4]
+]
+
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-screenshot/traffic-spikes',
+    'website-screenshot/open-graph-images',
+    'website-to-pdf/batch-generation',
+    'website-to-markdown/bulk-conversion',
+    'website-metadata/high-volume-link-previews'
+  ],
+  title: 'Caching in practice.'
 }
 
 export const FAQ_ITEMS = faqFromItems([

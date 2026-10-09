@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 
 Microlink functions can interact with a browser. 
 
-When your function references `page`, you get the full [Puppeteer Page](https://pptr.dev/api/puppeteer.page) object:
+`page` is a [Puppeteer Page](https://pptr.dev/api/puppeteer.page) for the URL you asked for:
 
 ```js
 import createClient from 'microlink.io'
@@ -29,18 +29,23 @@ Start with the high-level helpers before reaching for lower-level APIs:
 - [page.title](https://pptr.dev/api/puppeteer.page.title): Get the document title.
 - [page.$eval](https://pptr.dev/api/puppeteer.page._eval): Run a function on the first matching element.
 - [page.$$eval](https://pptr.dev/api/puppeteer.page.__eval): Run a function on all matching elements.
-- [page.url](https://pptr.dev/api/puppeteer.page.url): Get the current URL.
+- [page.url](https://pptr.dev/api/puppeteer.page.url): Get the URL the page settled on.
 - [page.content](https://pptr.dev/api/puppeteer.page.content): Get the full page HTML.
 
 Any [Puppeteer Page method](https://pptr.dev/api/puppeteer.page) is available.
+
+Two methods extend `page`:
+
+- [page.extract](/docs/api/parameters/function#pageextract): the same rules as [data](/docs/api/parameters/data).
+- [page.metadata](/docs/api/parameters/function#pagemetadata): the same normalized metadata as [meta](/docs/api/parameters/meta).
 
 ## What your function receives
 
 | Property            | Type                                                        | Description                                                                                                                                                                        |
 | ------------------- | ----------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `url`               | `string`                                                    | The target URL of the request. Available without starting a browser                                                                                                                |
-| `page`              | [Page](https://pptr.dev/api/puppeteer.page)                 | Full Puppeteer access for clicks, waits, evaluation, and navigation. When the function references `page`, Microlink navigates to the URL in a browser before calling your function |
-| `response`          | [HTTPResponse](https://pptr.dev/api/puppeteer.httpresponse) | The response returned by the implicit navigation. Only available when the function uses `page`                                                                                     |
+| `url`               | `string`                                                    | The URL you asked for, not the one a redirect settles on. Available without a browser. `page.url()` is the settled one                                                             |
+| `page`              | [Page](https://pptr.dev/api/puppeteer.page)                 | The Puppeteer Page for that URL. The page API is supported. [page.extract](/docs/api/parameters/function#pageextract) and [page.metadata](/docs/api/parameters/function#pagemetadata) extend it |
+| `response`          | [HTTPResponse](https://pptr.dev/api/puppeteer.httpresponse) | The response from the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser                                 |
 | `headers`           | `object`                                                    | The request headers used to fetch the target URL                                                                                                                                   |
 | any extra parameter | depends on what you pass                                    | Custom inputs forwarded from the request                                                                                                                                           |
 
@@ -76,8 +81,7 @@ const { value } = await microlink.function(
 <MultiCodeEditorInteractive height={250} mqlCode={{
   url: 'https://microlink.io',
   function: '({ page }) => page.evaluate("jQuery.fn.jquery")',
-  scripts: ['https://code.jquery.com/jquery-3.5.0.min.js'],
-  meta: false
+  scripts: ['https://code.jquery.com/jquery-3.5.0.min.js']
 }} />
 
 <Figcaption>The <code>scripts</code> parameter injects jQuery before the function runs, making it available inside <code>page.evaluate</code>.</Figcaption>

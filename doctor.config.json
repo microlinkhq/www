@@ -188,7 +188,8 @@
           "src/components/pages/media/capabilities-visual.js",
           "src/components/pages/metadata/hero/json-lines.js",
           "src/pages/tools/website-screenshot/bulk.js",
-          "src/pages/tools/website-to-pdf/bulk.js"
+          "src/pages/tools/website-to-pdf/bulk.js",
+          "src/components/patterns/ServerTiming/ServerTiming.js"
         ],
         "rules": [
           "react-doctor/no-array-index-as-key"
@@ -240,6 +241,14 @@
         ],
         "rules": [
           "react-doctor/no-high-complexity-react-function"
+        ]
+      },
+      {
+        "files": [
+          "src/pages/features/*.js"
+        ],
+        "rules": [
+          "react-doctor/duplicate-jsx-subtree"
         ]
       }
     ]

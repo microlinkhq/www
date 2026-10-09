@@ -19,7 +19,7 @@ const data = {
     'sproutvideo player embed',
     'embed sproutvideo live stream'
   ],
-  heroTitle: 'SproutVideo Embed Code Generator',
+  heroTitle: 'SproutVideo embed code generator',
   heroSubtitle:
     'Paste a SproutVideo URL — get a ready-to-paste iframe player for hosted business videos and live streams.',
   howItWorksHeading: 'How to embed a SproutVideo video',

@@ -18,7 +18,7 @@ const data = {
     'sudomemo iframe code',
     'sudomemo flipnote player embed'
   ],
-  heroTitle: 'Sudomemo Embed Code Generator',
+  heroTitle: 'Sudomemo embed code generator',
   heroSubtitle:
     'Paste any Sudomemo URL — get a ready-to-paste player for Flipnote animations and creator pages.',
   howItWorksHeading: 'How to embed Sudomemo Flipnotes',

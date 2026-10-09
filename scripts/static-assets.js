@@ -24,12 +24,11 @@
  */
 
 const { mkdir, readFile, writeFile } = require('fs/promises')
+const { createHash } = require('node:crypto')
 const { styleText } = require('node:util')
+const { default: mime } = require('mime')
 const optimo = require('optimo')
-const https = require('https')
-const http = require('http')
 const path = require('path')
-const fs = require('fs')
 
 const git = require('../src/helpers/git')
 
@@ -45,68 +44,72 @@ const isHttpUrl = input => /^https?:\/\//.test(input)
 
 const mkdirp = filepath => mkdir(filepath, { recursive: true }).catch(() => {})
 
-const getExtension = url => {
-  const pathname = new URL(url).pathname
-  const ext = path.extname(pathname)
-  return ext || '.png'
-}
+const SUPPORTED_EXTENSIONS = new Set([
+  'avif',
+  'bmp',
+  'gif',
+  'heic',
+  'jpg',
+  'jxl',
+  'png',
+  'svg',
+  'webp'
+])
+
+const GENERIC_MEDIA_TYPES = new Set(['', 'application/octet-stream'])
+
+const urlMediaType = url => mime.getType(new URL(url).pathname)
 
 const isImageUrl = input => {
   if (!isHttpUrl(input)) return false
 
   try {
-    const pathname = new URL(input).pathname.toLowerCase()
-    return /\.(png|jpe?g|webp|gif|svg|avif|heic|jxl|bmp)$/.test(pathname)
+    return SUPPORTED_EXTENSIONS.has(mime.getExtension(urlMediaType(input)))
   } catch (_) {
     return false
   }
 }
 
-const downloadFile = (url, outputPath) => {
-  return new Promise((resolve, reject) => {
-    const client = url.startsWith('https') ? https : http
+const resolveExtension = ({ url, contentType }) => {
+  const servedType = (contentType ?? '').split(';')[0].trim().toLowerCase()
+  const mediaType = GENERIC_MEDIA_TYPES.has(servedType)
+    ? urlMediaType(url)
+    : servedType
+  const extension = mime.getExtension(mediaType)
+  if (SUPPORTED_EXTENSIONS.has(extension)) return `.${extension}`
 
-    client
-      .get(url, response => {
-        if (response.statusCode === 301 || response.statusCode === 302) {
-          return downloadFile(response.headers.location, outputPath)
-            .then(resolve)
-            .catch(reject)
-        }
-
-        if (response.statusCode !== 200) {
-          return reject(
-            new Error(`Failed to download ${url}: ${response.statusCode}`)
-          )
-        }
-
-        const fileStream = fs.createWriteStream(outputPath)
-        response.pipe(fileStream)
-
-        fileStream.on('finish', () => {
-          fileStream.close()
-          console.log(`✓ Downloaded ${path.basename(outputPath)}`)
-          resolve()
-        })
-
-        fileStream.on('error', reject)
-      })
-      .on('error', reject)
-  })
+  throw new Error(
+    `${url} is not a supported image (content-type: ${servedType || 'none'})`
+  )
 }
 
-const generateFilename = (url, index) => {
-  const urlObj = new URL(url)
-  const basename = path.basename(urlObj.pathname, path.extname(urlObj.pathname))
-  const ext = getExtension(url)
+const URL_HASH_LENGTH = 8
 
-  // Use existing filename if it looks like an imgur-style hash
-  if (basename && basename.length > 3) {
-    return `${basename}${ext}`
+const urlHash = url =>
+  createHash('sha1').update(url).digest('hex').slice(0, URL_HASH_LENGTH)
+
+const generateFilename = (url, extension) => {
+  const { pathname } = new URL(url)
+  const basename = path.basename(pathname, path.extname(pathname))
+  const name = basename.length > 3 ? basename : 'image'
+  return `${name}-${urlHash(url)}${extension}`
+}
+
+const downloadImage = async (url, imagesFolder) => {
+  const response = await fetch(url)
+  if (response.status !== 200) {
+    throw new Error(`Failed to download ${url}: ${response.status}`)
   }
 
-  // Otherwise generate a name
-  return `image-${index}${ext}`
+  const extension = resolveExtension({
+    url: response.url,
+    contentType: response.headers.get('content-type')
+  })
+  const filename = generateFilename(url, extension)
+  const outputPath = path.join(imagesFolder, filename)
+  await writeFile(outputPath, Buffer.from(await response.arrayBuffer()))
+  console.log(`✓ Downloaded ${filename}`)
+  return { filename, outputPath }
 }
 
 const optimizeImage = async outputPath => {
@@ -114,6 +117,15 @@ const optimizeImage = async outputPath => {
     resize: 'w1280'
   })
   console.log(`✓ Optimized ${path.basename(outputPath)}`)
+}
+
+const migrateImage = async (url, imagesFolder) => {
+  const { filename, outputPath } = await downloadImage(url, imagesFolder)
+  await optimizeImage(outputPath)
+  downloadedAssets.add(outputPath)
+  const localPath = `/images/${filename}`
+  urlToLocalPath.set(url, localPath)
+  return localPath
 }
 
 const processFrontmatterImage = async (data, imagesFolder) => {
@@ -128,16 +140,9 @@ const processFrontmatterImage = async (data, imagesFolder) => {
     }
 
     console.log(`Processing frontmatter image: ${url}`)
-    const filename = generateFilename(url, 0)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
 
     try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
-      data.image = localPath
+      data.image = await migrateImage(url, imagesFolder)
       return true
     } catch (err) {
       console.error(red(`Failed to download frontmatter image: ${err.message}`))
@@ -147,41 +152,90 @@ const processFrontmatterImage = async (data, imagesFolder) => {
   return false
 }
 
-const processMarkdownImages = async (content, imagesFolder) => {
-  const regex = /!\[([^\]]*)\]\(([^)]+)\)/g
-  const matches = []
-  let match
+const CODE_FENCE_MARKER = /^ {0,3}(`{3,}|~{3,})/
+const BARE_CODE_FENCE = /^ {0,3}(`{3,}|~{3,}) *\r?\n?$/
 
-  while ((match = regex.exec(content)) !== null) {
-    matches.push({ alt: match[1], url: match[2] })
-  }
+const splitByCodeFences = content => {
+  const segments = []
+  let fence = null
+  let buffer = ''
 
-  // Collect unique HTTP URLs for processing
-  const httpUrls = [...new Set(matches.map(m => m.url).filter(isHttpUrl))]
+  for (const line of content.split(/(?<=\n)/)) {
+    const marker = line.match(CODE_FENCE_MARKER)?.[1]
 
-  let index = 1
-  for (const url of httpUrls) {
-    // Check if this URL was already processed (deduplication)
-    if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached image: ${url}`)
-      const localPath = urlToLocalPath.get(url)
-      // Replace ALL occurrences of this URL
-      content = content.replaceAll(url, localPath)
+    if (!fence && marker) {
+      segments.push({ isCode: false, text: buffer })
+      buffer = line
+      fence = marker
       continue
     }
 
-    console.log(`Processing markdown image: ${url}`)
-    const filename = generateFilename(url, index++)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
+    buffer += line
+    const closesFence =
+      fence &&
+      BARE_CODE_FENCE.test(line) &&
+      marker[0] === fence[0] &&
+      marker.length >= fence.length
+    if (closesFence) {
+      segments.push({ isCode: true, text: buffer })
+      buffer = ''
+      fence = null
+    }
+  }
+
+  segments.push({ isCode: fence !== null, text: buffer })
+  return segments
+}
+
+const outsideCodeFences = content =>
+  splitByCodeFences(content)
+    .filter(segment => !segment.isCode)
+    .map(segment => segment.text)
+    .join('')
+
+const replaceOutsideCodeFences = (content, url, localPath) =>
+  splitByCodeFences(content)
+    .map(segment =>
+      segment.isCode ? segment.text : segment.text.replaceAll(url, localPath)
+    )
+    .join('')
+
+const MARKDOWN_IMAGE = /!\[[^\]]*\]\(([^)]+)\)/g
+const JSX_OBJECT_SRC = /src\s*:\s*['"]([^'"]+)['"]/g
+const JSX_ATTRIBUTE_SRC = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
+
+const firstCaptures = (text, regex) =>
+  Array.from(text.matchAll(regex), match => match[1])
+
+const markdownImageUrls = prose =>
+  firstCaptures(prose, MARKDOWN_IMAGE).filter(isHttpUrl)
+
+const jsxImageUrls = prose =>
+  [
+    ...firstCaptures(prose, JSX_OBJECT_SRC),
+    ...firstCaptures(prose, JSX_ATTRIBUTE_SRC)
+  ].filter(isImageUrl)
+
+const migrateImageUrls = async ({
+  content,
+  imagesFolder,
+  collectUrls,
+  kind
+}) => {
+  const urls = [...new Set(collectUrls(outsideCodeFences(content)))]
+
+  for (const url of urls) {
+    if (urlToLocalPath.has(url)) {
+      console.log(`Reusing cached ${kind}: ${url}`)
+      content = replaceOutsideCodeFences(content, url, urlToLocalPath.get(url))
+      continue
+    }
+
+    console.log(`Processing ${kind}: ${url}`)
 
     try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
-      // Replace ALL occurrences of this URL
-      content = content.replaceAll(url, localPath)
+      const localPath = await migrateImage(url, imagesFolder)
+      content = replaceOutsideCodeFences(content, url, localPath)
     } catch (err) {
       console.error(`Failed to download ${url}: ${err.message}`)
     }
@@ -190,78 +244,25 @@ const processMarkdownImages = async (content, imagesFolder) => {
   return content
 }
 
-const processJsxImageSources = async (content, imagesFolder) => {
-  const matches = []
+const processMarkdownImages = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: markdownImageUrls,
+    kind: 'markdown image'
+  })
 
-  // Match object-style props: src: 'https://...'
-  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
-  let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
-    matches.push(objectMatch[1])
-  }
-
-  // Match JSX attribute style: src="https://..."
-  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
-  let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
-    matches.push(attrMatch[1])
-  }
-
-  // Only process unique external image URLs
-  const httpUrls = [...new Set(matches.filter(isImageUrl))]
-
-  let index = 1
-  for (const url of httpUrls) {
-    if (urlToLocalPath.has(url)) {
-      console.log(`Reusing cached JSX image: ${url}`)
-      content = content.replaceAll(url, urlToLocalPath.get(url))
-      continue
-    }
-
-    console.log(`Processing JSX image source: ${url}`)
-    const filename = generateFilename(url, index++)
-    const outputPath = path.join(imagesFolder, filename)
-    const localPath = `/images/${filename}`
-
-    try {
-      await downloadFile(url, outputPath)
-      await optimizeImage(outputPath)
-      downloadedAssets.add(outputPath)
-      urlToLocalPath.set(url, localPath)
-      content = content.replaceAll(url, localPath)
-    } catch (err) {
-      console.error(`Failed to download ${url}: ${err.message}`)
-    }
-  }
-
-  return content
-}
+const processJsxImageSources = (content, imagesFolder) =>
+  migrateImageUrls({
+    content,
+    imagesFolder,
+    collectUrls: jsxImageUrls,
+    kind: 'JSX image source'
+  })
 
 const countExternalImageCandidates = content => {
-  let total = 0
-
-  // Markdown image syntax
-  const markdownRegex = /!\[([^\]]*)\]\(([^)]+)\)/g
-  let markdownMatch
-  while ((markdownMatch = markdownRegex.exec(content)) !== null) {
-    if (isHttpUrl(markdownMatch[2])) total++
-  }
-
-  // JSX object-style src: 'https://...'
-  const objectSrcRegex = /src\s*:\s*['"]([^'"]+)['"]/g
-  let objectMatch
-  while ((objectMatch = objectSrcRegex.exec(content)) !== null) {
-    if (isImageUrl(objectMatch[1])) total++
-  }
-
-  // JSX attribute style src="https://..."
-  const attrSrcRegex = /\bsrc\s*=\s*['"]([^'"]+)['"]/g
-  let attrMatch
-  while ((attrMatch = attrSrcRegex.exec(content)) !== null) {
-    if (isImageUrl(attrMatch[1])) total++
-  }
-
-  return total
+  const prose = outsideCodeFences(content)
+  return markdownImageUrls(prose).length + jsxImageUrls(prose).length
 }
 
 const parseFrontmatter = fileContent => {
@@ -309,33 +310,15 @@ const processFile = async filepath => {
   const imagesFolder = path.resolve(__dirname, '../static/images')
   await mkdirp(imagesFolder)
 
-  let modified = false
-  let newContent = content
   const externalCandidates = countExternalImageCandidates(content)
-
-  // Process frontmatter image
-  if (await processFrontmatterImage(data, imagesFolder, content)) {
-    modified = true
-  }
-
-  // Process markdown images
-  const updatedContent = await processMarkdownImages(content, imagesFolder)
-  if (updatedContent !== newContent) {
-    newContent = updatedContent
-    modified = true
-  }
-
-  // Process external image URLs used inside JSX component props (e.g. SliderCompare src fields)
-  const updatedJsxContent = await processJsxImageSources(
-    newContent,
+  const frontmatterChanged = await processFrontmatterImage(data, imagesFolder)
+  const markdownMigrated = await processMarkdownImages(content, imagesFolder)
+  const newContent = await processJsxImageSources(
+    markdownMigrated,
     imagesFolder
   )
-  if (updatedJsxContent !== newContent) {
-    newContent = updatedJsxContent
-    modified = true
-  }
 
-  if (modified) {
+  if (frontmatterChanged || newContent !== content) {
     const finalContent = frontmatter
       ? stringifyFrontmatter(data, newContent)
       : newContent
@@ -394,4 +377,14 @@ const main = async () => {
   console.log('\n✓ Migration complete!')
 }
 
-main()
+if (require.main === module) main()
+
+module.exports = {
+  countExternalImageCandidates,
+  outsideCodeFences,
+  replaceOutsideCodeFences,
+  downloadImage,
+  generateFilename,
+  isImageUrl,
+  resolveExtension
+}

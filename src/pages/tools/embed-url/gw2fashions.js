@@ -19,7 +19,7 @@ const data = {
     'gw2fashions iframe code',
     'embed gw2 outfit'
   ],
-  heroTitle: 'GW2Fashions Embed Code Generator',
+  heroTitle: 'GW2Fashions embed code generator',
   heroSubtitle:
     'Paste a GW2Fashions URL to get a ready-to-paste embed or preview card for Guild Wars 2 fashion templates.',
   howItWorksHeading: 'How to embed GW2Fashions content',

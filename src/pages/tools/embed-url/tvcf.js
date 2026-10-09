@@ -18,7 +18,7 @@ const data = {
     'tvcf video player embed',
     'tvcf video embed'
   ],
-  heroTitle: 'TVCF Embed Code Generator',
+  heroTitle: 'TVCF embed code generator',
   heroSubtitle:
     'Paste any TVCF URL — get a ready-to-paste video embed or preview card.',
   howItWorksHeading: 'How to embed TVCF videos',

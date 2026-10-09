@@ -18,7 +18,7 @@ const data = {
     'embed smart contract code',
     'embed solidity ethfiddle'
   ],
-  heroTitle: 'EthFiddle Embed Code Generator',
+  heroTitle: 'EthFiddle embed code generator',
   heroSubtitle:
     'Paste an EthFiddle URL — get ready-to-paste HTML for your syntax-highlighted Solidity smart contract snippets.',
   howItWorksHeading: 'How to embed an EthFiddle snippet',

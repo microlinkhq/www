@@ -19,7 +19,7 @@ const data = {
     'bunny stream player embed',
     'mediadelivery embed'
   ],
-  heroTitle: 'Bunny.net Embed Code Generator',
+  heroTitle: 'Bunny.net embed code generator',
   heroSubtitle:
     'Paste a Bunny Stream video URL — get a ready-to-paste iframe player you can drop into any page.',
   howItWorksHeading: 'How to embed a Bunny.net video',

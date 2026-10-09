@@ -20,7 +20,7 @@ const data = {
     'embed 360 story',
     'fader iframe embed'
   ],
-  heroTitle: 'Fader Embed Code Generator',
+  heroTitle: 'Fader embed code generator',
   heroSubtitle:
     'Paste a Fader 360° story URL and get a ready-to-paste interactive embed or preview card.',
   howItWorksHeading: 'How to embed a Fader 360° story',

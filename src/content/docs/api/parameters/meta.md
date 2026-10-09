@@ -7,7 +7,7 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type, TypeContainer } from 'components/markdown/Type'
 
 Type: <TypeContainer><Type children='<boolean>'/> | <Type children='<object>'/></TypeContainer><br/>
-Default: <Type children='true'/>
+Default: <Type children='true'/>, or <Type children='false'/> when [function](/docs/api/parameters/function) is the only thing requested
 
 It enables normalized metadata detection over the target [url](/docs/api/parameters/url).
 
@@ -45,7 +45,28 @@ Normalized data fields are enabled by default, so explicit setting to `true` is 
 }
 ```
 
-## Configurable Detection
+## Functions
+
+When [function](/docs/api/parameters/function) is the only thing you ask for, the function is the
+answer to the request, so metadata is off by default and nothing is fetched on your behalf.
+
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://example.com', function: '() => 420' }} />
+
+Ask for it explicitly to get both:
+
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://example.com', function: '() => 420', meta: true }} />
+
+Or read it inside the function, which costs one page load rather than two:
+
+<MultiCodeEditorInteractive mqlCode={{ url: 'https://example.com', function: 'async ({ page }) => (await page.metadata()).title' }} />
+
+Asking for anything else at the same time — [screenshot](/docs/api/parameters/screenshot),
+[pdf](/docs/api/parameters/pdf), [insights](/docs/api/parameters/insights),
+[iframe](/docs/api/parameters/iframe), [video](/docs/api/parameters/video),
+[audio](/docs/api/parameters/audio), [palette](/docs/api/parameters/palette), or a
+[data](/docs/api/parameters/data) rule — keeps metadata on.
+
+## Configurable detection
 
 You can configure which specific metadata fields to detect by passing an object with field-specific settings:
 

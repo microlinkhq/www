@@ -1,3 +1,4 @@
+import { VERTICALS } from '../components/patterns/UseCaseStory/registry/verticals.js'
 import { toMarkdownPath } from './page-markdown.js'
 
 const SITE_URL = 'https://microlink.io'
@@ -9,17 +10,25 @@ const SUMMARY =
 
 const MACHINE_READABLE = `## Machine-readable
 
-- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification`
+- [OpenAPI](https://microlink.io/openapi.json): Microlink API specification
+- [Agent feedback](https://microlink.io/.well-known/agent-feedback.json): How agents report Microlink API problems`
 
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/
 
 const SECTIONS = [
   ['/api', 'API overview'],
+  ['/ai', 'AI overview'],
   ['/docs/api', 'API'],
   ['/docs/cards', 'Cards'],
   ['/docs/guides', 'Guides'],
   ['/docs/sdk', 'SDK'],
   ['/features', 'Features'],
+  ['/use-cases/customers', 'Customer stories'],
+  ['/use-cases/industries', 'Use cases by industry'],
+  ...VERTICALS.map(({ slug, product }) => [
+    `/use-cases/${slug}`,
+    `Use cases: ${product}`
+  ]),
   ['/use-cases', 'Use cases'],
   ['/alternative', 'Alternatives'],
   ['/integrations', 'Integrations'],

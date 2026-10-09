@@ -9,9 +9,8 @@ import {
   radii,
   breakpoints
 } from 'theme'
-import { withTitle } from 'helpers/hoc/with-title'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
 import ArrowLink from 'components/patterns/ArrowLink'
@@ -24,18 +23,14 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -622,7 +617,6 @@ const Hero = () => (
           maxWidth: layout.large,
           color: 'black80'
         })}
-        titleize={false}
       >
         <b>Firecrawl</b> bills in credits that multiply — <b>5×</b> for the
         stealth proxy, spent even when the target page errors, gone if unused.{' '}
@@ -814,7 +808,7 @@ const ComparisonSection = () => (
     })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
         <GradientText>Feature-by-Feature</GradientText> Comparison
       </Subhead>
       <Caption
@@ -824,7 +818,6 @@ const ComparisonSection = () => (
           maxWidth: layout.normal,
           color: 'black60'
         })}
-        titleize={false}
       >
         A flat-priced data API and a credit-billed scraping platform, side by
         side.
@@ -979,10 +972,7 @@ const WhySwitchNumber = styled(Text)`
 const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
-      <Subhead
-        css={theme({ color: 'black', pb: [1, 2, 2, 2] })}
-        titleize={false}
-      >
+      <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
         Why <GradientText>Developers</GradientText> Switch
       </Subhead>
       <Caption
@@ -991,7 +981,6 @@ const WhySwitchSection = () => (
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
-        titleize={false}
       >
         The top reasons teams pick Microlink over Firecrawl for per-URL
         workloads.
@@ -1088,7 +1077,7 @@ const HonestySection = () => (
     css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
   >
     <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
         Where <GradientText>Firecrawl</GradientText>
         <br /> Might Be the Right Choice
       </Subhead>
@@ -1188,7 +1177,7 @@ const CREDIT_MATH_ROWS = [
 const PricingSection = () => (
   <Section as='section' id='pricing' css={theme({ py: 5 })}>
     <SectionInner>
-      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })} titleize={false}>
+      <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 3 })}>
         One request price. <br />
         <GradientText>No credit multipliers.</GradientText>
       </Subhead>
@@ -1198,7 +1187,6 @@ const PricingSection = () => (
           maxWidth: layout.large,
           color: 'black60'
         })}
-        titleize={false}
       >
         Microlink bills <b>requests</b>. Firecrawl bills <b>credits</b> — and
         the multipliers decide what a credit is worth.
@@ -1513,7 +1501,6 @@ const CTASection = () => (
           color: 'white',
           pb: [2, 2, 3, 3]
         })}
-        titleize={false}
       >
         Ship markdown, not credit spreadsheets
       </Subhead>
@@ -1525,7 +1512,6 @@ const CTASection = () => (
           pb: [3, 3, 4, 4],
           maxWidth: layout.large
         })}
-        titleize={false}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —

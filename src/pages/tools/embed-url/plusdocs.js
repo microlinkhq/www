@@ -18,7 +18,7 @@ const data = {
     'plus dashboard embed',
     'plus live snapshot embed'
   ],
-  heroTitle: 'Plus Embed Code Generator',
+  heroTitle: 'Plus embed code generator',
   heroSubtitle:
     'Paste any Plus URL — get a ready-to-paste embed for live Snapshots of web pages and dashboards.',
   howItWorksHeading: 'How to embed Plus Snapshots',

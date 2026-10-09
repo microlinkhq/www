@@ -19,7 +19,7 @@ const data = {
     'rooster teeth podcast embed',
     'embed rooster teeth series'
   ],
-  heroTitle: 'Rooster Teeth Embed Code Generator',
+  heroTitle: 'Rooster Teeth embed code generator',
   heroSubtitle:
     'Paste any Rooster Teeth URL — get a ready-to-paste embed for videos, series, and podcasts.',
   howItWorksHeading: 'How to embed Rooster Teeth content',

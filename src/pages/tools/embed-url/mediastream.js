@@ -18,7 +18,7 @@ const data = {
     'mediastream iframe code',
     'mediastream player embed'
   ],
-  heroTitle: 'Mediastream Embed Code Generator',
+  heroTitle: 'Mediastream embed code generator',
   heroSubtitle:
     'Paste any Mediastream URL — get a ready-to-paste player for live and on-demand video.',
   howItWorksHeading: 'How to embed Mediastream video',

@@ -18,7 +18,7 @@ const data = {
     'embedery widget embed',
     'embed embedery survey'
   ],
-  heroTitle: 'Embedery Embed Code Generator',
+  heroTitle: 'Embedery embed code generator',
   heroSubtitle:
     'Paste an Embedery popup or widget URL — get ready-to-paste embed HTML for popups, top bars, and surveys.',
   howItWorksHeading: 'How to embed Embedery content',

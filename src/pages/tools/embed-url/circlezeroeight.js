@@ -19,7 +19,7 @@ const data = {
     'circle zero eight magazine embed',
     'circle zero eight link preview'
   ],
-  heroTitle: 'Circle Zero Eight Embed Code Generator',
+  heroTitle: 'Circle Zero Eight embed code generator',
   heroSubtitle:
     'Paste a Circle Zero Eight article URL — get a ready-to-paste embed or styled preview card.',
   howItWorksHeading: 'How to embed a Circle Zero Eight article',

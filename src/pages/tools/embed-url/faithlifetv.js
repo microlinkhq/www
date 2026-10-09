@@ -19,7 +19,7 @@ const data = {
     'faithlife tv video embed',
     'embed christian video faithlife tv'
   ],
-  heroTitle: 'Faithlife TV Embed Code Generator',
+  heroTitle: 'Faithlife TV embed code generator',
   heroSubtitle:
     'Paste any Faithlife TV URL — get ready-to-paste embed HTML for Christian movies, documentaries, kids shows, and Bible video courses.',
   howItWorksHeading: 'How to embed a Faithlife TV video',

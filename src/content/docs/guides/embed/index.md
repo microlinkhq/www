@@ -14,7 +14,7 @@ Microlink turns any URL into a rich preview, an interactive player, or a plain a
 
 <Figcaption>The default response already returns the normalized fields — <code>title</code>, <code>description</code>, <code>image</code>, <code>logo</code>, <code>publisher</code> — needed to render any kind of preview.</Figcaption>
 
-## Shortcut: drop in the Embed SDK
+## Shortcut: Drop in the Embed SDK
 
 If you just want a preview rendered on the page, skip everything below and use the Embed SDK. One component, one prop, no API call to write:
 
@@ -26,7 +26,7 @@ import Microlink from '@microlink/react'
 
 The Embed SDK handles the API call, the iframe-vs-card decision, lazy-loading, and rendering. Available for React, Vue, and Vanilla JavaScript. See the <Link href='/docs/guides/embed/sdk' children='Embed SDK guide' />.
 
-## Granular control: four steps
+## Granular control: Four steps
 
 When you need the provider's native player, your own HTML, server-rendered output, or any custom delivery, walk through the workflow below. The Embed SDK is a higher-level wrapper around these same four steps — calling them yourself unlocks the full surface.
 

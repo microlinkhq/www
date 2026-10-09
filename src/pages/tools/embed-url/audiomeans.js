@@ -19,7 +19,7 @@ const data = {
     'audiomeans iframe code',
     'embed audiomeans episode'
   ],
-  heroTitle: 'Audiomeans Embed Code Generator',
+  heroTitle: 'Audiomeans embed code generator',
   heroSubtitle:
     'Paste any Audiomeans podcast URL — get a ready-to-paste audio player for shows and episodes.',
   howItWorksHeading: 'How to embed Audiomeans content',

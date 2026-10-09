@@ -18,7 +18,7 @@ const data = {
     'fooday restaurant embed',
     'fooday preview card'
   ],
-  heroTitle: 'Fooday Embed Code Generator',
+  heroTitle: 'Fooday embed code generator',
   heroSubtitle:
     'Paste a Fooday review URL — get a ready-to-paste preview card for restaurant reviews and dining spots.',
   howItWorksHeading: 'How to embed a Fooday review',

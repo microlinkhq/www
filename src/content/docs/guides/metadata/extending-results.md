@@ -109,3 +109,8 @@ If you need both, enable both. If you only want one, disable the other to keep t
 ## Next step
 
 Learn how to keep or reshape the final response in [delivery and response shaping](/docs/guides/metadata/delivery-and-response).
+
+## See also
+
+- <Link href='/use-cases/website-metadata/custom-fields' children='Custom fields alongside metadata' /> — typed rules next to the normalized fields.
+- <Link href='/use-cases/website-metadata/brand-colors' children='Brand colors from images' /> — palette and accessible pairs for themed cards.

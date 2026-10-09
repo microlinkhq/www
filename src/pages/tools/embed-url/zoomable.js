@@ -18,7 +18,7 @@ const data = {
     'deep zoom image embed',
     'embed high resolution image'
   ],
-  heroTitle: 'Zoomable Embed Code Generator',
+  heroTitle: 'Zoomable embed code generator',
   heroSubtitle:
     'Paste any Zoomable URL — get a ready-to-paste embed for very high-resolution, pannable and zoomable images.',
   howItWorksHeading: 'How to embed Zoomable images',

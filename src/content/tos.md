@@ -6,7 +6,7 @@ date: '2018-04-08'
 
 By accessing the website at [microlink.io](https://microlink.io), you are agreeing to be bound by these terms of service, all applicable laws and regulations, and agree that you are responsible for compliance with any applicable local laws.
 
-## Use License
+## Use license
 
 Permission is granted to temporarily use [microlink.io](https://microlink.io) for personal, commercial, or non-commercial usage. This is the grant of a license, not a transfer of title, and under this license you may not:
 
@@ -38,6 +38,6 @@ Microlink has not reviewed all of the sites linked to its website and is not res
 
 Microlink may revise these terms of service for its website at any time without notice. By using this website you are agreeing to be bound by the then current version of these terms of service.
 
-## Governing Law
+## Governing law
 
 These terms and conditions are governed by and construed in accordance with the laws of the European Union, and you irrevocably submit to the exclusive jurisdiction of the courts in that State or location.

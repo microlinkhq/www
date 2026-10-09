@@ -19,7 +19,7 @@ const data = {
     'embed primary source document',
     'documentcloud page embed'
   ],
-  heroTitle: 'DocumentCloud Embed Code Generator',
+  heroTitle: 'DocumentCloud embed code generator',
   heroSubtitle:
     'Paste a DocumentCloud URL — get a ready-to-paste embed for primary source documents, individual pages, and notes.',
   howItWorksHeading: 'How to embed DocumentCloud content',

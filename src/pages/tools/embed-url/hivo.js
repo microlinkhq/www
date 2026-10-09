@@ -18,7 +18,7 @@ const data = {
     'hivo brand page embed',
     'hivo digital asset management embed'
   ],
-  heroTitle: 'HIVO Embed Code Generator',
+  heroTitle: 'HIVO embed code generator',
   heroSubtitle:
     'Paste a HIVO shared asset or brand page URL — get a ready-to-paste preview card for your site.',
   howItWorksHeading: 'How to embed a HIVO asset',

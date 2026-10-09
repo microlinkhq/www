@@ -18,7 +18,7 @@ const data = {
     'embed interactive quiz',
     'learningapps lesson embed'
   ],
-  heroTitle: 'LearningApps Embed Code Generator',
+  heroTitle: 'LearningApps embed code generator',
   heroSubtitle:
     'Paste any LearningApps URL — get a ready-to-paste embed or preview card for quizzes, matching games, and interactive exercises.',
   howItWorksHeading: 'How to embed LearningApps content',

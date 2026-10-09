@@ -1,5 +1,28 @@
+### October 2026
+
+- [Microlink API](/docs/api/parameters/data): [data](/docs/api/parameters/data) `evaluate` runs on the function page.
+- [Microlink API](/docs/api/parameters/function): A proxied [function](/docs/api/parameters/function) no longer counts images, CSS, and fonts toward quota.
+- [unavatar.io](https://unavatar.io): Checkout keeps the existing account when the email is already registered.
+- [unavatar.io](https://unavatar.io): Publishable keys can allow localhost.
+- [Microlink](https://dashboard.microlink.io): Free plan for everyone, without a card.
+- [Microlink](/): Serves `/.well-known/agent-feedback.json` so agents can find the feedback endpoint.
+- [Microlink Blog](/blog): Published [Optimizing Microlink Functions](/blog/optimizing-microlink-functions).
+
 ### September 2026
 
+- [Microlink](/): Added [SerpApi](/alternative/serpapi) alternative.
+- [Microlink](https://dashboard.microlink.io): Sign up without a card and get a development key (100 requests/month).
+- [Microlink API](/docs/api/parameters/meta): Prefers a wordmark over a favicon for [logo](/docs/api/parameters/meta).
+- [Microlink CLI](/docs/sdk/getting-started/cli): Added `microlink setup` to install the Microlink skill.
+- [Browserless v13.12](https://browserless.js.org): Screenshots wait for lazy images in the viewport.
+- [Browserless v13.12](https://browserless.js.org): Screenshot and PDF retries wait for a full network-idle window.
+- [Microlink Blog](/blog): Published [Why we still run Chrome](/blog/why-we-still-run-chrome).
+- [Microlink](/use-cases): Added [scraping](/use-cases/scraping), [proxy](/use-cases/proxy), and [search](/use-cases/search-api) use cases, plus industry hubs.
+- [Microlink](/ai): Added the [AI](/ai) skill hub.
+- [Microlink](/integrations/mcp): [MCP](/integrations/mcp) install is tabbed for Claude, ChatGPT, and Cursor.
+- [Microlink API](/docs/api/parameters/function): [data](/docs/api/parameters/data) `evaluate` and `page.extract` snippets run in the page.
+- [Microlink API](/docs/api/getting-started/overview): Ignores `path` and `encoding` on screenshot and PDF requests, and accepts comma-separated [insights](/docs/api/parameters/insights) lighthouse lists.
+- [Microlink API](/docs/api/parameters/function): Added `page.metadata` and `page.extract` to [function](/docs/api/parameters/function).
 - [Microlink](/): Added the [PDF](/pdf/ruby) landing for Ruby.
 - [Microlink API](/docs/api/parameters/function): Raised heap limits to 64 MB (free) and 128 MB (pro).
 - [Microlink Tools](/tools): Added [sitemap](/tools/sitemap) page.
@@ -51,7 +74,7 @@
 - [Microlink](/): Added [antibot](/features/antibot) and [isolation](/features/isolation) feature landings.
 - [Microlink API](/docs/api/getting-started/overview): Added [EPDFTOOLARGE](/docs/api/basics/error-codes#epdftoolarge) when a document is too large to render as PDF.
 - [Microlink](/): Redesigned [skills](/skills) page.
-- [Microlink](/): Added [Handinger](/use-cases/handinger) customer story.
+- [Microlink](/): Added [Handinger](/use-cases/customers/handinger) customer story.
 - [unavatar.io](https://unavatar.io): Improved DuckDuckGo favicon resolution for www/apex host variants.
 - [Microlink](/): New homepage hero with an interactive natural-language API console.
 - [Microlink](/): Added [Chrome extensions](/extensions) landings for website screenshot and PDF.

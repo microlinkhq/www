@@ -18,7 +18,7 @@ const data = {
     'idomoo video embed',
     'data-driven video embed'
   ],
-  heroTitle: 'Idomoo Embed Code Generator',
+  heroTitle: 'Idomoo embed code generator',
   heroSubtitle:
     'Paste any Idomoo URL — get a ready-to-paste player for personalized and data-driven videos.',
   howItWorksHeading: 'How to embed Idomoo content',

@@ -18,7 +18,7 @@ const data = {
     'nanoo.tv player embed',
     'embed educational video'
   ],
-  heroTitle: 'nanoo.tv Embed Code Generator',
+  heroTitle: 'nanoo.tv embed code generator',
   heroSubtitle:
     'Paste any nanoo.tv URL — get a ready-to-paste player for educational video and audio.',
   howItWorksHeading: 'How to embed nanoo.tv content',

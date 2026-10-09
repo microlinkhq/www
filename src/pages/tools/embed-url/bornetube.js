@@ -18,7 +18,7 @@ const data = {
     'bornetube.dk embed',
     'embed bornetube link'
   ],
-  heroTitle: 'Børnetube Embed Code Generator',
+  heroTitle: 'Børnetube embed code generator',
   heroSubtitle:
     'Paste a Børnetube link — get a ready-to-paste embed or a styled preview card for the video.',
   howItWorksHeading: 'How to embed a Børnetube video',

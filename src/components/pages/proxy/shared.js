@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
+import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
 
 export const META = {
   title: 'Proxy API: Automatic Unblocker for Hard Targets',
@@ -142,6 +143,24 @@ export const EXAMPLES = {
 export const RELATED = {
   relatedSlugs: ['antibot', 'headers', 'scraping', 'ttl'],
   title: 'Reach and read hard targets.'
+}
+
+export const TOC = [
+  ...FEATURE_TOC.slice(0, 4),
+  { id: 'use-cases', label: 'Use cases' },
+  FEATURE_TOC[4]
+]
+
+export const RELATED_USE_CASES = {
+  useCases: [
+    'proxy/scrape-cloudflare-protected-sites',
+    'proxy/fix-403-and-429-errors',
+    'proxy/geo-blocked-websites',
+    'proxy/rotating-proxy-alternative',
+    'website-screenshot/built-in-proxy',
+    'website-to-markdown/blocked-sites'
+  ],
+  title: 'Reach the page, then capture it.'
 }
 
 export const FAQ_ITEMS = faqFromItems([

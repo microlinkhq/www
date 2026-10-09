@@ -1,4 +1,3 @@
-import { withTitle } from 'helpers/hoc/with-title'
 import { extractDomain } from 'helpers/extract-domain'
 import styled from 'styled-components'
 import React from 'react'
@@ -15,12 +14,9 @@ import {
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import CaptionBase from 'components/patterns/Caption/Caption'
-
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
+import Caption from 'components/patterns/Caption/Caption'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
@@ -438,9 +434,7 @@ const SpeedSection = ({
       css={theme({ bg: 'white', pt: [3, 3, 4, 4] })}
     >
       <SectionInner>
-        <Subhead css={theme({ pb: [2, 2, 3, 3] })} titleize={false}>
-          {title}
-        </Subhead>
+        <Subhead css={theme({ pb: [2, 2, 3, 3] })}>{title}</Subhead>
 
         <Caption
           css={theme({
@@ -448,7 +442,6 @@ const SpeedSection = ({
             maxWidth: layout.normal,
             color: 'black80'
           })}
-          titleize={false}
         >
           {subtitle}
         </Caption>

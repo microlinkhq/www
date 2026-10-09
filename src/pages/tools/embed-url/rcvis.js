@@ -18,7 +18,7 @@ const data = {
     'embed rcv visualization',
     'ranked choice chart embed'
   ],
-  heroTitle: 'RCVis Embed Code Generator',
+  heroTitle: 'RCVis embed code generator',
   heroSubtitle:
     'Paste any RCVis URL — get a ready-to-paste embed for round-by-round ranked-choice voting charts and tabulation visualizations.',
   howItWorksHeading: 'How to embed RCVis content',

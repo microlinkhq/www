@@ -1,4 +1,3 @@
-import { withTitle } from 'helpers/hoc/with-title'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { notFoundLinks } from 'helpers/page-markdown'
@@ -6,12 +5,10 @@ import { layout, theme } from 'theme'
 import React from 'react'
 
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
-
-const Heading = withTitle(HeadingBase)
 
 export const Head = () => (
   <Meta
@@ -28,7 +25,7 @@ const NotFoundPage = () => (
         alignItems: 'center'
       })}
     >
-      <Heading titleize={false}>Page not found</Heading>
+      <Heading>Page not found</Heading>
 
       <Caption
         css={theme({

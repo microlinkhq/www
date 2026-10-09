@@ -91,6 +91,23 @@ const FinalCtaSection = () => (
             richer outputs for structured fields, visual captures, and AI-ready
             page content, all under the same paid Microlink plan.
           </Text>
+          <Text
+            as='p'
+            css={theme({
+              m: 0,
+              mt: 3,
+              color: 'black80',
+              fontSize: [1, 1, 2, 2],
+              lineHeight: 2,
+              textAlign: 'left',
+              maxWidth: layout.small
+            })}
+          >
+            Coming from another SERP API? The{' '}
+            <Link href='/alternative/serpapi'>SerpApi comparison</Link> has the
+            plan-by-plan cost, the hourly limits, and an engine-to-type
+            migration table.
+          </Text>
           <Flex css={theme({ mt: [4, 4, 5, 5] })}>
             <ArrowLink
               href='/pricing'

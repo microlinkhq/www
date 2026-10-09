@@ -63,12 +63,22 @@ export const RELATED = {
   title: 'From detection to access.'
 }
 
+export const RELATED_USE_CASES = {
+  useCases: [
+    'website-screenshot/built-in-proxy',
+    'website-to-markdown/blocked-sites',
+    'website-metadata/blocked-sites'
+  ],
+  title: 'Detection, then access.'
+}
+
 export const TOC = [
   { id: 'overview', label: 'Why' },
   { id: 'how', label: 'How it works' },
   { id: 'providers', label: 'Providers' },
   { id: 'examples', label: 'Examples' },
   { id: 'related', label: 'Related features' },
+  { id: 'use-cases', label: 'Use cases' },
   { id: 'faq', label: 'FAQ' }
 ]
 

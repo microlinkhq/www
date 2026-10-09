@@ -19,7 +19,7 @@ const data = {
     'share node-red flow',
     'flowhub.org embed'
   ],
-  heroTitle: 'FlowHub Embed Code Generator',
+  heroTitle: 'FlowHub embed code generator',
   heroSubtitle:
     'Paste a FlowHub flow URL to get a ready-to-paste embed or preview card for your Node-RED flow.',
   howItWorksHeading: 'How to embed a FlowHub flow',

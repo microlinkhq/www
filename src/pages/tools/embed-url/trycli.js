@@ -18,7 +18,7 @@ const data = {
     'trycli link embed',
     'embed trycli content'
   ],
-  heroTitle: 'TryCLI Embed Code Generator',
+  heroTitle: 'TryCLI embed code generator',
   heroSubtitle:
     'Paste any TryCLI URL — get a ready-to-paste embed or preview card for pages and shared content.',
   howItWorksHeading: 'How to embed TryCLI content',

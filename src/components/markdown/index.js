@@ -1,6 +1,5 @@
 import { commonHeadingStyles } from 'components/elements/Heading'
 import { withContainer } from 'helpers/hoc/with-container'
-import { withTitle } from 'helpers/hoc/with-title'
 import { withSlug } from 'helpers/hoc/with-slug'
 import { toPx, toRaw, fontSizes, theme } from 'theme'
 import styled from 'styled-components'
@@ -95,7 +94,7 @@ export const H1Base = props => {
   )
 }
 
-export const H1 = withTitle(withSlug(H1Base))
+export const H1 = withSlug(H1Base)
 
 const StyledH2 = styled(Heading)`
   ${theme({
@@ -118,7 +117,7 @@ const H2Base = props => {
   )
 }
 
-export const H2 = withTitle(withSlug(H2Base))
+export const H2 = withSlug(H2Base)
 
 const StyledH3 = styled(Heading)`
   ${theme({
@@ -141,7 +140,7 @@ const H3Base = props => {
   )
 }
 
-export const H3 = withTitle(withSlug(H3Base))
+export const H3 = withSlug(H3Base)
 
 const StyledH4 = styled(Heading)`
   ${theme({
@@ -164,7 +163,7 @@ const H4Base = props => {
   )
 }
 
-export const H4 = withTitle(withSlug(H4Base))
+export const H4 = withSlug(H4Base)
 
 const StyledH5 = styled(Heading)`
   ${theme({
@@ -187,7 +186,7 @@ const H5Base = props => {
   )
 }
 
-export const H5 = withTitle(withSlug(H5Base))
+export const H5 = withSlug(H5Base)
 
 const StyledH6 = styled(Heading)`
   ${theme({
@@ -210,7 +209,7 @@ const H6Base = props => {
   )
 }
 
-export const H6 = withTitle(withSlug(H6Base))
+export const H6 = withSlug(H6Base)
 
 export const Paraph = props => {
   const { isBlogPage } = useContext(MarkdownContext)
@@ -339,16 +338,10 @@ const ScopedComponents = {
 
 const components = { ...mdComponents, ...ScopedComponents }
 
-const Markdown = ({
-  children,
-  isBlogPage,
-  isGuidesPage,
-  titleize = true,
-  ...props
-}) => {
+const Markdown = ({ children, isBlogPage, isGuidesPage, ...props }) => {
   const contextValue = useMemo(
-    () => ({ isBlogPage, isGuidesPage, titleize }),
-    [isBlogPage, isGuidesPage, titleize]
+    () => ({ isBlogPage, isGuidesPage }),
+    [isBlogPage, isGuidesPage]
   )
 
   return (

@@ -19,7 +19,7 @@ const data = {
     'embed music box maniacs player',
     'music box maniacs iframe code'
   ],
-  heroTitle: 'Music Box Maniacs Embed Code Generator',
+  heroTitle: 'Music Box Maniacs embed code generator',
   heroSubtitle:
     'Paste any Music Box Maniacs URL — get a ready-to-paste interactive player for music box melodies created and shared by the community.',
   howItWorksHeading: 'How to embed Music Box Maniacs melodies',

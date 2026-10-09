@@ -7,16 +7,17 @@ import {
   ProductHero,
   ProductTimings,
   ProductPricing,
+  ProductComparison,
   ProductCta,
   ProductFaq,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 
 import { Billing } from 'components/pages/scrapingbee/billing'
-import { Comparison } from 'components/pages/scrapingbee/comparison'
 import { Honesty } from 'components/pages/scrapingbee/honesty'
 import {
   ACCENT,
+  COMPARISON,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
@@ -35,7 +36,7 @@ const ScrapingBeeAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductCta {...CTA} accent={ACCENT} />
-    <Comparison />
+    <ProductComparison {...COMPARISON} competitorKey='scrapingbee' />
     <Honesty />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
   </Layout>

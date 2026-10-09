@@ -24,15 +24,15 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
-import SubheadBase from 'components/elements/Subhead'
+import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
 import Block from 'components/patterns/Block/Block'
-import CaptionBase from 'components/patterns/Caption/Caption'
+import Caption from 'components/patterns/Caption/Caption'
 import { ScreenshotExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
 import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
@@ -42,7 +42,6 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
-import { withTitle } from 'helpers/hoc/with-title'
 import {
   extractNerdStats,
   buildSdkQuery
@@ -72,10 +71,6 @@ import {
   HISTORY_MAX_AGE_MS,
   MOBILE_BP
 } from 'components/pages/screenshot'
-
-const Heading = withTitle(HeadingBase)
-const Subhead = withTitle(SubheadBase)
-const Caption = withTitle(CaptionBase)
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -807,7 +802,7 @@ const Hero = () => (
         maxWidth: layout.large
       })}
     >
-      Mobile Website Screenshot Generator
+      Mobile website screenshot generator
     </Heading>
     <Caption
       forwardedAs='h2'
@@ -841,7 +836,7 @@ const HowItWorks = () => (
         maxWidth: layout.large
       })}
     >
-      How to Take a Mobile Screenshot of Any Website
+      How to take a mobile screenshot of any website
     </Subhead>
     <Flex
       css={theme({
@@ -1081,7 +1076,7 @@ const UseCases = () => (
     })}
   >
     <Subhead variant='gradient'>
-      Who Uses a Mobile Website Screenshot Generator?
+      Who uses a mobile website screenshot generator?
     </Subhead>
     <Caption
       css={theme({
@@ -1113,11 +1108,7 @@ const UseCases = () => (
             bg: 'white'
           })}
         >
-          <Caps
-            as='h3'
-            titleize={false}
-            css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}
-          >
+          <Caps as='h3' css={theme({ fontWeight: 'bold', pb: 3, fontSize: 1 })}>
             {title}
           </Caps>
           <Text

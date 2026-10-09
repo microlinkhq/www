@@ -19,7 +19,7 @@ const data = {
     'cambridge map iframe code',
     'cambridge campus map embed'
   ],
-  heroTitle: 'University of Cambridge Map Embed Code Generator',
+  heroTitle: 'University of Cambridge Map embed code generator',
   heroSubtitle:
     'Paste any Cambridge map URL — get a ready-to-paste embed for interactive maps and locations.',
   howItWorksHeading: 'How to embed a Cambridge map',

@@ -5,12 +5,9 @@ import Annotation from 'components/elements/Annotation'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 
-import CaptionBase from 'components/patterns/Caption/Caption'
-import { withTitle } from 'helpers/hoc/with-title'
+import Caption from 'components/patterns/Caption/Caption'
 
 import { HERO } from './shared'
-
-const Caption = withTitle(CaptionBase)
 
 export const Hero = () => (
   <Flex
@@ -37,7 +34,6 @@ export const Hero = () => (
     </Heading>
     <Caption
       forwardedAs='h2'
-      titleize={false}
       css={theme({
         pt: [3, 3, 4, 4],
         px: 3,

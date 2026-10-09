@@ -19,7 +19,7 @@ const data = {
     'sketchfab 3d viewer embed',
     'embed sketchfab ar vr'
   ],
-  heroTitle: 'Sketchfab Embed Code Generator',
+  heroTitle: 'Sketchfab embed code generator',
   heroSubtitle:
     'Paste any Sketchfab URL — get a ready-to-paste interactive 3D model viewer with AR and VR support.',
   howItWorksHeading: 'How to embed a Sketchfab 3D model',

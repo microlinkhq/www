@@ -18,7 +18,7 @@ const data = {
     'knowledgepad note embed',
     'embed knowledge page'
   ],
-  heroTitle: 'Knowledgepad Embed Code Generator',
+  heroTitle: 'Knowledgepad embed code generator',
   heroSubtitle:
     'Paste any Knowledgepad URL — get a ready-to-paste embed for notes, articles, and knowledge pages.',
   howItWorksHeading: 'How to embed Knowledgepad content',

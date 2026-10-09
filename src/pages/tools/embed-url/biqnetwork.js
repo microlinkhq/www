@@ -18,7 +18,7 @@ const data = {
     'embed biq.network page',
     'biq network card embed'
   ],
-  heroTitle: 'biQ Network Embed Code Generator',
+  heroTitle: 'biQ Network embed code generator',
   heroSubtitle:
     'Paste a biQ Network URL — get a clean, ready-to-paste preview card with the page title, description, and image.',
   howItWorksHeading: 'How to embed a biQ Network page',

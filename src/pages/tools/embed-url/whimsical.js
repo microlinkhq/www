@@ -21,7 +21,7 @@ const data = {
     'whimsical iframe code',
     'embed whimsical board'
   ],
-  heroTitle: 'Whimsical Embed Code Generator',
+  heroTitle: 'Whimsical embed code generator',
   heroSubtitle:
     'Paste any Whimsical URL — get a ready-to-paste embed for flowcharts, wireframes, mind maps, and docs.',
   howItWorksHeading: 'How to embed Whimsical content',

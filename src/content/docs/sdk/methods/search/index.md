@@ -15,7 +15,7 @@ import Scholar from './scholar.md'
 import Patents from './patents.md'
 import Autocomplete from './autocomplete.md'
 
-Google results as structured data. Unlike the other methods, `search` takes a query instead of a URL and requires an [`apiKey`](/docs/sdk/getting-started/overview#authentication) on every request:
+Google results as structured data. Unlike the other methods, `search` takes a query instead of a URL and requires an [apiKey](/docs/sdk/getting-started/overview#authentication) on every request:
 
 ```js
 const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })
@@ -46,43 +46,43 @@ The resolved page carries `results` — the shape of each item depends on `type`
 
 Omit `type` and you get [search](#search). Start with the lightest surface that answers the question.
 
-## search
+## Search
 
 <SearchType />
 
-## news
+## News
 
 <News />
 
-## images
+## Images
 
 <Images />
 
-## videos
+## Videos
 
 <Videos />
 
-## places
+## Places
 
 <Places />
 
-## maps
+## Maps
 
 <Maps />
 
-## shopping
+## Shopping
 
 <Shopping />
 
-## scholar
+## Scholar
 
 <Scholar />
 
-## patents
+## Patents
 
 <Patents />
 
-## autocomplete
+## Autocomplete
 
 <Autocomplete />
 

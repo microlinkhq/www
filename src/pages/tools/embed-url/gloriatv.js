@@ -18,7 +18,7 @@ const data = {
     'gloria.tv video embed',
     'embed catholic video'
   ],
-  heroTitle: 'Gloria.tv Embed Code Generator',
+  heroTitle: 'Gloria.tv embed code generator',
   heroSubtitle:
     'Paste any Gloria.tv URL — get ready-to-paste embed HTML for Catholic videos, homilies, and news posts.',
   howItWorksHeading: 'How to embed a Gloria.tv video',

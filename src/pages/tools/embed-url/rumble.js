@@ -18,7 +18,7 @@ const data = {
     'rumble iframe code',
     'rumble player embed'
   ],
-  heroTitle: 'Rumble Embed Code Generator',
+  heroTitle: 'Rumble embed code generator',
   heroSubtitle:
     'Paste any Rumble URL — get a ready-to-paste video player for videos and channels.',
   howItWorksHeading: 'How to embed a Rumble video',

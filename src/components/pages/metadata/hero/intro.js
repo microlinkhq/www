@@ -1,12 +1,9 @@
 import React from 'react'
 import { layout, theme } from 'theme'
 import Flex from 'components/elements/Flex'
-import HeadingBase from 'components/elements/Heading'
+import Heading from 'components/elements/Heading'
 import ArrowLink from 'components/patterns/ArrowLink'
-import { withTitle } from 'helpers/hoc/with-title'
 import { Caption, HERO_LAYOUT } from '../shared'
-
-const Heading = withTitle(HeadingBase)
 
 export const HeroIntro = () => (
   <Flex
@@ -24,7 +21,7 @@ export const HeroIntro = () => (
         textAlign: ['center', 'center', 'center', 'left']
       })}
     >
-      Website Metadata API for developers
+      Website metadata API for developers
     </Heading>
     <Caption
       forwardedAs='h2'

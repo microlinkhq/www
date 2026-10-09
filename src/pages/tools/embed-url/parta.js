@@ -18,7 +18,7 @@ const data = {
     'parta link embed',
     'embed parta content'
   ],
-  heroTitle: 'Parta Embed Code Generator',
+  heroTitle: 'Parta embed code generator',
   heroSubtitle:
     'Paste any Parta URL — get a ready-to-paste embed for pages and shared content, or a styled preview card.',
   howItWorksHeading: 'How to embed Parta content',

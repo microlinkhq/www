@@ -18,7 +18,7 @@ const data = {
     'skoletube video embed',
     'embed skoletube school video'
   ],
-  heroTitle: 'SkoleTube Embed Code Generator',
+  heroTitle: 'SkoleTube embed code generator',
   heroSubtitle:
     'Paste any SkoleTube URL — get a ready-to-paste player for educational videos from the Danish school platform.',
   howItWorksHeading: 'How to embed SkoleTube videos',

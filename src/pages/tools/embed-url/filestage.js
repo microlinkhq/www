@@ -19,7 +19,7 @@ const data = {
     'filestage proofing embed',
     'embed filestage video'
   ],
-  heroTitle: 'Filestage Embed Code Generator',
+  heroTitle: 'Filestage embed code generator',
   heroSubtitle:
     'Paste a Filestage review link — get a ready-to-paste embed or a styled preview card for your video, document, image, and audio proofs.',
   howItWorksHeading: 'How to embed a Filestage review link',

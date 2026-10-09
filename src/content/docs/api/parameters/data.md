@@ -26,7 +26,7 @@ It enables specific data extraction over the target [url](/docs/api/parameters/u
 
 <Figcaption children="The data extraction needs to be defined at least with a CSS selector." />
 
-## Response Structure
+## Response structure
 
 The extracted data will be part of the `data` payload in the response:
 
@@ -46,7 +46,7 @@ The extracted data will be part of the `data` payload in the response:
 }
 ```
 
-## Rule Properties
+## Rule properties
 
 Each data rule accepts the following properties:
 
@@ -58,7 +58,7 @@ Each data rule accepts the following properties:
 | [type](/docs/sdk/methods/extract/type) | `string` | Data type for validation (`string`, `number`, `date`, `image`, `url`, etc.) |
 | [evaluate](/docs/sdk/methods/extract/evaluate) | `function` | JavaScript function to transform the extracted value |
 
-## Extracting Multiple Fields
+## Extracting multiple fields
 
 You can extract multiple data fields in a single request:
 
@@ -75,7 +75,7 @@ You can extract multiple data fields in a single request:
 
 <Figcaption children="Extract title, link, and score from Hacker News." />
 
-## Extracting Collections
+## Extracting collections
 
 Use [selectorAll](/docs/sdk/methods/extract/selectorAll) to extract multiple matching elements as an array:
 
@@ -93,7 +93,7 @@ Use [selectorAll](/docs/sdk/methods/extract/selectorAll) to extract multiple mat
 
 <Figcaption children="Extract all story titles as an array." />
 
-## Nested Data Extraction
+## Nested data extraction
 
 For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/attr#nested-rules) to organize your data hierarchically:
 
@@ -114,7 +114,7 @@ For complex DOM structures, use [nested rules](/docs/sdk/methods/extract/attr#ne
 
 <Figcaption children="Nested rules let each matched item return a structured object instead of a single value." />
 
-## Fallback Values
+## Fallback values
 
 Define [fallback rules](/docs/sdk/methods/extract#fallback-rules) to ensure data extraction succeeds even when the primary selector fails:
 

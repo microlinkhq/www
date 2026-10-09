@@ -18,7 +18,7 @@ const data = {
     'oz link embed',
     'embed oz content'
   ],
-  heroTitle: 'Oz Embed Code Generator',
+  heroTitle: 'Oz embed code generator',
   heroSubtitle:
     'Paste any Oz URL — get a ready-to-paste embed for pages and shared content, or a styled preview card.',
   howItWorksHeading: 'How to embed Oz content',

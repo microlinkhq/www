@@ -19,7 +19,7 @@ const data = {
     'pinterest widget code',
     'pinterest embed for website'
   ],
-  heroTitle: 'Pinterest Embed Code Generator',
+  heroTitle: 'Pinterest embed code generator',
   heroSubtitle:
     'Paste any Pinterest URL — get a ready-to-paste embed for pins, boards, and profiles.',
   howItWorksHeading: 'How to embed Pinterest content',

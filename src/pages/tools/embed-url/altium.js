@@ -21,7 +21,7 @@ const data = {
     'embed altium 3d design',
     'altium iframe embed'
   ],
-  heroTitle: 'Altium Embed Code Generator',
+  heroTitle: 'Altium embed code generator',
   heroSubtitle:
     'Paste an Altium 365 Viewer link to get a ready-to-paste embed of your interactive PCB design or a preview card.',
   howItWorksHeading: 'How to embed an Altium 365 design',

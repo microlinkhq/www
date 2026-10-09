@@ -1,0 +1,20 @@
+---
+description: Never wrap markdown link text in backticks
+globs: "**/*.{md,mdx}"
+alwaysApply: false
+---
+
+# Markdown link text
+
+- NEVER: Put backticks inside markdown link brackets. The sequence `[`` must not appear in `.md` / `.mdx` files.
+- MUST: Write plain link text. Code styling belongs on bare `` `code` `` spans outside links, not inside `[…](…)`.
+
+```markdown
+<!-- BAD -->
+[`function`](/docs/sdk/methods/function)
+[`microlink` binary](/docs/sdk/getting-started/cli)
+
+<!-- GOOD -->
+[function](/docs/sdk/methods/function)
+[microlink binary](/docs/sdk/getting-started/cli)
+```
