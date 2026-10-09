@@ -92,7 +92,7 @@ export const getFaqQuestions = () => {
               dashboard.microlink.io
             </SignupLink>{' '}
             and you get a free API key, no credit card required. Paid plans add
-            quota and pro features to the same account.
+            quota to the same account.
           </div>
           <div>
             Attach it to every request:
