@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/clean-content'
 
-const UseCaseMarkdownCleanContentPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownCleanContentPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

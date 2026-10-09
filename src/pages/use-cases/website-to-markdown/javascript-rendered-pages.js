@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/javascript-rendered-pages'
 
-const UseCaseMarkdownJavascriptRenderedPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownJavascriptRenderedPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

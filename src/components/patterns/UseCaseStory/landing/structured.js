@@ -77,7 +77,10 @@ export const useCaseStructured = content => {
     breadcrumbList(url, [
       { name: 'Microlink', item: SITE_URL },
       { name: 'Use cases', item: `${SITE_URL}/use-cases` },
-      { name: vertical.name, item: `${SITE_URL}${pathToUseCase(vertical.slug)}` },
+      {
+        name: vertical.name,
+        item: `${SITE_URL}${pathToUseCase(vertical.slug)}`
+      },
       { name: content.hero.title, item: url }
     ]),
     faqPage(url, content.faq),
@@ -99,14 +102,12 @@ export const verticalStructured = vertical => {
       '@type': 'ItemList',
       '@id': `${url}#use-cases`,
       name: vertical.hub.h1,
-      itemListElement: verticalUseCases(vertical.slug).map(
-        (entry, index) => ({
-          '@type': 'ListItem',
-          position: index + 1,
-          name: entry.name,
-          url: `${SITE_URL}${pathToUseCase(entry.slug)}`
-        })
-      )
+      itemListElement: verticalUseCases(vertical.slug).map((entry, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: entry.name,
+        url: `${SITE_URL}${pathToUseCase(entry.slug)}`
+      }))
     }
   ]
 }
@@ -149,14 +150,14 @@ export const industryStructured = industry => {
       '@type': 'ItemList',
       '@id': `${url}#use-cases`,
       name: industry.h1,
-      itemListElement: industry.useCases.map(getUseCase).map(
-        (entry, index) => ({
+      itemListElement: industry.useCases
+        .map(getUseCase)
+        .map((entry, index) => ({
           '@type': 'ListItem',
           position: index + 1,
           name: entry.name,
           url: `${SITE_URL}${pathToUseCase(entry.slug)}`
-        })
-      )
+        }))
     },
     faqPage(url, industry.faq)
   ]

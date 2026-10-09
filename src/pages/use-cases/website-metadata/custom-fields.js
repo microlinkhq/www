@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-metadata/custom-fields'
 
-const UseCaseMetadataCustomFieldsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMetadataCustomFieldsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

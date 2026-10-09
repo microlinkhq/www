@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-metadata/brand-colors'
 
-const UseCaseMetadataBrandColorsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMetadataBrandColorsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

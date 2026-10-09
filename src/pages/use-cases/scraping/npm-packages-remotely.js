@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/npm-packages-remotely'
 
-const UseCaseRunNpmPackagesRemotelyPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseRunNpmPackagesRemotelyPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

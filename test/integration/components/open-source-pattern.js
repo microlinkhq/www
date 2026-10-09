@@ -24,7 +24,8 @@ const PAGES = [
   'src/pages/media.js',
   'src/pages/file-conversion.js',
   'src/pages/logo.js',
-  'src/pages/integrations/sdk.js'
+  'src/pages/integrations/sdk.js',
+  'src/pages/integrations/n8n.js'
 ]
 
 const HOME_REPOS = ['metascraper', 'browserless', 'unavatar']

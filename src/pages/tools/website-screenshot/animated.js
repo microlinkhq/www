@@ -1543,8 +1543,12 @@ const ProductInformation = () => (
             </div>
             <div>
               Use the <Link href='/integrations/sdk'>Microlink SDK</Link> for
-              the easiest integration, or call the HTTP endpoint directly. If
-              something goes wrong, check the{' '}
+              the easiest integration, or call the HTTP endpoint directly. See{' '}
+              <Link href='/use-cases/website-screenshot/animated-screenshots'>
+                animated screenshots on the API
+              </Link>{' '}
+              for the duration, frame rate and container options. If something
+              goes wrong, check the{' '}
               <Link href='/docs/guides/screenshot/troubleshooting'>
                 troubleshooting guide
               </Link>

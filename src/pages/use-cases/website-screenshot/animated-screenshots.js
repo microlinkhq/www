@@ -7,9 +7,9 @@ import {
   useCaseStructured
 } from 'components/patterns/UseCaseStory'
 
-import { CONTENT } from 'components/pages/use-cases/website-to-markdown/bulk-conversion'
+import { CONTENT } from 'components/pages/use-cases/website-screenshot/animated-screenshots'
 
-const UseCaseMarkdownBulkConversionPage = () => (
+const UseCaseAnimatedScreenshotsPage = () => (
   <UseCaseLanding content={CONTENT} />
 )
 
@@ -22,4 +22,4 @@ export const Head = () => (
   />
 )
 
-export default UseCaseMarkdownBulkConversionPage
+export default UseCaseAnimatedScreenshotsPage

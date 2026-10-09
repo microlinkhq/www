@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/news-monitoring'
 
-const UseCaseSearchNewsMonitoringPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchNewsMonitoringPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

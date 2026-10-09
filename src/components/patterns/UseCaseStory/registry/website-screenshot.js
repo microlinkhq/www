@@ -157,7 +157,33 @@ export const WEBSITE_SCREENSHOT = [
     related: [
       'website-screenshot/mobile',
       'website-screenshot/browser-frame',
-      'website-screenshot/capture-element'
+      'website-screenshot/capture-element',
+      'website-screenshot/animated-screenshots',
+      'website-screenshot/dynamic-content',
+      'website-screenshot/faster-smaller-screenshots'
+    ]
+  },
+  {
+    slug: 'website-screenshot/animated-screenshots',
+    vertical,
+    category,
+    name: 'Animated screenshots as video',
+    cta: 'Record a page as video',
+    blurb:
+      'Record any page as a short MP4 or WebM instead of a still frame, up to 10 seconds at up to 60 fps.',
+    keywords: [
+      'animated screenshot api',
+      'record website as video api',
+      'website to mp4',
+      'screen recording api'
+    ],
+    related: [
+      'website-screenshot/dynamic-content',
+      'website-screenshot/mobile',
+      'website-screenshot/dark-mode',
+      'website-screenshot/browser-frame',
+      'website-screenshot/capture-element',
+      'website-screenshot/faster-smaller-screenshots'
     ]
   },
   {

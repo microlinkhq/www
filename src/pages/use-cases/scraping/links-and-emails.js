@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/links-and-emails'
 
-const UseCaseScrapeLinksAndEmailsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeLinksAndEmailsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

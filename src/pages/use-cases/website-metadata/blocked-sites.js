@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-metadata/blocked-sites'
 
-const UseCaseMetadataBlockedSitesPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMetadataBlockedSitesPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

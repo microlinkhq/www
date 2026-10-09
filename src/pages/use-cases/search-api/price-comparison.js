@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/price-comparison'
 
-const UseCaseSearchPriceComparisonPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchPriceComparisonPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

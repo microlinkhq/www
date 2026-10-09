@@ -10,7 +10,9 @@ import {
 
 const INDUSTRY = getIndustry('industries/sales-and-lead-enrichment')
 
-const SalesAndLeadEnrichmentIndustryPage = () => <IndustryHub industry={INDUSTRY} />
+const SalesAndLeadEnrichmentIndustryPage = () => (
+  <IndustryHub industry={INDUSTRY} />
+)
 
 export const Head = () => (
   <Meta

@@ -36,8 +36,7 @@ const Card = styled(Box).withConfig({
   overflow: hidden;
   isolation: isolate;
   box-shadow: ${shadows[1]};
-  transition: border-color ${transition.medium},
-    box-shadow ${transition.medium};
+  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
 
   ${theme({
     position: 'relative',

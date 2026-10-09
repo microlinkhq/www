@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/product-prices'
 
-const UseCaseScrapeProductPricesPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeProductPricesPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta
