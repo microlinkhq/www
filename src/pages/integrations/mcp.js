@@ -244,7 +244,11 @@ const InstallPanel = ({ hint, snippet }) => (
       </Text>
     </Box>
     <Text css={theme({ ...NOTE_CSS, mt: 3, color: 'black60' })}>
-      A free API key covers 100&nbsp;requests/month with every Pro feature.
+      A{' '}
+      <SignupLink component={Link} cta='mcp:install'>
+        free API key
+      </SignupLink>{' '}
+      covers 100&nbsp;requests/month with every Pro feature.
     </Text>
     <Text css={theme({ ...NOTE_CSS, mt: 1, color: 'black50' })}>
       Then use it for screenshots, PDFs, markdown, metadata, or scraping any
@@ -343,7 +347,10 @@ const Installation = () => {
             width: '100%'
           })}
         >
-          The prompt installs Microlink MCP and starts using it. A free API key
+          The prompt installs Microlink MCP and starts using it. A{' '}
+          <SignupLink component={Link} cta='mcp:hero'>
+            free API key
+          </SignupLink>{' '}
           covers 100&nbsp;requests/month with every Pro feature.
         </Text>
       </Flex>
