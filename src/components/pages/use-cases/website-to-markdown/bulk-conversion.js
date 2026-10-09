@@ -47,19 +47,19 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'Any language with an HTTP client can run the batch. ttl and staleTtl require a Pro key, so the URL targets the pro endpoint, and the Markdown comes back in the data.markdown field of the JSON response.'
+        note: 'Any language with an HTTP client can run the batch. ttl and staleTtl need an API key (the free one works), so the URL targets the pro endpoint, and the Markdown comes back in the data.markdown field of the JSON response.'
       }
     ],
     params: [
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime per URL: 24 hours by default, 1 minute to 31 days on Pro plans.'
+        note: 'Cache lifetime per URL: 24 hours by default, 1 minute to 31 days with any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serve the cached copy instantly and refresh it in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serve the cached copy instantly and refresh it in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'retry',
@@ -79,7 +79,7 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Append an identifier to the cache key to keep separate entries per index or per tenant. Pro plans.'
+        note: 'Append an identifier to the cache key to keep separate entries per index or per tenant. Any API key.'
       }
     ],
     outro:
@@ -122,12 +122,14 @@ export const CONTENT = {
         'No. Cache hits do not count against your quota and are served from the edge in milliseconds. Only a MISS, an expired entry or a request with force renders the page again, which is why a second crawl of an unchanged site is fast and cheap.'
     },
     {
-      question: 'How do I force a fresh Markdown conversion for a page that changed?',
+      question:
+        'How do I force a fresh Markdown conversion for a page that changed?',
       answer:
         'Pass [force: true](/docs/api/parameters/force) for that URL. The x-cache-status response header reports BYPASS and the new result replaces the cached copy, so later requests get the updated Markdown.'
     },
     {
-      question: 'Can Microlink crawl a whole site and return Markdown for every page?',
+      question:
+        'Can Microlink crawl a whole site and return Markdown for every page?',
       answer:
         'Microlink converts the URLs you send. Use links() to discover pages from a navigation or index page, or read the sitemap yourself, then feed the list to the pool. For recursive discovery, pair a crawler with the API for the conversion step.'
     },
@@ -140,7 +142,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to convert',
     headlineAccent: 'at crawl scale',
-    body: 'Parallel, cached and refreshed in the background. Pick a Pro plan sized for your index and convert your first thousand pages today.',
+    body: 'Parallel, cached and refreshed in the background. Start with your free API key, pick a plan sized for your index, and convert your first thousand pages today.',
     href: '/markdown',
     label: 'Start a bulk conversion'
   },

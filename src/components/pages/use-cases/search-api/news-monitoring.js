@@ -126,7 +126,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to monitor',
     headlineAccent: 'every mention',
-    body: 'Brand coverage from Google News as JSON, one query per market. Get a Pro key and ship your first monitoring loop today.',
+    body: 'Brand coverage from Google News as JSON, one query per market. Get your free API key and ship your first monitoring loop today.',
     href: '/search',
     label: 'Monitor news mentions'
   },

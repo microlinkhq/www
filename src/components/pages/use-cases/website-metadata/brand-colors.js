@@ -70,7 +70,7 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Brand colors change rarely; cache them for up to 31 days. Pro plans.'
+        note: 'Brand colors change rarely; cache them for up to 31 days. Any API key.'
       }
     ],
     outro:
@@ -127,7 +127,7 @@ export const CONTENT = {
     {
       question: 'Does palette slow down a metadata request?',
       answer:
-        'It adds image processing, which is why the [caching and performance guide](/docs/guides/metadata/caching-and-performance) lists it among the enrichments to skip when you do not need them. Keep meta scoped to image and logo, and cache the result with ttl on Pro plans, since brand colors rarely change.'
+        'It adds image processing, which is why the [caching and performance guide](/docs/guides/metadata/caching-and-performance) lists it among the enrichments to skip when you do not need them. Keep meta scoped to image and logo, and cache the result with ttl using any API key, since brand colors rarely change.'
     }
   ],
   cta: {

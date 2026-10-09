@@ -82,12 +82,12 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'How long a price stays cached, from 1 minute to 31 days. Pro plans.'
+        note: 'How long a price stays cached, from 1 minute to 31 days. Any API key.'
       },
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'Two-letter country code for stores that show a different price per country. Pro plans.'
+        note: 'Two-letter country code for stores that show a different price per country. Any API key.'
       }
     ],
     outro:
@@ -138,7 +138,7 @@ export const CONTENT = {
     {
       question: 'How often can I re-check a scraped product price?',
       answer:
-        'As often as your job calls the API. Responses are cached for 24 hours by default, so on a Pro plan set ttl to your check interval, as low as one minute, or pass force: true to skip the cache. Cache hits never count against your quota.'
+        'As often as your job calls the API. Responses are cached for 24 hours by default, so with any API key set ttl to your check interval, as low as one minute, or pass force: true to skip the cache. Cache hits never count against your quota.'
     },
     {
       question: 'What happens when a store blocks my price scraper?',

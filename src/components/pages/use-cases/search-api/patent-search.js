@@ -126,7 +126,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to search',
     headlineAccent: 'prior art',
-    body: 'Patent filings with inventors, assignees and ISO 8601 dates as JSON. Get a Pro key and run your first prior art search today.',
+    body: 'Patent filings with inventors, assignees and ISO 8601 dates as JSON. Get your free API key and run your first prior art search today.',
     href: '/search',
     label: 'Search patents'
   },

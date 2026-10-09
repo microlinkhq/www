@@ -71,7 +71,7 @@ export const CONTENT = {
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'The request ceiling: 30 seconds on free, 60 seconds on Pro.'
+        note: 'The request ceiling: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
       }
     ],
     outro:

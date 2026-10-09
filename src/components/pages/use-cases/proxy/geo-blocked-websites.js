@@ -13,7 +13,8 @@ export const CONTENT = {
   },
   problem: {
     eyebrow: 'The problem',
-    title: 'Geo-restricted content serves your servers a different page, or none',
+    title:
+      'Geo-restricted content serves your servers a different page, or none',
     paragraphs: [
       'Geo-restrictions read the IP, not your intent. A crawler in a US datacenter asking for a page reserved for Japan gets “not available in your region”, a redirect to the international homepage, or the same URL with half the content missing. The request succeeds, so a pipeline that only checks the status code stores the wrong page.',
       'The workarounds cost more than the fetch. A VPN covers one country at a time and does not belong in a server fleet. Buying a proxy per market means one contract, one credential and one integration per country, plus a way to prove each exit actually sits where the vendor says. Setting Accept-Language changes the language you ask for, not the country you appear to come from.',
@@ -23,7 +24,7 @@ export const CONTENT = {
   how: {
     title: 'How to fetch a geo-blocked website from another country',
     intro:
-      'Check the exit once, then fetch the real target with the same country code. Both calls need a Pro key. The [geolocation section of the proxy guide](/docs/guides/common/proxy) shows the same verification with the interactive editor.',
+      'Check the exit once, then fetch the real target with the same country code. Both calls need an API key (the free one works). The [geolocation section of the proxy guide](/docs/guides/common/proxy) shows the same verification with the interactive editor.',
     steps: [
       {
         label: '1 · Confirm the exit country',
@@ -51,14 +52,14 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'proxy.location is a Pro option, so the URL goes to the Pro endpoint with your x-api-key header. An unknown country code is rejected with EINVALQUERY instead of silently falling back.'
+        note: 'proxy.location needs an API key, so the URL goes to pro.microlink.io with your x-api-key header. An unknown country code is rejected with EINVALQUERY instead of silently falling back.'
       }
     ],
     params: [
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'ISO 3166-1 alpha-2 code, case-insensitive, 181 countries. Default us. Pro plans.'
+        note: 'ISO 3166-1 alpha-2 code, case-insensitive, 181 countries. Default us. Any API key.'
       },
       {
         name: 'proxy.url',
@@ -68,12 +69,12 @@ export const CONTENT = {
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards Accept-Language or other headers the site negotiates on. Pro plans.'
+        note: 'Forwards Accept-Language or other headers the site negotiates on. Any API key.'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Keeps each country’s copy cached from 1 minute to 31 days. Pro plans.'
+        note: 'Keeps each country’s copy cached from 1 minute to 31 days. Any API key.'
       }
     ],
     outro:
@@ -108,7 +109,7 @@ export const CONTENT = {
     {
       question: 'How do I fetch a website from another country with an API?',
       answer:
-        'Add proxy.location with the two-letter ISO code of the country, for example jp or de, to a request on a Pro plan. The request leaves through a proxy IP in that country and the site answers as it would to a local visitor.'
+        'Add proxy.location with the two-letter ISO code of the country, for example jp or de, to a request made with any API key, the free one included. The request leaves through a proxy IP in that country and the site answers as it would to a local visitor.'
     },
     {
       question: 'Which countries can a geo-restricted request come from?',
@@ -121,7 +122,8 @@ export const CONTENT = {
         'Request geolocation.microlink.io with the same proxy.location. It returns the IP address and country the server sees, which is exactly what the geo-restricted site will see.'
     },
     {
-      question: 'Can I access geo-blocked content through my own proxy instead?',
+      question:
+        'Can I access geo-blocked content through my own proxy instead?',
       answer:
         'Yes. Pass your provider’s URL as proxy.url, for example a country-specific endpoint you already pay for. proxy.url and proxy.location are exclusive, so use one or the other per request.'
     },

@@ -42,19 +42,19 @@ export const CONTENT = {
           params: { screenshot: true, meta: false, ttl: '1d', staleTtl: 0 },
           pro: true
         },
-        note: 'ttl and staleTtl need a Pro key, so the URL targets pro.microlink.io and carries the x-api-key header. Read x-cache-status in the response: MISS on the first call, HIT on every repeat.'
+        note: 'ttl and staleTtl need an API key (the free one works), so the URL targets pro.microlink.io and carries the x-api-key header. Read x-cache-status in the response: MISS on the first call, HIT on every repeat.'
       }
     ],
     params: [
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days, including the min and max aliases. Pro plans; the default is 24 hours everywhere.'
+        note: 'Cache lifetime from 1 minute to 31 days, including the min and max aliases. Any API key; the default is 24 hours everywhere.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serves the cached response immediately while revalidating in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serves the cached response immediately while revalidating in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'retry',
@@ -69,7 +69,7 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier to the cache key to keep separate entries per tenant or variant. Pro plans.'
+        note: 'Appends a custom identifier to the cache key to keep separate entries per tenant or variant. Any API key.'
       }
     ],
     outro:
@@ -90,7 +90,7 @@ export const CONTENT = {
       {
         kicker: 'Cache absorbs repeats',
         title: 'The same URL is captured once and served many times.',
-        body: 'A launch drives thousands of views of the same handful of pages. With the 24-hour default cache, or up to 31 days with ttl on Pro, those views become cache hits served from the nearest CDN edge node. Cache hits do not count against your quota, so a spike costs you the unique captures and nothing else.',
+        body: 'A launch drives thousands of views of the same handful of pages. With the 24-hour default cache, or up to 31 days with ttl on any API key, those views become cache hits served from the nearest CDN edge node. Cache hits do not count against your quota, so a spike costs you the unique captures and nothing else.',
         note: 'staleTtl at 0 is the [caching default worth copying](/features/ttl): visitors always get an instant response while the copy refreshes behind them. The same pattern keeps [dynamic Open Graph images](/use-cases/website-screenshot/open-graph-images) fast when a link goes viral.'
       },
       {
@@ -121,7 +121,7 @@ export const CONTENT = {
       question:
         'How do I keep high-volume screenshots fresh without re-rendering on every hit?',
       answer:
-        'Set ttl to how often the page changes and staleTtl to 0, both Pro options. Requests are served from the cache instantly while a background refresh keeps the copy current, and force: true bypasses the cache when you need a one-off refresh.'
+        'Set ttl to how often the page changes and staleTtl to 0, both available with any API key. Requests are served from the cache instantly while a background refresh keeps the copy current, and force: true bypasses the cache when you need a one-off refresh.'
     },
     {
       question: 'Can I get dedicated capacity for screenshot workloads?',

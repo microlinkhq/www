@@ -125,7 +125,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to track',
     headlineAccent: 'rankings by country',
-    body: 'Ordered results per country as JSON, and positions you compute yourself. Get a Pro key and record your first run today.',
+    body: 'Ordered results per country as JSON, and positions you compute yourself. Get your free API key and record your first run today.',
     href: '/search',
     label: 'Track rankings by country'
   },

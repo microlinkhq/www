@@ -114,15 +114,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How is this different from running Puppeteer myself?',
-    text: 'You do not run browsers, proxies, caches, or a fleet. Pages that need rendering run in an isolated browser, Pro adds a residential proxy when a site blocks you, and responses are cached at the edge. Cache hits are free.',
+    text: 'You do not run browsers, proxies, caches, or a fleet. Pages that need rendering run in an isolated browser, every API key brings a residential proxy for sites that block you, and responses are cached at the edge. Cache hits are free.',
     answer: (
       <>
         <div>You do not run browsers, proxies, caches, or a fleet.</div>
         <div>
           Pages that need rendering run in an{' '}
-          <Link href='/features/isolation'>isolated browser</Link>, Pro adds a{' '}
-          <Link href='/features/proxy'>residential proxy</Link> when a site
-          blocks you, and responses are cached at the{' '}
+          <Link href='/features/isolation'>isolated browser</Link>, every API
+          key brings a <Link href='/features/proxy'>residential proxy</Link> for
+          sites that block you, and responses are cached at the{' '}
           <Link href='/features/ttl'>edge</Link>. Cache hits are free.
         </div>
       </>
@@ -151,7 +151,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How does caching work?',
-    text: 'Every response is cached for 24 hours by default, and the x-cache-status header tells you whether it was a MISS or a HIT. Cache hits are free and fast. Add force to skip the cache. On Pro, ttl sets anything from 1 minute to 31 days and staleTtl serves the cached copy while a fresh one is fetched.',
+    text: 'Every response is cached for 24 hours by default, and the x-cache-status header tells you whether it was a MISS or a HIT. Cache hits are free and fast. Add force to skip the cache. With any API key, ttl sets anything from 1 minute to 31 days and staleTtl serves the cached copy while a fresh one is fetched.',
     answer: (
       <>
         <div>
@@ -162,8 +162,8 @@ export const FAQ_ITEMS = [
           cache.
         </div>
         <div>
-          On Pro, <Link href='/features/ttl'>ttl</Link> sets anything from 1
-          minute to 31 days and{' '}
+          With any API key, <Link href='/features/ttl'>ttl</Link> sets anything
+          from 1 minute to 31 days and{' '}
           <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> serves the
           cached copy while a fresh one is fetched. See the{' '}
           <Link href='/docs/guides/common/caching'>caching guide</Link>.
@@ -236,11 +236,11 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do I authenticate?',
-    text: 'Send your Pro token as the x-api-key request header to https://pro.microlink.io. Do not put the key in frontend code. Use a proxy that allowlists your domains.',
+    text: 'Send your API key as the x-api-key request header to https://pro.microlink.io. Do not put the key in frontend code. Use a proxy that allowlists your domains.',
     answer: (
       <>
         <div>
-          Send your Pro token as the <b>x-api-key</b> request header to{' '}
+          Send your API key as the <b>x-api-key</b> request header to{' '}
           <Link href='https://pro.microlink.io'>pro.microlink.io</Link>.
         </div>
         <div>

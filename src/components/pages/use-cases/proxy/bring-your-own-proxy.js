@@ -55,7 +55,7 @@ export const CONTENT = {
       {
         name: 'proxy.url',
         href: '/docs/api/parameters/proxy/url',
-        note: 'Your proxy as a WHATWG URL, https://username:password@hostname:port. Pro plans.'
+        note: 'Your proxy as a WHATWG URL, https://username:password@hostname:port. Any API key.'
       },
       {
         name: 'proxy',
@@ -91,7 +91,7 @@ export const CONTENT = {
         kicker: 'One option per call',
         title: 'Switch proxies without relaunching anything.',
         body: 'Each request carries its own proxy.url, so two providers, two countries or a rotated credential are two values, not two browser pools. The same option works on screenshots, PDFs, Markdown, metadata and extraction.',
-        note: 'If you do not need a specific provider, you may not need this at all: Pro plans already include a managed proxy, explained in the [rotating proxy alternative](/use-cases/proxy/rotating-proxy-alternative).'
+        note: 'If you do not need a specific provider, you may not need this at all: every API key, the free one included, already comes with a managed proxy, explained in the [rotating proxy alternative](/use-cases/proxy/rotating-proxy-alternative).'
       },
       {
         kicker: 'Credentials stay server-side',
@@ -106,7 +106,7 @@ export const CONTENT = {
       question:
         'How do I use an authenticated proxy with a headless browser API?',
       answer:
-        'Pass it as proxy.url in the form https://username:password@hostname:port on a Pro plan. The credentials travel inside the URL, so there is no separate authentication step, and the managed browser routes the whole page through that server.'
+        'Pass it as proxy.url in the form https://username:password@hostname:port with any API key. The credentials travel inside the URL, so there is no separate authentication step, and the managed browser routes the whole page through that server.'
     },
     {
       question: 'Do redirects and assets also go through my own proxy?',
@@ -121,12 +121,12 @@ export const CONTENT = {
     {
       question: 'Why do I get EINVALPROXY or EPROXY with my own proxy?',
       answer:
-        'EINVALPROXY means the value could not be parsed as a URL; check the scheme, the port and that special characters in the password are URL-encoded. EPROXY means proxy was sent without a Pro plan, since custom proxies are a [Pro feature](/pricing).'
+        'EINVALPROXY means the value could not be parsed as a URL; check the scheme, the port and that special characters in the password are URL-encoded. EPROXY means proxy was sent without an API key; custom proxies work with [any API key](/pricing), the free one included.'
     },
     {
       question: 'Is it safe to send proxy credentials to a scraping API?',
       answer:
-        'Send them only from your server, over the Pro endpoint with your API key, and read them from an environment variable. Never place them in frontend code or in embed URLs anyone can open. For browser apps, keep the call behind your own backend.'
+        'Send them only from your server, over pro.microlink.io with your API key, and read them from an environment variable. Never place them in frontend code or in embed URLs anyone can open. For browser apps, keep the call behind your own backend.'
     }
   ],
   cta: {

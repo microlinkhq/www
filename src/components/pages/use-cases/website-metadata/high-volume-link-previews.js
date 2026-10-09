@@ -46,7 +46,7 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'ttl and staleTtl need a Pro key, so the URL targets pro.microlink.io with the key sent as the x-api-key header.'
+        note: 'ttl and staleTtl need an API key (the free one works), so the URL targets pro.microlink.io with the key sent as the x-api-key header.'
       }
     ],
     params: [
@@ -58,17 +58,17 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days. Default 24 hours. Pro plans.'
+        note: 'Cache lifetime from 1 minute to 31 days. Default 24 hours. Any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serve the cached preview instantly and revalidate in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serve the cached preview instantly and revalidate in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier to the cache key, for separate entries per tenant or workspace. Pro plans.'
+        note: 'Appends a custom identifier to the cache key, for separate entries per tenant or workspace. Any API key.'
       },
       {
         name: 'force',
@@ -129,7 +129,7 @@ export const CONTENT = {
     {
       question: 'Can I separate link preview cache entries per workspace?',
       answer:
-        'Yes, on Pro plans. cacheKey appends a custom identifier to the cache key, so the same URL can have independent entries per tenant, workspace or variant.'
+        'Yes, with any API key, the free one included. cacheKey appends a custom identifier to the cache key, so the same URL can have independent entries per tenant, workspace or variant.'
     },
     {
       question: 'What happens when a site blocks my link preview requests?',

@@ -35,7 +35,7 @@ export const INDUSTRIES = [
         {
           kicker: 'Localize',
           title: 'See the price a shopper in each country sees.',
-          body: 'Pin the proxy to a country and run the same rules once per market. On Pro plans the proxy also handles the antibot walls that big retailers put in front of product pages.',
+          body: 'Pin the proxy to a country and run the same rules once per market. With any API key the proxy also handles the antibot walls that big retailers put in front of product pages.',
           note: 'When not to: if the store publishes a feed or an affiliate API, read that first. Scraping is for the stores that do not.'
         }
       ]
@@ -65,12 +65,12 @@ export const INDUSTRIES = [
       {
         question: 'How do I get the price shown in another country?',
         answer:
-          'Set proxy.location to a two-letter country code on a Pro plan and run the same extraction rules once per country. See [prices by country](/use-cases/proxy/geo-targeted-prices).'
+          'Set proxy.location to a two-letter country code with any API key and run the same extraction rules once per country. See [prices by country](/use-cases/proxy/geo-targeted-prices).'
       },
       {
         question: 'What happens when a store blocks scrapers?',
         answer:
-          'On Pro plans the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the free tier the API answers with EPROXYNEEDED instead.'
+          'With any API key, the free one included, the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the API answers with EPROXYNEEDED instead.'
       },
       {
         question: 'Does Microlink alert me when a price changes?',

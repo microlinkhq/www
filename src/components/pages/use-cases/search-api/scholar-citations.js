@@ -125,7 +125,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to automate',
     headlineAccent: 'your literature review',
-    body: 'Papers, citation counts and PDF links from Google Scholar as JSON. Get a Pro key and build your first corpus today.',
+    body: 'Papers, citation counts and PDF links from Google Scholar as JSON. Get your free API key and build your first corpus today.',
     href: '/search',
     label: 'Search Scholar papers'
   },

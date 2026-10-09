@@ -127,7 +127,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to find',
     headlineAccent: 'full-size images',
-    body: 'Full-resolution image URLs with dimensions and attribution as JSON. Get a Pro key and run your first image search today.',
+    body: 'Full-resolution image URLs with dimensions and attribution as JSON. Get your free API key and run your first image search today.',
     href: '/search',
     label: 'Search Google Images'
   },

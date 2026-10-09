@@ -54,7 +54,7 @@ export const CONTENT = {
           params: { ttl: '1d', staleTtl: 0, retry: 3 },
           pro: true
         },
-        note: 'Sent to the Pro endpoint with your x-api-key header, the request needs no proxy parameter. The payload includes statusCode, the HTTP status the target answered with.'
+        note: 'Sent to pro.microlink.io with your x-api-key header, the request needs no proxy parameter. The payload includes statusCode, the HTTP status the target answered with.'
       }
     ],
     params: [
@@ -66,17 +66,17 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days, so repeat reads skip the target. Pro plans.'
+        note: 'Cache lifetime from 1 minute to 31 days, so repeat reads skip the target. Any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serves the cached copy while revalidating in the background. Pro plans.'
+        note: 'Serves the cached copy while revalidating in the background. Any API key.'
       },
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Automatic on Pro. Pass it only to pin a country or to use your own proxy server.'
+        note: 'Automatic with any API key. Pass it only to pin a country or to use your own proxy server.'
       }
     ],
     outro:
@@ -89,7 +89,7 @@ export const CONTENT = {
     cards: [
       {
         kicker: 'Antibot 403',
-        title: 'Routed through proxy tiers on Pro.',
+        title: 'Routed through proxy tiers with an API key.',
         body: 'When a 403 antibot wall answers, the API escalates through its proxy tiers, with residential IPs as the last and slowest step. The winning tier is remembered per domain, so the second request to a protected site does not pay for the search again.',
         note: 'For the Cloudflare case specifically, see [scraping Cloudflare-protected sites](/use-cases/proxy/scrape-cloudflare-protected-sites).'
       },
@@ -111,7 +111,7 @@ export const CONTENT = {
     {
       question: 'Why does my scraper get 403 Forbidden on some sites?',
       answer:
-        'An antibot service in front of the site scored the request as automated, most often because of a datacenter IP, an inconsistent header set or a headless TLS fingerprint. The same code works on unprotected sites, which is why it only happens on some. Through the Pro endpoint those requests are escalated through the proxy tiers automatically.'
+        'An antibot service in front of the site scored the request as automated, most often because of a datacenter IP, an inconsistent header set or a headless TLS fingerprint. The same code works on unprotected sites, which is why it only happens on some. With any API key, the free one included, those requests are escalated through the proxy tiers automatically.'
     },
     {
       question: 'How do I fix 429 Too Many Requests when scraping?',
@@ -138,7 +138,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to stop',
     headlineAccent: 'retrying blocked requests',
-    body: 'Pro plans route antibot 403s through the proxy automatically and cache the result, so blocked targets stop being a retry loop.',
+    body: 'Every API key, the free one included, routes antibot 403s through the proxy automatically and cache the result, so blocked targets stop being a retry loop.',
     href: '/pricing',
     label: 'Compare Pro plans'
   },

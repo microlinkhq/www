@@ -126,7 +126,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to find',
     headlineAccent: 'what people search',
-    body: 'Autocomplete suggestions, related searches and questions as JSON, per country. Get a Pro key and expand your first seed today.',
+    body: 'Autocomplete suggestions, related searches and questions as JSON, per country. Get your free API key and expand your first seed today.',
     href: '/search',
     label: 'Research keywords'
   },

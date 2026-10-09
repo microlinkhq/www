@@ -132,7 +132,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to ground',
     headlineAccent: 'every answer',
-    body: 'Live search results plus Markdown for the sources worth reading. Get a Pro key and ship your first grounded answer today.',
+    body: 'Live search results plus Markdown for the sources worth reading. Get your free API key and ship your first grounded answer today.',
     href: '/search',
     label: 'Ground LLM answers'
   },

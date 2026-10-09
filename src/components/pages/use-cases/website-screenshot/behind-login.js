@@ -55,7 +55,7 @@ export const CONTENT = {
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Non-sensitive headers as a public query parameter; secrets go in x-api-header-* request headers. Pro plans.'
+        note: 'Non-sensitive headers as a public query parameter; secrets go in x-api-header-* request headers. Any API key.'
       },
       {
         name: 'waitForSelector',
@@ -75,12 +75,12 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier, such as a user id, to the cache key. Pro plans.'
+        note: 'Appends a custom identifier, such as a user id, to the cache key. Any API key.'
       },
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Automatic on the Pro key these requests already use, so an authenticated site behind antibot protection needs no extra option.'
+        note: 'Automatic on the API key these requests already use, so an authenticated site behind antibot protection needs no extra option.'
       }
     ],
     outro:
@@ -126,13 +126,13 @@ export const CONTENT = {
     {
       question: 'Can I screenshot a page behind a login without an API key?',
       answer:
-        'No. Forwarding headers, whether through the headers parameter or x-api-header-* request headers, requires a Pro plan and the pro.microlink.io endpoint. Using the headers parameter without one returns the EHEADERS error.'
+        'No. Forwarding headers, whether through the headers parameter or x-api-header-* request headers, requires an API key (the free one works) and the pro.microlink.io endpoint. Using the headers parameter without one returns the EHEADERS error.'
     },
     {
       question: 'Why does my screenshot still show the login form?',
       answer: [
         'Check that the cookie name and domain match what the application sets, that the session has not expired, and that you are sending the request to pro.microlink.io with a valid x-api-key.',
-        'If the site also uses antibot protection, the Pro key you already need for headers resolves the proxy automatically; an x-fetch-mode value ending in -proxy confirms it was used. The [built-in proxy recipe](/use-cases/website-screenshot/built-in-proxy) covers that case.'
+        'If the site also uses antibot protection, the API key you already need for headers resolves the proxy automatically; an x-fetch-mode value ending in -proxy confirms it was used. The [built-in proxy recipe](/use-cases/website-screenshot/built-in-proxy) covers that case.'
       ]
     },
     {
@@ -144,7 +144,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'private pages',
-    body: 'Forward the session, keep the secret off the URL. Get a Pro key and screenshot the dashboards only your users can see.',
+    body: 'Forward the session, keep the secret off the URL. Get your free API key and screenshot the dashboards only your users can see.',
     href: '/screenshot',
     label: 'Capture behind a login'
   },
@@ -162,7 +162,7 @@ export const CONTENT = {
           'Send x-api-header-authorization with the token and add waitForSelector for an element that only exists once the user is authenticated.'
       },
       {
-        title: 'Call the Pro endpoint',
+        title: 'Call pro.microlink.io',
         description:
           'Point the request at pro.microlink.io with your x-api-key header. Credentials stay in HTTP headers and never appear in the query string.'
       }

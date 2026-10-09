@@ -62,21 +62,28 @@ const rows = await Promise.all(
           params: {
             proxy: { location: 'de' },
             data: {
-              price: { selector: '[itemprop="price"]', attr: 'content', type: 'number' },
-              currency: { selector: '[itemprop="priceCurrency"]', attr: 'content' }
+              price: {
+                selector: '[itemprop="price"]',
+                attr: 'content',
+                type: 'number'
+              },
+              currency: {
+                selector: '[itemprop="priceCurrency"]',
+                attr: 'content'
+              }
             },
             meta: false
           },
           pro: true
         },
-        note: 'One URL per country: change proxy.location and keep the rest. The Pro endpoint with your x-api-key header returns the price and currency under data.'
+        note: 'One URL per country: change proxy.location and keep the rest. pro.microlink.io with your x-api-key header returns the price and currency under data.'
       }
     ],
     params: [
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'ISO 3166-1 alpha-2 country code for the market, case-insensitive. Default us. Pro plans.'
+        note: 'ISO 3166-1 alpha-2 country code for the market, case-insensitive. Default us. Any API key.'
       },
       {
         name: 'data',
@@ -86,12 +93,12 @@ const rows = await Promise.all(
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards Accept-Language for stores that localize by language too. Pro plans.'
+        note: 'Forwards Accept-Language for stores that localize by language too. Any API key.'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime per country, from 1 minute to 31 days. Pro plans.'
+        note: 'Cache lifetime per country, from 1 minute to 31 days. Any API key.'
       }
     ],
     outro:
@@ -144,7 +151,8 @@ const rows = await Promise.all(
         'Yes. Each country is its own request and its own cache entry. Repeat reads within the cache lifetime are cache hits, which never count toward your quota, so a dashboard that re-reads the same markets costs nothing extra until the ttl expires.'
     },
     {
-      question: 'Should I use price extraction or localized metadata for regional pages?',
+      question:
+        'Should I use price extraction or localized metadata for regional pages?',
       answer:
         'Use extraction rules when you need numbers to compare, such as price, currency and stock. Use [localized metadata](/use-cases/website-metadata/localized-metadata) when you need the regional title, description and image for a link preview. Both rely on the same proxy.location option.'
     }
@@ -152,7 +160,7 @@ const rows = await Promise.all(
   cta: {
     headlinePrefix: 'Ready to compare',
     headlineAccent: 'prices across markets',
-    body: 'One set of rules, one request per country, 181 markets available. Get a Pro key and build the table.',
+    body: 'One set of rules, one request per country, 181 markets available. Get your free API key and build the table.',
     href: '/features/proxy',
     label: 'Compare prices by country'
   },

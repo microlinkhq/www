@@ -80,7 +80,7 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache the rendered result for up to 31 days; browser renders are slower than fetches. Pro plans.'
+        note: 'Cache the rendered result for up to 31 days; browser renders are slower than fetches. Any API key.'
       }
     ],
     outro:

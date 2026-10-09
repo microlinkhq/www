@@ -98,7 +98,7 @@ await writeFile('archive/long-read.pdf', Buffer.from(await response.arrayBuffer(
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Keeps the response cached from 1 minute to 31 days while your job copies the file. Pro plans.'
+        note: 'Keeps the response cached from 1 minute to 31 days while your job copies the file. Any API key.'
       }
     ],
     outro:
@@ -125,7 +125,7 @@ await writeFile('archive/long-read.pdf', Buffer.from(await response.arrayBuffer(
         kicker: 'You own the file',
         title: 'The API renders; your storage retains.',
         body: 'The response is cached for 24 hours by default and up to 31 days with ttl, which gives a job plenty of time to fetch the document and copy it into an archive you control, under the retention policy you need.',
-        note: 'When not to: pages that require a login or sit behind bot protection need the headers or proxy parameters first, both on Pro plans. Paywalled content you are not licensed to keep should not be archived at all.'
+        note: 'When not to: pages that require a login or sit behind bot protection need the headers or proxy parameters first, both available with any API key. Paywalled content you are not licensed to keep should not be archived at all.'
       }
     ]
   },
@@ -138,7 +138,7 @@ await writeFile('archive/long-read.pdf', Buffer.from(await response.arrayBuffer(
     {
       question: 'How do I keep an archived PDF permanently?',
       answer:
-        'Fetch the hosted URL from the response and store the file in your own storage. The API response is cached for 24 hours by default, and up to 31 days with ttl on Pro plans, which is a delivery window, not a retention policy.'
+        'Fetch the hosted URL from the response and store the file in your own storage. The API response is cached for 24 hours by default, and up to 31 days with ttl and any API key, which is a delivery window, not a retention policy.'
     },
     {
       question:
@@ -149,7 +149,7 @@ await writeFile('archive/long-read.pdf', Buffer.from(await response.arrayBuffer(
     {
       question: 'Can I archive pages behind a login or a paywall as PDF?',
       answer:
-        'Technically yes: forward your own session with x-api-header-* request headers on a Pro plan, as the [private pages guide](/docs/guides/pdf/private-pages) shows. Whether you may keep the content depends on the publisher’s terms, so archive only what you are licensed to store.'
+        'Technically yes: forward your own session with x-api-header-* request headers with any API key, as the [private pages guide](/docs/guides/pdf/private-pages) shows. Whether you may keep the content depends on the publisher’s terms, so archive only what you are licensed to store.'
     },
     {
       question: 'Can I save the title, author and date together with the PDF?',

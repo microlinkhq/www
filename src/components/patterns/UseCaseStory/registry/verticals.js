@@ -142,11 +142,11 @@ export const VERTICALS = [
         'Proxy recipes with code: scrape Cloudflare-protected sites, fix 403 and 429 errors, geo-blocked pages, prices by country and your own proxy.',
       h1: 'Proxy use cases',
       intro:
-        'Recipes for reaching the pages that refuse a headless browser: Cloudflare-protected sites, 403 and 429 errors, geo-blocked content, prices by country, antibot detection and bring-your-own proxy. On Pro plans the proxy is automatic, so most recipes are about what to expect and how to confirm the route. One problem per page, with code you can paste and the limits to plan for.',
+        'Recipes for reaching the pages that refuse a headless browser: Cloudflare-protected sites, 403 and 429 errors, geo-blocked content, prices by country, antibot detection and bring-your-own proxy. With any API key the proxy is automatic, so most recipes are about what to expect and how to confirm the route. One problem per page, with code you can paste and the limits to plan for.',
       cta: {
         headlinePrefix: 'Ready to reach',
         headlineAccent: 'the pages that block you',
-        body: 'Every recipe on this page runs on the same endpoint. Proxy resolution is included on Pro plans, with no proxy list to buy or rotate.',
+        body: 'Every recipe on this page runs on the same endpoint. Proxy resolution comes with every API key, the free one included, with no proxy list to buy or rotate.',
         label: 'Start with the proxy'
       }
     }

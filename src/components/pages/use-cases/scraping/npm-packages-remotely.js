@@ -71,7 +71,7 @@ const { isFulfilled, value } = await microlink.function(
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Caches the function result like any other response, from 1 minute to 31 days. Pro plans.'
+        note: 'Caches the function result like any other response, from 1 minute to 31 days. Any API key.'
       }
     ],
     outro:

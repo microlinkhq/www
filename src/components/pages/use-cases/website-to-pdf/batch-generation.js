@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'Ten thousand renders in an hour needs dozens of Chrome instances, memory to match, and a queue that survives crashes. One page with a runaway script stalls a worker, a leaked tab eats the instance, and the job that was meant to finish overnight is still running when customers log in.',
       'Most teams build that pool once, watch it fail at the next peak, and rebuild it with more capacity that idles the rest of the month. PDF libraries that skip the browser avoid the fleet, and also skip the CSS, the fonts and the charts that made the page worth printing.',
-      'Microlink applies [no throttling](/docs/api/basics/rate-limit), so the batch runs as fast as your quota allows, in parallel. Each render gets its own isolated browser and a 60-second budget on Pro plans, transient failures are retried server-side with [retry](/docs/api/parameters/retry), and documents you request again are served from the cache.'
+      'Microlink applies [no throttling](/docs/api/basics/rate-limit), so the batch runs as fast as your quota allows, in parallel. Each render gets its own isolated browser and a 60-second budget with any API key, transient failures are retried server-side with [retry](/docs/api/parameters/retry), and documents you request again are served from the cache.'
     ]
   },
   how: {
@@ -79,12 +79,12 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Keeps each response cached from 1 minute to 31 days while the batch is consumed. Default 24 hours. Pro plans.'
+        note: 'Keeps each response cached from 1 minute to 31 days while the batch is consumed. Default 24 hours. Any API key.'
       },
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Separate cache entries for the same URL rendered per tenant or per run. Pro plans.'
+        note: 'Separate cache entries for the same URL rendered per tenant or per run. Any API key.'
       },
       {
         name: 'meta',
@@ -94,7 +94,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
       {
         name: 'filename',
         href: '/docs/api/parameters/filename',
-        note: 'Names each document so the batch output is self-describing. Pro plans.'
+        note: 'Names each document so the batch output is self-describing. Any API key.'
       },
       {
         name: 'timeout',
@@ -149,7 +149,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
     {
       question: 'Are the generated PDFs stored for me after the batch?',
       answer:
-        'Each response is cached for its ttl: 24 hours by default and up to 31 days on Pro plans, so repeat requests return the same hosted document. Treat that as a delivery buffer, and copy the files into your own storage when you need them longer.'
+        'Each response is cached for its ttl: 24 hours by default and up to 31 days with any API key, so repeat requests return the same hosted document. Treat that as a delivery buffer, and copy the files into your own storage when you need them longer.'
     },
     {
       question: 'Do repeated PDF requests for the same URL use up my quota?',
@@ -160,7 +160,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
   cta: {
     headlinePrefix: 'Ready to render',
     headlineAccent: 'PDFs in bulk',
-    body: 'No browser fleet, no queue to babysit. Pick a Pro plan sized for your batch and generate your first thousand documents tonight.',
+    body: 'No browser fleet, no queue to babysit. Start with your free API key, pick a plan sized for your batch, and generate your first thousand documents tonight.',
     href: '/pdf',
     label: 'Start a batch'
   },

@@ -50,7 +50,7 @@ export const CONTENT = {
   'https://example.com/report',
   { filename: 'report-2026-09.pdf', ttl: '7d' }
 )`,
-        note: 'Backend workflows keep the JSON response: url is the CDN-hosted document, next to its type and size. filename and ttl are Pro options, so this call runs with your API key on the server.'
+        note: 'Backend workflows keep the JSON response: url is the CDN-hosted document, next to its type and size. filename and ttl need an API key (the free one works), so this call runs with your API key on the server.'
       }
     ],
     params: [
@@ -62,7 +62,7 @@ export const CONTENT = {
       {
         name: 'filename',
         href: '/docs/api/parameters/filename',
-        note: 'Readable name for the generated document. Pro plans.'
+        note: 'Readable name for the generated document. Any API key.'
       },
       {
         name: 'filter',
@@ -72,7 +72,7 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'How long the response stays cached, from 1 minute to 31 days. Default 24 hours. Pro plans.'
+        note: 'How long the response stays cached, from 1 minute to 31 days. Default 24 hours. Any API key.'
       },
       {
         name: 'pdf.format',
@@ -122,12 +122,12 @@ export const CONTENT = {
     {
       question: 'How do I set the filename of the PDF download?',
       answer:
-        'In HTML, the download attribute on the anchor sets the local filename and works on every plan. The filename parameter names the generated asset itself and requires a Pro plan; without one the request fails with the EFILENAME error code.'
+        'In HTML, the download attribute on the anchor sets the local filename and works on every plan. The filename parameter names the generated asset itself and needs an API key, the free one included; without one the request fails with the EFILENAME error code.'
     },
     {
       question: 'Is the PDF regenerated on every download?',
       answer:
-        'No. The response is cached for 24 hours by default, so repeated downloads of the same URL are served from the cache and do not count against your quota. Adjust ttl on Pro plans, or pass force to regenerate on demand; the x-cache-status header tells you whether a request was a HIT, a MISS or a BYPASS, as the [cache docs](/docs/api/basics/cache) explain.'
+        'No. The response is cached for 24 hours by default, so repeated downloads of the same URL are served from the cache and do not count against your quota. Adjust ttl with any API key, or pass force to regenerate on demand; the x-cache-status header tells you whether a request was a HIT, a MISS or a BYPASS, as the [cache docs](/docs/api/basics/cache) explain.'
     },
     {
       question: 'Is it safe to put a PDF API URL in public HTML?',
@@ -163,7 +163,7 @@ export const CONTENT = {
       {
         title: 'Keep JSON for backend jobs',
         description:
-          'Call the API without embed from your server to get the hosted PDF URL, type and size, and add filename and ttl on a Pro plan.'
+          'Call the API without embed from your server to get the hosted PDF URL, type and size, and add filename and ttl with your API key.'
       }
     ]
   }

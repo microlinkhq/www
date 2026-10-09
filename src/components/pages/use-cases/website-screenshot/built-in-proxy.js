@@ -3,12 +3,12 @@ export const CONTENT = {
   head: {
     title: 'Screenshot blocked websites with a built-in proxy',
     description:
-      'Sites behind Cloudflare, DataDome or Akamai block headless browsers. On a Pro key the capture escalates through proxy tiers automatically.'
+      'Sites behind Cloudflare, DataDome or Akamai block headless browsers. With any API key the capture escalates through proxy tiers automatically.'
   },
   hero: {
     title: 'Screenshot blocked websites without managing a proxy list',
     intro:
-      'To screenshot blocked websites you need more than a headless browser: a challenge page, a 403 or an endless spinner is what bot protection serves to datacenter traffic. Price monitoring, competitive research, archiving and link previews all hit that wall sooner or later. Instead of buying and rotating proxies yourself, send the capture with a Pro key and the [Screenshot API](/screenshot) resolves the proxy for you, with no extra option.',
+      'To screenshot blocked websites you need more than a headless browser: a challenge page, a 403 or an endless spinner is what bot protection serves to datacenter traffic. Price monitoring, competitive research, archiving and link previews all hit that wall sooner or later. Instead of buying and rotating proxies yourself, send the capture with your API key and the [Screenshot API](/screenshot) resolves the proxy for you, with no extra option.',
     cta: { label: 'Start with the Screenshot API', href: '/screenshot' }
   },
   problem: {
@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'Datacenter IPs and headless fingerprints are exactly what antibot services look for. Cloudflare, DataDome, Akamai and similar shields answer with a challenge or a block, and your screenshot shows the wall instead of the page. With a self-hosted browser the navigation still succeeds, so nothing in your pipeline flags the image as useless.',
       'Running your own proxies is a second product to maintain. You buy a pool, rotate exits, retire the burned ones, match the proxy type to each antibot vendor and keep the credentials out of your URLs and logs. The list that works this month stops working the next, and every failure looks like a blank capture.',
-      'With an API key the [proxy](/docs/api/parameters/proxy) is on by default, the free key included. When a capture hits a 403 wall, Microlink [detects the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits: the slowest route, and the one that usually gets through. The tier that worked is cached per domain, so the next capture of that site goes straight to it. On the free tier the same target fails with EPROXYNEEDED instead.'
+      'With an API key the [proxy](/docs/api/parameters/proxy) is on by default, the free key included. When a capture hits a 403 wall, Microlink [detects the antibot provider](/features/antibot) and escalates through proxy tiers, ending on residential exits: the slowest route, and the one that usually gets through. The tier that worked is cached per domain, so the next capture of that site goes straight to it. On the keyless endpoint the same target fails with EPROXYNEEDED instead.'
     ]
   },
   how: {
@@ -26,14 +26,14 @@ export const CONTENT = {
       'Send protected targets with your API key and the proxy resolves itself. If you start on the keyless endpoint, EPROXYNEEDED marks the URLs to move to the key. The [proxy guide](/docs/guides/common/proxy) lists every signal that a target needs one.',
     steps: [
       {
-        label: '1 · Capture with a Pro key',
+        label: '1 · Capture with an API key',
         sdk: "const { url } = await microlink.screenshot('https://hard-target.com')",
-        note: 'The client carries your Pro key, so a blocked capture escalates through the proxy tiers on its own and returns the same asset object as any screenshot: url, width, height, type and size. There is no parameter to add, no list to maintain and no proxy credential in the request.'
+        note: 'The client carries your API key, so a blocked capture escalates through the proxy tiers on its own and returns the same asset object as any screenshot: url, width, height, type and size. There is no parameter to add, no list to maintain and no proxy credential in the request.'
       },
       {
         label: '2 · Keyless first, API key when blocked',
         sdk: "const freeTier = createClient()\n\nconst capture = async target => {\n  try {\n    return await freeTier.screenshot(target)\n  } catch (error) {\n    if (error.code !== 'EPROXYNEEDED') throw error\n    return microlink.screenshot(target, { retry: 3 })\n  }\n}",
-        note: 'EPROXYNEEDED means the target uses antibot protection and needs a Pro plan. Only those URLs move to the Pro client, where the proxy resolves automatically, with retry raised to 3 for intermittent challenges.'
+        note: 'EPROXYNEEDED means the target uses antibot protection and needs an API key. Only those URLs move to the keyed client, where the proxy resolves automatically, with retry raised to 3 for intermittent challenges.'
       },
       {
         label: '3 · The same request as a URL',
@@ -42,19 +42,19 @@ export const CONTENT = {
           params: { screenshot: true, meta: false },
           pro: true
         },
-        note: 'The proxy comes with the Pro key, so the URL targets pro.microlink.io with the x-api-key header and no proxy parameter. An x-fetch-mode response header ending in -proxy, such as prerender-proxy, confirms the route.'
+        note: 'The proxy comes with every API key, so the URL targets pro.microlink.io with the x-api-key header and no proxy parameter. An x-fetch-mode response header ending in -proxy, such as prerender-proxy, confirms the route.'
       }
     ],
     params: [
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Automatic on Pro plans with no value needed. Pass an object with location or url only to pin a country or bring your own server.'
+        note: 'Automatic with any API key, no value needed. Pass an object with location or url only to pin a country or bring your own server.'
       },
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'Two-letter ISO country code that pins the exit country of the proxy. Default us. Pro plans.'
+        note: 'Two-letter ISO country code that pins the exit country of the proxy. Default us. Any API key.'
       },
       {
         name: 'retry',
@@ -64,12 +64,12 @@ export const CONTENT = {
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards a language or a custom header when the target expects one. Pro plans.'
+        note: 'Forwards a language or a custom header when the target expects one. Any API key.'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Caches the unblocked capture from 1 minute to 31 days so repeat calls skip the proxy path entirely. Pro plans.'
+        note: 'Caches the unblocked capture from 1 minute to 31 days so repeat calls skip the proxy path entirely. Any API key.'
       }
     ],
     outro:
@@ -84,11 +84,11 @@ export const CONTENT = {
         kicker: 'Resolved for you',
         title: 'The API decides when and how to route.',
         body: 'Microlink identifies the antibot provider behind a 403 and escalates through proxy tiers until one gets through, then remembers that tier for the domain. You never maintain a pool, rotate IPs or debug which exit is burned.',
-        note: 'The resolution works on every product, so the same Pro key unblocks a [Markdown conversion of a bot-protected page](/use-cases/website-to-markdown/blocked-sites) or a metadata request for the same site.'
+        note: 'The resolution works on every product, so the same API key unblocks a [Markdown conversion of a bot-protected page](/use-cases/website-to-markdown/blocked-sites) or a metadata request for the same site.'
       },
       {
         kicker: 'An explicit signal',
-        title: 'EPROXYNEEDED tells you exactly when a target needs Pro.',
+        title: 'EPROXYNEEDED tells you exactly when a target needs an API key.',
         body: 'Instead of guessing from a blank image, the keyless endpoint rejects a bot-protected target with a code you can catch. Send only those targets to your API key, and every other capture stays on the keyless route.',
         note: 'The signal surfaces on the keyless endpoint. Automatic proxy resolution comes with [every API key](/pricing), the free one included, so a request sent with your key from the start never needs the keyless fallback.'
       },
@@ -96,7 +96,7 @@ export const CONTENT = {
         kicker: 'Bring your own if you must',
         title: 'proxy.url routes through your own provider.',
         body: 'If a contract or a region requires a specific proxy, pass its URL as proxy.url and Microlink still handles the browser, the retries and the errors around it. Every sub-request of the page, from redirects to assets, goes through that server.',
-        note: 'When not to: the proxy does not log you into anything. For pages behind authentication, [forward the session as a request header](/use-cases/website-screenshot/behind-login) instead. If the site is also bot-protected, the Pro key handles the proxy on top.'
+        note: 'When not to: the proxy does not log you into anything. For pages behind authentication, [forward the session as a request header](/use-cases/website-screenshot/behind-login) instead. If the site is also bot-protected, your API key handles the proxy on top.'
       }
     ]
   },
@@ -110,12 +110,12 @@ export const CONTENT = {
     {
       question: 'How do I know a screenshot was taken through the proxy?',
       answer:
-        'Check the x-fetch-mode response header. Values ending in -proxy, such as prerender-proxy or fetch-proxy, mean the request was routed through the proxy, and x-pricing-plan: pro confirms it ran on a paid plan.'
+        'Check the x-fetch-mode response header. Values ending in -proxy, such as prerender-proxy or fetch-proxy, mean the request was routed through the proxy, and x-pricing-plan: pro confirms it ran with an API key, not on the keyless endpoint.'
     },
     {
       question: 'How do I screenshot a Cloudflare-protected site?',
       answer:
-        'Send the request with a Pro key, no extra parameter. Sites protected by Cloudflare, DataDome, Akamai and similar antibot services refuse datacenter traffic, and the API escalates through proxy tiers, up to residential, until the capture goes through.'
+        'Send the request with an API key, no extra parameter. Sites protected by Cloudflare, DataDome, Akamai and similar antibot services refuse datacenter traffic, and the API escalates through proxy tiers, up to residential, until the capture goes through.'
     },
     {
       question: 'Can I choose the country of the screenshot proxy?',
@@ -131,7 +131,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to screenshot',
     headlineAccent: 'hard targets',
-    body: 'No option, no proxy list. Get a Pro key and capture the pages that block everyone else.',
+    body: 'No option, no proxy list. Get your free API key and capture the pages that block everyone else.',
     href: '/screenshot',
     label: 'Unblock your screenshots'
   },
@@ -139,9 +139,9 @@ export const CONTENT = {
     name: 'How to screenshot a blocked website through the built-in proxy',
     steps: [
       {
-        title: 'Capture with a Pro key',
+        title: 'Capture with an API key',
         description:
-          'Send the screenshot request with a Pro key. A blocked capture escalates through proxy tiers automatically, with no parameter and no proxy list to maintain.'
+          'Send the screenshot request with your API key. A blocked capture escalates through proxy tiers automatically, with no parameter and no proxy list to maintain.'
       },
       {
         title: 'Start keyless and move blocked URLs to your API key',

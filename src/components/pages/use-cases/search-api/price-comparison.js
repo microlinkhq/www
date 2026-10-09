@@ -127,7 +127,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to compare',
     headlineAccent: 'every merchant',
-    body: 'Parsed prices from Google Shopping, per country, as JSON. Get a Pro key and run your first price comparison today.',
+    body: 'Parsed prices from Google Shopping, per country, as JSON. Get your free API key and run your first price comparison today.',
     href: '/search',
     label: 'Compare Shopping prices'
   },

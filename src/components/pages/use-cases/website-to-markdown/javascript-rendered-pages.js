@@ -81,7 +81,7 @@ export const CONTENT = {
       {
         name: 'waitForTimeout',
         href: '/docs/api/parameters/waitForTimeout',
-        note: 'A fixed delay for pages with no stable selector. Capped by the plan timeout: 30 seconds free, 60 seconds Pro.'
+        note: 'A fixed delay for pages with no stable selector. Capped by the request timeout: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
       },
       {
         name: 'click',
@@ -106,7 +106,7 @@ export const CONTENT = {
       {
         kicker: 'Wait for the proof',
         title: 'A selector wait ends when the content exists.',
-        body: 'Instead of a timer, wait for the element that only appears once the data has loaded. The request returns as early as possible and still covers the slow case, up to the plan timeout.',
+        body: 'Instead of a timer, wait for the element that only appears once the data has loaded. The request returns as early as possible and still covers the slow case, up to the request timeout.',
         note: 'The same wait logic applies to [screenshots of JavaScript-rendered pages](/use-cases/website-screenshot/dynamic-content) and to [metadata from single-page apps](/use-cases/website-metadata/javascript-rendered-pages), so one selector per site serves all three.'
       },
       {

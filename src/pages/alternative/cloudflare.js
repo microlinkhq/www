@@ -504,13 +504,13 @@ const FAQ_ITEMS = [
           Microlink ships the missing piece: when a target refuses datacenter
           traffic, the API signals <b>EPROXYNEEDED</b>, and{' '}
           <Link href='/features/proxy'>proxy: true</Link> reroutes the same
-          request through auto-rotating residential IPs on Pro plans, backed by{' '}
-          <Link href='/features/antibot'>antibot detection</Link> for 30+
+          request through auto-rotating residential IPs with any API key, backed
+          by <Link href='/features/antibot'>antibot detection</Link> for 30+
           providers.
         </div>
       </>
     ),
-    text: "Cloudflare is the world's largest bot-protection vendor — the walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs on Pro plans, backed by antibot detection for 30+ providers."
+    text: "Cloudflare is the world's largest bot-protection vendor — the walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs with any API key, backed by antibot detection for 30+ providers."
   },
   {
     question:
@@ -535,8 +535,8 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Microlink bills finished screenshots at a flat rate: $49/month covers
-          46,000 requests with adblock, proxy routing on Pro, CDN-hosted output,
-          and caching included — a paid-plan TTL of up to 31 days means cache
+          46,000 requests with adblock, proxy routing, CDN-hosted output, and
+          caching included — a TTL of up to 31 days (any API key) means cache
           hits don't spend your quota, and there is no concurrency limit or
           per-minute cap on legitimate usage. A single request can even bundle
           the screenshot with the PDF, metadata, logo, and markdown, where
@@ -544,7 +544,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "The models are different shapes — and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10 — measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours — roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month — before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing on Pro, CDN-hosted output, and caching included — a paid-plan TTL of up to 31 days means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
+    text: "The models are different shapes — and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10 — measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours — roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month — before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing, CDN-hosted output, and caching included — a TTL of up to 31 days (any API key) means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
   },
   {
     question:
@@ -1467,7 +1467,7 @@ const PricingSection = () => (
         building storage, caching, and delivery yourself. Microlink's price is
         the finished capture at a flat per-request rate — and one request can
         bundle the screenshot with the PDF, metadata, logo, and markdown, while
-        a paid-plan TTL of up to 31 days means cache hits don't spend your
+        a TTL of up to 31 days (any API key) means cache hits don't spend your
         monthly quota at all.
       </Text>
 

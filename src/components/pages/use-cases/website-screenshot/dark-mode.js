@@ -139,7 +139,7 @@ export const CONTENT = {
         'Yes. colorScheme is a browser setting for the whole request, so it combines with a device preset or a custom viewport. The [mobile screenshot tool](/tools/website-screenshot/mobile) lets you preview the phone layout first.'
     },
     {
-      question: 'Are dark mode screenshots available on the free plan?',
+      question: 'Are dark mode screenshots available with the free API key?',
       answer:
         'Yes. colorScheme works on every plan, including the free API key with 100 requests per month. See [pricing](/pricing) when you need more volume.'
     }

@@ -227,13 +227,13 @@ const COMPARISON_DATA = [
     feature: 'Web search endpoint',
     microlink: true,
     contextdev: true,
-    note: 'Microlink Search is a paid workflow from the first request.'
+    note: 'Microlink Search works with any API key, the free one included.'
   },
   {
     feature: 'Residential proxy / anti-bot bypass',
     microlink: true,
     contextdev: true,
-    note: 'Context.dev includes it on every plan; Microlink includes it on Pro plans.'
+    note: 'Context.dev includes it on every plan; Microlink includes it with every API key, the free one included.'
   },
   { feature: 'MCP server', microlink: true, contextdev: true },
   { feature: 'CLI', microlink: true, contextdev: true },
@@ -553,11 +553,11 @@ const FAQ_ITEMS = [
         </div>
         <div>
           That is 1,200 free requests a year, proxy included — enough to keep a
-          side project running on the free tier alone.
+          side project running on the free API key alone.
         </div>
       </>
     ),
-    text: "Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one — once spent, evaluation is over. Microlink's free API key renews: 100 requests every month, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included — enough to keep a side project running on the free tier alone."
+    text: "Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one — once spent, evaluation is over. Microlink's free API key renews: 100 requests every month, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included — enough to keep a side project running on the free API key alone."
   },
   {
     question: 'How do I migrate from Context.dev to Microlink?',
@@ -1280,7 +1280,7 @@ const PricingSection = () => (
               {[
                 'One request can return markdown, metadata, logo, and screenshot together',
                 'Brand fields — logo, image, palette — in the standard response',
-                'Residential proxy and antibot detection included on Pro',
+                'Residential proxy and antibot detection included with every API key',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
                 'Free: 100 requests/month, renews forever, no credit card',

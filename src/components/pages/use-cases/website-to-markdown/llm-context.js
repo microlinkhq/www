@@ -70,7 +70,7 @@ export const CONTENT = {
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Add it to any method when a site blocks automated access. Pro plans.'
+        note: 'Add it to any method when a site blocks automated access. Any API key.'
       }
     ],
     outro:
@@ -96,7 +96,7 @@ export const CONTENT = {
       {
         kicker: 'Cached and composable',
         title: 'An agent that revisits a page pays once.',
-        body: 'Responses are cached for 24 hours by default and cache hits do not count against your quota. Add ttl and staleTtl on Pro plans to tune freshness for the whole context.',
+        body: 'Responses are cached for 24 hours by default and cache hits do not count against your quota. Add ttl and staleTtl with any API key to tune freshness for the whole context.',
         note: 'When not to: if the model only needs a summary of the text, markdown() alone is enough, ideally [scoped to the content](/use-cases/website-to-markdown/clean-content). Add facets when the task asks for links, contacts or the stack.'
       }
     ]

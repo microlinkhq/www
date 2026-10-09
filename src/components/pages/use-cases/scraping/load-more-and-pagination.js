@@ -75,7 +75,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         name: 'function',
         href: '/docs/api/parameters/function',
-        note: 'Runs your Puppeteer code on the page. 15 seconds on free, up to 60 seconds on Pro.'
+        note: 'Runs your Puppeteer code on the page. 15 seconds on the keyless endpoint, up to 60 seconds with any API key.'
       },
       {
         name: 'click',
