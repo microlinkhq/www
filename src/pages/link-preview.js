@@ -1802,9 +1802,9 @@ const Pricing = () => {
               maxWidth: layout.normal
             })}
           >
-            No login. No credit card. Preview any URL on the free tier — upgrade
-            when production traffic kicks in. Proxy rotation ships with every
-            Pro plan.
+            Free API key, no credit card. Preview any URL with every Pro
+            feature, proxy rotation included, and upgrade when production
+            traffic kicks in.
           </Caption>
         </Container>
         <Plans
@@ -1939,7 +1939,7 @@ const LINK_PREVIEW_FEATURES = [
   {
     title: 'Proxy Rotation Behind CAPTCHAs',
     description:
-      'Rotating residential proxies and real headless browsers reach pages behind Cloudflare, DataDome, PerimeterX, hCaptcha, and reCAPTCHA — included with every Pro plan.'
+      'Rotating residential proxies and real headless browsers reach pages behind Cloudflare, DataDome, PerimeterX, hCaptcha, and reCAPTCHA, included with every API key, free one too.'
   },
   {
     title: 'Global Edge Delivery',
@@ -2217,7 +2217,7 @@ const TOP_FAQ_ITEMS = [
   {
     question:
       'Can Microlink preview URLs behind Cloudflare, antibot walls, or CAPTCHAs?',
-    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, palette — so URLs that would normally return 403 or block a scraper still come back with a perfect preview. Proxy rotation is included with every Pro plan.',
+    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, palette — so URLs that would normally return 403 or block a scraper still come back with a perfect preview. Proxy rotation is included with every API key, free one too.',
     answer: (
       <>
         <div>
@@ -2232,7 +2232,7 @@ const TOP_FAQ_ITEMS = [
           <code>description</code>, <code>image</code>, <code>logo</code>,{' '}
           <code>palette</code> — so URLs that would normally return{' '}
           <code>403</code> still come back with a perfect preview. Proxy
-          rotation is <b>included with every Pro plan</b>; see the{' '}
+          rotation is <b>included with every API key</b>, free one too; see the{' '}
           <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
           configuration.
         </div>
@@ -2348,7 +2348,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'What happens to my data?',
-    text: 'Microlink does not store the body of the pages it fetches — only the normalized metadata payload, cached for the configured TTL window. No login is required for the free tier, and Pro accounts can rotate API keys at any time. Source URLs and response payloads are not used to train any model.',
+    text: 'Microlink does not store the body of the pages it fetches — only the normalized metadata payload, cached for the configured TTL window. Every account, free or paid, can rotate its API key at any time. Source URLs and response payloads are not used to train any model.',
     answer: (
       <>
         <div>
@@ -2356,8 +2356,8 @@ const TOP_FAQ_ITEMS = [
           normalized metadata payload, cached for the configured TTL window.
         </div>
         <div>
-          No login is required for the free tier, and Pro accounts can rotate
-          API keys at any time. Source URLs and response payloads are{' '}
+          Every account, free or paid, can rotate its API key at any time.
+          Source URLs and response payloads are{' '}
           <b>not used to train any model</b>.
         </div>
       </>
