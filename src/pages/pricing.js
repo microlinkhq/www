@@ -257,7 +257,7 @@ const PLAN_NAMES = ['Free', 'Pro', 'Business', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['No daily cap', 'Unlimited', 'Unlimited', 'Unlimited']
+    values: ['Monthly only', 'Unlimited', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
