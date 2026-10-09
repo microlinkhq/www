@@ -416,8 +416,10 @@ export const PRICING_CAPTION =
 export const CTA = {
   caption:
     'Write a function in the browser. Free API key, 100 requests/month, no card.',
-  ctaHref: '/editor',
-  ctaLabel: 'Open editor'
+  cta: 'function:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/editor',
+  secondaryLabel: 'Open editor'
 }
 
 export const FAQ_CAPTION =
