@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/website-to-markdown/with-metadata'
 
-const UseCaseMarkdownWithMetadataPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseMarkdownWithMetadataPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

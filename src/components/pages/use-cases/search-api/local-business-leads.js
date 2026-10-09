@@ -2,11 +2,13 @@ export const CONTENT = {
   slug: 'search-api/local-business-leads',
   head: {
     title: 'Google Maps scraper API for local business leads',
-    description: 'Build local business lead lists from Google Maps: name, address, phone, website, hours, rating and Place ID as JSON, plus emails from each site.'
+    description:
+      'Build local business lead lists from Google Maps: name, address, phone, website, hours, rating and Place ID as JSON, plus emails from each site.'
   },
   hero: {
     title: 'Build local business lead lists with a Google Maps scraper API',
-    intro: 'A Google Maps scraper API turns a category and a city into a lead list: “dentists in lyon” returns the businesses Google Maps shows, with address, phone, website, rating, opening hours and a Google Place ID. Sales teams, agencies and local marketplaces all need that list fresh and structured. The [Search API](/search) returns it as JSON, and the same SDK finds the contact emails on each website.',
+    intro:
+      'A Google Maps scraper API turns a category and a city into a lead list: “dentists in lyon” returns the businesses Google Maps shows, with address, phone, website, rating, opening hours and a Google Place ID. Sales teams, agencies and local marketplaces all need that list fresh and structured. The [Search API](/search) returns it as JSON, and the same SDK finds the contact emails on each website.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
@@ -23,7 +25,8 @@ export const CONTENT = {
   },
   how: {
     title: 'How to pull local business data from Google Maps with an API',
-    intro: 'Search a category in a city, keep the fields a sales team uses, then enrich the listings that have a website. The [maps guide](/docs/guides/search/maps) documents every field.',
+    intro:
+      'Search a category in a city, keep the fields a sales team uses, then enrich the listings that have a website. The [maps guide](/docs/guides/search/maps) documents every field.',
     steps: [
       {
         label: '1 · Search a category in a city',
@@ -68,11 +71,13 @@ export const CONTENT = {
         note: 'Addresses found on a website, from mailto links and plain text, as bare strings.'
       }
     ],
-    outro: 'Addresses written as name [at] domain, drawn as images or assembled by JavaScript are not detected by emails(). The [entity and local lookup pattern](/docs/guides/search/patterns) shows when places is enough and when maps is worth it.'
+    outro:
+      'Addresses written as name [at] domain, drawn as images or assembled by JavaScript are not detected by emails(). The [entity and local lookup pattern](/docs/guides/search/patterns) shows when places is enough and when maps is worth it.'
   },
   why: {
     title: 'Why Google Maps listings beat a directory export for lead lists',
-    intro: 'A directory export is a snapshot. A query is a list you can rebuild for any category, any city, any day.',
+    intro:
+      'A directory export is a snapshot. A query is a list you can rebuild for any category, any city, any day.',
     cards: [
       {
         kicker: 'Query, not export',
@@ -97,23 +102,30 @@ export const CONTENT = {
   faq: [
     {
       question: 'Can a Google Maps scraper API return business emails?',
-      answer: 'Not from the listing: maps results include phone, website, address, hours and ratings, but no email field. Pass each website URL to microlink.emails() to collect the addresses published on the site, one request per website.'
+      answer:
+        'Not from the listing: maps results include phone, website, address, hours and ratings, but no email field. Pass each website URL to microlink.emails() to collect the addresses published on the site, one request per website.'
     },
     {
-      question: 'What is the difference between the places and maps search types?',
-      answer: 'places returns simpler listings: name, address, coordinates, rating, review count, category, phone and website. maps adds opening hours by day, price level, place types, a description, a thumbnail and the Google Place ID. Use maps for lead lists where hours and IDs matter.'
+      question:
+        'What is the difference between the places and maps search types?',
+      answer:
+        'places returns simpler listings: name, address, coordinates, rating, review count, category, phone and website. maps adds opening hours by day, price level, place types, a description, a thumbnail and the Google Place ID. Use maps for lead lists where hours and IDs matter.'
     },
     {
-      question: 'How do I get more than one page of Google Maps business listings?',
-      answer: 'Call page.next() to fetch the following page with the same query and options, or pass page: 3 to jump straight to it. Each page is one request, so stop as soon as you have enough listings.'
+      question:
+        'How do I get more than one page of Google Maps business listings?',
+      answer:
+        'Call page.next() to fetch the following page with the same query and options, or pass page: 3 to jump straight to it. Each page is one request, so stop as soon as you have enough listings.'
     },
     {
       question: 'How much does a local business data API cost with Microlink?',
-      answer: 'Each search page is one request and each emails() call one more. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+      answer:
+        'Each search page is one request and each emails() call one more. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is this the official Google Maps Platform API?',
-      answer: 'No. Microlink Search is an independent product that queries public Google surfaces and returns structured results. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
+      answer:
+        'No. Microlink Search is an independent product that queries public Google surfaces and returns structured results. It is not affiliated with or endorsed by Google, and Google is a trademark of Google LLC.'
     }
   ],
   cta: {
@@ -128,15 +140,18 @@ export const CONTENT = {
     steps: [
       {
         title: 'Search a category in a city',
-        description: "Call microlink.search with a category and a city as the query, type: 'maps' and the country code, and map each listing to name, address, phone, website, rating, reviews, hours and Place ID."
+        description:
+          "Call microlink.search with a category and a city as the query, type: 'maps' and the country code, and map each listing to name, address, phone, website, rating, reviews, hours and Place ID."
       },
       {
         title: 'Go past the first page',
-        description: 'Call next() on each page until you have enough listings, keyed by cid so every business appears once.'
+        description:
+          'Call next() on each page until you have enough listings, keyed by cid so every business appears once.'
       },
       {
         title: 'Find the emails on each website',
-        description: 'Filter the listings to the ones worth contacting, then call microlink.emails() with each website URL to collect the published addresses.'
+        description:
+          'Filter the listings to the ones worth contacting, then call microlink.emails() with each website URL to collect the published addresses.'
       }
     ]
   }

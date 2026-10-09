@@ -57,7 +57,8 @@ export const INDUSTRIES = [
     },
     faq: [
       {
-        question: 'Can I monitor competitor prices with an API instead of a scraper?',
+        question:
+          'Can I monitor competitor prices with an API instead of a scraper?',
         answer:
           'Yes. Extraction rules turn any product page into JSON with the fields you name, and the Google Shopping search type lists merchants and prices for a query. You run them on your own schedule and store the results.'
       },
@@ -325,7 +326,8 @@ export const INDUSTRIES = [
           'Yes, within one call. A browser function receives a Puppeteer page, runs your code and returns its value. Sessions are not kept between calls.'
       },
       {
-        question: 'Does Microlink work with MCP clients like Claude and Cursor?',
+        question:
+          'Does Microlink work with MCP clients like Claude and Cursor?',
         answer:
           'Yes. The [MCP server](/integrations/mcp) connects to Claude, Codex, Cursor and VS Code, and exposes metadata, screenshots, PDFs, Markdown and text as tools.'
       }

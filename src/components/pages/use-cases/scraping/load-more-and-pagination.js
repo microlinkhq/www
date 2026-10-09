@@ -138,12 +138,14 @@ const quotes = results.flatMap(result => result.quotes)`,
         'Yes. When pages have their own URLs, build the list of URLs and send one extraction request per page at the same time. The API applies no throttling; the free tier allows 25 requests per day in total.'
     },
     {
-      question: 'Why does scroll not load every item on an infinite scroll page?',
+      question:
+        'Why does scroll not load every item on an infinite scroll page?',
       answer:
         'The scroll parameter scrolls a single element into view once. That triggers one batch of lazy content, not an endless feed. Scroll in a loop inside a function, or read the JSON endpoint the page requests as it scrolls.'
     },
     {
-      question: 'How many times can a function click Load more before it times out?',
+      question:
+        'How many times can a function click Load more before it times out?',
       answer:
         'As many as fit in the time limit: 15 seconds on the free plan and up to 60 seconds on Pro. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
     },

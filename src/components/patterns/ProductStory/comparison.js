@@ -56,7 +56,14 @@ export const ProductComparison = ({
         </thead>
         <tbody>
           {rows.map(
-            ({ feature, href, microlink, note: rowNote, highlight, ...row }) => (
+            ({
+              feature,
+              href,
+              microlink,
+              note: rowNote,
+              highlight,
+              ...row
+            }) => (
               <tr
                 key={feature}
                 css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}

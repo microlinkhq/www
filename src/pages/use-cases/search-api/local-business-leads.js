@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/local-business-leads'
 
-const UseCaseSearchLocalBusinessLeadsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchLocalBusinessLeadsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

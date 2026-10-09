@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'The logic is short: fetch a page, load it into cheerio, pick a few values, return them. Around it you need a function host, a package.json, a bundle, a deploy, logs and a way to update the dependency when it ships a fix.',
       'Serverless platforms solve hosting but not the ceremony. Every new script is a new function to configure and deploy, packages have to be bundled ahead of time, and if the code sometimes needs a browser you are back to shipping Chromium alongside it.',
-      'The function runtime installs dependencies for you. Any require() in your code is detected, installed in a sandbox and cached, and require(\'cheerio@1.0.0\') pins a version. When the function never references page, no browser starts at all, so plain JavaScript runs faster. The [writing functions guide](/docs/guides/function/writing-functions) covers each step.'
+      "The function runtime installs dependencies for you. Any require() in your code is detected, installed in a sandbox and cached, and require('cheerio@1.0.0') pins a version. When the function never references page, no browser starts at all, so plain JavaScript runs faster. The [writing functions guide](/docs/guides/function/writing-functions) covers each step."
     ]
   },
   how: {
@@ -106,7 +106,7 @@ const { isFulfilled, value } = await microlink.function(
     {
       question: 'Can I use cheerio in the cloud without deploying a server?',
       answer:
-        'Yes. require(\'cheerio\') inside a function sent with microlink.function. The package is installed on the fly and cached, and the function can load HTML it fetched from the target or the rendered page.content() when it uses page.'
+        "Yes. require('cheerio') inside a function sent with microlink.function. The package is installed on the fly and cached, and the function can load HTML it fetched from the target or the rendered page.content() when it uses page."
     },
     {
       question: 'Which npm packages can I require in a remote function?',
@@ -126,7 +126,7 @@ const { isFulfilled, value } = await microlink.function(
     {
       question: 'How do I pin an npm package version in a remote function?',
       answer:
-        'Append the version to the package name inside require, for example require(\'cheerio@1.0.0\'). Without a version the latest release is installed.'
+        "Append the version to the package name inside require, for example require('cheerio@1.0.0'). Without a version the latest release is installed."
     }
   ],
   cta: {

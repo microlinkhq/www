@@ -6,7 +6,8 @@ export const CONTENT = {
       'Scrape authenticated pages by forwarding a session cookie or bearer token as a request header. Secrets stay out of the URL. Pro plans.'
   },
   hero: {
-    title: 'Scrape data from pages behind a login without scripting the sign-in',
+    title:
+      'Scrape data from pages behind a login without scripting the sign-in',
     intro:
       'To scrape a website behind a login, the request has to arrive with a session the site already trusts. Account balances, order histories, analytics dashboards, supplier portals and internal tools all sit behind authentication. The [Scraping API](/features/scraping) forwards your cookie or token as a real request header, so the rules run on the page your user sees.',
     cta: { label: 'Start with the Scraping API', href: '/features/scraping' }
@@ -137,7 +138,8 @@ export const CONTENT = {
         'The rules probably ran on the login page. Check that the cookie name and domain match what the site sets, that the session has not expired, and that the request goes to pro.microlink.io with a valid key. A waitForSelector on a signed-in-only element makes this failure explicit.'
     },
     {
-      question: 'Is it safe to put the session cookie in the headers query parameter?',
+      question:
+        'Is it safe to put the session cookie in the headers query parameter?',
       answer:
         'No. Query parameters are public and end up in logs, history and shared links. Use the headers parameter only for harmless values such as accept-language, and x-api-header-* request headers for cookies and tokens.'
     },

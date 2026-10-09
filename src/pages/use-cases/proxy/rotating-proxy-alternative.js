@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/proxy/rotating-proxy-alternative'
 
-const UseCaseRotatingProxyAlternativePage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseRotatingProxyAlternativePage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/tables-and-lists'
 
-const UseCaseScrapeTablesAndListsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeTablesAndListsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

@@ -60,7 +60,11 @@ export const Throughput = () => (
                   css={[
                     theme(
                       index === 1
-                        ? { textAlign: 'right', fontWeight: 'bold', color: 'black' }
+                        ? {
+                            textAlign: 'right',
+                            fontWeight: 'bold',
+                            color: 'black'
+                          }
                         : { textAlign: 'right', color: 'black60' }
                     ),
                     NUMERIC_CELL

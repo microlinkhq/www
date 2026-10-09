@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'A dashboard that reads a public API on every page view, a build step that pulls the same dataset a hundred times, a frontend that hits a rate-limited endpoint directly: each request goes all the way to the origin, waits for it and burns its quota, even when the answer has not changed in hours.',
       'The usual fix is a small caching service in front of the API. Now you run a server, choose a store, write expiry logic and handle the stampede when a popular key expires. Treating the endpoint as a web page to scrape is worse: a browser wraps the JSON in markup that you then have to strip.',
-      'A rule with attr: \'json\' parses the response body with JSON.parse and returns it with its original shape, no URL rewriting and no value normalization. prerender: false fetches it without a browser, and every response is cached for 24 hours by default, tunable with [ttl](/docs/api/parameters/ttl) and served stale while refreshing with staleTtl.'
+      "A rule with attr: 'json' parses the response body with JSON.parse and returns it with its original shape, no URL rewriting and no value normalization. prerender: false fetches it without a browser, and every response is cached for 24 hours by default, tunable with [ttl](/docs/api/parameters/ttl) and served stale while refreshing with staleTtl."
     ],
     live: {
       label: 'Open the live parsed JSON',
@@ -124,7 +124,7 @@ export const CONTENT = {
     {
       question: 'How do I fetch JSON from a URL through the API?',
       answer:
-        'Send the endpoint URL with a data rule that has attr: \'json\' and no selector, plus prerender: false. The response field holds the parsed JSON with its original shape.'
+        "Send the endpoint URL with a data rule that has attr: 'json' and no selector, plus prerender: false. The response field holds the parsed JSON with its original shape."
     },
     {
       question: 'Can I combine attr json with a CSS selector?',

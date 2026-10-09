@@ -122,12 +122,14 @@ export const CONTENT = {
         'No. Cache hits do not count against your quota and are served from the edge in milliseconds. Only a MISS, an expired entry or a request with force renders the page again, which is why a second crawl of an unchanged site is fast and cheap.'
     },
     {
-      question: 'How do I force a fresh Markdown conversion for a page that changed?',
+      question:
+        'How do I force a fresh Markdown conversion for a page that changed?',
       answer:
         'Pass [force: true](/docs/api/parameters/force) for that URL. The x-cache-status response header reports BYPASS and the new result replaces the cached copy, so later requests get the updated Markdown.'
     },
     {
-      question: 'Can Microlink crawl a whole site and return Markdown for every page?',
+      question:
+        'Can Microlink crawl a whole site and return Markdown for every page?',
       answer:
         'Microlink converts the URLs you send. Use links() to discover pages from a navigation or index page, or read the sitemap yourself, then feed the list to the pool. For recursive discovery, pair a crawler with the API for the conversion step.'
     },

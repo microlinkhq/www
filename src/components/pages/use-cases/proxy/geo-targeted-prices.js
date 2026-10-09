@@ -62,8 +62,15 @@ const rows = await Promise.all(
           params: {
             proxy: { location: 'de' },
             data: {
-              price: { selector: '[itemprop="price"]', attr: 'content', type: 'number' },
-              currency: { selector: '[itemprop="priceCurrency"]', attr: 'content' }
+              price: {
+                selector: '[itemprop="price"]',
+                attr: 'content',
+                type: 'number'
+              },
+              currency: {
+                selector: '[itemprop="priceCurrency"]',
+                attr: 'content'
+              }
             },
             meta: false
           },
@@ -144,7 +151,8 @@ const rows = await Promise.all(
         'Yes. Each country is its own request and its own cache entry. Repeat reads within the cache lifetime are cache hits, which never count toward your quota, so a dashboard that re-reads the same markets costs nothing extra until the ttl expires.'
     },
     {
-      question: 'Should I use price extraction or localized metadata for regional pages?',
+      question:
+        'Should I use price extraction or localized metadata for regional pages?',
       answer:
         'Use extraction rules when you need numbers to compare, such as price, currency and stock. Use [localized metadata](/use-cases/website-metadata/localized-metadata) when you need the regional title, description and image for a link preview. Both rely on the same proxy.location option.'
     }

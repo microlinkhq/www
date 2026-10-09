@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/proxy/detect-antibot-protection'
 
-const UseCaseDetectAntibotProtectionPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseDetectAntibotProtectionPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

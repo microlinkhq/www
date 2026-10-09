@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/search-api/serp-to-markdown'
 
-const UseCaseSearchSerpToMarkdownPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseSearchSerpToMarkdownPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

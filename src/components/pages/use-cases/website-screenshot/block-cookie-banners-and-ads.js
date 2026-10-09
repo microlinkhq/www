@@ -126,7 +126,8 @@ export const CONTENT = {
         'No. It is enabled by default, including on the free endpoint. Pass adblock: false only when you want ads, trackers and consent flows to stay visible in the capture.'
     },
     {
-      question: 'Which cookie consent popups does the screenshot adblock remove?',
+      question:
+        'Which cookie consent popups does the screenshot adblock remove?',
       answer:
         'Popups injected by third-party consent management services are blocked at the network level, along with ad networks and trackers. A dialog built into the site’s own code is not a third-party request, so dismiss it with click or hide it with styles.'
     },

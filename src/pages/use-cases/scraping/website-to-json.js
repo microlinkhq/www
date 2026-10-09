@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/website-to-json'
 
-const UseCaseScrapeWebsiteToJsonPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeWebsiteToJsonPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

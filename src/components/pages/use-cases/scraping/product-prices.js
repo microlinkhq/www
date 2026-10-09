@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'One shop prints £51.77, another 51,77 € with a strikethrough list price next to it, a third renders the price after the page loads. The value you want is in there, but it arrives as text in a different element on every domain, and the stock status is a sentence rather than a flag.',
       'A regular expression per store works until the template changes, and parseFloat on the wrong element silently records the old price or the shipping fee. Stores that render prices in the browser return nothing to a plain HTTP fetch, and larger retailers put antibot protection in front of the product pages you care about most.',
-      'Extraction rules make the price a typed field. type: \'number\' returns a number, an array of rules tries structured markup first and the visible label second, and waitForSelector holds the extraction until a client-rendered price exists. The [type reference](/docs/sdk/methods/extract/type) lists every validator.'
+      "Extraction rules make the price a typed field. type: 'number' returns a number, an array of rules tries structured markup first and the visible label second, and waitForSelector holds the extraction until a client-rendered price exists. The [type reference](/docs/sdk/methods/extract/type) lists every validator."
     ],
     live: {
       label: 'Open the live price and stock JSON',
@@ -130,7 +130,8 @@ export const CONTENT = {
         'Yes, as a separate field. Stores that use schema.org microdata expose it in an element with itemprop priceCurrency, so a second rule reading its content attribute gives you the ISO code next to the numeric price.'
     },
     {
-      question: 'How do I scrape prices from stores that render with JavaScript?',
+      question:
+        'How do I scrape prices from stores that render with JavaScript?',
       answer:
         'Add prerender: true and waitForSelector with the price selector. The page renders in a real browser and the rules run once the price element exists. [Scraping JavaScript-rendered pages](/use-cases/scraping/javascript-rendered-pages) covers the wait options in depth.'
     },

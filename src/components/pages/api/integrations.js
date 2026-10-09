@@ -19,7 +19,7 @@ export const Integrations = () => (
   <SectionBlock
     id='integrations'
     bg='pinky'
-    title='Use it from code, a terminal, or an agent'
+    title='Use it from code, a terminal, a workflow, or an agent'
     caption='The endpoint is HTTP. These are the wrappers when you do not want to compose the query string by hand.'
   >
     <CardGrid $columns={4}>

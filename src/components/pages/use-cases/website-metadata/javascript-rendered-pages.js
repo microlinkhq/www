@@ -131,7 +131,8 @@ export const CONTENT = {
         'A browser render takes longer than a plain fetch, because the browser waits for page events before reading the DOM. Keep prerender on auto for mixed sources, scope meta to the fields you use, and let the 24-hour cache serve the repeats.'
     },
     {
-      question: 'Can the metadata request wait for the og:image tag specifically?',
+      question:
+        'Can the metadata request wait for the og:image tag specifically?',
       answer:
         'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the free plan and 60 seconds on Pro.'
     },

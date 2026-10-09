@@ -103,7 +103,8 @@ export const CONTENT = {
   },
   faq: [
     {
-      question: 'How do I use an authenticated proxy with a headless browser API?',
+      question:
+        'How do I use an authenticated proxy with a headless browser API?',
       answer:
         'Pass it as proxy.url in the form https://username:password@hostname:port on a Pro plan. The credentials travel inside the URL, so there is no separate authentication step, and the managed browser routes the whole page through that server.'
     },

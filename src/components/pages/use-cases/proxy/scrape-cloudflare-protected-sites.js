@@ -52,7 +52,11 @@ console.log(mode, mode.endsWith('-proxy'))
           params: {
             data: {
               title: { selector: 'h1', attr: 'text' },
-              price: { selector: '[itemprop="price"]', attr: 'content', type: 'number' }
+              price: {
+                selector: '[itemprop="price"]',
+                attr: 'content',
+                type: 'number'
+              }
             },
             meta: false,
             retry: 3
@@ -88,7 +92,8 @@ console.log(mode, mode.endsWith('-proxy'))
       'If a site keeps failing, the [troubleshooting guide](/docs/guides/common/troubleshooting) explains the debug headers, and [detecting which antibot system blocks you](/use-cases/proxy/detect-antibot-protection) tells you whether it is Cloudflare or another provider.'
   },
   why: {
-    title: 'Why scrape Cloudflare sites through the API instead of a stealth browser',
+    title:
+      'Why scrape Cloudflare sites through the API instead of a stealth browser',
     intro:
       'A stealth setup is a race against detection updates. Moving the unblocking into the API turns it into someone else’s maintenance and leaves your code about the data.',
     cards: [
@@ -134,7 +139,8 @@ console.log(mode, mode.endsWith('-proxy'))
         'Not every one. Automatic proxy resolution is well tested against the 500 most popular websites worldwide, and protection settings vary from site to site. Check the x-fetch-mode header and the returned fields on a sample before you scale a job to a new domain.'
     },
     {
-      question: 'What happens when I scrape a Cloudflare site on the free plan?',
+      question:
+        'What happens when I scrape a Cloudflare site on the free plan?',
       answer:
         'The request fails with the [EPROXYNEEDED error code](/docs/api/basics/error-codes#eproxyneeded): the URL uses antibot protection and needs a Pro plan. Nothing else changes when you upgrade: the same request, sent with an API key, goes through the proxy automatically.'
     }

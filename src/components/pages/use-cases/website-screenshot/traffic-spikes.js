@@ -6,8 +6,7 @@ export const CONTENT = {
       'Absorb screenshot traffic spikes without a browser pool: no per-second throttling, a 24-hour cache with free hits and a 99.9% SLA on every paid plan.'
   },
   hero: {
-    title:
-      'Serve high-volume screenshots through traffic spikes',
+    title: 'Serve high-volume screenshots through traffic spikes',
     intro:
       'High-volume screenshots rarely arrive at a steady rate. A product launch, a viral post or a Monday morning batch job multiplies demand in minutes, and a self-hosted browser pool has to be sized, and paid for, at that peak. The [Screenshot API](/screenshot) applies no throttling, serves repeats from a cache whose hits do not count against your quota, and spends your plan only on fresh captures.',
     cta: { label: 'Start with the Screenshot API', href: '/screenshot' }
@@ -22,8 +21,7 @@ export const CONTENT = {
     ]
   },
   how: {
-    title:
-      'How to serve high-volume screenshots during a spike',
+    title: 'How to serve high-volume screenshots during a spike',
     intro:
       'Three request options turn a spiky workload into a predictable one, and none of them needs infrastructure on your side. The [screenshot caching and performance guide](/docs/guides/screenshot/caching-and-performance) covers the same setup in more depth.',
     steps: [
@@ -84,7 +82,8 @@ export const CONTENT = {
     cards: [
       {
         kicker: 'No throttling',
-        title: 'Parallel requests are bounded by your quota, not by a rate limiter.',
+        title:
+          'Parallel requests are bounded by your quota, not by a rate limiter.',
         body: 'The API applies no per-second throttling. A burst of a thousand captures is a thousand requests against your quota, processed as they arrive, with no queue for you to drain afterwards.',
         note: 'When the quota runs out you get HTTP 429 with the ERATE error code, plus x-rate-limit-remaining and x-rate-limit-reset headers, so back-pressure is explicit instead of a silent slowdown.'
       },

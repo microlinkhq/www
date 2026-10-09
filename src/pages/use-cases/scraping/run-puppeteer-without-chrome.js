@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/run-puppeteer-without-chrome'
 
-const UseCaseRunPuppeteerWithoutChromePage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseRunPuppeteerWithoutChromePage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

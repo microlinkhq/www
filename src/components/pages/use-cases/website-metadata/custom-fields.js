@@ -49,7 +49,9 @@ export const CONTENT = {
         request: {
           url: 'https://example.com/product',
           params: {
-            data: { price: { selector: '.price', attr: 'text', type: 'number' } }
+            data: {
+              price: { selector: '.price', attr: 'text', type: 'number' }
+            }
           }
         },
         note: 'Rules flatten to data.price.selector, data.price.attr and data.price.type query parameters, so the request works from any language or from [the CLI](/docs/sdk/getting-started/cli).'

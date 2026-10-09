@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/javascript-rendered-pages'
 
-const UseCaseScrapeJavascriptRenderedPagesPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeJavascriptRenderedPagesPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

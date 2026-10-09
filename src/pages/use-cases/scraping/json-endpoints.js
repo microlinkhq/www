@@ -9,7 +9,9 @@ import {
 
 import { CONTENT } from 'components/pages/use-cases/scraping/json-endpoints'
 
-const UseCaseScrapeJsonEndpointsPage = () => <UseCaseLanding content={CONTENT} />
+const UseCaseScrapeJsonEndpointsPage = () => (
+  <UseCaseLanding content={CONTENT} />
+)
 
 export const Head = () => (
   <Meta

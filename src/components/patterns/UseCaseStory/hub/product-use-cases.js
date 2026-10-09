@@ -25,7 +25,9 @@ export const ProductUseCases = ({
 }) => {
   const vertical = getVertical(verticalSlug)
   const entries = (
-    slugs ? slugs.map(getUseCase).filter(Boolean) : verticalUseCases(verticalSlug)
+    slugs
+      ? slugs.map(getUseCase).filter(Boolean)
+      : verticalUseCases(verticalSlug)
   ).slice(0, limit)
   if (!entries.length) return null
 
@@ -60,7 +62,11 @@ export const ProductUseCases = ({
       <Box css={theme({ pt: [3, 3, 4, 4], width: '100%' })}>
         <ArrowLink
           href={pathToUseCase(vertical.slug)}
-          css={theme({ color: 'link', fontWeight: 'bold', fontSize: [1, 2, 2, 2] })}
+          css={theme({
+            color: 'link',
+            fontWeight: 'bold',
+            fontSize: [1, 2, 2, 2]
+          })}
         >
           All {vertical.name.toLowerCase()} use cases
         </ArrowLink>

@@ -153,7 +153,8 @@ export const CONTENT = {
         'Chart libraries that honor prefers-reduced-motion skip entrance animations because the API disables animations by default. For libraries that animate regardless, wait for a selector the library adds when drawing completes, or add a short waitForTimeout.'
     },
     {
-      question: 'Does the PDF API run JavaScript before printing a single-page app?',
+      question:
+        'Does the PDF API run JavaScript before printing a single-page app?',
       answer:
         'Yes. Every PDF is rendered in a headless browser with JavaScript enabled by default, so React, Vue, Angular and other client-rendered apps build their DOM before the print. You only need to tell the API what to wait for. Wide dashboards usually also want the [landscape and scale options](/use-cases/website-to-pdf/paper-size-and-margins).'
     }
