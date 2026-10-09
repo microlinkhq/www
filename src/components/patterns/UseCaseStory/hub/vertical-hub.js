@@ -21,9 +21,15 @@ import { CardGrid, UseCaseCard } from './use-case-card'
 import { UseCaseBreadcrumbs } from '../landing/hero'
 import { VerticalIconTile } from '../landing/vertical-icon'
 import { MoreUseCases } from '../MoreUseCases'
-import { ACCENT, VERTICALS, verticalUseCases } from '../use-cases'
+import {
+  ACCENT,
+  VERTICALS,
+  useCaseSignupCta,
+  verticalUseCases
+} from '../use-cases'
 
-const linkStyle = size => theme({ color: 'link', fontWeight: 'bold', fontSize: size })
+const linkStyle = size =>
+  theme({ color: 'link', fontWeight: 'bold', fontSize: size })
 
 const startHereLinks = vertical =>
   [
@@ -55,7 +61,9 @@ export const VerticalHub = ({ vertical }) => {
                 { label: vertical.name }
               ]}
             />
-            <Flex css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}>
+            <Flex
+              css={theme({ alignItems: 'center', gap: 2, pb: [3, 3, 4, 4] })}
+            >
               <VerticalIconTile vertical={vertical} size={40} />
               <Text
                 css={theme({
@@ -78,7 +86,10 @@ export const VerticalHub = ({ vertical }) => {
               {vertical.hub.intro}
             </Text>
             <Box css={theme({ pt: [3, 3, 4, 4] })}>
-              <ArrowLink href={vertical.productHref} css={linkStyle([2, 2, 3, 3])}>
+              <ArrowLink
+                href={vertical.productHref}
+                css={linkStyle([2, 2, 3, 3])}
+              >
                 Start with the {vertical.product}
               </ArrowLink>
             </Box>
@@ -119,7 +130,12 @@ export const VerticalHub = ({ vertical }) => {
           </SectionInner>
         </Section>
 
-        <CtaSection accent={ACCENT} href={vertical.productHref} {...vertical.hub.cta} />
+        <CtaSection
+          accent={ACCENT}
+          href={vertical.productHref}
+          signupCta={useCaseSignupCta(vertical.slug)}
+          {...vertical.hub.cta}
+        />
         <MoreUseCases
           accent={ACCENT}
           slugs={otherVerticalSlugs(vertical)}
