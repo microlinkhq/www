@@ -76,6 +76,8 @@ export const PATH_PRODUCTS = {
     '/file-conversion',
     '/tools/url-to-markdown',
     '/use-cases/website-to-markdown',
+    '/use-cases/scraping',
+    '/features/scraping',
     '/docs/guides/content-conversion',
     '/docs/guides/data-extraction',
     '/alternative/firecrawl'

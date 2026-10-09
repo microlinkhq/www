@@ -48,6 +48,9 @@ describe('dashboard-url', () => {
       expect(productFromPath('/use-cases/website-metadata/anything')).toBe(
         'metadata'
       )
+      expect(productFromPath('/use-cases/scraping/behind-login')).toBe(
+        'extract'
+      )
     })
 
     it('matches whole path segments only', () => {
