@@ -1,14 +1,14 @@
 export const CONTENT = {
   slug: 'website-screenshot/animated-screenshots',
   head: {
-    title: 'Animated screenshots: record any page as video',
+    title: 'Record any website as an animated screenshot video',
     description:
       'An animated screenshot records any URL as a short MP4 or WebM instead of a still image. Up to 10 seconds at 60 fps, embeddable in a video tag.'
   },
   hero: {
-    title: 'Record a website as a video instead of a screenshot',
+    title: 'Take an animated screenshot of any website',
     intro:
-      'Some pages only make sense while they move: a WebGL scene, a scroll-driven landing page, a loading sequence, a chart that animates in. A still frame reports one arbitrary moment of it. Set one option and the Screenshot API opens the page in a real browser, records it, and returns a hosted MP4 or WebM alongside the still image.',
+      'An animated screenshot records a page as a short video instead of a single frame. Some pages only make sense while they move: a WebGL scene, a scroll-driven landing page, a loading sequence, a chart that animates in. A still frame reports one arbitrary moment of it. Set one option and the Screenshot API opens the page in a real browser, records it, and returns a hosted MP4 or WebM alongside the still image.',
     cta: { label: 'Open the Screenshot API', href: '/screenshot' }
   },
   problem: {
@@ -19,24 +19,8 @@ export const CONTENT = {
       'The usual answer is to record it yourself. That means driving a headless browser, attaching a screencast session, collecting frames, then running them through a video encoder, and keeping all of it alive on your own machines. The output is a video file you now have to host.',
       'The [screenshot.animated](/docs/api/parameters/screenshot/animated) option replaces that pipeline with one option on the request you already send. The browser records the page as it plays and the response carries a hosted video URL next to the usual still image, so a capture and a recording cost the same single call.'
     ],
-    figure: {
-      request: {
-        url: 'https://threejs.org/examples/webgl_animation_skinning_blending',
-        params: {
-          screenshot: true,
-          meta: false,
-          embed: 'screenshot.url',
-          viewport: { width: 1200, height: 750, deviceScaleFactor: 1 }
-        }
-      },
-      alt: 'A single still frame captured from an animated WebGL page',
-      width: 1200,
-      height: 750,
-      caption:
-        'One still frame of a page that never stops moving, generated live by a plain screenshot request.'
-    },
     live: {
-      label: 'Open the MP4 the same page records',
+      label: 'Open a live recording of a WebGL page',
       request: {
         url: 'https://threejs.org/examples/webgl_animation_skinning_blending',
         params: {
@@ -77,7 +61,7 @@ export const CONTENT = {
             embed: 'screenshot.animated.url'
           }
         },
-        note: 'With [embed](/docs/api/parameters/embed) the response body is the video itself rather than JSON, so this URL goes straight into the src of a video tag. It works on the free endpoint with no API key.'
+        note: 'With embed the response body is the video itself rather than JSON, so this URL goes straight into the src of a video tag, as the [delivery and embedding guide](/docs/guides/screenshot/embedding) shows for images. It works on the free endpoint with no API key.'
       }
     ],
     params: [
@@ -108,7 +92,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'The recording captures the viewport, not the full scrollable page, so frame what you want with a [viewport](/docs/api/parameters/viewport) or a [device](/docs/api/parameters/device) preset. For motion that starts late, give it a longer duration rather than a wait: the clock starts at navigation.'
+      'The recording captures the viewport, not the full scrollable page, so frame what you want with a [viewport](/docs/api/parameters/viewport) or a device preset. For motion that starts late, give it a longer duration rather than a wait: the clock starts at navigation.'
   },
   why: {
     title: 'Why record on the API instead of in your own browser fleet',
@@ -119,7 +103,7 @@ export const CONTENT = {
         kicker: 'One request',
         title: 'No screencast pipeline to operate.',
         body: 'Driving a browser, attaching a screencast, buffering frames and encoding them is several moving parts and a machine to run them on. Here it is one option on a request, and the encoded video comes back hosted and cached.',
-        note: 'The still image arrives in the same response, which is what you want for the poster attribute of a video tag.'
+        note: 'The still image arrives in the same response, which is what you want for the poster attribute of a video tag. To preview a recording before writing code, try the [animated screenshot tool](/tools/website-screenshot/animated).'
       },
       {
         kicker: 'Composable',
@@ -154,7 +138,7 @@ export const CONTENT = {
     {
       question: 'Why does my recording miss the animation on the page?',
       answer:
-        'CSS animations and transitions are disabled by default so that still captures stay identical between runs. Set [animations](/docs/api/parameters/animations) to true to let them play. Motion driven by JavaScript or WebGL runs either way.'
+        'CSS animations and transitions are disabled by default so that still captures stay identical between runs. Set animations to true to let them play. The setting only covers CSS, so motion driven by JavaScript or WebGL is not affected by it.'
     },
     {
       question: 'Can I serve the recording straight into a video tag?',
