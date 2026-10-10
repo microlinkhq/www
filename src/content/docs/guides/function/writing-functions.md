@@ -127,6 +127,24 @@ The runtime restricts certain system capabilities for security. Operations such 
 }
 ```
 
+The browser is restricted the same way. Your function drives its own page, and any page it opens, but it cannot reach the machine or other requests through Chrome DevTools Protocol:
+
+- Local files are out of reach: `elementHandle.uploadFile()`, `file://` and `chrome://` navigation, and custom download paths are refused.
+- `page.browser()` only lists the pages your function owns.
+- Browser-wide commands such as tracing or creating browser contexts are not available. `browser.close()` ends your function's connection and nothing else.
+
+A refused command rejects like any other Puppeteer error, so you can catch it. If it is left uncaught, the function settles with a `SandboxError` naming the command:
+
+```json
+{
+  "isFulfilled": false,
+  "value": {
+    "name": "SandboxError",
+    "message": "'DOM.setFileInputFiles' is not available to functions"
+  }
+}
+```
+
 ## When to add page
 
 Add `page` when you need the page for the URL you asked for. It is a [Puppeteer Page](https://pptr.dev/api/puppeteer.page), and the [page API](https://pptr.dev/api/puppeteer.page) is supported:
