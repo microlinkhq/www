@@ -56,6 +56,7 @@ Each error message is plan-aware:
 
 - **EINVALFUNCTION** — the function string has invalid JavaScript syntax. Check quotes, brackets, template strings, and arrow function formatting.
 - **EINVALEVAL** — the function executed but threw at runtime. Check undefined variables, DOM queries that return null, or mistakes inside `page.evaluate`.
+- **SandboxError**: the function sent a browser command that is not available to functions, such as uploading a local file, navigating to `file://`, or tracing. The message names the command. See [security restrictions](/docs/guides/function/writing-functions#security-restrictions).
 
 ## Fixing resource limit errors
 

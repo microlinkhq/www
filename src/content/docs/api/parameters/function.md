@@ -32,7 +32,7 @@ The function runtime supports `require()` for any npm package:
 
 Dependencies are detected automatically from your code and installed on-the-fly during the install phase.
 
-The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted.
+The runtime restricts certain system capabilities for security. Operations such as spawning child processes or writing to the filesystem outside the sandbox are not permitted. The browser is restricted too: a function only reaches its own pages, and commands that touch local files or the whole browser are refused with a `SandboxError`. See [security restrictions](/docs/guides/function/writing-functions#security-restrictions).
 
 ## Request
 
