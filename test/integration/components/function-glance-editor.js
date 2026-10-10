@@ -4,51 +4,20 @@ import { expect, test } from 'vitest'
 
 import { EXAMPLES } from '../../../src/components/pages/editor/examples'
 import { exampleFromSearch } from '../../../src/components/pages/editor/use-share'
+import { glanceItems } from '../../../src/components/pages/function/glance-items'
 
-const source = fs.readFileSync(
-  path.join(process.cwd(), 'src/components/pages/function/product-shared.js'),
-  'utf8'
-)
+test('function page shows every editor template', () => {
+  expect(glanceItems.map(item => item.id)).toEqual(
+    EXAMPLES.map(example => example.id)
+  )
 
-const glance = source.slice(
-  source.indexOf('export const GLANCE'),
-  source.indexOf('export const PRIMER')
-)
-
-test('function glance examples open matching editor templates', () => {
-  const hrefs = [
-    ...glance.matchAll(/href: editorTemplateHref\('([^']+)'\)/g)
-  ].map(([, id]) => id)
-  expect(hrefs).toEqual([
-    'extract-css',
-    'extract',
-    'click-wait',
-    'proxy',
-    'inject',
-    'cheerio',
-    'sitemap'
-  ])
-
-  const ids = new Set(EXAMPLES.map(example => example.id))
-  for (const id of hrefs) {
-    expect(ids.has(id)).toBe(true)
-    expect(exampleFromSearch(`?template=${id}`)?.id).toBe(id)
+  for (const item of glanceItems) {
+    const example = EXAMPLES.find(entry => entry.id === item.id)
+    expect(item.title).toBe(example.label)
+    expect(item.href).toBe(`/editor?template=${item.id}`)
+    expect(item.code.length).toBeGreaterThan(0)
+    expect(exampleFromSearch(`?template=${item.id}`)?.id).toBe(item.id)
   }
-})
-
-test('extract and metadata templates open from the editor query', () => {
-  const ids = ['metadata', 'extract-css', 'extract-list', 'extract-evaluate']
-  for (const id of ids) {
-    expect(exampleFromSearch(`?template=${id}`)?.id).toBe(id)
-  }
-
-  const files = id =>
-    EXAMPLES.find(example => example.id === id).files['main.mjs']
-  expect(files('metadata')).toContain('page.metadata()')
-  expect(files('extract-css')).toContain("selector: 'h1'")
-  expect(files('extract-list')).toContain('page.extract({')
-  expect(files('extract-list')).toContain('selectorAll')
-  expect(files('extract-evaluate')).toContain("evaluate: 'window.next.version'")
 })
 
 test('sitemap FAQ opens the sitemap editor template', () => {
