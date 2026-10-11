@@ -33,8 +33,6 @@ export const HERO = {
     'Get the HTML a real browser sees, after JavaScript has run. One REST call returns the fully hydrated DOM of any URL, no headless Chrome to operate.',
   cta: 'html:hero',
   ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/api/parameters/data',
-  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   mqlCode: {
     url: 'https://vercel.com',
@@ -108,9 +106,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call it and start parsing real markup in seconds.',
   cta: 'html:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/api/parameters/data',
-  secondaryLabel: 'Read the docs'
+  ctaLabel: 'Get your free API key'
 }
 
 export const FAQ_CAPTION =

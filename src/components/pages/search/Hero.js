@@ -8,12 +8,9 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import List from 'components/patterns/List/List'
-import ArrowLink from 'components/patterns/ArrowLink'
 import { SignupLink } from 'components/patterns/SignupLink'
 
-import { GUIDE_URL } from 'helpers/search-landing'
-
-import { ActionRow, SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
+import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
 
 import Playground from './Playground'
 
@@ -96,6 +93,11 @@ const HeroSection = () => (
           Search results in ~1s via a unified API. One client, normalized JSON
           for tools, prompts, and RAG pipelines.
         </Text>
+        <Flex id='cta' css={theme({ justifyContent: 'center', pt: 4 })}>
+          <SignupLink component={Button} as='a' cta='search:hero'>
+            Get your free API key
+          </SignupLink>
+        </Flex>
       </Box>
 
       <Playground />
@@ -124,33 +126,6 @@ const HeroSection = () => (
           ))}
         </Box>
       </Box>
-
-      <Flex id='cta' css={theme({ justifyContent: 'center' })}>
-        <ActionRow
-          css={theme({
-            pt: 4,
-            flexDirection: 'row',
-            flexWrap: 'nowrap',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: [4, 4, 4, 4],
-            '& > *': { flexShrink: 0 }
-          })}
-        >
-          <SignupLink component={Button} as='a' cta='search:hero'>
-            Get your free API key
-          </SignupLink>
-          <ArrowLink
-            href={GUIDE_URL}
-            css={theme({
-              flexShrink: 0,
-              fontSize: [1, 1, 2, 2]
-            })}
-          >
-            View docs
-          </ArrowLink>
-        </ActionRow>
-      </Flex>
     </Box>
   </Container>
 )

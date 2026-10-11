@@ -16,10 +16,10 @@ export const HERO = {
     'Write a JavaScript function. Send a URL. Microlink runs the function remotely and returns whatever it returned — no Lambda, no browser fleet, no server to operate.',
   glanceCaption:
     'A function is just JavaScript. These examples run remotely and return a value.',
-  ctaHref: '/editor',
-  ctaLabel: 'Open editor',
-  docsHref: '/docs/guides/function',
-  docsLabel: 'Read the docs'
+  cta: 'function:hero',
+  ctaLabel: 'Get your free API key',
+  editorHref: '/editor',
+  editorLabel: 'Open editor'
 }
 
 export const GLANCE = {

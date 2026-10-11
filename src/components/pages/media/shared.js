@@ -33,8 +33,6 @@ export const HERO = {
     'Find the playable video or audio behind any URL. Microlink resolves the direct file, its dimensions, duration and type, so you can embed, transcribe or process it without scraping player markup.',
   cta: 'media:hero',
   ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/api/parameters/video',
-  secondaryLabel: 'Read the docs',
   editorHeight: 100,
   examples: [
     {
@@ -110,9 +108,7 @@ export const CTA = {
   caption:
     'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a URL and get a playable file back in seconds.',
   cta: 'media:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/api/parameters/video',
-  secondaryLabel: 'Read the docs'
+  ctaLabel: 'Get your free API key'
 }
 
 export const FAQ_CAPTION =
