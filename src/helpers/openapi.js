@@ -69,7 +69,9 @@ export const parameterFromDoc = (file, content) => {
     name,
     in: 'query',
     required: name === 'url',
-    description: isPro ? `${description} Requires a Pro plan.` : description,
+    description: isPro
+      ? `${description} Requires an API key (free plan included).`
+      : description,
     schema,
     externalDocs: {
       url: `${SITE_URL}/docs/api/parameters/${file

@@ -91,7 +91,7 @@
             "name": "cacheKey",
             "in": "query",
             "required": false,
-            "description": "Take full control of cache identity to maximize hit rates and avoid redundant processing. Requires a Pro plan.",
+            "description": "Take full control of cache identity to maximize hit rates and avoid redundant processing. Requires an API key (free plan included).",
             "schema": {
               "type": "string"
             },
@@ -174,7 +174,7 @@
             "name": "filename",
             "in": "query",
             "required": false,
-            "description": "Define a custom name for generated assets like screenshots or PDFs using the filename parameter. Requires a Pro plan.",
+            "description": "Define a custom name for generated assets like screenshots or PDFs using the filename parameter. Requires an API key (free plan included).",
             "schema": {
               "type": "string"
             },
@@ -222,7 +222,7 @@
             "name": "headers",
             "in": "query",
             "required": false,
-            "description": "Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers. Requires a Pro plan.",
+            "description": "Configure custom HTTP headers to be sent with your requests to the target URL. This Pro feature allows for emulating specific browsers. Requires an API key (free plan included).",
             "schema": {
               "type": "object",
               "additionalProperties": true
@@ -536,7 +536,7 @@
             "name": "proxy",
             "in": "query",
             "required": false,
-            "description": "Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation. Requires a Pro plan.",
+            "description": "Bypass IP rate limits, CAPTCHAs, and regional restrictions using high-quality proxy rotation. Requires an API key (free plan included).",
             "schema": {
               "oneOf": [
                 {
@@ -556,7 +556,7 @@
             "name": "proxy.location",
             "in": "query",
             "required": false,
-            "description": "Route the request through a proxy IP in a specific country to fetch region-specific content. Requires a Pro plan.",
+            "description": "Route the request through a proxy IP in a specific country to fetch region-specific content. Requires an API key (free plan included).",
             "schema": {
               "type": "string"
             },
@@ -568,7 +568,7 @@
             "name": "proxy.url",
             "in": "query",
             "required": false,
-            "description": "Route every sub-request through your own HTTP proxy server. Requires a Pro plan.",
+            "description": "Route every sub-request through your own HTTP proxy server. Requires an API key (free plan included).",
             "schema": {
               "type": "string"
             },
@@ -751,7 +751,7 @@
             "name": "staleTtl",
             "in": "query",
             "required": false,
-            "description": "Optimize API performance by serving cached content while simultaneously refreshing it in the background. Requires a Pro plan.",
+            "description": "Optimize API performance by serving cached content while simultaneously refreshing it in the background. Requires an API key (free plan included).",
             "schema": {
               "oneOf": [
                 {
@@ -814,7 +814,7 @@
             "name": "ttl",
             "in": "query",
             "required": false,
-            "description": "Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats. Requires a Pro plan.",
+            "description": "Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats. Requires an API key (free plan included).",
             "schema": {
               "oneOf": [
                 {
