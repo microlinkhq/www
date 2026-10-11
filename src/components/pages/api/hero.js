@@ -5,7 +5,6 @@ import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
 import List from 'components/patterns/List/List'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { Eyebrow } from 'components/patterns/FeatureStory'
@@ -165,7 +164,6 @@ export const Hero = () => {
               <Button as='a' href={HERO.docsHref} variant='white'>
                 {HERO.docsLabel}
               </Button>
-              <Link href={HERO.pricingHref}>{HERO.pricingLabel}</Link>
             </Flex>
             <List
               css={theme({

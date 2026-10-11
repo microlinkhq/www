@@ -80,8 +80,6 @@ export const HERO = {
     'The headless browser cloud. We run the fleet. You get the output.',
   cta: 'api:hero',
   ctaLabel: 'Get your free API key',
-  pricingHref: '/pricing',
-  pricingLabel: 'See pricing',
   docsHref: '/docs/api/getting-started/overview',
   docsLabel: 'Read the docs'
 }
