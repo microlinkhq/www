@@ -141,13 +141,11 @@ export const dashboardParams = ({
     productFromPath(landing)
   ].find(isProduct)
   const utms = hasUtms(attribution) ? pickUtms(attribution) : parseUtms(search)
-  const referrer = attribution ? attribution.referrer : undefined
 
   const params = [
     ['from', landing],
     ['product', resolvedProduct],
     ...UTM_KEYS.map(key => [key, utms[key]]),
-    ['ref', referrer],
     ['cta', cta],
     ['redirect', isInternalRedirect(redirect) ? redirect : undefined]
   ]

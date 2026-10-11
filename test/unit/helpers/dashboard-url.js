@@ -189,8 +189,8 @@ describe('dashboard-url', () => {
       expect(Object.keys(query(url))).toEqual(['from', 'product', 'cta'])
     })
 
-    it('sends ref only when the store has an external referrer', () => {
-      const withRef = signupUrl({
+    it('never sends ref, even from a legacy store with a referrer', () => {
+      const url = signupUrl({
         cta: 'x',
         pathname: '/pdf',
         attribution: {
@@ -198,13 +198,8 @@ describe('dashboard-url', () => {
           referrer: 'https://news.ycombinator.com/item'
         }
       })
-      expect(query(withRef).ref).toBe('https://news.ycombinator.com/item')
-      const withoutRef = signupUrl({
-        cta: 'x',
-        pathname: '/pdf',
-        attribution: { landing: '/pdf' }
-      })
-      expect(query(withoutRef)).not.toHaveProperty('ref')
+      expect(query(url)).not.toHaveProperty('ref')
+      expect(url).not.toContain('news.ycombinator.com')
     })
 
     it('encodes redirect and only accepts internal dashboard paths', () => {
@@ -241,8 +236,7 @@ describe('dashboard-url', () => {
         pathname: `/${long}`,
         attribution: {
           landing: `/${long}`,
-          utm_source: long,
-          referrer: `https://a.test/${long}`
+          utm_source: long
         },
         redirect: `/${long}`
       })

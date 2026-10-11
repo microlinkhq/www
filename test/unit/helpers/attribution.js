@@ -4,7 +4,6 @@ import {
   ATTRIBUTION_MAX_AGE_MS,
   ATTRIBUTION_STORAGE_KEY,
   clearAttribution,
-  externalReferrer,
   getAttribution,
   normalizePath,
   parseUtms,
@@ -82,40 +81,11 @@ describe('attribution', () => {
     })
   })
 
-  describe('externalReferrer', () => {
-    it('keeps origin and path of an external referrer', () => {
-      expect(
-        externalReferrer(
-          'https://news.ycombinator.com/item?id=1',
-          'microlink.io'
-        )
-      ).toBe('https://news.ycombinator.com/item')
-    })
-
-    it('ignores microlink.io, its subdomains and the current host', () => {
-      expect(
-        externalReferrer('https://microlink.io/pdf', 'microlink.io')
-      ).toBeUndefined()
-      expect(
-        externalReferrer('https://dashboard.microlink.io/', 'microlink.io')
-      ).toBeUndefined()
-      expect(
-        externalReferrer('http://localhost:8000/', 'localhost')
-      ).toBeUndefined()
-    })
-
-    it('ignores empty or malformed referrers', () => {
-      expect(externalReferrer('', 'microlink.io')).toBeUndefined()
-      expect(externalReferrer('not a url', 'microlink.io')).toBeUndefined()
-    })
-  })
-
   describe('recordAttribution', () => {
-    it('stores the first touch with landing, utms, referrer and timestamp', () => {
+    it('stores the first touch with landing, utms and timestamp', () => {
       const storage = createStorage()
       recordAttribution({
         location: location('/screenshot/', '?utm_source=google&utm_medium=cpc'),
-        referrer: 'https://www.google.com/search?q=screenshot+api',
         now: NOW,
         storage
       })
@@ -123,40 +93,55 @@ describe('attribution', () => {
         landing: '/screenshot',
         utm_source: 'google',
         utm_medium: 'cpc',
-        referrer: 'https://www.google.com/search',
         first_seen_at: '2026-10-07T10:00:00.000Z'
       })
     })
 
-    it('omits the referrer when it is internal', () => {
+    it('never stores the referrer', () => {
       const storage = createStorage()
+      vi.stubGlobal('document', {
+        referrer: 'https://news.ycombinator.com/item'
+      })
+      recordAttribution({ location: location('/pdf'), now: NOW, storage })
+      vi.unstubAllGlobals()
+      expect(stored(storage)).not.toHaveProperty('referrer')
+    })
+
+    it('still reads a legacy entry that has a referrer field', () => {
+      const legacy = {
+        landing: '/pdf',
+        referrer: 'https://www.google.com/',
+        first_seen_at: new Date(NOW).toISOString()
+      }
+      const storage = createStorage({
+        [ATTRIBUTION_STORAGE_KEY]: JSON.stringify(legacy)
+      })
+      expect(getAttribution({ now: NOW, storage })).toMatchObject({
+        landing: '/pdf'
+      })
       recordAttribution({
-        location: location('/pdf'),
-        referrer: 'https://microlink.io/',
+        location: location('/screenshot'),
         now: NOW,
         storage
       })
-      expect(stored(storage)).not.toHaveProperty('referrer')
+      expect(stored(storage).landing).toBe('/pdf')
     })
 
     it('keeps the first touch on later visits', () => {
       const storage = createStorage()
       recordAttribution({
         location: location('/screenshot', '?utm_source=google'),
-        referrer: 'https://www.google.com/',
         now: NOW,
         storage
       })
       recordAttribution({
         location: location('/pdf', '?utm_source=twitter'),
-        referrer: 'https://t.co/abc',
         now: NOW + 1000,
         storage
       })
       expect(stored(storage)).toMatchObject({
         landing: '/screenshot',
-        utm_source: 'google',
-        referrer: 'https://www.google.com/'
+        utm_source: 'google'
       })
     })
 

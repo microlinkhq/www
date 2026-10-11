@@ -11,8 +11,6 @@ export const UTM_KEYS = [
   'utm_term'
 ]
 
-const SITE_DOMAIN = 'microlink.io'
-
 export const truncate = (value, max = ATTRIBUTION_VALUE_MAX_LENGTH) => {
   if (typeof value !== 'string') return undefined
   const trimmed = value.trim()
@@ -43,22 +41,6 @@ export const pickUtms = entry =>
       entry && entry[key] ? { ...utms, [key]: entry[key] } : utms,
     {}
   )
-
-const isSiteHost = (hostname, currentHostname) =>
-  hostname === currentHostname ||
-  hostname === SITE_DOMAIN ||
-  hostname.endsWith(`.${SITE_DOMAIN}`)
-
-export const externalReferrer = (referrer, currentHostname) => {
-  if (!referrer) return undefined
-  try {
-    const url = new URL(referrer)
-    if (isSiteHost(url.hostname, currentHostname)) return undefined
-    return truncate(`${url.origin}${url.pathname}`)
-  } catch {
-    return undefined
-  }
-}
 
 const getStorage = () => {
   try {
@@ -111,7 +93,6 @@ export const getAttribution = ({
 
 export const recordAttribution = ({
   location = typeof window === 'undefined' ? undefined : window.location,
-  referrer = typeof document === 'undefined' ? '' : document.referrer,
   now = Date.now(),
   storage = getStorage()
 } = {}) => {
@@ -130,7 +111,6 @@ export const recordAttribution = ({
     compact({
       landing: normalizePath(location.pathname),
       ...landingUtms,
-      referrer: externalReferrer(referrer, location.hostname),
       first_seen_at: new Date(now).toISOString()
     })
   )
