@@ -1,23 +1,17 @@
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
+import { ChevronDown, LogIn } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
-import { Calendar, ChevronDown } from 'react-feather'
 import React from 'react'
 import { useDashboardHref } from 'components/patterns/SignupLink'
-import {
-  BOOK_CALL_LABEL,
-  BOOK_CALL_TITLE,
-  bookCallUrl,
-  trackBookCall
-} from 'helpers/book-call'
 
 import { theme } from 'theme'
 
 import {
-  DASHBOARD_NAV_ITEM,
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
+  SIGN_IN_NAV_ITEM,
   ToolbarActionLink
 } from './ToolbarLinks'
 import {
@@ -37,13 +31,37 @@ import {
   toSectionDomId
 } from './ToolbarDesktopStyles'
 
-const DashboardTopLevelLink = props => {
+const SIGN_IN_ACTION_STYLES = theme({
+  display: ['none', 'none', 'inline-flex', 'inline-flex'],
+  alignSelf: 'center',
+  height: '36px',
+  ml: 2
+})
+
+const SignInActionLink = ({ onClosePanel }) => {
   const href = useDashboardHref({
     dashboardPath: '/',
-    cta: 'toolbar:dashboard'
+    cta: 'toolbar:sign-in'
   })
 
-  return <TopLevelDirectLink href={href} {...props} />
+  return (
+    <ToolbarActionLink
+      forwardedAs='li'
+      href={href}
+      title={SIGN_IN_NAV_ITEM.title}
+      externalIcon={SIGN_IN_NAV_ITEM.externalIcon}
+      data-event-location='Toolbar'
+      data-event-name={SIGN_IN_NAV_ITEM.label}
+      onClick={onClosePanel}
+      onMouseEnter={onClosePanel}
+      css={SIGN_IN_ACTION_STYLES}
+    >
+      <FeatherIcon icon={LogIn} size='14px' />
+      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+        {SIGN_IN_NAV_ITEM.label}
+      </Caps>
+    </ToolbarActionLink>
+  )
 }
 
 const ToolbarDesktopTopLevelNav = ({
@@ -159,44 +177,7 @@ const ToolbarDesktopTopLevelNav = ({
         </Caps>
       </TopLevelDirectLink>
     ))}
-    <ToolbarActionLink
-      forwardedAs='li'
-      href={bookCallUrl('header')}
-      title={BOOK_CALL_TITLE}
-      externalIcon={false}
-      data-event-location='header'
-      data-event-name={BOOK_CALL_LABEL}
-      onClick={() => trackBookCall('header')}
-      onMouseEnter={onClosePanel}
-      css={theme({
-        display: ['none', 'none', 'inline-flex', 'inline-flex'],
-        alignSelf: 'center',
-        height: '36px',
-        ml: 2
-      })}
-    >
-      <FeatherIcon icon={Calendar} size='14px' />
-      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-        {BOOK_CALL_LABEL}
-      </Caps>
-    </ToolbarActionLink>
-    <DashboardTopLevelLink
-      forwardedAs='li'
-      title={DASHBOARD_NAV_ITEM.title}
-      externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
-      data-event-location='Toolbar'
-      data-event-name={DASHBOARD_NAV_ITEM.label}
-      onClick={onClosePanel}
-      onMouseEnter={onClosePanel}
-      css={theme({
-        ...TOP_LEVEL_LINK_LAYOUT_STYLES,
-        ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
-      })}
-    >
-      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-        {DASHBOARD_NAV_ITEM.label}
-      </Caps>
-    </DashboardTopLevelLink>
+    <SignInActionLink onClosePanel={onClosePanel} />
   </Flex>
 )
 

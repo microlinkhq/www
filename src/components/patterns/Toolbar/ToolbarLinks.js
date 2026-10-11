@@ -131,10 +131,10 @@ export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   actively: docsMatcher
 })
 
-export const DASHBOARD_NAV_ITEM = createNavigationItem({
-  label: 'Dashboard',
+export const SIGN_IN_NAV_ITEM = createNavigationItem({
+  label: 'Sign In',
   href: 'https://dashboard.microlink.io',
-  title: 'Open the Microlink dashboard',
+  title: 'Sign in to the Microlink dashboard',
   externalIcon: false
 })
 
