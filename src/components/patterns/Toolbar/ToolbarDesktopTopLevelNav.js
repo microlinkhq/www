@@ -4,8 +4,6 @@ import Caps from 'components/elements/Caps'
 import { ChevronDown, LogIn } from 'react-feather'
 import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
-import { useDashboardHref } from 'components/patterns/SignupLink'
-
 import { theme } from 'theme'
 
 import {
@@ -38,31 +36,24 @@ const SIGN_IN_ACTION_STYLES = theme({
   ml: 2
 })
 
-const SignInActionLink = ({ onClosePanel }) => {
-  const href = useDashboardHref({
-    dashboardPath: '/',
-    cta: 'toolbar:sign-in'
-  })
-
-  return (
-    <ToolbarActionLink
-      forwardedAs='li'
-      href={href}
-      title={SIGN_IN_NAV_ITEM.title}
-      externalIcon={SIGN_IN_NAV_ITEM.externalIcon}
-      data-event-location='Toolbar'
-      data-event-name={SIGN_IN_NAV_ITEM.label}
-      onClick={onClosePanel}
-      onMouseEnter={onClosePanel}
-      css={SIGN_IN_ACTION_STYLES}
-    >
-      <FeatherIcon icon={LogIn} size='14px' />
-      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-        {SIGN_IN_NAV_ITEM.label}
-      </Caps>
-    </ToolbarActionLink>
-  )
-}
+const SignInActionLink = ({ onClosePanel }) => (
+  <ToolbarActionLink
+    forwardedAs='li'
+    href={SIGN_IN_NAV_ITEM.href}
+    title={SIGN_IN_NAV_ITEM.title}
+    externalIcon={SIGN_IN_NAV_ITEM.externalIcon}
+    data-event-location='Toolbar'
+    data-event-name={SIGN_IN_NAV_ITEM.label}
+    onClick={onClosePanel}
+    onMouseEnter={onClosePanel}
+    css={SIGN_IN_ACTION_STYLES}
+  >
+    <FeatherIcon icon={LogIn} size='14px' />
+    <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+      {SIGN_IN_NAV_ITEM.label}
+    </Caps>
+  </ToolbarActionLink>
+)
 
 const ToolbarDesktopTopLevelNav = ({
   openSection,
