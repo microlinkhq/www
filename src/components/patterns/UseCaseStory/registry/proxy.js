@@ -9,7 +9,7 @@ export const PROXY = [
     name: 'Scrape Cloudflare-protected websites',
     cta: 'Scrape Cloudflare-protected sites',
     blurb:
-      'Get the real page instead of “Just a moment”: on Pro plans, blocked requests escalate through proxy tiers up to residential IPs.',
+      'Get the real page instead of “Just a moment”: with any API key, blocked requests escalate through proxy tiers up to residential IPs.',
     keywords: [
       'scrape cloudflare protected website',
       'cloudflare scraping api',

@@ -13,7 +13,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -175,7 +175,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Free plan',
-    microlink: '25/day, no expiry',
+    microlink: '100/mo, no expiry',
     iframely: '2,000/mo pilot only',
     highlight: true,
     note: 'Iframely Starter is single-domain and explicitly pilot-only; Microlink free plan has no expiry and is production-ready.'
@@ -465,9 +465,11 @@ const WHY_SWITCH_ITEMS = [
       <>
         Iframely Starter is <b>2,000 hits/month, single domain, pilot only</b>.
         Microlink's free tier is{' '}
-        <b>25 requests/day with no expiry, no credit card</b>, and same edge
-        network as paid plans — usable in production from day one for low-volume
-        integrations.
+        <b>
+          100 requests/month with every Pro feature, no expiry, no credit card
+        </b>
+        , and the same edge network as paid plans — usable in production from
+        day one for low-volume integrations.
       </>
     )
   },
@@ -832,16 +834,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-iframely:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/embed'>Explore the Embed API</Link>
       </Flex>
 
       <Flex
@@ -1022,7 +1026,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1043,12 +1047,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/embed'
+              <SignupLink
+                component={Link}
+                cta='alternative-iframely:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/embed' css={theme({ fontSize: 0 })}>
+                  Explore the Embed API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1189,25 +1199,29 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — no
-        credit card, no expiry, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> —
+        every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-iframely:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/embed' css={theme({ color: 'white' })}>
+          Explore the Embed API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1371,14 +1385,18 @@ const TryItSection = () => (
           alignItems: 'center'
         })}
       >
-        <Link
-          href='/docs/guides/embed'
+        <SignupLink
+          component={Link}
+          cta='alternative-iframely:try-it'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
-          Start now for free
-        </Link>
+          Get your free API key
+        </SignupLink>
+        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed'>Read the guide</Link>
+        </Box>
       </Flex>
     </SectionInner>
   </Section>

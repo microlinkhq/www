@@ -8,7 +8,7 @@ export const CONTENT = {
   hero: {
     title: 'Replace rotating proxies with an API that picks the route',
     intro:
-      'A rotating proxy API sells you exits; you still have to run the browser, notice the block, choose the next IP and decide when a site deserves a residential one. A scraping API with built-in proxies moves those decisions to the other side of the request. On Pro plans, Microlink routes blocked requests through its proxy tiers automatically and learns per domain which route works, so your code asks for a page and gets the page.',
+      'A rotating proxy API sells you exits; you still have to run the browser, notice the block, choose the next IP and decide when a site deserves a residential one. A scraping API with built-in proxies moves those decisions to the other side of the request. With any API key, the free one included, Microlink routes blocked requests through its proxy tiers automatically and learns per domain which route works, so your code asks for a page and gets the page.',
     cta: { label: 'See how the proxy works', href: '/features/proxy' }
   },
   problem: {
@@ -17,13 +17,13 @@ export const CONTENT = {
     paragraphs: [
       'Proxy rotation for scraping starts simple: point the HTTP client at a gateway and let it hand out a new exit per request. Then a target serves a challenge on a 200, another only lets residential traffic through, a third works on datacenter IPs and does not need the slower route at all. The rotation layer cannot see any of that, because it moves bytes and never looks at the page.',
       'So the logic lands in your scraper: detect the block, pick a pool, retry, remember which domains needed what, and keep a headless browser running for the sites that render in JavaScript. Every new target is a small research project, and the knowledge of what works where lives in code you maintain or in someone’s head.',
-      'Microlink puts the proxy behind the request instead of in front of it. On Pro plans, a request that hits a 403 antibot wall escalates through the proxy tiers, with residential IPs as the last one: the slowest, and the one that usually gets through. The tier that worked is cached per domain, so later requests go straight to it. Browser rendering, [retries](/docs/api/parameters/retry) and caching come in the same call.'
+      'Microlink puts the proxy behind the request instead of in front of it. With any API key, a request that hits a 403 antibot wall escalates through the proxy tiers, with residential IPs as the last one: the slowest, and the one that usually gets through. The tier that worked is cached per domain, so later requests go straight to it. Browser rendering, [retries](/docs/api/parameters/retry) and caching come in the same call.'
     ]
   },
   how: {
     title: 'How to scrape without managing proxy rotation',
     intro:
-      'Drop the proxy gateway from your client and call the API with a Pro key. What remains is reading which domains took the proxy route, and pinning a country where it matters. The [proxy guide](/docs/guides/common/proxy) lists the headers involved.',
+      'Drop the proxy gateway from your client and call the API with your API key. What remains is reading which domains took the proxy route, and pinning a country where it matters. The [proxy guide](/docs/guides/common/proxy) lists the headers involved.',
     steps: [
       {
         label: '1 · Fetch a list of targets, no proxy config',
@@ -58,14 +58,14 @@ for (const url of urls) {
           },
           pro: true
         },
-        note: 'Call the Pro endpoint with your x-api-key header. There is no proxy parameter and no gateway URL: automatic resolution is the default on Pro.'
+        note: 'Call pro.microlink.io with your x-api-key header. There is no proxy parameter and no gateway URL: automatic resolution is the default with any API key.'
       }
     ],
     params: [
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Automatic on Pro. Set it only to pin a country or to use your own proxy server.'
+        note: 'Automatic with any API key. Set it only to pin a country or to use your own proxy server.'
       },
       {
         name: 'proxy.location',
@@ -75,7 +75,7 @@ for (const url of urls) {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Caches each page from 1 minute to 31 days so repeat reads skip the fetch. Pro plans.'
+        note: 'Caches each page from 1 minute to 31 days so repeat reads skip the fetch. Any API key.'
       },
       {
         name: 'retry',
@@ -106,7 +106,7 @@ for (const url of urls) {
       {
         kicker: 'Priced by request',
         title: 'No bandwidth meter, no separate proxy bill.',
-        body: 'Plans are sold as requests per month, starting with Pro at €39 for 46,000, and automatic proxy resolution is included in every paid plan. There are no gigabytes to track per pool.',
+        body: 'Plans are sold as requests per month, starting with Pro at €39 for 46,000, and automatic proxy resolution comes with every API key, the free one included. There are no gigabytes to track per pool.',
         note: 'When not to: if a contract requires a specific proxy provider, or you only need raw HTTP through many IPs with no browser at all, a proxy service fits better. For the first case, [route through your own proxy](/use-cases/proxy/bring-your-own-proxy). Plans are on the [pricing page](/pricing).'
       }
     ]
@@ -116,7 +116,7 @@ for (const url of urls) {
       question:
         'What is a good alternative to a rotating proxy API for scraping?',
       answer:
-        'A scraping API with built-in proxies, where the service decides when a request needs a proxy and which kind. On Microlink Pro plans that decision is automatic: blocked requests escalate through proxy tiers up to residential IPs, and the result comes back as a screenshot, PDF, Markdown or extracted data.'
+        'A scraping API with built-in proxies, where the service decides when a request needs a proxy and which kind. On Microlink, with any API key, that decision is automatic: blocked requests escalate through proxy tiers up to residential IPs, and the result comes back as a screenshot, PDF, Markdown or extracted data.'
     },
     {
       question: 'Does the scraping API use residential proxies?',
@@ -136,13 +136,13 @@ for (const url of urls) {
     {
       question: 'Do I need to enable the proxy on every scraping request?',
       answer:
-        'No. On Pro plans automatic proxy resolution is on by default, so requests only take the proxy route when a site blocks them. The proxy parameter is only for pinning a country or passing your own proxy URL.'
+        'No. With any API key automatic proxy resolution is on by default, so requests only take the proxy route when a site blocks them. The proxy parameter is only for pinning a country or passing your own proxy URL.'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to retire',
     headlineAccent: 'your proxy rotation code',
-    body: 'Ask for the page, get the page. Proxy tiers, residential escalation and per-domain memory are included in Pro.',
+    body: 'Ask for the page, get the page. Proxy tiers, residential escalation and per-domain memory come with every API key, the free one included.',
     href: '/features/proxy',
     label: 'Drop proxy rotation'
   },
@@ -152,7 +152,7 @@ for (const url of urls) {
       {
         title: 'Fetch your targets without proxy configuration',
         description:
-          'Call the Markdown method for each URL with a Pro API key and a ttl, then log the hostname with the x-fetch-mode header of the last response to see which domains used the proxy route.'
+          'Call the Markdown method for each URL with your API key and a ttl, then log the hostname with the x-fetch-mode header of the last response to see which domains used the proxy route.'
       },
       {
         title: 'Pin a country only where it matters',

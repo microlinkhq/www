@@ -115,7 +115,7 @@ export const CONTENT = {
     {
       question: 'How much does patent search with the Search API cost?',
       answer:
-        'Each results page is one request, and each filing expanded with markdown() is one more. Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+        'Each results page is one request, and each filing expanded with markdown() is one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is this an official Google Patents API?',
@@ -126,7 +126,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to search',
     headlineAccent: 'prior art',
-    body: 'Patent filings with inventors, assignees and ISO 8601 dates as JSON. Get a Pro key and run your first prior art search today.',
+    body: 'Patent filings with inventors, assignees and ISO 8601 dates as JSON. Get your free API key and run your first prior art search today.',
     href: '/search',
     label: 'Search patents'
   },

@@ -87,7 +87,7 @@ const ContentArea = React.memo(
                     condition={!apiKey}
                     render={() => (
                       <>
-                        Some requests require a <ProBadge /> plan.
+                        Some requests need a <ProBadge /> API key.
                         <br />
                         Enter your Microlink API key to unlock all features.
                       </>

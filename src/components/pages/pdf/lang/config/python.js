@@ -134,7 +134,7 @@ const python = {
     ),
     subtitle:
       'Convert any URL into a pixel-perfect PDF with one HTTP request in Python — no wkhtmltopdf, no headless Chrome, no servers to maintain.',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get your free API key', cta: 'pdf-python:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/guides/pdf'
@@ -411,7 +411,7 @@ print(data['pdf']['url'])`
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Point at pro.microlink.io with an x-api-key header when you scale.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -553,13 +553,16 @@ print(data['pdf']['url'])`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account, no credit card. Paste the snippet into a view and ship a PDF today.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paste the snippet into a view and ship a PDF today.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'pdf-python:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

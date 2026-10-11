@@ -5,15 +5,13 @@ import { Link } from 'components/elements/Link'
 export const FAQ_ITEMS = [
   {
     question: 'What is the Microlink API?',
-    text: 'A REST API that turns any URL into structured data. Call api.microlink.io on the free plan, or pro.microlink.io with an API key. Metadata is returned by default. Add query parameters for screenshots, PDFs, markdown, embeds, or a browser function.',
+    text: 'A REST API that turns any URL into structured data. Call pro.microlink.io with your free API key. Metadata is returned by default. Add query parameters for screenshots, PDFs, markdown, embeds, or a browser function.',
     answer: (
       <>
         <div>
           A REST API that turns any URL into structured data. Call{' '}
-          <Link href='https://api.microlink.io'>api.microlink.io</Link> on the
-          free plan, or{' '}
-          <Link href='/docs/api/basics/endpoint'>pro.microlink.io</Link> with an
-          API key.
+          <Link href='/docs/api/basics/endpoint'>pro.microlink.io</Link> with
+          your free API key.
         </div>
         <div>
           Metadata is returned by default. Add query parameters for{' '}
@@ -27,19 +25,19 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Not to start. The free plan is 25 requests per day with no key and no credit card. A Pro key unlocks Search, higher quota, proxy, custom headers, and configurable TTL.',
+    text: 'Yes, and it is free: sign up and you get 100 requests per month with every Pro feature, Search included, no credit card. Paid plans add volume.',
     answer: (
       <>
         <div>
-          Not to start. The free plan is 25 requests per day with no key and no
-          credit card.
+          Yes, and it is free: sign up and you get 100&nbsp;requests per month
+          with every Pro feature, Search included, no credit card.
         </div>
         <div>
-          A <Link href='/pricing'>Pro</Link> key unlocks{' '}
-          <Link href='/search'>Search</Link>, higher quota,{' '}
+          The key includes <Link href='/search'>Search</Link>,{' '}
           <Link href='/features/proxy'>proxy</Link>,{' '}
           <Link href='/features/headers'>custom headers</Link>, and{' '}
-          <Link href='/features/ttl'>configurable TTL</Link>.
+          <Link href='/features/ttl'>configurable TTL</Link>. A{' '}
+          <Link href='/pricing'>paid plan</Link> adds volume.
         </div>
       </>
     )
@@ -116,15 +114,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How is this different from running Puppeteer myself?',
-    text: 'You do not run browsers, proxies, caches, or a fleet. Pages that need rendering run in an isolated browser, Pro adds a residential proxy when a site blocks you, and responses are cached at the edge. Cache hits are free.',
+    text: 'You do not run browsers, proxies, caches, or a fleet. Pages that need rendering run in an isolated browser, every API key brings a residential proxy for sites that block you, and responses are cached at the edge. Cache hits are free.',
     answer: (
       <>
         <div>You do not run browsers, proxies, caches, or a fleet.</div>
         <div>
           Pages that need rendering run in an{' '}
-          <Link href='/features/isolation'>isolated browser</Link>, Pro adds a{' '}
-          <Link href='/features/proxy'>residential proxy</Link> when a site
-          blocks you, and responses are cached at the{' '}
+          <Link href='/features/isolation'>isolated browser</Link>, every API
+          key brings a <Link href='/features/proxy'>residential proxy</Link> for
+          sites that block you, and responses are cached at the{' '}
           <Link href='/features/ttl'>edge</Link>. Cache hits are free.
         </div>
       </>
@@ -153,7 +151,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How does caching work?',
-    text: 'Every response is cached for 24 hours by default, and the x-cache-status header tells you whether it was a MISS or a HIT. Cache hits are free and fast. Add force to skip the cache. On Pro, ttl sets anything from 1 minute to 31 days and staleTtl serves the cached copy while a fresh one is fetched.',
+    text: 'Every response is cached for 24 hours by default, and the x-cache-status header tells you whether it was a MISS or a HIT. Cache hits are free and fast. Add force to skip the cache. With any API key, ttl sets anything from 1 minute to 31 days and staleTtl serves the cached copy while a fresh one is fetched.',
     answer: (
       <>
         <div>
@@ -164,8 +162,8 @@ export const FAQ_ITEMS = [
           cache.
         </div>
         <div>
-          On Pro, <Link href='/features/ttl'>ttl</Link> sets anything from 1
-          minute to 31 days and{' '}
+          With any API key, <Link href='/features/ttl'>ttl</Link> sets anything
+          from 1 minute to 31 days and{' '}
           <Link href='/docs/api/parameters/staleTtl'>staleTtl</Link> serves the
           cached copy while a fresh one is fetched. See the{' '}
           <Link href='/docs/guides/common/caching'>caching guide</Link>.
@@ -175,15 +173,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What happens when a site blocks the request?',
-    text: 'On the free plan, a site behind antibot protection returns the EPROXYNEEDED error. On Pro, Microlink names the antibot or CAPTCHA provider that blocked you and retries the same request through a residential proxy automatically.',
+    text: 'On the keyless endpoint, a site behind antibot protection returns the EPROXYNEEDED error. With an API key, Microlink names the antibot or CAPTCHA provider that blocked you and retries the same request through a residential proxy automatically.',
     answer: (
       <>
         <div>
-          On the free plan, a site behind antibot protection returns the{' '}
+          On the keyless endpoint, a site behind antibot protection returns the{' '}
           <b>EPROXYNEEDED</b> error.
         </div>
         <div>
-          On Pro, Microlink{' '}
+          With an API key, Microlink{' '}
           <Link href='/features/antibot'>
             names the antibot or CAPTCHA provider
           </Link>{' '}
@@ -196,16 +194,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What is included on the free plan?',
-    text: '25 requests per day on every product except Search, no credit card. Adblock and cookie-banner dismissal are on by default. Pro adds Search, quota, proxy, custom headers, and configurable TTL.',
+    text: '100 requests per month on every product, Search included, with every Pro feature and no credit card. Adblock and cookie-banner dismissal are on by default. Paid plans add quota.',
     answer: (
       <>
         <div>
-          25 requests per day on every product except Search, no credit card.
+          100&nbsp;requests per month on every product, Search included, with
+          every Pro feature and no credit card.
         </div>
         <div>
           <Link href='/features/adblock'>Adblock</Link> and cookie-banner
-          dismissal are on by default. Pro adds Search, quota, proxy, custom
-          headers, and configurable TTL. See{' '}
+          dismissal are on by default. Paid plans add quota. See{' '}
           <Link href='/pricing'>pricing</Link>.
         </div>
       </>
@@ -213,20 +211,21 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do I know how much quota is left?',
-    text: 'All requests return x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset. The free endpoint reports the daily window. Pro reports your plan quota, resets at the start of the next month in UTC, and can lag the live counter by a few minutes. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On Pro you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
+    text: 'All requests return x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset. The keyless endpoint reports the daily window. With an API key the response reports your plan quota, resets at the start of the next month in UTC, and can lag the live counter by a few minutes. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On paid plans you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
     answer: (
       <>
         <div>
           All requests return <b>x-rate-limit-limit</b>,{' '}
-          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b>. The free
-          endpoint reports the daily window. Pro reports your plan quota, resets
-          at the start of the next month in UTC, and can lag the live counter by
-          a few minutes. Past the limit you get HTTP 429 with the ERATE code.
+          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b>. The
+          keyless endpoint reports the daily window. With an API key the
+          response reports your plan quota, resets at the start of the next
+          month in UTC, and can lag the live counter by a few minutes. Past the
+          limit you get HTTP 429 with the ERATE code.
         </div>
         <div>
           There is no throttling, so parallel requests are fine within your
-          quota. On Pro you are notified at 80% of your plan, and requests pause
-          at 100% with no overage fees. See{' '}
+          quota. On paid plans you are notified at 80% of your plan, and
+          requests pause at 100% with no overage fees. See{' '}
           <Link href='/docs/guides/common/production-patterns#handle-rate-limits-gracefully'>
             handling rate limits
           </Link>
@@ -237,11 +236,11 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do I authenticate?',
-    text: 'Send your Pro token as the x-api-key request header to https://pro.microlink.io. Do not put the key in frontend code. Use a proxy that allowlists your domains.',
+    text: 'Send your API key as the x-api-key request header to https://pro.microlink.io. Do not put the key in frontend code. Use a proxy that allowlists your domains.',
     answer: (
       <>
         <div>
-          Send your Pro token as the <b>x-api-key</b> request header to{' '}
+          Send your API key as the <b>x-api-key</b> request header to{' '}
           <Link href='https://pro.microlink.io'>pro.microlink.io</Link>.
         </div>
         <div>

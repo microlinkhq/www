@@ -5,7 +5,9 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import { Link } from 'components/elements/Link'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 
 import { Section, SectionInner } from './primitives'
 
@@ -16,8 +18,15 @@ export const CtaSection = ({
   body,
   href,
   label,
+  signupCta,
   mt = 5
 }) => {
+  const linkCss = theme({
+    color: 'link',
+    fontWeight: 'bold',
+    fontSize: [2, 2, 3, 3]
+  })
+
   return (
     <Section
       css={`
@@ -51,19 +60,27 @@ export const CtaSection = ({
           css={theme({
             pt: [3, 4, 4, 4],
             justifyContent: 'center',
-            alignItems: 'center'
+            alignItems: 'center',
+            flexDirection: ['column', 'row', 'row', 'row'],
+            gap: [3, 3, 4, 4]
           })}
         >
-          <ArrowLink
-            href={href}
-            css={theme({
-              color: 'link',
-              fontWeight: 'bold',
-              fontSize: [2, 2, 3, 3]
-            })}
-          >
-            {label}
-          </ArrowLink>
+          {signupCta
+            ? (
+              <>
+                <SignupLink cta={signupCta} css={linkCss}>
+                  Get your free API key
+                </SignupLink>
+                <Link href={href} css={theme({ fontSize: [2, 2, 3, 3] })}>
+                  {label}
+                </Link>
+              </>
+              )
+            : (
+              <ArrowLink href={href} css={linkCss}>
+                {label}
+              </ArrowLink>
+              )}
         </Flex>
       </SectionInner>
     </Section>

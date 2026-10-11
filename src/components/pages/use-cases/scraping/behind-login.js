@@ -3,7 +3,7 @@ export const CONTENT = {
   head: {
     title: 'Scrape pages behind a login with session cookies',
     description:
-      'Scrape authenticated pages by forwarding a session cookie or bearer token as a request header. Secrets stay out of the URL. Pro plans.'
+      'Scrape authenticated pages by forwarding a session cookie or bearer token as a request header. Secrets stay out of the URL. Any API key.'
   },
   hero: {
     title:
@@ -24,7 +24,7 @@ export const CONTENT = {
   how: {
     title: 'How to scrape authenticated pages with a forwarded session',
     intro:
-      'Headers are a Pro feature, so authenticated requests go to pro.microlink.io with your API key. Keep them on your backend, never in client-side code.',
+      'Headers need an API key (the free one works), so authenticated requests go to pro.microlink.io with your key. Keep them on your backend, never in client-side code.',
     steps: [
       {
         label: '1 · Forward a session cookie',
@@ -70,12 +70,12 @@ export const CONTENT = {
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Public request shaping such as a language. Secrets go in x-api-header-* request headers instead. Pro plans.'
+        note: 'Public request shaping such as a language. Secrets go in x-api-header-* request headers instead. Any API key.'
       },
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Adds a custom identifier, such as a user id, so each user gets a separate cache entry. Pro plans.'
+        note: 'Adds a custom identifier, such as a user id, so each user gets a separate cache entry. Any API key.'
       },
       {
         name: 'waitForSelector',
@@ -94,7 +94,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Sending x-api-key to the free endpoint fails with EPRO, and the headers parameter without a Pro plan returns EHEADERS. The [SDK options reference](/docs/sdk/getting-started/options) explains how the headers option is routed.'
+      'Sending x-api-key to the keyless endpoint fails with EPRO, and the headers parameter without an API key returns EHEADERS. The [SDK options reference](/docs/sdk/getting-started/options) explains how the headers option is routed.'
   },
   why: {
     title: 'Why forwarding a session beats automating the login',
@@ -144,15 +144,15 @@ export const CONTENT = {
         'No. Query parameters are public and end up in logs, history and shared links. Use the headers parameter only for harmless values such as accept-language, and x-api-header-* request headers for cookies and tokens.'
     },
     {
-      question: 'Can I scrape pages behind a login on the free plan?',
+      question: 'Can I scrape pages behind a login without an API key?',
       answer:
-        'No. Forwarding headers requires a Pro plan and the pro.microlink.io endpoint. The free tier is fine for building and testing your rules on public pages first, then you add the session header on Pro. See [pricing](/pricing).'
+        'No. Forwarding headers requires an API key and the pro.microlink.io endpoint; the free key includes it. The keyless endpoint is fine for building and testing your rules on public pages first, then you add the session header with the key. See [pricing](/pricing).'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to scrape',
     headlineAccent: 'authenticated pages',
-    body: 'Forward the session, keep the password out of the scraper. Get a Pro key and extract data from the pages only your users can see.',
+    body: 'Forward the session, keep the password out of the scraper. Get your free API key and extract data from the pages only your users can see.',
     href: '/features/scraping',
     label: 'Scrape behind a login'
   },
@@ -170,7 +170,7 @@ export const CONTENT = {
           'Send x-api-header-authorization with the token and a rule with attr json, with prerender false to skip the browser.'
       },
       {
-        title: 'Call the Pro endpoint from your backend',
+        title: 'Call pro.microlink.io from your backend',
         description:
           'Point the request at pro.microlink.io with your x-api-key header, and add a cacheKey per user so cached responses stay separate.'
       }

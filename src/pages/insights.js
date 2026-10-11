@@ -38,7 +38,7 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
@@ -314,15 +314,7 @@ const LiveDemo = React.memo(function LiveDemo ({
         performance trends.
       </Caption>
       <Flex css={theme({ pt: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
-        <ArrowLink
-          css={theme({ pr: [2, 4, 4, 4] })}
-          href='/docs/api/parameters/insights'
-        >
-          Get Started
-        </ArrowLink>
-        <ArrowLink href='https://github.com/microlinkhq/browserless'>
-          See on GitHub
-        </ArrowLink>
+        <SignupLink cta='insights:hero'>Get your free API key</SignupLink>
       </Flex>
       <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
         <Flex
@@ -973,7 +965,7 @@ export const Head = () => (
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
-        description: 'Free tier with 25 conversions per day'
+        description: 'Free API key with 100 requests per month'
       }
     }}
   />

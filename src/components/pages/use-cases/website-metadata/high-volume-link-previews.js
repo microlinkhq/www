@@ -46,7 +46,7 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'ttl and staleTtl need a Pro key, so the URL targets pro.microlink.io with the key sent as the x-api-key header.'
+        note: 'ttl and staleTtl need an API key (the free one works), so the URL targets pro.microlink.io with the key sent as the x-api-key header.'
       }
     ],
     params: [
@@ -58,17 +58,17 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime from 1 minute to 31 days. Default 24 hours. Pro plans.'
+        note: 'Cache lifetime from 1 minute to 31 days. Default 24 hours. Any API key.'
       },
       {
         name: 'staleTtl',
         href: '/docs/api/parameters/staleTtl',
-        note: 'Serve the cached preview instantly and revalidate in the background. Cannot exceed ttl. Pro plans.'
+        note: 'Serve the cached preview instantly and revalidate in the background. Cannot exceed ttl. Any API key.'
       },
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier to the cache key, for separate entries per tenant or workspace. Pro plans.'
+        note: 'Appends a custom identifier to the cache key, for separate entries per tenant or workspace. Any API key.'
       },
       {
         name: 'force',
@@ -105,7 +105,7 @@ export const CONTENT = {
         kicker: 'Light by design',
         title: 'Field selection keeps each request small.',
         body: 'A card needs title, description and image. Restricting meta to those skips logo, author and date detection, which makes every cache miss faster and every payload smaller.',
-        note: 'When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free endpoint, with 25 requests per day, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).'
+        note: 'When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free API key, with 100 requests per month, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).'
       }
     ]
   },
@@ -113,7 +113,7 @@ export const CONTENT = {
     {
       question: 'Is there a per-second rate limit on metadata API requests?',
       answer:
-        'No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free endpoint has a soft limit of 25 requests per day, and paid plans use a monthly quota that starts at 14,000 requests.'
+        'No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free API key has a quota of 100 requests per month, and paid plans start at 14,000 requests a month.'
     },
     {
       question:
@@ -129,12 +129,12 @@ export const CONTENT = {
     {
       question: 'Can I separate link preview cache entries per workspace?',
       answer:
-        'Yes, on Pro plans. cacheKey appends a custom identifier to the cache key, so the same URL can have independent entries per tenant, workspace or variant.'
+        'Yes, with any API key, the free one included. cacheKey appends a custom identifier to the cache key, so the same URL can have independent entries per tenant, workspace or variant.'
     },
     {
       question: 'What happens when a site blocks my link preview requests?',
       answer:
-        'On the free tier a detected block returns the EPROXYNEEDED error code, the signal to send that link through a Pro key. On Pro plans the proxy resolves automatically, with no parameter; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
+        'On the keyless endpoint a detected block returns the EPROXYNEEDED error code, the signal to send that link through an API key. With a key the proxy resolves automatically, with no parameter; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
     }
   ],
   cta: {

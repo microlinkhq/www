@@ -41,8 +41,10 @@ export const HERO = {
       the screenshot, the markdown and the metadata together.
     </Text>
   ),
-  ctaHref: '/docs/guides',
-  ctaLabel: 'Get Started',
+  cta: 'alternative-scrapingbee:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/guides',
+  secondaryLabel: 'Read the guides',
   mqlCode: {
     url: 'https://stripe.com/blog/payment-api-design',
     screenshot: true,
@@ -176,15 +178,15 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       scrapingbee: true,
-      note: 'Microlink Search on paid plans; included on every ScrapingBee plan.'
+      note: 'Microlink Search comes with every API key, free one included; included on every ScrapingBee plan.'
     },
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '25/day',
+      microlink: '100/month',
       scrapingbee: '1,000 once',
       highlight: true,
-      note: 'Microlink renews every day with no card and no expiry; ScrapingBee gives a one-time trial allowance.'
+      note: 'The free Microlink API key renews 100 requests every month with no card and no expiry; ScrapingBee gives a one-time trial allowance.'
     },
     {
       feature: 'Geotargeting',
@@ -301,16 +303,18 @@ export const PRICING_CAPTION = (
   <Text>
     One request counted whether the call renders or proxies, and a{' '}
     <Link href='/features/ttl'>cache hit</Link> not counted at all — there is no
-    multiplier to budget around. Start on the free tier and move to Pro when the
-    daily ceiling gets in the way.
+    multiplier to budget around. Start on the free API key and move to a paid
+    plan when the monthly ceiling gets in the way.
   </Text>
 )
 
 export const CTA = {
   caption:
-    'Point a request at the URL you are scraping today and compare the response with the one you get back now. No signup for the first call.',
-  ctaHref: '/docs/guides',
-  ctaLabel: 'Run your first request'
+    'Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first 100 calls a month.',
+  cta: 'alternative-scrapingbee:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/guides',
+  secondaryLabel: 'Read the guides'
 }
 
 export const FAQ_CAPTION =
@@ -374,7 +378,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What does the free tier include?',
-    text: 'Twenty-five requests per day, forever, with no credit card. Screenshot, PDF, metadata, markdown, insights and the SDK are all included, along with the global edge cache and adblock. The daily allowance renews, so evaluation never runs out mid-test.'
+    text: 'A free API key with 100 requests per month and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.'
   },
   {
     question: 'Do cached responses still cost a request?',

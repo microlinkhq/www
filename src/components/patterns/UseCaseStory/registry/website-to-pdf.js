@@ -168,7 +168,7 @@ export const WEBSITE_TO_PDF = [
     name: 'PDFs of bot-protected pages',
     cta: 'Print bot-protected pages',
     blurb:
-      'Print the real page, not the challenge screen: on Pro plans the PDF request reaches protected sites through the built-in proxy.',
+      'Print the real page, not the challenge screen: with any API key the PDF request reaches protected sites through the built-in proxy.',
     keywords: [
       'pdf of cloudflare protected page',
       'save blocked page as pdf',

@@ -154,7 +154,7 @@ const document = [
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'self-describing Markdown',
-    body: 'Title, author, date and reading time on top of every converted page. Start on the free tier and feed your pipeline documents that explain themselves.',
+    body: 'Title, author, date and reading time on top of every converted page. Start on the free API key and feed your pipeline documents that explain themselves.',
     href: '/markdown',
     label: 'Convert with frontmatter'
   },

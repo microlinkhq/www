@@ -149,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to record',
     headlineAccent: 'the motion',
-    body: 'One option turns a capture into a clip. Start on the free endpoint and record your first page today.',
+    body: 'One option turns a capture into a clip. Start on the free API key and record your first page today.',
     href: '/screenshot',
     label: 'Record a page'
   },

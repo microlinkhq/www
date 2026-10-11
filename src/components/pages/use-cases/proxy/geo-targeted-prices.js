@@ -76,14 +76,14 @@ const rows = await Promise.all(
           },
           pro: true
         },
-        note: 'One URL per country: change proxy.location and keep the rest. The Pro endpoint with your x-api-key header returns the price and currency under data.'
+        note: 'One URL per country: change proxy.location and keep the rest. pro.microlink.io with your x-api-key header returns the price and currency under data.'
       }
     ],
     params: [
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'ISO 3166-1 alpha-2 country code for the market, case-insensitive. Default us. Pro plans.'
+        note: 'ISO 3166-1 alpha-2 country code for the market, case-insensitive. Default us. Any API key.'
       },
       {
         name: 'data',
@@ -93,12 +93,12 @@ const rows = await Promise.all(
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Forwards Accept-Language for stores that localize by language too. Pro plans.'
+        note: 'Forwards Accept-Language for stores that localize by language too. Any API key.'
       },
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache lifetime per country, from 1 minute to 31 days. Pro plans.'
+        note: 'Cache lifetime per country, from 1 minute to 31 days. Any API key.'
       }
     ],
     outro:
@@ -160,7 +160,7 @@ const rows = await Promise.all(
   cta: {
     headlinePrefix: 'Ready to compare',
     headlineAccent: 'prices across markets',
-    body: 'One set of rules, one request per country, 181 markets available. Get a Pro key and build the table.',
+    body: 'One set of rules, one request per country, 181 markets available. Get your free API key and build the table.',
     href: '/features/proxy',
     label: 'Compare prices by country'
   },

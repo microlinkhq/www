@@ -35,6 +35,7 @@ import {
 } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
@@ -467,9 +468,10 @@ const Hero = function Hero ({
               gap: [3, 4, 4, 4]
             })}
           >
-            <ArrowLink href='/integrations/builder'>
-              Build a link preview
-            </ArrowLink>
+            <SignupLink cta='link-preview:hero'>
+              Get your free API key
+            </SignupLink>
+            <Link href='/integrations/builder'>Build a link preview</Link>
           </Flex>
         </Flex>
 
@@ -1800,9 +1802,9 @@ const Pricing = () => {
               maxWidth: layout.normal
             })}
           >
-            No login. No credit card. Preview any URL on the free tier — upgrade
-            when production traffic kicks in. Proxy rotation ships with every
-            Pro plan.
+            Free API key, no credit card. Preview any URL with every Pro
+            feature, proxy rotation included, and upgrade when production
+            traffic kicks in.
           </Caption>
         </Container>
         <Plans
@@ -1937,7 +1939,7 @@ const LINK_PREVIEW_FEATURES = [
   {
     title: 'Proxy Rotation Behind CAPTCHAs',
     description:
-      'Rotating residential proxies and real headless browsers reach pages behind Cloudflare, DataDome, PerimeterX, hCaptcha, and reCAPTCHA — included with every Pro plan.'
+      'Rotating residential proxies and real headless browsers reach pages behind Cloudflare, DataDome, PerimeterX, hCaptcha, and reCAPTCHA, included with every API key, free one too.'
   },
   {
     title: 'Global Edge Delivery',
@@ -1961,7 +1963,7 @@ const LINK_PREVIEW_FEATURES = [
   {
     title: 'Free to Start',
     description:
-      'Preview any URL immediately. 25 requests per day on the free tier — no setup fees, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
+      'Preview any URL immediately. Free API key with 100 requests per month and every Pro feature, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
   }
 ]
 
@@ -2043,7 +2045,7 @@ const CallToAction = () => (
         })}
       >
         Call the link preview API directly for the metadata payload, then render
-        the card style that fits your product — hero, inline, chat bubble,
+        the card style that fits your product: hero, inline, chat bubble,
         notification, or your own. Free to start, no credit card.
       </Caption>
       <Flex
@@ -2054,12 +2056,17 @@ const CallToAction = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
-          href='/docs/guides/embed/metadata-api'
+        <SignupLink
+          cta='link-preview:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Build a link preview
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed/metadata-api'>
+            Build a link preview
+          </Link>
+        </Box>
       </Flex>
       <Flex
         css={theme({
@@ -2069,22 +2076,20 @@ const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '25 reqs/day free', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
+        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 1,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <CheckIcon size={16} color={colors.close} />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
       </Flex>
     </Flex>
   </Container>
@@ -2139,19 +2144,18 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free link preview API?',
-    text: `Yes. The Microlink link preview API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your daily limit. For production workloads, Pro plans start at €39 per month and include rotating proxy support, higher rate limits, and priority response.`,
+    text: `Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads, Pro plans start at €39 per month with higher rate limits and priority response.`,
     answer: (
       <>
         <div>
-          Yes. The Microlink{' '}
-          <b>link preview API is free with 25 requests per day</b> — no login,
-          no credit card, no setup. Cached responses served from {CDN_EDGES}{' '}
-          Cloudflare edge locations do not count against your daily limit.
+          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
+          with every Pro feature, no credit card. Cached responses served from{' '}
+          {CDN_EDGES} Cloudflare edge locations do not count against your
+          monthly limit.
         </div>
         <div>
           For production workloads, <Link href='/pricing'>Pro plans</Link> start
-          at €39 per month and include rotating proxy support, higher rate
-          limits, and priority response.
+          at €39 per month with higher rate limits and priority response.
         </div>
       </>
     )
@@ -2218,7 +2222,7 @@ const TOP_FAQ_ITEMS = [
   {
     question:
       'Can Microlink preview URLs behind Cloudflare, antibot walls, or CAPTCHAs?',
-    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, palette — so URLs that would normally return 403 or block a scraper still come back with a perfect preview. Proxy rotation is included with every Pro plan.',
+    text: 'Yes. Microlink routes requests through a rotating residential proxy network and renders pages in a real headless browser, so it can fetch URLs protected by Cloudflare, DataDome, PerimeterX, hCaptcha, reCAPTCHA, and similar anti-bot systems. The response shape stays identical — title, description, image, logo, palette — so URLs that would normally return 403 or block a scraper still come back with a perfect preview. Proxy rotation is included with every API key, free one too.',
     answer: (
       <>
         <div>
@@ -2233,7 +2237,7 @@ const TOP_FAQ_ITEMS = [
           <code>description</code>, <code>image</code>, <code>logo</code>,{' '}
           <code>palette</code> — so URLs that would normally return{' '}
           <code>403</code> still come back with a perfect preview. Proxy
-          rotation is <b>included with every Pro plan</b>; see the{' '}
+          rotation is <b>included with every API key</b>, free one too; see the{' '}
           <Link href='/docs/api/parameters/proxy'>proxy parameter</Link> for
           configuration.
         </div>
@@ -2349,7 +2353,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'What happens to my data?',
-    text: 'Microlink does not store the body of the pages it fetches — only the normalized metadata payload, cached for the configured TTL window. No login is required for the free tier, and Pro accounts can rotate API keys at any time. Source URLs and response payloads are not used to train any model.',
+    text: 'Microlink does not store the body of the pages it fetches — only the normalized metadata payload, cached for the configured TTL window. Every account, free or paid, can rotate its API key at any time. Source URLs and response payloads are not used to train any model.',
     answer: (
       <>
         <div>
@@ -2357,8 +2361,8 @@ const TOP_FAQ_ITEMS = [
           normalized metadata payload, cached for the configured TTL window.
         </div>
         <div>
-          No login is required for the free tier, and Pro accounts can rotate
-          API keys at any time. Source URLs and response payloads are{' '}
+          Every account, free or paid, can rotate its API key at any time.
+          Source URLs and response payloads are{' '}
           <b>not used to train any model</b>.
         </div>
       </>
@@ -2441,7 +2445,7 @@ export const Head = () => (
             'Rotating residential proxy for URLs behind Cloudflare and CAPTCHAs',
             `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'AI-friendly: pair with Cursor or Claude Code to generate previews',
-            'Free tier with 25 requests per day'
+            'Free API key with 100 requests per month'
           ],
           isPartOf: {
             '@type': 'WebSite',
@@ -2454,7 +2458,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'EUR',
             description:
-              'Free tier available (25 requests/day). Pro plans start at €39/month for production workloads.',
+              'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
             url: 'https://microlink.io/pricing'
           },
           keywords: [

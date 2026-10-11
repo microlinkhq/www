@@ -147,15 +147,15 @@ export const CONTENT = {
         'Pass meta: false. Without it the API also returns normalized metadata such as title, description and image next to your fields. The SDK extract method skips it for you, while metadata() keeps both in one response.'
     },
     {
-      question: 'Does scraping a website to JSON work on the free tier?',
+      question: 'Does scraping a website to JSON work on the free API key?',
       answer:
-        'Yes. The API works without a key for 25 requests per day, enough to build and test a schema. A Pro plan adds configurable cache TTL, custom headers and automatic proxy resolution for sites that block automated traffic, see [pricing](/pricing).'
+        'Yes. A free API key gives you 100 requests per month with configurable cache TTL, custom headers and automatic proxy resolution included, enough to build and test a schema. Paid plans add volume, see [pricing](/pricing).'
     }
   ],
   cta: {
     headlinePrefix: 'Ready to turn',
     headlineAccent: 'any page into JSON',
-    body: 'Declare the fields, get typed JSON back. Start on the free tier and write your first rule in a minute.',
+    body: 'Declare the fields, get typed JSON back. Start on the free API key and write your first rule in a minute.',
     href: '/features/scraping',
     label: 'Scrape your first page'
   },

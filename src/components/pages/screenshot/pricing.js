@@ -39,8 +39,9 @@ export const Pricing = () => {
               ]
             })}
           >
-            No signup, no API key, no credit card. The screenshot API is free to
-            start — just call the endpoint.
+            Sign up for a free API key: 100 requests per month with every Pro
+            feature, no credit card. Paid plans add volume and production
+            controls.
           </Caption>
         </Container>
         <Plans

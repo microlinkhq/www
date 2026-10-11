@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { getStoredConsent, updateConsent } from 'helpers/gtag'
+import { clearAttribution, recordAttribution } from 'helpers/attribution'
 import { Button } from 'components/elements/Button/Button'
 import { popIn, popOut } from 'components/keyframes'
 import { theme, transition, colors, touchTargets, speed } from 'theme'
@@ -187,6 +188,8 @@ const CookieConsent = () => {
   const choose = value => {
     if (leaveTimerRef.current) return
     updateConsent(value)
+    if (value === 'denied') clearAttribution()
+    else recordAttribution()
     setIsLeaving(true)
     leaveTimerRef.current = setTimeout(() => {
       if (

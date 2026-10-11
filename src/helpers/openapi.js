@@ -69,7 +69,9 @@ export const parameterFromDoc = (file, content) => {
     name,
     in: 'query',
     required: name === 'url',
-    description: isPro ? `${description} Requires a Pro plan.` : description,
+    description: isPro
+      ? `${description} Requires an API key (free plan included).`
+      : description,
     schema,
     externalDocs: {
       url: `${SITE_URL}/docs/api/parameters/${file
@@ -113,7 +115,7 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
   servers: [
     {
       url: 'https://api.microlink.io',
-      description: 'Free endpoint. Daily rate limit. No API key.'
+      description: 'Keyless endpoint. Daily rate limit.'
     },
     {
       url: 'https://pro.microlink.io',
@@ -150,7 +152,7 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
             'The request failed. A parameter is missing, invalid, or not allowed on the current plan.'
           ),
           401: errorResponse(
-            'Authentication failed. Send a valid `x-api-key` or use the free endpoint without one.'
+            'Authentication failed. Send a valid `x-api-key` or use the keyless endpoint without one.'
           ),
           403: errorResponse(
             'The request is not allowed. Typical codes: EFORBIDDENURL, EPRO, EINTEGRATION.'
@@ -175,7 +177,7 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
         in: 'header',
         name: 'x-api-key',
         description:
-          'Pro API key. Use the `https://pro.microlink.io` server. Do not send this header to the free endpoint (that returns EPRO).'
+          'Your API key, free or paid. Use the `https://pro.microlink.io` server. Do not send this header to the keyless endpoint (that returns EPRO).'
       }
     },
     schemas: {

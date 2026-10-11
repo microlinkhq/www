@@ -66,7 +66,7 @@ export const CONTENT = {
             viewport: { deviceScaleFactor: 1 }
           }
         },
-        note: 'The request runs on the free endpoint. Compare the x-response-time header before and after to measure the gain on your own targets, and look for x-fetch-mode: skipped to confirm metadata was bypassed.'
+        note: 'Compare the x-response-time header before and after to measure the gain on your own targets, and look for x-fetch-mode: skipped to confirm metadata was bypassed.'
       }
     ],
     params: [
@@ -160,7 +160,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'leaner screenshots',
-    body: 'Skip the work you do not need and capture faster on every plan. Start on the free tier and measure the difference on your own pages.',
+    body: 'Skip the work you do not need and capture faster on every plan. Start on the free API key and measure the difference on your own pages.',
     href: '/screenshot',
     label: 'Speed up your screenshots'
   },

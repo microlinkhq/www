@@ -18,6 +18,7 @@ import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
 import Layout from 'components/patterns/Layout'
@@ -56,7 +57,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — the free plan is forever free, no credit card required. You get 25 requests per day against the public endpoint, with the same screenshot, PDF, metadata, markdown, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        text: 'Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with 100 requests per month and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
       }
     },
     {
@@ -152,7 +153,7 @@ const FAQ_SCHEMA = {
       name: 'How do I get an API key?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'After payment you get access to dashboard.microlink.io, where you will find your API key. Use it as a header in the API or as the apiKey option in the SDK.'
+        text: 'Sign up at dashboard.microlink.io and you get a free API key, no credit card required. Use it as a header in the API or as the apiKey option in the SDK. Paid plans add quota to the same account.'
       }
     }
   ]
@@ -194,7 +195,7 @@ export const Head = () => {
       {
         '@type': 'Offer',
         sku: 'free',
-        name: 'Free · 25 requests / day',
+        name: 'Free · 100 requests / month',
         price: '0',
         priceCurrency: 'EUR',
         availability: 'https://schema.org/InStock',
@@ -256,21 +257,21 @@ const PLAN_NAMES = ['Free', 'Pro', 'Business', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['25 req/day', 'Unlimited', 'Unlimited', 'Unlimited']
+    values: ['Monthly only', 'Unlimited', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
     values: [
-      '~1.5K req/month',
+      '100 req/month',
       '46K – 420K req/month',
       'Aligned to your usage',
       'Custom'
     ]
   },
-  { label: 'Custom cache key', values: [false, true, true, true] },
-  { label: 'Configurable TTL', values: [false, true, true, true] },
-  { label: 'Custom HTTP headers', values: [false, true, true, true] },
-  { label: 'Automatic proxy resolution', values: [false, true, true, true] },
+  { label: 'Custom cache key', values: [true, true, true, true] },
+  { label: 'Configurable TTL', values: [true, true, true, true] },
+  { label: 'Custom HTTP headers', values: [true, true, true, true] },
+  { label: 'Automatic proxy resolution', values: [true, true, true, true] },
   { label: 'Adblock & cookie banners', values: [true, true, true, true] },
   {
     label: 'Global CDN edge cache',
@@ -282,7 +283,7 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Request timeout',
-    values: ['30 seconds', '60 seconds', '60 seconds', '60 seconds']
+    values: ['60 seconds', '60 seconds', '60 seconds', '60 seconds']
   },
   { label: 'SLA', values: ['Best effort', '99.9%', 'Same as Pro', '99.9%'] },
   { label: 'Dedicated endpoint', values: [false, false, false, true] },
@@ -480,8 +481,8 @@ const Comparison = () => (
         side by <span css={theme({ color: 'secondary' })}>side</span>.
       </Subhead>
       <Caption forwardedAs='div' css={theme({ pt: [3, 3, 4, 4] })}>
-        Every paid plan unlocks the same toolbox. Pick the volume that matches
-        your traffic — upgrade or downgrade in a click.
+        Every plan, free included, unlocks the same toolbox. Pick the volume
+        that matches your traffic, then upgrade or downgrade in a click.
       </Caption>
     </Box>
 
@@ -744,8 +745,8 @@ const Capabilities = () => (
           maxWidth: layout.normal
         })}
       >
-        Every paid plan unlocks the same set of capabilities. Pay for the volume
-        you need, not for features you don&apos;t.
+        Every plan, free included, unlocks the same set of capabilities. Pay for
+        the volume you need, not for features you don&apos;t.
       </Caption>
     </Box>
     <Flex
@@ -1277,10 +1278,10 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              Yes — the free plan is forever free, no credit card required. You
-              get 25 requests per day against the public{' '}
+              Yes — the free plan is forever free, no credit card required. Sign
+              up and you get an API key with 100&nbsp;requests per month on the{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link>, with the
-              same screenshot, PDF, metadata, markdown, insights and SDK
+              same screenshot, PDF, metadata, markdown, search, insights and SDK
               capabilities used on Pro.
             </div>
             <div>
@@ -1473,18 +1474,20 @@ const Faqs = () => (
         answer: (
           <>
             <div>
-              After payment you get access to{' '}
-              <Link href='https://dashboard.microlink.io'>
+              Sign up at{' '}
+              <SignupLink component={Link} cta='pricing:faq'>
                 dashboard.microlink.io
-              </Link>
-              , where you will find your API key. Use it as a header in the{' '}
+              </SignupLink>{' '}
+              and you get a free API key, no credit card required. Use it as a
+              header in the{' '}
               <Link href='/docs/api/getting-started/overview'>API</Link> or as
               the{' '}
               <Link href='/docs/sdk/getting-started/overview/#authentication'>
                 apiKey
               </Link>{' '}
               option in the{' '}
-              <Link href='/docs/sdk/getting-started/overview'>SDK</Link>.
+              <Link href='/docs/sdk/getting-started/overview'>SDK</Link>. Paid
+              plans add quota to the same account.
             </div>
           </>
         )
@@ -1596,18 +1599,19 @@ const Cta = () => {
             justifyContent: 'center'
           })}
         >
-          <Button
+          <SignupLink
+            component={Button}
             as='a'
-            href='/docs/api/getting-started/overview'
+            cta='pricing:final-cta'
             variant='black'
             data-event-location='Pricing'
             data-event-name='Final CTA · Get started free'
             onClick={() => trackEvent('pricing cta')}
           >
             <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
-              Get started free
+              Get your free API key
             </Caps>
-          </Button>
+          </SignupLink>
         </Flex>
         <Box css={theme({ pt: [3, 3, 4, 4] })}>
           <Text css={theme({ fontSize: 0, color: 'black60' })}>

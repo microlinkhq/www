@@ -89,7 +89,7 @@ const FinalCtaSection = () => (
             <Link href='/screenshot'>Screenshot</Link>, and{' '}
             <Link href='/markdown'>Markdown</Link> to turn discovered URLs into
             richer outputs for structured fields, visual captures, and AI-ready
-            page content, all under the same paid Microlink plan.
+            page content, all under the same Microlink plan.
           </Text>
           <Text
             as='p'

@@ -14,7 +14,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
 import SpeedSectionBase from 'components/patterns/SpeedSection'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
@@ -702,16 +702,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-thumio:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'thumio' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot'>Explore the Screenshot API</Link>
       </Flex>
 
       <Flex
@@ -1299,7 +1301,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote JS',
-                '25 requests/day free, no credit card required',
+                '100 requests/month free, no credit card required',
                 'No requests-per-minute cap on paid plans',
                 'Built-in proxy + antibot handling for harder targets',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
@@ -1320,12 +1322,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/screenshot'
+              <SignupLink
+                component={Link}
+                cta='alternative-thumio:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
+                  Explore the Screenshot API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1466,25 +1474,30 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and see
-        whether your workload needs simple snapshots or a broader browser API.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> and
+        see whether your workload needs simple snapshots or a broader browser
+        API.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/screenshot'
+        <SignupLink
+          cta='alternative-thumio:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'thumio' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/screenshot' css={theme({ color: 'white' })}>
+          Explore the Screenshot API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1520,8 +1533,9 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free. Start with screenshots, then add metadata,
-          PDF output, or browser automation only when your workflow needs it.
+          100&nbsp;requests/month free with every Pro feature. Start with
+          screenshots, then add metadata, PDF output, or browser automation only
+          when your workflow needs it.
         </Caption>
         <Flex
           css={[
@@ -1553,14 +1567,18 @@ const TryItSection = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='alternative-thumio:try-it'
             onClick={() =>
               trackEvent('alternative cta', { competitor: 'thumio' })}
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
-          </Link>
+            Get your free API key
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
       </SectionInner>
     </Section>

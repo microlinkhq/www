@@ -208,7 +208,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Does scraping work on the free plan?',
-    text: 'Yes. Data extraction works on the free tier (25 requests per day without an API key). Pro adds proxy, custom headers, and configurable TTL on the same calls.'
+    text: 'Yes. Data extraction works on the free API key (100 requests per month) with proxy, custom headers and configurable TTL included. Paid plans add volume.'
   },
   {
     question: "What happens when a selector doesn't match?",

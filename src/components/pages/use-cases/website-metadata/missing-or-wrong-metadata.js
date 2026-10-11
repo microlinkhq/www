@@ -54,7 +54,7 @@ export const CONTENT = {
             }
           }
         },
-        note: 'Override rules flatten to data.image.selector, data.image.attr and data.image.type, so the fix works from a plain URL on the free endpoint.'
+        note: 'Override rules flatten to data.image.selector, data.image.attr and data.image.type, so the fix works from a plain URL with any API key.'
       }
     ],
     params: [
@@ -143,7 +143,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'previews that never break',
-    body: 'Override the wrong field, chain the fallbacks, cache the fix. Start on the free tier and repair your first broken preview today.',
+    body: 'Override the wrong field, chain the fallbacks, cache the fix. Start on the free API key and repair your first broken preview today.',
     href: '/metadata',
     label: 'Fix a metadata field'
   },

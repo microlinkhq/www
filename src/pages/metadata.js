@@ -76,7 +76,7 @@ export const Head = () => (
   <Meta
     title='Website Metadata API. URL to Metadata & Link Preview'
     noSuffix
-    description='Website metadata API - 25 req/day free - that turns any URL to metadata: Open Graph, JSON-LD, Twitter Cards, link preview & URL preview in one JSON call.'
+    description='Website metadata API with a free API key that turns any URL to metadata: Open Graph, JSON-LD, Twitter Cards, link preview & URL preview in one JSON call.'
     structured={{
       '@context': 'https://schema.org',
       '@graph': [
@@ -111,7 +111,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'EUR',
             description:
-              'Free tier available (25 requests/day). Pro plans start at €39/month for production workloads.',
+              'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
             url: 'https://microlink.io/pricing'
           },
           keywords: [

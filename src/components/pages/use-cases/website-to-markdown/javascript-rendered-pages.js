@@ -81,7 +81,7 @@ export const CONTENT = {
       {
         name: 'waitForTimeout',
         href: '/docs/api/parameters/waitForTimeout',
-        note: 'A fixed delay for pages with no stable selector. Capped by the plan timeout: 30 seconds free, 60 seconds Pro.'
+        note: 'A fixed delay for pages with no stable selector. Capped by the request timeout: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
       },
       {
         name: 'click',
@@ -106,7 +106,7 @@ export const CONTENT = {
       {
         kicker: 'Wait for the proof',
         title: 'A selector wait ends when the content exists.',
-        body: 'Instead of a timer, wait for the element that only appears once the data has loaded. The request returns as early as possible and still covers the slow case, up to the plan timeout.',
+        body: 'Instead of a timer, wait for the element that only appears once the data has loaded. The request returns as early as possible and still covers the slow case, up to the request timeout.',
         note: 'The same wait logic applies to [screenshots of JavaScript-rendered pages](/use-cases/website-screenshot/dynamic-content) and to [metadata from single-page apps](/use-cases/website-metadata/javascript-rendered-pages), so one selector per site serves all three.'
       },
       {
@@ -138,7 +138,7 @@ export const CONTENT = {
       question:
         'How long can a Markdown conversion wait for a single-page app?',
       answer:
-        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the free endpoint and 60 seconds on Pro plans. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
+        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the keyless endpoint and 60 seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
     },
     {
       question:
@@ -150,7 +150,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to convert',
     headlineAccent: 'rendered apps',
-    body: 'Render first, wait for the data, then convert. Start on the free tier and turn your first single-page app into Markdown today.',
+    body: 'Render first, wait for the data, then convert. Start on the free API key and turn your first single-page app into Markdown today.',
     href: '/markdown',
     label: 'Convert a web app'
   },

@@ -57,7 +57,7 @@ module.exports = {
     author: 'Microlink HQ',
     headline: 'Microlink | The web, ready for AI',
     description:
-      'A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Try it, no signup.',
+      'A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Free API key, no credit card.',
     siteUrl: SITE_URL,
     canonicalUrl: CANONICAL_URL,
     ogImageBase: OG_IMAGE_BASE,

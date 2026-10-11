@@ -7,24 +7,18 @@ import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
 import FeatherIcon from 'components/icons/Feather'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { Calendar, ChevronDown, X } from 'react-feather'
+import { ChevronDown, LogIn, X } from 'react-feather'
 import { backDrop } from 'helpers/style'
 import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
-import {
-  BOOK_CALL_LABEL,
-  BOOK_CALL_TITLE,
-  bookCallUrl,
-  trackBookCall
-} from 'helpers/book-call'
 import { riseInAnimation } from 'helpers/rise-in'
 import { setMobileMenuOpen } from 'helpers/mobile-menu'
 import React, { useEffect, useState } from 'react'
 
 import {
-  DASHBOARD_NAV_ITEM,
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
+  SIGN_IN_NAV_ITEM,
   TOOLS_INTEGRATIONS_ITEMS,
   ToolbarActionLink,
   ToolbarNavLink,
@@ -43,6 +37,7 @@ import {
   getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
+import { useDashboardHref } from 'components/patterns/SignupLink'
 
 const MOBILE_MENU_ITEM_STYLES = {
   py: 1,
@@ -313,6 +308,10 @@ const MobileMenuItems = ({ items, onItemClick, ...props }) => (
 
 const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
+  const signInHref = useDashboardHref({
+    dashboardPath: '/',
+    cta: 'toolbar:sign-in'
+  })
   const [isOpen, setOpen] = useState(false)
   const [hasOpened, setHasOpened] = useState(false)
   const [openSection, setOpenSection] = useState('')
@@ -528,15 +527,12 @@ const ToolbarMobile = ({ animated }) => {
             )}
             <ToolbarActionLink
               forwardedAs='li'
-              href={bookCallUrl('mobile_menu')}
-              title={BOOK_CALL_TITLE}
-              externalIcon={false}
-              data-event-location='mobile_menu'
-              data-event-name={BOOK_CALL_LABEL}
-              onClick={() => {
-                trackBookCall('mobile_menu')
-                closeMenu()
-              }}
+              href={signInHref}
+              title={SIGN_IN_NAV_ITEM.title}
+              externalIcon={SIGN_IN_NAV_ITEM.externalIcon}
+              data-event-location='Toolbar'
+              data-event-name={SIGN_IN_NAV_ITEM.label}
+              onClick={closeMenu}
               css={theme({
                 display: 'flex',
                 width: '100%',
@@ -545,25 +541,11 @@ const ToolbarMobile = ({ animated }) => {
                 listStyle: 'none'
               })}
             >
-              <FeatherIcon icon={Calendar} size='14px' />
+              <FeatherIcon icon={LogIn} size='14px' />
               <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-                {BOOK_CALL_LABEL}
+                {SIGN_IN_NAV_ITEM.label}
               </Caps>
             </ToolbarActionLink>
-            <MobileDirectNavLink
-              forwardedAs='li'
-              href={DASHBOARD_NAV_ITEM.href}
-              title={DASHBOARD_NAV_ITEM.title}
-              externalIcon={DASHBOARD_NAV_ITEM.externalIcon}
-              data-event-location='Toolbar'
-              data-event-name={DASHBOARD_NAV_ITEM.label}
-              onClick={closeMenu}
-              css={theme(MOBILE_DIRECT_NAV_ITEM_STYLES)}
-            >
-              <Caps as='span' css={theme(MOBILE_DIRECT_NAV_LABEL_STYLES)}>
-                {DASHBOARD_NAV_ITEM.label}
-              </Caps>
-            </MobileDirectNavLink>
           </Box>
         </MobileMenuPanel>
       )}

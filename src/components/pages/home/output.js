@@ -5,6 +5,7 @@ import Microlink from 'components/patterns/Microlink/Microlink'
 import { Stat, StatRow } from 'components/patterns/Stats/Stats'
 import { HeroCard } from 'components/pages/embed/PreviewCards'
 import { HeroSearchResultCard } from 'components/pages/search/ResultCards'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { lighthouseViewerUrl } from 'helpers/lighthouse'
 import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { theme, fonts, colors, gradient, space } from 'theme'
@@ -305,14 +306,15 @@ const SearchOutput = ({ data }) => (
     >
       <ProBadge>Pro</ProBadge>
       <Box as='span' css={theme({ fontSize: 0, color: 'gray7' })}>
-        Example results. Query live Google data on the{' '}
-        <Box
-          as='a'
-          href='/search'
+        Example results. Query live Google data with a{' '}
+        <SignupLink
+          component={Box}
+          forwardedAs='a'
+          cta='home:search-demo'
           css={theme({ color: 'grape7', textDecoration: 'none' })}
         >
-          Pro plan
-        </Box>
+          free API key
+        </SignupLink>
       </Box>
     </Flex>
     <Flex css={theme({ flexDirection: 'column', gap: 4 })}>

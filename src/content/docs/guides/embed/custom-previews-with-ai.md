@@ -207,7 +207,7 @@ export function useLinkPreview (url) {
 }
 ```
 
-The SDK runs in the browser on the free tier; keep the `apiKey` for the server-side helper.
+The SDK runs in the browser against the keyless endpoint; keep the `apiKey` for the server-side helper.
 
 #### Direct from HTML
 

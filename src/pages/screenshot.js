@@ -99,7 +99,7 @@ export const Head = () => (
         price: '0',
         priceCurrency: 'USD',
         description:
-          'Free tier available for experimentation, 25 requests per day. Pro plans scale for high concurrency.'
+          'Free API key with 100 requests per month and every Pro feature. Pro plans scale for high concurrency.'
       },
       keywords:
         'screenshot API, website screenshot, URL to image, headless chrome, website capture, web screenshot, puppeteer API',

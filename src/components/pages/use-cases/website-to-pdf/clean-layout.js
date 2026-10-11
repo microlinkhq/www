@@ -138,7 +138,7 @@ export const CONTENT = {
       question:
         'Do I need a paid plan to convert a web page to PDF without ads?',
       answer:
-        'No. adblock, styles, mediaType and click are request options available on every plan, including the free endpoint with 25 requests per day and no API key. A Pro plan adds [custom headers, proxy, filename and configurable caching](/pricing) when you move to production.'
+        'No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with 100 requests per month. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.'
     },
     {
       question: 'Does disabling JavaScript produce a cleaner PDF?',
@@ -149,7 +149,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'clean PDFs',
-    body: 'Ads and banners gone by default, chrome removed with one rule. Start on the free tier and print your first clean document today.',
+    body: 'Ads and banners gone by default, chrome removed with one rule. Start on the free API key and print your first clean document today.',
     href: '/pdf',
     label: 'Print a clean PDF'
   },

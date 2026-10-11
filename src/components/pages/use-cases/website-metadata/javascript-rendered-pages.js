@@ -80,7 +80,7 @@ export const CONTENT = {
       {
         name: 'ttl',
         href: '/docs/api/parameters/ttl',
-        note: 'Cache the rendered result for up to 31 days; browser renders are slower than fetches. Pro plans.'
+        note: 'Cache the rendered result for up to 31 days; browser renders are slower than fetches. Any API key.'
       }
     ],
     outro:
@@ -134,7 +134,7 @@ export const CONTENT = {
       question:
         'Can the metadata request wait for the og:image tag specifically?',
       answer:
-        'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the free plan and 60 seconds on Pro.'
+        'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the keyless endpoint and 60 seconds with an API key.'
     },
     {
       question: 'How do I confirm a browser was used to extract the metadata?',
@@ -145,7 +145,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to read',
     headlineAccent: 'client-rendered metadata',
-    body: 'Render first, then extract. Start on the free tier and get the right title and image from your first single-page app today.',
+    body: 'Render first, then extract. Start on the free API key and get the right title and image from your first single-page app today.',
     href: '/metadata',
     label: 'Extract from a web app'
   },

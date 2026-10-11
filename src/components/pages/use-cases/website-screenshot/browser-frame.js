@@ -160,7 +160,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready for',
     headlineAccent: 'presentation-ready captures',
-    body: 'A frame and a background in one option, no design tool needed. Start on the free endpoint and produce your first framed screenshot today.',
+    body: 'A frame and a background in one option, no design tool needed. Start on the free API key and produce your first framed screenshot today.',
     href: '/screenshot',
     label: 'Frame a screenshot'
   },

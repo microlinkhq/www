@@ -70,7 +70,7 @@ export const CONTENT = {
       {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
-        note: 'Add it to any method when a site blocks automated access. Pro plans.'
+        note: 'Add it to any method when a site blocks automated access. Any API key.'
       }
     ],
     outro:
@@ -96,7 +96,7 @@ export const CONTENT = {
       {
         kicker: 'Cached and composable',
         title: 'An agent that revisits a page pays once.',
-        body: 'Responses are cached for 24 hours by default and cache hits do not count against your quota. Add ttl and staleTtl on Pro plans to tune freshness for the whole context.',
+        body: 'Responses are cached for 24 hours by default and cache hits do not count against your quota. Add ttl and staleTtl with any API key to tune freshness for the whole context.',
         note: 'When not to: if the model only needs a summary of the text, markdown() alone is enough, ideally [scoped to the content](/use-cases/website-to-markdown/clean-content). Add facets when the task asks for links, contacts or the stack.'
       }
     ]
@@ -122,7 +122,7 @@ export const CONTENT = {
     {
       question: 'How do AI agents get Markdown from pages that block bots?',
       answer:
-        'Send the request with a Pro key: automatic proxy resolution is on by default for every method, with no parameter. On the free tier the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the Pro key.'
+        'Send the request with your API key: automatic proxy resolution is on by default for every method, with no parameter. On the keyless endpoint the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the key.'
     },
     {
       question: 'Is there a ready-made Markdown integration for AI agents?',
@@ -133,7 +133,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to give your agent',
     headlineAccent: 'the whole page',
-    body: 'Markdown, links, emails, metadata and stack from one URL and one client. Start on the free tier and build your first read_page tool today.',
+    body: 'Markdown, links, emails, metadata and stack from one URL and one client. Start on the free API key and build your first read_page tool today.',
     href: '/markdown',
     label: 'Build LLM context'
   },

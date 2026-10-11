@@ -68,7 +68,7 @@ export const CONTENT = {
             waitUntil: 'domcontentloaded'
           }
         },
-        note: 'Works on the free endpoint within the 30-second timeout; Pro extends it to 60 seconds. If the report sits behind a login, forward the session as described in [PDF invoices from authenticated pages](/use-cases/website-to-pdf/invoices-and-receipts).'
+        note: 'The keyless endpoint has a 30-second timeout; any API key extends it to 60 seconds. If the report sits behind a login, forward the session as described in [PDF invoices from authenticated pages](/use-cases/website-to-pdf/invoices-and-receipts).'
       }
     ],
     params: [
@@ -145,7 +145,7 @@ export const CONTENT = {
     {
       question: 'How long can the PDF API wait for content to render?',
       answer:
-        'Up to the request timeout: 30 seconds on the free endpoint and 60 seconds on Pro plans. A waitForTimeout larger than that is ignored. Keep your waits well inside that budget, because the print itself also needs time.'
+        'Up to the request timeout: 30 seconds on the keyless endpoint and 60 seconds with an API key. A waitForTimeout larger than that is ignored. Keep your waits well inside that budget, because the print itself also needs time.'
     },
     {
       question: 'Do charts print to PDF with their final values?',
@@ -162,7 +162,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to print',
     headlineAccent: 'rendered dashboards',
-    body: 'Wait for the chart, then print. Start on the free tier and turn your first single-page report into a PDF today.',
+    body: 'Wait for the chart, then print. Start on the free API key and turn your first single-page report into a PDF today.',
     href: '/pdf',
     label: 'Print dynamic content'
   },

@@ -55,20 +55,19 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Not to start. The free plan is 25 requests per day with no key and no credit card. Every product except Search is available on the free tier. A Pro key unlocks Search, higher quota, proxy, custom headers, and configurable TTL.',
+    text: 'Yes, and it is free: sign up and you get 100 requests per month with every Pro feature, Search included, no credit card. Paid plans add volume.',
     answer: (
       <>
         <div>
-          Not to start. The free plan is 25 requests per day with no key and no
-          credit card. Every product except Search is available on the free
-          tier.
+          Yes, and it is free: sign up and you get 100&nbsp;requests per month
+          with every Pro feature, Search included, no credit card.
         </div>
         <div>
-          A <Link href='/pricing'>Pro</Link> key unlocks{' '}
-          <Link href='/search'>Search</Link>, higher quota,{' '}
+          The key includes <Link href='/search'>Search</Link>,{' '}
           <Link href='/features/proxy'>proxy</Link>,{' '}
           <Link href='/features/headers'>custom headers</Link>, and{' '}
-          <Link href='/features/ttl'>configurable TTL</Link>.
+          <Link href='/features/ttl'>configurable TTL</Link>. A{' '}
+          <Link href='/pricing'>paid plan</Link> adds volume.
         </div>
       </>
     )

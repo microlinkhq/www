@@ -13,7 +13,7 @@ import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import Faq from 'components/patterns/Faq/Faq'
-import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
@@ -181,7 +181,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Free plan',
-    microlink: '25/day, no expiry',
+    microlink: '100/mo, no expiry',
     embedly: '30-day trial only',
     highlight: true,
     note: 'Embedly offers a 30-day free trial on the API plan; Microlink keeps the free tier indefinitely.'
@@ -474,9 +474,9 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly's API plan offers a <b>30-day free trial</b> at base usage
         levels, then bills. Microlink's free tier is{' '}
-        <b>25 requests/day forever</b>, no credit card, on the same edge network
-        as paid plans — usable in production for low-volume integrations without
-        a renewal clock.
+        <b>100 requests/month forever</b>, with every Pro feature, no credit
+        card, on the same edge network as paid plans — usable in production for
+        low-volume integrations without a renewal clock.
       </>
     )
   },
@@ -503,7 +503,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Cards plan at $14/mo for low-volume sites',
     description:
-      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (25/day) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $49."
+      "If you only need the JS card widget on a publisher site and do not call the API server-side, Embedly Cards at $14/month is a real entry point that Microlink does not match dollar-for-dollar. Microlink's free tier (100/month) covers most equivalent low-volume cases without a credit card, but the paid tier starts at $49."
   },
   {
     title: 'Display API for on-the-fly image optimization',
@@ -721,14 +721,14 @@ const FAQ_ITEMS = [
         </div>
         <div>
           At the network layer, swap <b>i.embed.ly/1/oembed?url=...&key=...</b>{' '}
-          for <b>api.microlink.io?url=...</b> and add a Microlink API key if you
-          need to go beyond the free 25/day. The{' '}
+          for <b>pro.microlink.io?url=...</b> with your free Microlink API key
+          (100 requests a month, no credit card). The{' '}
           <Link href='/docs/guides/embed'>embed guide</Link> walks through the
           full mapping.
         </div>
       </>
     ),
-    text: 'The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for api.microlink.io?url=... and add a Microlink API key if you need to go beyond the free 25/day.'
+    text: 'The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for pro.microlink.io?url=... with your free Microlink API key (100 requests a month, no credit card).'
   },
   {
     question: 'When does Embedly still make more sense than Microlink?',
@@ -822,16 +822,18 @@ const Hero = () => (
           fontSize: [2, 2, 3, 3],
           gap: '16px',
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-embedly:hero'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'embedly' })}
         >
-          Get Started Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/embed'>Explore the Embed API</Link>
       </Flex>
 
       <Flex
@@ -1012,7 +1014,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 25 requests/day, no credit card, no expiry',
+                'Free: 100 requests/month, no credit card, no expiry',
                 'No per-second cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1033,12 +1035,18 @@ const PricingSection = () => (
               ))}
             </Box>
             <Box css={theme({ pt: 3 })}>
-              <Link
-                href='/embed'
+              <SignupLink
+                component={Link}
+                cta='alternative-embedly:pricing'
                 css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
               >
-                <Caps>Start for free</Caps>
-              </Link>
+                <Caps>Get your free API key</Caps>
+              </SignupLink>
+              <Box css={theme({ pt: 2, textAlign: 'center' })}>
+                <Link href='/embed' css={theme({ fontSize: 0 })}>
+                  Explore the Embed API
+                </Link>
+              </Box>
             </Box>
           </PriceCard>
         </Box>
@@ -1180,25 +1188,29 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — no
-        credit card, no expiry, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> —
+        every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
           flexWrap: 'wrap',
+          alignItems: 'center',
           justifyContent: 'center'
         })}
       >
-        <ArrowLink
-          href='/embed'
+        <SignupLink
+          cta='alternative-embedly:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'embedly' })}
           css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
         >
-          Start Building Free
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Link href='/embed' css={theme({ color: 'white' })}>
+          Explore the Embed API
+        </Link>
       </Flex>
     </Flex>
   </Section>
@@ -1362,14 +1374,18 @@ const TryItSection = () => (
           alignItems: 'center'
         })}
       >
-        <Link
-          href='/docs/guides/embed'
+        <SignupLink
+          component={Link}
+          cta='alternative-embedly:try-it'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'embedly' })}
           css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
         >
-          Start now for free
-        </Link>
+          Get your free API key
+        </SignupLink>
+        <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed'>Read the guide</Link>
+        </Box>
       </Flex>
     </SectionInner>
   </Section>

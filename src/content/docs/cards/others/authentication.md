@@ -1,9 +1,9 @@
 ---
 title: 'Authentication'
-description: 'Securely authenticate your API requests while protecting your credentials from public exposure. You can safely inject your Pro API key and restrict usage to authorized domains.'
+description: 'Securely authenticate your API requests while protecting your credentials from public exposure. You can safely inject your API key and restrict usage to authorized domains.'
 ---
 
-When you use a [pro](/pricing) plan, you have to pass your API key in order to [authenticate](/docs/api/basics/authentication) as part of the request to be authenticated against [Microlink API](/docs/api/getting-started/overview).
+When you use your API key, you pass it in order to [authenticate](/docs/api/basics/authentication) as part of the request to be authenticated against [Microlink API](/docs/api/getting-started/overview).
 
 That should be done carefully: If you do that publicly, you’re compromising your credentials to be leaked by anyone.
 

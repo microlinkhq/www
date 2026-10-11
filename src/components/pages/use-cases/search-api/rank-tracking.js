@@ -114,7 +114,7 @@ export const CONTENT = {
     {
       question: 'Does the rank tracking API store ranking history?',
       answer:
-        'No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. Search has no free tier, and [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+        'No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is the Microlink rank checker affiliated with Google?',
@@ -125,7 +125,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to track',
     headlineAccent: 'rankings by country',
-    body: 'Ordered results per country as JSON, and positions you compute yourself. Get a Pro key and record your first run today.',
+    body: 'Ordered results per country as JSON, and positions you compute yourself. Get your free API key and record your first run today.',
     href: '/search',
     label: 'Track rankings by country'
   },

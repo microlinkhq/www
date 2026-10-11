@@ -8,7 +8,7 @@ const SAMPLE_RESPONSE = `{
   "title": "Microlink | The web, ready for AI",
   "author": "Microlink",
   "lang": "en",
-  "description": "A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Try it, no signup.",
+  "description": "A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Free API key, no credit card.",
   "url": "https://microlink.io/",
   "publisher": "Microlink",
   "date": null,

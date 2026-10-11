@@ -17,7 +17,7 @@ export const CONTENT = {
     paragraphs: [
       'Localization is decided server-side from the IP address, sometimes combined with the Accept-Language header. A screenshot taken from a datacenter in the United States shows the US store, the US price and the US cookie notice, whatever your users elsewhere get.',
       'The workarounds are fragile. Appending a country parameter to the URL works only on sites that expose one, and spoofing Accept-Language changes the language but not the region. A VPN on a laptop does not scale past a handful of manual checks, and buying country-specific proxies means vetting providers, rotating exits and paying per country.',
-      'With proxy.location the request exits from a proxy in the country you choose, so the target serves that region’s version. Forward Accept-Language with the [headers parameter](/docs/api/parameters/headers) and the page renders in the local language too. Both are Pro options, and they compose with everything else the [Screenshot API](/screenshot) does.'
+      'With proxy.location the request exits from a proxy in the country you choose, so the target serves that region’s version. Forward Accept-Language with the [headers parameter](/docs/api/parameters/headers) and the page renders in the local language too. Both come with every API key, the free one included, and they compose with everything else the [Screenshot API](/screenshot) does.'
     ]
   },
   how: {
@@ -46,7 +46,7 @@ export const CONTENT = {
           },
           pro: true
         },
-        note: 'proxy.location is a Pro option, so the URL targets pro.microlink.io. Unknown country codes are rejected with the EINVALQUERY error instead of silently falling back to the default.'
+        note: 'proxy.location needs an API key (the free one works), so the URL targets pro.microlink.io. Unknown country codes are rejected with the EINVALQUERY error instead of silently falling back to the default.'
       },
       {
         label: '4 · Verify the exit country first',
@@ -58,12 +58,12 @@ export const CONTENT = {
       {
         name: 'proxy.location',
         href: '/docs/api/parameters/proxy/location',
-        note: 'ISO 3166-1 alpha-2 country code, case-insensitive. Default us. Exclusive with proxy.url. Pro plans.'
+        note: 'ISO 3166-1 alpha-2 country code, case-insensitive. Default us. Exclusive with proxy.url. Any API key.'
       },
       {
         name: 'headers',
         href: '/docs/api/parameters/headers',
-        note: 'Non-sensitive request headers such as Accept-Language, forwarded to the target. Pro plans.'
+        note: 'Non-sensitive request headers such as Accept-Language, forwarded to the target. Any API key.'
       },
       {
         name: 'device',
@@ -78,7 +78,7 @@ export const CONTENT = {
       {
         name: 'cacheKey',
         href: '/docs/api/parameters/cacheKey',
-        note: 'Appends a custom identifier to the cache key when variants need extra separation. Pro plans.'
+        note: 'Appends a custom identifier to the cache key when variants need extra separation. Any API key.'
       }
     ],
     outro:
@@ -119,7 +119,7 @@ export const CONTENT = {
       question:
         'How do I screenshot a website from another country without a VPN?',
       answer:
-        'Pass proxy.location with the country code, for example de for Germany, on a Pro key. The request exits from a proxy in that country, so the site serves its regional version with no VPN, no browser extension and no manual step.'
+        'Pass proxy.location with the country code, for example de for Germany, with any API key. The request exits from a proxy in that country, so the site serves its regional version with no VPN, no browser extension and no manual step.'
     },
     {
       question:
@@ -141,7 +141,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'local versions',
-    body: 'Prices, stock and copy as your customers in each country see them. Get a Pro key and pin the request to any supported country.',
+    body: 'Prices, stock and copy as your customers in each country see them. Get your free API key and pin the request to any supported country.',
     href: '/screenshot',
     label: 'Capture from another country'
   },

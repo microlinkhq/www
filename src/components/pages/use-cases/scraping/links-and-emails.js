@@ -136,7 +136,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to extract',
     headlineAccent: 'every link and email',
-    body: 'Absolute URLs and bare email addresses from any page, one method each. Start on the free tier and try it on your own site.',
+    body: 'Absolute URLs and bare email addresses from any page, one method each. Start on the free API key and try it on your own site.',
     href: '/features/scraping',
     label: 'Extract links and emails'
   },

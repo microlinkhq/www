@@ -111,7 +111,7 @@ export const CONTENT = {
     {
       question: 'How much does grounding an LLM answer with live search cost?',
       answer:
-        'One request for the search and one per result you expand, so search plus three sources is four requests per answer. Search has no free tier: [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+        'One request for the search and one per result you expand, so search plus three sources is four requests per answer. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'How fast is real-time search for chatbots?',
@@ -132,7 +132,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to ground',
     headlineAccent: 'every answer',
-    body: 'Live search results plus Markdown for the sources worth reading. Get a Pro key and ship your first grounded answer today.',
+    body: 'Live search results plus Markdown for the sources worth reading. Get your free API key and ship your first grounded answer today.',
     href: '/search',
     label: 'Ground LLM answers'
   },

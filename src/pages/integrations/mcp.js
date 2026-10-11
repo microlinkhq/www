@@ -9,6 +9,7 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Video from 'components/elements/Video/Video'
 import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -102,7 +103,7 @@ const MCP_CONFIG_NPX = `{
 }`
 
 const PROMPT_TAIL =
-  'No API key is required for the free tier (25 requests/day). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
+  'Sign up for a free API key at https://dashboard.microlink.io/signup (100 requests/month, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
 
 const commandPrompt = command =>
   `Install the Microlink MCP server. Run \`${command}\`. ${PROMPT_TAIL}`
@@ -243,7 +244,11 @@ const InstallPanel = ({ hint, snippet }) => (
       </Text>
     </Box>
     <Text css={theme({ ...NOTE_CSS, mt: 3, color: 'black60' })}>
-      No API key needed for the free tier (25 requests/day).
+      A{' '}
+      <SignupLink component={Link} cta='mcp:install'>
+        free API key
+      </SignupLink>{' '}
+      covers 100&nbsp;requests/month with every Pro feature.
     </Text>
     <Text css={theme({ ...NOTE_CSS, mt: 1, color: 'black50' })}>
       Then use it for screenshots, PDFs, markdown, metadata, or scraping any
@@ -342,8 +347,11 @@ const Installation = () => {
             width: '100%'
           })}
         >
-          The prompt installs Microlink MCP and starts using it. No API key
-          needed for the free tier (25 requests/day).
+          The prompt installs Microlink MCP and starts using it. A{' '}
+          <SignupLink component={Link} cta='mcp:hero'>
+            free API key
+          </SignupLink>{' '}
+          covers 100&nbsp;requests/month with every Pro feature.
         </Text>
       </Flex>
     </Container>
@@ -496,36 +504,35 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'You can start using Microlink MCP without an API key. The free tier covers 25 requests per day — enough to try out the toolset. The one exception is Search, which runs on paid plans and needs an API key. Add your Microlink API key for Search, production volume, or pro features.',
+    text: 'Yes, and it is free: sign up for an API key with 100 requests per month, every Pro feature and Search included, no credit card. Paid plans add volume.',
     answer: (
       <>
         <div>
-          No API key required to get started. The free tier covers 25 requests
-          per day — enough to explore the toolset. The one exception is Search,
-          which runs on paid plans and needs an API key.
+          Yes, and it is free: 100&nbsp;requests per month, every Pro feature
+          and Search included, no credit card.
         </div>
         <div>
-          Add your <Link href='/#pricing'>Microlink API key</Link> when you need
-          Search, production volume, configurable TTL, custom headers, or proxy
-          support.
+          Get your{' '}
+          <SignupLink component={Link} cta='mcp:faq'>
+            free Microlink API key
+          </SignupLink>{' '}
+          and add it to the MCP config; paid plans add volume when you need it.
         </div>
       </>
     )
   },
   {
     question: 'Is there a free tier?',
-    text: 'Yes. Microlink has a free tier of 25 requests per day, no credit card required. Every tool except Search is available on the free tier; Search runs on paid plans. When you need more volume or pro features, ask MCP or a Microlink skill to log in or upgrade the account.',
+    text: 'Yes. A free API key gives you 100 requests per month with every Pro feature, Search included, no credit card. When you need more volume, ask MCP or a Microlink skill to upgrade the account.',
     answer: (
       <>
         <div>
-          Yes. Start immediately with 25 free requests per day — no credit card,
-          no signup required. Every tool except Search is available on the free
-          tier; Search runs on paid plans.
+          Yes. A free API key gives you 100&nbsp;requests per month with every
+          Pro feature, Search included, no credit card.
         </div>
         <div>
-          When you need more throughput or pro features, ask MCP or a{' '}
-          <Link href='/skills'>Microlink skill</Link> to log in or upgrade the
-          account.
+          When you need more volume, ask MCP or a{' '}
+          <Link href='/skills'>Microlink skill</Link> to upgrade the account.
         </div>
       </>
     )
@@ -922,7 +929,7 @@ const EXAMPLES = [
     prompt:
       'Extract the audio stream from this SoundCloud track so I can embed it',
     result:
-      'A direct playable audio URL from SoundCloud — no API key, no scraping setup, no rate limits.'
+      'A direct playable audio URL from SoundCloud — no scraping setup, no rate limits.'
   },
   {
     tool: 'audio',
@@ -1270,8 +1277,8 @@ const buildLaunchPrompt = (task, tool) => {
     ...mcpConfigLines(needsKey),
     '',
     needsKey
-      ? 'Search runs on paid plans, so it needs a Microlink API key — grab one at https://microlink.io/#pricing. Setup guide: https://microlink.io/integrations/mcp'
-      : 'No API key needed for the free tier (25 requests/day). Setup guide: https://microlink.io/integrations/mcp'
+      ? 'Search needs a Microlink API key — sign up for a free one (100 requests/month) at https://dashboard.microlink.io/signup. Setup guide: https://microlink.io/integrations/mcp'
+      : 'Sign up for a free API key (100 requests/month) at https://dashboard.microlink.io/signup. Setup guide: https://microlink.io/integrations/mcp'
   ].join('\n')
 }
 
@@ -1543,10 +1550,9 @@ const McpPage = () => (
       caption={
         <>
           Everything Microlink can do, available to your AI through natural
-          language. No HTTP clients, no API keys on day one, no parsing layers.
-          Read the{' '}
-          <Link href='/docs/api/getting-started/mcp'>documentation</Link> to get
-          started.
+          language. No HTTP clients, no parsing layers, one free API key. Read
+          the <Link href='/docs/api/getting-started/mcp'>documentation</Link> to
+          get started.
         </>
       }
       features={FEATURES}

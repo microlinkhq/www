@@ -107,7 +107,7 @@ const CAPABILITIES = [
       <>
         Global CDN caching, automatic retries, and <b>99.9% uptime</b> handle
         the scraping complexity for you — with a{' '}
-        <b>free tier of 25 requests per day</b> to get started.
+        <b>free API key with 100&nbsp;requests per month</b> to get started.
       </>
     )
   }

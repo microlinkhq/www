@@ -50,8 +50,10 @@ export const HERO = {
       from a single call.
     </Text>
   ),
-  ctaHref: '/docs/api/getting-started/overview',
-  ctaLabel: 'Get Started',
+  cta: 'alternative-browserbase:hero',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/getting-started/overview',
+  secondaryLabel: 'Read the docs',
   mqlCode: {
     url: 'https://vercel.com',
     screenshot: true,
@@ -350,15 +352,15 @@ export const COMPARISON = {
       href: '/search',
       microlink: true,
       browserbase: true,
-      note: 'Google results as JSON on Microlink paid plans. Browserbase does not disclose its index and caps Search at 120 requests per minute.'
+      note: 'Google results as JSON with every Microlink API key, free one included. Browserbase does not disclose its index and caps Search at 120 requests per minute.'
     },
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '25/day',
+      microlink: '100/month',
       browserbase: '1 hour',
       highlight: true,
-      note: 'Microlink renews 25 rendered requests every day with no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.'
+      note: 'The free Microlink API key renews 100 requests every month with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.'
     },
     {
       feature: 'Long-lived, stateful sessions',
@@ -432,16 +434,18 @@ export const HONESTY = {
 export const PRICING_CAPTION = (
   <Text as='span'>
     No browser-hours, no concurrency tier, no proxy GB, no separate meter for
-    fetching and searching. One request is one API call — under €1 per 1,000
-    requests on the entry Pro plan, and 25 a day free with no credit card.
+    fetching and searching. One request is one API call: under €1 per 1,000
+    requests on the entry Pro plan, and 100 a month free with no credit card.
   </Text>
 )
 
 export const CTA = {
   caption:
-    'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. 25 requests a day, no account, no browser to operate.',
-  ctaHref: '/docs/api/getting-started/overview',
-  ctaLabel: 'Get started free'
+    'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with 100 requests a month, no browser to operate.',
+  cta: 'alternative-browserbase:footer-cta',
+  ctaLabel: 'Get your free API key',
+  secondaryHref: '/docs/api/getting-started/overview',
+  secondaryLabel: 'Read the docs'
 }
 
 export const FAQ_CAPTION =
@@ -531,7 +535,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Both ship an MCP server. What is the difference?',
-    text: 'The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. It works without an API key on the free tier, except Search, which needs a paid plan and a key.',
+    text: 'The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with 100 requests a month.',
     answer: (
       <>
         <div>
@@ -542,9 +546,9 @@ export const FAQ_ITEMS = [
         <div>
           <Link href='/integrations/mcp'>Microlink MCP</Link> exposes 20 tools
           that each return a finished artifact: screenshot, PDF, Markdown,
-          metadata, media, Lighthouse insights, and Google search. It works
-          without an API key on the free tier, except{' '}
-          <Link href='/search'>Search</Link>, which needs a paid plan and a key.
+          metadata, media, Lighthouse insights, and Google search. A free API
+          key covers every tool, <Link href='/search'>Search</Link> included,
+          with 100&nbsp;requests a month.
         </div>
       </>
     )

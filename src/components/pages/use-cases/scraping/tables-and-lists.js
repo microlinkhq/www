@@ -152,7 +152,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to turn tables into',
     headlineAccent: 'JSON arrays',
-    body: 'Describe one row, get every row. Start on the free tier and scrape your first table today.',
+    body: 'Describe one row, get every row. Start on the free API key and scrape your first table today.',
     href: '/features/scraping',
     label: 'Scrape a table'
   },

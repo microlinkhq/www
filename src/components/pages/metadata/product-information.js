@@ -48,7 +48,7 @@ export const TOP_FAQ_ITEMS = [
   },
   {
     question: 'How do I convert a URL to metadata or a link preview?',
-    text: 'Use the metadata API as a URL preview and link preview endpoint: send an HTTPS GET request to https://api.microlink.io?url=<your-url> and you will receive JSON with the normalized metadata, including og:title, og:description, og:image, og:type, and og:site_name. No authentication is required for the free tier. The response merges Open Graph with Twitter Cards, JSON-LD, and HTML fallbacks so you always get a complete preview.',
+    text: 'Use the metadata API as a URL preview and link preview endpoint: send an HTTPS GET request to https://api.microlink.io?url=<your-url> and you will receive JSON with the normalized metadata, including og:title, og:description, og:image, og:type, and og:site_name. Your free API key goes in the x-api-key header. The response merges Open Graph with Twitter Cards, JSON-LD, and HTML fallbacks so you always get a complete preview.',
     answer: (
       <>
         <div>
@@ -60,7 +60,7 @@ export const TOP_FAQ_ITEMS = [
           <i>og:type</i>, and <i>og:site_name</i>.
         </div>
         <div>
-          No authentication is required for the free tier. The response merges
+          Your free API key goes in the x-api-key header. The response merges
           Open Graph with Twitter Cards, JSON-LD, and HTML fallbacks so you
           always get a complete preview — see the{' '}
           <Link href='/docs/guides/metadata'>metadata guide</Link> for all
@@ -131,21 +131,20 @@ export const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier for the metadata API?',
-    text: 'Yes. The metadata API is free to use with 25 requests per day — no login, no credit card, and no setup required. Just call the endpoint and get normalized metadata back. For production workloads that need higher volume, automatic proxy rotation, custom headers, configurable TTL, and priority support, see our Pro plans starting at €39/month.',
+    text: 'Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the endpoint with the key and get normalized metadata back. Automatic proxy rotation, custom headers and configurable TTL are included; for higher volume and priority support, see our Pro plans starting at €39/month.',
     answer: (
       <>
         <div>
-          Yes. The metadata API is <b>free to use with 25 requests per day</b> —
-          no login, no credit card, and no setup required. Just call the
-          endpoint and get normalized metadata back.
+          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
+          with every Pro feature, no credit card. Call the endpoint with the key
+          and get normalized metadata back.
         </div>
         <div>
-          For production workloads that need higher volume,{' '}
-          <Link href='/docs/guides/common/proxy'>automatic proxy rotation</Link>
-          , <Link href='/docs/api/parameters/headers'>custom headers</Link>,{' '}
-          <Link href='/docs/api/parameters/ttl'>configurable TTL</Link>, and
-          priority support, see our <Link href='/pricing'>Pro plans</Link>{' '}
-          starting at €39/month.
+          <Link href='/docs/guides/common/proxy'>Automatic proxy rotation</Link>
+          , <Link href='/docs/api/parameters/headers'>custom headers</Link> and{' '}
+          <Link href='/docs/api/parameters/ttl'>configurable TTL</Link> are
+          included. For higher volume and priority support, see our{' '}
+          <Link href='/pricing'>Pro plans</Link> starting at €39/month.
         </div>
       </>
     )

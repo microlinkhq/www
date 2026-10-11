@@ -3,7 +3,9 @@ import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 
@@ -29,8 +31,13 @@ const EDITOR_FRAME = {
 export const ProductHero = ({
   title,
   description,
+  cta,
+  product,
+  redirect,
   ctaHref,
-  ctaLabel = 'Get Started',
+  ctaLabel = 'Get your free API key',
+  secondaryHref,
+  secondaryLabel,
   mqlCode,
   examples,
   examplesLabel = 'Examples',
@@ -96,10 +103,24 @@ export const ProductHero = ({
               px: [4, 4, 4, 0],
               width: '100%',
               fontSize: [2, 2, 3, 3],
+              gap: [3, 3, 4, 4],
+              flexDirection: ['column', 'row', 'row', 'row'],
+              alignItems: 'center',
               justifyContent: CENTERED_TO_START
             })}
           >
-            <ArrowLink href={ctaHref}>{ctaLabel}</ArrowLink>
+            {cta
+              ? (
+                <SignupLink cta={cta} product={product} redirect={redirect}>
+                  {ctaLabel}
+                </SignupLink>
+                )
+              : (
+                <ArrowLink href={ctaHref}>{ctaLabel}</ArrowLink>
+                )}
+            {secondaryHref && (
+              <Link href={secondaryHref}>{secondaryLabel}</Link>
+            )}
           </Flex>
         </Flex>
         <Flex

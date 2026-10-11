@@ -15,6 +15,7 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -1701,9 +1702,9 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink offers 25 free screenshot requests per day with no
-          account, no login, and no credit card required. The free tier includes
-          adblock, cookie banner removal, metadata extraction, and{' '}
+          Yes. Sign up for a free API key: 100 screenshot requests per month
+          with every Pro feature and no credit card. It includes adblock, cookie
+          banner removal, metadata extraction, automatic proxy resolution, and{' '}
           <Link href='/docs/guides/screenshot/browser-settings'>
             full browser control
           </Link>
@@ -1717,7 +1718,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes. Microlink offers 25 free screenshot requests per day with no account, no login, and no credit card required. The free tier includes adblock, cookie banner removal, metadata extraction, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
+    text: 'Yes. Sign up for a free API key: 100 screenshot requests per month with every Pro feature and no credit card. It includes adblock, cookie banner removal, metadata extraction, automatic proxy resolution, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
   },
   {
     question: 'What is a screenshot API?',
@@ -1882,7 +1883,7 @@ const BottomCta = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free — no account, no credit card. Start
+          Free API key with 100&nbsp;requests/month, no credit card. Start
           capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
@@ -1916,12 +1917,16 @@ const BottomCta = () => {
             alignItems: 'center'
           })}
         >
-          <Link
-            href='/docs/guides/screenshot'
+          <SignupLink
+            component={Link}
+            cta='benchmarks-screenshot-api:try-it'
             css={theme({ fontSize: CTA_LINK_FONT_SIZE })}
           >
-            Start now for free
-          </Link>
+            Get your free API key
+          </SignupLink>
+          <Box css={theme({ fontSize: [2, 2, 3, 3] })}>
+            <Link href='/docs/guides/screenshot'>Read the guide</Link>
+          </Box>
         </Flex>
         <Flex
           css={theme({
@@ -1931,7 +1936,7 @@ const BottomCta = () => {
             justifyContent: 'center'
           })}
         >
-          {['25 requests/day free', 'No login required', 'No credit card'].map(
+          {['Free API key', '100 requests/month', 'No credit card'].map(
             label => (
               <Flex
                 key={label}

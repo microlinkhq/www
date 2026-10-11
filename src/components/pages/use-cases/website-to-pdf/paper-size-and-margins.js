@@ -163,7 +163,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to print',
     headlineAccent: 'on the right paper',
-    body: 'Format, margins, orientation and scale in one request. Start on the free tier and print your first A4 or Letter document today.',
+    body: 'Format, margins, orientation and scale in one request. Start on the free API key and print your first A4 or Letter document today.',
     href: '/pdf',
     label: 'Print with custom paper'
   },

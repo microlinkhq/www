@@ -130,7 +130,7 @@ const nodejs = {
     subtitle:
       'Get the fully rendered HTML of any URL with one HTTP request in Node.js — real Chromium under the hood, none to maintain.',
     demoAlt: 'Node.js HTML API example',
-    primaryCta: { label: 'Get started free', href: '#quickstart' },
+    primaryCta: { label: 'Get your free API key', cta: 'html-nodejs:primary' },
     secondaryCta: {
       label: 'Read the docs',
       href: '/docs/api/getting-started/overview'
@@ -404,7 +404,7 @@ console.log(data.html)`
       {
         title: 'Generous Free Tier',
         description:
-          'Start with 25 requests per day — no account, no credit card. Add an API key when you are ready to scale.'
+          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
       }
     ]
   },
@@ -486,14 +486,13 @@ console.log(data.html)`
         answer: (
           <>
             <div>
-              The free tier gives you 25 requests per day with no account, no
-              credit card, and no API key. Just call the endpoint and start
-              extracting.
+              Yes, and it is free: sign up for an API key and you get
+              100&nbsp;requests per month with every Pro feature, no credit
+              card. Add it as x-api-key and start extracting.
             </div>
             <div>
-              When you need more throughput or caching control, add an{' '}
-              <code>apiKey</code> header and requests route to the Pro tier. See{' '}
-              <Link href='/pricing'>pricing</Link> for the limits.
+              When you need more volume, pick a paid plan: same key, bigger
+              quota. See <Link href='/pricing'>pricing</Link> for the limits.
             </div>
           </>
         )
@@ -523,13 +522,16 @@ console.log(data.html)`
       </>
     ),
     caption:
-      'Get 25 requests/day with zero commitment — no account and no credit card. Send your first request and get HTML back in minutes.',
+      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and get HTML back in minutes.',
     primary: {
+      label: 'Get your free API key',
+      cta: 'html-nodejs:footer-cta'
+    },
+    secondary: {
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    secondary: { label: 'See pricing', href: '/pricing' },
-    badges: ['No login needed', '25 reqs/day free', 'No credit card']
+    badges: ['Free API key', '100 requests/month', 'No credit card']
   }
 }
 

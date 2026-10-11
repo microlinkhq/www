@@ -12,9 +12,9 @@ Every guide includes practical examples you can adapt quickly. Most API guides a
 
 ## Before you start
 
-The Microlink API works **without an API key** — you get **25 free requests per day**, no signup required. No API key is required to implement your code or to run the examples directly in your browser.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): you get **100 free requests per month** with every Pro feature, no credit card. The examples in these guides run with that key.
 
-Some features are marked with <ProBadge /> and require a paid plan. Everything else works on the free tier. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
+Features marked with <ProBadge /> are included on every plan, the free key too; paid plans add volume. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 
 Microlink Search is the main exception: it is a paid workflow from the first request because public-result collection depends on managed proxy capacity.
 

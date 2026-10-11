@@ -20,10 +20,10 @@ export const INSTALL_PROMPT = `Install the Microlink skill. Run \`${INSTALL_COMM
 export const META = {
   title: 'Microlink AI: Prompt Your Agent to Use Microlink',
   description:
-    'Paste one prompt into Claude, Cursor, or ChatGPT. The Microlink skill is the entry point for screenshots, PDFs, markdown, and scraping. No API key to start.',
+    'Paste one prompt into Claude, Cursor, or ChatGPT. The Microlink skill is the entry point for screenshots, PDFs, markdown, and scraping. Free API key, no credit card.',
   structuredName: 'Microlink AI',
   structuredDescription:
-    'A single agent skill that turns any URL into screenshots, PDFs, markdown, metadata, and structured data. Prompt your agent to install it. Free to start, with no API key needed on the free plan.',
+    'A single agent skill that turns any URL into screenshots, PDFs, markdown, metadata, and structured data. Prompt your agent to install it. Free to start with an API key that includes 100 requests a month and every Pro feature.',
   keywords:
     'Microlink AI, Microlink skill, AI agent skill, screenshot for agents, markdown for LLMs, web scraping for agents',
   about: [
@@ -50,7 +50,7 @@ export const HERO = {
 export const HERO_PROOF = [
   'Paste one prompt into your agent',
   'One skill covers every product',
-  'No API key required to start'
+  'Free API key, no credit card'
 ]
 
 export const HOW = {
@@ -85,7 +85,7 @@ export const HOW_TO = {
 
 export const CTA = {
   caption:
-    'Paste the prompt into your agent. 25\u00a0requests/day, no account, no card.',
+    'Paste the prompt into your agent. Free API key, 100\u00a0requests/month, no card.',
   ctaHref: SKILL_HREF,
   ctaLabel: 'Open the skill'
 }

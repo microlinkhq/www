@@ -114,7 +114,7 @@ export const CONTENT = {
     {
       question: 'How many requests does a Google Scholar search cost?',
       answer:
-        'One per results page, plus one per paper you expand with markdown(). Search has no free tier: it is paid from the first request, and [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+        'One per results page, plus one per paper you expand with markdown(). A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is the Microlink Scholar API affiliated with Google?',
@@ -125,7 +125,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to automate',
     headlineAccent: 'your literature review',
-    body: 'Papers, citation counts and PDF links from Google Scholar as JSON. Get a Pro key and build your first corpus today.',
+    body: 'Papers, citation counts and PDF links from Google Scholar as JSON. Get your free API key and build your first corpus today.',
     href: '/search',
     label: 'Search Scholar papers'
   },

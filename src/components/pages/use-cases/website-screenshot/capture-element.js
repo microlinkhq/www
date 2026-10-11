@@ -147,7 +147,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'just the element',
-    body: 'One selector, one image, no cropping math. Start on the free endpoint and capture a chart, a table or a component in a single call.',
+    body: 'One selector, one image, no cropping math. Start on the free API key and capture a chart, a table or a component in a single call.',
     href: '/screenshot',
     label: 'Capture an element'
   },

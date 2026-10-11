@@ -6,6 +6,7 @@ import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import {
   Caption,
   Heading,
@@ -67,10 +68,10 @@ export const FunctionProductHero = () => (
           justifyContent: 'center'
         })}
       >
-        <ArrowLink css={theme({ pr: [2, 4, 4, 4] })} href={HERO.ctaHref}>
+        <SignupLink cta={HERO.cta} css={theme({ pr: [2, 4, 4, 4] })}>
           {HERO.ctaLabel}
-        </ArrowLink>
-        <ArrowLink href={HERO.docsHref}>{HERO.docsLabel}</ArrowLink>
+        </SignupLink>
+        <ArrowLink href={HERO.editorHref}>{HERO.editorLabel}</ArrowLink>
       </Flex>
     </Flex>
     <Flex

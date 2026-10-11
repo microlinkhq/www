@@ -46,6 +46,9 @@ export { INDUSTRIES, VERTICALS }
 
 export const pathToUseCase = slug => `/use-cases/${slug}`
 
+export const useCaseSignupCta = slug =>
+  `use-cases-${slug.replace(/\//g, '-')}:footer-cta`
+
 export const getUseCase = slug => USE_CASES.find(entry => entry.slug === slug)
 
 export const getIndustry = slug =>

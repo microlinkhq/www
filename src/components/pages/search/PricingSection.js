@@ -77,9 +77,9 @@ const PricingSection = () => (
               maxWidth: layout.small
             })}
           >
-            Search has no free tier because reliable result collection depends
-            on managed proxy capacity, regional routing, and production
-            safeguards on every call.
+            Sign up for a free API key and run 100 searches a month at no cost,
+            proxy included. When you need volume, every paid plan prices Search
+            the same per thousand requests.
           </Text>
         </Box>
 

@@ -34,6 +34,7 @@ import Text from 'components/elements/Text'
 import { Check as CheckIcon } from 'react-feather'
 
 import ArrowLink from 'components/patterns/ArrowLink'
+import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
 import Faq from 'components/patterns/Faq/Faq'
@@ -514,7 +515,7 @@ const Hero = function Hero ({
               gap: [3, 4, 4, 4]
             })}
           >
-            <ArrowLink href='/docs/guides/embed'>Get Started</ArrowLink>
+            <SignupLink cta='embed:hero'>Get your free API key</SignupLink>
           </Flex>
         </Flex>
 
@@ -1390,8 +1391,8 @@ const Pricing = () => {
               maxWidth: layout.normal
             })}
           >
-            No login. No credit card. Embed any URL on the free tier — upgrade
-            when production traffic kicks in.
+            Free API key, no credit card. Embed any URL with 100&nbsp;requests a
+            month and upgrade when production traffic kicks in.
           </Caption>
         </Container>
         <Plans
@@ -1552,7 +1553,7 @@ const EMBED_FEATURES = [
   {
     title: 'Free to Start',
     description:
-      'Embed any URL immediately. No setup fees, no credit card, and pay-as-you-grow pricing once you outgrow the 25 reqs/day free tier.'
+      'Embed any URL immediately. No setup fees, no credit card, and pay-as-you-grow pricing once you outgrow the 100 requests a month on the free API key.'
   },
   {
     title: 'Optional Drop-in SDK',
@@ -1800,18 +1801,16 @@ const CallToAction = () => (
           alignItems: 'center'
         })}
       >
-        <ArrowLink
-          href='/docs/guides/embed'
+        <SignupLink
+          cta='embed:footer-cta'
           css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
         >
-          Read the embed guide
-        </ArrowLink>
-        <ArrowLink
-          href='/docs/guides/embed/sdk'
-          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
-        >
-          Use the SDK
-        </ArrowLink>
+          Get your free API key
+        </SignupLink>
+        <Flex css={theme({ gap: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
+          <Link href='/docs/guides/embed'>Read the embed guide</Link>
+          <Link href='/docs/guides/embed/sdk'>Use the SDK</Link>
+        </Flex>
       </Flex>
       <Flex
         css={theme({
@@ -1821,22 +1820,20 @@ const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['No login needed', '25 reqs/day free', 'No credit card'].map(
-          label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          )
-        )}
+        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+          <Flex
+            key={label}
+            css={theme({
+              alignItems: 'center',
+              gap: 1,
+              color: 'black80',
+              fontSize: [0, 0, 1, 1]
+            })}
+          >
+            <CheckIcon size={16} color={colors.close} />
+            <Text as='span'>{label}</Text>
+          </Flex>
+        ))}
       </Flex>
     </Flex>
   </Container>
@@ -1866,19 +1863,19 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free embed API?',
-    text: `Yes. The Microlink Embed API is free with 25 requests per day — no login, no credit card, no setup. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your daily limit. For production workloads above the free tier, Pro plans start at €39 per month.`,
+    text: `Yes. Sign up for a free API key: 100\u00a0requests per month with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads above the free allowance, Pro plans start at €39 per month.`,
     answer: (
       <>
         <div>
-          Yes. The Microlink <b>Embed API is free with 25 requests per day</b> —
-          no login, no credit card, no setup. Cached responses served from{' '}
-          {CDN_EDGES} Cloudflare edge locations do not count against your daily
-          limit.
+          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
+          with every Pro feature, no credit card. Cached responses served from{' '}
+          {CDN_EDGES} Cloudflare edge locations do not count against your
+          monthly limit.
         </div>
         <div>
-          For production workloads above the free tier,{' '}
+          For production workloads above the free allowance,{' '}
           <Link href='/pricing'>Pro plans</Link> start at €39 per month with
-          higher rate limits, proxy rotation, and priority support.
+          higher rate limits and priority support.
         </div>
       </>
     )
@@ -2113,18 +2110,18 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier?',
-    text: 'Yes. The embed API is free with 25 requests per day — no login, no credit card, no setup. Just call the SDK and embed any URL. For production workloads that need higher volume, automatic proxy rotation, and priority support, see Pro plans starting at €39/month.',
+    text: 'Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the SDK with the key and embed any URL. Proxy rotation is included; for higher volume and priority support, see Pro plans starting at €39/month.',
     answer: (
       <>
         <div>
-          Yes. The embed API is <b>free to use with 25 requests per day</b> — no
-          login, no credit card, no setup. Just call the SDK and embed any URL.
+          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
+          with every Pro feature, no credit card. Call the SDK with the key and
+          embed any URL.
         </div>
         <div>
-          For production workloads that need higher volume,{' '}
-          <Link href='/docs/guides/common/proxy'>proxy rotation</Link>, and
-          priority support, see our <Link href='/pricing'>Pro plans</Link>{' '}
-          starting at €39/month.
+          <Link href='/docs/guides/common/proxy'>Proxy rotation</Link> is
+          included. For higher volume and priority support, see our{' '}
+          <Link href='/pricing'>Pro plans</Link> starting at €39/month.
         </div>
       </>
     )
@@ -2298,7 +2295,7 @@ export const Head = () => (
             'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
             `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'Screenshot fallback for URLs without oEmbed',
-            'Free tier with 25 requests per day'
+            'Free API key with 100 requests per month'
           ],
           isPartOf: {
             '@type': 'WebSite',
@@ -2311,7 +2308,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'EUR',
             description:
-              'Free tier available (25 requests/day). Pro plans start at €39/month for production workloads.',
+              'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
             url: 'https://microlink.io/pricing'
           },
           keywords: [

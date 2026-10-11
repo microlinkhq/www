@@ -20,7 +20,7 @@ export const CUSTOMERS_HUB = {
   cta: {
     headlinePrefix: 'Ready to ship',
     headlineAccent: 'your own story',
-    body: 'Every team on this page started on the free tier with a single API call. Add an API key when you need more volume, proxies or longer caching.',
+    body: 'Every team on this page started on the free API key with a single call. Pick a paid plan when you need more volume.',
     href: '/docs/api/getting-started/overview',
     label: 'Start with the Microlink API'
   }
