@@ -117,8 +117,9 @@ export const ProductInformation = () => {
               </div>
               <div>
                 See the detailed comparisons against{' '}
-                <Link href='/alternative/firecrawl'>Firecrawl</Link> and{' '}
-                <Link href='/alternative/context-dev'>Context.dev</Link> for
+                <Link href='/alternative/firecrawl'>Firecrawl</Link>,{' '}
+                <Link href='/alternative/context-dev'>Context.dev</Link> and{' '}
+                <Link href='/alternative/jina-reader'>Jina Reader</Link> for
                 feature tables, pricing math, and migration notes.
               </div>
             </>
