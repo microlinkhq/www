@@ -143,6 +143,7 @@ const FOOTER_COLUMNS = [
       { label: 'vs Embedly', href: '/alternative/embedly' },
       { label: 'vs Firecrawl', href: '/alternative/firecrawl' },
       { label: 'vs Iframely', href: '/alternative/iframely' },
+      { label: 'vs Jina Reader', href: '/alternative/jina-reader' },
       { label: 'vs ScrapingBee', href: '/alternative/scrapingbee' },
       { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
       { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
