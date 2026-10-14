@@ -4,7 +4,12 @@ import { useLocation } from '@gatsbyjs/reach-router'
 import { Link } from 'components/elements/Link'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { getAttribution } from 'helpers/attribution'
-import { SIGNUP_PATH, dashboardUrl, eventLocation } from 'helpers/dashboard-url'
+import {
+  LOGIN_PATH,
+  SIGNUP_PATH,
+  dashboardUrl,
+  eventLocation
+} from 'helpers/dashboard-url'
 import { trackEvent } from 'helpers/gtag'
 
 export const useDashboardHref = ({
@@ -44,6 +49,13 @@ export const trackSignupClick = ({ cta, pathname }) =>
     transport_type: 'beacon'
   })
 
+export const trackDashboardClick = ({ cta, pathname }) =>
+  trackEvent('dashboard_click', {
+    location: eventLocation(pathname),
+    cta,
+    transport_type: 'beacon'
+  })
+
 export const SignupLink = ({
   cta,
   product,
@@ -71,14 +83,24 @@ export const SignupLink = ({
 export const DashboardLink = ({
   cta,
   product,
+  dashboardPath = LOGIN_PATH,
+  onClick,
   component: Component = Link,
   children,
   ...props
 }) => {
-  const href = useDashboardHref({ dashboardPath: '/', cta, product })
+  const { pathname } = useLocation()
+  const href = useDashboardHref({ dashboardPath, cta, product })
+  const isSignup = dashboardPath === SIGNUP_PATH
+
+  const handleClick = event => {
+    const track = isSignup ? trackSignupClick : trackDashboardClick
+    track({ cta, pathname })
+    if (onClick) onClick(event)
+  }
 
   return (
-    <Component href={href} {...props}>
+    <Component href={href} onClick={handleClick} {...props}>
       {children}
     </Component>
   )

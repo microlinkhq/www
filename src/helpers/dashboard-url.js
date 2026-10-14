@@ -9,6 +9,7 @@ import {
 
 export const DASHBOARD_URL = 'https://dashboard.microlink.io'
 export const SIGNUP_PATH = '/signup'
+export const LOGIN_PATH = '/login'
 
 export const PRODUCTS = [
   'screenshot',
@@ -163,3 +164,18 @@ export const dashboardUrl = (dashboardPath = '/', options) => {
 }
 
 export const signupUrl = options => dashboardUrl(SIGNUP_PATH, options)
+
+export const loginUrl = options => dashboardUrl(LOGIN_PATH, options)
+
+export const dashboardPathFromHref = href => {
+  if (typeof href !== 'string') return undefined
+  let url
+  try {
+    url = new URL(href)
+  } catch {
+    return undefined
+  }
+  if (url.origin !== DASHBOARD_URL) return undefined
+  const path = normalizePath(url.pathname)
+  return path === '/' ? LOGIN_PATH : path
+}

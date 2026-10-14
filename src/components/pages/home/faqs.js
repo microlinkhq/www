@@ -168,8 +168,10 @@ export const getFaqQuestions = () => {
       answer: (
         <div>
           Yes. Upgrade, downgrade, or cancel at any time from{' '}
-          <DashboardLink cta='home:faq'>dashboard.microlink.io</DashboardLink>,
-          no questions asked. We also notify you when you reach 80% of your
+          <DashboardLink cta='home:faq-dashboard'>
+            dashboard.microlink.io
+          </DashboardLink>
+          , no questions asked. We also notify you when you reach 80% of your
           quota, so you can move up before you hit the limit.
         </div>
       )
