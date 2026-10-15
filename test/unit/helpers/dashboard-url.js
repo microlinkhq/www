@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 import {
   PATH_PRODUCTS,
   dashboardPathFromHref,
+  dashboardPathname,
   dashboardUrl,
   eventLocation,
   loginUrl,
@@ -361,6 +362,36 @@ describe('dashboard-url', () => {
         `${LOGIN}?from=/`
       )
     })
+
+    it('merges attribution into the destination query and keeps the fragment', () => {
+      expect(
+        dashboardUrl('/billing?plan=pro#invoices', {
+          cta: 'docs:content',
+          pathname: '/pdf'
+        })
+      ).toBe(
+        'https://dashboard.microlink.io/billing?plan=pro&from=/pdf&product=pdf&cta=docs:content#invoices'
+      )
+    })
+
+    it('lets destination params win over attribution', () => {
+      const url = dashboardUrl('/signup?product=search&cta=docs:custom', {
+        cta: 'docs:content',
+        pathname: '/pdf'
+      })
+      expect(query(url)).toEqual({
+        product: 'search',
+        cta: 'docs:custom',
+        from: '/pdf'
+      })
+    })
+  })
+
+  describe('dashboardPathname', () => {
+    it('strips the query and fragment', () => {
+      expect(dashboardPathname('/signup?plan=pro#x')).toBe('/signup')
+      expect(dashboardPathname('/login')).toBe('/login')
+    })
   })
 
   describe('dashboardPathFromHref', () => {
@@ -371,6 +402,17 @@ describe('dashboard-url', () => {
       expect(dashboardPathFromHref('https://dashboard.microlink.io/')).toBe(
         '/login'
       )
+    })
+
+    it('keeps the query and fragment of the destination', () => {
+      expect(
+        dashboardPathFromHref('https://dashboard.microlink.io/?plan=pro#top')
+      ).toBe('/login?plan=pro#top')
+      expect(
+        dashboardPathFromHref(
+          'https://dashboard.microlink.io/signup?plan=pro#x'
+        )
+      ).toBe('/signup?plan=pro#x')
     })
 
     it('keeps any other dashboard path', () => {

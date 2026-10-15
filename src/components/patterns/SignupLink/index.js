@@ -7,6 +7,7 @@ import { getAttribution } from 'helpers/attribution'
 import {
   LOGIN_PATH,
   SIGNUP_PATH,
+  dashboardPathname,
   dashboardUrl,
   eventLocation
 } from 'helpers/dashboard-url'
@@ -91,7 +92,7 @@ export const DashboardLink = ({
 }) => {
   const { pathname } = useLocation()
   const href = useDashboardHref({ dashboardPath, cta, product })
-  const isSignup = dashboardPath === SIGNUP_PATH
+  const isSignup = dashboardPathname(dashboardPath) === SIGNUP_PATH
 
   const handleClick = event => {
     const track = isSignup ? trackSignupClick : trackDashboardClick
