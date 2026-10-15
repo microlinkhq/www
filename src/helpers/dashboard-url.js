@@ -9,6 +9,7 @@ import {
 
 export const DASHBOARD_URL = 'https://dashboard.microlink.io'
 export const SIGNUP_PATH = '/signup'
+export const LOGIN_PATH = '/login'
 
 export const PRODUCTS = [
   'screenshot',
@@ -155,11 +156,46 @@ export const dashboardParams = ({
     .filter(([, value]) => Boolean(value))
 }
 
+const splitOnce = (value, separator) => {
+  const index = value.indexOf(separator)
+  return index === -1
+    ? [value, '']
+    : [value.slice(0, index), value.slice(index + 1)]
+}
+
+export const dashboardPathname = dashboardPath =>
+  splitOnce(splitOnce(dashboardPath, '#')[0], '?')[0]
+
 export const dashboardUrl = (dashboardPath = '/', options) => {
-  const query = dashboardParams(options)
-    .map(([key, value]) => `${key}=${encode(value)}`)
+  const [pathAndQuery, hash] = splitOnce(dashboardPath, '#')
+  const [path, destinationQuery] = splitOnce(pathAndQuery, '?')
+  const destinationKeys = new Set(new URLSearchParams(destinationQuery).keys())
+  const query = [
+    destinationQuery,
+    ...dashboardParams(options)
+      .filter(([key]) => !destinationKeys.has(key))
+      .map(([key, value]) => `${key}=${encode(value)}`)
+  ]
+    .filter(Boolean)
     .join('&')
-  return `${DASHBOARD_URL}${dashboardPath}${query ? `?${query}` : ''}`
+  return `${DASHBOARD_URL}${path}${query ? `?${query}` : ''}${
+    hash ? `#${hash}` : ''
+  }`
 }
 
 export const signupUrl = options => dashboardUrl(SIGNUP_PATH, options)
+
+export const loginUrl = options => dashboardUrl(LOGIN_PATH, options)
+
+export const dashboardPathFromHref = href => {
+  if (typeof href !== 'string') return undefined
+  let url
+  try {
+    url = new URL(href)
+  } catch {
+    return undefined
+  }
+  if (url.origin !== DASHBOARD_URL) return undefined
+  const path = normalizePath(url.pathname)
+  return `${path === '/' ? LOGIN_PATH : path}${url.search}${url.hash}`
+}

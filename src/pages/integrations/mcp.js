@@ -103,7 +103,7 @@ const MCP_CONFIG_NPX = `{
 }`
 
 const PROMPT_TAIL =
-  'Sign up for a free API key at https://dashboard.microlink.io/signup (100 requests/month, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
+  'Sign up for a free API key at https://dashboard.microlink.io/signup?cta=mcp:setup (100 requests/month, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
 
 const commandPrompt = command =>
   `Install the Microlink MCP server. Run \`${command}\`. ${PROMPT_TAIL}`
@@ -1277,8 +1277,8 @@ const buildLaunchPrompt = (task, tool) => {
     ...mcpConfigLines(needsKey),
     '',
     needsKey
-      ? 'Search needs a Microlink API key — sign up for a free one (100 requests/month) at https://dashboard.microlink.io/signup. Setup guide: https://microlink.io/integrations/mcp'
-      : 'Sign up for a free API key (100 requests/month) at https://dashboard.microlink.io/signup. Setup guide: https://microlink.io/integrations/mcp'
+      ? 'Search needs a Microlink API key — sign up for a free one (100 requests/month) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
+      : 'Sign up for a free API key (100 requests/month) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
   ].join('\n')
 }
 

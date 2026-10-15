@@ -2,13 +2,17 @@ import { afterEach, describe, expect, it, vi } from 'vitest'
 
 import {
   PATH_PRODUCTS,
+  dashboardPathFromHref,
+  dashboardPathname,
   dashboardUrl,
   eventLocation,
+  loginUrl,
   productFromPath,
   signupUrl
 } from '../../../src/helpers/dashboard-url.js'
 
 const SIGNUP = 'https://dashboard.microlink.io/signup'
+const LOGIN = 'https://dashboard.microlink.io/login'
 
 const query = url => Object.fromEntries(new URL(url).searchParams)
 
@@ -267,22 +271,166 @@ describe('dashboard-url', () => {
     })
   })
 
-  describe('dashboardUrl', () => {
-    it('builds a login link with the same params', () => {
+  describe('loginUrl', () => {
+    it('is deterministic from the page path alone (SSR, no window)', () => {
+      vi.stubGlobal('window', undefined)
       expect(
-        dashboardUrl('/', {
-          cta: 'toolbar:dashboard',
-          pathname: '/screenshot/php'
-        })
-      ).toBe(
-        'https://dashboard.microlink.io/?from=/screenshot/php&product=screenshot&cta=toolbar:dashboard'
+        loginUrl({ cta: 'toolbar:sign-in', pathname: '/screenshot' })
+      ).toBe(`${LOGIN}?from=/screenshot&product=screenshot&cta=toolbar:sign-in`)
+    })
+
+    it('keeps the first touch when the visitor moves on to the docs', () => {
+      const url = loginUrl({
+        cta: 'toolbar:sign-in',
+        pathname: '/docs/api/getting-started/overview',
+        attribution: {
+          landing: '/screenshot',
+          first_seen_at: '2026-10-14T10:00:00.000Z'
+        }
+      })
+      expect(url).toBe(
+        `${LOGIN}?from=/screenshot&product=screenshot&cta=toolbar:sign-in`
       )
     })
 
-    it('has no query when nothing is known', () => {
-      expect(dashboardUrl('/', { pathname: undefined })).toBe(
-        'https://dashboard.microlink.io/?from=/'
+    it('carries first-touch utms', () => {
+      const url = loginUrl({
+        cta: 'toolbar-mobile:sign-in',
+        pathname: '/pricing',
+        attribution: {
+          landing: '/pdf',
+          utm_source: 'test',
+          utm_medium: 'cpc',
+          utm_campaign: 'launch',
+          utm_content: 'banner',
+          utm_term: 'pdf api'
+        }
+      })
+      expect(query(url)).toEqual({
+        from: '/pdf',
+        product: 'pdf',
+        utm_source: 'test',
+        utm_medium: 'cpc',
+        utm_campaign: 'launch',
+        utm_content: 'banner',
+        utm_term: 'pdf api',
+        cta: 'toolbar-mobile:sign-in'
+      })
+    })
+
+    it('falls back to the current url utms when the store has none', () => {
+      const url = loginUrl({
+        cta: 'toolbar:sign-in',
+        pathname: '/screenshot',
+        search: '?utm_source=test&utm_medium=cpc'
+      })
+      expect(url).toBe(
+        `${LOGIN}?from=/screenshot&product=screenshot&utm_source=test&utm_medium=cpc&cta=toolbar:sign-in`
       )
+    })
+
+    it('never sends ref, even from a legacy store with a referrer', () => {
+      const url = loginUrl({
+        cta: 'toolbar:sign-in',
+        pathname: '/',
+        attribution: {
+          landing: '/',
+          referrer: 'https://news.ycombinator.com/item'
+        }
+      })
+      expect(query(url)).not.toHaveProperty('ref')
+      expect(query(url)).not.toHaveProperty('referrer')
+      expect(url).not.toContain('news.ycombinator.com')
+    })
+
+    it('caps every value at 200 characters', () => {
+      const long = 'x'.repeat(500)
+      const url = loginUrl({
+        cta: long,
+        pathname: `/${long}`,
+        attribution: { landing: `/${long}`, utm_source: long, utm_term: long }
+      })
+      Object.values(query(url)).forEach(value =>
+        expect(value.length).toBeLessThanOrEqual(200)
+      )
+    })
+  })
+
+  describe('dashboardUrl', () => {
+    it('only adds from when nothing else is known', () => {
+      expect(dashboardUrl('/login', { pathname: undefined })).toBe(
+        `${LOGIN}?from=/`
+      )
+    })
+
+    it('merges attribution into the destination query and keeps the fragment', () => {
+      expect(
+        dashboardUrl('/billing?plan=pro#invoices', {
+          cta: 'docs:content',
+          pathname: '/pdf'
+        })
+      ).toBe(
+        'https://dashboard.microlink.io/billing?plan=pro&from=/pdf&product=pdf&cta=docs:content#invoices'
+      )
+    })
+
+    it('lets destination params win over attribution', () => {
+      const url = dashboardUrl('/signup?product=search&cta=docs:custom', {
+        cta: 'docs:content',
+        pathname: '/pdf'
+      })
+      expect(query(url)).toEqual({
+        product: 'search',
+        cta: 'docs:custom',
+        from: '/pdf'
+      })
+    })
+  })
+
+  describe('dashboardPathname', () => {
+    it('strips the query and fragment', () => {
+      expect(dashboardPathname('/signup?plan=pro#x')).toBe('/signup')
+      expect(dashboardPathname('/login')).toBe('/login')
+    })
+  })
+
+  describe('dashboardPathFromHref', () => {
+    it('sends the dashboard root to /login', () => {
+      expect(dashboardPathFromHref('https://dashboard.microlink.io')).toBe(
+        '/login'
+      )
+      expect(dashboardPathFromHref('https://dashboard.microlink.io/')).toBe(
+        '/login'
+      )
+    })
+
+    it('keeps the query and fragment of the destination', () => {
+      expect(
+        dashboardPathFromHref('https://dashboard.microlink.io/?plan=pro#top')
+      ).toBe('/login?plan=pro#top')
+      expect(
+        dashboardPathFromHref(
+          'https://dashboard.microlink.io/signup?plan=pro#x'
+        )
+      ).toBe('/signup?plan=pro#x')
+    })
+
+    it('keeps any other dashboard path', () => {
+      expect(
+        dashboardPathFromHref('https://dashboard.microlink.io/signup')
+      ).toBe('/signup')
+      expect(
+        dashboardPathFromHref('https://dashboard.microlink.io/billing/')
+      ).toBe('/billing')
+    })
+
+    it('ignores everything that is not the dashboard', () => {
+      expect(dashboardPathFromHref('/docs')).toBeUndefined()
+      expect(dashboardPathFromHref('https://microlink.io')).toBeUndefined()
+      expect(
+        dashboardPathFromHref('https://dashboard.microlink.io.evil.test')
+      ).toBeUndefined()
+      expect(dashboardPathFromHref(undefined)).toBeUndefined()
     })
   })
 })
