@@ -26,6 +26,33 @@ const publishedAt = async name => {
 const sortAlphabetically = (a, b) =>
   a.toLowerCase().localeCompare(b.toLowerCase())
 
+export const parseWellKnownBots = text => {
+  const items = JSON.parse(text)
+
+  const toUserAgent = items => {
+    const agents = items.map(item => item.instances?.accepted ?? []).flat()
+    const uniqueAgents = new Map()
+
+    for (const agent of agents) {
+      const normalizedAgent = agent.trim()
+      const lowercasedAgent = normalizedAgent.toLowerCase()
+      if (!uniqueAgents.has(lowercasedAgent)) {
+        uniqueAgents.set(lowercasedAgent, normalizedAgent)
+      }
+    }
+
+    return Array.from(uniqueAgents.values()).sort(sortAlphabetically)
+  }
+
+  const ai = items.filter(item => item.categories.includes('ai'))
+  const rest = items.filter(item => !item.categories.includes('ai'))
+
+  return {
+    crawler: toUserAgent(rest),
+    ai: toUserAgent(ai)
+  }
+}
+
 const SOURCES = [
   // [
   //   'aiRobotsTxt',
@@ -37,34 +64,7 @@ const SOURCES = [
   [
     'wellKnownBots',
     'https://raw.githubusercontent.com/arcjet/well-known-bots/main/well-known-bots.json',
-    text => {
-      const items = JSON.parse(text)
-
-      const toUserAgent = items => {
-        const agents = items.map(item => item.instances.accepted).flat()
-        const uniqueAgents = new Map()
-
-        for (const agent of agents) {
-          const normalizedAgent = agent.trim()
-          const lowercasedAgent = normalizedAgent.toLowerCase()
-          if (!uniqueAgents.has(lowercasedAgent)) {
-            uniqueAgents.set(lowercasedAgent, normalizedAgent)
-          }
-        }
-
-        return Array.from(uniqueAgents.values()).sort((a, b) =>
-          a.toLowerCase().localeCompare(b.toLowerCase())
-        )
-      }
-
-      const ai = items.filter(item => item.categories.includes('ai'))
-      const rest = items.filter(item => !item.categories.includes('ai'))
-
-      return {
-        crawler: toUserAgent(rest),
-        ai: toUserAgent(ai)
-      }
-    }
+    parseWellKnownBots
   ],
   [
     'crawlerAgents',
