@@ -26,11 +26,25 @@ const publishedAt = async name => {
 const sortAlphabetically = (a, b) =>
   a.toLowerCase().localeCompare(b.toLowerCase())
 
+const REGEX_SYNTAX_OR_WHITESPACE = /[\\^$*+?()[\]{}|\s]/
+const ESCAPED_LITERAL = /\\([./-])/g
+
+const toLiteralUserAgent = pattern => {
+  const literal = pattern.replace(ESCAPED_LITERAL, '$1').replace(/\/$/, '')
+  return REGEX_SYNTAX_OR_WHITESPACE.test(literal) ? null : literal
+}
+
+const userAgentsOf = item => {
+  const samples = item.instances?.accepted ?? []
+  if (samples.length > 0) return samples
+  return (item.pattern?.accepted ?? []).map(toLiteralUserAgent).filter(Boolean)
+}
+
 export const parseWellKnownBots = text => {
   const items = JSON.parse(text)
 
   const toUserAgent = items => {
-    const agents = items.map(item => item.instances?.accepted ?? []).flat()
+    const agents = items.map(userAgentsOf).flat()
     const uniqueAgents = new Map()
 
     for (const agent of agents) {
