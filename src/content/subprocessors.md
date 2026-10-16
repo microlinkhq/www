@@ -62,6 +62,24 @@ The following companies act as subprocessors and may have access to personal dat
 - **Location**: United States  
 - **Website**: [sentry.io](https://sentry.io)
 
+### Analytics
+
+**Google LLC**
+
+- **Services**: Website analytics (Google Analytics)  
+- **Data Types**: Cookie identifiers, pages visited, browser and device information
+- **Location**: Global (international transfers under standard contractual clauses)  
+- **Website**: [google.com](https://google.com)
+
+### Authentication
+
+**Clerk, Inc.**
+
+- **Services**: Dashboard sign-up, sign-in, user and session management  
+- **Data Types**: Email addresses, names, profile images, linked OAuth identities, session data, IP addresses, user agents  
+- **Location**: United States  
+- **Website**: [clerk.com](https://clerk.com)
+
 ### Payment processing
 
 **Stripe Inc.**
