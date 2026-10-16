@@ -57,11 +57,18 @@ const addUnique = (lines, ...entries) => {
 const getValue = (placeholders, name, value) =>
   value || placeholders[name] || ''
 
-export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
-  const placeholders = buildPlaceholders(metadata)
-  const twitterCardValue = metadata?.image?.url
+export const getTwitterCardValue = ({ issues = [], metadata = {} } = {}) =>
+  metadata?.image?.url || issues.some(issue => issue.name === 'image')
     ? 'summary_large_image'
     : 'summary'
+
+export const buildFixSnippet = ({
+  issues = [],
+  metadata = {},
+  twitterCardValue = getTwitterCardValue({ issues, metadata })
+} = {}) => {
+  const placeholders = buildPlaceholders(metadata)
+  const twitterCardTag = `<meta name="twitter:card" content="${twitterCardValue}">`
 
   const issueFixes = issues.reduce(
     (groups, issue) => {
@@ -77,7 +84,7 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           )
           addUnique(
             groups.twitter,
-            `<meta name="twitter:card" content="${twitterCardValue}">`,
+            twitterCardTag,
             `<meta name="twitter:title" content="${safeValue}">`
           )
           break
@@ -99,7 +106,7 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           )
           addUnique(
             groups.twitter,
-            `<meta name="twitter:card" content="${twitterCardValue}">`,
+            twitterCardTag,
             `<meta name="twitter:description" content="${safeValue}">`
           )
           break
@@ -111,7 +118,7 @@ export const buildFixSnippet = ({ issues = [], metadata = {} } = {}) => {
           )
           addUnique(
             groups.twitter,
-            '<meta name="twitter:card" content="summary_large_image">',
+            twitterCardTag,
             `<meta name="twitter:image" content="${safeValue}">`
           )
           break

@@ -1,4 +1,4 @@
-import { buildFixSnippet } from './fix-snippet'
+import { buildFixSnippet, getTwitterCardValue } from './fix-snippet'
 
 const VALIDATOR_STATUS_ERROR = 'ERROR'
 
@@ -120,8 +120,8 @@ const getRecommendation = issue => {
   }
 }
 
-const getSuggestedSnippet = ({ issue, metadata }) => {
-  return buildFixSnippet({ issues: [issue], metadata })
+const getSuggestedSnippet = ({ issue, metadata, twitterCardValue }) => {
+  return buildFixSnippet({ issues: [issue], metadata, twitterCardValue })
     .split('\n')
     .filter(line => line.trim() && !line.trim().startsWith('<!--'))
     .join('\n')
@@ -168,10 +168,11 @@ export const buildLlmRepairPrompt = ({ issues = [], metadata = {} } = {}) => {
 
   const pageLabel = getPageLabel(metadata)
   const requiredValues = getRequiredValues(issues)
+  const twitterCardValue = getTwitterCardValue({ issues, metadata })
 
   const issueBlocks = issues
     .map((issue, index) => {
-      const snippet = getSuggestedSnippet({ issue, metadata })
+      const snippet = getSuggestedSnippet({ issue, metadata, twitterCardValue })
 
       return [
         `Issue ${index + 1}: ${getIssueTitle(issue)}`,
