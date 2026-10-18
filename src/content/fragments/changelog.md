@@ -1,5 +1,6 @@
 ### October 2026
 
+- [Microlink API](/docs/api/basics/error-codes): Added [EHTMLNESTED](/docs/api/basics/error-codes#ehtmlnested) when a document is too deeply nested to read as HTML.
 - [Microlink API](/docs/api/parameters/data): [data](/docs/api/parameters/data) `evaluate` runs on the function page.
 - [Microlink API](/docs/api/parameters/function): A proxied [function](/docs/api/parameters/function) no longer counts images, CSS, and fonts toward quota.
 - [unavatar.io](https://unavatar.io): Checkout keeps the existing account when the email is already registered.

@@ -416,6 +416,10 @@
       "destination": "/docs/api/basics/error-codes#eheaders"
     },
     {
+      "source": "/ehtmlnested",
+      "destination": "/docs/api/basics/error-codes#ehtmlnested"
+    },
+    {
       "source": "/einvalurl",
       "destination": "/docs/api/basics/error-codes#einvalurl"
     },
