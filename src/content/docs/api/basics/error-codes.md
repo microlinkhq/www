@@ -105,6 +105,18 @@ You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) qu
 
 See [pricing](/pricing) for upgrading your plan.
 
+## EHTMLNESTED
+
+**Message**
+
+The document is too deeply nested to read as HTML.
+
+**Solution**
+
+The target is XML or another document whose tags do not close the way HTML expects, so it cannot be read back as HTML.
+
+Request the file directly, or pass a page that is HTML.
+
 ## EINVALURL
 
 **Message**
