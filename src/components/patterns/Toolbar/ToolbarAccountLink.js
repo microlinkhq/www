@@ -5,7 +5,8 @@ import { useDashboardSession } from 'components/hook/use-dashboard-session'
 import { LOGIN_PATH } from 'helpers/dashboard-url'
 import { Layout, LogIn } from 'react-feather'
 import React from 'react'
-import { theme } from 'theme'
+import styled, { css, keyframes } from 'styled-components'
+import { space, speed, timings, theme } from 'theme'
 
 import {
   DASHBOARD_NAV_ITEM,
@@ -13,6 +14,9 @@ import {
   ToolbarActionLink
 } from './ToolbarLinks'
 import { TOOLBAR_TOP_LEVEL_CAPS_STYLES } from './ToolbarStyles'
+
+const SWAP_SHIFT = space[1]
+const SWAP_ANIMATION = `${speed.quickly}ms ${timings.long} both`
 
 const SIGNED_IN_LINK = {
   item: DASHBOARD_NAV_ITEM,
@@ -28,11 +32,68 @@ const SIGNED_OUT_LINK = {
   ctaAction: 'sign-in'
 }
 
+const fadeIn = keyframes`
+  from { opacity: 0 }
+  to { opacity: 1 }
+`
+
+const fadeOut = keyframes`
+  from { opacity: 1 }
+  to { opacity: 0 }
+`
+
+const slideIn = keyframes`
+  from { opacity: 0; transform: translateY(${SWAP_SHIFT}) }
+  to { opacity: 1; transform: translateY(0) }
+`
+
+const slideOut = keyframes`
+  from { opacity: 1; transform: translateY(0) }
+  to { opacity: 0; transform: translateY(-${SWAP_SHIFT}) }
+`
+
+const swapAnimation = ({ $isActive }) => css`
+  animation: ${$isActive ? fadeIn : fadeOut} ${SWAP_ANIMATION};
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation-name: ${$isActive ? slideIn : slideOut};
+  }
+`
+
+const LabelStack = styled.span`
+  ${theme({ display: 'inline-grid', alignItems: 'center' })};
+`
+
+const Label = styled.span`
+  grid-area: 1 / 1;
+  ${theme({
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '6px',
+    whiteSpace: 'nowrap'
+  })};
+  opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
+  ${({ $hasChanged }) => $hasChanged && swapAnimation};
+`
+
+const AccountLabel = ({ link: { item, icon }, isActive, hasChanged }) => (
+  <Label
+    $isActive={isActive}
+    $hasChanged={hasChanged}
+    aria-hidden={isActive ? undefined : 'true'}
+  >
+    <FeatherIcon icon={icon} size='14px' />
+    <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
+      {item.label}
+    </Caps>
+  </Label>
+)
+
 const ToolbarAccountLink = ({ ctaLocation, ...props }) => {
-  const isSignedIn = useDashboardSession()
-  const { item, icon, dashboardPath, ctaAction } = isSignedIn
-    ? SIGNED_IN_LINK
-    : SIGNED_OUT_LINK
+  const { isSignedIn, hasChanged } = useDashboardSession()
+  const activeLink = isSignedIn ? SIGNED_IN_LINK : SIGNED_OUT_LINK
+  const { item, dashboardPath, ctaAction } = activeLink
 
   return (
     <DashboardLink
@@ -46,10 +107,16 @@ const ToolbarAccountLink = ({ ctaLocation, ...props }) => {
       data-event-name={item.label}
       {...props}
     >
-      <FeatherIcon icon={icon} size='14px' />
-      <Caps as='span' css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}>
-        {item.label}
-      </Caps>
+      <LabelStack>
+        {[SIGNED_OUT_LINK, SIGNED_IN_LINK].map(link => (
+          <AccountLabel
+            key={link.ctaAction}
+            link={link}
+            isActive={link === activeLink}
+            hasChanged={hasChanged}
+          />
+        ))}
+      </LabelStack>
     </DashboardLink>
   )
 }

@@ -1,15 +1,27 @@
 import { useEffect, useState } from 'react'
 import { hasDashboardSession } from 'helpers/dashboard-session'
 
+let lastKnownSignedIn = false
+
 export const useDashboardSession = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false)
+  const [session, setSession] = useState(() => ({
+    isSignedIn: lastKnownSignedIn,
+    hasChanged: false
+  }))
 
   useEffect(() => {
-    const sync = () => setIsSignedIn(hasDashboardSession(document.cookie))
+    const sync = () => {
+      lastKnownSignedIn = hasDashboardSession(document.cookie)
+      setSession(previous =>
+        previous.isSignedIn === lastKnownSignedIn
+          ? previous
+          : { isSignedIn: lastKnownSignedIn, hasChanged: true }
+      )
+    }
     sync()
     document.addEventListener('visibilitychange', sync)
     return () => document.removeEventListener('visibilitychange', sync)
   }, [])
 
-  return isSignedIn
+  return session
 }
