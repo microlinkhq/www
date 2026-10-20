@@ -1,13 +1,35 @@
 ### October 2026
 
+- [Microlink API](/docs/api/getting-started/overview): Unfurls Meta AI shared artifacts.
 - [Microlink API](/docs/api/basics/error-codes): Added [EHTMLNESTED](/docs/api/basics/error-codes#ehtmlnested) when a document is too deeply nested to read as HTML.
+- [Microlink API](/docs/api/getting-started/overview): Unfurls Google Maps share links.
+- [Microlink](/subprocessors): Listed [Clerk](https://clerk.com) and [Google Analytics](https://marketingplatform.google.com/about/analytics/) as subprocessors.
+- [Microlink MCP](/integrations/mcp): Signup and checkout open straight from the agent.
+- [Microlink Tools](/tools): [Sharing debugger](/tools/sharing-debugger) fix snippet suggests a single `twitter:card` type.
+- [unavatar.io](https://unavatar.io): Added [Bitbucket](https://unavatar.io/bitbucket), [Chess.com](https://unavatar.io/chesscom), [Codeforces](https://unavatar.io/codeforces), [Dailymotion](https://unavatar.io/dailymotion), [DEV](https://unavatar.io/devto), [Duolingo](https://unavatar.io/duolingo), [ENS](https://unavatar.io/ens), [Farcaster](https://unavatar.io/farcaster), [Goodreads](https://unavatar.io/goodreads), [Gumroad](https://unavatar.io/gumroad), [Kaggle](https://unavatar.io/kaggle), [Keybase](https://unavatar.io/keybase), [Lemmy](https://unavatar.io/lemmy), [Libravatar](https://unavatar.io/libravatar), [Matrix](https://unavatar.io/matrix), [Minecraft](https://unavatar.io/minecraft), [Mixcloud](https://unavatar.io/mixcloud), [note](https://unavatar.io/note), [Open Collective](https://unavatar.io/opencollective), [osu!](https://unavatar.io/osu), [Roblox](https://unavatar.io/roblox), [Sketchfab](https://unavatar.io/sketchfab), [Speedrun](https://unavatar.io/speedrun), and [Wattpad](https://unavatar.io/wattpad) support.
+- [unavatar.io](https://unavatar.io): Improved [Tieba](https://unavatar.io/tieba) and [Zhihu](https://unavatar.io/zhihu) avatar resolution.
+- [Microlink](https://dashboard.microlink.io): The Get started prompt sets up Microlink in your project, in your project's language.
+- [Microlink API](/docs/api/parameters/meta): Measures SVG [logo](/docs/api/parameters/meta) size from its width and height.
+- [Microlink API](/docs/api/parameters/function): Each [function](/docs/api/parameters/function) run is scoped to its own browser context.
+- [Microlink](/): The toolbar has a Sign in button.
+- [Browserless v14](https://browserless.js.org): Scales full-page screenshots past the PNG size limit instead of failing.
+- [Microlink](https://dashboard.microlink.io): Added a Get started guide and a Buy API key flow.
+- [Browserless v14](https://browserless.js.org): Added [@browserless/agent](https://github.com/microlinkhq/browserless/tree/master/packages/agent) with `page.goal` and `page.extract`, plus `browserless exec`.
 - [Microlink API](/docs/api/parameters/data): [data](/docs/api/parameters/data) `evaluate` runs on the function page.
 - [Microlink API](/docs/api/parameters/function): A proxied [function](/docs/api/parameters/function) no longer counts images, CSS, and fonts toward quota.
 - [unavatar.io](https://unavatar.io): Checkout keeps the existing account when the email is already registered.
+- [Microlink](/use-cases): Added the [animated screenshots](/use-cases/website-screenshot/animated-screenshots) use case.
 - [unavatar.io](https://unavatar.io): Publishable keys can allow localhost.
 - [Microlink](https://dashboard.microlink.io): Free plan for everyone, without a card.
 - [Microlink](/): Serves `/.well-known/agent-feedback.json` so agents can find the feedback endpoint.
+- [Microlink](/): The homepage hero badge copies the install command.
+- [Microlink API](/docs/api/parameters/force): [force](/docs/api/parameters/force) purges every cached copy at the edge.
+- [Microlink OSS](/oss): [youtube-dl-exec v3.1](https://github.com/microlinkhq/youtube-dl-exec) types every yt-dlp flag.
+- [Microlink API](/docs/api/getting-started/overview): Error responses link to the feedback form instead of email.
+- [Microlink](https://dashboard.microlink.io): Sign up requires a work email.
 - [Microlink Blog](/blog): Published [Optimizing Microlink Functions](/blog/optimizing-microlink-functions).
+- [Microlink API](/docs/api/getting-started/overview): Unfurls Kahoot quizzes and Claude links.
+- [Microlink MQL](/docs/mql/getting-started/overview): Works from CommonJS without `require(esm)`.
 
 ### September 2026
 
