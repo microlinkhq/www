@@ -65,15 +65,18 @@ const LabelStack = styled.span`
 `
 
 const Label = styled.span`
-  grid-area: 1 / 1;
-  ${theme({
-    display: 'inline-flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: '6px',
-    whiteSpace: 'nowrap'
-  })};
-  opacity: ${({ $isActive }) => ($isActive ? 1 : 0)};
+  ${({ $isActive }) =>
+    theme({
+      gridArea: '1 / 1',
+      display: 'inline-flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '6px',
+      whiteSpace: 'nowrap',
+      opacity: $isActive ? 1 : 0,
+      pointerEvents: $isActive ? 'auto' : 'none',
+      userSelect: $isActive ? 'auto' : 'none'
+    })};
   ${({ $hasChanged }) => $hasChanged && swapAnimation};
 `
 

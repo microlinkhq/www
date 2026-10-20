@@ -28,4 +28,19 @@ describe('hasDashboardSession', () => {
     expect(hasDashboardSession('__client_uatx=1760953560')).toBe(false)
     expect(hasDashboardSession('__client_uat=garbage')).toBe(false)
   })
+
+  test('signed out when the value is not a whole positive timestamp', () => {
+    expect(hasDashboardSession('__client_uat=1760953560invalid')).toBe(false)
+    expect(hasDashboardSession('__client_uat=+1760953560')).toBe(false)
+    expect(hasDashboardSession('__client_uat=1e10')).toBe(false)
+    expect(hasDashboardSession('__client_uat=1.5')).toBe(false)
+    expect(hasDashboardSession('__client_uat= 1760953560')).toBe(false)
+    expect(hasDashboardSession('__client_uat=-1')).toBe(false)
+  })
+
+  test('signed in when the two client_uat cookies disagree', () => {
+    expect(
+      hasDashboardSession('__client_uat=0; __client_uat_Y2xlcmsu=1760953560')
+    ).toBe(true)
+  })
 })
