@@ -137,6 +137,12 @@ export const SIGN_IN_NAV_ITEM = createNavigationItem({
   externalIcon: false
 })
 
+export const DASHBOARD_NAV_ITEM = createNavigationItem({
+  label: 'Dashboard',
+  title: 'Open the Microlink dashboard',
+  externalIcon: false
+})
+
 export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 export const TOOLS_INTEGRATIONS_ITEMS = [
