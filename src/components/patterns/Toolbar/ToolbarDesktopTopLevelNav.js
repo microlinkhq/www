@@ -6,7 +6,7 @@ import React from 'react'
 import { theme } from 'theme'
 
 import { DIRECT_NAV_ITEMS, NAVIGATION_SECTIONS } from './ToolbarLinks'
-import ToolbarSignInLink from './ToolbarSignInLink'
+import ToolbarAccountLink from './ToolbarAccountLink'
 import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,
@@ -24,19 +24,19 @@ import {
   toSectionDomId
 } from './ToolbarDesktopStyles'
 
-const SIGN_IN_ACTION_STYLES = theme({
+const ACCOUNT_ACTION_STYLES = theme({
   display: ['none', 'none', 'inline-flex', 'inline-flex'],
   alignSelf: 'center',
   height: '36px',
   ml: 2
 })
 
-const SignInActionLink = ({ onClosePanel }) => (
-  <ToolbarSignInLink
-    cta='toolbar:sign-in'
+const AccountActionLink = ({ onClosePanel }) => (
+  <ToolbarAccountLink
+    ctaLocation='toolbar'
     onClick={onClosePanel}
     onMouseEnter={onClosePanel}
-    css={SIGN_IN_ACTION_STYLES}
+    css={ACCOUNT_ACTION_STYLES}
   />
 )
 
@@ -153,7 +153,7 @@ const ToolbarDesktopTopLevelNav = ({
         </Caps>
       </TopLevelDirectLink>
     ))}
-    <SignInActionLink onClosePanel={onClosePanel} />
+    <AccountActionLink onClosePanel={onClosePanel} />
   </Flex>
 )
 

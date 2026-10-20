@@ -35,7 +35,7 @@ import {
   getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
-import ToolbarSignInLink from './ToolbarSignInLink'
+import ToolbarAccountLink from './ToolbarAccountLink'
 
 const MOBILE_MENU_ITEM_STYLES = {
   py: 1,
@@ -519,8 +519,8 @@ const ToolbarMobile = ({ animated }) => {
                 </MobileDirectNavLink>
               )
             )}
-            <ToolbarSignInLink
-              cta='toolbar-mobile:sign-in'
+            <ToolbarAccountLink
+              ctaLocation='toolbar-mobile'
               onClick={closeMenu}
               css={theme({
                 display: 'flex',
