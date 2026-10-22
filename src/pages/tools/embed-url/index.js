@@ -727,7 +727,9 @@ const ProductInformation = () => (
               nodes and don't count against your limit.
             </div>
             <div>
-              For production volume, see <Link href='/pricing'>Pro plans</Link>.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/embed'>Embed API</Link> with a developer API key to
+              generate embeds from your code.
             </div>
           </>
         )

@@ -247,7 +247,9 @@ const TOP_FAQ_ITEMS = [
           on the free plan: <b>25&nbsp;requests per day</b>.
         </div>
         <div>
-          Need more? See <Link href='/pricing'>pricing</Link>.
+          Building a crawler or an AI agent? Call the same{' '}
+          <Link href='/function'>Microlink Function</Link> from your code with a
+          developer API key.
         </div>
       </>
     )

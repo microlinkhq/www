@@ -6,7 +6,6 @@ import {
   fontSizes,
   layout,
   theme,
-  touchTargets,
   transition,
   space,
   SECTION_VERTICAL_SPACING
@@ -24,7 +23,6 @@ import {
   Globe,
   ArrowRight,
   HelpCircle,
-  Key,
   Settings,
   Trash2,
   X
@@ -1799,111 +1797,6 @@ const PdfHistory = ({
   )
 }
 
-const ApiKeyFieldRow = styled(Flex)`
-  ${theme({ mt: 3, alignItems: 'center', justifyContent: 'center', gap: 2 })}
-`
-
-const ApiKeyInputWrap = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    gap: 1,
-    flex: 1,
-    maxWidth: '280px',
-    borderRadius: 2,
-    px: 3,
-    bg: 'white',
-    minHeight: touchTargets.minHeight,
-    border: 1,
-    borderColor: 'yellow3'
-  })}
-  box-sizing: border-box;
-  &:focus-within {
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-`
-
-const ApiKeyNativeInput = styled.input`
-  ${theme({ fontFamily: 'sans', fontSize: 1, color: 'black80' })}
-  border: none;
-  outline: none;
-  box-shadow: none;
-  background: transparent;
-  width: 100%;
-  &:focus {
-    outline: none;
-    box-shadow: none;
-  }
-  &::-ms-reveal,
-  &::-ms-clear {
-    display: none;
-  }
-  &::-webkit-contacts-auto-fill-button {
-    display: none;
-  }
-`
-
-const ApiKeyField = ({ apiKey, onSetApiKey }) => {
-  const [tempKey, setTempKey] = useState('')
-
-  if (apiKey) {
-    return (
-      <ApiKeyFieldRow>
-        <ApiKeyInputWrap css={theme({ cursor: 'default' })}>
-          <Key size={12} color={colors.black60} style={{ flexShrink: 0 }} />
-          <Text
-            css={theme({ fontSize: 1, color: 'black60', fontFamily: 'mono' })}
-          >
-            {apiKey.slice(0, 5)}····
-          </Text>
-        </ApiKeyInputWrap>
-        <Button
-          onClick={() => onSetApiKey('')}
-          css={theme({ fontSize: 0 })}
-          variant='black'
-        >
-          <Caps css={theme({ fontSize: '11px' })}>Remove</Caps>
-        </Button>
-      </ApiKeyFieldRow>
-    )
-  }
-
-  return (
-    <ApiKeyFieldRow>
-      <ApiKeyInputWrap>
-        <Key size={12} color={colors.black40} style={{ flexShrink: 0 }} />
-        <ApiKeyNativeInput
-          type='text'
-          autoComplete='off'
-          spellCheck='false'
-          autoFocus
-          aria-label='API key'
-          placeholder='Paste your API key'
-          value={tempKey}
-          onChange={e => setTempKey(e.target.value)}
-          onKeyDown={e => {
-            if (e.key === 'Enter' && tempKey.trim()) {
-              onSetApiKey(tempKey.trim())
-              setTempKey('')
-            }
-          }}
-        />
-      </ApiKeyInputWrap>
-      <Button
-        disabled={!tempKey.trim()}
-        onClick={() => {
-          onSetApiKey(tempKey.trim())
-          setTempKey('')
-        }}
-        css={theme({ fontSize: 0 })}
-        variant='black'
-      >
-        <Caps css={theme({ fontSize: '11px' })}>Save</Caps>
-      </Button>
-    </ApiKeyFieldRow>
-  )
-}
-
 const ErrorRow = ({ r, isLast }) => (
   <Flex
     css={theme({
@@ -1956,9 +1849,7 @@ const BulkPreview = ({
   isZipping,
   onReset,
   previewPdf,
-  onClosePreview,
-  apiKey,
-  onSetApiKey
+  onClosePreview
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
@@ -2393,36 +2284,20 @@ const BulkPreview = ({
                     >
                       Daily limit reached
                     </Text>
-                    {[
-                      <React.Fragment key='limit'>
-                        Free users can generate up to 25 PDFs per day. Your limit
-                        will reset tomorrow.
-                      </React.Fragment>,
-                      <React.Fragment key='upgrade'>
-                        For unlimited access,{' '}
-                        <Link href='/pricing'>buy a plan</Link> or write to{' '}
-                        <Link href='mailto:hello@microlink.io'>
-                          hello@microlink.io
-                        </Link>{' '}
-                        if you need something else.
-                      </React.Fragment>
-                    ].map(item => (
-                      <Text
-                        key={item.key}
-                        css={theme({
-                          fontFamily: 'sans',
-                          lineHeight: 2,
-                          mb: 3,
-                          color: 'yellow9'
-                        })}
-                        style={{
-                          fontSize: allRateLimited ? fontSizes[1] : fontSizes[0]
-                        }}
-                      >
-                        {item}
-                      </Text>
-                    ))}
-                    <ApiKeyField apiKey={apiKey} onSetApiKey={onSetApiKey} />
+                    <Text
+                      css={theme({
+                        fontFamily: 'sans',
+                        lineHeight: 2,
+                        mb: 3,
+                        color: 'yellow9'
+                      })}
+                      style={{
+                        fontSize: allRateLimited ? fontSizes[1] : fontSizes[0]
+                      }}
+                    >
+                      You’ve used all 25 free PDFs for today. The limit resets
+                      tomorrow.
+                    </Text>
                   </Flex>
                 )}
                 {!allRateLimited && (bulkTotalMs != null || bulkTotalBytes > 0) && (
@@ -2496,21 +2371,20 @@ const PdfBatchTool = () => {
         duration: 150,
         error: {
           code: 'ERATE',
-          message:
-            'Your daily rate limit has been reached. Upgrade to a PRO plan.'
+          message: 'Daily limit reached'
         }
       },
       {
         url: 'https://github.com',
         success: false,
         duration: 120,
-        error: { code: 'ERATE', message: 'Skipped — daily rate limit reached' }
+        error: { code: 'ERATE', message: 'Skipped: daily limit reached' }
       },
       {
         url: 'https://google.com',
         success: false,
         duration: 110,
-        error: { code: 'ERATE', message: 'Skipped — daily rate limit reached' }
+        error: { code: 'ERATE', message: 'Skipped: daily limit reached' }
       }
     ]
     setBulkState('done')
@@ -2519,7 +2393,7 @@ const PdfBatchTool = () => {
     setBulkTotalMs(380)
   }, [])
 
-  const [localStorageData, setLocalStorageData] = useLocalStorage('mql-api-key')
+  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -2538,13 +2412,6 @@ const PdfBatchTool = () => {
     })
     setHistoryReady(true)
   }, [setHistory])
-
-  const handleSetApiKey = useCallback(
-    key => {
-      setLocalStorageData(key ? { apiKey: key } : '')
-    },
-    [setLocalStorageData]
-  )
 
   const downloadZipFromEntries = useCallback(async selected => {
     if (selected.length === 0) return
@@ -2610,7 +2477,7 @@ const PdfBatchTool = () => {
             duration: null,
             error: {
               code: 'ERATE',
-              message: 'Skipped \u2014 daily rate limit reached'
+              message: 'Skipped: daily limit reached'
             }
           }
           results.push(result)
@@ -2872,8 +2739,6 @@ const PdfBatchTool = () => {
             onReset={handleReset}
             previewPdf={previewPdf}
             onClosePreview={() => setPreviewPdf(null)}
-            apiKey={localStorageData?.apiKey}
-            onSetApiKey={handleSetApiKey}
           />
         </PreviewOuter>
       </ToolLayout>
@@ -3333,10 +3198,9 @@ const ProductInformation = () => (
               ranges, and landscape mode.
             </div>
             <div>
-              Need higher limits for automated <b>batch URL to PDF</b>{' '}
-              processing? Check our <Link href='/pricing'>pricing plans</Link>{' '}
-              for unlimited conversions and priority processing, or write to{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+              Automating <b>batch URL to PDF</b> in an app or an AI agent? Use
+              the <Link href='/pdf'>PDF API</Link> with a developer API key to
+              generate them from your code.
             </div>
           </>
         )

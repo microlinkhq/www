@@ -677,6 +677,7 @@ const PreviewDisplay = ({
               <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
                 <ApiErrorBody
                   code={error?.code}
+                  variant='tool'
                   fallback={
                     error?.message || 'Something went wrong. Please try again.'
                   }
@@ -1453,9 +1454,9 @@ const ProductInformation = () => (
               multiple.
             </div>
             <div>
-              Need higher limits? See our{' '}
-              <Link href='/pricing'>pricing plans</Link> for unlimited captures
-              and priority processing.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/screenshot'>Screenshot API</Link> with a developer
+              API key to capture animations from your code.
             </div>
           </>
         )
@@ -1634,7 +1635,7 @@ export const Head = () => (
             name: 'Is this animated screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. You can take up to 25 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.'
+              text: 'Yes. You can take up to 25 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Building an app or an AI agent? Use the Screenshot API with a developer API key to capture animations from your code.'
             }
           },
           {

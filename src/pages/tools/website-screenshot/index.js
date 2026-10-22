@@ -1528,8 +1528,9 @@ const ProductInformation = () => (
               multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/screenshot'>Screenshot API</Link> with a developer
+              API key to take screenshots from your code.
             </div>
           </>
         )
