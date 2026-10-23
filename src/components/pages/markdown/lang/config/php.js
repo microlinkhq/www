@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: 'rgb(224, 0, 172)' }}>{children}</span>
@@ -441,8 +442,7 @@ echo $res['data']['markdown'];`
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -531,9 +531,9 @@ echo $res['data']['markdown'];`
         answer: (
           <>
             <div>
-              Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start converting.
+              Yes, and it is free: sign up for an API key and you get{' '}
+              {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day with every Pro
+              feature, no credit card. Add it as x-api-key and start converting.
             </div>
             <div>
               When you need more volume, pick a paid plan: same key, bigger
@@ -563,8 +563,7 @@ echo $res['data']['markdown'];`
         Start <Accent>converting</Accent> in PHP
       </>
     ),
-    caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship markdown in minutes.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send your first request and ship markdown in minutes.`,
     primary: {
       label: 'Get your free API key',
       cta: 'markdown-php:footer-cta'
@@ -573,7 +572,11 @@ echo $res['data']['markdown'];`
       label: 'Read the API docs',
       href: '/docs/guides/content-conversion/url-to-markdown'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   }
 }
 

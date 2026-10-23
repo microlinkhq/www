@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/local-business-leads',
   head: {
@@ -119,8 +121,7 @@ export const CONTENT = {
     },
     {
       question: 'How much does a local business data API cost with Microlink?',
-      answer:
-        'Each search page is one request and each emails() call one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+      answer: `Each search page is one request and each emails() call one more. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.`
     },
     {
       question: 'Is this the official Google Maps Platform API?',

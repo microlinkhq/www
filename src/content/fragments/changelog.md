@@ -1,5 +1,6 @@
 ### October 2026
 
+- [Microlink API](/docs/api/basics/rate-limit): The free API key gets 25 requests per day, and the keyless endpoint 5 requests per day.
 - [Microlink API](/docs/api/getting-started/overview): Unfurls Meta AI shared artifacts.
 - [Microlink API](/docs/api/basics/error-codes): Added [EHTMLNESTED](/docs/api/basics/error-codes#ehtmlnested) when a document is too deeply nested to read as HTML.
 - [Microlink API](/docs/api/getting-started/overview): Unfurls Google Maps share links.

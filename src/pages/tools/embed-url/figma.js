@@ -23,6 +23,7 @@ import {
   embedBreadcrumb,
   embedRobots
 } from 'components/pages/embed-url'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const EXAMPLE_URL = 'https://embed.figma.com/design/abc123/example'
 
@@ -83,8 +84,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free, no signup',
-    description:
-      'Generate up to 25 Figma embeds per day for free. No login, no API key, no watermarks.'
+    description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} Figma embeds per day for free. No login, no API key, no watermarks.`
   }
 ]
 
@@ -215,8 +215,9 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 25 requests per day, no login, no credit card. Figma embeds
-              are resolved instantly from cache after the first request.
+              Yes — {KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no
+              credit card. Figma embeds are resolved instantly from cache after
+              the first request.
             </div>
           </>
         )
@@ -256,7 +257,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} requests per day`
         }
       },
       {
@@ -292,7 +293,7 @@ export const Head = () => (
             name: 'Is this free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes — 25 requests per day, no login, no credit card. Figma embeds are resolved instantly from cache after the first request.'
+              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. Figma embeds are resolved instantly from cache after the first request.`
             }
           }
         ]

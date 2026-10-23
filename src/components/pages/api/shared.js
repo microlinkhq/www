@@ -34,6 +34,7 @@ import { Caption, Subhead } from 'components/patterns/ProductStory'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import styled from 'styled-components'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = colors.link
 
@@ -43,11 +44,9 @@ export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
 
 export const META = {
   title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
-  description:
-    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with 100 requests a month.',
+  description: `The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day.`,
   structuredName: 'Microlink API',
-  structuredDescription:
-    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes 100 requests a month and every Pro feature.',
+  structuredDescription: `A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and every Pro feature.`,
   keywords:
     'Microlink API, URL to JSON, screenshot API, PDF API, metadata API, markdown API, headless browser API, web scraping API',
   about: [
@@ -85,7 +84,7 @@ export const HERO = {
 
 export const HERO_PROOF = [
   'Free API key, no credit card',
-  '100 requests per month free',
+  `${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day free`,
   `Cached across ${CDN_EDGES} edge locations`
 ]
 
@@ -414,12 +413,10 @@ export const HOW_TO = {
   ]
 }
 
-export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption:
-    'Sign up for a free API key: 100 requests per month, every Pro feature, no card.',
+  caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day, every Pro feature, no card.`,
   cta: 'api:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/pricing',

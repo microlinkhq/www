@@ -1,0 +1,3 @@
+export const KEYLESS_REQUESTS_PER_DAY = 5
+
+export const FREE_PLAN_REQUESTS_PER_DAY = 25

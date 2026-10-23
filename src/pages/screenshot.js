@@ -18,6 +18,7 @@ import { UseCases } from 'components/pages/screenshot/use-cases'
 import { HERO_LAYOUT, Subhead } from 'components/pages/screenshot/shared'
 import { Timings } from 'components/pages/screenshot/timings'
 import { CDN_EDGES } from 'helpers/cdn-edges'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES = [
   {
@@ -98,8 +99,7 @@ export const Head = () => (
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
-        description:
-          'Free API key with 100 requests per month and every Pro feature. Pro plans scale for high concurrency.'
+        description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day and every Pro feature. Pro plans scale for high concurrency.`
       },
       keywords:
         'screenshot API, website screenshot, URL to image, headless chrome, website capture, web screenshot, puppeteer API',

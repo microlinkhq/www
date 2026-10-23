@@ -28,6 +28,7 @@ import Layout from 'components/patterns/Layout'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { extractDomain } from 'helpers/extract-domain'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const PROVIDER_NAMES = {
   microlink: 'Microlink',
@@ -1702,9 +1703,10 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: 100 screenshot requests per month
-          with every Pro feature and no credit card. It includes adblock, cookie
-          banner removal, metadata extraction, automatic proxy resolution, and{' '}
+          Yes. Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY}{' '}
+          screenshot requests per day with every Pro feature and no credit card.
+          It includes adblock, cookie banner removal, metadata extraction,
+          automatic proxy resolution, and{' '}
           <Link href='/docs/guides/screenshot/browser-settings'>
             full browser control
           </Link>
@@ -1718,7 +1720,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes. Sign up for a free API key: 100 screenshot requests per month with every Pro feature and no credit card. It includes adblock, cookie banner removal, metadata extraction, automatic proxy resolution, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
+    text: `Yes. Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY} screenshot requests per day with every Pro feature and no credit card. It includes adblock, cookie banner removal, metadata extraction, automatic proxy resolution, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.`
   },
   {
     question: 'What is a screenshot API?',
@@ -1883,8 +1885,9 @@ const BottomCta = () => {
             textAlign: 'center'
           })}
         >
-          Free API key with 100&nbsp;requests/month, no credit card. Start
-          capturing screenshots at the speed your users&nbsp;deserve.
+          Free API key with {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day, no
+          credit card. Start capturing screenshots at the speed your
+          users&nbsp;deserve.
         </Caption>
         <Flex
           css={[
@@ -1936,22 +1939,24 @@ const BottomCta = () => {
             justifyContent: 'center'
           })}
         >
-          {['Free API key', '100 requests/month', 'No credit card'].map(
-            label => (
-              <Flex
-                key={label}
-                css={theme({
-                  alignItems: 'center',
-                  gap: 1,
-                  color: 'black',
-                  fontSize: [0, 0, 1, 1]
-                })}
-              >
-                <CheckIcon size={16} color={colors.close} />
-                <Text as='span'>{label}</Text>
-              </Flex>
-            )
-          )}
+          {[
+            'Free API key',
+            `${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day`,
+            'No credit card'
+          ].map(label => (
+            <Flex
+              key={label}
+              css={theme({
+                alignItems: 'center',
+                gap: 1,
+                color: 'black',
+                fontSize: [0, 0, 1, 1]
+              })}
+            >
+              <CheckIcon size={16} color={colors.close} />
+              <Text as='span'>{label}</Text>
+            </Flex>
+          ))}
         </Flex>
       </Flex>
     </Container>

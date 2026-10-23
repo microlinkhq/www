@@ -17,6 +17,7 @@ import { UseCases } from 'components/pages/markdown/use-cases'
 import { HERO_LAYOUT, Subhead } from 'components/pages/markdown/shared'
 import { Timings } from 'components/pages/markdown/timings'
 import { TokenSavings } from 'components/pages/markdown/token-savings'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const REPOS = ['browserless', 'html-get', 'metascraper']
 
@@ -100,8 +101,7 @@ export const Head = () => (
             '@type': 'Offer',
             price: '0',
             priceCurrency: 'USD',
-            description:
-              'Free API key with 100 requests per month and every Pro feature. Pro plans scale for high concurrency.'
+            description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day and every Pro feature. Pro plans scale for high concurrency.`
           },
           keywords:
             'url to markdown api, url to markdown free, web to markdown api, html to markdown api, url to markdown service, markdown for AI agents, RAG ingestion, LLM preprocessing, token-efficient content',
@@ -211,7 +211,7 @@ export const Head = () => (
               name: 'Is the URL to markdown API free?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the endpoint with the key and get clean markdown back. For production workloads that need higher volume and priority support, see our Pro plans.'
+                text: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Call the endpoint with the key and get clean markdown back. For production workloads that need higher volume and priority support, see our Pro plans.`
               }
             },
             {

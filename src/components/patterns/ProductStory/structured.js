@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../helpers/free-tier'
+
 const SITE_URL = 'https://microlink.io'
 
 const PROVIDER = {
@@ -18,8 +20,7 @@ const OFFERS = {
   '@type': 'Offer',
   price: '0',
   priceCurrency: 'EUR',
-  description:
-    'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
+  description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day. Pro plans start at €39/month for production workloads.`,
   url: `${SITE_URL}/pricing`
 }
 

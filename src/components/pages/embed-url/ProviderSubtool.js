@@ -20,6 +20,7 @@ import { StepCard, SectionIcon } from 'components/pages/screenshot'
 import { EmbedTool } from 'components/pages/embed-url'
 import WhyChoose from './WhyChoose'
 import { embedRobots } from './indexable'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const DEFAULT_HOW_IT_WORKS_ICONS = [Globe, Code, Clipboard]
 
@@ -217,7 +218,7 @@ export const providerHead = ({
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} requests per day`
         }
       },
       {

@@ -1,5 +1,6 @@
 import React from 'react'
 import { ProviderSubtool, providerHead } from 'components/pages/embed-url'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const data = {
   name: 'Pinterest',
@@ -59,8 +60,7 @@ const data = {
     },
     {
       title: 'Free, no signup',
-      description:
-        'Generate up to 25 Pinterest embeds per day. No login, no API key, no watermarks.'
+      description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} Pinterest embeds per day. No login, no API key, no watermarks.`
     }
   ],
   features: [
@@ -117,7 +117,7 @@ const data = {
     },
     {
       question: 'Is this free?',
-      answer: 'Yes — 25 requests per day, no login, no credit card.'
+      answer: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card.`
     }
   ]
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 import { ACCENT } from 'components/pages/pdf/shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: ACCENT }}>{children}</span>
@@ -410,8 +411,7 @@ print(data['pdf']['url'])`
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -552,8 +552,7 @@ print(data['pdf']['url'])`
         Start <Accent>converting</Accent> in Python
       </>
     ),
-    caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paste the snippet into a view and ship a PDF today.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paste the snippet into a view and ship a PDF today.`,
     primary: {
       label: 'Get your free API key',
       cta: 'pdf-python:footer-cta'
@@ -562,7 +561,11 @@ print(data['pdf']['url'])`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   }
 }
 
