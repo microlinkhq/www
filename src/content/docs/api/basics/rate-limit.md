@@ -14,7 +14,7 @@ Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are usin
 
 You can perform HTTP calls as long as you are under your API quota limit.
 
-When you reach the API quota limit, you will experience [HTTP 429 errors](https://httpstatuses.net/429/), meaning you need to wait until the API quota reset (or upgrade your plan).
+When you reach the API quota limit, you will experience [429 Too Many Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/429), meaning you need to wait until the API quota reset (or upgrade your plan).
 
 When the API quota is reset, you have a fresh start again.
 
