@@ -1,3 +1,5 @@
+import { KEYLESS_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'website-screenshot/animated-screenshots',
   head: {
@@ -142,8 +144,7 @@ export const CONTENT = {
     },
     {
       question: 'Can I serve the recording straight into a video tag?',
-      answer:
-        'Yes. Add embed set to screenshot.animated.url and the response body is the video itself rather than JSON, so the request URL works as the src of a video tag. Recordings are available on the free endpoint with 5 requests per day, see [pricing](/pricing) for more volume.'
+      answer: `Yes. Add embed set to screenshot.animated.url and the response body is the video itself rather than JSON, so the request URL works as the src of a video tag. Recordings are available on the free endpoint with ${KEYLESS_REQUESTS_PER_DAY} requests per day, see [pricing](/pricing) for more volume.`
     }
   ],
   cta: {

@@ -13,6 +13,7 @@ import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GradientText } from 'components/patterns/ProductStory'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT_NAME = 'indigo'
 export const ACCENT = colors.indigo8
@@ -360,7 +361,7 @@ export const COMPARISON = {
       microlink: '100/month',
       browserbase: '1 hour',
       highlight: true,
-      note: 'The free Microlink API key renews 25 requests every day with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.'
+      note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.`
     },
     {
       feature: 'Long-lived, stateful sessions',
@@ -435,13 +436,13 @@ export const PRICING_CAPTION = (
   <Text as='span'>
     No browser-hours, no concurrency tier, no proxy GB, no separate meter for
     fetching and searching. One request is one API call: under €1 per 1,000
-    requests on the entry Pro plan, and 25 a day free with no credit card.
+    requests on the entry Pro plan, and {FREE_PLAN_REQUESTS_PER_DAY} a day free
+    with no credit card.
   </Text>
 )
 
 export const CTA = {
-  caption:
-    'Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with 25 requests a day, no browser to operate.',
+  caption: `Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day, no browser to operate.`,
   cta: 'alternative-browserbase:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/getting-started/overview',
@@ -535,7 +536,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Both ship an MCP server. What is the difference?',
-    text: 'The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with 25 requests a day.',
+    text: `The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`,
     answer: (
       <>
         <div>
@@ -548,7 +549,7 @@ export const FAQ_ITEMS = [
           that each return a finished artifact: screenshot, PDF, Markdown,
           metadata, media, Lighthouse insights, and Google search. A free API
           key covers every tool, <Link href='/search'>Search</Link> included,
-          with 25&nbsp;requests a day.
+          with {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day.
         </div>
       </>
     )

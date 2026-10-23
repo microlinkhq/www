@@ -18,6 +18,7 @@ import { ProductInformation } from 'components/pages/pdf/product-information'
 import { UseCases } from 'components/pages/pdf/use-cases'
 import { Timings } from 'components/pages/pdf/timings'
 import { ACCENT, Subhead, FIRST_URL } from 'components/pages/pdf/shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES = [
   {
@@ -71,7 +72,7 @@ const REPOS = ['browserless', 'metascraper', 'html-get']
 export const Head = () => (
   <Meta
     title='HTML to PDF API - Convert URL to PDF Document'
-    description='Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. Free API key, 25 requests/day.'
+    description={`Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY} requests/day.`}
     structured={{
       '@context': 'https://schema.org',
       '@type': 'SoftwareApplication',
@@ -98,8 +99,7 @@ export const Head = () => (
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'EUR',
-        description:
-          'Free API key with 25 requests per day. Pro plans start at €39/month for production workloads.',
+        description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day. Pro plans start at €39/month for production workloads.`,
         url: 'https://microlink.io/pricing'
       },
       keywords: [

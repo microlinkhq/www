@@ -2,6 +2,7 @@ import React from 'react'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 import { ACCENT } from 'components/pages/pdf/shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: ACCENT }}>{children}</span>
@@ -455,8 +456,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -595,8 +595,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
         Start <Accent>converting</Accent> in PHP
       </>
     ),
-    caption:
-      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Drop the snippet into a route and ship a PDF today.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Drop the snippet into a route and ship a PDF today.`,
     primary: {
       label: 'Get your free API key',
       cta: 'pdf-php:footer-cta'
@@ -605,7 +604,11 @@ header('Location: ' . $res['data']['pdf']['url']);`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '25 requests/day', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   }
 }
 

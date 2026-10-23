@@ -7,6 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Metadata extraction with Microlink API requires only one parameter: the target `url`.
 
@@ -123,7 +124,7 @@ That returns JSON. To return just one field directly, such as `title` or `image.
 
 ## Free tier and API key
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **25 free requests per day** with every Pro feature, which is enough to test the full metadata workflow and most of the examples in this guide.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **{FREE_PLAN_REQUESTS_PER_DAY} free requests per day** with every Pro feature, which is enough to test the full metadata workflow and most of the examples in this guide.
 
 For production volume, pick a <ProBadge /> plan: it raises the quota on the same key. Every plan, the free key included, has features such as [configurable TTL](/docs/api/parameters/ttl), [stale-while-revalidate caching](/docs/api/parameters/staleTtl), [custom headers](/docs/api/parameters/headers), and [proxy](/docs/api/parameters/proxy).
 

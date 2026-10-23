@@ -4,6 +4,7 @@ import { space, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { ACCENT } from '../shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const CAPABILITIES = [
   {
@@ -107,7 +108,10 @@ const CAPABILITIES = [
       <>
         Global CDN caching, automatic retries, and <b>99.9% uptime</b> handle
         the scraping complexity for you — with a{' '}
-        <b>free API key with 25&nbsp;requests per day</b> to get started.
+        <b>
+          free API key with {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day
+        </b>{' '}
+        to get started.
       </>
     )
   }

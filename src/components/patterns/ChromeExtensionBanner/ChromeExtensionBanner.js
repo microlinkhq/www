@@ -17,6 +17,7 @@ import {
 } from 'components/patterns/ExtensionStory/mockups'
 
 import { trackEvent } from 'helpers/gtag'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const PDF_EXTENSION_URL =
   'https://chromewebstore.google.com/detail/microlink-website-to-pdf/ljffiabcijcclcicihhjmoibjjnlkdon'
@@ -155,7 +156,7 @@ const DEFAULT_HIGHLIGHTS = [
 
 const DEFAULT_PRICING_NOTE = (
   <>
-    25 conversions/day included — need serious volume?
+    {KEYLESS_REQUESTS_PER_DAY} conversions/day included — need serious volume?
     <br />
     <Link href='/pdf#pricing'>
       Upgrade for up to 46,000 conversions per month
@@ -392,7 +393,7 @@ const SCREENSHOT_DEFAULT_HIGHLIGHTS = [
 
 const SCREENSHOT_PRICING_NOTE = (
   <>
-    25 screenshots/day included — need serious volume?
+    {KEYLESS_REQUESTS_PER_DAY} screenshots/day included — need serious volume?
     <br />
     <Link href='/screenshot#pricing'>
       Upgrade for up to 46,000 screenshots per month
@@ -441,7 +442,7 @@ const SHARING_DEBUGGER_DEFAULT_HIGHLIGHTS = [
 
 const SHARING_DEBUGGER_PRICING_NOTE = (
   <>
-    25 checks/day included — need serious volume?
+    {KEYLESS_REQUESTS_PER_DAY} checks/day included — need serious volume?
     <br />
     <Link href='/metadata#pricing'>
       Upgrade for up to 46,000 checks per month

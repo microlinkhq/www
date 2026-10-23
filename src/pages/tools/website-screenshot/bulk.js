@@ -84,6 +84,7 @@ import {
   LAYOUT_PIVOT,
   MOBILE_BP
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -173,8 +174,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free + No login required',
-    description:
-      'Take up to 5 bulk website screenshots per day for free. No account needed, no credit card, no watermarks on your images.'
+    description: `Take up to ${KEYLESS_REQUESTS_PER_DAY} bulk website screenshots per day for free. No account needed, no credit card, no watermarks on your images.`
   },
   {
     title: 'Desktop, tablet, and mobile',
@@ -1753,8 +1753,9 @@ const BulkPreview = ({
                       })}
                       style={{ color: '#78350f' }}
                     >
-                      Free users can take up to 5 screenshots per day. Your limit
-                      will reset tomorrow. For unlimited access, check out our{' '}
+                      Free users can take up to {KEYLESS_REQUESTS_PER_DAY}{' '}
+                      screenshots per day. Your limit will reset tomorrow. For
+                      unlimited access, check out our{' '}
                       <Link href='/pricing'>API plans</Link> or write to{' '}
                       <Link href='mailto:hello@microlink.io'>
                         hello@microlink.io
@@ -2588,9 +2589,10 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>5&nbsp;bulk screenshots per day</b> for
-              free, with no credit card or account required. Free screenshots
-              include every feature —{' '}
+              Yes! You can take up to{' '}
+              <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;bulk screenshots per day</b>{' '}
+              for free, with no credit card or account required. Free
+              screenshots include every feature —{' '}
               <Link href='/tools/website-screenshot/full-page'>
                 full-page capture
               </Link>
@@ -2668,8 +2670,9 @@ const ProductInformation = () => (
               for common failure causes.
             </div>
             <div>
-              If you hit the daily rate limit (5 requests), the remaining URLs
-              will be skipped. Your limit resets the next day.
+              If you hit the daily rate limit ({KEYLESS_REQUESTS_PER_DAY}{' '}
+              requests), the remaining URLs will be skipped. Your limit resets
+              the next day.
             </div>
           </>
         )
@@ -2783,7 +2786,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 5 screenshots per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} screenshots per day`
         }
       },
       {
@@ -2795,7 +2798,7 @@ export const Head = () => (
             name: 'Is this bulk website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 5 bulk screenshots per day for free, with no credit card or account required. Free screenshots include every feature — full-page capture, device emulation, ad blocking, and PNG/JPG formats. Need higher limits? Check our pricing plans for unlimited screenshots and priority processing.'
+              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} bulk screenshots per day for free, with no credit card or account required. Free screenshots include every feature — full-page capture, device emulation, ad blocking, and PNG/JPG formats. Need higher limits? Check our pricing plans for unlimited screenshots and priority processing.`
             }
           },
           {

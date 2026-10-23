@@ -22,6 +22,7 @@ import {
 } from 'components/pages/sdk/shared'
 
 import { colors, layout, space, theme } from 'theme'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURE_ICON_SIZE = 20
 
@@ -51,7 +52,7 @@ const HERO_FEATURES = [
   },
   {
     title: 'Free to start',
-    description: 'Free API key with 25 requests a day and every Pro feature.',
+    description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and every Pro feature.`,
     icon: <Unlock {...featureIconProps} aria-hidden='true' />
   }
 ]

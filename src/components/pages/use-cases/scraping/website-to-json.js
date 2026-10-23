@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'scraping/website-to-json',
   head: {
@@ -148,8 +150,7 @@ export const CONTENT = {
     },
     {
       question: 'Does scraping a website to JSON work on the free API key?',
-      answer:
-        'Yes. A free API key gives you 25 requests per day with configurable cache TTL, custom headers and automatic proxy resolution included, enough to build and test a schema. Paid plans add volume, see [pricing](/pricing).'
+      answer: `Yes. A free API key gives you ${FREE_PLAN_REQUESTS_PER_DAY} requests per day with configurable cache TTL, custom headers and automatic proxy resolution included, enough to build and test a schema. Paid plans add volume, see [pricing](/pricing).`
     }
   ],
   cta: {

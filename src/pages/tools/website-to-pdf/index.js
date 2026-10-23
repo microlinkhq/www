@@ -100,6 +100,7 @@ import {
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Compare Slider ──────────────────────────────────── */
 
@@ -319,8 +320,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free + No Login Required',
-    description:
-      'Convert up to 5 web pages to PDF per day for free. Every PDF is clean and professional — no watermarks, no branding, no overlays on your documents.'
+    description: `Convert up to ${KEYLESS_REQUESTS_PER_DAY} web pages to PDF per day for free. Every PDF is clean and professional — no watermarks, no branding, no overlays on your documents.`
   },
   {
     title: 'History & Local Storage',
@@ -2024,7 +2024,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can convert up to <b>5&nbsp;web pages to PDF per day</b>{' '}
+              Yes! You can convert up to{' '}
+              <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;web pages to PDF per day</b>{' '}
               for free, with no credit card required. Every conversion includes
               all features — paper format, margins, scaling, and landscape mode.
             </div>
@@ -2051,9 +2052,9 @@ const ProductInformation = () => (
               and download every document bundled in a single ZIP archive.
             </div>
             <div>
-              It&apos;s free to install and includes 5 conversions per day. A{' '}
-              <Link href='/pdf'>Microlink PDF API</Link> subscription unlocks up
-              to <b>46,000 conversions per month</b>.
+              It&apos;s free to install and includes {KEYLESS_REQUESTS_PER_DAY}{' '}
+              conversions per day. A <Link href='/pdf'>Microlink PDF API</Link>{' '}
+              subscription unlocks up to <b>46,000 conversions per month</b>.
             </div>
           </>
         )
@@ -2209,8 +2210,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'EUR',
-          description:
-            'Free tier — save up to 5 web pages as PDF per day, no credit card required'
+          description: `Free tier — save up to ${KEYLESS_REQUESTS_PER_DAY} web pages as PDF per day, no credit card required`
         }
       },
       {
@@ -2238,7 +2238,7 @@ export const Head = () => (
             name: 'Is this online HTML to PDF converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. You can convert up to 5 web pages to PDF per day for free, with no credit card required. Every PDF includes all features — paper format, margins, scaling, and landscape mode.'
+              text: `Yes. You can convert up to ${KEYLESS_REQUESTS_PER_DAY} web pages to PDF per day for free, with no credit card required. Every PDF includes all features — paper format, margins, scaling, and landscape mode.`
             }
           },
           {
@@ -2246,7 +2246,7 @@ export const Head = () => (
             name: 'Is there a Chrome extension for this website to PDF converter?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. The Microlink Website to PDF Chrome extension converts web pages to PDF from Chrome’s side panel — paste up to 100 links and download every PDF bundled in a single ZIP. It is free to install with 5 conversions per day, and a Microlink PDF API subscription unlocks up to 46,000 conversions per month.'
+              text: `Yes. The Microlink Website to PDF Chrome extension converts web pages to PDF from Chrome’s side panel — paste up to 100 links and download every PDF bundled in a single ZIP. It is free to install with ${KEYLESS_REQUESTS_PER_DAY} conversions per day, and a Microlink PDF API subscription unlocks up to 46,000 conversions per month.`
             }
           },
           {

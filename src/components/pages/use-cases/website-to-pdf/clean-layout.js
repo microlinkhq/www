@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'website-to-pdf/clean-layout',
   head: {
@@ -137,8 +139,7 @@ export const CONTENT = {
     {
       question:
         'Do I need a paid plan to convert a web page to PDF without ads?',
-      answer:
-        'No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with 25 requests per day. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.'
+      answer: `No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.`
     },
     {
       question: 'Does disabling JavaScript produce a cleaner PDF?',

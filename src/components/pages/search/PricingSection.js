@@ -11,6 +11,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import { PricingCard, SEARCH_LAYOUT_WIDE_MAX_WIDTH } from './'
 import { PricingCheck } from './Sections'
 import { MOBILE_SECTION_BLEED, SECTION_HEADING_FONT_SIZE } from './constants'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const PRICE_DISPLAY_FONT_SIZE = ['36px', '42px', 5, 5]
 
@@ -77,9 +78,9 @@ const PricingSection = () => (
               maxWidth: layout.small
             })}
           >
-            Sign up for a free API key and run 25 searches a day at no cost,
-            proxy included. When you need volume, every paid plan prices Search
-            the same per thousand requests.
+            Sign up for a free API key and run {FREE_PLAN_REQUESTS_PER_DAY}{' '}
+            searches a day at no cost, proxy included. When you need volume,
+            every paid plan prices Search the same per thousand requests.
           </Text>
         </Box>
 

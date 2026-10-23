@@ -19,6 +19,10 @@ import Caption from 'components/patterns/Caption/Caption'
 import { SignupLink } from 'components/patterns/SignupLink'
 
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
+import {
+  FREE_PLAN_REQUESTS_PER_DAY,
+  KEYLESS_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 export const ACCENT = 'red6'
 
@@ -231,23 +235,24 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'No. Without credentials the node calls the keyless endpoint, https://api.microlink.io, limited to 5 requests per day. Sign up for a free API key (25 requests a day with every Pro feature, no credit card), add it as a Microlink API credential, and every request goes to https://pro.microlink.io with your key in the x-api-key header. n8n tests the credential when you save it.',
+    text: `No. Without credentials the node calls the keyless endpoint, https://api.microlink.io, limited to ${KEYLESS_REQUESTS_PER_DAY} requests per day. Sign up for a free API key (${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature, no credit card), add it as a Microlink API credential, and every request goes to https://pro.microlink.io with your key in the x-api-key header. n8n tests the credential when you save it.`,
     answer: (
       <>
         <div>
           No. Without credentials the node calls the keyless endpoint,{' '}
-          <code>https://api.microlink.io</code>, limited to 5 requests per day.
-          Enough to build and test a workflow.
+          <code>https://api.microlink.io</code>, limited to{' '}
+          {KEYLESS_REQUESTS_PER_DAY} requests per day. Enough to build and test
+          a workflow.
         </div>
         <div>
           <SignupLink component={Link} cta='n8n:faq'>
             Sign up for a free API key
           </SignupLink>{' '}
-          (25&nbsp;requests a day with every Pro feature, no credit card), add
-          it as a Microlink API credential, and every request goes to{' '}
-          <code>https://pro.microlink.io</code> with your key in the{' '}
-          <code>x-api-key</code> header. n8n tests the credential when you save
-          it. See <Link href='/pricing'>pricing</Link>.
+          ({FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day with every Pro
+          feature, no credit card), add it as a Microlink API credential, and
+          every request goes to <code>https://pro.microlink.io</code> with your
+          key in the <code>x-api-key</code> header. n8n tests the credential
+          when you save it. See <Link href='/pricing'>pricing</Link>.
         </div>
       </>
     )

@@ -5,6 +5,7 @@ description: 'Step-by-step guides for common Microlink workflows. Learn how to q
 
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Microlink Guides are practical, step-by-step walkthroughs that show you how to accomplish real tasks using the Microlink API. While the <Link href='/docs/api/getting-started/overview' children='API reference' /> documents every parameter individually, these guides focus on **workflows** — combining parameters to solve specific problems from start to finish.
 
@@ -12,7 +13,7 @@ Every guide includes practical examples you can adapt quickly. Most API guides a
 
 ## Before you start
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): you get **25 free requests per day** with every Pro feature, no credit card. The examples in these guides run with that key.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): you get **{FREE_PLAN_REQUESTS_PER_DAY} free requests per day** with every Pro feature, no credit card. The examples in these guides run with that key.
 
 Features marked with <ProBadge /> are included on every plan, the free key too; paid plans add volume. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 

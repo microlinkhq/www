@@ -9,6 +9,7 @@ import {
 } from 'react-feather'
 
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = colors.orange8
 export const TILE_BG = colors.orange0
@@ -146,12 +147,10 @@ export const CAPABILITIES = {
   ]
 }
 
-export const PRICING_CAPTION =
-  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
+export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption:
-    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send a document URL and get readable content back in seconds.',
+  caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send a document URL and get readable content back in seconds.`,
   cta: 'file-conversion:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -213,8 +212,7 @@ export const FAQ_ITEMS = [
 
 export const META = {
   title: 'File Conversion API - Files to Markdown & Text',
-  description:
-    'Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. Free API key, 25 requests/day.',
+  description: `Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink File Conversion API',
   structuredDescription:
     'A developer-first API that converts documents, presentations and spreadsheets at any URL into HTML, Markdown or clean plain text, with structure preservation and global edge caching.',

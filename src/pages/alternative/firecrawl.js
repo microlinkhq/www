@@ -31,6 +31,7 @@ import Text from 'components/elements/Text'
 
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -244,7 +245,7 @@ const COMPARISON_DATA = [
     microlink: true,
     firecrawl: false,
     highlight: true,
-    note: 'Firecrawl free plan is 1,000 one-time credits; Microlink resets 25 free requests every day.'
+    note: `Firecrawl free plan is 1,000 one-time credits; Microlink resets ${FREE_PLAN_REQUESTS_PER_DAY} free requests every day.`
   },
   {
     feature: 'No concurrency limit*',
@@ -568,9 +569,10 @@ const FAQ_ITEMS = [
       <>
         <div>
           Firecrawl's free plan is 1,000 one-time credits with 2 concurrent
-          requests — once spent, it is gone. Microlink gives you 25 free
-          requests every day with every Pro feature, no credit card and no
-          expiry, for evaluating in real conditions.
+          requests — once spent, it is gone. Microlink gives you{' '}
+          {FREE_PLAN_REQUESTS_PER_DAY} free requests every day with every Pro
+          feature, no credit card and no expiry, for evaluating in real
+          conditions.
         </div>
         <div>
           The free API key takes a minute to get and the residential proxy is
@@ -578,7 +580,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests — once spent, it is gone. Microlink gives you 25 free requests every day with every Pro feature, no credit card and no expiry, for evaluating in real conditions. The free API key takes a minute to get and the residential proxy is included, so blocked pages work from the first request."
+    text: `Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests — once spent, it is gone. Microlink gives you ${FREE_PLAN_REQUESTS_PER_DAY} free requests every day with every Pro feature, no credit card and no expiry, for evaluating in real conditions. The free API key takes a minute to get and the residential proxy is included, so blocked pages work from the first request.`
   }
 ]
 
@@ -877,7 +879,8 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         Firecrawl's free plan is <b>1,000 one-time credits</b> — spend them and
-        it's over. Microlink resets <b>25 free requests every day, forever</b>:
+        it's over. Microlink resets{' '}
+        <b>{FREE_PLAN_REQUESTS_PER_DAY} free requests every day, forever</b>:
         every Pro feature, no credit card, one free API key.
       </>
     )
@@ -1263,7 +1266,7 @@ const PricingSection = () => (
                 'Residential proxy and antibot detection included — no 5× multiplier',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
-                'Free: 25 requests/day, renews forever, no credit card',
+                `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, renews forever, no credit card`,
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 '~$0.00107/request on this tier'
               ].map(item => (
@@ -1520,8 +1523,10 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
-        every Pro feature, no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
+        </b>{' '}
+        — every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1577,8 +1582,10 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free with every Pro feature, no credit card.
-          20,000 HTML tokens in, 4,000 markdown tokens&nbsp;out.
+          {' '}
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free with every Pro
+          feature, no credit card. 20,000 HTML tokens in, 4,000 markdown
+          tokens&nbsp;out.
         </Caption>
         <Flex
           css={[

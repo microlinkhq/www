@@ -24,6 +24,7 @@ import Layout from 'components/patterns/Layout'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
 import { ProseTable, TableCard } from 'components/patterns/ProductStory/table'
 import { UNAVATAR_FALLBACK, UNAVATAR_TOKEN } from 'helpers/unavatar'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES = [
   {
@@ -102,8 +103,7 @@ const MCP_CONFIG_NPX = `{
   }
 }`
 
-const PROMPT_TAIL =
-  'Sign up for a free API key at https://dashboard.microlink.io/signup?cta=mcp:setup (25 requests/day, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
+const PROMPT_TAIL = `Sign up for a free API key at https://dashboard.microlink.io/signup?cta=mcp:setup (${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.`
 
 const commandPrompt = command =>
   `Install the Microlink MCP server. Run \`${command}\`. ${PROMPT_TAIL}`
@@ -248,7 +248,8 @@ const InstallPanel = ({ hint, snippet }) => (
       <SignupLink component={Link} cta='mcp:install'>
         free API key
       </SignupLink>{' '}
-      covers 25&nbsp;requests/day with every Pro feature.
+      covers {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day with every Pro
+      feature.
     </Text>
     <Text css={theme({ ...NOTE_CSS, mt: 1, color: 'black50' })}>
       Then use it for screenshots, PDFs, markdown, metadata, or scraping any
@@ -351,7 +352,8 @@ const Installation = () => {
           <SignupLink component={Link} cta='mcp:hero'>
             free API key
           </SignupLink>{' '}
-          covers 25&nbsp;requests/day with every Pro feature.
+          covers {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day with every Pro
+          feature.
         </Text>
       </Flex>
     </Container>
@@ -504,12 +506,12 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Yes, and it is free: sign up for an API key with 25 requests per day, every Pro feature and Search included, no credit card. Paid plans add volume.',
+    text: `Yes, and it is free: sign up for an API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day, every Pro feature and Search included, no credit card. Paid plans add volume.`,
     answer: (
       <>
         <div>
-          Yes, and it is free: 25&nbsp;requests per day, every Pro feature and
-          Search included, no credit card.
+          Yes, and it is free: {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per
+          day, every Pro feature and Search included, no credit card.
         </div>
         <div>
           Get your{' '}
@@ -523,12 +525,13 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier?',
-    text: 'Yes. A free API key gives you 25 requests per day with every Pro feature, Search included, no credit card. When you need more volume, ask MCP or a Microlink skill to upgrade the account.',
+    text: `Yes. A free API key gives you ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, Search included, no credit card. When you need more volume, ask MCP or a Microlink skill to upgrade the account.`,
     answer: (
       <>
         <div>
-          Yes. A free API key gives you 25&nbsp;requests per day with every Pro
-          feature, Search included, no credit card.
+          Yes. A free API key gives you {FREE_PLAN_REQUESTS_PER_DAY}
+          &nbsp;requests per day with every Pro feature, Search included, no
+          credit card.
         </div>
         <div>
           When you need more volume, ask MCP or a{' '}
@@ -1277,8 +1280,8 @@ const buildLaunchPrompt = (task, tool) => {
     ...mcpConfigLines(needsKey),
     '',
     needsKey
-      ? 'Search needs a Microlink API key — sign up for a free one (25 requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
-      : 'Sign up for a free API key (25 requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
+      ? `Search needs a Microlink API key — sign up for a free one (${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp`
+      : `Sign up for a free API key (${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp`
   ].join('\n')
 }
 

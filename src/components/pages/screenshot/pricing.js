@@ -6,6 +6,7 @@ import Plans from 'components/patterns/Plans/Plans'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { Caption, Subhead } from './shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()
@@ -39,9 +40,9 @@ export const Pricing = () => {
               ]
             })}
           >
-            Sign up for a free API key: 25 requests per day with every Pro
-            feature, no credit card. Paid plans add volume and production
-            controls.
+            Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY} requests
+            per day with every Pro feature, no credit card. Paid plans add
+            volume and production controls.
           </Caption>
         </Container>
         <Plans

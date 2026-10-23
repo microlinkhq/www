@@ -90,6 +90,7 @@ import { useMounted } from 'components/hook/use-mounted'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import analyticsData from '../../../data/analytics.json'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const ACCENT = '#3e55ff'
 
@@ -1391,8 +1392,9 @@ const Pricing = () => {
               maxWidth: layout.normal
             })}
           >
-            Free API key, no credit card. Embed any URL with 25&nbsp;requests a
-            day and upgrade when production traffic kicks in.
+            Free API key, no credit card. Embed any URL with{' '}
+            {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day and upgrade when
+            production traffic kicks in.
           </Caption>
         </Container>
         <Plans
@@ -1552,8 +1554,7 @@ const EMBED_FEATURES = [
   },
   {
     title: 'Free to Start',
-    description:
-      'Embed any URL immediately. No setup fees, no credit card, and pay-as-you-grow pricing once you outgrow the 25 requests a day on the free API key.'
+    description: `Embed any URL immediately. No setup fees, no credit card, and pay-as-you-grow pricing once you outgrow the ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day on the free API key.`
   },
   {
     title: 'Optional Drop-in SDK',
@@ -1820,7 +1821,11 @@ const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['Free API key', '25 requests/day', 'No credit card'].map(label => (
+        {[
+          'Free API key',
+          `${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day`,
+          'No credit card'
+        ].map(label => (
           <Flex
             key={label}
             css={theme({
@@ -1863,14 +1868,14 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free embed API?',
-    text: `Yes. Sign up for a free API key: 25\u00a0requests per day with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads above the free allowance, Pro plans start at €39 per month.`,
+    text: `Yes. Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads above the free allowance, Pro plans start at €39 per month.`,
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: <b>25&nbsp;requests per day</b> with
-          every Pro feature, no credit card. Cached responses served from{' '}
-          {CDN_EDGES} Cloudflare edge locations do not count against your
-          monthly limit.
+          Yes. Sign up for a free API key:{' '}
+          <b>{FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day</b> with every
+          Pro feature, no credit card. Cached responses served from {CDN_EDGES}{' '}
+          Cloudflare edge locations do not count against your monthly limit.
         </div>
         <div>
           For production workloads above the free allowance,{' '}
@@ -2110,13 +2115,14 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier?',
-    text: 'Yes. Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Call the SDK with the key and embed any URL. Proxy rotation is included; for higher volume and priority support, see Pro plans starting at €39/month.',
+    text: `Yes. Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Call the SDK with the key and embed any URL. Proxy rotation is included; for higher volume and priority support, see Pro plans starting at €39/month.`,
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: <b>25&nbsp;requests per day</b> with
-          every Pro feature, no credit card. Call the SDK with the key and embed
-          any URL.
+          Yes. Sign up for a free API key:{' '}
+          <b>{FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day</b> with every
+          Pro feature, no credit card. Call the SDK with the key and embed any
+          URL.
         </div>
         <div>
           <Link href='/docs/guides/common/proxy'>Proxy rotation</Link> is
@@ -2295,7 +2301,7 @@ export const Head = () => (
             'Optional drop-in SDK for React, Vue, and Vanilla JavaScript',
             `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'Screenshot fallback for URLs without oEmbed',
-            'Free API key with 25 requests per day'
+            `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day`
           ],
           isPartOf: {
             '@type': 'WebSite',
@@ -2307,8 +2313,7 @@ export const Head = () => (
             '@type': 'Offer',
             price: '0',
             priceCurrency: 'EUR',
-            description:
-              'Free API key with 25 requests per day. Pro plans start at €39/month for production workloads.',
+            description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day. Pro plans start at €39/month for production workloads.`,
             url: 'https://microlink.io/pricing'
           },
           keywords: [

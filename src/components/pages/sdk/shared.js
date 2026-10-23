@@ -29,6 +29,7 @@ import { Link } from 'components/elements/Link'
 import Caption from 'components/patterns/Caption/Caption'
 
 import { colors, layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = 'blue6'
 
@@ -243,11 +244,11 @@ export const QUESTIONS = [
     answer: (
       <>
         <div>
-          Yes, and it is free: sign up for an API key with 25&nbsp;requests a
-          day and every Pro feature. Pass{' '}
-          <code>{'createClient({ apiKey })'}</code> and the key travels as the{' '}
-          <code>x-api-key</code> header; <Link href='/pricing'>paid plans</Link>{' '}
-          add volume.
+          Yes, and it is free: sign up for an API key with{' '}
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day and every Pro
+          feature. Pass <code>{'createClient({ apiKey })'}</code> and the key
+          travels as the <code>x-api-key</code> header;{' '}
+          <Link href='/pricing'>paid plans</Link> add volume.
         </div>
         <div>
           <code>search</code> draws from the same allowance.

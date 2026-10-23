@@ -33,6 +33,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const RaceHero = styled(Box)`
   width: 100%;
@@ -1301,7 +1302,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote JS',
-                '25 requests/day free, no credit card required',
+                `${FREE_PLAN_REQUESTS_PER_DAY} requests/day free, no credit card required`,
                 'No requests-per-minute cap on paid plans',
                 'Built-in proxy + antibot handling for harder targets',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
@@ -1474,8 +1475,11 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and see
-        whether your workload needs simple snapshots or a broader browser API.
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
+        </b>{' '}
+        and see whether your workload needs simple snapshots or a broader
+        browser API.
       </Caption>
 
       <Flex
@@ -1532,9 +1536,10 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          25&nbsp;requests/day free with every Pro feature. Start with
-          screenshots, then add metadata, PDF output, or browser automation only
-          when your workflow needs it.
+          {' '}
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free with every Pro
+          feature. Start with screenshots, then add metadata, PDF output, or
+          browser automation only when your workflow needs it.
         </Caption>
         <Flex
           css={[

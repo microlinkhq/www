@@ -23,6 +23,7 @@ import {
   embedBreadcrumb,
   embedRobots
 } from 'components/pages/embed-url'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const EXAMPLE_URL = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
 
@@ -89,8 +90,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free, no signup',
-    description:
-      'Generate up to 5 YouTube embeds per day for free. No login, no API key, no watermarks.'
+    description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} YouTube embeds per day for free. No login, no API key, no watermarks.`
   }
 ]
 
@@ -222,8 +222,9 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 5 requests per day, no login, no credit card. YouTube embeds
-              are resolved instantly from cache after the first request.
+              Yes — {KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no
+              credit card. YouTube embeds are resolved instantly from cache
+              after the first request.
             </div>
           </>
         )
@@ -275,7 +276,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 5 requests per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} requests per day`
         }
       },
       {
@@ -311,7 +312,7 @@ export const Head = () => (
             name: 'Is the YouTube embed generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes — 5 requests per day, no login, no credit card. YouTube embeds are resolved instantly from cache after the first request.'
+              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. YouTube embeds are resolved instantly from cache after the first request.`
             }
           },
           {

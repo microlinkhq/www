@@ -3,6 +3,8 @@ title: 'Overview'
 description: 'Get started with the Microlink SDK. The microlink.io package exposes every Microlink product as a method for Node.js, browsers, and Deno, custom data extraction rules included.'
 ---
 
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+
 **Microlink SDK** is the official way to consume [Microlink API](/docs/api/getting-started/overview) programmatically. It's published on npm as [microlink.io](https://www.npmjs.com/package/microlink.io) and organizes the API into products — one method per product — so you call `microlink.screenshot(url)` instead of composing query strings by hand.
 
 ```bash
@@ -30,7 +32,7 @@ The same code runs in Node.js 24 or later, browsers, and Deno, returning the sam
 
 ## Authentication
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 25 requests per day with every Pro feature. Pass it as `apiKey` — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): {FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature. Pass it as `apiKey` — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
 
 ```js
 const microlink = createClient({

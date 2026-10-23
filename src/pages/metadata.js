@@ -22,6 +22,7 @@ import { UseCases } from 'components/pages/metadata/use-cases'
 import { ACCENT, FIRST_URL, Subhead } from 'components/pages/metadata/shared'
 import { Stack } from 'components/pages/metadata/stack'
 import { Timings } from 'components/pages/metadata/timings'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES = [
   {
@@ -110,8 +111,7 @@ export const Head = () => (
             '@type': 'Offer',
             price: '0',
             priceCurrency: 'EUR',
-            description:
-              'Free API key with 25 requests per day. Pro plans start at €39/month for production workloads.',
+            description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day. Pro plans start at €39/month for production workloads.`,
             url: 'https://microlink.io/pricing'
           },
           keywords: [

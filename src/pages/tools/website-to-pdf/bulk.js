@@ -98,6 +98,7 @@ import {
   LAYOUT_PIVOT,
   MOBILE_BP
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const CompareSliderBlock = styled('span')`
   display: block;
@@ -312,8 +313,9 @@ const REASON_TO_USE = [
     title: 'Free online — no login required',
     description: (
       <>
-        <b>Batch convert URLs to PDF</b> for free — up to 5 per day. No account
-        needed, no credit card, no watermarks on your documents.
+        <b>Batch convert URLs to PDF</b> for free — up to{' '}
+        {KEYLESS_REQUESTS_PER_DAY} per day. No account needed, no credit card,
+        no watermarks on your documents.
       </>
     )
   },
@@ -2395,8 +2397,8 @@ const BulkPreview = ({
                     </Text>
                     {[
                       <React.Fragment key='limit'>
-                        Free users can generate up to 5 PDFs per day. Your limit
-                        will reset tomorrow.
+                        Free users can generate up to {KEYLESS_REQUESTS_PER_DAY}{' '}
+                        PDFs per day. Your limit will reset tomorrow.
                       </React.Fragment>,
                       <React.Fragment key='upgrade'>
                         For unlimited access,{' '}
@@ -3327,9 +3329,12 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can <b>bulk convert up to 5&nbsp;URLs to PDF</b> per day
-              for free, with no credit card or account required. Free PDFs
-              include every feature — paper format, margins, scaling, page
+              Yes! You can{' '}
+              <b>
+                bulk convert up to {KEYLESS_REQUESTS_PER_DAY}&nbsp;URLs to PDF
+              </b>{' '}
+              per day for free, with no credit card or account required. Free
+              PDFs include every feature — paper format, margins, scaling, page
               ranges, and landscape mode.
             </div>
             <div>
@@ -3355,9 +3360,9 @@ const ProductInformation = () => (
               same PDF options and automatic ZIP download.
             </div>
             <div>
-              It&apos;s free to install and includes 5 conversions per day. A{' '}
-              <Link href='/pdf'>Microlink PDF API</Link> subscription unlocks up
-              to <b>46,000 conversions per month</b>.
+              It&apos;s free to install and includes {KEYLESS_REQUESTS_PER_DAY}{' '}
+              conversions per day. A <Link href='/pdf'>Microlink PDF API</Link>{' '}
+              subscription unlocks up to <b>46,000 conversions per month</b>.
             </div>
           </>
         )
@@ -3557,7 +3562,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'EUR',
-          description: 'Free tier with 5 bulk PDF conversions per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} bulk PDF conversions per day`
         }
       },
       {
@@ -3569,7 +3574,7 @@ export const Head = () => (
             name: 'Is this bulk URL to PDF tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can bulk convert up to 5 URLs to PDF per day for free, with no credit card or account required. Free PDFs include every feature — paper format, margins, scaling, page ranges, and landscape mode.'
+              text: `Yes! You can bulk convert up to ${KEYLESS_REQUESTS_PER_DAY} URLs to PDF per day for free, with no credit card or account required. Free PDFs include every feature — paper format, margins, scaling, page ranges, and landscape mode.`
             }
           },
           {
@@ -3609,7 +3614,7 @@ export const Head = () => (
             name: 'Can I bulk convert URLs to PDF from a Chrome extension?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. The Microlink Website to PDF Chrome extension runs this bulk converter from Chrome’s side panel and raises the batch size to 100 URLs, with the same PDF options and automatic ZIP download. It is free to install with 5 conversions per day, and a Microlink PDF API subscription unlocks up to 46,000 conversions per month.'
+              text: `Yes. The Microlink Website to PDF Chrome extension runs this bulk converter from Chrome’s side panel and raises the batch size to 100 URLs, with the same PDF options and automatic ZIP download. It is free to install with ${KEYLESS_REQUESTS_PER_DAY} conversions per day, and a Microlink PDF API subscription unlocks up to 46,000 conversions per month.`
             }
           }
         ]

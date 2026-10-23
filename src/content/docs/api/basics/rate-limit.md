@@ -4,12 +4,13 @@ description: 'Understand Microlink API rate limits for free and pro endpoints. M
 ---
 
 import Label from 'components/elements/Label'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 The API quota is the number of requests you can perform during a quantity of time.
 
 Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:
 
-- **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of 5 <Label display='inline' children='reqs' suffix='/day' />.
+- **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of {KEYLESS_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />.
 - **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />.
 
 You can perform HTTP calls as long as you are under your API quota limit.

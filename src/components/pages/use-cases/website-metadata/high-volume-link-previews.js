@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'website-metadata/high-volume-link-previews',
   head: {
@@ -105,15 +107,14 @@ export const CONTENT = {
         kicker: 'Light by design',
         title: 'Field selection keeps each request small.',
         body: 'A card needs title, description and image. Restricting meta to those skips logo, author and date detection, which makes every cache miss faster and every payload smaller.',
-        note: 'When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free API key, with 25 requests per day, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).'
+        note: `When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free API key, with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).`
       }
     ]
   },
   faq: [
     {
       question: 'Is there a per-second rate limit on metadata API requests?',
-      answer:
-        'No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free API key has a quota of 25 requests per day, and paid plans start at 46,000 requests a month.'
+      answer: `No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free API key has a quota of ${FREE_PLAN_REQUESTS_PER_DAY} requests per day, and paid plans start at 46,000 requests a month.`
     },
     {
       question:

@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'website-screenshot/mobile',
   head: {
@@ -152,7 +154,7 @@ export const CONTENT = {
   cta: {
     headlinePrefix: 'Ready to capture',
     headlineAccent: 'mobile screenshots',
-    body: 'One request per device, no browsers to run. Start on the free API key with 25 requests per day and pick a paid plan when you move to production.',
+    body: `One request per device, no browsers to run. Start on the free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day and pick a paid plan when you move to production.`,
     href: '/screenshot',
     label: 'Get your first mobile screenshot'
   },

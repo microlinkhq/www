@@ -7,6 +7,7 @@ import {
   sdkExample
 } from 'components/patterns/FeatureStory'
 import { FEATURE_TOC } from 'components/patterns/FeatureStory/features'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const META = {
   title: 'Web Scraping API: Structured Data Extraction',
@@ -208,7 +209,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Does scraping work on the free plan?',
-    text: 'Yes. Data extraction works on the free API key (25 requests per day) with proxy, custom headers and configurable TTL included. Paid plans add volume.'
+    text: `Yes. Data extraction works on the free API key (${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day) with proxy, custom headers and configurable TTL included. Paid plans add volume.`
   },
   {
     question: "What happens when a selector doesn't match?",

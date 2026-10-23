@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: '#f59f00' }}>{children}</span>
@@ -422,8 +423,7 @@ puts logo`
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -506,9 +506,9 @@ puts logo`
         answer: (
           <>
             <div>
-              Yes, and it is free: sign up for an API key and you get
-              25&nbsp;requests per day with every Pro feature, no credit card.
-              Add it as x-api-key and start extracting.
+              Yes, and it is free: sign up for an API key and you get{' '}
+              {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day with every Pro
+              feature, no credit card. Add it as x-api-key and start extracting.
             </div>
             <div>
               When you need more volume, pick a paid plan: same key, bigger
@@ -541,8 +541,7 @@ puts logo`
         Start <Accent>extracting</Accent> in Ruby
       </>
     ),
-    caption:
-      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send your first request and get logos back in minutes.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send your first request and get logos back in minutes.`,
     primary: {
       label: 'Get your free API key',
       cta: 'logo-ruby:footer-cta'
@@ -551,7 +550,11 @@ puts logo`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '25 requests/day', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   }
 }
 

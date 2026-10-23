@@ -7,6 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Running Insights requires two parameters: the target `url` and `insights`.
 
@@ -79,7 +80,7 @@ If you run repeated checks, you can also add [ttl](/docs/api/parameters/ttl) <Pr
 
 ## Free tier and API key
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **25 free requests per day** with every Pro feature, including configurable cache TTL, custom headers, and proxy support. For production volume, a <ProBadge /> plan raises the quota on the same key.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **{FREE_PLAN_REQUESTS_PER_DAY} free requests per day** with every Pro feature, including configurable cache TTL, custom headers, and proxy support. For production volume, a <ProBadge /> plan raises the quota on the same key.
 
 See the <Link href='/docs/api/basics/authentication' children='authentication' /> and <Link href='/docs/api/basics/rate-limit' children='rate limit' /> docs for details.
 

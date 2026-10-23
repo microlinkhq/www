@@ -12,6 +12,7 @@ import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import CategorySection from 'components/patterns/Tools/CategorySection'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const Head = () => (
   <Meta
@@ -96,7 +97,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 5 conversions per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} conversions per day`
         }
       }
     ]}

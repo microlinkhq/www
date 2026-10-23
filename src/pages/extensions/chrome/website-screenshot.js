@@ -44,6 +44,7 @@ import {
 import Layout from 'components/patterns/Layout'
 
 import { trackEvent } from 'helpers/gtag'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const EVENT_NAME = 'screenshot extension install'
 
@@ -294,9 +295,10 @@ const Pricing = () => (
         Free to install, built to scale
       </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
-        The extension is free and includes <b>5 screenshots per day</b> — no
-        account, no credit card. Every capture runs on the same infrastructure
-        that processes millions of screenshots per week for paying customers.
+        The extension is free and includes{' '}
+        <b>{KEYLESS_REQUESTS_PER_DAY} screenshots per day</b> — no account, no
+        credit card. Every capture runs on the same infrastructure that
+        processes millions of screenshots per week for paying customers.
       </Text>
       <Text as='p'>
         Need serious volume? A{' '}
@@ -364,8 +366,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'EUR',
-          description:
-            'Free to install — 5 screenshots per day included, no account required'
+          description: `Free to install — ${KEYLESS_REQUESTS_PER_DAY} screenshots per day included, no account required`
         }
       }
     ]}

@@ -8,6 +8,7 @@ import {
 } from 'react-feather'
 
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = colors.yellow7
 export const TILE_BG = colors.yellow0
@@ -92,12 +93,10 @@ export const CAPABILITIES = {
   ]
 }
 
-export const PRICING_CAPTION =
-  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
+export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption:
-    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.',
+  caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send a URL and get the logo, its metadata and the brand palette back in one call.`,
   cta: 'logo:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -194,8 +193,7 @@ export const FAQ_ITEMS = [
 
 export const META = {
   title: 'Website Logo API - Logos, Favicons & Brand Colors',
-  description:
-    'Get the logo behind any URL — page markup, DNS BIMI records and favicons, plus brand palettes with WCAG-aware color pairs. Free API key, 25 requests/day.',
+  description: `Get the logo behind any URL — page markup, DNS BIMI records and favicons, plus brand palettes with WCAG-aware color pairs. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Logo API',
   structuredDescription:
     'A developer-first API that resolves website logos from HTML markup, DNS BIMI records and favicons, with color palette extraction, image metadata, direct embedding and global edge caching.',

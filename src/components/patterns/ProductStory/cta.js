@@ -13,6 +13,7 @@ import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 
 import { Subhead, NARROW_MAX_WIDTH } from './shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
@@ -51,7 +52,11 @@ const CtaNow = styled('span')`
   animation: ${ctaNowAnim} ${CTA_DURATION}s step-end infinite;
 `
 
-const DEFAULT_BADGES = ['Free API key', '25 requests/day', 'No credit card']
+const DEFAULT_BADGES = [
+  'Free API key',
+  `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+  'No credit card'
+]
 
 export const ProductCta = ({
   caption,

@@ -10,6 +10,7 @@ import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { LANG_LANDINGS } from './lang/registry'
 import { Caption, Subhead } from './shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const CTA_DURATION = 6.2
 const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
@@ -86,9 +87,9 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Sign up for a free API key: 25&nbsp;requests per day with every Pro
-        feature, no credit card. Add it to the request and start converting URLs
-        to markdown in seconds.
+        Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests
+        per day with every Pro feature, no credit card. Add it to the request
+        and start converting URLs to markdown in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -113,7 +114,11 @@ export const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['Free API key', '25 requests/day', 'No credit card'].map(label => (
+        {[
+          'Free API key',
+          `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+          'No credit card'
+        ].map(label => (
           <Flex
             key={label}
             css={theme({

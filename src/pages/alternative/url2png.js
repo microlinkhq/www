@@ -30,6 +30,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -256,7 +257,8 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink gives you <b>25 requests/day free</b> with every Pro
+          Yes. Microlink gives you{' '}
+          <b>{FREE_PLAN_REQUESTS_PER_DAY} requests/day free</b> with every Pro
           feature, no credit card and no time limit. You can test the same
           screenshot API surface before moving to a paid plan.
         </div>
@@ -270,7 +272,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes. Microlink gives you 25 requests per day free with every Pro feature, no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually."
+    text: `Yes. Microlink gives you ${FREE_PLAN_REQUESTS_PER_DAY} requests per day free with every Pro feature, no credit card and no time limit. URL2PNG's plans page says it does not offer free accounts, so Microlink is much easier to evaluate gradually.`
   },
   {
     question: 'How hard is it to move from URL2PNG signed URLs to Microlink?',
@@ -598,8 +600,9 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         URL2PNG's plans page says there are <b>no free accounts</b>. Microlink
-        gives you <b>25 requests/day free</b> with every Pro feature, no credit
-        card and no expiry, so you can test real traffic patterns before paying.
+        gives you <b>{FREE_PLAN_REQUESTS_PER_DAY} requests/day free</b> with
+        every Pro feature, no credit card and no expiry, so you can test real
+        traffic patterns before paying.
       </>
     )
   },
@@ -839,7 +842,8 @@ const Hero = () => (
         >
           URL2PNG requires sending them an email to create an account and does
           not offer a free trial. Microlink lets you test the screenshot API
-          immediately with a free API key and <b>25 free requests per day</b>.
+          immediately with a free API key and{' '}
+          <b>{FREE_PLAN_REQUESTS_PER_DAY} free requests per day</b>.
         </Text>
 
         <Text
@@ -1041,7 +1045,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots, PDF, metadata, previews, and remote JS',
-                'Free: 25 requests/day, no credit card, no expiry',
+                `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, no credit card, no expiry`,
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1215,8 +1219,10 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and
-        keep the same browser API when your workload gets more demanding.
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
+        </b>{' '}
+        and keep the same browser API when your workload gets more demanding.
       </Caption>
 
       <Flex

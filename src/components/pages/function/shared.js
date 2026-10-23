@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const META = {
   title: 'Browser Functions API: microlink.function()',
@@ -146,7 +147,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Is function() available on the free plan?',
-    text: 'Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for 25 requests a day.'
+    text: `Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day.`
   },
   {
     question: 'When should I use function() instead of extract()?',

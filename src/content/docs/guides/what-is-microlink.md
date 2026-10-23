@@ -7,6 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Microlink is an API that turns any URL into structured data, screenshots, PDFs, and more. You send a URL, Microlink opens it in a headless browser, and returns exactly what you asked for — metadata, images, documents, or custom-extracted fields — through a single HTTP GET request.
 
@@ -263,7 +264,7 @@ See <Link href='/docs/guides/common/caching' children='caching patterns' /> for 
 
 ## Free to start, scales with you
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **25 free requests per day** with every Pro feature, which is enough to build and test your integration. No credit card.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **{FREE_PLAN_REQUESTS_PER_DAY} free requests per day** with every Pro feature, which is enough to build and test your integration. No credit card.
 
 When you are ready for production, a <ProBadge /> plan adds volume on top of the same key; configurable cache TTL, custom headers, proxy support, and priority rendering are included from the free key up. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 

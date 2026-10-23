@@ -9,6 +9,7 @@ import {
 } from 'react-feather'
 
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = colors.violet7
 export const TILE_BG = colors.violet0
@@ -99,12 +100,10 @@ export const CAPABILITIES = {
   ]
 }
 
-export const PRICING_CAPTION =
-  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
+export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption:
-    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Call it and start parsing real markup in seconds.',
+  caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Call it and start parsing real markup in seconds.`,
   cta: 'html:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -156,8 +155,7 @@ export const FAQ_ITEMS = [
 
 export const META = {
   title: 'Rendered HTML API - HTML After JavaScript',
-  description:
-    'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, 25 requests/day.',
+  description: `Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink HTML API',
   structuredDescription:
     'A developer-first API that returns the fully rendered HTML of any URL after JavaScript execution, with CSS selector scoping, configurable readiness conditions, residential proxy resolution and global edge caching.',

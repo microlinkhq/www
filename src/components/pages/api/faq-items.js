@@ -1,6 +1,7 @@
 import React from 'react'
 
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const FAQ_ITEMS = [
   {
@@ -25,12 +26,13 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Yes, and it is free: sign up and you get 25 requests per day with every Pro feature, Search included, no credit card. Paid plans add volume.',
+    text: `Yes, and it is free: sign up and you get ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, Search included, no credit card. Paid plans add volume.`,
     answer: (
       <>
         <div>
-          Yes, and it is free: sign up and you get 25&nbsp;requests per day with
-          every Pro feature, Search included, no credit card.
+          Yes, and it is free: sign up and you get {FREE_PLAN_REQUESTS_PER_DAY}
+          &nbsp;requests per day with every Pro feature, Search included, no
+          credit card.
         </div>
         <div>
           The key includes <Link href='/search'>Search</Link>,{' '}
@@ -194,12 +196,13 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What is included on the free plan?',
-    text: '25 requests per day on every product, Search included, with every Pro feature and no credit card. Adblock and cookie-banner dismissal are on by default. Paid plans add quota.',
+    text: `${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day on every product, Search included, with every Pro feature and no credit card. Adblock and cookie-banner dismissal are on by default. Paid plans add quota.`,
     answer: (
       <>
         <div>
-          25&nbsp;requests per day on every product, Search included, with every
-          Pro feature and no credit card.
+          {' '}
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day on every product,
+          Search included, with every Pro feature and no credit card.
         </div>
         <div>
           <Link href='/features/adblock'>Adblock</Link> and cookie-banner

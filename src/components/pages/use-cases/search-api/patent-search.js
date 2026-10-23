@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/patent-search',
   head: {
@@ -114,8 +116,7 @@ export const CONTENT = {
     },
     {
       question: 'How much does patent search with the Search API cost?',
-      answer:
-        'Each results page is one request, and each filing expanded with markdown() is one more. A free API key covers 25 requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+      answer: `Each results page is one request, and each filing expanded with markdown() is one more. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.`
     },
     {
       question: 'Is this an official Google Patents API?',

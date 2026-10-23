@@ -8,6 +8,7 @@ import { Link } from 'components/elements/Link'
 import { editorTemplateHref } from 'components/pages/editor/shared'
 import { FunctionExampleCard } from 'components/pages/function/examples-grid'
 import { sitemapCardCode } from 'helpers/get-sitemap-urls'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const RobotsTxt = () => <Link href='/robots.txt'>robots.txt</Link>
 const SitemapXml = () => <Link href='/sitemap.xml'>sitemap.xml</Link>
@@ -235,7 +236,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is this sitemap tool free?',
-    text: 'Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: 5 requests per day.',
+    text: `Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: ${KEYLESS_REQUESTS_PER_DAY} requests per day.`,
     answer: (
       <>
         <div>
@@ -244,7 +245,8 @@ const TOP_FAQ_ITEMS = [
           <Link href='/function' logoIcon>
             Microlink Function
           </Link>{' '}
-          on the free plan: <b>5&nbsp;requests per day</b>.
+          on the free plan:{' '}
+          <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;requests per day</b>.
         </div>
         <div>
           Need more? See <Link href='/pricing'>pricing</Link>.

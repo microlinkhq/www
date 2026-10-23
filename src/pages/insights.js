@@ -52,6 +52,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useHealthcheck } from 'components/hook/use-healthcheck'
 import { useQueryState } from 'components/hook/use-query-state'
 import { useWindowSize } from 'components/hook/use-window-size'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES = [
   {
@@ -965,7 +966,7 @@ export const Head = () => (
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
-        description: 'Free API key with 25 requests per day'
+        description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day`
       }
     }}
   />

@@ -29,6 +29,7 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -465,7 +466,10 @@ const WHY_SWITCH_ITEMS = [
       <>
         Iframely Starter is <b>2,000 hits/month, single domain, pilot only</b>.
         Microlink's free tier is{' '}
-        <b>25 requests/day with every Pro feature, no expiry, no credit card</b>
+        <b>
+          {FREE_PLAN_REQUESTS_PER_DAY} requests/day with every Pro feature, no
+          expiry, no credit card
+        </b>
         , and the same edge network as paid plans — usable in production from
         day one for low-volume integrations.
       </>
@@ -1024,7 +1028,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 25 requests/day, no credit card, no expiry',
+                `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, no credit card, no expiry`,
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1197,8 +1201,10 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> — every
-        Pro feature, no credit card, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
+        </b>{' '}
+        — every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex
