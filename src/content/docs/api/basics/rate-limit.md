@@ -12,9 +12,9 @@ Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are usin
 - **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of 25 <Label display='inline' children='reqs' suffix='/day' />.
 - **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 14,000 <Label display='inline' children='reqs' suffix='/month' />.
 
-You can perform HTTP calls always you are under your the API quota limit.
+You can perform HTTP calls as long as you are under your API quota limit.
 
-When you reach the API quota limit, you will experience [HTTP 429 errors](https://httpstatuses.com/429), meaning you need to wait until the API quota reset (or upgrade your plan).
+When you reach the API quota limit, you will experience [HTTP 429 errors](https://httpstatuses.net/429/), meaning you need to wait until the API quota reset (or upgrade your plan).
 
 When the API quota is reset, you have a fresh start again.
 
