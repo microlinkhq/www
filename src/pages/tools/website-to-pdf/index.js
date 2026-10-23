@@ -1058,6 +1058,7 @@ const PdfPreviewDisplay = ({
               <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
                 <ApiErrorBody
                   code={error?.code}
+                  variant='tool'
                   fallback={
                     error?.message || 'Something went wrong. Please try again.'
                   }
@@ -2029,9 +2030,9 @@ const ProductInformation = () => (
               all features — paper format, margins, scaling, and landscape mode.
             </div>
             <div>
-              Need higher limits? Check our{' '}
-              <Link href='/pricing'>pricing plans</Link> for priority processing
-              and more daily conversions.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/pdf'>PDF API</Link> with a developer API key to
+              generate PDFs from your code.
             </div>
           </>
         )

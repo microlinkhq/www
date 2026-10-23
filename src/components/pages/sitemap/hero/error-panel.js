@@ -38,6 +38,7 @@ export const ErrorPanel = ({ error, onRetry }) => (
       <Text css={theme({ fontSize: 1, color: 'black60', mb: 3 })}>
         <ApiErrorBody
           code={error?.code}
+          variant='tool'
           fallback={error?.message || "We couldn't read this site's sitemap."}
         />
       </Text>

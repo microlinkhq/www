@@ -40,13 +40,24 @@ const FRAGMENTS = {
   )
 }
 
+const TOOL_FRAGMENTS = {
+  ERATE: () =>
+    'You\u2019ve used all 25 free requests for today. The limit resets tomorrow.',
+  ETIMEOUT: () => 'The page took too long to respond. Try again in a moment.',
+  EFATAL: FRAGMENTS.EFATAL,
+  EPROXYNEEDED: () =>
+    'This site blocks automated access, so the free tool can\u2019t reach it.',
+  EMPTY_MARKDOWN: () =>
+    'The page may not exist, return empty content, or block automated access.'
+}
+
 export const ApiErrorTitle = ({ code }) => {
   const { title } = getErrorMeta(code)
   return <>{title}</>
 }
 
-export const ApiErrorBody = ({ code, fallback }) => {
-  const fragment = FRAGMENTS[code]
+export const ApiErrorBody = ({ code, fallback, variant }) => {
+  const fragment = (variant === 'tool' ? TOOL_FRAGMENTS : FRAGMENTS)[code]
   if (!fragment) return <>{fallback || 'Something went wrong.'}</>
 
   return <>{fragment(PricingLink)}</>
