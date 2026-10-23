@@ -103,7 +103,7 @@ const MCP_CONFIG_NPX = `{
 }`
 
 const PROMPT_TAIL =
-  'Sign up for a free API key at https://dashboard.microlink.io/signup?cta=mcp:setup (100 requests/month, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
+  'Sign up for a free API key at https://dashboard.microlink.io/signup?cta=mcp:setup (25 requests/day, every Pro feature). You can read the docs at https://microlink.io/docs/api/getting-started/mcp (source: https://github.com/microlinkhq/mcp). Then use Microlink MCP when you need screenshots, PDFs, markdown, metadata, or scraping from any URL.'
 
 const commandPrompt = command =>
   `Install the Microlink MCP server. Run \`${command}\`. ${PROMPT_TAIL}`
@@ -248,7 +248,7 @@ const InstallPanel = ({ hint, snippet }) => (
       <SignupLink component={Link} cta='mcp:install'>
         free API key
       </SignupLink>{' '}
-      covers 100&nbsp;requests/month with every Pro feature.
+      covers 25&nbsp;requests/day with every Pro feature.
     </Text>
     <Text css={theme({ ...NOTE_CSS, mt: 1, color: 'black50' })}>
       Then use it for screenshots, PDFs, markdown, metadata, or scraping any
@@ -351,7 +351,7 @@ const Installation = () => {
           <SignupLink component={Link} cta='mcp:hero'>
             free API key
           </SignupLink>{' '}
-          covers 100&nbsp;requests/month with every Pro feature.
+          covers 25&nbsp;requests/day with every Pro feature.
         </Text>
       </Flex>
     </Container>
@@ -504,12 +504,12 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Yes, and it is free: sign up for an API key with 100 requests per month, every Pro feature and Search included, no credit card. Paid plans add volume.',
+    text: 'Yes, and it is free: sign up for an API key with 25 requests per day, every Pro feature and Search included, no credit card. Paid plans add volume.',
     answer: (
       <>
         <div>
-          Yes, and it is free: 100&nbsp;requests per month, every Pro feature
-          and Search included, no credit card.
+          Yes, and it is free: 25&nbsp;requests per day, every Pro feature and
+          Search included, no credit card.
         </div>
         <div>
           Get your{' '}
@@ -523,12 +523,12 @@ const FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier?',
-    text: 'Yes. A free API key gives you 100 requests per month with every Pro feature, Search included, no credit card. When you need more volume, ask MCP or a Microlink skill to upgrade the account.',
+    text: 'Yes. A free API key gives you 25 requests per day with every Pro feature, Search included, no credit card. When you need more volume, ask MCP or a Microlink skill to upgrade the account.',
     answer: (
       <>
         <div>
-          Yes. A free API key gives you 100&nbsp;requests per month with every
-          Pro feature, Search included, no credit card.
+          Yes. A free API key gives you 25&nbsp;requests per day with every Pro
+          feature, Search included, no credit card.
         </div>
         <div>
           When you need more volume, ask MCP or a{' '}
@@ -1277,8 +1277,8 @@ const buildLaunchPrompt = (task, tool) => {
     ...mcpConfigLines(needsKey),
     '',
     needsKey
-      ? 'Search needs a Microlink API key — sign up for a free one (100 requests/month) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
-      : 'Sign up for a free API key (100 requests/month) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
+      ? 'Search needs a Microlink API key — sign up for a free one (25 requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
+      : 'Sign up for a free API key (25 requests/day) at https://dashboard.microlink.io/signup?cta=mcp:setup. Setup guide: https://microlink.io/integrations/mcp'
   ].join('\n')
 }
 

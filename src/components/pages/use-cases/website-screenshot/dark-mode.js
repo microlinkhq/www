@@ -141,7 +141,7 @@ export const CONTENT = {
     {
       question: 'Are dark mode screenshots available with the free API key?',
       answer:
-        'Yes. colorScheme works on every plan, including the free API key with 100 requests per month. See [pricing](/pricing) when you need more volume.'
+        'Yes. colorScheme works on every plan, including the free API key with 25 requests per day. See [pricing](/pricing) when you need more volume.'
     }
   ],
   cta: {

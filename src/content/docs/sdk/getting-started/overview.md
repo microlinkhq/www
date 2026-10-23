@@ -30,7 +30,7 @@ The same code runs in Node.js 24 or later, browsers, and Deno, returning the sam
 
 ## Authentication
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 100 requests per month with every Pro feature. Pass it as `apiKey` — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 25 requests per day with every Pro feature. Pass it as `apiKey` — it travels as the [x-api-key](/docs/api/basics/authentication) header and switches the client to the [pro endpoint](/docs/api/basics/endpoint):
 
 ```js
 const microlink = createClient({

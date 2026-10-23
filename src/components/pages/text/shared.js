@@ -100,11 +100,11 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Point it at a URL and start feeding clean content to your models.',
+    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Point it at a URL and start feeding clean content to your models.',
   cta: 'text:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -155,7 +155,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'URL to Text API - Clean, LLM-Ready Page Content',
   description:
-    'Extract clean, readable plain text from any URL. Boilerplate removed, JavaScript rendered, documents supported. Built for LLM pipelines. Free API key, 100 requests/month.',
+    'Extract clean, readable plain text from any URL. Boilerplate removed, JavaScript rendered, documents supported. Built for LLM pipelines. Free API key, 25 requests/day.',
   structuredName: 'Microlink Text API',
   structuredDescription:
     'A developer-first API that extracts clean, readable plain text from any URL or document, with boilerplate removal, full JavaScript rendering, residential proxy resolution and global edge caching.',

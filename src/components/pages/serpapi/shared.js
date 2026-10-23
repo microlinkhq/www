@@ -218,7 +218,7 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '100 / month',
       serpapi: '250 / month',
-      note: 'SerpApi gives 250 searches a month at no cost. A free Microlink API key gives 100 requests a month, proxy included, shared with every other product.'
+      note: 'SerpApi gives 250 searches a month at no cost. A free Microlink API key gives 25 requests a day, proxy included, shared with every other product.'
     },
     {
       feature: 'Client libraries',
@@ -386,7 +386,7 @@ export const HONESTY = {
     },
     {
       title: 'Native clients and a free tier',
-      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, with 100 free requests a month on the free API key. If the service is written in Java and wants a native client, that settles it.'
+      body: 'SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, with 25 free requests a day on the free API key. If the service is written in Java and wants a native client, that settles it.'
     }
   ]
 }
@@ -399,7 +399,7 @@ export const PRICING_CAPTION = (
     the quota it draws from is the one every other product uses. Spend it on
     searches, screenshots or <Link href='/markdown'>Markdown</Link> in whatever
     mix the month needs. The free API key covers every product, Search included,
-    with 100&nbsp;requests a month.
+    with 25&nbsp;requests a day.
   </Text>
 )
 
@@ -504,12 +504,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier for Search?',
-    text: 'Yes. Sign up for a free API key and you get 100 requests a month with every Pro feature, Search included, no credit card. The same allowance covers screenshot, PDF, metadata, markdown and insights, and paid plans add volume.',
+    text: 'Yes. Sign up for a free API key and you get 25 requests a day with every Pro feature, Search included, no credit card. The same allowance covers screenshot, PDF, metadata, markdown and insights, and paid plans add volume.',
     answer: (
       <div>
-        Yes. Sign up for a free API key and you get 100&nbsp;requests a month
-        with every Pro feature, Search included, no credit card. The same
-        allowance covers
+        Yes. Sign up for a free API key and you get 25&nbsp;requests a day with
+        every Pro feature, Search included, no credit card. The same allowance
+        covers
         <Link href='/screenshot'>screenshot</Link>, <Link href='/pdf'>PDF</Link>
         , <Link href='/metadata'>metadata</Link>,{' '}
         <Link href='/markdown'>markdown</Link> and{' '}

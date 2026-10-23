@@ -1702,8 +1702,8 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: 100 screenshot requests per month
-          with every Pro feature and no credit card. It includes adblock, cookie
+          Yes. Sign up for a free API key: 25 screenshot requests per day with
+          every Pro feature and no credit card. It includes adblock, cookie
           banner removal, metadata extraction, automatic proxy resolution, and{' '}
           <Link href='/docs/guides/screenshot/browser-settings'>
             full browser control
@@ -1718,7 +1718,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes. Sign up for a free API key: 100 screenshot requests per month with every Pro feature and no credit card. It includes adblock, cookie banner removal, metadata extraction, automatic proxy resolution, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
+    text: 'Yes. Sign up for a free API key: 25 screenshot requests per day with every Pro feature and no credit card. It includes adblock, cookie banner removal, metadata extraction, automatic proxy resolution, and full browser control. For production workloads, the Pro plan starts at €39/month for 46,000 requests with automatic proxy resolution and antibot protection.'
   },
   {
     question: 'What is a screenshot API?',
@@ -1883,7 +1883,7 @@ const BottomCta = () => {
             textAlign: 'center'
           })}
         >
-          Free API key with 100&nbsp;requests/month, no credit card. Start
+          Free API key with 25&nbsp;requests/day, no credit card. Start
           capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
@@ -1936,22 +1936,20 @@ const BottomCta = () => {
             justifyContent: 'center'
           })}
         >
-          {['Free API key', '100 requests/month', 'No credit card'].map(
-            label => (
-              <Flex
-                key={label}
-                css={theme({
-                  alignItems: 'center',
-                  gap: 1,
-                  color: 'black',
-                  fontSize: [0, 0, 1, 1]
-                })}
-              >
-                <CheckIcon size={16} color={colors.close} />
-                <Text as='span'>{label}</Text>
-              </Flex>
-            )
-          )}
+          {['Free API key', '25 requests/day', 'No credit card'].map(label => (
+            <Flex
+              key={label}
+              css={theme({
+                alignItems: 'center',
+                gap: 1,
+                color: 'black',
+                fontSize: [0, 0, 1, 1]
+              })}
+            >
+              <CheckIcon size={16} color={colors.close} />
+              <Text as='span'>{label}</Text>
+            </Flex>
+          ))}
         </Flex>
       </Flex>
     </Container>

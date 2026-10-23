@@ -59,7 +59,7 @@ const data = {
     {
       title: 'Free, no signup',
       description:
-        'Generate up to 25 embeds per day. No login, no API key, no watermarks.'
+        'Generate up to 5 embeds per day. No login, no API key, no watermarks.'
     }
   ],
   features: [
@@ -110,7 +110,7 @@ const data = {
     },
     {
       question: 'Is this free?',
-      answer: 'Yes — 25 requests per day, no login, no credit card.'
+      answer: 'Yes — 5 requests per day, no login, no credit card.'
     }
   ]
 }

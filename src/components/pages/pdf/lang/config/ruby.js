@@ -444,7 +444,7 @@ run app`
       {
         title: 'Generous Free Tier',
         description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
       }
     ]
   },
@@ -598,7 +598,7 @@ run app`
       </>
     ),
     caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paste the module into a controller and ship a PDF today.',
+      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paste the module into a controller and ship a PDF today.',
     primary: {
       label: 'Get your free API key',
       cta: 'pdf-ruby:footer-cta'
@@ -607,7 +607,7 @@ run app`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: ['Free API key', '25 requests/day', 'No credit card']
   }
 }
 

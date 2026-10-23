@@ -442,7 +442,7 @@ echo json_encode($res['data'], JSON_PRETTY_PRINT);`
       {
         title: 'Generous Free Tier',
         description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
       }
     ]
   },
@@ -525,8 +525,8 @@ echo json_encode($res['data'], JSON_PRETTY_PRINT);`
           <>
             <div>
               Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start extracting.
+              25&nbsp;requests per day with every Pro feature, no credit card.
+              Add it as x-api-key and start extracting.
             </div>
             <div>
               When you need more volume, pick a paid plan: same key, bigger
@@ -560,7 +560,7 @@ echo json_encode($res['data'], JSON_PRETTY_PRINT);`
       </>
     ),
     caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and ship metadata in minutes.',
+      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send your first request and ship metadata in minutes.',
     primary: {
       label: 'Get your free API key',
       cta: 'metadata-php:footer-cta'
@@ -569,7 +569,7 @@ echo json_encode($res['data'], JSON_PRETTY_PRINT);`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: ['Free API key', '25 requests/day', 'No credit card']
   }
 }
 

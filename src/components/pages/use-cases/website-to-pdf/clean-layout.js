@@ -138,7 +138,7 @@ export const CONTENT = {
       question:
         'Do I need a paid plan to convert a web page to PDF without ads?',
       answer:
-        'No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with 100 requests per month. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.'
+        'No. adblock, styles, mediaType and click are request options available on every plan, including the free API key with 25 requests per day. [Custom headers, proxy, filename and configurable caching](/pricing) are included too; paid plans add volume when you move to production.'
     },
     {
       question: 'Does disabling JavaScript produce a cleaner PDF?',

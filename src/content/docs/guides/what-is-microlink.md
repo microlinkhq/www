@@ -263,7 +263,7 @@ See <Link href='/docs/guides/common/caching' children='caching patterns' /> for 
 
 ## Free to start, scales with you
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **100 free requests per month** with every Pro feature, which is enough to build and test your integration. No credit card.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **25 free requests per day** with every Pro feature, which is enough to build and test your integration. No credit card.
 
 When you are ready for production, a <ProBadge /> plan adds volume on top of the same key; configurable cache TTL, custom headers, proxy support, and priority rendering are included from the free key up. See <Link href='/docs/api/basics/rate-limit' children='rate limit' /> and <Link href='/docs/api/basics/authentication' children='authentication' /> for details.
 

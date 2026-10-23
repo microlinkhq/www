@@ -235,7 +235,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is this sitemap tool free?',
-    text: 'Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: 25 requests per day.',
+    text: 'Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: 5 requests per day.',
     answer: (
       <>
         <div>
@@ -244,7 +244,7 @@ const TOP_FAQ_ITEMS = [
           <Link href='/function' logoIcon>
             Microlink Function
           </Link>{' '}
-          on the free plan: <b>25&nbsp;requests per day</b>.
+          on the free plan: <b>5&nbsp;requests per day</b>.
         </div>
         <div>
           Need more? See <Link href='/pricing'>pricing</Link>.

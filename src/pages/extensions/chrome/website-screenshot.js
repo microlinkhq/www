@@ -294,7 +294,7 @@ const Pricing = () => (
         Free to install, built to scale
       </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
-        The extension is free and includes <b>25 screenshots per day</b> — no
+        The extension is free and includes <b>5 screenshots per day</b> — no
         account, no credit card. Every capture runs on the same infrastructure
         that processes millions of screenshots per week for paying customers.
       </Text>
@@ -365,7 +365,7 @@ export const Head = () => (
           price: '0',
           priceCurrency: 'EUR',
           description:
-            'Free to install — 25 screenshots per day included, no account required'
+            'Free to install — 5 screenshots per day included, no account required'
         }
       }
     ]}

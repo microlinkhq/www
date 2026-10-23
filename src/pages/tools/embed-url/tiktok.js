@@ -90,7 +90,7 @@ const REASON_TO_USE = [
   {
     title: 'Free, no signup',
     description:
-      'Generate up to 25 TikTok embeds per day for free. No login, no API key, no watermarks.'
+      'Generate up to 5 TikTok embeds per day for free. No login, no API key, no watermarks.'
   }
 ]
 
@@ -222,7 +222,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 25 requests per day, no login, no credit card. TikTok embeds
+              Yes — 5 requests per day, no login, no credit card. TikTok embeds
               are resolved instantly from cache after the first request.
             </div>
           </>
@@ -263,7 +263,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: 'Free tier with 5 requests per day'
         }
       },
       {
@@ -299,7 +299,7 @@ export const Head = () => (
             name: 'Is the TikTok embed generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes — 25 requests per day, no login, no credit card. TikTok embeds are resolved instantly from cache after the first request.'
+              text: 'Yes — 5 requests per day, no login, no credit card. TikTok embeds are resolved instantly from cache after the first request.'
             }
           }
         ]

@@ -51,8 +51,7 @@ const HERO_FEATURES = [
   },
   {
     title: 'Free to start',
-    description:
-      'Free API key with 100 requests a month and every Pro feature.',
+    description: 'Free API key with 25 requests a day and every Pro feature.',
     icon: <Unlock {...featureIconProps} aria-hidden='true' />
   }
 ]

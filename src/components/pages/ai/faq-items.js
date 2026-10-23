@@ -55,12 +55,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Yes, and it is free: sign up and you get 100 requests per month with every Pro feature, Search included, no credit card. Paid plans add volume.',
+    text: 'Yes, and it is free: sign up and you get 25 requests per day with every Pro feature, Search included, no credit card. Paid plans add volume.',
     answer: (
       <>
         <div>
-          Yes, and it is free: sign up and you get 100&nbsp;requests per month
-          with every Pro feature, Search included, no credit card.
+          Yes, and it is free: sign up and you get 25&nbsp;requests per day with
+          every Pro feature, Search included, no credit card.
         </div>
         <div>
           The key includes <Link href='/search'>Search</Link>,{' '}

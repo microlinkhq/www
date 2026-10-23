@@ -96,7 +96,7 @@ export const CONTENT = {
       {
         kicker: 'Your own 429',
         title: 'ERATE is quota, not the target.',
-        body: 'A free API key allows 100 requests a month and paid plans start at 46,000 a month. There is no throttling within the quota, so parallel requests are fine; once it is exhausted, only the reset or a bigger plan helps.',
+        body: 'A free API key allows 25 requests a day and paid plans start at 46,000 a month. There is no throttling within the quota, so parallel requests are fine; once it is exhausted, only the reset or a bigger plan helps.',
         note: 'The [pricing page](/pricing) lists every plan, and automatic proxy resolution comes with all of the paid ones.'
       },
       {

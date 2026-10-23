@@ -206,7 +206,7 @@ const REASON_TO_USE = [
   {
     title: '25 Free Captures per Day',
     description:
-      'Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to 25 captures daily.'
+      'Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to 5 captures daily.'
   },
   {
     title: 'Desktop, Tablet & Mobile',
@@ -1446,11 +1446,10 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. You can take up to{' '}
-              <b>25&nbsp;animated screenshots per day</b> at no cost — no credit
-              card, no account required. Every free capture includes all
-              features: device emulation, ad blocking, and CDN caching. Need
-              multiple.
+              Yes. You can take up to <b>5&nbsp;animated screenshots per day</b>{' '}
+              at no cost — no credit card, no account required. Every free
+              capture includes all features: device emulation, ad blocking, and
+              CDN caching. Need multiple.
             </div>
             <div>
               Need higher limits? See our{' '}
@@ -1622,7 +1621,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 animated screenshots per day'
+          description: 'Free tier with 5 animated screenshots per day'
         }
       },
       {
@@ -1634,7 +1633,7 @@ export const Head = () => (
             name: 'Is this animated screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. You can take up to 25 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.'
+              text: 'Yes. You can take up to 5 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.'
             }
           },
           {

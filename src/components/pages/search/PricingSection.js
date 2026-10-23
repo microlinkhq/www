@@ -77,7 +77,7 @@ const PricingSection = () => (
               maxWidth: layout.small
             })}
           >
-            Sign up for a free API key and run 100 searches a month at no cost,
+            Sign up for a free API key and run 25 searches a day at no cost,
             proxy included. When you need volume, every paid plan prices Search
             the same per thousand requests.
           </Text>

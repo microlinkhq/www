@@ -53,7 +53,7 @@ export const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. A free API key gives you 100&nbsp;requests per month with
+              Yes. A free API key gives you 25&nbsp;requests per day with
               unrestricted access to all{' '}
               <Link href='/docs/api/parameters/pdf'>
                 document generation features

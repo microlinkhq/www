@@ -100,11 +100,11 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call it and start parsing real markup in seconds.',
+    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Call it and start parsing real markup in seconds.',
   cta: 'html:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -157,7 +157,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Rendered HTML API - HTML After JavaScript',
   description:
-    'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, 100 requests/month.',
+    'Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, 25 requests/day.',
   structuredName: 'Microlink HTML API',
   structuredDescription:
     'A developer-first API that returns the fully rendered HTML of any URL after JavaScript execution, with CSS selector scoping, configurable readiness conditions, residential proxy resolution and global edge caching.',

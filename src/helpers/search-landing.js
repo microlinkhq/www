@@ -297,7 +297,7 @@ const FAQ_ENTRIES = [
   {
     question: 'Is there a free tier?',
     answers: [
-      'Yes. Every Microlink API key includes 100 free requests a month, and Search draws from the same allowance with proxy-backed delivery from the first call.',
+      'Yes. Every Microlink API key includes 25 free requests a day, and Search draws from the same allowance with proxy-backed delivery from the first call.',
       'When you need volume, paid plans price Search the same per thousand requests as every other product.'
     ]
   },

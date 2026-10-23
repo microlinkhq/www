@@ -581,13 +581,13 @@ const FAQ_ITEMS = [
           and 120 concurrent browsers per account.
         </div>
         <div>
-          Microlink's free API key gives you 100 requests per month with every
-          Pro feature, and paid plans have no per-minute cap — you spend your
+          Microlink's free API key gives you 25 requests per day with every Pro
+          feature, and paid plans have no per-minute cap — you spend your
           monthly quota at whatever rate your workload needs.
         </div>
       </>
     ),
-    text: "On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free API key gives you 100 requests per month with every Pro feature, and paid plans have no per-minute cap — you spend your monthly quota at whatever rate your workload needs."
+    text: "On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free API key gives you 25 requests per day with every Pro feature, and paid plans have no per-minute cap — you spend your monthly quota at whatever rate your workload needs."
   },
   {
     question: 'When is Cloudflare Browser Rendering the better choice?',
@@ -915,7 +915,7 @@ const WHY_SWITCH_ITEMS = [
     title: 'A free tier with the whole browser API',
     description: (
       <>
-        Microlink gives you <b>100 free requests per month</b> with every Pro
+        Microlink gives you <b>25 free requests per day</b> with every Pro
         feature on a free API key, no credit card. Cloudflare's free tier needs
         an account ID plus a scoped API token, and caps you at{' '}
         <b>10 minutes of browser time per day</b> and 1 request every
@@ -1284,7 +1284,7 @@ const PricingSection = () => (
                 'Built-in residential proxy and antibot detection',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
-                'Free: 100 requests/month, no credit card, no expiry',
+                'Free: 25 requests/day, no credit card, no expiry',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 '~$0.00107/request on this tier'
               ].map(item => (
@@ -1545,8 +1545,8 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
+        every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1602,8 +1602,8 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          100&nbsp;requests/month free with every Pro feature, no credit card.
-          One GET request in, one finished capture&nbsp;back.
+          25&nbsp;requests/day free with every Pro feature, no credit card. One
+          GET request in, one finished capture&nbsp;back.
         </Caption>
         <Flex
           css={[

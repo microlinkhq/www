@@ -55,7 +55,7 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. A free API key gives you 100&nbsp;requests per month with
+                Yes. A free API key gives you 25&nbsp;requests per day with
                 unrestricted access to all browser automation features,
                 including{' '}
                 <Link href='/docs/api/parameters/device'>device emulation</Link>

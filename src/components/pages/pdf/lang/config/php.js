@@ -456,7 +456,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       {
         title: 'Generous Free Tier',
         description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
       }
     ]
   },
@@ -596,7 +596,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       </>
     ),
     caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Drop the snippet into a route and ship a PDF today.',
+      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Drop the snippet into a route and ship a PDF today.',
     primary: {
       label: 'Get your free API key',
       cta: 'pdf-php:footer-cta'
@@ -605,7 +605,7 @@ header('Location: ' . $res['data']['pdf']['url']);`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: ['Free API key', '25 requests/day', 'No credit card']
   }
 }
 

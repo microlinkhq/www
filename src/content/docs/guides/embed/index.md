@@ -149,7 +149,7 @@ It is the same pipeline as before — `embed` just tells the API to return the f
 
 ## Free tier and API key
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **100 free requests per month** with every Pro feature, enough to build and ship a real embed integration.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **25 free requests per day** with every Pro feature, enough to build and ship a real embed integration.
 
 For production volume, a <ProBadge /> plan raises the quota on the same key. Every plan, the free key included, has the features that matter for embeds specifically: <Link href='/docs/api/parameters/ttl' children='configurable TTL' />, <Link href='/docs/api/parameters/staleTtl' children='stale-while-revalidate caching' />, <Link href='/docs/api/parameters/headers' children='custom headers' /> for private pages, and <Link href='/docs/api/parameters/proxy' children='proxy' /> for blocked or geofenced URLs.
 

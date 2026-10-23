@@ -244,7 +244,7 @@ const REASON_TO_USE = [
   {
     title: 'Free + No login',
     description:
-      'Free screenshot tool with 25 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
+      'Free screenshot tool with 5 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
   },
   {
     title: 'Local Storage Support',
@@ -1522,7 +1522,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>25&nbsp;screenshots per day</b> for
+              Yes! You can take up to <b>5&nbsp;screenshots per day</b> for
               free, with no credit card required. Free screenshots include all
               features — full-page capture, device emulation, overlays, and
               multiple formats.
@@ -1661,7 +1661,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 screenshots per day'
+          description: 'Free tier with 5 screenshots per day'
         }
       },
       {
@@ -1673,7 +1673,7 @@ export const Head = () => (
             name: 'Is this website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 25 screenshots per day for free, with no credit card required. Free screenshots include all features — full-page capture, device emulation, overlays, and multiple formats.'
+              text: 'Yes! You can take up to 5 screenshots per day for free, with no credit card required. Free screenshots include all features — full-page capture, device emulation, overlays, and multiple formats.'
             }
           },
           {

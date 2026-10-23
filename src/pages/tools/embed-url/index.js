@@ -46,7 +46,7 @@ const FEATURES_LIST = [
   {
     title: 'Free, no signup, no key',
     description:
-      'Generate up to 25 embeds per day for free. No account, no API key, no watermark — paste the HTML and go.'
+      'Generate up to 5 embeds per day for free. No account, no API key, no watermark — paste the HTML and go.'
   }
 ]
 
@@ -110,7 +110,7 @@ const REASON_TO_USE = [
   {
     title: 'Free, no signup',
     description:
-      'Generate up to 25 embeds per day for free. No login, no API key, no branding stripped from the output.'
+      'Generate up to 5 embeds per day for free. No login, no API key, no branding stripped from the output.'
   },
   {
     title: 'API for your app',
@@ -722,7 +722,7 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 25 requests per day, no login, no credit card. Cached
+              Yes — 5 requests per day, no login, no credit card. Cached
               responses are served instantly from {CDN_EDGES} Cloudflare edge
               nodes and don't count against your limit.
             </div>
@@ -797,7 +797,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: 'Free tier with 5 requests per day'
         },
         featureList: [
           'Embed any URL as iframe HTML',
@@ -865,7 +865,7 @@ export const Head = () => (
             name: 'Is the embed tool free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes — 25 requests per day, no login, no credit card. Cached responses are served from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit.`
+              text: `Yes — 5 requests per day, no login, no credit card. Cached responses are served from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit.`
             }
           }
         ]

@@ -228,18 +228,18 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes. Microlink gives you <b>100&nbsp;requests/month</b> on a free API
-          key with no credit card and no expiry, and every Pro feature is
-          included: proxy, PDF, metadata and browser automation.
+          Yes. Microlink gives you <b>25&nbsp;requests/day</b> on a free API key
+          with no credit card and no expiry, and every Pro feature is included:
+          proxy, PDF, metadata and browser automation.
         </div>
         <div>
-          Screenshotlayer's free plan is <b>100 screenshots per month</b>. The
-          volume is the same; the difference is that Microlink's 100 cover the
-          whole browser API, not just screenshots.
+          Screenshotlayer's free plan is <b>100 screenshots per month</b>.
+          Microlink's free requests renew every day and cover the whole browser
+          API, not just screenshots.
         </div>
       </>
     ),
-    text: "Yes. Microlink gives you 100 requests per month on a free API key with no credit card and no expiry, and every Pro feature is included: proxy, PDF, metadata and browser automation. Screenshotlayer's free plan is 100 screenshots per month. The volume is the same; the difference is that Microlink's 100 cover the whole browser API, not just screenshots."
+    text: "Yes. Microlink gives you 25 requests per day on a free API key with no credit card and no expiry, and every Pro feature is included: proxy, PDF, metadata and browser automation. Screenshotlayer's free plan is 100 screenshots per month. Microlink's free requests renew every day and cover the whole browser API, not just screenshots."
   },
   {
     question: 'Why does this benchmark exclude framer.com?',
@@ -967,14 +967,13 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '04',
-    title: 'The same 100 free shots, with the whole browser API',
+    title: 'Free requests every day, with the whole browser API',
     description: (
       <>
         Screenshotlayer's free plan is{' '}
         <b>{SCREENSHOTLAYER_FREE_REQUESTS} shots a month</b>. Microlink gives
-        you <b>100 requests a month</b> too, but on a free API key with every
-        Pro feature: proxy, PDF, metadata and browser automation, not just
-        screenshots.
+        you <b>25 requests a day</b> on a free API key with every Pro feature:
+        proxy, PDF, metadata and browser automation, not just screenshots.
       </>
     )
   },
@@ -1321,7 +1320,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote JS',
-                'Free tier: 100 requests/month, no credit card',
+                'Free tier: 25 requests/day, no credit card',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Built-in proxy + antibot tooling',
@@ -1493,7 +1492,7 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> and
+        <b css={theme({ color: 'white' })}>25&nbsp;requests/day free</b> and
         keep the same API surface when traffic gets less predictable.
       </Caption>
 
@@ -1551,7 +1550,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          100&nbsp;requests/month free with every Pro feature. Start with
+          25&nbsp;requests/day free with every Pro feature. Start with
           screenshots, then add metadata, PDF output, previews, or browser logic
           only when your workflow needs them.
         </Caption>

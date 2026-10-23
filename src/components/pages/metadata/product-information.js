@@ -131,13 +131,13 @@ export const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free tier for the metadata API?',
-    text: 'Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the endpoint with the key and get normalized metadata back. Automatic proxy rotation, custom headers and configurable TTL are included; for higher volume and priority support, see our Pro plans starting at €39/month.',
+    text: 'Yes. Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Call the endpoint with the key and get normalized metadata back. Automatic proxy rotation, custom headers and configurable TTL are included; for higher volume and priority support, see our Pro plans starting at €39/month.',
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
-          with every Pro feature, no credit card. Call the endpoint with the key
-          and get normalized metadata back.
+          Yes. Sign up for a free API key: <b>25&nbsp;requests per day</b> with
+          every Pro feature, no credit card. Call the endpoint with the key and
+          get normalized metadata back.
         </div>
         <div>
           <Link href='/docs/guides/common/proxy'>Automatic proxy rotation</Link>

@@ -115,7 +115,7 @@ export const CONTENT = {
     {
       question: 'How much does news monitoring with the Search API cost?',
       answer:
-        'Every search call is one request, so four markets checked every hour is 96 requests a day, about 2,900 a month. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+        'Every search call is one request, so four markets checked every hour is 96 requests a day, about 2,900 a month. A free API key covers 25 requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is this an official Google News API?',

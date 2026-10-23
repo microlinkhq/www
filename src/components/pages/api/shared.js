@@ -44,10 +44,10 @@ export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
 export const META = {
   title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
   description:
-    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with 100 requests a month.',
+    'The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with 25 requests a day.',
   structuredName: 'Microlink API',
   structuredDescription:
-    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes 100 requests a month and every Pro feature.',
+    'A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes 25 requests a day and every Pro feature.',
   keywords:
     'Microlink API, URL to JSON, screenshot API, PDF API, metadata API, markdown API, headless browser API, web scraping API',
   about: [
@@ -85,7 +85,7 @@ export const HERO = {
 
 export const HERO_PROOF = [
   'Free API key, no credit card',
-  '100 requests per month free',
+  '25 requests per day free',
   `Cached across ${CDN_EDGES} edge locations`
 ]
 
@@ -415,11 +415,11 @@ export const HOW_TO = {
 }
 
 export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Sign up for a free API key: 100 requests per month, every Pro feature, no card.',
+    'Sign up for a free API key: 25 requests per day, every Pro feature, no card.',
   cta: 'api:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/pricing',

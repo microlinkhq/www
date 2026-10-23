@@ -426,7 +426,7 @@ print(data['logo'])`
       {
         title: 'Generous Free Tier',
         description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
       }
     ]
   },
@@ -510,8 +510,8 @@ print(data['logo'])`
           <>
             <div>
               Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start extracting.
+              25&nbsp;requests per day with every Pro feature, no credit card.
+              Add it as x-api-key and start extracting.
             </div>
             <div>
               When you need more volume, pick a paid plan: same key, bigger
@@ -545,7 +545,7 @@ print(data['logo'])`
       </>
     ),
     caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and get logos back in minutes.',
+      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send your first request and get logos back in minutes.',
     primary: {
       label: 'Get your free API key',
       cta: 'logo-python:footer-cta'
@@ -554,7 +554,7 @@ print(data['logo'])`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: ['Free API key', '25 requests/day', 'No credit card']
   }
 }
 

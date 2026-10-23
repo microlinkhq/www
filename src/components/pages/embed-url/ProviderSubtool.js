@@ -217,7 +217,7 @@ export const providerHead = ({
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: 'Free tier with 5 requests per day'
         }
       },
       {

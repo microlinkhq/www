@@ -580,18 +580,18 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes. Microlink's <Link href='/pricing'>free tier</Link> gives you
-          100&nbsp;requests/month with every Pro feature, no credit card and no
+          25&nbsp;requests/day with every Pro feature, no credit card and no
           time limit. Same API, same quality, same {CDN_EDGES} edge network as
           paid plans.
         </div>
         <div>
           Screenshot Machine also offers a free tier with 100&nbsp;fresh
-          screenshots per month. The volume is the same; Microlink's 100 cover
-          the whole browser API, proxy included, not just screenshots.
+          screenshots per month. Microlink's renew every day and cover the whole
+          browser API, proxy included, not just screenshots.
         </div>
       </>
     ),
-    text: `Yes. Microlink's free tier gives you 100 requests/month with every Pro feature, no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Screenshot Machine also offers a free tier with 100 fresh screenshots per month. The volume is the same; Microlink's 100 cover the whole browser API, proxy included, not just screenshots.`
+    text: `Yes. Microlink's free tier gives you 25 requests/day with every Pro feature, no credit card and no time limit. Same API, same quality, same ${CDN_EDGES} edge network as paid plans. Screenshot Machine also offers a free tier with 100 fresh screenshots per month. Microlink's renew every day and cover the whole browser API, proxy included, not just screenshots.`
   },
   {
     question:
@@ -1305,7 +1305,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots, PDF, metadata, link previews, remote\u00a0JS',
-                'Free: 100\u00a0requests/month, no credit card, no expiry',
+                'Free: 25\u00a0requests/day, no credit card, no expiry',
                 'No per-minute cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT licensed)',
@@ -1487,8 +1487,8 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
+        every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1544,7 +1544,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          100&nbsp;requests/month free with every Pro feature, no credit card.
+          25&nbsp;requests/day free with every Pro feature, no credit card.
           Start capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex

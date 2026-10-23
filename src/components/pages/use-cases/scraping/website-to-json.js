@@ -149,7 +149,7 @@ export const CONTENT = {
     {
       question: 'Does scraping a website to JSON work on the free API key?',
       answer:
-        'Yes. A free API key gives you 100 requests per month with configurable cache TTL, custom headers and automatic proxy resolution included, enough to build and test a schema. Paid plans add volume, see [pricing](/pricing).'
+        'Yes. A free API key gives you 25 requests per day with configurable cache TTL, custom headers and automatic proxy resolution included, enough to build and test a schema. Paid plans add volume, see [pricing](/pricing).'
     }
   ],
   cta: {

@@ -243,8 +243,8 @@ export const QUESTIONS = [
     answer: (
       <>
         <div>
-          Yes, and it is free: sign up for an API key with 100&nbsp;requests a
-          month and every Pro feature. Pass{' '}
+          Yes, and it is free: sign up for an API key with 25&nbsp;requests a
+          day and every Pro feature. Pass{' '}
           <code>{'createClient({ apiKey })'}</code> and the key travels as the{' '}
           <code>x-api-key</code> header; <Link href='/pricing'>paid plans</Link>{' '}
           add volume.

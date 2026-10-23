@@ -39,7 +39,7 @@ export const Pricing = () => {
               ]
             })}
           >
-            Sign up for a free API key: 100 requests per month with every Pro
+            Sign up for a free API key: 25 requests per day with every Pro
             feature, no credit card. Paid plans add volume and production
             controls.
           </Caption>

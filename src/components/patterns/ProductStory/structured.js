@@ -19,7 +19,7 @@ const OFFERS = {
   price: '0',
   priceCurrency: 'EUR',
   description:
-    'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
+    'Free API key with 25 requests per day. Pro plans start at €39/month for production workloads.',
   url: `${SITE_URL}/pricing`
 }
 

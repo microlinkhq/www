@@ -114,7 +114,7 @@ export const CONTENT = {
     {
       question: 'How many requests does a Google Scholar search cost?',
       answer:
-        'One per results page, plus one per paper you expand with markdown(). A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+        'One per results page, plus one per paper you expand with markdown(). A free API key covers 25 requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
     },
     {
       question: 'Is the Microlink Scholar API affiliated with Google?',

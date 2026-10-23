@@ -2134,8 +2134,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. A free API key gives you 100&nbsp;requests per month, no
-              credit card. For production volume, see{' '}
+              Yes. A free API key gives you 25&nbsp;requests per day, no credit
+              card. For production volume, see{' '}
               <Link href='/pricing'>Pro plans</Link>.
             </div>
           </>
@@ -2172,7 +2172,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free API key with 100 requests per month'
+          description: 'Free API key with 25 requests per day'
         }
       },
       {
@@ -2200,7 +2200,7 @@ export const Head = () => (
             name: 'Is the embed tool free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. A free API key gives you 100 requests per month, no credit card. For production volume, see Pro plans.'
+              text: 'Yes. A free API key gives you 25 requests per day, no credit card. For production volume, see Pro plans.'
             }
           }
         ]

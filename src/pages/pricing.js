@@ -57,7 +57,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with 100 requests per month and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
+        text: 'Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with 25 requests per day and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.'
       }
     },
     {
@@ -195,7 +195,7 @@ export const Head = () => {
       {
         '@type': 'Offer',
         sku: 'free',
-        name: 'Free · 100 requests / month',
+        name: 'Free · 25 requests / day',
         price: '0',
         priceCurrency: 'EUR',
         availability: 'https://schema.org/InStock',
@@ -257,12 +257,12 @@ const PLAN_NAMES = ['Free', 'Pro', 'Business', 'Enterprise']
 const COMPARISON_ROWS = [
   {
     label: 'Daily quota',
-    values: ['Monthly only', 'Unlimited', 'Unlimited', 'Unlimited']
+    values: ['25 req/day', 'Unlimited', 'Unlimited', 'Unlimited']
   },
   {
     label: 'Monthly quota',
     values: [
-      '100 req/month',
+      'Daily only',
       '46K – 420K req/month',
       'Aligned to your usage',
       'Custom'
@@ -1279,7 +1279,7 @@ const Faqs = () => (
           <>
             <div>
               Yes — the free plan is forever free, no credit card required. Sign
-              up and you get an API key with 100&nbsp;requests per month on the{' '}
+              up and you get an API key with 25&nbsp;requests per day on the{' '}
               <Link href='/docs/api/basics/endpoint'>endpoint</Link>, with the
               same screenshot, PDF, metadata, markdown, search, insights and SDK
               capabilities used on Pro.

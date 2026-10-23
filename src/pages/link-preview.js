@@ -1963,7 +1963,7 @@ const LINK_PREVIEW_FEATURES = [
   {
     title: 'Free to Start',
     description:
-      'Preview any URL immediately. Free API key with 100 requests per month and every Pro feature, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
+      'Preview any URL immediately. Free API key with 25 requests per day and every Pro feature, no credit card, and pay-as-you-grow pricing once production traffic kicks in.'
   }
 ]
 
@@ -2076,7 +2076,7 @@ const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+        {['Free API key', '25 requests/day', 'No credit card'].map(label => (
           <Flex
             key={label}
             css={theme({
@@ -2144,12 +2144,12 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is there a free link preview API?',
-    text: `Yes. Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads, Pro plans start at €39 per month with higher rate limits and priority response.`,
+    text: `Yes. Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Cached responses served from ${CDN_EDGES} Cloudflare edge locations do not count against your monthly limit. For production workloads, Pro plans start at €39 per month with higher rate limits and priority response.`,
     answer: (
       <>
         <div>
-          Yes. Sign up for a free API key: <b>100&nbsp;requests per month</b>{' '}
-          with every Pro feature, no credit card. Cached responses served from{' '}
+          Yes. Sign up for a free API key: <b>25&nbsp;requests per day</b> with
+          every Pro feature, no credit card. Cached responses served from{' '}
           {CDN_EDGES} Cloudflare edge locations do not count against your
           monthly limit.
         </div>
@@ -2445,7 +2445,7 @@ export const Head = () => (
             'Rotating residential proxy for URLs behind Cloudflare and CAPTCHAs',
             `Edge-cached across ${CDN_EDGES} Cloudflare locations`,
             'AI-friendly: pair with Cursor or Claude Code to generate previews',
-            'Free API key with 100 requests per month'
+            'Free API key with 25 requests per day'
           ],
           isPartOf: {
             '@type': 'WebSite',
@@ -2458,7 +2458,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'EUR',
             description:
-              'Free API key with 100 requests per month. Pro plans start at €39/month for production workloads.',
+              'Free API key with 25 requests per day. Pro plans start at €39/month for production workloads.',
             url: 'https://microlink.io/pricing'
           },
           keywords: [

@@ -216,9 +216,9 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. Sign up for a free API key: 100&nbsp;requests per month
-                with every Pro feature, no credit card. Call the endpoint with
-                the key and get clean markdown back.
+                Yes. Sign up for a free API key: 25&nbsp;requests per day with
+                every Pro feature, no credit card. Call the endpoint with the
+                key and get clean markdown back.
               </div>
               <div>
                 For production workloads that need higher volume and priority

@@ -139,7 +139,7 @@ export const INDUSTRIES = [
       title: 'What you still build',
       paragraphs: [
         'The Search API returns Google results for a query; it does not store a ranking history or chart it. Your scheduler runs the keyword list, and your database keeps each day of positions.',
-        'Search, metadata and screenshots all start on the free API key, 100 requests a month with proxy included. Compare the paid plans on the [pricing page](/pricing).'
+        'Search, metadata and screenshots all start on the free API key, 25 requests a day with proxy included. Compare the paid plans on the [pricing page](/pricing).'
       ]
     },
     faq: [
@@ -313,7 +313,7 @@ export const INDUSTRIES = [
       {
         question: 'How do I give an AI agent access to Google search?',
         answer:
-          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. A free API key covers 100 searches a month; paid plans add volume.'
+          'Wrap microlink.search as a tool in your agent framework: it takes the query and returns titles, URLs and snippets your agent can read. A free API key covers 25 searches a day; paid plans add volume.'
       },
       {
         question: 'Why Markdown instead of HTML for LLM context?',

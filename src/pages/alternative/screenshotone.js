@@ -1079,7 +1079,7 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'Screenshots + PDF + metadata + previews + remote\u00a0JS',
-                'Free tier: 100\u00a0requests/month, no credit card',
+                'Free tier: 25\u00a0requests/day, no credit card',
                 'No requests-per-minute cap',
                 `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT)',
@@ -1251,10 +1251,8 @@ const CTASection = () => (
       >
         <br />
         Your first{' '}
-        <b css={theme({ color: 'white' })}>
-          100&nbsp;requests/month are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        <b css={theme({ color: 'white' })}>25&nbsp;requests/day are free</b> —
+        every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1310,7 +1308,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          100&nbsp;requests/month free with every Pro feature, no credit card.
+          25&nbsp;requests/day free with every Pro feature, no credit card.
           Start capturing screenshots at the speed your users&nbsp;deserve.
         </Caption>
         <Flex
@@ -1375,9 +1373,9 @@ const FAQSection = () => (
           <>
             <div>
               Yes. Microlink's <Link href='/pricing'>free tier</Link> includes
-              100&nbsp;requests/month with every Pro feature, no credit card and
-              no time limit. You get the same API, the same quality, and the
-              same {CDN_EDGES} edge network as paid plans.
+              25&nbsp;requests/day with every Pro feature, no credit card and no
+              time limit. You get the same API, the same quality, and the same{' '}
+              {CDN_EDGES} edge network as paid plans.
             </div>
             <div>
               ScreenshotOne also offers a free tier, but it's limited to
@@ -1567,7 +1565,7 @@ export const Head = () => (
             name: 'Is there a free ScreenshotOne alternative?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes. Microlink's free tier includes 100 requests/month with every Pro feature, no credit card and no time limit. You get the same API, the same quality, and the same ${CDN_EDGES} edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no renewal — once they're gone, you need a paid plan.`
+              text: `Yes. Microlink's free tier includes 25 requests/day with every Pro feature, no credit card and no time limit. You get the same API, the same quality, and the same ${CDN_EDGES} edge network as paid plans. ScreenshotOne also offers a free tier, but it's limited to 100 screenshots with no renewal — once they're gone, you need a paid plan.`
             }
           },
           {

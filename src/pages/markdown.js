@@ -101,7 +101,7 @@ export const Head = () => (
             price: '0',
             priceCurrency: 'USD',
             description:
-              'Free API key with 100 requests per month and every Pro feature. Pro plans scale for high concurrency.'
+              'Free API key with 25 requests per day and every Pro feature. Pro plans scale for high concurrency.'
           },
           keywords:
             'url to markdown api, url to markdown free, web to markdown api, html to markdown api, url to markdown service, markdown for AI agents, RAG ingestion, LLM preprocessing, token-efficient content',
@@ -211,7 +211,7 @@ export const Head = () => (
               name: 'Is the URL to markdown API free?',
               acceptedAnswer: {
                 '@type': 'Answer',
-                text: 'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Call the endpoint with the key and get clean markdown back. For production workloads that need higher volume and priority support, see our Pro plans.'
+                text: 'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Call the endpoint with the key and get clean markdown back. For production workloads that need higher volume and priority support, see our Pro plans.'
               }
             },
             {

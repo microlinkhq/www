@@ -102,11 +102,11 @@ export const CAPABILITIES = {
 }
 
 export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+  'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.'
 
 export const CTA = {
   caption:
-    'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send a URL and get a playable file back in seconds.',
+    'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Send a URL and get a playable file back in seconds.',
   cta: 'media:footer-cta',
   ctaLabel: 'Get your free API key'
 }
@@ -162,7 +162,7 @@ export const FAQ_ITEMS = [
 export const META = {
   title: 'Media Extraction API - Video & Audio File URLs',
   description:
-    'Extract direct video and audio file URLs from any web page, with dimensions, duration and type. Real browser detection, proxy support, edge caching. Free API key, 100 requests/month.',
+    'Extract direct video and audio file URLs from any web page, with dimensions, duration and type. Real browser detection, proxy support, edge caching. Free API key, 25 requests/day.',
   structuredName: 'Microlink Media API',
   structuredDescription:
     'A developer-first API that resolves the direct playable video or audio file behind any URL, returning media type, dimensions and duration, with real browser detection, residential proxy resolution and global edge caching.',

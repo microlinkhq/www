@@ -86,7 +86,7 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Sign up for a free API key: 100&nbsp;requests per month with every Pro
+        Sign up for a free API key: 25&nbsp;requests per day with every Pro
         feature, no credit card. Add it to the request and start converting URLs
         to markdown in seconds.
       </Caption>
@@ -113,7 +113,7 @@ export const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+        {['Free API key', '25 requests/day', 'No credit card'].map(label => (
           <Flex
             key={label}
             css={theme({

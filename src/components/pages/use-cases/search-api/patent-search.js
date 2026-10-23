@@ -115,7 +115,7 @@ export const CONTENT = {
     {
       question: 'How much does patent search with the Search API cost?',
       answer:
-        'Each results page is one request, and each filing expanded with markdown() is one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+        'Each results page is one request, and each filing expanded with markdown() is one more. A free API key covers 25 requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
     },
     {
       question: 'Is this an official Google Patents API?',

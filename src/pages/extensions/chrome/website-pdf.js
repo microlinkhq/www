@@ -198,7 +198,7 @@ const FEATURES = [
   {
     icon: Key,
     title: 'Free tier, pro ready',
-    body: 'Works without an account — 25 conversions per day on the house. Add your Microlink API key and the extension switches to the pro endpoint with your plan limits.'
+    body: 'Works without an account — 5 conversions per day on the house. Add your Microlink API key and the extension switches to the pro endpoint with your plan limits.'
   },
   {
     icon: Shield,
@@ -285,7 +285,7 @@ const Pricing = () => (
         Free to install, built to scale
       </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
-        The extension is free and includes <b>25 conversions per day</b> — no
+        The extension is free and includes <b>5 conversions per day</b> — no
         account, no credit card. It runs on the same infrastructure that
         converts millions of web pages to PDF every week for paying customers.
       </Text>
@@ -354,7 +354,7 @@ export const Head = () => (
           price: '0',
           priceCurrency: 'EUR',
           description:
-            'Free to install — 25 conversions per day included, no account required'
+            'Free to install — 5 conversions per day included, no account required'
         }
       }
     ]}

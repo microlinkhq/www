@@ -105,7 +105,7 @@ export const CONTENT = {
         kicker: 'Light by design',
         title: 'Field selection keeps each request small.',
         body: 'A card needs title, description and image. Restricting meta to those skips logo, author and date detection, which makes every cache miss faster and every payload smaller.',
-        note: 'When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free API key, with 100 requests per month, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).'
+        note: 'When not to: a low-volume internal tool with a handful of links a day does not need cache tuning. The defaults and the free API key, with 25 requests per day, are enough. For sustained volume above the listed plans, talk to us about [enterprise](/enterprise).'
       }
     ]
   },
@@ -113,7 +113,7 @@ export const CONTENT = {
     {
       question: 'Is there a per-second rate limit on metadata API requests?',
       answer:
-        'No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free API key has a quota of 100 requests per month, and paid plans start at 14,000 requests a month.'
+        'No. Microlink applies no throttling: you can run as many parallel requests as your quota allows. The free API key has a quota of 25 requests per day, and paid plans start at 46,000 requests a month.'
     },
     {
       question:

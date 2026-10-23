@@ -440,7 +440,7 @@ http
       {
         title: 'Generous Free Tier',
         description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+          'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card.'
       }
     ]
   },
@@ -538,8 +538,8 @@ http
           <>
             <div>
               Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start capturing.
+              25&nbsp;requests per day with every Pro feature, no credit card.
+              Add it as x-api-key and start capturing.
             </div>
             <div>
               Pass <code>apiKey</code> to <code>createClient()</code> and the
@@ -579,7 +579,7 @@ http
       </>
     ),
     caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Install the SDK and ship your first screenshot in minutes.',
+      'Sign up for a free API key: 25 requests per day with every Pro feature, no credit card. Install the SDK and ship your first screenshot in minutes.',
     primary: {
       label: 'Get your free API key',
       cta: 'screenshot-nodejs:footer-cta'
@@ -588,7 +588,7 @@ http
       label: 'Read the Node.js docs',
       href: '/docs/sdk/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: ['Free API key', '25 requests/day', 'No credit card']
   },
 
   siblings: []

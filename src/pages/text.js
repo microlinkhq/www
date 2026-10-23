@@ -75,7 +75,7 @@ const FEATURES = [
   {
     title: 'Generous Free Tier',
     description:
-      'Start with a free API key: 100 requests per month with every Pro feature, no credit card, and pay-as-you-grow pricing that scales with your usage.'
+      'Start with a free API key: 25 requests per day with every Pro feature, no credit card, and pay-as-you-grow pricing that scales with your usage.'
   }
 ]
 

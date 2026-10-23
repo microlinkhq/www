@@ -323,9 +323,9 @@ const Pricing = () => (
         Free to install, built to scale
       </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
-        The extension is free and includes <b>25 checks per day</b> — no
-        account, no credit card. It runs on the same infrastructure that
-        extracts structured metadata from millions of URLs every week for paying
+        The extension is free and includes <b>5 checks per day</b> — no account,
+        no credit card. It runs on the same infrastructure that extracts
+        structured metadata from millions of URLs every week for paying
         customers.
       </Text>
       <Text as='p'>
@@ -401,7 +401,7 @@ export const Head = () => (
           price: '0',
           priceCurrency: 'EUR',
           description:
-            'Free to install — 25 checks per day included, no account required'
+            'Free to install — 5 checks per day included, no account required'
         }
       }
     ]}

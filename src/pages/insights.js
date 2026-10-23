@@ -965,7 +965,7 @@ export const Head = () => (
         '@type': 'Offer',
         price: '0',
         priceCurrency: 'USD',
-        description: 'Free API key with 100 requests per month'
+        description: 'Free API key with 25 requests per day'
       }
     }}
   />

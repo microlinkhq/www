@@ -135,7 +135,7 @@ const quotes = results.flatMap(result => result.quotes)`,
     {
       question: 'Can I scrape a paginated website in parallel?',
       answer:
-        'Yes. When pages have their own URLs, build the list of URLs and send one extraction request per page at the same time. The API applies no throttling; the free API key allows 100 requests per month in total.'
+        'Yes. When pages have their own URLs, build the list of URLs and send one extraction request per page at the same time. The API applies no throttling; the free API key allows 25 requests per day in total.'
     },
     {
       question:

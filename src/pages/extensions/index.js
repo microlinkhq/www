@@ -125,7 +125,7 @@ const Hero = () => (
               pt: 3
             })}
           >
-            Free to install · No account <LineBreak />· 25 requests a day
+            Free to install · No account <LineBreak />· 5 requests a day
           </Caps>
           <Flex css={theme({ pt: [3, 3, 4, 4] })}>
             <ArrowLink
