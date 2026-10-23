@@ -211,7 +211,7 @@ Each error message is plan-aware and tells you the exact limit that was hit.
 
 ## Compression
 
-Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.function()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.function()` compresses the code with brotli when the runtime supports it and falls back to gzip otherwise, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'
@@ -227,7 +227,7 @@ const { value } = await microlink.function(
 
 <Figcaption>The SDK picks the compressor for the runtime and prefixes the payload with its alias.</Figcaption>
 
-If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `lz#<compressed code>`. The following compression algorithms are supported:
+If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `br#<compressed code>`. The following compression algorithms are supported:
 
 - brotli (`br`)
 - gzip (`gz`)
