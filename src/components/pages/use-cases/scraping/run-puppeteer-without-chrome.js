@@ -85,7 +85,7 @@ export const CONTENT = {
       {
         kicker: 'Nothing to ship',
         title: 'No Chromium binary, no layer, no fonts.',
-        body: 'Your code is a function, so it deploys anywhere Node.js, an edge runtime or a browser can make an HTTP call. The SDK compresses the function body before sending it, with brotli in Node.js and lz-string in browsers.',
+        body: 'Your code is a function, so it deploys anywhere Node.js, an edge runtime or a browser can make an HTTP call. The SDK compresses the function body before sending it, with brotli where the runtime supports it and gzip otherwise.',
         note: 'Try a function against a live page in the [editor](/editor) before wiring it into your code, and read the [Browser Functions feature](/features/function) for the full runtime.'
       },
       {

@@ -107,7 +107,7 @@ console.log(value)
 
 ## Compress large functions
 
-Large function bodies are compressed before they are sent. The SDK handles this automatically — `microlink.function()` compresses the code with brotli in Node.js and lz-string in browsers, so the call stays the same:
+Large function bodies are compressed before they are sent. The SDK handles this automatically: `microlink.function()` compresses the code with brotli when the runtime supports it and falls back to gzip otherwise, so the call stays the same:
 
 ```js
 import createClient from 'microlink.io'
