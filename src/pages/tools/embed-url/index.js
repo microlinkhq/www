@@ -864,10 +864,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'Is the embed tool free?',
+            name: 'Is the embed code generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes — 25 requests per day, no login, no credit card. Cached responses are served from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit.`
+              text: `Yes — 25 requests per day, no login, no credit card. Cached responses are served instantly from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit. Building an app or an AI agent? Use the Embed API with a developer API key to generate embeds from your code.`
             }
           }
         ]
