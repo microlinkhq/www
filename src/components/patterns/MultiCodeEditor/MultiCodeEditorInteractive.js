@@ -1,6 +1,7 @@
 import If from 'components/elements/If'
 import { theme } from 'theme'
 
+import { useCodeLanguage } from 'components/hook/use-code-language'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import React, { useState, useCallback, useMemo } from 'react'
 import { mqlCode } from 'helpers/mql-code'
@@ -14,13 +15,10 @@ import ContentArea from './interactive/content-area'
 import FadeOverlay from './interactive/fade-overlay'
 import Toolbar from './interactive/toolbar'
 import { useExecuteRequest } from './interactive/use-execute-request'
-import {
-  useAutoExecute,
-  useCurrentViewText,
-  useLanguageSync
-} from './interactive/hooks'
+import { useAutoExecute, useCurrentViewText } from './interactive/hooks'
 
 const SDK_PREAMBLE_HEIGHT = 118
+const DEFAULT_LANGUAGE = 'JavaScript'
 
 function MultiCodeEditorInteractive ({
   mqlCode: mqlCodeProps,
@@ -45,21 +43,19 @@ function MultiCodeEditorInteractive ({
     [url, binding, mqlOpts]
   )
 
-  const [languageIndex, setLanguageIndex] = useLocalStorage(
-    'multi_code_editor_index',
-    2
+  const availableLanguages = useMemo(
+    () => Object.keys(codeSnippets),
+    [codeSnippets]
   )
 
-  const availableLanguages = Object.keys(codeSnippets)
-  const [language, setLanguage] = useState(
-    availableLanguages[languageIndex] || ''
+  const [language, setLanguage] = useCodeLanguage(
+    availableLanguages,
+    availableLanguages.includes(DEFAULT_LANGUAGE)
+      ? DEFAULT_LANGUAGE
+      : availableLanguages[0] || ''
   )
 
-  const currentLanguage = availableLanguages.includes(language)
-    ? language
-    : availableLanguages[0] || ''
-
-  const [code, setCode] = useState(codeSnippets[currentLanguage] || '')
+  const [code, setCode] = useState(codeSnippets[language] || '')
   const [responseData, setResponseData] = useState(defaultResponseData ?? null)
   const [isLoading, setIsLoading] = useState(false)
   const normalizedDefaultView = bodyPreviewOnly ? 'body' : 'code'
@@ -86,23 +82,18 @@ function MultiCodeEditorInteractive ({
     setIsExpanded(false)
   }
 
-  const snippet = codeSnippets[currentLanguage] || ''
+  const snippet = codeSnippets[language] || ''
   const [previousSnippet, setPreviousSnippet] = useState(snippet)
   if (url && snippet !== previousSnippet) {
     setPreviousSnippet(snippet)
     setCode(snippet)
   }
 
-  useLanguageSync({
-    url,
-    bodyPreviewOnly,
-    availableLanguages,
-    codeSnippets,
-    setLanguage,
-    setCode,
-    setActiveView,
-    setLanguageIndex
-  })
+  const [previousLanguage, setPreviousLanguage] = useState(language)
+  if (language !== previousLanguage) {
+    setPreviousLanguage(language)
+    setActiveView(normalizedDefaultView)
+  }
 
   const parseCodeAndExecute = useExecuteRequest({
     url,
@@ -170,19 +161,8 @@ function MultiCodeEditorInteractive ({
   }, [url, mqlOpts])
 
   const handleLanguageChange = useCallback(
-    e => {
-      const newLanguage = e.target.value
-      setLanguage(newLanguage)
-      setCode(codeSnippets[newLanguage])
-      setActiveView(bodyPreviewOnly ? 'body' : 'code')
-
-      window.dispatchEvent(
-        new CustomEvent('mql-language-change', {
-          detail: { key: 'mql-code-editor-language', newValue: newLanguage }
-        })
-      )
-    },
-    [bodyPreviewOnly, codeSnippets]
+    event => setLanguage(event.target.value),
+    [setLanguage]
   )
 
   const getCurrentViewText = useCurrentViewText({
@@ -279,7 +259,7 @@ function MultiCodeEditorInteractive ({
 
           {!bodyPreviewOnly && activeView === 'code' && (
             <Toolbar
-              currentLanguage={currentLanguage}
+              currentLanguage={language}
               onLanguageChange={handleLanguageChange}
               onExecute={executeRequest}
               isLoading={isLoading}

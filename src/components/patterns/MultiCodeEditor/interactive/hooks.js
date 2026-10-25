@@ -2,66 +2,6 @@ import { useCallback, useEffect, useRef } from 'react'
 
 const isTextContentType = contentType => contentType.startsWith('text/')
 
-export const useLanguageSync = ({
-  url,
-  bodyPreviewOnly,
-  availableLanguages,
-  codeSnippets,
-  setLanguage,
-  setCode,
-  setActiveView,
-  setLanguageIndex
-}) => {
-  useEffect(() => {
-    if (!url) return
-
-    const syncLanguage = nextLanguage => {
-      setLanguage(nextLanguage)
-      setCode(codeSnippets[nextLanguage])
-      setActiveView(bodyPreviewOnly ? 'body' : 'code')
-    }
-
-    const handleStorageChange = e => {
-      if (
-        e.key === 'mql-code-editor-language' &&
-        e.newValue &&
-        availableLanguages.includes(e.newValue)
-      ) {
-        syncLanguage(e.newValue)
-      }
-    }
-
-    const handleCustomEvent = e => {
-      if (
-        e.detail?.key === 'mql-code-editor-language' &&
-        e.detail?.newValue &&
-        availableLanguages.includes(e.detail.newValue)
-      ) {
-        setLanguageIndex(availableLanguages.indexOf(e.detail.newValue))
-        syncLanguage(e.detail.newValue)
-      }
-    }
-
-    window.addEventListener('storage', handleStorageChange)
-
-    window.addEventListener('mql-language-change', handleCustomEvent)
-
-    return () => {
-      window.removeEventListener('storage', handleStorageChange)
-      window.removeEventListener('mql-language-change', handleCustomEvent)
-    }
-  }, [
-    url,
-    bodyPreviewOnly,
-    setLanguage,
-    availableLanguages,
-    codeSnippets,
-    setCode,
-    setActiveView,
-    setLanguageIndex
-  ])
-}
-
 export const useAutoExecute = ({
   autoExecute,
   url,
