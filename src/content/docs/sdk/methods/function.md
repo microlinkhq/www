@@ -80,7 +80,7 @@ Large function bodies are compressed before they're sent, so the keyless endpoin
 
 ## Limits
 
-|                   | Keyless and free API key                       | Paid plans   |
+|                   | Free plan                                      | Paid plan    |
 | ----------------- | ---------------------------------------------- | ------------ |
 | Timeout           | 15 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
