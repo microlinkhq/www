@@ -12,10 +12,10 @@ import {
 
 The API quota is the number of requests you can perform during a quantity of time.
 
-Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:
+Your API quota depends on your plan:
 
-- **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of {KEYLESS_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />.
-- **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />. The free API key gets {FREE_PLAN_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' /> with up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests.
+- **free**: unauthenticated {KEYLESS_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />, authenticated {FREE_PLAN_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />.
+- **pro**: It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />.
 
 You can perform HTTP calls as long as you are under your API quota limit.
 
