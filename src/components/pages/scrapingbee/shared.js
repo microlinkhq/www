@@ -5,6 +5,7 @@ import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GradientText } from 'components/patterns/ProductStory'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT_NAME = 'cyan'
 export const ACCENT = colors.cyan7
@@ -186,7 +187,7 @@ export const COMPARISON = {
       microlink: '100/month',
       scrapingbee: '1,000 once',
       highlight: true,
-      note: 'The free Microlink API key renews 100 requests every month with no card and no expiry; ScrapingBee gives a one-time trial allowance.'
+      note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and no expiry; ScrapingBee gives a one-time trial allowance.`
     },
     {
       feature: 'Geotargeting',
@@ -304,13 +305,12 @@ export const PRICING_CAPTION = (
     One request counted whether the call renders or proxies, and a{' '}
     <Link href='/features/ttl'>cache hit</Link> not counted at all — there is no
     multiplier to budget around. Start on the free API key and move to a paid
-    plan when the monthly ceiling gets in the way.
+    plan when the daily ceiling gets in the way.
   </Text>
 )
 
 export const CTA = {
-  caption:
-    'Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first 100 calls a month.',
+  caption: `Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first ${FREE_PLAN_REQUESTS_PER_DAY} calls a day.`,
   cta: 'alternative-scrapingbee:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides',
@@ -378,7 +378,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What does the free tier include?',
-    text: 'A free API key with 100 requests per month and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.'
+    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.`
   },
   {
     question: 'Do cached responses still cost a request?',

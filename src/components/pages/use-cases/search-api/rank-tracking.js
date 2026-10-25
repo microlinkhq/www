@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/rank-tracking',
   head: {
@@ -113,8 +115,7 @@ export const CONTENT = {
     },
     {
       question: 'Does the rank tracking API store ranking history?',
-      answer:
-        'No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.'
+      answer: `No. Each call returns the current results; history is the rows you store. Run the job on your own scheduler, save keyword, country, position, url and timestamp, and compare runs in your database. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests.`
     },
     {
       question: 'Is the Microlink rank checker affiliated with Google?',

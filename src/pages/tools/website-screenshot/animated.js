@@ -90,6 +90,7 @@ import {
   MAX_HISTORY_ITEMS,
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Animated-specific layout extensions (min-height 550px) ─── */
 
@@ -204,9 +205,8 @@ const REASON_TO_USE = [
       'Take animated screenshots online with no software to install and no account required. Just paste the URL and capture.'
   },
   {
-    title: '25 Free Captures per Day',
-    description:
-      'Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to 25 captures daily.'
+    title: `${KEYLESS_REQUESTS_PER_DAY} Free Captures per Day`,
+    description: `Every animated screenshot is clean and professional — no watermarks, no overlays, no branding. Free for up to ${KEYLESS_REQUESTS_PER_DAY} captures daily.`
   },
   {
     title: 'Desktop, Tablet & Mobile',
@@ -1447,10 +1447,12 @@ const ProductInformation = () => (
           <>
             <div>
               Yes. You can take up to{' '}
-              <b>25&nbsp;animated screenshots per day</b> at no cost — no credit
-              card, no account required. Every free capture includes all
-              features: device emulation, ad blocking, and CDN caching. Need
-              multiple.
+              <b>
+                {KEYLESS_REQUESTS_PER_DAY}&nbsp;animated screenshots per day
+              </b>{' '}
+              at no cost — no credit card, no account required. Every free
+              capture includes all features: device emulation, ad blocking, and
+              CDN caching. Need multiple.
             </div>
             <div>
               Need higher limits? See our{' '}
@@ -1622,7 +1624,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 animated screenshots per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} animated screenshots per day`
         }
       },
       {
@@ -1634,7 +1636,7 @@ export const Head = () => (
             name: 'Is this animated screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. You can take up to 25 animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.'
+              text: `Yes. You can take up to ${KEYLESS_REQUESTS_PER_DAY} animated screenshots per day at no cost — no credit card, no account required. Every free capture includes all features: device emulation, ad blocking, and CDN caching. Need more? See our pricing plans for higher daily limits and priority processing.`
             }
           },
           {

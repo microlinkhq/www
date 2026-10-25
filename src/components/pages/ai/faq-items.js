@@ -2,6 +2,7 @@ import React from 'react'
 
 import { Link } from 'components/elements/Link'
 import { AgentNames, FAQ_AGENTS } from './agent-names'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const FAQ_ITEMS = [
   {
@@ -55,12 +56,13 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do I need an API key?',
-    text: 'Yes, and it is free: sign up and you get 100 requests per month with every Pro feature, Search included, no credit card. Paid plans add volume.',
+    text: `Yes, and it is free: sign up and you get ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, Search included, no credit card. Paid plans add volume.`,
     answer: (
       <>
         <div>
-          Yes, and it is free: sign up and you get 100&nbsp;requests per month
-          with every Pro feature, Search included, no credit card.
+          Yes, and it is free: sign up and you get {FREE_PLAN_REQUESTS_PER_DAY}
+          &nbsp;requests per day with every Pro feature, Search included, no
+          credit card.
         </div>
         <div>
           The key includes <Link href='/search'>Search</Link>,{' '}

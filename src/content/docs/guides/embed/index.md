@@ -7,6 +7,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Microlink turns any URL into a rich preview, an interactive player, or a plain asset URL — pick how it gets rendered.
 
@@ -149,7 +150,7 @@ It is the same pipeline as before — `embed` just tells the API to return the f
 
 ## Free tier and API key
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **100 free requests per month** with every Pro feature, enough to build and ship a real embed integration.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): **{FREE_PLAN_REQUESTS_PER_DAY} free requests per day** with every Pro feature, enough to build and ship a real embed integration.
 
 For production volume, a <ProBadge /> plan raises the quota on the same key. Every plan, the free key included, has the features that matter for embeds specifically: <Link href='/docs/api/parameters/ttl' children='configurable TTL' />, <Link href='/docs/api/parameters/staleTtl' children='stale-while-revalidate caching' />, <Link href='/docs/api/parameters/headers' children='custom headers' /> for private pages, and <Link href='/docs/api/parameters/proxy' children='proxy' /> for blocked or geofenced URLs.
 

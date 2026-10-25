@@ -29,6 +29,7 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -474,9 +475,9 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly's API plan offers a <b>30-day free trial</b> at base usage
         levels, then bills. Microlink's free tier is{' '}
-        <b>100 requests/month forever</b>, with every Pro feature, no credit
-        card, on the same edge network as paid plans — usable in production for
-        low-volume integrations without a renewal clock.
+        <b>{FREE_PLAN_REQUESTS_PER_DAY} requests/day forever</b>, with every Pro
+        feature, no credit card, on the same edge network as paid plans — usable
+        in production for low-volume integrations without a renewal clock.
       </>
     )
   },
@@ -721,14 +722,14 @@ const FAQ_ITEMS = [
         </div>
         <div>
           At the network layer, swap <b>i.embed.ly/1/oembed?url=...&key=...</b>{' '}
-          for <b>pro.microlink.io?url=...</b> with your free Microlink API key
-          (100 requests a month, no credit card). The{' '}
+          for <b>pro.microlink.io?url=...</b> with your free Microlink API key (
+          {FREE_PLAN_REQUESTS_PER_DAY} requests a day, no credit card). The{' '}
           <Link href='/docs/guides/embed'>embed guide</Link> walks through the
           full mapping.
         </div>
       </>
     ),
-    text: 'The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for pro.microlink.io?url=... with your free Microlink API key (100 requests a month, no credit card).'
+    text: `The data shapes are close enough that most card components only need a thin adapter, not a rewrite. Embedly returns title, description, thumbnail, oEmbed-style media, and provider info; Microlink returns the same fields plus color palette, logo URL, and dominant color metadata. At the network layer, swap i.embed.ly/1/oembed?url=...&key=... for pro.microlink.io?url=... with your free Microlink API key (${FREE_PLAN_REQUESTS_PER_DAY} requests a day, no credit card).`
   },
   {
     question: 'When does Embedly still make more sense than Microlink?',
@@ -1014,7 +1015,7 @@ const PricingSection = () => (
               {[
                 'Embeds, screenshots, PDF, metadata, remote JS',
                 'Rotating residential proxy + antibot bypass + CAPTCHA handling',
-                'Free: 100 requests/month, no credit card, no expiry',
+                `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, no credit card, no expiry`,
                 'No per-second cap on paid plans',
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 'Open-source core (MIT licensed)',
@@ -1188,8 +1189,10 @@ const CTASection = () => (
         })}
       >
         Start with{' '}
-        <b css={theme({ color: 'white' })}>100&nbsp;requests/month free</b> —
-        every Pro feature, no credit card, same edge network as paid plans.
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
+        </b>{' '}
+        — every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex

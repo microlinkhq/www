@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/keyword-research',
   head: {
@@ -114,8 +116,7 @@ export const CONTENT = {
     },
     {
       question: 'How many requests does autocomplete keyword research use?',
-      answer:
-        'One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) from €39/month for 46,000 requests.'
+      answer: `One per query. A seed plus 26 letter variants is 27 requests, and each web search for questions is one more. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) from €39/month for 46,000 requests.`
     },
     {
       question: 'Is this Google Suggest API an official Google product?',

@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'website-screenshot/dark-mode',
   head: {
@@ -140,8 +142,7 @@ export const CONTENT = {
     },
     {
       question: 'Are dark mode screenshots available with the free API key?',
-      answer:
-        'Yes. colorScheme works on every plan, including the free API key with 100 requests per month. See [pricing](/pricing) when you need more volume.'
+      answer: `Yes. colorScheme works on every plan, including the free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day. See [pricing](/pricing) when you need more volume.`
     }
   ],
   cta: {

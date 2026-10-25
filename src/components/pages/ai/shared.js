@@ -1,5 +1,6 @@
 import { INSTALL_COMMAND } from 'helpers/install-command'
 import { colors } from 'theme'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export {
   SectionBlock,
@@ -22,8 +23,7 @@ export const META = {
   description:
     'Paste one prompt into Claude, Cursor, or ChatGPT. The Microlink skill is the entry point for screenshots, PDFs, markdown, and scraping. Free API key, no credit card.',
   structuredName: 'Microlink AI',
-  structuredDescription:
-    'A single agent skill that turns any URL into screenshots, PDFs, markdown, metadata, and structured data. Prompt your agent to install it. Free to start with an API key that includes 100 requests a month and every Pro feature.',
+  structuredDescription: `A single agent skill that turns any URL into screenshots, PDFs, markdown, metadata, and structured data. Prompt your agent to install it. Free to start with an API key that includes ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and every Pro feature.`,
   keywords:
     'Microlink AI, Microlink skill, AI agent skill, screenshot for agents, markdown for LLMs, web scraping for agents',
   about: [
@@ -84,8 +84,7 @@ export const HOW_TO = {
 }
 
 export const CTA = {
-  caption:
-    'Paste the prompt into your agent. Free API key, 100\u00a0requests/month, no card.',
+  caption: `Paste the prompt into your agent. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day, no card.`,
   ctaHref: SKILL_HREF,
   ctaLabel: 'Open the skill'
 }

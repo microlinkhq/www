@@ -4,6 +4,7 @@ import { Link } from 'components/elements/Link'
 import LineBreak from 'components/elements/LineBreak'
 import Faq from 'components/patterns/Faq/Faq'
 import { CDN_EDGES } from 'helpers/cdn-edges'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ProductInformation = () => {
   return (
@@ -55,9 +56,9 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. A free API key gives you 100&nbsp;requests per month with
-                unrestricted access to all browser automation features,
-                including{' '}
+                Yes. A free API key gives you {FREE_PLAN_REQUESTS_PER_DAY}
+                &nbsp;requests per day with unrestricted access to all browser
+                automation features, including{' '}
                 <Link href='/docs/api/parameters/device'>device emulation</Link>
                 ,{' '}
                 <Link href='/docs/api/parameters/headers'>

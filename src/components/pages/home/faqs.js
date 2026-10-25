@@ -6,6 +6,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import React from 'react'
 import { theme, SECTION_VERTICAL_SPACING } from 'theme'
 import { CAPACITY_REQUESTS_PER_MONTH } from 'components/pages/home/catalog'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 let questions
 
@@ -33,14 +34,14 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Yes. Sign up for a free API key and you get 100&nbsp;requests a
-            month on every product, Search included, with every Pro feature and
-            no credit card. See the{' '}
+            Yes. Sign up for a free API key and you get{' '}
+            {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day on every product,
+            Search included, with every Pro feature and no credit card. See the{' '}
             <Link href='/docs/api/basics/endpoint'>endpoint docs</Link>.
           </div>
           <div>
             It has limits to prevent abuse: burst rate, concurrency, and the
-            monthly quota. Enough for small projects and low-volume usage.
+            daily quota. Enough for small projects and low-volume usage.
           </div>
         </>
       )

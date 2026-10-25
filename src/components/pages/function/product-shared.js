@@ -5,6 +5,7 @@ import { CheckCircle, Code, Globe } from 'react-feather'
 import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
 import { sitemapCardCode } from 'helpers/get-sitemap-urls'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ACCENT = colors.indigo8
 export const ACCENT_NAME = 'indigo'
@@ -377,8 +378,7 @@ export const FEATURES = [
   {
     icon: 'Lock',
     title: 'API token',
-    description:
-      'Free is 100 requests/month with every Pro feature. Paid plans raise the cap.'
+    description: `Free is ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day with every Pro feature. Paid plans raise the cap.`
   },
   {
     icon: 'Zap',
@@ -410,12 +410,10 @@ export const HOW_TO = {
   ]
 }
 
-export const PRICING_CAPTION =
-  'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Paid plans add volume and production controls.'
+export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption:
-    'Write a function in the browser. Free API key, 100 requests/month, no card.',
+  caption: `Write a function in the browser. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day, no card.`,
   cta: 'function:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/editor',
@@ -461,7 +459,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Function available on the free plan?',
-    text: 'Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for 100 requests a month.'
+    text: `Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day.`
   },
   {
     question: 'Does every call execute the function again?',
@@ -471,8 +469,7 @@ export const FAQ_ITEMS = [
 
 export const META = {
   title: 'Browser Functions API — Run JavaScript on Any Page',
-  description:
-    'Write a JavaScript function, send a URL, and get the return value. Microlink runs it in a remote sandbox — a headless browser only if you need one. Free API key, 100 requests/month.',
+  description: `Write a JavaScript function, send a URL, and get the return value. Microlink runs it in a remote sandbox — a headless browser only if you need one. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Function API',
   structuredDescription:
     'Write a JavaScript function, send it with a URL, and read the return value. A browser starts only if the function uses page. Optional Puppeteer, on-the-fly npm packages, no fleet to operate.',

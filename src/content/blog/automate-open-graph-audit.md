@@ -7,6 +7,8 @@ authors:
 date: '2026-01-23'
 ---
 
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+
 This post builds a Node.js script that reads your sitemap, fetches the metadata of every URL with Microlink, and writes a report of each page with a missing Open Graph image, title, description, author, date, or logo. It takes three dependencies and one file, `audit.js`.
 
 **TL;DR**
@@ -65,7 +67,7 @@ const SITEMAP_URL = process.env.SITEMAP_URL || 'https://YOUR_WEB_PAGE.com/sitema
 const API_KEY = process.env.API_KEY; // Optional, but recommended to large sitemaps
 
 const CONCURRENCY = 1; // Keep it low for free tier
-const FREE_TIER_LIMIT = 25; // 25 requests per day for free tier
+const FREE_TIER_LIMIT = 5; // 5 requests per day for free tier
 const FIRST_BATCH = 0; // If the free tier gets small make batch by batch
 
 const validateUrl = async (url) => {
@@ -170,7 +172,7 @@ The script has two parts. `validateUrl` waits 1000&nbsp;ms, calls `mql(url, { me
 * `data.author` and `data.logo` must exist.
 * `data.date` must exist and parse into a valid `Date`.
 
-`runAudit` fetches the sitemap with a 15000&nbsp;ms timeout. Without an `API_KEY`, it cuts the list to `FREE_TIER_LIMIT` (25 URLs), and `FIRST_BATCH` sets where that slice starts. Then `pMap` validates the URLs at the configured `CONCURRENCY`, printing progress as it goes.
+`runAudit` fetches the sitemap with a 15000&nbsp;ms timeout. Without an `API_KEY`, it cuts the list to `FREE_TIER_LIMIT` ({KEYLESS_REQUESTS_PER_DAY} URLs), and `FIRST_BATCH` sets where that slice starts. Then `pMap` validates the URLs at the configured `CONCURRENCY`, printing progress as it goes.
 
 At the end it prints how many URLs were scanned, passed, and failed. When anything failed, it writes every failing URL and its errors to `errors-<timestamp>.txt` in the current folder.
 

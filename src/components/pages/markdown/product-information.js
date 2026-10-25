@@ -3,6 +3,7 @@ import { SECTION_VERTICAL_SPACING, borders, colors, theme } from 'theme'
 import { Link } from 'components/elements/Link'
 import LineBreak from 'components/elements/LineBreak'
 import Faq from 'components/patterns/Faq/Faq'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ProductInformation = () => {
   return (
@@ -216,9 +217,9 @@ export const ProductInformation = () => {
           answer: (
             <>
               <div>
-                Yes. Sign up for a free API key: 100&nbsp;requests per month
-                with every Pro feature, no credit card. Call the endpoint with
-                the key and get clean markdown back.
+                Yes. Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY}
+                &nbsp;requests per day with every Pro feature, no credit card.
+                Call the endpoint with the key and get clean markdown back.
               </div>
               <div>
                 For production workloads that need higher volume and priority

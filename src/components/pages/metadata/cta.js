@@ -10,6 +10,7 @@ import { SignupLink } from 'components/patterns/SignupLink'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { LANG_LANDINGS } from './lang/registry'
 import { ACCENT, Caption, Subhead } from './shared'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const CTA_DURATION = 6.2
 
@@ -90,9 +91,9 @@ export const CallToAction = () => (
           textAlign: 'center'
         })}
       >
-        Sign up for a free API key: 100&nbsp;requests per month with every Pro
-        feature, no credit card. Add it to the request and go from URL to
-        metadata in seconds.
+        Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests
+        per day with every Pro feature, no credit card. Add it to the request
+        and go from URL to metadata in seconds.
       </Caption>
       <Flex
         css={theme({
@@ -117,7 +118,11 @@ export const CallToAction = () => (
           justifyContent: 'center'
         })}
       >
-        {['Free API key', '100 requests/month', 'No credit card'].map(label => (
+        {[
+          'Free API key',
+          `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+          'No credit card'
+        ].map(label => (
           <Flex
             key={label}
             css={theme({

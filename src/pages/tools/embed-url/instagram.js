@@ -23,6 +23,7 @@ import {
   embedBreadcrumb,
   embedRobots
 } from 'components/pages/embed-url'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const EXAMPLE_URL = 'https://www.instagram.com/p/CsGRq_RMhXz/'
 
@@ -88,8 +89,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free, no signup',
-    description:
-      'Generate up to 25 Instagram embeds per day for free. No login, no API key, no watermarks.'
+    description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} Instagram embeds per day for free. No login, no API key, no watermarks.`
   }
 ]
 
@@ -221,8 +221,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 25 requests per day, no login, no credit card. Cached
-              responses don't count against your limit.
+              Yes — {KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no
+              credit card. Cached responses don't count against your limit.
             </div>
           </>
         )
@@ -262,7 +262,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} requests per day`
         }
       },
       {
@@ -298,7 +298,7 @@ export const Head = () => (
             name: 'Is the Instagram embed generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: "Yes — 25 requests per day, no login, no credit card. Cached responses don't count against your limit."
+              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. Cached responses don't count against your limit.`
             }
           }
         ]

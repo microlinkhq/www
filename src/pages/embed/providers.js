@@ -72,6 +72,7 @@ import { UNAVATAR_TOKEN } from 'helpers/unavatar'
 
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS } from 'components/patterns/Tools/toolCatalog'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const UNAVATAR = 'https://unavatar.io'
 
@@ -2134,8 +2135,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. A free API key gives you 100&nbsp;requests per month, no
-              credit card. For production volume, see{' '}
+              Yes. A free API key gives you {FREE_PLAN_REQUESTS_PER_DAY}
+              &nbsp;requests per day, no credit card. For production volume, see{' '}
               <Link href='/pricing'>Pro plans</Link>.
             </div>
           </>
@@ -2172,7 +2173,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free API key with 100 requests per month'
+          description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day`
         }
       },
       {
@@ -2200,7 +2201,7 @@ export const Head = () => (
             name: 'Is the embed tool free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. A free API key gives you 100 requests per month, no credit card. For production volume, see Pro plans.'
+              text: `Yes. A free API key gives you ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day, no credit card. For production volume, see Pro plans.`
             }
           }
         ]
