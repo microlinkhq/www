@@ -1314,7 +1314,7 @@ export const Head = () => (
             name: 'Is this mobile screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 25 mobile screenshots per day for free, with no credit card required. Free screenshots include all features — phone emulation, full-page capture, portrait and landscape modes, and multiple formats.'
+              text: 'Yes! You can take up to 25 mobile screenshots per day for free, with no credit card required. Free screenshots include all features — phone emulation, full-page capture, portrait and landscape modes, and multiple formats. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.'
             }
           },
           {
