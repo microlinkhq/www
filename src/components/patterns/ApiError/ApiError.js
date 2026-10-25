@@ -42,7 +42,7 @@ const FRAGMENTS = {
 
 const TOOL_FRAGMENTS = {
   ERATE: () =>
-    'You\u2019ve used all 25 free requests for today. The limit resets tomorrow.',
+    'You\u2019ve reached your request limit. Try again once it resets.',
   ETIMEOUT: () => 'The page took too long to respond. Try again in a moment.',
   EFATAL: FRAGMENTS.EFATAL,
   EPROXYNEEDED: () =>
