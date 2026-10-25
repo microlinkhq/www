@@ -70,7 +70,7 @@ export const CONTENT = {
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'Maximum request time: 30 seconds on the keyless endpoint, 60 seconds with an API key.'
+        note: 'Maximum request time: 30 seconds on the free endpoint, 60 seconds with an API key.'
       }
     ],
     outro:

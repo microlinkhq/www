@@ -23,7 +23,7 @@ These patterns apply once you move from prototyping to a production integration.
 | Staging / CI | `pro.microlink.io` | `x-api-key` header |
 | Production | `pro.microlink.io` | `x-api-key` header |
 
-The keyless endpoint has a soft limit of **{KEYLESS_REQUESTS_PER_DAY} requests per day**. With an API key the quota is your plan's, **{FREE_PLAN_REQUESTS_PER_DAY} requests per day** on the free key. Both run up to **{FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests**, per IP address without a key. Sending `x-api-key` to the keyless endpoint fails with `EPRO`.
+The free endpoint has a soft limit of **{KEYLESS_REQUESTS_PER_DAY} requests per day**. With an API key the quota is your plan's, **{FREE_PLAN_REQUESTS_PER_DAY} requests per day** on the free key. Both run up to **{FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests**, per IP address without a key. Sending `x-api-key` to the free endpoint fails with `EPRO`.
 
 See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
 
@@ -34,7 +34,7 @@ When you hit your quota, Microlink returns **HTTP 429** with error code `ERATE`.
 1. Check `x-rate-limit-remaining` on every response.
 2. When the value approaches zero, slow down or queue requests.
 3. On a 429 response, wait until `x-rate-limit-reset` (UTC epoch seconds) before retrying.
-4. Without a key or on the free key, a 429 with quota left means you went over {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests: wait a second and retry. The keyless endpoint answers it with `ECONCURRENCY`; the free key, with no `x-rate-limit-remaining` header or one above zero.
+4. Without a key or on the free key, a 429 with quota left means you went over {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests: wait a second and retry. The free endpoint answers it with `ECONCURRENCY`; the free key, with no `x-rate-limit-remaining` header or one above zero.
 
 ```js
 const { status, data, headers } = response
@@ -48,7 +48,7 @@ if (status === 429) {
 }
 ```
 
-The keyless endpoint and the free key reset daily. Paid plans reset monthly. See the <Link href='/docs/api/basics/rate-limit' children='rate limit docs' />.
+The free endpoint and the free key reset daily. Paid plans reset monthly. See the <Link href='/docs/api/basics/rate-limit' children='rate limit docs' />.
 
 ## Use stale-while-revalidate by default <ProBadge />
 

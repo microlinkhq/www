@@ -183,13 +183,13 @@ const QUESTIONS = [
     )
   },
   {
-    question: 'How do keyless and keyed requests work?',
+    question: 'How do the free endpoint and API keys work?',
     answer: (
       <>
         <div>
           Without an <code>apiKey</code> the component queries{' '}
-          <code>api.microlink.io</code> (keyless). Pass an <code>apiKey</code>{' '}
-          prop, the free one included, and it switches to{' '}
+          <code>api.microlink.io</code> (the free endpoint). Pass an{' '}
+          <code>apiKey</code> prop, the free one included, and it switches to{' '}
           <code>pro.microlink.io</code> with your plan quota and every Pro
           feature. Both endpoints are the same{' '}
           <Link href='/link-preview'>Microlink link preview API</Link>.

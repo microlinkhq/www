@@ -73,10 +73,10 @@ export const CONTENT = {
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'The request ceiling: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
+        note: 'The request ceiling: 30 seconds on the free endpoint, 60 seconds with any API key.'
       }
     ],
-    outro: `Limits are explicit: on the keyless endpoint a function gets 15 seconds, 64 MB of heap, 1024 bytes of compressed code, one in-flight run per IP and same-origin requests only. Any API key, the free one included, raises that to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests; the free key runs up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The [profiling guide](/docs/guides/function/profiling-and-performance) shows where each run spends its time.`
+    outro: `Limits are explicit: on the free endpoint a function gets 15 seconds, 64 MB of heap, 1024 bytes of code, ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests per IP and same-origin requests only. Any API key, the free one included, raises that to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests; the free key runs up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The [profiling guide](/docs/guides/function/profiling-and-performance) shows where each run spends its time.`
   },
   why: {
     title: 'Why hosted headless Chrome beats a browser you maintain',
@@ -112,7 +112,7 @@ export const CONTENT = {
     {
       question: 'How long can a serverless Puppeteer function run?',
       answer:
-        '15 seconds on the keyless endpoint and up to 60 seconds with an API key. Past that the function returns isFulfilled false with a TimeoutError. Replace fixed waits with waitForSelector and set meta: false to stay well inside the limit.'
+        '15 seconds on the free endpoint and up to 60 seconds with an API key. Past that the function returns isFulfilled false with a TimeoutError. Replace fixed waits with waitForSelector and set meta: false to stay well inside the limit.'
     },
     {
       question:

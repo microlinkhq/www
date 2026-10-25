@@ -135,7 +135,7 @@ export const CONTENT = {
     {
       question: 'What happens when a site blocks my link preview requests?',
       answer:
-        'On the keyless endpoint a detected block returns the EPROXYNEEDED error code, the signal to send that link through an API key. With a key the proxy resolves automatically, with no parameter; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
+        'On the free endpoint a detected block returns the EPROXYNEEDED error code, the signal to send that link through an API key. With a key the proxy resolves automatically, with no parameter; see [link previews for bot-protected sites](/use-cases/website-metadata/blocked-sites).'
     }
   ],
   cta: {

@@ -84,7 +84,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Forwarding headers requires an API key, the free one included. Sending x-api-key to the keyless endpoint fails with EPRO, so point authenticated requests at pro.microlink.io, as the [authentication docs](/docs/api/basics/authentication) describe.'
+      'Forwarding headers requires an API key, the free one included. Sending x-api-key to the free endpoint fails with EPRO, so point authenticated requests at pro.microlink.io, as the [authentication docs](/docs/api/basics/authentication) describe.'
   },
   why: {
     title: 'Why forwarding headers beats scripting the login for screenshots',

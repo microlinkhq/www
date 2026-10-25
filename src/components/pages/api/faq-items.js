@@ -175,11 +175,11 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What happens when a site blocks the request?',
-    text: 'On the keyless endpoint, a site behind antibot protection returns the EPROXYNEEDED error. With an API key, Microlink names the antibot or CAPTCHA provider that blocked you and retries the same request through a residential proxy automatically.',
+    text: 'On the free endpoint, a site behind antibot protection returns the EPROXYNEEDED error. With an API key, Microlink names the antibot or CAPTCHA provider that blocked you and retries the same request through a residential proxy automatically.',
     answer: (
       <>
         <div>
-          On the keyless endpoint, a site behind antibot protection returns the{' '}
+          On the free endpoint, a site behind antibot protection returns the{' '}
           <b>EPROXYNEEDED</b> error.
         </div>
         <div>
@@ -214,17 +214,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do I know how much quota is left?',
-    text: 'All requests return x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset. The keyless endpoint reports the daily window. With an API key the response reports your plan quota, resets daily on the free key and at the start of the next month in UTC on paid plans, and can lag the live counter by a few minutes. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On paid plans you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
+    text: 'All requests return x-rate-limit-limit, x-rate-limit-remaining, and x-rate-limit-reset. The free endpoint reports the daily window. With an API key the response reports your plan quota, resets daily on the free key and at the start of the next month in UTC on paid plans, and can lag the live counter by a few minutes. Past the limit you get HTTP 429 with the ERATE code. There is no throttling, so parallel requests are fine within your quota. On paid plans you are notified at 80% of your plan, and requests pause at 100% with no overage fees.',
     answer: (
       <>
         <div>
           All requests return <b>x-rate-limit-limit</b>,{' '}
-          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b>. The
-          keyless endpoint reports the daily window. With an API key the
-          response reports your plan quota, resets daily on the free key and at
-          the start of the next month in UTC on paid plans, and can lag the live
-          counter by a few minutes. Past the limit you get HTTP 429 with the
-          ERATE code.
+          <b>x-rate-limit-remaining</b>, and <b>x-rate-limit-reset</b>. The free
+          endpoint reports the daily window. With an API key the response
+          reports your plan quota, resets daily on the free key and at the start
+          of the next month in UTC on paid plans, and can lag the live counter
+          by a few minutes. Past the limit you get HTTP 429 with the ERATE code.
         </div>
         <div>
           There is no throttling, so parallel requests are fine within your

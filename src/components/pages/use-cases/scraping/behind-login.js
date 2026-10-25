@@ -94,7 +94,7 @@ export const CONTENT = {
       }
     ],
     outro:
-      'Sending x-api-key to the keyless endpoint fails with EPRO, and the headers parameter without an API key returns EHEADERS. The [SDK options reference](/docs/sdk/getting-started/options) explains how the headers option is routed.'
+      'Sending x-api-key to the free endpoint fails with EPRO, and the headers parameter without an API key returns EHEADERS. The [SDK options reference](/docs/sdk/getting-started/options) explains how the headers option is routed.'
   },
   why: {
     title: 'Why forwarding a session beats automating the login',
@@ -146,7 +146,7 @@ export const CONTENT = {
     {
       question: 'Can I scrape pages behind a login without an API key?',
       answer:
-        'No. Forwarding headers requires an API key and the pro.microlink.io endpoint; the free key includes it. The keyless endpoint is fine for building and testing your rules on public pages first, then you add the session header with the key. See [pricing](/pricing).'
+        'No. Forwarding headers requires an API key and the pro.microlink.io endpoint; the free key includes it. The free endpoint is fine for building and testing your rules on public pages first, then you add the session header with the key. See [pricing](/pricing).'
     }
   ],
   cta: {

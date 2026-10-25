@@ -29,9 +29,9 @@ All requests return your current quota on the response:
 - `x-rate-limit-remaining`: The number of requests remaining in the current window.
 - `x-rate-limit-reset`: The time at which the window resets, in UTC epoch seconds.
 
-The keyless endpoint reports the daily window. With an API key the response reports the quota on your key: the free key resets daily, and paid plans reset at the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
+The free endpoint reports the daily window. With an API key the response reports the quota on your key: the free key resets daily, and paid plans reset at the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
 
-The keyless endpoint and the free API key run up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests: per IP address without a key, per key with one. Requests above that limit also get 429, even with quota left, so wait a second and retry instead of waiting for the reset. The keyless endpoint answers them with the `ECONCURRENCY` error code; on the free key, they are the 429 with no `x-rate-limit-remaining` header, or one above zero.
+The free endpoint and the free API key run up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests: per IP address without a key, per key with one. Requests above that limit also get 429, even with quota left, so wait a second and retry instead of waiting for the reset. The free endpoint answers them with the `ECONCURRENCY` error code; on the free key, they are the 429 with no `x-rate-limit-remaining` header, or one above zero.
 
 Paid plans don't throttle: you can run as many parallel requests as your quota allows.
 
