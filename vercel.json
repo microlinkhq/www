@@ -488,6 +488,10 @@
       "destination": "/docs/api/basics/error-codes#erate"
     },
     {
+      "source": "/econcurrency",
+      "destination": "/docs/api/basics/error-codes#econcurrency"
+    },
+    {
       "source": "/error-codes",
       "destination": "/docs/api/basics/error-codes"
     },

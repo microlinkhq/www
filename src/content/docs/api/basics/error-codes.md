@@ -51,6 +51,16 @@ When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/
 
 In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the keyless endpoint and 60 seconds with an API key.
 
+## ECONCURRENCY
+
+**Message**
+
+Too many concurrent requests (limit: 2). Wait for one to finish or upgrade to a PRO plan.
+
+**Solution**
+
+Without an API key, each IP address runs up to 2 requests at the same time, and up to 2 copies of the same function per URL. Wait for one to finish and retry, or use an [API key](/docs/api/basics/authentication). See [rate limit](/docs/api/basics/rate-limit/).
+
 ## EFATAL
 
 **Message**
