@@ -6,7 +6,7 @@ description: 'Understand Microlink API rate limits for free and pro endpoints. M
 import Label from 'components/elements/Label'
 import {
   FREE_PLAN_REQUESTS_PER_DAY,
-  FREE_PLAN_REQUESTS_PER_SECOND,
+  FREE_PLAN_CONCURRENT_REQUESTS,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
 
@@ -15,7 +15,7 @@ The API quota is the number of requests you can perform during a quantity of tim
 Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:
 
 - **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of {KEYLESS_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />.
-- **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />. The free API key gets {FREE_PLAN_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' /> at up to {FREE_PLAN_REQUESTS_PER_SECOND} <Label display='inline' children='reqs' suffix='/second' />.
+- **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />. The free API key gets {FREE_PLAN_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' /> with up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests.
 
 You can perform HTTP calls as long as you are under your API quota limit.
 
@@ -31,7 +31,7 @@ All requests return your current quota on the response:
 
 The keyless endpoint reports the daily window. With an API key the response reports the quota on your key: the free key resets daily, and paid plans reset at the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
 
-The free API key is throttled to {FREE_PLAN_REQUESTS_PER_SECOND} requests per second. Requests above that rate also get 429, even with quota left: when the 429 has no `x-rate-limit-remaining` header, or it is above zero, wait a second and retry instead of waiting for the reset.
+The free API key runs up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. Requests above that limit also get 429, even with quota left: when the 429 has no `x-rate-limit-remaining` header, or it is above zero, wait a second and retry instead of waiting for the reset.
 
 The keyless endpoint and paid plans don't throttle: you can run as many parallel requests as your quota allows.
 

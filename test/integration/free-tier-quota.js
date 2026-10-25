@@ -3,7 +3,7 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 import {
-  FREE_PLAN_REQUESTS_PER_SECOND,
+  FREE_PLAN_CONCURRENT_REQUESTS,
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from '../../src/helpers/free-tier'
@@ -25,14 +25,13 @@ const GUARDED_QUOTAS = [
 const CONSTANTS = [
   'KEYLESS_REQUESTS_PER_DAY',
   'FREE_PLAN_REQUESTS_PER_DAY',
-  'FREE_PLAN_REQUESTS_PER_SECOND'
+  'FREE_PLAN_CONCURRENT_REQUESTS'
 ]
 const MISSTATED_FREE_RATE = [
   /free one included[^.]*unlimited[^.]*concurrency/gi,
   /no code-size or concurrency limits/gi,
   /shared concurrency/gi,
-  /don't apply any throttling/gi,
-  /\$?\{FREE_PLAN_REQUESTS_PER_SECOND\}(?:\s|\\u00a0|&nbsp;)+concurrent/g
+  /don't apply any throttling/gi
 ]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
@@ -157,7 +156,7 @@ const misstatedFreeRateClaims = () =>
           match =>
             `${location(file, source, match.index)} → "${
               match[0]
-            }" contradicts the free key's ${FREE_PLAN_REQUESTS_PER_SECOND} requests per second throttle, state it with FREE_PLAN_REQUESTS_PER_SECOND`
+            }" contradicts the free key's ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests cap, state it with FREE_PLAN_CONCURRENT_REQUESTS`
         )
       )
   )
@@ -179,7 +178,7 @@ describe('free tier quota', () => {
     expect(shadowedQuotaConstants()).toEqual([])
   })
 
-  test('copy states the free key request rate instead of an uncapped or concurrent one', () => {
+  test('copy states the free key concurrency cap instead of an uncapped one', () => {
     expect(misstatedFreeRateClaims()).toEqual([])
   })
 
