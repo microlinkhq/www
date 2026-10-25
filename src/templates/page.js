@@ -98,11 +98,7 @@ const PageTemplate = ({
         <Markdown isBlogPage>{content}</Markdown>
       </Box>
 
-      {isBlogPage && (
-        <Markdown isBlogPage={isBlogPage}>
-          <PostFooter />
-        </Markdown>
-      )}
+      {isBlogPage && <PostFooter />}
     </Layout>
   )
 }

@@ -10,7 +10,8 @@ const PAGE_CTAS = [
   'components/pages/markdown/cta.js',
   'components/pages/screenshot/cta.js',
   'components/pages/pdf/cta.js',
-  'components/pages/home/call-to-action.js'
+  'components/pages/home/call-to-action.js',
+  'components/pages/blog/post-footer.js'
 ]
 
 const docsFileFor = href =>
@@ -37,6 +38,14 @@ describe('call to action pattern', () => {
     expect(faqs).toBeGreaterThan(-1)
     expect(cta).toBeGreaterThan(faqs)
     expect(page.indexOf('<GradualBlur />')).toBeGreaterThan(cta)
+  })
+
+  test('blog posts close with the call to action instead of the community pitch', () => {
+    const template = read('templates/page.js')
+    expect(template).toContain('{isBlogPage && <PostFooter />}')
+    expect(read('components/pages/blog/post-footer.js')).not.toMatch(
+      /community/i
+    )
   })
 
   test('homepage next steps link to docs pages that exist', () => {
