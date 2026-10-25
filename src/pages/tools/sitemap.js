@@ -235,7 +235,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is this sitemap tool free?',
-    text: 'Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: 25 requests per day.',
+    text: 'Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: 25 requests per day. Building a crawler or an AI agent? Call the same Microlink Function from your code with a developer API key.',
     answer: (
       <>
         <div>
