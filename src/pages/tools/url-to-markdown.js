@@ -180,13 +180,13 @@ const REASON_TO_USE = [
     title: 'Works on Any Website',
     description: (
       <>
-        Static sites, SPAs, JavaScript-rendered pages — it handles them all.
-        Enable{' '}
+        Static sites, SPAs, JavaScript-rendered pages: it handles them all.
+        Developers calling the <Link href='/markdown'>Markdown API</Link> with
+        an API key also get past bot protection. Enable{' '}
         <Link href='/docs/guides/data-extraction/page-preparation'>
           prerendering
         </Link>{' '}
-        for client-side apps. If the target page has bot protection,{' '}
-        <Link href='/pricing'>pro plans</Link> can bypass it.
+        for client-side apps.
       </>
     )
   },
@@ -1462,6 +1462,7 @@ const MarkdownPreviewDisplay = ({
               <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
                 <ApiErrorBody
                   code={error?.code}
+                  variant='tool'
                   fallback={
                     error?.message || 'Something went wrong. Please try again.'
                   }
@@ -2497,8 +2498,9 @@ const ProductInformation = () => (
               download.
             </div>
             <div>
-              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/markdown'>Markdown API</Link> with a developer API
+              key to convert pages from your code.
             </div>
           </>
         )
@@ -2713,10 +2715,10 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Is this website to markdown converter really free?',
+            name: 'Is this website to markdown converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes! You can convert up to ${KEYLESS_REQUESTS_PER_DAY} URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download.`
+              text: `Yes! You can convert up to ${KEYLESS_REQUESTS_PER_DAY} URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download. Building an app or an AI agent? Use the Markdown API with a developer API key to convert pages from your code.`
             }
           },
           {

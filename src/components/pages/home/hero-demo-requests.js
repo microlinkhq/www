@@ -30,7 +30,7 @@ const REQUEST_OPTS = {
 }
 
 const DEMO_URLS = {
-  screenshot: 'https://www.apple.com/music',
+  screenshot: 'https://www.apple.com',
   animated: 'https://sauron-webgl.vercel.app/',
   preview: 'https://github.com/',
   embed: 'https://www.ted.com/talks/tim_berners_lee_the_next_web',

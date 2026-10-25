@@ -43,6 +43,7 @@ import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import { ScreenshotExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -1753,14 +1754,7 @@ const BulkPreview = ({
                       })}
                       style={{ color: '#78350f' }}
                     >
-                      Free users can take up to {KEYLESS_REQUESTS_PER_DAY}{' '}
-                      screenshots per day. Your limit will reset tomorrow. For
-                      unlimited access, check out our{' '}
-                      <Link href='/pricing'>API plans</Link> or write to{' '}
-                      <Link href='mailto:hello@microlink.io'>
-                        hello@microlink.io
-                      </Link>{' '}
-                      if you need something else.
+                      <ApiErrorBody code='ERATE' variant='tool' />
                     </Text>
                   </Box>
                 )}
@@ -1938,7 +1932,7 @@ const ScreenshotTool = () => {
             duration: null,
             error: {
               code: 'ERATE',
-              message: 'Skipped \u2014 daily rate limit reached'
+              message: 'Skipped: daily limit reached'
             }
           }
           results.push(result)
@@ -2603,10 +2597,9 @@ const ProductInformation = () => (
               , ad blocking, and PNG/JPG formats.
             </div>
             <div>
-              Need higher limits? Check our{' '}
-              <Link href='/pricing'>pricing plans</Link> for unlimited
-              screenshots and priority processing, or write to{' '}
-              <Link href='mailto:hello@microlink.io'>hello@microlink.io</Link>.
+              Automating screenshots in an app or an AI agent? Use the{' '}
+              <Link href='/screenshot'>Screenshot API</Link> with a developer
+              API key to capture them from your code.
             </div>
           </>
         )
@@ -2798,7 +2791,7 @@ export const Head = () => (
             name: 'Is this bulk website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} bulk screenshots per day for free, with no credit card or account required. Free screenshots include every feature — full-page capture, device emulation, ad blocking, and PNG/JPG formats. Need higher limits? Check our pricing plans for unlimited screenshots and priority processing.`
+              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} bulk screenshots per day for free, with no credit card or account required. Free screenshots include every feature — full-page capture, device emulation, ad blocking, and PNG/JPG formats. Automating screenshots in an app or an AI agent? Use the Screenshot API with a developer API key to capture them from your code.`
             }
           },
           {

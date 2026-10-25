@@ -1150,8 +1150,9 @@ const ProductInformation = () => (
               landscape modes, and multiple formats.
             </div>
             <div>
-              Need more? Check our <Link href='/pricing'>pricing plans</Link>{' '}
-              for higher limits and priority processing.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/screenshot'>Screenshot API</Link> with a developer
+              API key to take screenshots from your code.
             </div>
           </>
         )
@@ -1314,7 +1315,7 @@ export const Head = () => (
             name: 'Is this mobile screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} mobile screenshots per day for free, with no credit card required. Free screenshots include all features — phone emulation, full-page capture, portrait and landscape modes, and multiple formats.`
+              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} mobile screenshots per day for free, with no credit card required. Free screenshots include all features — phone emulation, full-page capture, portrait and landscape modes, and multiple formats. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.`
             }
           },
           {

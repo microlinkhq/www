@@ -1058,6 +1058,7 @@ const PdfPreviewDisplay = ({
               <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
                 <ApiErrorBody
                   code={error?.code}
+                  variant='tool'
                   fallback={
                     error?.message || 'Something went wrong. Please try again.'
                   }
@@ -2030,9 +2031,9 @@ const ProductInformation = () => (
               all features — paper format, margins, scaling, and landscape mode.
             </div>
             <div>
-              Need higher limits? Check our{' '}
-              <Link href='/pricing'>pricing plans</Link> for priority processing
-              and more daily conversions.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/pdf'>PDF API</Link> with a developer API key to
+              generate PDFs from your code.
             </div>
           </>
         )
@@ -2238,7 +2239,7 @@ export const Head = () => (
             name: 'Is this online HTML to PDF converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes. You can convert up to ${KEYLESS_REQUESTS_PER_DAY} web pages to PDF per day for free, with no credit card required. Every PDF includes all features — paper format, margins, scaling, and landscape mode.`
+              text: `Yes! You can convert up to ${KEYLESS_REQUESTS_PER_DAY} web pages to PDF per day for free, with no credit card required. Every conversion includes all features — paper format, margins, scaling, and landscape mode. Building an app or an AI agent? Use the PDF API with a developer API key to generate PDFs from your code.`
             }
           },
           {

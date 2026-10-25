@@ -2,7 +2,7 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import CodeCopy from 'components/elements/Codecopy'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useCodeLanguage } from 'components/hook/use-code-language'
 import React, { useMemo } from 'react'
 import { Download } from 'react-feather'
 import Tabs from '../Tabs'
@@ -91,7 +91,6 @@ const ActionComponent = ({
 }
 
 const DEFAULT_LANGUAGE_INDEX = 1
-const LOCALSTORAGE_KEY = ''
 
 const MultiCodeEditor = ({
   interactive,
@@ -100,29 +99,19 @@ const MultiCodeEditor = ({
   aliases,
   ...props
 }) => {
-  const [languageIndex, setLanguageIndex] = useLocalStorage(
-    LOCALSTORAGE_KEY,
-    DEFAULT_LANGUAGE_INDEX
+  const languages = useMemo(() => Object.keys(codeByLanguage), [codeByLanguage])
+
+  const [language, setLanguage] = useCodeLanguage(
+    languages,
+    languages[DEFAULT_LANGUAGE_INDEX] || languages[0]
   )
 
-  const languages = useMemo(() => Object.keys(codeByLanguage), [codeByLanguage])
-  const language = languages[languageIndex]
   const code = codeByLanguage[language]
-
-  // since we are memoizing the latest language used,
-  // need to be reset when the memoized language is missing
-  if (!code) setLanguageIndex(DEFAULT_LANGUAGE_INDEX)
 
   // The tab label (e.g. `Vanilla`) doubles as the highlight language, but a
   // caller can remap it — e.g. the builder highlights its `Vanilla` tab as `js`
   // so it gets colors, without affecting other pages that reuse the label.
   const editorLanguage = (aliases && aliases[language]) || language
-
-  const setLanguage = language => {
-    const languageIndex = languages.findIndex(lang => lang === language)
-    if (languageIndex < 0) return
-    setLanguageIndex(languageIndex)
-  }
 
   return (
     <CodeEditor

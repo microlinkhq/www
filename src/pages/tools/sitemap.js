@@ -236,7 +236,7 @@ const TOP_FAQ_ITEMS = [
   },
   {
     question: 'Is this sitemap tool free?',
-    text: `Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: ${KEYLESS_REQUESTS_PER_DAY} requests per day.`,
+    text: `Yes. This page needs no login and no credit card. The same helper from your code runs as a Microlink Function on the free plan: ${KEYLESS_REQUESTS_PER_DAY} requests per day. Building a crawler or an AI agent? Call the same Microlink Function from your code with a developer API key.`,
     answer: (
       <>
         <div>
@@ -249,7 +249,9 @@ const TOP_FAQ_ITEMS = [
           <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;requests per day</b>.
         </div>
         <div>
-          Need more? See <Link href='/pricing'>pricing</Link>.
+          Building a crawler or an AI agent? Call the same{' '}
+          <Link href='/function'>Microlink Function</Link> from your code with a
+          developer API key.
         </div>
       </>
     )
