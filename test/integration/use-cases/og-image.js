@@ -3,14 +3,17 @@ import path from 'node:path'
 import { classify, imagePath, slug } from '@microlink/og'
 import { describe, expect, test } from 'vitest'
 
-import { CUSTOMERS } from '../../../src/components/patterns/CustomerStory/customers.js'
+import {
+  CARD_CUSTOMERS,
+  customerByPathname
+} from '../../../src/helpers/og-card-metadata.js'
 
 const PAGES_DIR = path.join(process.cwd(), 'src', 'pages', 'use-cases')
+const STATIC_DIR = path.join(process.cwd(), 'static')
 
-const LOGO_CARD_SLUGS = [
-  ...CUSTOMERS.map(({ slug }) => `customers/${slug}`),
-  'upscale-extracted-images'
-]
+const customers = customerByPathname({
+  readImage: icon => fs.readFileSync(path.join(STATIC_DIR, icon))
+})
 
 const walk = dir =>
   fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
@@ -42,12 +45,21 @@ describe('use case Open Graph image', () => {
     expect(imagePath(route)).toBe(`/og/${slug(route)}.png`)
   })
 
-  test.each(pages.filter(page => LOGO_CARD_SLUGS.includes(page.slug)))(
-    '$name card shows the customer logo',
-    page => {
-      const props = classify(routeOf(page))
-      expect(props.variant).toBe('customer')
-      expect(props.customer.logo).toMatch(/^https:\/\/microlink\.io\//)
+  test.each(CARD_CUSTOMERS)(
+    '$pathname has a customer story page',
+    ({ pathname }) => {
+      expect(pages.map(routeOf)).toContain(pathname)
+    }
+  )
+
+  test.each(CARD_CUSTOMERS)(
+    '$pathname card shows the customer logo',
+    ({ pathname, name }) => {
+      expect(classify(pathname).variant).toBe('customer')
+      expect(customers.get(pathname)).toEqual({
+        name,
+        logo: expect.stringMatching(/^data:image\/(png|svg\+xml);base64,/)
+      })
     }
   )
 

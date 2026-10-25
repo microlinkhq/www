@@ -648,6 +648,10 @@
       "destination": "/use-cases/customers/handinger"
     },
     {
+      "source": "/use-cases/techtailors",
+      "destination": "/use-cases/customers/techtailors"
+    },
+    {
       "source": "/feature/:path*",
       "destination": "/features/:path*"
     },

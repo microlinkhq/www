@@ -24,13 +24,22 @@ const CarouselTrack = styled(Flex)`
     overflowX: 'auto',
     px: SECTION_PX,
     py: 3,
-    justifyContent: ['flex-start', 'flex-start', 'center', 'center']
+    justifyContent: 'flex-start'
   })}
   scroll-snap-type: x mandatory;
   scroll-padding-inline: 24px;
   scrollbar-width: thin;
   scrollbar-color: ${colors.black10} transparent;
   -webkit-overflow-scrolling: touch;
+
+  @media (min-width: ${breakpoints[2]}) {
+    & > :first-child {
+      margin-left: auto;
+    }
+    & > :last-child {
+      margin-right: auto;
+    }
+  }
 
   &::-webkit-scrollbar {
     height: 8px;
