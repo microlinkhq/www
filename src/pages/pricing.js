@@ -47,7 +47,10 @@ import {
   shadows,
   SECTION_VERTICAL_SPACING
 } from 'theme'
-import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 const FAQ_SCHEMA = {
   '@context': 'https://schema.org',
@@ -58,7 +61,7 @@ const FAQ_SCHEMA = {
       name: 'Is there really a free plan?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: `Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs with rate limits and shared concurrency, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.`
+        text: `Yes — the free plan is forever free, no credit card required. Sign up and you get an API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and the same screenshot, PDF, metadata, markdown, search, insights and SDK capabilities used on Pro. It runs up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests, so it\u2019s ideal for prototypes, side-projects and evaluation. When you outgrow it, upgrade in a click.`
       }
     },
     {
@@ -285,7 +288,12 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Concurrency',
-    values: ['Limited', 'Standard', 'Standard', 'Custom']
+    values: [
+      `${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests`,
+      'Standard',
+      'Standard',
+      'Custom'
+    ]
   },
   {
     label: 'Request timeout',
@@ -1292,9 +1300,9 @@ const Faqs = () => (
               capabilities used on Pro.
             </div>
             <div>
-              It runs with rate limits and shared concurrency, so it&apos;s
-              ideal for prototypes, side-projects and evaluation. When you
-              outgrow it, upgrade in a click.
+              It runs up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests,
+              so it&apos;s ideal for prototypes, side-projects and evaluation.
+              When you outgrow it, upgrade in a click.
             </div>
           </>
         )
