@@ -154,7 +154,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Rendered HTML API — HTML After JavaScript',
+  title: 'Rendered HTML API: HTML After JavaScript',
   description: `Get the fully rendered HTML of any URL after JavaScript executes. Real browser rendering, CSS selector scoping, proxy support and edge caching. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink HTML API',
   structuredDescription:

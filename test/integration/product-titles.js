@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 
 const read = file => fs.readFileSync(path.join(process.cwd(), file), 'utf8')
 
-const PRODUCT_TITLE = /^[^—–|.:]+ API — [^—–|]+$/
+const PRODUCT_TITLE = /^[^—–|.:]+ API: [^—–|:]+$/
 const HYPHEN_SEPARATOR = / - /
 
 const toolbarLinks = read('src/components/patterns/Toolbar/ToolbarLinks.js')
@@ -54,7 +54,7 @@ describe('product page titles', () => {
     expect(paths.every(pageFile)).toBe(true)
   })
 
-  test.each(paths)('%s title reads "<Keyword> API — <tagline>"', pathname => {
+  test.each(paths)('%s title reads "<Keyword> API: <tagline>"', pathname => {
     const title = productTitle(pathname)
     expect(title).toMatch(PRODUCT_TITLE)
     expect(title).not.toMatch(HYPHEN_SEPARATOR)

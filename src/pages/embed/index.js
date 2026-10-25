@@ -2269,7 +2269,7 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Embed API — oEmbed for Any URL, 300+ Providers'
+    title='Embed API: oEmbed for Any URL, 300+ Providers'
     noSuffix
     description='Embed API for any URL — get a ready-to-paste iframe and oEmbed payload in one HTTPS call. 300+ providers including YouTube, Spotify, Twitter, TikTok, Figma. Free tier, optional React / Vue / Vanilla JS SDK.'
     structured={{

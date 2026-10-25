@@ -71,7 +71,7 @@ const REPOS = ['browserless', 'metascraper', 'html-get']
 
 export const Head = () => (
   <Meta
-    title='Website Screenshot API — Convert URL to Image'
+    title='Website Screenshot API: Convert URL to Image'
     description='Capture pixel-perfect website screenshots with one API call. Free to start. Sub-second responses, full headless browser control, device emulation & ad-blocking.'
     structured={{
       '@context': 'https://schema.org',

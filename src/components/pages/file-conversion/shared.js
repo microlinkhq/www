@@ -211,7 +211,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'File Conversion API — Files to Markdown & Text',
+  title: 'File Conversion API: Files to Markdown & Text',
   description: `Convert PDFs, Word documents, spreadsheets and slide decks into HTML, Markdown or clean text with one API call. No local toolchain. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink File Conversion API',
   structuredDescription:
