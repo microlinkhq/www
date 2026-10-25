@@ -152,7 +152,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'URL to Text API - Clean, LLM-Ready Page Content',
+  title: 'URL to Text API — Clean, LLM-Ready Page Content',
   description: `Extract clean, readable plain text from any URL. Boilerplate removed, JavaScript rendered, documents supported. Built for LLM pipelines. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Text API',
   structuredDescription:

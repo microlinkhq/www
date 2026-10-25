@@ -75,7 +75,7 @@ const REPOS = ['metascraper', 'browserless', 'sdk']
 
 export const Head = () => (
   <Meta
-    title='Website Metadata API. URL to Metadata & Link Preview'
+    title='Website Metadata API — URL to Metadata & Link Preview'
     noSuffix
     description='Website metadata API with a free API key that turns any URL to metadata: Open Graph, JSON-LD, Twitter Cards, link preview & URL preview in one JSON call.'
     structured={{

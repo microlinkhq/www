@@ -43,7 +43,7 @@ export const PAGE_NAV_HEIGHT = '52px'
 export const SPACIOUS_SECTION_SPACING = [5, 5, 6, 6]
 
 export const META = {
-  title: 'Microlink API: Turn Any URL into Screenshots, PDFs, and Data',
+  title: 'Microlink API — Turn Any URL into Screenshots, PDFs, and Data',
   description: `The Microlink API turns any URL into screenshots, PDFs, metadata, markdown, and HTML with one REST call. Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day.`,
   structuredName: 'Microlink API',
   structuredDescription: `A single REST API that turns any URL into structured data, screenshots, PDFs, markdown, HTML, text, embeds, and browser functions. Free to start with an API key that includes ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and every Pro feature.`,
