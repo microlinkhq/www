@@ -59,7 +59,7 @@ Too many concurrent requests (limit: 2). Wait for one to finish or upgrade to a 
 
 **Solution**
 
-Without an API key, each IP address runs up to 2 requests at the same time, and up to 2 copies of the same function per URL. Wait for one to finish and retry, or use an [API key](/docs/api/basics/authentication). See [rate limit](/docs/api/basics/rate-limit/).
+Without an API key, each IP address runs up to 2 requests at the same time, and up to 2 copies of the same function per URL. The free API key answers with the same code when it goes over its limit. Wait a second and retry, or upgrade to a [paid plan](/pricing). See [rate limit](/docs/api/basics/rate-limit/).
 
 ## EFATAL
 
