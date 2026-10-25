@@ -71,7 +71,7 @@ const REPOS = ['browserless', 'metascraper', 'html-get']
 
 export const Head = () => (
   <Meta
-    title='HTML to PDF API - Convert URL to PDF Document'
+    title='HTML to PDF API: Convert URL to PDF Document'
     description={`Convert HTML or any URL to PDF with a single REST API call. Features custom margins, headless control, and edge caching. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY} requests/day.`}
     structured={{
       '@context': 'https://schema.org',

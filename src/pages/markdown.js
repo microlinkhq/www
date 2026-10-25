@@ -71,7 +71,7 @@ const FEATURES = [
 
 export const Head = () => (
   <Meta
-    title='URL to Markdown API. Free API key, no credit card'
+    title='URL to Markdown API: Free API Key, No Credit Card'
     description='Convert any web page to clean markdown. Built for AI agents, RAG pipelines, and LLM ingestion reducing token usage by 80%. Free API key, no credit card.'
     structured={{
       '@context': 'https://schema.org',

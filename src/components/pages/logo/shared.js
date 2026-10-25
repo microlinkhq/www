@@ -192,7 +192,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Website Logo API - Logos, Favicons & Brand Colors',
+  title: 'Website Logo API: Logos, Favicons & Brand Colors',
   description: `Get the logo behind any URL — page markup, DNS BIMI records and favicons, plus brand palettes with WCAG-aware color pairs. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Logo API',
   structuredDescription:

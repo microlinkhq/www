@@ -78,5 +78,18 @@ export const CUSTOMERS = [
     role: 'Founder',
     avatar: '/images/clients/pao-ramen.jpeg',
     initials: 'PR'
+  },
+  {
+    slug: 'techtailors',
+    name: 'TechTailors',
+    blurb: 'Link previews on an agency site and its client builds.',
+    icon: '/images/clients/techtailors-icon.png',
+    category: 'Link Preview API',
+    quote:
+      "Microlink's link preview service is extremely helpful for boosting client engagement on our site and other client sites we design for.",
+    author: 'Mac Goldman',
+    role: 'Founder & CEO',
+    avatar: '/images/clients/mac-goldman.jpeg',
+    initials: 'MG'
   }
 ]

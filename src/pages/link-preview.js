@@ -1,6 +1,7 @@
 import {
   SECTION_VERTICAL_SPACING,
   borders,
+  breakpoints,
   layout,
   colors,
   theme,
@@ -1630,7 +1631,7 @@ const Clients = () => (
 
 // ─── Customer Stories ─────────────────────────────────────────────────────────
 
-const CUSTOMER_STORY_SLUGS = ['mymahi', 'luckynote']
+const CUSTOMER_STORY_SLUGS = ['mymahi', 'luckynote', 'techtailors']
 
 const CustomerStoryCard = styled('a')`
   ${theme({
@@ -1669,10 +1670,10 @@ const CustomerStoryCard = styled('a')`
 const CustomerStoryGrid = styled(Box)`
   display: grid;
   grid-template-columns: 1fr;
-  ${theme({ gap: [3, 3, 4, 4], width: '100%', maxWidth: layout.normal })}
+  ${theme({ gap: [3, 3, 4, 4], width: '100%', maxWidth: layout.large })}
 
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+  @media (min-width: ${breakpoints[1]}) {
+    grid-template-columns: repeat(3, 1fr);
   }
 `
 
@@ -1720,8 +1721,9 @@ const CustomerStories = () => {
           textAlign: 'center'
         })}
       >
-        How MyMahi powers its newsfeed and Luckynote unfurls links inside notes
-        — two short reads on the link preview API in production.
+        How MyMahi powers its newsfeed, Luckynote unfurls links inside notes,
+        and TechTailors adds previews to the client sites it builds: three short
+        reads on the link preview API in production.
       </Caption>
       <CustomerStoryGrid css={theme({ pt: [3, 3, 4, 4], px: [3, 4, 0, 0] })}>
         {stories.map(({ slug, name, blurb, icon }) => (
@@ -2410,7 +2412,7 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Link Preview API — URL Unfurling & Open Graph Metadata'
+    title='Link Preview API: URL Unfurling & Open Graph Metadata'
     noSuffix
     description='Link preview API that turns any URL into a custom preview card. Normalized metadata (Open Graph, Twitter Cards, JSON-LD, oEmbed) in one JSON call. Free tier, proxy rotation for URLs behind Cloudflare and CAPTCHAs. Built for developers.'
     structured={{
