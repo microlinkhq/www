@@ -28,6 +28,8 @@ const { value } = await microlink.function('https://example.com', async ({ page 
 
 The function always receives `url`, the target of the request, without starting a browser. It also receives `response` (the Puppeteer response of that navigation) when the function loads the page in a browser, and `headers`. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
 
+The function can also be passed as a string of JavaScript source.
+
 ## Result
 
 It resolves to the [function response](/docs/api/parameters/function#response) object:
@@ -76,7 +78,15 @@ const { value } = await microlink.function(
 
 ## Compression
 
-Large function bodies are compressed before they're sent, so the keyless endpoint's code size limit applies to the compressed payload. The SDK compresses with brotli when the runtime supports it and falls back to gzip otherwise, then prefixes the payload with `br#` or `gz#`; nothing changes in the call. The code can also be passed as a string of JavaScript source.
+Function bodies travel in the URL, so large ones are compressed before they are sent. The SDK does it for you: `microlink.function()` compresses the code with brotli when the runtime supports it, falls back to gzip otherwise, and prefixes the payload with `br#` or `gz#`. The call stays the same.
+
+If you call the API directly, compress the function body and prefix the payload with the alias of the algorithm:
+
+- `br#` for brotli
+- `gz#` for gzip
+- `lz#` for lz-string
+
+The free plan's 1024 bytes code size limit applies to the code once decompressed, so compression keeps the URL short but does not raise the limit. Read [how to compress](/blog/compress) to know more.
 
 ## Limits
 

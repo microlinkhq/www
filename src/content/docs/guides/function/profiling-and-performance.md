@@ -106,21 +106,17 @@ console.log(value)
 
 <Figcaption><code>page.metadata()</code> returns the same fields as meta.</Figcaption>
 
-## Compress large functions
+## Compression
 
-Large function bodies are compressed before they are sent. The SDK handles this automatically: `microlink.function()` compresses the code with brotli when the runtime supports it and falls back to gzip otherwise, so the call stays the same:
+Function bodies travel in the URL, so large ones are compressed before they are sent. The SDK does it for you: `microlink.function()` compresses the code with brotli when the runtime supports it, falls back to gzip otherwise, and prefixes the payload with `br#` or `gz#`. The call stays the same.
 
-```js
-import createClient from 'microlink.io'
+If you call the API directly, compress the function body and prefix the payload with the alias of the algorithm:
 
-const microlink = createClient()
+- `br#` for brotli
+- `gz#` for gzip
+- `lz#` for lz-string
 
-const { value, profiling } = await microlink.function('https://example.com', ({ page }) => page.title())
-
-console.log(profiling.size)
-```
-
-If you call the API directly, prefix the compressed payload with the algorithm alias: `lz#` for lz-string, `br#` for brotli, `gz#` for gzip. See the [compression reference](/docs/api/parameters/function#compression) for details.
+The free plan's 1024 bytes code size limit applies to the code once decompressed, so compression keeps the URL short but does not raise the limit. Read [how to compress](/blog/compress) to know more.
 
 ## Optimization checklist
 
