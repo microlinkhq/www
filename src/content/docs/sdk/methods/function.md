@@ -80,13 +80,13 @@ Large function bodies are compressed before they're sent, so the keyless endpoin
 
 ## Limits
 
-|                   | Keyless            | Free API key                                   | Paid plans   |
-| ----------------- | ------------------ | ---------------------------------------------- | ------------ |
-| Timeout           | 15 seconds         | 60 seconds                                     | 60 seconds   |
-| Memory            | 64 MB              | 128 MB                                         | 128 MB       |
-| Code size         | 1024 bytes         | Unlimited                                      | Unlimited    |
-| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests per IP | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
-| Outgoing requests | Same-origin only   | Unrestricted                                   | Unrestricted |
+|                   | Keyless and free API key                       | Paid plans   |
+| ----------------- | ---------------------------------------------- | ------------ |
+| Timeout           | 15 seconds                                     | 60 seconds   |
+| Memory            | 64 MB                                          | 128 MB       |
+| Code size         | 1024 bytes                                     | Unlimited    |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
+| Outgoing requests | Same-origin only                               | Unrestricted |
 
 Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`. See [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
 
