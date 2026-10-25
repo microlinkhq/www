@@ -117,7 +117,7 @@ export const CONTENT = {
     {
       question: 'Why does my YouTube Markdown request fail with EPROXYNEEDED?',
       answer:
-        'YouTube uses antibot protection, so the request needs the built-in proxy. Send it with your API key, the free one included, and the proxy resolves automatically, with no parameter. The keyless endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
+        'YouTube uses antibot protection, so the request needs the built-in proxy. Send it with your API key, the free one included, and the proxy resolves automatically, with no parameter. The free endpoint surfaces the signal but cannot route through the proxy, the same behavior described in [Markdown from bot-protected pages](/use-cases/website-to-markdown/blocked-sites).'
     },
     {
       question: 'What language is the YouTube Markdown transcript in?',

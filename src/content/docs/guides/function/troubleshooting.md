@@ -37,7 +37,7 @@ When a function exceeds its plan limits, the API returns a descriptive error ins
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
 | `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
-| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
+| `ConcurrencyError`     | The same function is already running against the same URL without a key |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware:
@@ -86,10 +86,10 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
 3. Upgrade to pro for unlimited code size.
 
-**ConcurrencyError** — too many concurrent function executions (1 in-flight per IP on the free plan):
+**ConcurrencyError** — the same function is already running twice against the same URL. On the free plan, up to 2 copies of a function run per URL at a time, whatever IP address or free API key sends them:
 
-1. Wait for the current function execution to finish before sending another request.
-2. Upgrade to pro for unlimited concurrency.
+1. Wait for the current function execution to finish before sending it again.
+2. Upgrade to a paid plan, which doesn't have this limit.
 
 **OutgoingRequestError** — the function made a cross-origin network request on the free plan:
 

@@ -134,7 +134,7 @@ export const CONTENT = {
       question:
         'Can the metadata request wait for the og:image tag specifically?',
       answer:
-        'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the keyless endpoint and 60 seconds with an API key.'
+        'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the free endpoint and 60 seconds with an API key.'
     },
     {
       question: 'How do I confirm a browser was used to extract the metadata?',

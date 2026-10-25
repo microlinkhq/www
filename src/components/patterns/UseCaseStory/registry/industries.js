@@ -72,7 +72,7 @@ export const INDUSTRIES = [
       {
         question: 'What happens when a store blocks scrapers?',
         answer:
-          'With any API key, the free one included, the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the API answers with EPROXYNEEDED instead.'
+          'With any API key, the free one included, the proxy is automatic: when a request hits an antibot wall, Microlink escalates through proxy tiers up to residential and remembers what worked for that domain. On the free endpoint the API answers with EPROXYNEEDED instead.'
       },
       {
         question: 'Does Microlink alert me when a price changes?',

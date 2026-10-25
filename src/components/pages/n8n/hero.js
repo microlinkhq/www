@@ -40,7 +40,7 @@ const HERO_FEATURES = [
   },
   {
     title: 'No key to start',
-    description: `Credentials are optional: without one, the node calls the keyless endpoint. A free API key gives ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature.`,
+    description: `Credentials are optional: without one, the node calls the free endpoint. A free API key gives ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature.`,
     icon: <Unlock {...featureIconProps} aria-hidden='true' />
   },
   {

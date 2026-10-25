@@ -20,7 +20,7 @@ export const CONTENT = {
     paragraphs: [
       'A 403 from a protected site usually means an antibot service scored the request as automated: a datacenter IP, a header set that does not match a real browser, a TLS handshake that gives the client away. A 429 means the site is rate limiting the address the requests come from. Both arrive as a failed fetch, and a scraper that logs only the status code treats them as the same flaky error.',
       'The reflex fixes make it worse. Retrying a 403 immediately, or with a new user agent on the same IP, sends the same signals again and looks more suspicious each time; a real browser profile is the whole header set, not one string. Retrying a 429 in a tight loop extends the throttle. And if you call a scraping API, its own 429 for an exhausted quota is a third case that no proxy will fix.',
-      'With an API key the antibot 403 is handled before it reaches you: [automatic proxy resolution](/docs/api/parameters/proxy) escalates through proxy tiers up to residential IPs and remembers per domain which one worked. The keyless endpoint names the same situation with [EPROXYNEEDED](/docs/api/basics/error-codes#eproxyneeded) instead of a raw 403. A Microlink 429 is ERATE, your quota, with a reset time. Caching cuts the repeat hits that trigger throttling.'
+      'With an API key the antibot 403 is handled before it reaches you: [automatic proxy resolution](/docs/api/parameters/proxy) escalates through proxy tiers up to residential IPs and remembers per domain which one worked. The free endpoint names the same situation with [EPROXYNEEDED](/docs/api/basics/error-codes#eproxyneeded) instead of a raw 403. A Microlink 429 is ERATE, your quota, with a reset time. Caching cuts the repeat hits that trigger throttling.'
     ]
   },
   how: {
@@ -39,7 +39,7 @@ export const CONTENT = {
     throw error
   }
 }`,
-        note: 'ERATE is the API’s own 429: your plan quota ran out. EPROXYNEEDED is an antibot wall hit on the keyless endpoint. With an API key the antibot case is resolved through the proxy, so it stops showing up here.'
+        note: 'ERATE is the API’s own 429: your plan quota ran out. EPROXYNEEDED is an antibot wall hit on the free endpoint. With an API key the antibot case is resolved through the proxy, so it stops showing up here.'
       },
       {
         label: '2 · Hit the target less often',
@@ -128,7 +128,7 @@ export const CONTENT = {
     {
       question: 'What does EPROXYNEEDED mean in a scraping response?',
       answer:
-        'The keyless endpoint detected antibot protection on the target: “The URL provided uses antibot protection. Upgrade to a Pro plan.” It is the signal to add an API key, not a parameter. With a key, the free one included, the same request is routed through the proxy automatically.'
+        'The free endpoint detected antibot protection on the target: “The URL provided uses antibot protection. Upgrade to a Pro plan.” It is the signal to add an API key, not a parameter. With a key, the free one included, the same request is routed through the proxy automatically.'
     },
     {
       question:
@@ -150,7 +150,7 @@ export const CONTENT = {
       {
         title: 'Tell the three blocks apart',
         description:
-          'Wrap the request in a try/catch and branch on the error code: ERATE is your API quota, EPROXYNEEDED is an antibot wall on the keyless endpoint, anything else is rethrown.'
+          'Wrap the request in a try/catch and branch on the error code: ERATE is your API quota, EPROXYNEEDED is an antibot wall on the free endpoint, anything else is rethrown.'
       },
       {
         title: 'Hit the target less often',

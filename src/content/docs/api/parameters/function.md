@@ -4,8 +4,9 @@ description: 'Execute custom JavaScript code inside a headless browser to perfor
 ---
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
-import { Figcaption } from 'components/markdown/Figcaption'
 import { Type } from 'components/markdown/Type'
+import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import FunctionCompression from 'content/fragments/function-compression.md'
 
 Type: <Type children='<string>'/>
 
@@ -170,13 +171,13 @@ The profiling phases are:
 
 The function parameter is available on both free and pro plans with different resource limits:
 
-|                      | Free             | Pro              |
-| -------------------- | ---------------- | ---------------- |
-| Timeout              | 15 seconds       | Up to 60 seconds |
-| Memory               | 64 MB            | 128 MB           |
-| Code size            | 1024 bytes       | Unlimited        |
-| Concurrency          | 1 in-flight per IP | Unlimited      |
-| Outgoing requests    | Same-origin only | Unrestricted     |
+|                   | Free plan                                      | Paid plan    |
+| ----------------- | ---------------------------------------------- | ------------ |
+| Timeout           | 15 seconds                                     | 60 seconds   |
+| Memory            | 64 MB                                          | 128 MB       |
+| Code size         | 1024 bytes                                     | Unlimited    |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
+| Outgoing requests | Same-origin only                               | Unrestricted |
 
 When a limit is exceeded, the function returns `isFulfilled: false` with a descriptive error instead of failing the entire request:
 
@@ -204,33 +205,11 @@ The resource error types are:
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
 | `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
-| `ConcurrencyError`     | Too many concurrent function executions for the free plan            |
+| `ConcurrencyError`     | The same function is already running against the same URL without a key |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
 Each error message is plan-aware and tells you the exact limit that was hit.
 
 ## Compression
 
-Since the function body can be large, it is compressed before being sent. The SDK handles this for you: `microlink.function()` compresses the code with brotli when the runtime supports it and falls back to gzip otherwise, so the call stays the same:
-
-```js
-import createClient from 'microlink.io'
-
-const microlink = createClient()
-
-const { value } = await microlink.function(
-  'https://microlink.io',
-  ({ page }) => page.evaluate('jQuery.fn.jquery'),
-  { scripts: 'https://code.jquery.com/jquery-3.5.0.min.js' }
-)
-```
-
-<Figcaption>The SDK picks the compressor for the runtime and prefixes the payload with its alias.</Figcaption>
-
-If you call the API yourself, compress the function body and send it prefixed with the compressor alias, e.g. `br#<compressed code>`. The following compression algorithms are supported:
-
-- brotli (`br`)
-- gzip (`gz`)
-- lz-string (`lz`)
-
-Read [how to compress](/blog/compress) to know more.
+<FunctionCompression />

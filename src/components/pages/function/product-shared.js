@@ -5,7 +5,10 @@ import { CheckCircle, Code, Globe } from 'react-feather'
 import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
 import { sitemapCardCode } from 'helpers/get-sitemap-urls'
-import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 export const ACCENT = colors.indigo8
 export const ACCENT_NAME = 'indigo'
@@ -459,7 +462,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Function available on the free plan?',
-    text: `Yes. A free API key runs functions with the same limits as paid plans: up to 60 seconds, 128 MB of memory and no code-size or concurrency limits, for ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day.`
+    text: `Yes. On the free plan, with or without an API key, a function runs for up to 15 seconds with 64 MB of memory, 1024 bytes of code, same-origin requests only and up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The free API key adds ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day. Paid plans raise the limits to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests.`
   },
   {
     question: 'Does every call execute the function again?',

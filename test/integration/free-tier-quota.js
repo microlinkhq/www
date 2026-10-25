@@ -3,6 +3,7 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from '../../src/helpers/free-tier'
@@ -21,7 +22,17 @@ const GUARDED_QUOTAS = [
     ...PUBLISHED_QUOTAS
   ])
 ]
-const CONSTANTS = ['KEYLESS_REQUESTS_PER_DAY', 'FREE_PLAN_REQUESTS_PER_DAY']
+const CONSTANTS = [
+  'KEYLESS_REQUESTS_PER_DAY',
+  'FREE_PLAN_REQUESTS_PER_DAY',
+  'FREE_PLAN_CONCURRENT_REQUESTS'
+]
+const MISSTATED_FREE_RATE = [
+  /free one included[^.]*unlimited[^.]*concurrency/gi,
+  /no code-size or concurrency limits/gi,
+  /shared concurrency/gi,
+  /don't apply any throttling/gi
+]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
 const WORD = String.raw`[^\s\u00a0,;:<>'"\`(){}\\&/]+`
@@ -137,6 +148,19 @@ const mdxImportsOutsideCode = () =>
       )
   )
 
+const misstatedFreeRateClaims = () =>
+  SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
+    ({ file, source }) =>
+      MISSTATED_FREE_RATE.flatMap(pattern =>
+        [...source.matchAll(pattern)].map(
+          match =>
+            `${location(file, source, match.index)} → "${
+              match[0]
+            }" contradicts the free key's ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests cap, state it with FREE_PLAN_CONCURRENT_REQUESTS`
+        )
+      )
+  )
+
 describe('free tier quota', () => {
   test('keyless allowance is below the free plan allowance', () => {
     expect(KEYLESS_REQUESTS_PER_DAY).toBeLessThan(FREE_PLAN_REQUESTS_PER_DAY)
@@ -152,6 +176,10 @@ describe('free tier quota', () => {
 
   test('no local constant stands in for a free-tier quota', () => {
     expect(shadowedQuotaConstants()).toEqual([])
+  })
+
+  test('copy states the free key concurrency cap instead of an uncapped one', () => {
+    expect(misstatedFreeRateClaims()).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {

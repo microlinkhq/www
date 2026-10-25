@@ -113,7 +113,7 @@ export const CONTENT = {
       {
         kicker: 'Reachable',
         title: 'Protected stores go through the proxy automatically.',
-        body: 'With an API key, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the keyless endpoint the same wall returns EPROXYNEEDED.',
+        body: 'With an API key, when a store answers with an antibot wall, the request escalates through proxy tiers up to residential and remembers what worked for that domain. On the free endpoint the same wall returns EPROXYNEEDED.',
         note: 'When not to: if the price only appears after choosing a size or color, a single rule reads the default variant. Click the option inside a [remote Puppeteer function](/use-cases/scraping/run-puppeteer-without-chrome) and read the price there.'
       }
     ]
@@ -143,7 +143,7 @@ export const CONTENT = {
     {
       question: 'What happens when a store blocks my price scraper?',
       answer:
-        'On the keyless endpoint the API returns EPROXYNEEDED, which means the store uses antibot protection and needs an API key. With a key, the free one included, the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
+        'On the free endpoint the API returns EPROXYNEEDED, which means the store uses antibot protection and needs an API key. With a key, the free one included, the proxy is on by default and resolves automatically, and proxy.location pins the country when prices vary by region. See the [proxy reference](/docs/api/parameters/proxy).'
     }
   ],
   cta: {

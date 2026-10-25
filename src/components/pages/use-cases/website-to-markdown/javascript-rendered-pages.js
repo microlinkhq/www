@@ -81,7 +81,7 @@ export const CONTENT = {
       {
         name: 'waitForTimeout',
         href: '/docs/api/parameters/waitForTimeout',
-        note: 'A fixed delay for pages with no stable selector. Capped by the request timeout: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
+        note: 'A fixed delay for pages with no stable selector. Capped by the request timeout: 30 seconds on the free endpoint, 60 seconds with any API key.'
       },
       {
         name: 'click',
@@ -138,7 +138,7 @@ export const CONTENT = {
       question:
         'How long can a Markdown conversion wait for a single-page app?',
       answer:
-        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the keyless endpoint and 60 seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
+        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the free endpoint and 60 seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
     },
     {
       question:

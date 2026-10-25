@@ -106,7 +106,7 @@ console.log(mode, mode.endsWith('-proxy'))
       {
         kicker: 'An explicit answer',
         title: 'Real data or a clear error, never challenge HTML.',
-        body: 'On the keyless endpoint a Cloudflare-protected target fails with EPROXYNEEDED, “The URL provided uses antibot protection”, instead of handing your rules a challenge page. With an API key the same URL is resolved through the proxy.',
+        body: 'On the free endpoint a Cloudflare-protected target fails with EPROXYNEEDED, “The URL provided uses antibot protection”, instead of handing your rules a challenge page. With an API key the same URL is resolved through the proxy.',
         note: 'Automatic proxy resolution comes with every API key, the free one included. Paid plans on the [pricing page](/pricing) add volume, starting with Pro at 46,000 requests a month.'
       },
       {

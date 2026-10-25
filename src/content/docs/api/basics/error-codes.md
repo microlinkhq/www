@@ -49,7 +49,17 @@ The URL provided reached the maximum browser navigation time allowed.
 
 When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
 
-In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the keyless endpoint and 60 seconds with an API key.
+In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.
+
+## ECONCURRENCY
+
+**Message**
+
+Too many concurrent requests (limit: 2). Wait for one to finish or upgrade to a PRO plan.
+
+**Solution**
+
+Without an API key, each IP address runs up to 2 requests at the same time, and up to 2 copies of the same function per URL. The free API key answers with the same code when it goes over its limit. Wait a second and retry, or upgrade to a [paid plan](/pricing). See [rate limit](/docs/api/basics/rate-limit/).
 
 ## EFATAL
 
@@ -351,7 +361,7 @@ The request reached maximum timeout.
 
 When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
 
-In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the keyless endpoint and 60 seconds with an API key.
+In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.
 
 ## ETTL
 

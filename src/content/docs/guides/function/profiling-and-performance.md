@@ -5,6 +5,8 @@ description: 'Understand execution phases, plan limits, and optimization techniq
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import FunctionCompression from 'content/fragments/function-compression.md'
 
 Every function response includes profiling data with phase-level timing and resource usage.
 
@@ -46,13 +48,13 @@ Use profiling to understand where time is spent. If install is high, your depend
 
 The function parameter is available on both free and pro plans:
 
-|                   | Free             | Pro              |
-| ----------------- | ---------------- | ---------------- |
-| Timeout           | 15 seconds       | Up to 60 seconds |
-| Memory            | 64 MB            | 128 MB           |
-| Code size         | 1024 bytes       | Unlimited        |
-| Concurrency       | 1 in-flight per IP | Unlimited      |
-| Outgoing requests | Same-origin only | Unrestricted     |
+|                   | Free plan                                      | Paid plan    |
+| ----------------- | ---------------------------------------------- | ------------ |
+| Timeout           | 15 seconds                                     | 60 seconds   |
+| Memory            | 64 MB                                          | 128 MB       |
+| Code size         | 1024 bytes                                     | Unlimited    |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
+| Outgoing requests | Same-origin only                               | Unrestricted |
 
 A free API key is enough to prototype workflows and run the examples in this guide; `headers`, `proxy`, `ttl` and `staleTtl` are included. For production workloads that need more volume, use a paid plan.
 
@@ -105,21 +107,9 @@ console.log(value)
 
 <Figcaption><code>page.metadata()</code> returns the same fields as meta.</Figcaption>
 
-## Compress large functions
+## Compression
 
-Large function bodies are compressed before they are sent. The SDK handles this automatically: `microlink.function()` compresses the code with brotli when the runtime supports it and falls back to gzip otherwise, so the call stays the same:
-
-```js
-import createClient from 'microlink.io'
-
-const microlink = createClient()
-
-const { value, profiling } = await microlink.function('https://example.com', ({ page }) => page.title())
-
-console.log(profiling.size)
-```
-
-If you call the API directly, prefix the compressed payload with the algorithm alias: `lz#` for lz-string, `br#` for brotli, `gz#` for gzip. See the [compression reference](/docs/api/parameters/function#compression) for details.
+<FunctionCompression />
 
 ## Optimization checklist
 

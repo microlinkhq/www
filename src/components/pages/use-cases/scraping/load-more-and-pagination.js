@@ -77,7 +77,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         name: 'function',
         href: '/docs/api/parameters/function',
-        note: 'Runs your Puppeteer code on the page. 15 seconds on the keyless endpoint, up to 60 seconds with any API key.'
+        note: 'Runs your Puppeteer code on the page. 15 seconds on the free plan, up to 60 seconds on a paid plan.'
       },
       {
         name: 'click',
@@ -123,7 +123,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         kicker: 'Bounded',
         title: 'Every run has a clear ceiling.',
-        body: 'The keyless endpoint gives a function 15 seconds and 64 MB, any API key up to 60 seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.',
+        body: 'The free plan gives a function 15 seconds and 64 MB, a paid plan up to 60 seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.',
         note: 'When not to: infinite feeds with thousands of items do not fit in one call. Look for the JSON endpoint the page calls as you scroll and read it page by page as [cached JSON](/use-cases/scraping/json-endpoints) instead.'
       }
     ]
@@ -148,7 +148,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       question:
         'How many times can a function click Load more before it times out?',
       answer:
-        'As many as fit in the time limit: 15 seconds on the keyless endpoint and up to 60 seconds with an API key. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
+        'As many as fit in the time limit: 15 seconds on the free plan and up to 60 seconds on a paid plan. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
     },
     {
       question: 'Does each scraped page count as a separate request?',

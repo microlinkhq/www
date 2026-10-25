@@ -122,7 +122,7 @@ export const CONTENT = {
     {
       question: 'How do AI agents get Markdown from pages that block bots?',
       answer:
-        'Send the request with your API key: automatic proxy resolution is on by default for every method, with no parameter. On the keyless endpoint the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the key.'
+        'Send the request with your API key: automatic proxy resolution is on by default for every method, with no parameter. On the free endpoint the EPROXYNEEDED error code marks the targets behind antibot protection, so the agent can move only those URLs to the key.'
     },
     {
       question: 'Is there a ready-made Markdown integration for AI agents?',

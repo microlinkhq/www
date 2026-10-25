@@ -3,6 +3,9 @@ title: 'function'
 description: 'Execute your own JavaScript against a live page with the Microlink SDK: full Puppeteer access, npm packages, named arguments, profiling, and automatic compression, with no browser fleet to manage.'
 ---
 
+import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import FunctionCompression from 'content/fragments/function-compression.md'
+
 Execute your own JavaScript remotely and get the value back. The function runs in a sandboxed Node.js runtime on Microlink's side; code that never touches `page` runs faster and cheaper:
 
 ```js
@@ -25,6 +28,8 @@ const { value } = await microlink.function('https://example.com', async ({ page 
 ```
 
 The function always receives `url`, the target of the request, without starting a browser. It also receives `response` (the Puppeteer response of that navigation) when the function loads the page in a browser, and `headers`. Any npm package can be required from inside the function; dependencies are detected, installed on the fly, and cached. See [browser interaction](/docs/guides/function/browser-interaction) and [writing functions](/docs/guides/function/writing-functions) for the patterns.
+
+The function can also be passed as a string of JavaScript source.
 
 ## Result
 
@@ -74,10 +79,18 @@ const { value } = await microlink.function(
 
 ## Compression
 
-Large function bodies are compressed before they're sent, so the keyless endpoint's code size limit applies to the compressed payload. The SDK compresses with brotli when the runtime supports it and falls back to gzip otherwise, then prefixes the payload with `br#` or `gz#`; nothing changes in the call. The code can also be passed as a string of JavaScript source.
+<FunctionCompression />
 
 ## Limits
 
-The keyless endpoint allows 15 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; any API key, the free one included, lifts those to 60 seconds, 128 MB, unlimited code size and concurrency, and unrestricted requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
+|                   | Free plan                                      | Paid plan    |
+| ----------------- | ---------------------------------------------- | ------------ |
+| Timeout           | 15 seconds                                     | 60 seconds   |
+| Memory            | 64 MB                                          | 128 MB       |
+| Code size         | 1024 bytes                                     | Unlimited    |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
+| Outgoing requests | Same-origin only                               | Unrestricted |
+
+Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`. See [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
 
 See the [function guide](/docs/guides/function) for writing patterns, package dependencies, and profiling.
