@@ -89,7 +89,7 @@ describe('hero demo url canonicalization', () => {
   })
 
   test('the initial cycle prompt hits the snapshot gate', () => {
-    expect(canonicalDemoUrl('https://apple.com/music', 'screenshot')).toBe(
+    expect(canonicalDemoUrl('https://apple.com', 'screenshot')).toBe(
       DEMO_URLS.screenshot
     )
   })
@@ -98,9 +98,9 @@ describe('hero demo url canonicalization', () => {
     expect(canonicalDemoUrl('https://stripe.com', 'screenshot')).toBe(
       'https://stripe.com'
     )
-    expect(
-      canonicalDemoUrl('https://www.apple.com/music/deep', 'screenshot')
-    ).toBe('https://www.apple.com/music/deep')
+    expect(canonicalDemoUrl('https://www.apple.com/music', 'screenshot')).toBe(
+      'https://www.apple.com/music'
+    )
   })
 
   test('derive routes typed URLs through canonicalization', () => {
