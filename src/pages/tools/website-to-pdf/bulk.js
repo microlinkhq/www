@@ -52,6 +52,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import PdfViewer from 'components/elements/PdfViewer/PdfViewer'
 
+import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import ChromeExtensionBanner, {
@@ -2297,8 +2298,7 @@ const BulkPreview = ({
                         fontSize: allRateLimited ? fontSizes[1] : fontSizes[0]
                       }}
                     >
-                      You’ve used all {KEYLESS_REQUESTS_PER_DAY} free PDFs for
-                      today. The limit resets tomorrow.
+                      <ApiErrorBody code='ERATE' variant='tool' />
                     </Text>
                   </Flex>
                 )}

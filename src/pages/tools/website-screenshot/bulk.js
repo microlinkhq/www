@@ -43,6 +43,7 @@ import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
+import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import { ScreenshotExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -1753,8 +1754,7 @@ const BulkPreview = ({
                       })}
                       style={{ color: '#78350f' }}
                     >
-                      You’ve used all {KEYLESS_REQUESTS_PER_DAY} free screenshots
-                      for today. The limit resets tomorrow.
+                      <ApiErrorBody code='ERATE' variant='tool' />
                     </Text>
                   </Box>
                 )}
