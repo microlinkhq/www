@@ -727,7 +727,9 @@ const ProductInformation = () => (
               limit.
             </div>
             <div>
-              For production volume, see <Link href='/pricing'>Pro plans</Link>.
+              Building an app or an AI agent? Use the{' '}
+              <Link href='/embed'>Embed API</Link> with a developer API key to
+              generate embeds from your code.
             </div>
           </>
         )
@@ -862,10 +864,10 @@ export const Head = () => (
           },
           {
             '@type': 'Question',
-            name: 'Is the embed tool free?',
+            name: 'Is the embed code generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. Cached responses are served from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit.`
+              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. Cached responses are served instantly from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit. Building an app or an AI agent? Use the Embed API with a developer API key to generate embeds from your code.`
             }
           }
         ]

@@ -239,6 +239,7 @@ export const PreviewErrorState = ({ error, onRetry }) => (
       <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
         <ApiErrorBody
           code={error?.code}
+          variant='tool'
           fallback={error?.message || 'Something went wrong. Please try again.'}
         />
       </Text>
