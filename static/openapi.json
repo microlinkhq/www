@@ -1190,6 +1190,7 @@
               "EAUTH",
               "ECACHEKEY",
               "EBRWSRTIMEOUT",
+              "ECONCURRENCY",
               "EFATAL",
               "EFILENAME",
               "EFATALCLIENT",
