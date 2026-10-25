@@ -4,6 +4,7 @@ description: 'Execute your own JavaScript against a live page with the Microlink
 ---
 
 import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import FunctionCompression from 'content/fragments/function-compression.md'
 
 Execute your own JavaScript remotely and get the value back. The function runs in a sandboxed Node.js runtime on Microlink's side; code that never touches `page` runs faster and cheaper:
 
@@ -78,15 +79,7 @@ const { value } = await microlink.function(
 
 ## Compression
 
-Function bodies travel in the URL, so large ones are compressed before they are sent. The SDK does it for you: `microlink.function()` compresses the code with brotli when the runtime supports it, falls back to gzip otherwise, and prefixes the payload with `br#` or `gz#`. The call stays the same.
-
-If you call the API directly, compress the function body and prefix the payload with the alias of the algorithm:
-
-- `br#` for brotli
-- `gz#` for gzip
-- `lz#` for lz-string
-
-The free plan's 1024 bytes code size limit applies to the code once decompressed, so compression keeps the URL short but does not raise the limit. Read [how to compress](/blog/compress) to know more.
+<FunctionCompression />
 
 ## Limits
 
