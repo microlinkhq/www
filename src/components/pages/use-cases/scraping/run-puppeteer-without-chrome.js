@@ -1,4 +1,4 @@
-import { FREE_PLAN_CONCURRENT_REQUESTS } from '../../../../helpers/free-tier'
+import { FREE_PLAN_REQUESTS_PER_SECOND } from '../../../../helpers/free-tier'
 
 export const CONTENT = {
   slug: 'scraping/run-puppeteer-without-chrome',
@@ -76,7 +76,7 @@ export const CONTENT = {
         note: 'The request ceiling: 30 seconds on the keyless endpoint, 60 seconds with any API key.'
       }
     ],
-    outro: `Limits are explicit: on the keyless endpoint a function gets 15 seconds, 64 MB of heap, 1024 bytes of compressed code, one in-flight run per IP and same-origin requests only. Any API key, the free one included, raises that to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests; the free key runs up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The [profiling guide](/docs/guides/function/profiling-and-performance) shows where each run spends its time.`
+    outro: `Limits are explicit: on the keyless endpoint a function gets 15 seconds, 64 MB of heap, 1024 bytes of compressed code, one in-flight run per IP and same-origin requests only. Any API key, the free one included, raises that to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests; the free key runs up to ${FREE_PLAN_REQUESTS_PER_SECOND} requests per second. The [profiling guide](/docs/guides/function/profiling-and-performance) shows where each run spends its time.`
   },
   why: {
     title: 'Why hosted headless Chrome beats a browser you maintain',

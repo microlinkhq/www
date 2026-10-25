@@ -3,7 +3,7 @@ import { Link } from 'components/elements/Link'
 
 import { faqFromItems, sdkExample } from 'components/patterns/FeatureStory'
 import {
-  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_SECOND,
   FREE_PLAN_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
 
@@ -150,7 +150,7 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'Is function() available on the free plan?',
-    text: `Yes. A free API key runs functions for up to 60 seconds with 128 MB of memory and no code-size limit, the same as paid plans, for ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests.`
+    text: `Yes. A free API key runs functions for up to 60 seconds with 128 MB of memory and no code-size limit, the same as paid plans, for ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and up to ${FREE_PLAN_REQUESTS_PER_SECOND} requests per second.`
   },
   {
     question: 'When should I use function() instead of extract()?',

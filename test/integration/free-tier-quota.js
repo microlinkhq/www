@@ -3,7 +3,7 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
 import {
-  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_SECOND,
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from '../../src/helpers/free-tier'
@@ -25,12 +25,14 @@ const GUARDED_QUOTAS = [
 const CONSTANTS = [
   'KEYLESS_REQUESTS_PER_DAY',
   'FREE_PLAN_REQUESTS_PER_DAY',
-  'FREE_PLAN_CONCURRENT_REQUESTS'
+  'FREE_PLAN_REQUESTS_PER_SECOND'
 ]
-const UNCAPPED_FREE_CONCURRENCY = [
+const MISSTATED_FREE_RATE = [
   /free one included[^.]*unlimited[^.]*concurrency/gi,
   /no code-size or concurrency limits/gi,
-  /shared concurrency/gi
+  /shared concurrency/gi,
+  /don't apply any throttling/gi,
+  /\$?\{FREE_PLAN_REQUESTS_PER_SECOND\}(?:\s|\\u00a0|&nbsp;)+concurrent/g
 ]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
@@ -147,15 +149,15 @@ const mdxImportsOutsideCode = () =>
       )
   )
 
-const uncappedFreeConcurrencyClaims = () =>
+const misstatedFreeRateClaims = () =>
   SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
     ({ file, source }) =>
-      UNCAPPED_FREE_CONCURRENCY.flatMap(pattern =>
+      MISSTATED_FREE_RATE.flatMap(pattern =>
         [...source.matchAll(pattern)].map(
           match =>
             `${location(file, source, match.index)} → "${
               match[0]
-            }" contradicts the ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent request cap, use FREE_PLAN_CONCURRENT_REQUESTS`
+            }" contradicts the free key's ${FREE_PLAN_REQUESTS_PER_SECOND} requests per second throttle, state it with FREE_PLAN_REQUESTS_PER_SECOND`
         )
       )
   )
@@ -177,8 +179,8 @@ describe('free tier quota', () => {
     expect(shadowedQuotaConstants()).toEqual([])
   })
 
-  test('copy states the free plan concurrency cap instead of an uncapped one', () => {
-    expect(uncappedFreeConcurrencyClaims()).toEqual([])
+  test('copy states the free key request rate instead of an uncapped or concurrent one', () => {
+    expect(misstatedFreeRateClaims()).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {

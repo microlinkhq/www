@@ -7,7 +7,11 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
-import { FREE_PLAN_REQUESTS_PER_DAY, KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import {
+  FREE_PLAN_REQUESTS_PER_DAY,
+  FREE_PLAN_REQUESTS_PER_SECOND,
+  KEYLESS_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 These patterns apply once you move from prototyping to a production integration. They cover the decisions most teams encounter after the first few hundred requests.
 
@@ -19,7 +23,7 @@ These patterns apply once you move from prototyping to a production integration.
 | Staging / CI | `pro.microlink.io` | `x-api-key` header |
 | Production | `pro.microlink.io` | `x-api-key` header |
 
-The keyless endpoint has a soft limit of **{KEYLESS_REQUESTS_PER_DAY} requests per day**. With an API key the quota is your plan's, **{FREE_PLAN_REQUESTS_PER_DAY} requests per day** on the free key. Sending `x-api-key` to the keyless endpoint fails with `EPRO`.
+The keyless endpoint has a soft limit of **{KEYLESS_REQUESTS_PER_DAY} requests per day**. With an API key the quota is your plan's, **{FREE_PLAN_REQUESTS_PER_DAY} requests per day** on the free key, at up to **{FREE_PLAN_REQUESTS_PER_SECOND} requests per second**. Sending `x-api-key` to the keyless endpoint fails with `EPRO`.
 
 See the <Link href='/docs/api/basics/endpoint' children='endpoint docs' /> and <Link href='/docs/api/basics/authentication' children='authentication docs' />.
 
@@ -30,13 +34,16 @@ When you hit your quota, Microlink returns **HTTP 429** with error code `ERATE`.
 1. Check `x-rate-limit-remaining` on every response.
 2. When the value approaches zero, slow down or queue requests.
 3. On a 429 response, wait until `x-rate-limit-reset` (UTC epoch seconds) before retrying.
+4. On the free key, a 429 with quota left (no `x-rate-limit-remaining` header, or one above zero) means you passed {FREE_PLAN_REQUESTS_PER_SECOND} requests per second: wait a second and retry.
 
 ```js
 const { status, data, headers } = response
 
 if (status === 429) {
+  const remaining = headers['x-rate-limit-remaining']
+  const throttled = remaining === undefined || Number(remaining) > 0
   const resetAt = Number(headers['x-rate-limit-reset']) * 1000
-  const waitMs = Math.max(0, resetAt - Date.now())
+  const waitMs = throttled ? 1000 : Math.max(0, resetAt - Date.now())
   await new Promise(resolve => setTimeout(resolve, waitMs))
 }
 ```
