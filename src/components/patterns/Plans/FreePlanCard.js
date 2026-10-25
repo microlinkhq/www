@@ -6,6 +6,7 @@ import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { eventLocation } from 'helpers/dashboard-url'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 import { theme } from 'theme'
 
 import {
@@ -18,8 +19,6 @@ import {
   PricingCard,
   planDisplay
 } from './shared'
-
-const FREE_PLAN_RATE_LIMIT = 100
 
 const FreePlanSignupLink = () => {
   const { pathname } = useLocation()
@@ -48,11 +47,11 @@ const FreePlanCard = ({ activePlan }) => (
           fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {FREE_PLAN_RATE_LIMIT} requests per month
+        {FREE_PLAN_REQUESTS_PER_DAY} requests per day
       </Text>
     </Box>
     <PlanCheckList css={theme({ pt: [3, 3, 4, 4] })}>
-      <PlanCheck>{FREE_PLAN_RATE_LIMIT} requests / month</PlanCheck>
+      <PlanCheck>{FREE_PLAN_REQUESTS_PER_DAY} requests / day</PlanCheck>
       <PlanCheck>
         <Link href='/screenshot'>Screenshot</Link>, <Link href='/pdf'>PDF</Link>
         , <Link href='/integrations/sdk'>SDK</Link>

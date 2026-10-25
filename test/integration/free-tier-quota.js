@@ -34,6 +34,21 @@ const QUOTA_LITERAL = new RegExp(
   'gi'
 )
 
+const PERIOD = String.raw`(?:day|month)\b`
+const REQUESTS_PER_PERIOD = String.raw`${SEP}requests?${SEP}?(?:(?:per|a|every|each)${SEP}|\/${SEP}?)${PERIOD}`
+const MONTHLY_QUOTA_LITERAL = new RegExp(
+  String.raw`(?<![\d.,$€])\b(?:${GUARDED_QUOTAS.join(
+    '|'
+  )})\b(?=${SEP}requests?${SEP}?(?:(?:per|a|every|each)${SEP}|\/${SEP}?)month\b)`,
+  'gi'
+)
+const LOCAL_QUOTA_CONSTANT = new RegExp(
+  String.raw`\bconst\s+([A-Z][A-Z0-9_]*)\s*=\s*(?:${GUARDED_QUOTAS.join(
+    '|'
+  )})\b(?![\d.])`,
+  'g'
+)
+
 const FENCED_CODE = /^\s*(```|~~~)[\s\S]*?^\s*\1/gm
 const blankOut = block => block.replace(/[^\n]/g, '')
 
@@ -73,6 +88,36 @@ const hardcodedQuotas = () =>
       )
   )
 
+const hardcodedMonthlyQuotas = () =>
+  SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
+    ({ file, source }) =>
+      [...source.matchAll(MONTHLY_QUOTA_LITERAL)].map(
+        match =>
+          `${location(file, source, match.index)} → hardcoded ${
+            match[0]
+          }/month free quota, the free tiers are daily: import KEYLESS_REQUESTS_PER_DAY or FREE_PLAN_REQUESTS_PER_DAY from helpers/free-tier`
+      )
+  )
+
+const shadowedQuotaConstants = () =>
+  SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
+    ({ file, source }) =>
+      [...source.matchAll(LOCAL_QUOTA_CONSTANT)].flatMap(([, name]) => {
+        const usage = new RegExp(
+          String.raw`\$?\{${name}\}(?=${REQUESTS_PER_PERIOD})`,
+          'g'
+        )
+        return [...source.matchAll(usage)].map(
+          match =>
+            `${location(
+              file,
+              source,
+              match.index
+            )} → local ${name} renders a free-tier quota, import KEYLESS_REQUESTS_PER_DAY or FREE_PLAN_REQUESTS_PER_DAY from helpers/free-tier`
+        )
+      })
+  )
+
 const mdxImportsOutsideCode = () =>
   SOURCES.filter(({ file }) => file.endsWith('.md')).flatMap(
     ({ file, source }) =>
@@ -99,6 +144,14 @@ describe('free tier quota', () => {
 
   test('copy reads the quota from helpers/free-tier instead of hardcoding it', () => {
     expect(hardcodedQuotas()).toEqual([])
+  })
+
+  test('no free quota is stated per month', () => {
+    expect(hardcodedMonthlyQuotas()).toEqual([])
+  })
+
+  test('no local constant stands in for a free-tier quota', () => {
+    expect(shadowedQuotaConstants()).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {
