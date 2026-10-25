@@ -1,3 +1,10 @@
+import path from 'node:path'
+
+import {
+  CUSTOMERS,
+  customerPath
+} from '../components/patterns/CustomerStory/customers.js'
+
 const MAX_CODE_POINT = 0x10ffff
 
 const entityChar = (code, radix) => {
@@ -80,4 +87,54 @@ const inlineAvatar = async (author, { fetchImage, onError }) => {
 export const inlineAvatars = (authors, { fetchImage = fetch, onError } = {}) =>
   Promise.all(
     authors.map(author => inlineAvatar(author, { fetchImage, onError }))
+  )
+
+const IMAGE_TYPES = {
+  '.png': 'image/png',
+  '.jpg': 'image/jpeg',
+  '.jpeg': 'image/jpeg',
+  '.webp': 'image/webp',
+  '.svg': 'image/svg+xml'
+}
+
+const MAGNIFIC = {
+  pathname: '/use-cases/upscale-extracted-images',
+  name: 'Magnific',
+  icon: '/images/use-cases/magnific.svg'
+}
+
+export const CARD_CUSTOMERS = [
+  ...CUSTOMERS.map(({ slug, name, icon }) => ({
+    pathname: customerPath(slug),
+    name,
+    icon
+  })),
+  MAGNIFIC
+]
+
+const imageDataUri = (icon, body) => {
+  const contentType = IMAGE_TYPES[path.extname(icon).toLowerCase()]
+  if (!contentType) throw new Error('has an unsupported image type')
+  return `data:${contentType};base64,${Buffer.from(body).toString('base64')}`
+}
+
+const inlineLogo = (icon, { readImage, onError }) => {
+  try {
+    return imageDataUri(icon, readImage(icon))
+  } catch (error) {
+    if (onError) onError(icon, error)
+    return undefined
+  }
+}
+
+export const customerByPathname = ({
+  customers = CARD_CUSTOMERS,
+  readImage,
+  onError
+}) =>
+  new Map(
+    customers.map(({ pathname, name, icon }) => [
+      pathname,
+      { name, logo: inlineLogo(icon, { readImage, onError }) }
+    ])
   )

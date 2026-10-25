@@ -3,6 +3,7 @@ import { describe, expect, it } from 'vitest'
 import {
   authorsByPathname,
   cardMetadata,
+  customerByPathname,
   decodeEntities,
   inlineAvatars,
   metaContent,
@@ -190,5 +191,49 @@ describe('inlineAvatars', () => {
       fetchImage: async () => ({ ok: false, status: 500 })
     })
     expect(kiko.avatar).toBe(undefined)
+  })
+})
+
+describe('customerByPathname', () => {
+  const customers = [
+    { pathname: '/use-cases/customers/acme', name: 'Acme', icon: '/acme.png' },
+    { pathname: '/use-cases/magic', name: 'Magic', icon: '/magic.svg' }
+  ]
+
+  it('inlines each customer logo as a data URI keyed by page path', () => {
+    const byPathname = customerByPathname({
+      customers,
+      readImage: icon => Buffer.from(icon)
+    })
+    expect(byPathname.get('/use-cases/customers/acme')).toEqual({
+      name: 'Acme',
+      logo: `data:image/png;base64,${Buffer.from('/acme.png').toString(
+        'base64'
+      )}`
+    })
+    expect(byPathname.get('/use-cases/magic').logo).toMatch(
+      /^data:image\/svg\+xml;base64,/
+    )
+  })
+
+  it('keeps the customer name when its logo cannot be read', () => {
+    const dropped = []
+    const byPathname = customerByPathname({
+      customers: [...customers, { pathname: '/x', name: 'X', icon: '/x.gif' }],
+      readImage: icon => {
+        if (icon === '/acme.png') throw new Error('ENOENT')
+        return Buffer.from(icon)
+      },
+      onError: (icon, error) => dropped.push([icon, error.message])
+    })
+    expect(byPathname.get('/use-cases/customers/acme')).toEqual({
+      name: 'Acme',
+      logo: undefined
+    })
+    expect(byPathname.get('/x').logo).toBeUndefined()
+    expect(dropped).toEqual([
+      ['/acme.png', 'ENOENT'],
+      ['/x.gif', 'has an unsupported image type']
+    ])
   })
 })

@@ -33,6 +33,7 @@ const { generate: generateOgCards, slug, imagePath } = require('@microlink/og')
 const {
   authorsByPathname,
   cardMetadata,
+  customerByPathname,
   inlineAvatars,
   pageMetadata,
   withoutTrailingSlash
@@ -201,14 +202,20 @@ const generateOgImages = async ({ graphql, reporter }) => {
     })
   })
 
+  const customers = customerByPathname({
+    readImage: icon => readFileSync(path.join(process.cwd(), 'public', icon)),
+    onError: (icon, error) =>
+      reporter.warn(`OG customer logo ${icon} dropped: ${error.message}`)
+  })
+
   const ogCardMetadata = pathname => {
     const html = readPageHtml(pathname)
-    return html === undefined
-      ? undefined
-      : cardMetadata({
-        html,
-        authors: postAuthors.get(withoutTrailingSlash(pathname))
-      })
+    if (html === undefined) return undefined
+    const page = withoutTrailingSlash(pathname)
+    return {
+      ...cardMetadata({ html, authors: postAuthors.get(page) }),
+      customer: customers.get(page)
+    }
   }
 
   const pathnames = result.data.allSitePage.nodes.flatMap(
