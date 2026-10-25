@@ -288,12 +288,7 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Concurrency',
-    values: [
-      `${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests`,
-      '∞',
-      '∞',
-      '∞'
-    ]
+    values: [String(FREE_PLAN_CONCURRENT_REQUESTS), '∞', '∞', '∞']
   },
   {
     label: 'Request timeout',
