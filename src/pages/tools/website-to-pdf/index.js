@@ -2239,7 +2239,7 @@ export const Head = () => (
             name: 'Is this online HTML to PDF converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes. You can convert up to 25 web pages to PDF per day for free, with no credit card required. Every PDF includes all features — paper format, margins, scaling, and landscape mode.'
+              text: 'Yes! You can convert up to 25 web pages to PDF per day for free, with no credit card required. Every conversion includes all features — paper format, margins, scaling, and landscape mode. Building an app or an AI agent? Use the PDF API with a developer API key to generate PDFs from your code.'
             }
           },
           {
