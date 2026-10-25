@@ -86,10 +86,10 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
 3. Upgrade to pro for unlimited code size.
 
-**ConcurrencyError** — the same function is already running twice against the same URL. Without a key, up to 2 copies of a function run per URL at a time, whatever IP address sends them:
+**ConcurrencyError** — the same function is already running twice against the same URL. On the free plan, up to 2 copies of a function run per URL at a time, whatever IP address or free API key sends them:
 
 1. Wait for the current function execution to finish before sending it again.
-2. Use an API key: the free key and paid plans don't have this limit.
+2. Upgrade to a paid plan, which doesn't have this limit.
 
 **OutgoingRequestError** — the function made a cross-origin network request on the free plan:
 
