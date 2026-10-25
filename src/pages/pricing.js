@@ -290,16 +290,16 @@ const COMPARISON_ROWS = [
     label: 'Concurrency',
     values: [
       `${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests`,
-      'Standard',
-      'Standard',
-      'Custom'
+      '∞',
+      '∞',
+      '∞'
     ]
   },
   {
     label: 'Request timeout',
     values: ['60 seconds', '60 seconds', '60 seconds', '60 seconds']
   },
-  { label: 'SLA', values: ['Best effort', '99.9%', 'Same as Pro', '99.9%'] },
+  { label: 'SLA', values: ['Best effort', '99.9%', '99.9%', '99.9%'] },
   { label: 'Dedicated endpoint', values: [false, false, false, true] },
   {
     label: 'Payment method',
