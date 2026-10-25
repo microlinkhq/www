@@ -52,7 +52,7 @@ The function parameter is available on both free and pro plans:
 | Timeout           | 15 seconds         | Up to 60 seconds                               | Up to 60 seconds |
 | Memory            | 64 MB              | 128 MB                                         | 128 MB           |
 | Code size         | 1024 bytes         | Unlimited                                      | Unlimited        |
-| Concurrency       | 1 in-flight per IP | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited        |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests per IP | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited        |
 | Outgoing requests | Same-origin only   | Unrestricted                                   | Unrestricted     |
 
 A free API key is enough to prototype workflows and run the examples in this guide; `headers`, `proxy`, `ttl` and `staleTtl` are included. For production workloads that need more volume, use a paid plan.
