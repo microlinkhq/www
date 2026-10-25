@@ -74,7 +74,7 @@ const { value } = await microlink.function(
 
 ## Compression
 
-Large function bodies are compressed before they're sent, so the keyless endpoint's code size limit applies to the compressed payload. The SDK picks the compressor for the runtime — brotli in Node.js, lz-string in browsers — and prefixes the payload accordingly; nothing changes in the call. The code can also be passed as a string of JavaScript source.
+Large function bodies are compressed before they're sent, so the keyless endpoint's code size limit applies to the compressed payload. The SDK compresses with brotli when the runtime supports it and falls back to gzip otherwise, then prefixes the payload with `br#` or `gz#`; nothing changes in the call. The code can also be passed as a string of JavaScript source.
 
 ## Limits
 

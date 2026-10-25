@@ -31,6 +31,7 @@ import Text from 'components/elements/Text'
 
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -548,8 +549,8 @@ const FAQ_ITEMS = [
         <div>
           Context.dev's free tier is one-time: 500 credits with a work email,
           250 with a consumer one — once spent, evaluation is over. Microlink's
-          free API key renews: 100 requests every month, forever, with every Pro
-          feature and no credit card.
+          free API key renews: {FREE_PLAN_REQUESTS_PER_DAY} requests every day,
+          forever, with every Pro feature and no credit card.
         </div>
         <div>
           That is 1,200 free requests a year, proxy included — enough to keep a
@@ -557,7 +558,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one — once spent, evaluation is over. Microlink's free API key renews: 100 requests every month, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included — enough to keep a side project running on the free API key alone."
+    text: `Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one — once spent, evaluation is over. Microlink's free API key renews: ${FREE_PLAN_REQUESTS_PER_DAY} requests every day, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included — enough to keep a side project running on the free API key alone.`
   },
   {
     question: 'How do I migrate from Context.dev to Microlink?',
@@ -641,7 +642,7 @@ const Hero = () => (
         a screenshot is <b>5</b>, brand data is <b>10</b>. <b>Microlink</b>{' '}
         returns <b>metadata, logo, brand image, markdown, and screenshots</b>{' '}
         from a single flat-priced request — with a free tier that renews every
-        month.
+        day.
       </Caption>
 
       <Flex
@@ -902,8 +903,9 @@ const WHY_SWITCH_ITEMS = [
       <>
         Context.dev hands you <b>500 one-time credits</b> — 250 if you sign up
         with a consumer email — and evaluation ends when they do. Microlink
-        resets <b>100 free requests every month, forever</b>: every Pro feature,
-        no credit card, one free API key.
+        resets{' '}
+        <b>{FREE_PLAN_REQUESTS_PER_DAY} free requests every day, forever</b>:
+        every Pro feature, no credit card, one free API key.
       </>
     )
   },
@@ -1283,7 +1285,7 @@ const PricingSection = () => (
                 'Residential proxy and antibot detection included with every API key',
                 "TTL caching up to 31 days — cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
-                'Free: 100 requests/month, renews forever, no credit card',
+                `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, renews forever, no credit card`,
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
                 '~$0.00107/request on this tier'
               ].map(item => (
@@ -1540,7 +1542,9 @@ const CTASection = () => (
         })}
       >
         Your first{' '}
-        <b css={theme({ color: 'white' })}>100&nbsp;requests/month are free</b>{' '}
+        <b css={theme({ color: 'white' })}>
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
+        </b>{' '}
         — every Pro feature, no credit card, no commitment.
       </Caption>
 
@@ -1597,8 +1601,10 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          100&nbsp;requests/month free with every Pro feature, no credit card.
-          Metadata, logo, and brand image from any&nbsp;URL.
+          {' '}
+          {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free with every Pro
+          feature, no credit card. Metadata, logo, and brand image from
+          any&nbsp;URL.
         </Caption>
         <Flex
           css={[
@@ -1673,8 +1679,7 @@ export const Head = () => (
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'Context.dev Alternative: Brand & Web Data in One Request',
-        description:
-          'Compare Microlink and Context.dev for brand and web data. Microlink returns metadata, logo, brand image, color palette, markdown, and screenshots from a single flat-priced request — no credit menu, a free API key with 100 requests a month, and an MIT-licensed extraction engine.',
+        description: `Compare Microlink and Context.dev for brand and web data. Microlink returns metadata, logo, brand image, color palette, markdown, and screenshots from a single flat-priced request — no credit menu, a free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, and an MIT-licensed extraction engine.`,
         url: 'https://microlink.io/alternative/context-dev',
         mainEntity: {
           '@type': 'SoftwareApplication',

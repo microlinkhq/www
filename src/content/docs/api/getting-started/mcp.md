@@ -4,6 +4,7 @@ description: 'Connect Microlink MCP to your AI client to extract metadata, scree
 ---
 
 import { Terminal } from 'components/markdown/Terminal'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 Microlink MCP exposes [Microlink API](/docs/api/getting-started/overview/) as MCP tools for assistants like Claude, Codex, Cursor, and VS Code.
 
@@ -33,7 +34,7 @@ Use this `mcpServers` entry:
 }
 ```
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): 100 requests per month with every Pro feature. Paid plans at [microlink.io/pricing](https://microlink.io/pricing) add volume.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): {FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature. Paid plans at [microlink.io/pricing](https://microlink.io/pricing) add volume.
 
 ## Usage
 

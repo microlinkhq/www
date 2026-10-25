@@ -2,6 +2,7 @@ import React from 'react'
 import { colors } from 'theme'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: colors.red6 }}>{children}</span>
@@ -439,8 +440,7 @@ http
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -537,9 +537,9 @@ http
         answer: (
           <>
             <div>
-              Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start capturing.
+              Yes, and it is free: sign up for an API key and you get{' '}
+              {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day with every Pro
+              feature, no credit card. Add it as x-api-key and start capturing.
             </div>
             <div>
               Pass <code>apiKey</code> to <code>createClient()</code> and the
@@ -578,8 +578,7 @@ http
         Start <Accent>capturing</Accent> in Node.js
       </>
     ),
-    caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Install the SDK and ship your first screenshot in minutes.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Install the SDK and ship your first screenshot in minutes.`,
     primary: {
       label: 'Get your free API key',
       cta: 'screenshot-nodejs:footer-cta'
@@ -588,7 +587,11 @@ http
       label: 'Read the Node.js docs',
       href: '/docs/sdk/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   },
 
   siblings: []

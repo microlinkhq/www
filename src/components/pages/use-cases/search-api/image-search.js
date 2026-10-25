@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/image-search',
   head: {
@@ -120,8 +122,7 @@ export const CONTENT = {
     {
       question:
         'How much does the image search API cost, and is it affiliated with Google?',
-      answer:
-        'Each results page is one request. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.'
+      answer: `Each results page is one request. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests. Microlink Search is an independent product, not affiliated with or endorsed by Google; Google is a trademark of Google LLC.`
     }
   ],
   cta: {

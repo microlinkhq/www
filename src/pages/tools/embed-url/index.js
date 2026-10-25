@@ -31,6 +31,7 @@ import Layout from 'components/patterns/Layout'
 import { StepCard, SectionIcon, UseCaseCard } from 'components/pages/screenshot'
 
 import { EmbedTool } from 'components/pages/embed-url'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FEATURES_LIST = [
   {
@@ -45,8 +46,7 @@ const FEATURES_LIST = [
   },
   {
     title: 'Free, no signup, no key',
-    description:
-      'Generate up to 25 embeds per day for free. No account, no API key, no watermark — paste the HTML and go.'
+    description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} embeds per day for free. No account, no API key, no watermark — paste the HTML and go.`
   }
 ]
 
@@ -109,8 +109,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free, no signup',
-    description:
-      'Generate up to 25 embeds per day for free. No login, no API key, no branding stripped from the output.'
+    description: `Generate up to ${KEYLESS_REQUESTS_PER_DAY} embeds per day for free. No login, no API key, no branding stripped from the output.`
   },
   {
     title: 'API for your app',
@@ -722,9 +721,10 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes — 25 requests per day, no login, no credit card. Cached
-              responses are served instantly from {CDN_EDGES} Cloudflare edge
-              nodes and don't count against your limit.
+              Yes — {KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no
+              credit card. Cached responses are served instantly from{' '}
+              {CDN_EDGES} Cloudflare edge nodes and don't count against your
+              limit.
             </div>
             <div>
               Building an app or an AI agent? Use the{' '}
@@ -799,7 +799,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 requests per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} requests per day`
         },
         featureList: [
           'Embed any URL as iframe HTML',
@@ -867,7 +867,7 @@ export const Head = () => (
             name: 'Is the embed code generator free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Yes — 25 requests per day, no login, no credit card. Cached responses are served instantly from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit. Building an app or an AI agent? Use the Embed API with a developer API key to generate embeds from your code.`
+              text: `Yes — ${KEYLESS_REQUESTS_PER_DAY} requests per day, no login, no credit card. Cached responses are served instantly from ${CDN_EDGES} Cloudflare edge nodes and don't count against your limit. Building an app or an AI agent? Use the Embed API with a developer API key to generate embeds from your code.`
             }
           }
         ]

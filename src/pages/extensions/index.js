@@ -39,6 +39,7 @@ import Layout from 'components/patterns/Layout'
 import { trackEvent } from 'helpers/gtag'
 
 import analyticsData from '../../../data/analytics.json'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
@@ -125,7 +126,8 @@ const Hero = () => (
               pt: 3
             })}
           >
-            Free to install · No account <LineBreak />· 25 requests a day
+            Free to install · No account <LineBreak />·{' '}
+            {KEYLESS_REQUESTS_PER_DAY} requests a day
           </Caps>
           <Flex css={theme({ pt: [3, 3, 4, 4] })}>
             <ArrowLink
@@ -435,7 +437,7 @@ const BAND_STATS = [
   { value: '240', label: 'CDN edges' },
   { value: reqsPretty, label: 'reqs per month' },
   { value: '99.9%', label: 'uptime' },
-  { value: '25', label: 'free reqs per day' }
+  { value: String(KEYLESS_REQUESTS_PER_DAY), label: 'free reqs per day' }
 ]
 
 const BandGrid = styled(Box)`

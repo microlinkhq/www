@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/price-comparison',
   head: {
@@ -115,8 +117,7 @@ export const CONTENT = {
     },
     {
       question: 'How many requests does product price monitoring use?',
-      answer:
-        'One per search call. Tracking 200 products in three countries once a day is 600 requests a day, about 18,000 a month, which fits a [Pro plan](/pricing) of 46,000 requests from €39/month. A free API key covers the first 100 requests a month, Search included.'
+      answer: `One per search call. Tracking 200 products in three countries once a day is 600 requests a day, about 18,000 a month, which fits a [Pro plan](/pricing) of 46,000 requests from €39/month. A free API key covers the first ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included.`
     },
     {
       question: 'Is the price comparison API affiliated with Google?',

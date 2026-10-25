@@ -4,6 +4,7 @@ import { Link } from 'components/elements/Link'
 import LineBreak from 'components/elements/LineBreak'
 import Faq from 'components/patterns/Faq/Faq'
 import { CDN_EDGES } from 'helpers/cdn-edges'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 export const ProductInformation = () => (
   <Faq
@@ -53,8 +54,8 @@ export const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes. A free API key gives you 100&nbsp;requests per month with
-              unrestricted access to all{' '}
+              Yes. A free API key gives you {FREE_PLAN_REQUESTS_PER_DAY}
+              &nbsp;requests per day with unrestricted access to all{' '}
               <Link href='/docs/api/parameters/pdf'>
                 document generation features
               </Link>

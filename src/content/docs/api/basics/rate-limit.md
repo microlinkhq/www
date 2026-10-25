@@ -4,17 +4,18 @@ description: 'Understand Microlink API rate limits for free and pro endpoints. M
 ---
 
 import Label from 'components/elements/Label'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 The API quota is the number of requests you can perform during a quantity of time.
 
 Your API quota depends on the [endpoint](/docs/api/basics/endpoint) you are using:
 
-- **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of 25 <Label display='inline' children='reqs' suffix='/day' />.
-- **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 14,000 <Label display='inline' children='reqs' suffix='/month' />.
+- **free**: It's the plan applied for unauthenticated requests. It has a soft limitation of {KEYLESS_REQUESTS_PER_DAY} <Label display='inline' children='reqs' suffix='/day' />.
+- **pro**: It's the plan applied for authenticated requests. It's based on the plan associated with your [API Key](/docs/api/basics/authentication), starting from 46,000 <Label display='inline' children='reqs' suffix='/month' />.
 
-You can perform HTTP calls always you are under your the API quota limit.
+You can perform HTTP calls as long as you are under your API quota limit.
 
-When you reach the API quota limit, you will experience [HTTP 429 errors](https://httpstatuses.com/429), meaning you need to wait until the API quota reset (or upgrade your plan).
+When you reach the API quota limit, you will experience [429 Too Many Requests](https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Status/429), meaning you need to wait until the API quota reset (or upgrade your plan).
 
 When the API quota is reset, you have a fresh start again.
 
@@ -24,7 +25,7 @@ All requests return your current quota on the response:
 - `x-rate-limit-remaining`: The number of requests remaining in the current window.
 - `x-rate-limit-reset`: The time at which the window resets, in UTC epoch seconds.
 
-The keyless endpoint reports the daily window. With an API key the response reports the quota on your key, and the reset is the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
+The keyless endpoint reports the daily window. With an API key the response reports the quota on your key: the free key resets daily, and paid plans reset at the start of the next month in UTC. Keyed numbers are refreshed in the background, so they can lag the live counter by a few minutes.
 
 We don't apply any throttling limitation: You can perform as much parallel requests as your daily quota allowed you.
 

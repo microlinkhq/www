@@ -39,8 +39,8 @@ describe('faq answer paragraphs', () => {
   })
 
   test('a plain string answer is a single paragraph', () => {
-    expect(toParagraphs('Yes — 25 requests per day.')).toEqual([
-      'Yes — 25 requests per day.'
+    expect(toParagraphs('Yes — 5 requests per day.')).toEqual([
+      'Yes — 5 requests per day.'
     ])
   })
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const Accent = ({ children }) => (
   <span style={{ color: '#f59f00' }}>{children}</span>
@@ -404,8 +405,7 @@ console.log(data.logo)`
       },
       {
         title: 'Generous Free Tier',
-        description:
-          'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card.'
+        description: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card.`
       }
     ]
   },
@@ -488,9 +488,9 @@ console.log(data.logo)`
         answer: (
           <>
             <div>
-              Yes, and it is free: sign up for an API key and you get
-              100&nbsp;requests per month with every Pro feature, no credit
-              card. Add it as x-api-key and start extracting.
+              Yes, and it is free: sign up for an API key and you get{' '}
+              {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests per day with every Pro
+              feature, no credit card. Add it as x-api-key and start extracting.
             </div>
             <div>
               When you need more volume, pick a paid plan: same key, bigger
@@ -523,8 +523,7 @@ console.log(data.logo)`
         Start <Accent>extracting</Accent> in Node.js
       </>
     ),
-    caption:
-      'Sign up for a free API key: 100 requests per month with every Pro feature, no credit card. Send your first request and get logos back in minutes.',
+    caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send your first request and get logos back in minutes.`,
     primary: {
       label: 'Get your free API key',
       cta: 'logo-nodejs:footer-cta'
@@ -533,7 +532,11 @@ console.log(data.logo)`
       label: 'Read the API docs',
       href: '/docs/api/getting-started/overview'
     },
-    badges: ['Free API key', '100 requests/month', 'No credit card']
+    badges: [
+      'Free API key',
+      `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+      'No credit card'
+    ]
   }
 }
 

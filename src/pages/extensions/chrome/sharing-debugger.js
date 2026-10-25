@@ -50,6 +50,7 @@ import {
 import Layout from 'components/patterns/Layout'
 
 import { trackEvent } from 'helpers/gtag'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const EVENT_NAME = 'sharing debugger extension install'
 
@@ -323,10 +324,10 @@ const Pricing = () => (
         Free to install, built to scale
       </Subhead>
       <Text as='p' css={theme({ pb: 3 })}>
-        The extension is free and includes <b>25 checks per day</b> — no
-        account, no credit card. It runs on the same infrastructure that
-        extracts structured metadata from millions of URLs every week for paying
-        customers.
+        The extension is free and includes{' '}
+        <b>{KEYLESS_REQUESTS_PER_DAY} checks per day</b> — no account, no credit
+        card. It runs on the same infrastructure that extracts structured
+        metadata from millions of URLs every week for paying customers.
       </Text>
       <Text as='p'>
         Auditing a whole site? A{' '}
@@ -400,8 +401,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'EUR',
-          description:
-            'Free to install — 25 checks per day included, no account required'
+          description: `Free to install — ${KEYLESS_REQUESTS_PER_DAY} checks per day included, no account required`
         }
       }
     ]}

@@ -1,3 +1,5 @@
+import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'search-api/rag-grounding',
   head: {
@@ -110,8 +112,7 @@ export const CONTENT = {
     },
     {
       question: 'How much does grounding an LLM answer with live search cost?',
-      answer:
-        'One request for the search and one per result you expand, so search plus three sources is four requests per answer. A free API key covers 100 requests a month, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.'
+      answer: `One request for the search and one per result you expand, so search plus three sources is four requests per answer. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, Search included; [Pro plans](/pricing) start at €39/month for 46,000 requests with a 99.9% SLA.`
     },
     {
       question: 'How fast is real-time search for chatbots?',

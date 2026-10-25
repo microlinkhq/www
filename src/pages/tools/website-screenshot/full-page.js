@@ -78,6 +78,7 @@ import {
   createThumbnail,
   ApiDocsCard
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Page-specific Constants ────────────────────────────── */
 
@@ -1105,8 +1106,10 @@ const ProductInformation = () => (
           <>
             <div>
               Yes! You can take up to{' '}
-              <b>25&nbsp;full page screenshots per day</b> for free, with no
-              credit card required.
+              <b>
+                {KEYLESS_REQUESTS_PER_DAY}&nbsp;full page screenshots per day
+              </b>{' '}
+              for free, with no credit card required.
             </div>
             <div>
               Building an app or an AI agent? Use the{' '}
@@ -1225,7 +1228,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 full page screenshots per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} full page screenshots per day`
         }
       },
       {
@@ -1245,7 +1248,7 @@ export const Head = () => (
             name: 'Is this entire website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 25 full page screenshots per day for free, with no credit card required. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.'
+              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} full page screenshots per day for free, with no credit card required. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.`
             }
           },
           {

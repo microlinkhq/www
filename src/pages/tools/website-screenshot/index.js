@@ -76,6 +76,7 @@ import {
   FORMAT_OPTIONS,
   MOBILE_BP
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -243,8 +244,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free + No login',
-    description:
-      'Free screenshot tool with 25 screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.'
+    description: `Free screenshot tool with ${KEYLESS_REQUESTS_PER_DAY} screen captures per day. Every screenshot is clean and professional. No branding, overlays, or watermarks on your captured images.`
   },
   {
     title: 'Local Storage Support',
@@ -1522,7 +1522,8 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can take up to <b>25&nbsp;screenshots per day</b> for
+              Yes! You can take up to{' '}
+              <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;screenshots per day</b> for
               free, with no credit card required. Free screenshots include all
               features — full-page capture, device emulation, overlays, and
               multiple formats.
@@ -1662,7 +1663,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 screenshots per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} screenshots per day`
         }
       },
       {
@@ -1674,7 +1675,7 @@ export const Head = () => (
             name: 'Is this website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 25 screenshots per day for free, with no credit card required. Free screenshots include all features — full-page capture, device emulation, overlays, and multiple formats. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.'
+              text: `Yes! You can take up to ${KEYLESS_REQUESTS_PER_DAY} screenshots per day for free, with no credit card required. Free screenshots include all features — full-page capture, device emulation, overlays, and multiple formats. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.`
             }
           },
           {

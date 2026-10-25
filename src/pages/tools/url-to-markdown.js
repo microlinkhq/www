@@ -76,6 +76,7 @@ import {
   HistoryScrollContainer,
   MOBILE_BP
 } from 'components/pages/screenshot'
+import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -204,8 +205,7 @@ const REASON_TO_USE = [
   },
   {
     title: 'Free + No Login',
-    description:
-      'Free website to markdown tool with 25 conversions per day. No account needed, no branding, no strings attached.'
+    description: `Free website to markdown tool with ${KEYLESS_REQUESTS_PER_DAY} conversions per day. No account needed, no branding, no strings attached.`
   },
   {
     title: 'API Integration Ready',
@@ -2491,10 +2491,11 @@ const ProductInformation = () => (
         answer: (
           <>
             <div>
-              Yes! You can convert up to <b>25&nbsp;URLs per day</b> for free,
-              with no credit card required. Free conversions include all
-              features — ad blocking, HTML selectors, prerendering, inline
-              editing, and download.
+              Yes! You can convert up to{' '}
+              <b>{KEYLESS_REQUESTS_PER_DAY}&nbsp;URLs per day</b> for free, with
+              no credit card required. Free conversions include all features —
+              ad blocking, HTML selectors, prerendering, inline editing, and
+              download.
             </div>
             <div>
               Building an app or an AI agent? Use the{' '}
@@ -2694,7 +2695,7 @@ export const Head = () => (
           '@type': 'Offer',
           price: '0',
           priceCurrency: 'USD',
-          description: 'Free tier with 25 conversions per day'
+          description: `Free tier with ${KEYLESS_REQUESTS_PER_DAY} conversions per day`
         },
         featureList: [
           'Convert URL to markdown',
@@ -2717,7 +2718,7 @@ export const Head = () => (
             name: 'Is this website to markdown converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can convert up to 25 URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download. Building an app or an AI agent? Use the Markdown API with a developer API key to convert pages from your code.'
+              text: `Yes! You can convert up to ${KEYLESS_REQUESTS_PER_DAY} URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download. Building an app or an AI agent? Use the Markdown API with a developer API key to convert pages from your code.`
             }
           },
           {
