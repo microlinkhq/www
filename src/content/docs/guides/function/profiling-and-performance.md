@@ -5,6 +5,7 @@ description: 'Understand execution phases, plan limits, and optimization techniq
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
 
 Every function response includes profiling data with phase-level timing and resource usage.
 
@@ -46,13 +47,13 @@ Use profiling to understand where time is spent. If install is high, your depend
 
 The function parameter is available on both free and pro plans:
 
-|                   | Free             | Pro              |
-| ----------------- | ---------------- | ---------------- |
-| Timeout           | 15 seconds       | Up to 60 seconds |
-| Memory            | 64 MB            | 128 MB           |
-| Code size         | 1024 bytes       | Unlimited        |
-| Concurrency       | 1 in-flight per IP | Unlimited      |
-| Outgoing requests | Same-origin only | Unrestricted     |
+|                   | Keyless            | Free API key                                   | Paid plans       |
+| ----------------- | ------------------ | ---------------------------------------------- | ---------------- |
+| Timeout           | 15 seconds         | Up to 60 seconds                               | Up to 60 seconds |
+| Memory            | 64 MB              | 128 MB                                         | 128 MB           |
+| Code size         | 1024 bytes         | Unlimited                                      | Unlimited        |
+| Concurrency       | 1 in-flight per IP | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited        |
+| Outgoing requests | Same-origin only   | Unrestricted                                   | Unrestricted     |
 
 A free API key is enough to prototype workflows and run the examples in this guide; `headers`, `proxy`, `ttl` and `staleTtl` are included. For production workloads that need more volume, use a paid plan.
 
