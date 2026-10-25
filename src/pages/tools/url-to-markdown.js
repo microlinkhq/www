@@ -2714,10 +2714,10 @@ export const Head = () => (
         mainEntity: [
           {
             '@type': 'Question',
-            name: 'Is this website to markdown converter really free?',
+            name: 'Is this website to markdown converter free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can convert up to 25 URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download.'
+              text: 'Yes! You can convert up to 25 URLs per day for free, with no credit card required. Free conversions include all features — ad blocking, HTML selectors, prerendering, inline editing, and download. Building an app or an AI agent? Use the Markdown API with a developer API key to convert pages from your code.'
             }
           },
           {
