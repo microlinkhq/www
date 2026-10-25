@@ -80,6 +80,22 @@ Large function bodies are compressed before they're sent, so the keyless endpoin
 
 ## Limits
 
-The keyless endpoint allows 15 seconds, 64 MB of heap, 1024 bytes of code, one in-flight function per IP, and same-origin outgoing requests only; any API key, the free one included, lifts those to 60 seconds, 128 MB, unlimited code size and unrestricted requests; the free key runs up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`; see [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
+The keyless endpoint allows:
+
+- 15 seconds of execution.
+- 64 MB of heap.
+- 1024 bytes of code.
+- One in-flight function per IP.
+- Same-origin outgoing requests only.
+
+Any API key, the free one included, lifts those to:
+
+- 60 seconds of execution.
+- 128 MB of heap.
+- Unlimited code size.
+- Unrestricted outgoing requests.
+- Up to {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests on the free key.
+
+Exceeding a limit returns `isFulfilled: false` with a plan-aware error such as `TimeoutError`. See [plan limits](/docs/api/parameters/function#plan-limits) and [troubleshooting](/docs/guides/function/troubleshooting).
 
 See the [function guide](/docs/guides/function) for writing patterns, package dependencies, and profiling.
