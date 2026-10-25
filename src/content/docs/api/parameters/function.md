@@ -171,13 +171,13 @@ The profiling phases are:
 
 The function parameter is available on both free and pro plans with different resource limits:
 
-|                   | Keyless            | Free API key                                   | Paid plans   |
-| ----------------- | ------------------ | ---------------------------------------------- | ------------ |
-| Timeout           | 15 seconds         | Up to 60 seconds                               | Up to 60 seconds |
-| Memory            | 64 MB              | 128 MB                                         | 128 MB       |
-| Code size         | 1024 bytes         | Unlimited                                      | Unlimited    |
-| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests per IP | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
-| Outgoing requests | Same-origin only   | Unrestricted                                   | Unrestricted |
+|                   | Free plan                                      | Paid plan    |
+| ----------------- | ---------------------------------------------- | ------------ |
+| Timeout           | 15 seconds                                     | 60 seconds   |
+| Memory            | 64 MB                                          | 128 MB       |
+| Code size         | 1024 bytes                                     | Unlimited    |
+| Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
+| Outgoing requests | Same-origin only                               | Unrestricted |
 
 When a limit is exceeded, the function returns `isFulfilled: false` with a descriptive error instead of failing the entire request:
 
