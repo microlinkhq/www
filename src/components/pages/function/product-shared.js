@@ -468,7 +468,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Browser Functions API — Run JavaScript on Any Page',
+  title: 'Browser Functions API: Run JavaScript on Any Page',
   description: `Write a JavaScript function, send a URL, and get the return value. Microlink runs it in a remote sandbox — a headless browser only if you need one. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Function API',
   structuredDescription:

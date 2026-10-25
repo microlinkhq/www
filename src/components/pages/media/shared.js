@@ -159,7 +159,7 @@ export const FAQ_ITEMS = [
 ]
 
 export const META = {
-  title: 'Media Extraction API - Video & Audio File URLs',
+  title: 'Media Extraction API: Video & Audio File URLs',
   description: `Extract direct video and audio file URLs from any web page, with dimensions, duration and type. Real browser detection, proxy support, edge caching. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day.`,
   structuredName: 'Microlink Media API',
   structuredDescription:

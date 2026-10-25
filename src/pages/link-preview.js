@@ -2412,7 +2412,7 @@ const ProductInformation = () => (
 
 export const Head = () => (
   <Meta
-    title='Link Preview API — URL Unfurling & Open Graph Metadata'
+    title='Link Preview API: URL Unfurling & Open Graph Metadata'
     noSuffix
     description='Link preview API that turns any URL into a custom preview card. Normalized metadata (Open Graph, Twitter Cards, JSON-LD, oEmbed) in one JSON call. Free tier, proxy rotation for URLs behind Cloudflare and CAPTCHAs. Built for developers.'
     structured={{

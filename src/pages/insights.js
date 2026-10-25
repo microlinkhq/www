@@ -935,7 +935,7 @@ const ProductInformation = () => {
 
 export const Head = () => (
   <Meta
-    title='Automated Web Performance Insights'
+    title='Website Insights API: Automated Web Performance Audits'
     description='Track web speed & website quality over time. Monitor website performance automatically. Get Lighthouse-powered speed insights & quality metrics in real-time. Track Core Web Vitals, SEO scores & more.'
     schemaType='SoftwareApplication'
     structured={{
