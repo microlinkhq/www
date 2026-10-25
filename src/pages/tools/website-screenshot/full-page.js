@@ -1245,7 +1245,7 @@ export const Head = () => (
             name: 'Is this entire website screenshot tool really free?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Yes! You can take up to 25 full page screenshots per day for free, with no credit card required.'
+              text: 'Yes! You can take up to 25 full page screenshots per day for free, with no credit card required. Building an app or an AI agent? Use the Screenshot API with a developer API key to take screenshots from your code.'
             }
           },
           {
