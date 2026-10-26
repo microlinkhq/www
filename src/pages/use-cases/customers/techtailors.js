@@ -121,7 +121,7 @@ const AboutCustomer = () => (
       <Box css={theme({ pt: 2, pb: [3, 3, 4, 4] })}>
         <Text
           as='a'
-          href='https://gettechtailored.com'
+          href='https://techtailors.agency'
           target='_blank'
           rel='noopener'
           css={theme({
@@ -131,7 +131,7 @@ const AboutCustomer = () => (
             textDecoration: 'underline'
           })}
         >
-          Visit gettechtailored.com
+          Visit techtailors.agency
         </Text>
       </Box>
       <Testimonial
@@ -160,7 +160,7 @@ const HowTheyUseIt = () => (
       <Text as='p' css={theme({ pt: [3, 3, 4, 4] })}>
         When a TechTailors site links out, Microlink turns the plain URL into a
         preview with the destination's title, description, and image. The agency
-        runs it on gettechtailored.com and on the client sites it designs, so a
+        runs it on techtailors.agency and on the client sites it designs, so a
         link reads as a card a visitor wants to open rather than a bare line of
         text.
       </Text>
@@ -248,7 +248,7 @@ const ThanksSection = () => (
       <Box css={theme({ pt: [3, 3, 4, 4], pb: [2, 2, 3, 3] })}>
         <Text
           as='a'
-          href='https://gettechtailored.com'
+          href='https://techtailors.agency'
           target='_blank'
           rel='noopener'
         >
