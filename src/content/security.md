@@ -4,6 +4,8 @@ description: 'Learn about Microlink security protocols, including infrastructure
 lastEdited: true
 ---
 
+import { Researchers } from 'components/pages/security/researchers'
+
 Microlink is committed to protecting the security and privacy of our customers' data. 
 
 We implement comprehensive security measures across our infrastructure, applications, and processes to ensure the confidentiality, integrity, and availability of data processed through our services.
@@ -116,5 +118,15 @@ This policy is also published as [security.txt](/.well-known/security.txt), foll
 
 Our thanks to the researchers who have reported vulnerabilities to us:
 
-- Daniel Wang
-- Haaris B
+<Researchers
+  researchers={[
+    { name: 'Daniel Wang', email: 'hello@danielwang.dev' },
+    { name: 'Haaris B', email: 'haaris.blacktech@gmail.com' },
+    { name: 'Rizky Armando Ramadany', email: 'lordxenon293@gmail.com' },
+    {
+      name: 'Peter Levashov',
+      email: 'peter@severadao.ai',
+      website: 'https://www.severadao.ai'
+    }
+  ]}
+/>
