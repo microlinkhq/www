@@ -59,6 +59,7 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import {
   ApiErrorTitle,
   ApiErrorBody
@@ -1763,7 +1764,7 @@ const MarkdownTool = () => {
   const [showUnsavedModal, setShowUnsavedModal] = useState(false)
   const pendingActionRef = useRef(null)
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(MARKDOWN_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
 
@@ -1854,7 +1855,7 @@ const MarkdownTool = () => {
           : { attr: 'markdown' }
 
         const mqlOpts = {
-          apiKey: localStorageData,
+          apiKey,
           meta: options.meta,
           data: { markdown: dataRule },
           adblock: options.adblock,
@@ -1940,7 +1941,7 @@ const MarkdownTool = () => {
         setIsLoading(false)
       }
     },
-    [options, localStorageData, setHistory]
+    [options, apiKey, setHistory]
   )
 
   const handleSubmit = useCallback(

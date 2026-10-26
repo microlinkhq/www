@@ -66,6 +66,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
@@ -2395,7 +2396,7 @@ const PdfBatchTool = () => {
     setBulkTotalMs(380)
   }, [])
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -2509,7 +2510,7 @@ const PdfBatchTool = () => {
           }
 
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey,
             meta: false,
             pdf: pdfOpts,
             screenshot: true,
@@ -2621,7 +2622,7 @@ const PdfBatchTool = () => {
         await downloadZipFromEntries(successEntries)
       }
     },
-    [options, localStorageData, setHistory, downloadZipFromEntries]
+    [options, apiKey, setHistory, downloadZipFromEntries]
   )
 
   const handleHistorySelect = useCallback(entry => {

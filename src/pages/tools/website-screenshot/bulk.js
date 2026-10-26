@@ -53,6 +53,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import { normalizeApiError, isRateLimited } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
@@ -1817,7 +1818,7 @@ const ScreenshotTool = () => {
   const [bulkTotalBytes, setBulkTotalBytes] = useState(null)
   const bulkUrlsRef = useRef([])
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -1943,7 +1944,7 @@ const ScreenshotTool = () => {
         const reqStart = Date.now()
         try {
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,
@@ -2054,7 +2055,7 @@ const ScreenshotTool = () => {
         await downloadZipFromEntries(successEntries)
       }
     },
-    [options, localStorageData, setHistory, downloadZipFromEntries]
+    [options, apiKey, setHistory, downloadZipFromEntries]
   )
 
   const handleHistorySelect = useCallback(entry => {
