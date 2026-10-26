@@ -7,8 +7,13 @@ const SIGNED_IN_TIMESTAMP = /^[1-9]\d*$/
 
 const isSignedInTimestamp = value => SIGNED_IN_TIMESTAMP.test(value)
 
-export const hasDashboardSession = (cookies = '') =>
-  cookies.split(';').some(cookie => {
+export const dashboardSessionMarker = (cookies = '') => {
+  for (const cookie of cookies.split(';')) {
     const [name, value = ''] = cookie.trim().split('=')
-    return isClientUatCookie(name) && isSignedInTimestamp(value)
-  })
+    if (isClientUatCookie(name) && isSignedInTimestamp(value)) return value
+  }
+  return null
+}
+
+export const hasDashboardSession = cookies =>
+  dashboardSessionMarker(cookies) !== null

@@ -1,5 +1,8 @@
 import { describe, expect, test } from 'vitest'
-import { hasDashboardSession } from '../../../src/helpers/dashboard-session'
+import {
+  dashboardSessionMarker,
+  hasDashboardSession
+} from '../../../src/helpers/dashboard-session'
 
 describe('hasDashboardSession', () => {
   test('signed in when the Clerk client_uat cookie holds a timestamp', () => {
@@ -42,5 +45,25 @@ describe('hasDashboardSession', () => {
     expect(
       hasDashboardSession('__client_uat=0; __client_uat_Y2xlcmsu=1760953560')
     ).toBe(true)
+  })
+})
+
+describe('dashboardSessionMarker', () => {
+  test('is the client_uat timestamp of the signed-in session', () => {
+    expect(dashboardSessionMarker('_ga=GA1.1.1; __client_uat=1760953560')).toBe(
+      '1760953560'
+    )
+  })
+
+  test('changes when a new session signs in', () => {
+    expect(dashboardSessionMarker('__client_uat=1760953560')).not.toBe(
+      dashboardSessionMarker('__client_uat=1760999999')
+    )
+  })
+
+  test('is null when signed out', () => {
+    expect(dashboardSessionMarker('__client_uat=0')).toBeNull()
+    expect(dashboardSessionMarker('')).toBeNull()
+    expect(dashboardSessionMarker()).toBeNull()
   })
 })

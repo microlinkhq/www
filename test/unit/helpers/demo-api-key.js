@@ -16,7 +16,7 @@ const mockFetch = routes =>
 
 const signedInRoutes = {
   [CLIENT_URL]: () => json({ response: { last_active_session_id: 'sess_1' } }),
-  [TOKEN_URL]: () => json({ jwt: 'session.jwt' }),
+  [TOKEN_URL]: () => json({ response: { jwt: 'session.jwt' } }),
   [DEMO_KEY_URL]: () => json({ apiKey: 'ml_dev' })
 }
 
@@ -37,7 +37,7 @@ describe('fetchDemoApiKey', () => {
   test('exchanges the Clerk session for the development key', async () => {
     const { fetchDemoApiKey } = await loadHelper()
 
-    expect(await fetchDemoApiKey()).toBe('ml_dev')
+    expect(await fetchDemoApiKey('1760953560')).toBe('ml_dev')
     expect(fetch).toHaveBeenCalledWith(CLIENT_URL, { credentials: 'include' })
     expect(fetch).toHaveBeenCalledWith(TOKEN_URL, {
       method: 'POST',
@@ -48,13 +48,45 @@ describe('fetchDemoApiKey', () => {
     })
   })
 
-  test('asks the dashboard once per page load', async () => {
+  test('reads a token returned without the response envelope', async () => {
+    vi.stubGlobal(
+      'fetch',
+      mockFetch({
+        ...signedInRoutes,
+        [TOKEN_URL]: () => json({ jwt: 'session.jwt' })
+      })
+    )
     const { fetchDemoApiKey } = await loadHelper()
 
-    await Promise.all([fetchDemoApiKey(), fetchDemoApiKey()])
-    await fetchDemoApiKey()
+    expect(await fetchDemoApiKey('1760953560')).toBe('ml_dev')
+  })
+
+  test('asks the dashboard once per session', async () => {
+    const { fetchDemoApiKey } = await loadHelper()
+
+    await Promise.all([
+      fetchDemoApiKey('1760953560'),
+      fetchDemoApiKey('1760953560')
+    ])
+    await fetchDemoApiKey('1760953560')
 
     expect(fetch).toHaveBeenCalledTimes(3)
+  })
+
+  test('fetches again when another session signs in', async () => {
+    const { fetchDemoApiKey } = await loadHelper()
+
+    await fetchDemoApiKey('1760953560')
+    await fetchDemoApiKey('1760999999')
+
+    expect(fetch).toHaveBeenCalledTimes(6)
+  })
+
+  test('resolves null without a session marker, without network', async () => {
+    const { fetchDemoApiKey } = await loadHelper()
+
+    expect(await fetchDemoApiKey(null)).toBeNull()
+    expect(fetch).not.toHaveBeenCalled()
   })
 
   test('resolves null without an active Clerk session', async () => {
@@ -66,7 +98,7 @@ describe('fetchDemoApiKey', () => {
     )
     const { fetchDemoApiKey } = await loadHelper()
 
-    expect(await fetchDemoApiKey()).toBeNull()
+    expect(await fetchDemoApiKey('1760953560')).toBeNull()
     expect(fetch).toHaveBeenCalledTimes(1)
   })
 
@@ -80,7 +112,7 @@ describe('fetchDemoApiKey', () => {
     )
     const { fetchDemoApiKey } = await loadHelper()
 
-    expect(await fetchDemoApiKey()).toBeNull()
+    expect(await fetchDemoApiKey('1760953560')).toBeNull()
   })
 
   test('resolves null when the network fails', async () => {
@@ -90,7 +122,7 @@ describe('fetchDemoApiKey', () => {
     )
     const { fetchDemoApiKey } = await loadHelper()
 
-    expect(await fetchDemoApiKey()).toBeNull()
+    expect(await fetchDemoApiKey('1760953560')).toBeNull()
   })
 })
 
@@ -113,5 +145,41 @@ describe('toSavedApiKey', () => {
     expect(toSavedApiKey(undefined)).toBeNull()
     expect(toSavedApiKey('')).toBeNull()
     expect(toSavedApiKey({})).toBeNull()
+  })
+})
+
+describe('selectDemoApiKey', () => {
+  test('prefers the key saved from the code editors', async () => {
+    const { selectDemoApiKey } = await loadHelper()
+
+    expect(
+      selectDemoApiKey({
+        savedApiKey: 'ml_saved',
+        isSignedIn: true,
+        sessionApiKey: 'ml_dev'
+      })
+    ).toBe('ml_saved')
+  })
+
+  test('uses the session key while signed in', async () => {
+    const { selectDemoApiKey } = await loadHelper()
+
+    expect(
+      selectDemoApiKey({ isSignedIn: true, sessionApiKey: 'ml_dev' })
+    ).toBe('ml_dev')
+  })
+
+  test('drops the session key once signed out', async () => {
+    const { selectDemoApiKey } = await loadHelper()
+
+    expect(
+      selectDemoApiKey({ isSignedIn: false, sessionApiKey: 'ml_dev' })
+    ).toBeUndefined()
+  })
+
+  test('is keyless with nothing saved and no session', async () => {
+    const { selectDemoApiKey } = await loadHelper()
+
+    expect(selectDemoApiKey({ isSignedIn: false })).toBeUndefined()
   })
 })

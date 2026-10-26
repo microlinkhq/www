@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useDashboardSession } from 'components/hook/use-dashboard-session'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { fetchDemoApiKey, toSavedApiKey } from 'helpers/demo-api-key'
+import { dashboardSessionMarker } from 'helpers/dashboard-session'
+import { fetchDemoApiKey, selectDemoApiKey } from 'helpers/demo-api-key'
 
 export const useDemoApiKey = () => {
   const [savedApiKey] = useLocalStorage('mql-api-key')
@@ -9,9 +10,12 @@ export const useDemoApiKey = () => {
   const [sessionApiKey, setSessionApiKey] = useState(null)
 
   useEffect(() => {
-    if (!isSignedIn) return
+    if (!isSignedIn) {
+      setSessionApiKey(null)
+      return
+    }
     let active = true
-    fetchDemoApiKey().then(apiKey => {
+    fetchDemoApiKey(dashboardSessionMarker(document.cookie)).then(apiKey => {
       if (active) setSessionApiKey(apiKey)
     })
     return () => {
@@ -19,5 +23,5 @@ export const useDemoApiKey = () => {
     }
   }, [isSignedIn])
 
-  return toSavedApiKey(savedApiKey) || sessionApiKey || undefined
+  return selectDemoApiKey({ savedApiKey, isSignedIn, sessionApiKey })
 }
