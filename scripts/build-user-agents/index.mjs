@@ -118,6 +118,7 @@ const buildAI = async () => {
     .map(bot => bot.userAgentPatterns)
     .flat()
     .map(bot => extractBotName(bot.toLowerCase().replace(/\/$/, '')))
+    .filter(Boolean)
     .forEach(ai => {
       if (!result.includes(ai)) {
         result.push(ai)
