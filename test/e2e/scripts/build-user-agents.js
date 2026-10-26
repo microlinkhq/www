@@ -32,6 +32,14 @@ describe('buildUserAgents', () => {
     }
   })
 
+  it('ai only contains bot names', async () => {
+    const { ai } = await buildUserAgents()
+    expect(ai.length).toBeGreaterThan(0)
+    expect(ai.every(name => typeof name === 'string' && name.length > 0)).toBe(
+      true
+    )
+  })
+
   it('crawler should not include crawlers starting with a number', async () => {
     const { crawler } = await buildUserAgents()
     expect(crawler.some(crawler => /^[0-9]/.test(crawler))).toBe(false)
