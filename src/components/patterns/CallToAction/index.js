@@ -11,8 +11,8 @@ import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const FREE_KEY_PERKS = [
-  'Free API key',
   `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+  'Every Pro feature',
   'No credit card'
 ]
 
@@ -41,7 +41,7 @@ export const CallToAction = ({ id, outcome, cta, children }) => (
           textAlign: 'center'
         })}
       >
-        Start now
+        Start free
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -51,9 +51,7 @@ export const CallToAction = ({ id, outcome, cta, children }) => (
           textAlign: 'center'
         })}
       >
-        Sign up for a free API key: {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests
-        per day with every Pro feature, no credit card. Add it to the request
-        and start {outcome} in seconds.
+        Sign up, add the key to your requests, and start {outcome}.
       </Caption>
       <Flex
         css={theme({
