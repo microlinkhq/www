@@ -116,7 +116,7 @@ This policy is also published as [security.txt](/.well-known/security.txt), foll
 
 Our thanks to the researchers who have reported vulnerabilities to us:
 
-- Daniel Wang
-- Haaris B
-- Rizky Armando Ramadany
-- Peter Levashov
+- Daniel Wang · [hello@danielwang.dev](mailto:hello@danielwang.dev)
+- Haaris B · [haaris.blacktech@gmail.com](mailto:haaris.blacktech@gmail.com)
+- Rizky Armando Ramadany · [lordxenon293@gmail.com](mailto:lordxenon293@gmail.com)
+- Peter Levashov · [peter@severadao.ai](mailto:peter@severadao.ai) · [severadao.ai](https://www.severadao.ai)
