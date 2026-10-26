@@ -103,10 +103,7 @@ export const CallToAction = ({ id, accent, outcome, cta, children }) => (
           alignItems: 'center'
         })}
       >
-        <SignupLink
-          cta={cta}
-          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
-        >
+        <SignupLink cta={cta} css={theme({ fontSize: 2 })}>
           Get your free API key
         </SignupLink>
       </Flex>
