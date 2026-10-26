@@ -118,3 +118,4 @@ Our thanks to the researchers who have reported vulnerabilities to us:
 
 - Daniel Wang
 - Haaris B
+- Rizky Armando Ramadany
