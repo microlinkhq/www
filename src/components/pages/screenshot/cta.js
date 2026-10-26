@@ -6,7 +6,6 @@ import { LANG_LANDINGS } from './lang/registry'
 
 export const CallToAction = () => (
   <FreeKeyCallToAction
-    accent={colors.red6}
     outcome='capturing screenshots'
     cta='screenshot:footer-cta'
   >

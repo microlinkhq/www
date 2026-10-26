@@ -1,5 +1,5 @@
 import React from 'react'
-import { colors, theme } from 'theme'
+import { theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -13,7 +13,6 @@ const NEXT_STEPS = [
 const CallToAction = () => (
   <FreeKeyCallToAction
     id='get-started'
-    accent={colors.grape7}
     outcome='turning any link into what you need'
     cta='home:footer-cta'
   >

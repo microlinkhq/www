@@ -1,5 +1,4 @@
 import React from 'react'
-import styled, { keyframes } from 'styled-components'
 import { SECTION_VERTICAL_SPACING, colors, layout, theme } from 'theme'
 import { Check as CheckIcon } from 'react-feather'
 import Box from 'components/elements/Box'
@@ -11,47 +10,13 @@ import Caption from 'components/patterns/Caption/Caption'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-const CTA_DURATION = 6.2
-const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
-const CTA_LEAD_TEXT = 'Start'
-const CTA_LEAD_CHARS = CTA_LEAD_TEXT.split('').map((char, index) => ({
-  char,
-  charKey: `${char}${index}`,
-  index
-}))
-const CTA_CHAR_PCT = CTA_SWEEP_PCT / CTA_LEAD_CHARS.length
-
 const FREE_KEY_PERKS = [
   'Free API key',
   `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
   'No credit card'
 ]
 
-const sweepChar = (index, accent) => {
-  const on = index * CTA_CHAR_PCT
-  const off = on + CTA_CHAR_PCT
-  return keyframes`
-    0%, ${on}%, ${off}%, 100% { color: inherit; }
-    ${on + 0.01}%, ${off - 0.01}% { color: ${accent}; }
-  `
-}
-
-const sweepNow = accent => keyframes`
-  0%, ${CTA_SWEEP_PCT}% { color: inherit; }
-  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${accent}; }
-`
-
-const CtaChar = styled('span')`
-  animation: ${({ $i, $accent }) => sweepChar($i, $accent)} ${CTA_DURATION}s
-    step-end infinite;
-`
-
-const CtaNow = styled('span')`
-  animation: ${({ $accent }) => sweepNow($accent)} ${CTA_DURATION}s step-end
-    infinite;
-`
-
-export const CallToAction = ({ id, accent, outcome, cta, children }) => (
+export const CallToAction = ({ id, outcome, cta, children }) => (
   <Container
     as='section'
     id={id}
@@ -76,12 +41,7 @@ export const CallToAction = ({ id, accent, outcome, cta, children }) => (
           textAlign: 'center'
         })}
       >
-        {CTA_LEAD_CHARS.map(({ char, charKey, index }) => (
-          <CtaChar key={charKey} $i={index} $accent={accent}>
-            {char}
-          </CtaChar>
-        ))}{' '}
-        <CtaNow $accent={accent}>now</CtaNow>
+        Start now
       </Subhead>
       <Caption
         forwardedAs='div'
