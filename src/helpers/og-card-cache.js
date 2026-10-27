@@ -4,6 +4,7 @@ import {
   mkdirSync,
   readFileSync,
   readdirSync,
+  renameSync,
   rmSync,
   writeFileSync
 } from 'node:fs'
@@ -12,12 +13,26 @@ import path from 'node:path'
 export const cardKey = inputs =>
   createHash('sha256').update(JSON.stringify(inputs)).digest('hex')
 
+const isPlainObject = value =>
+  value !== null && typeof value === 'object' && !Array.isArray(value)
+
 const readManifest = manifestPath => {
   try {
-    return JSON.parse(readFileSync(manifestPath, 'utf8'))
-  } catch {
-    return {}
-  }
+    const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'))
+    if (isPlainObject(manifest)) return manifest
+  } catch {}
+  return {}
+}
+
+const writeManifest = (manifestPath, manifest) => {
+  const directory = path.dirname(manifestPath)
+  mkdirSync(directory, { recursive: true })
+  const temporaryPath = path.join(
+    directory,
+    `.${path.basename(manifestPath)}.tmp`
+  )
+  writeFileSync(temporaryPath, JSON.stringify(manifest))
+  renameSync(temporaryPath, manifestPath)
 }
 
 const cardFile = slug => `${slug}.png`
@@ -49,13 +64,10 @@ export const reuseRenderedCards = async ({
   const rendered = stale.filter(card => renderedSlugs.has(card.slug))
 
   removeOrphanCards(outDir, cards)
-  mkdirSync(path.dirname(manifestPath), { recursive: true })
-  writeFileSync(
+  writeManifest(
     manifestPath,
-    JSON.stringify(
-      Object.fromEntries(
-        [...reused, ...rendered].map(card => [card.slug, card.key])
-      )
+    Object.fromEntries(
+      [...reused, ...rendered].map(card => [card.slug, card.key])
     )
   )
 

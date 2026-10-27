@@ -40,6 +40,7 @@ const {
 } = require('./src/helpers/og-card-metadata')
 const { cardKey, reuseRenderedCards } = require('./src/helpers/og-card-cache')
 const { OG_IMAGE_VERSION } = require('./src/helpers/og-image-version')
+const { contentLastModified } = require('./src/helpers/content-last-modified')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -51,11 +52,6 @@ const GIT_TIMESTAMPS = JSON.parse(
     'utf8'
   )
 )
-
-const contentLastModified = node =>
-  node.frontmatter?.modified
-    ? new Date(node.frontmatter.modified).toISOString()
-    : getLastModifiedDate(node.internal.contentFilePath)
 
 const getTimestampForFile = fileNode => {
   const relativePath = path
@@ -338,7 +334,7 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
     const contentFilePath = node.internal.contentFilePath
     if (contentFilePath) {
       try {
-        const lastmod = await contentLastModified(node)
+        const lastmod = await contentLastModified(node, getLastModifiedDate)
         createNodeField({
           node,
           name: 'lastmod',
@@ -521,7 +517,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   const createMdxPage = async node => {
     const slug = node.fields.slug.replace(/\/+$/, '')
     const contentFilePath = node.internal.contentFilePath
-    const lastEdited = await contentLastModified(node)
+    const lastEdited = await contentLastModified(node, getLastModifiedDate)
     const isSkillPage = node.fields.slug.startsWith('/skills/')
     const skillSlug = isSkillPage
       ? node.fields.slug.split('/').filter(Boolean).pop()
