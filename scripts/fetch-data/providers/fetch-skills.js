@@ -87,14 +87,18 @@ const createFrontmatter = ({
   description,
   website,
   githubUrl,
-  skillUrl
+  skillUrl,
+  date,
+  modified
 }) => {
   const values = [
     ['title', title],
     ['description', description],
     ['website', website],
     ['githubUrl', githubUrl],
-    ['skillUrl', skillUrl]
+    ['skillUrl', skillUrl],
+    ['date', date],
+    ['modified', modified]
   ].filter(([, value]) => value)
 
   return `---
@@ -103,19 +107,61 @@ ${values.map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n')}
 `
 }
 
-const upsertSkillsRepository = async () => {
-  if (existsSync(path.join(SKILLS_REPO_DIR, '.git'))) {
-    await run('git', ['-C', SKILLS_REPO_DIR, 'pull', '--ff-only'])
+const gitIn = (repoDir, ...args) => run('git', ['-C', repoDir, ...args])
+
+const isShallowRepository = async repoDir => {
+  const { stdout } = await gitIn(
+    repoDir,
+    'rev-parse',
+    '--is-shallow-repository'
+  )
+  return stdout.trim() === 'true'
+}
+
+const upsertSkillsRepository = async (
+  repoDir = SKILLS_REPO_DIR,
+  repoUrl = SKILLS_REPO_URL
+) => {
+  if (existsSync(path.join(repoDir, '.git'))) {
+    if (await isShallowRepository(repoDir)) {
+      await gitIn(repoDir, 'fetch', '--unshallow')
+    }
+    await gitIn(repoDir, 'pull', '--ff-only')
     return
   }
 
-  await mkdir(path.dirname(SKILLS_REPO_DIR), { recursive: true })
-  await run('git', ['clone', '--depth', '1', SKILLS_REPO_URL, SKILLS_REPO_DIR])
+  await mkdir(path.dirname(repoDir), { recursive: true })
+  await run('git', ['clone', '--filter=blob:none', repoUrl, repoDir])
 }
 
-const parseSkill = async slug => {
-  const filepath = path.join(SKILLS_REPO_DIR, slug, 'SKILL.md')
-  const source = await readFile(filepath, 'utf8')
+const toIsoDate = value => new Date(value).toISOString()
+
+const getSkillDates = async (slug, repoDir = SKILLS_REPO_DIR) => {
+  const { stdout } = await gitIn(
+    repoDir,
+    'log',
+    '--follow',
+    '--format=%cI',
+    '--',
+    path.join(slug, 'SKILL.md')
+  )
+  const commitDates = stdout.split('\n').filter(Boolean)
+  if (commitDates.length === 0) return {}
+  return {
+    date: toIsoDate(commitDates[commitDates.length - 1]),
+    modified: toIsoDate(commitDates[0])
+  }
+}
+
+const parseSkill = async (slug, repoDir = SKILLS_REPO_DIR) => {
+  const filepath = path.join(repoDir, slug, 'SKILL.md')
+  let source
+  try {
+    source = await readFile(filepath, 'utf8')
+  } catch (error) {
+    if (error.code === 'ENOENT') return null
+    throw error
+  }
   const { meta, body } = parseFrontmatter(source)
   const metadata = {
     ...SKILL_FRONTMATTER_DEFAULTS[slug],
@@ -129,6 +175,7 @@ const parseSkill = async slug => {
   const githubUrl = metadata.githubUrl || metadata.github
 
   return {
+    ...(await getSkillDates(slug, repoDir)),
     slug,
     name,
     description,
@@ -139,8 +186,8 @@ const parseSkill = async slug => {
   }
 }
 
-const getSkills = async () => {
-  const entries = await readdir(SKILLS_REPO_DIR, { withFileTypes: true })
+const getSkills = async (repoDir = SKILLS_REPO_DIR) => {
+  const entries = await readdir(repoDir, { withFileTypes: true })
 
   const skills = await Promise.all(
     entries
@@ -151,13 +198,7 @@ const getSkills = async () => {
           entry.name !== 'README.md'
       )
       .map(entry => entry.name)
-      .map(async slug => {
-        try {
-          return await parseSkill(slug)
-        } catch (_) {
-          return null
-        }
-      })
+      .map(slug => parseSkill(slug, repoDir))
   )
 
   return skills
@@ -182,7 +223,9 @@ const writeSkillPages = async skills => {
           description: skill.description,
           website: skill.website,
           githubUrl: skill.githubUrl,
-          skillUrl: skill.skillUrl
+          skillUrl: skill.skillUrl,
+          date: skill.date,
+          modified: skill.modified
         }),
         skill.markdown,
         ''
@@ -214,4 +257,8 @@ module.exports = async () => {
   return skills
 }
 
+module.exports.getSkillDates = getSkillDates
+module.exports.getSkills = getSkills
+module.exports.createFrontmatter = createFrontmatter
+module.exports.upsertSkillsRepository = upsertSkillsRepository
 module.exports.dist = [SKILLS_DATA_PATH, SKILLS_CONTENT_DIR, SKILLS_REPO_DIR]

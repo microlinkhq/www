@@ -59,4 +59,44 @@ describe('og card generation', () => {
       /inlineAvatars\([^)]+onError: \(author, error\) =>\s+reporter\.warn\(/
     )
   })
+
+  test('keys each card by the inputs that change its picture', () => {
+    expect(gatsbyNode).toMatch(
+      /cardKey\(\[\s*OG_IMAGE_VERSION,\s*OG_CARD_HOST,\s*card\.pathname,\s*ogCardMetadata\(card\.pathname\)\s*\]\)/
+    )
+  })
+
+  test('counts reused and rendered cards before failing the build', () => {
+    expect(gatsbyNode).toMatch(
+      /const ready = generated\.reused \+ generated\.rendered/
+    )
+    expect(gatsbyNode).toMatch(/if \(ready === 0 && expected > 0\)/)
+    expect(gatsbyNode).toMatch(/if \(ready < expected\)/)
+  })
+
+  test('drops source maps on production webpack stages only', () => {
+    expect(gatsbyNode).toMatch(
+      /if \(stage === 'build-javascript' \|\| stage === 'build-html'\) \{/
+    )
+    expect(gatsbyNode).toMatch(/config\.devtool = false/)
+    expect(gatsbyNode).toMatch(
+      /if \(stage === 'develop' \|\| stage === 'develop-html'\) \{/
+    )
+    expect(gatsbyNode).toMatch(/config\.devtool = 'eval'/)
+  })
+
+  test('dates pages from frontmatter.modified before git', () => {
+    expect(
+      gatsbyNode.match(/contentLastModified\(node, getLastModifiedDate\)/g)
+    ).toHaveLength(2)
+  })
+
+  test('shares one @microlink/og version with the card key and og:image', () => {
+    expect(gatsbyNode).toMatch(
+      /require\('\.\/src\/helpers\/og-image-version'\)/
+    )
+    expect(read('gatsby-config.js')).toMatch(
+      /require\('\.\/src\/helpers\/og-image-version'\)/
+    )
+  })
 })

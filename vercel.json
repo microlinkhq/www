@@ -1,5 +1,5 @@
 {
-  "installCommand": "NODE_ENV=development npm install --legacy-peer-deps",
+  "installCommand": "PUPPETEER_SKIP_DOWNLOAD=true NODE_ENV=development npm install --legacy-peer-deps",
   "rewrites": [
     {
       "source": "/.well-known/agent-feedback.json",
