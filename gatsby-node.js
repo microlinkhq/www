@@ -8,7 +8,7 @@ const {
 } = require('node:fs')
 const { createFilePath } = require('gatsby-source-filesystem')
 const recipes = require('@microlink/recipes')
-const { kebabCase, map } = require('lodash')
+const { kebabCase, map, uniqBy } = require('lodash')
 const { default: pMap } = require('p-map')
 const { getDomain } = require('tldts')
 const createMicrolinkClient = require('microlink.io')
@@ -38,6 +38,8 @@ const {
   pageMetadata,
   withoutTrailingSlash
 } = require('./src/helpers/og-card-metadata')
+const { cardKey, reuseRenderedCards } = require('./src/helpers/og-card-cache')
+const { OG_IMAGE_VERSION } = require('./src/helpers/og-image-version')
 
 const RECIPES_BY_FEATURES_KEYS = Object.keys(
   require('@microlink/recipes/by-feature')
@@ -180,6 +182,13 @@ const readPageHtml = pathname => {
 
 const OG_CARD_HOST = 'microlink.io'
 
+const OG_CARD_MANIFEST = path.join(
+  process.cwd(),
+  'node_modules',
+  '.cache',
+  'og-cards.json'
+)
+
 const OG_CARD_QUERY = `{
   allSitePage { nodes { path } }
   allMdx { nodes { fields { slug } frontmatter { authors } } }
@@ -231,19 +240,40 @@ const generateOgImages = async ({ graphql, reporter }) => {
     }
   }
 
-  const pathnames = result.data.allSitePage.nodes.flatMap(
-    node => (imagePath(node.path) ? node.path : []) // drop Gatsby internals (/404, app shell, …)
-  )
+  const outDir = path.join(process.cwd(), 'public', 'images', 'og')
+  const cards = uniqBy(
+    result.data.allSitePage.nodes.flatMap(
+      node =>
+        imagePath(node.path)
+          ? { pathname: node.path, slug: slug(node.path) }
+          : [] // drop Gatsby internals (/404, app shell, …)
+    ),
+    'slug'
+  ).map(card => ({
+    ...card,
+    key: cardKey([
+      OG_IMAGE_VERSION,
+      OG_CARD_HOST,
+      card.pathname,
+      ogCardMetadata(card.pathname)
+    ])
+  }))
 
-  let cards
+  let generated
   try {
-    cards = await generateOgCards({
-      pathnames,
-      outDir: path.join(process.cwd(), 'public', 'images', 'og'),
-      host: OG_CARD_HOST,
-      metadata: ogCardMetadata,
-      onError: (pathname, error) =>
-        reporter.warn(`OG ${pathname}: ${error.message}`)
+    generated = await reuseRenderedCards({
+      cards,
+      outDir,
+      manifestPath: OG_CARD_MANIFEST,
+      render: staleCards =>
+        generateOgCards({
+          pathnames: staleCards.map(card => card.pathname),
+          outDir,
+          host: OG_CARD_HOST,
+          metadata: ogCardMetadata,
+          onError: (pathname, error) =>
+            reporter.warn(`OG ${pathname}: ${error.message}`)
+        })
     })
   } catch (error) {
     return reporter.panicOnBuild(
@@ -251,23 +281,25 @@ const generateOgImages = async ({ graphql, reporter }) => {
     )
   }
 
-  // `generate` dedupes by slug and returns one entry per card it wrote, so its
-  // count vs the unique expected count tells us what failed. Each failure was
-  // already logged via `onError`; only a *total* failure fails the build.
-  const expected = new Set(pathnames.map(slug)).size
+  // Each failure was already logged via `onError`; only a *total* failure
+  // fails the build.
+  const expected = cards.length
+  const ready = generated.reused + generated.rendered
 
-  if (cards.length === 0 && expected > 0) {
+  if (ready === 0 && expected > 0) {
     return reporter.panicOnBuild('OG images: every card failed to generate')
   }
 
-  if (cards.length < expected) {
+  if (ready < expected) {
     reporter.warn(
-      `OG images: ${expected - cards.length}/${expected} cards did not ` +
+      `OG images: ${expected - ready}/${expected} cards did not ` +
         'generate (see the warnings above).'
     )
   }
 
-  reporter.info(`Generated ${cards.length} OG images`)
+  reporter.info(
+    `OG images: rendered ${generated.rendered}, reused ${generated.reused}`
+  )
 }
 
 exports.onCreateNode = async ({ node, getNode, actions }) => {

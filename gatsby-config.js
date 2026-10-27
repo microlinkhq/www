@@ -37,11 +37,7 @@ const {
   OG_IMAGE_BASE
 } = require('./env')
 
-const OG_IMAGE_VERSION = require(path.join(
-  path.dirname(require.resolve('@microlink/og')),
-  '..',
-  'package.json'
-)).version
+const { OG_IMAGE_VERSION } = require('./src/helpers/og-image-version')
 
 module.exports = {
   trailingSlash: 'never',
