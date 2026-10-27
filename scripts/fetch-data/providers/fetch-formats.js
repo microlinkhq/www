@@ -2,13 +2,15 @@
 
 const debug = require('debug-logfmt')('data:providers:formats')
 const { default: pMap } = require('p-map')
-const mql = require('@microlink/mql')
+const createClient = require('microlink.io')
 const { sortBy } = require('lodash')
 const { default: mime } = require('mime')
 const path = require('path')
 
 const MICROLINK_CDN_URL = 'https://cdn.microlink.io/file-examples'
 const DIST = path.resolve(__dirname, '../../../data/formats.json')
+
+const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })
 
 const fileUrls = async () =>
   (await fetch(`${MICROLINK_CDN_URL}/index.json`).then(res => res.json())).map(
@@ -56,10 +58,9 @@ const fn = async () => {
         const type = getFileType(fileUrl)
         const isImage = type === 'image'
 
-        const { data, response } = await mql(
+        const { data, response } = await microlink.request(
           `https://compose-html.vercel.app/?body=${fileUrl}`,
           {
-            apiKey: process.env.MICROLINK_API_KEY,
             data: {
               file: {
                 selector: 'body',
@@ -93,7 +94,7 @@ const fn = async () => {
           item.duration = file.duration !== null
         }
 
-        debug(response.requestUrl, '→', item)
+        debug(response.url, '→', item)
         return item
       } catch (err) {
         debug.error(fileUrl, err)

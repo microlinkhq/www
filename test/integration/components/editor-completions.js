@@ -51,6 +51,8 @@ const searchPages = [
 test('types every published microlink.io client method', () => {
   expect(MICROLINK_DTS).toBe(published)
   expect(clientMethods).toEqual([
+    'request',
+    'apiUrl',
     'metadata',
     'logo',
     'markdown',

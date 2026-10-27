@@ -5,14 +5,21 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import provider from '../../../scripts/fetch-data/providers/fetch-hero-demo.js'
 import heroDemoRequests from '../../../src/components/pages/home/hero-demo-requests.js'
+import { getApiUrl } from '../../../src/helpers/get-api-url.js'
 
 const { DEMO_URLS, SNAPSHOT_URLS, REQUEST_OPTS } = heroDemoRequests
-const { toEntry, dist } = provider
+const { toEntry, dist, createFetchClient } = provider
 
-const createClient = ({ failUrls = [] } = {}) => {
+const createClient = ({ failUrls = [], delayMs = 0 } = {}) => {
   let calls = 0
-  const client = async url => {
+  let inFlight = 0
+  let maxInFlight = 0
+  const request = async url => {
     calls++
+    inFlight++
+    maxInFlight = Math.max(maxInFlight, inFlight)
+    await new Promise(resolve => setTimeout(resolve, delayMs))
+    inFlight--
     if (failUrls.includes(url)) throw new Error('boom')
     return {
       status: 'success',
@@ -22,11 +29,11 @@ const createClient = ({ failUrls = [] } = {}) => {
       }
     }
   }
-  client.getApiUrl = (url, opts) => [
-    `https://api.microlink.io/?url=${encodeURIComponent(url)}`
-  ]
-  client.calls = () => calls
-  return client
+  return {
+    request,
+    calls: () => calls,
+    maxInFlight: () => maxInFlight
+  }
 }
 
 const tmpDist = () => mkdtemp(path.join(tmpdir(), 'hero-demo-'))
@@ -40,14 +47,52 @@ describe('fetch-hero-demo provider', () => {
     const client = createClient()
     const entry = await toEntry('screenshot', client)
     expect(entry.apiUrl).toBe(
-      client.getApiUrl(DEMO_URLS.screenshot, REQUEST_OPTS.screenshot)[0]
+      createFetchClient('').apiUrl(
+        DEMO_URLS.screenshot,
+        REQUEST_OPTS.screenshot
+      )
     )
+    expect(entry.apiUrl.startsWith('https://api.microlink.io/')).toBe(true)
     expect(entry.body).toEqual({
       status: 'success',
       data: { url: 'https://example.com' }
     })
     expect(entry.body.response).toBeUndefined()
     expect(entry.headers).toEqual({ 'server-timing': 'total;dur=42' })
+  })
+
+  test('fetches with the API key and still displays the keyless URL', async () => {
+    const keyed = createFetchClient('secret')
+    const url = DEMO_URLS.screenshot
+    const opts = REQUEST_OPTS.screenshot
+    expect(
+      keyed.apiUrl(url, opts).startsWith('https://pro.microlink.io/')
+    ).toBe(true)
+    const entry = await toEntry('screenshot', createClient())
+    expect(entry.apiUrl.startsWith('https://api.microlink.io/')).toBe(true)
+    expect(entry.apiUrl).not.toContain('secret')
+  })
+
+  test('stores the apiUrl the hero recomputes in the browser', async () => {
+    for (const vertical of Object.keys(SNAPSHOT_URLS)) {
+      const entry = await toEntry(vertical, createClient())
+      expect(entry.apiUrl).toBe(
+        getApiUrl(SNAPSHOT_URLS[vertical], REQUEST_OPTS[vertical] || {})[0]
+      )
+    }
+  })
+
+  test('keeps keyless builds under the free concurrency limit', async () => {
+    const client = createClient({ delayMs: 5 })
+    await provider({ apiKey: '', client, dist: await tmpDist() })
+    expect(client.calls()).toBe(Object.keys(SNAPSHOT_URLS).length)
+    expect(client.maxInFlight()).toBeLessThanOrEqual(2)
+  })
+
+  test('runs every request at once with an API key', async () => {
+    const client = createClient({ delayMs: 5 })
+    await provider({ apiKey: 'secret', client, dist: await tmpDist() })
+    expect(client.maxInFlight()).toBe(Object.keys(SNAPSHOT_URLS).length)
   })
 
   test('demo verticals never include search', () => {
