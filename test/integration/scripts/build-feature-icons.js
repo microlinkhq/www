@@ -2,8 +2,13 @@ import { describe, expect, it } from 'vitest'
 import { readFileSync, existsSync } from 'fs'
 import path from 'path'
 
-import { renderIcon, OUTPUT_DIR } from '../../../scripts/build-feature-icons'
+import {
+  renderIcon,
+  OUTPUT_DIR,
+  PALETTE
+} from '../../../scripts/build-feature-icons'
 import { ICONS } from '../../../scripts/build-feature-icons/models'
+import { colors, gradientStops } from '../../../src/theme'
 
 const PRODUCTION = readFileSync(
   path.join(process.cwd(), 'src/components/pages/home/production.js'),
@@ -23,6 +28,17 @@ const frameOf = svg => ({
 })
 
 describe('feature icons', () => {
+  it('draws with the site theme tokens', () => {
+    expect(PALETTE).toEqual({
+      outline: colors.gray8,
+      edge: colors.gray7,
+      paper: colors.white,
+      accentInk: gradientStops,
+      accentFill: [colors.pink1, colors.violet1],
+      glow: colors.violet3
+    })
+  })
+
   it('every production card points at a generated icon', () => {
     const used = [...PRODUCTION.matchAll(/icon: '([^']+)'/g)].map(
       ([, id]) => id
@@ -47,10 +63,18 @@ describe('feature icons', () => {
     id => {
       const svg = committed(id)
       const { width, height } = frameOf(svg)
-      expect(Number(width)).toBeLessThanOrEqual(246)
-      expect(Number(height)).toBeLessThanOrEqual(174)
-      expect(svg).not.toMatch(/href=|url\(|<script|NaN|Infinity/)
-      expect(svg).toMatch(/\[data-line-role=outline\]\{stroke-width:/)
+      expect(Number(width)).toBeLessThanOrEqual(240)
+      expect(Number(height)).toBeLessThanOrEqual(168)
+      expect(svg).not.toMatch(/href=|<script|NaN|Infinity/)
+      const references = [...svg.matchAll(/url\(([^)]*)\)/g)].map(
+        ([, ref]) => ref
+      )
+      expect(references.length).toBeGreaterThan(0)
+      for (const ref of references) {
+        expect(ref).toMatch(/^#/)
+        expect(svg).toContain(`id="${ref.slice(1)}"`)
+      }
+      expect(svg).toMatch(/\[data-line-role=outline\]\{[^}]*stroke-width:/)
       expect(svg).toMatch(/data-line-role="outline"/)
     }
   )

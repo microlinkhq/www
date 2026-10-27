@@ -11,7 +11,7 @@ Six concept teardowns for the home page "Production-ready infrastructure" cards 
 | `cache` | Three cache layers | Concept | Coaxial cylinders separated along Z, top layer accented |
 | `security` | Lock body, shackle, key cylinder | Concept | Shackle lifts out of its body holes; key cylinder slides out of its bore along a trail |
 
-All six share one camera (`azimuth -122, elevation 30, roll 0`) and one ink/fill palette.
+All six share one camera (`azimuth -122, elevation 30, roll 0`) and the site palette from `src/theme`: `gray8` outlines, `gray7` edges, the brand `gradientStops` on accent linework, a `pink1` to `violet1` accent fill and a `violet3` glow, matching the pink/violet tinted tiles used across the home page. The test pins each color to its token.
 
 ## Rebuild and proof
 

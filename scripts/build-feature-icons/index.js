@@ -10,17 +10,30 @@ const { CAMERA, ICONS } = require('./models')
 const OUTPUT_DIR = path.join(__dirname, '../../static/images/icons/features')
 const DISPLAY_BOX = { width: 240, height: 168 }
 const PADDING_PX = 3
-const INK = '#16161d'
-const PAPER = '#fff'
-const ACCENT = '#e5dbff'
+const PALETTE = {
+  outline: '#343a40',
+  edge: '#495057',
+  paper: '#fff',
+  accentInk: [
+    ['0%', '#f76698'],
+    ['60%', '#c03fa2'],
+    ['100%', '#8c1bab']
+  ],
+  accentFill: ['#ffdeeb', '#e5dbff'],
+  glow: '#b197fc'
+}
 const STROKE_PX = {
-  outline: 1.5,
+  outline: 1.4,
   edge: 1,
   detail: 0.75,
   texture: 0.5,
   axis: 0.75
 }
 const AXIS_DASH_PX = [5, 2, 1, 2]
+const GLOW = { widthRatio: 0.46, heightPx: 14, opacity: 0.5 }
+const ACCENT_INK_ID = 'accent-ink'
+const ACCENT_FILL_ID = 'accent-fill'
+const GLOW_ID = 'glow'
 
 const round = value => Number(value.toFixed(3))
 
@@ -35,9 +48,63 @@ const strokeStyles = unitsPerPx =>
     px => round(px * unitsPerPx)
   ).join(' ')}}`
 
+const inkStyles = accent =>
+  `path{fill:none;stroke:${PALETTE.edge};stroke-linejoin:round;stroke-linecap:round}` +
+  `[data-line-role="outline"]{stroke:${PALETTE.outline}}` +
+  accent
+    .map(id => `[data-item="${id}"] path{stroke:url(#${ACCENT_INK_ID})}`)
+    .join('')
+
 const fillStyles = accent =>
-  `[data-fill]{fill:${PAPER};stroke:none}` +
-  accent.map(id => `[data-fill="${id}"]{fill:${ACCENT}}`).join('')
+  `[data-fill]{fill:${PALETTE.paper};stroke:none}` +
+  accent.map(id => `[data-fill="${id}"]{fill:url(#${ACCENT_FILL_ID})}`).join('')
+
+const stops = colors =>
+  colors
+    .map(
+      ([offset, color, opacity = 1]) =>
+        `<stop offset="${offset}" stop-color="${color}" stop-opacity="${opacity}"/>`
+    )
+    .join('')
+
+const accentSpan = (markup, accent) => {
+  const xs = accent.flatMap(id => {
+    const group = markup.match(
+      new RegExp(`<g[^>]*data-item="${id}"[^>]*>([\\s\\S]*?)</g>`)
+    )
+    if (!group) return []
+    return [...group[1].matchAll(/ d="([^"]*)"/g)].flatMap(([, d]) =>
+      [...d.matchAll(/(-?[\d.]+)[ ,](-?[\d.]+)/g)].map(([, x]) => Number(x))
+    )
+  })
+  return xs.length ? [Math.min(...xs), Math.max(...xs)] : [0, 1]
+}
+
+const definitions = ([x1, x2]) =>
+  '<defs>' +
+  `<linearGradient id="${ACCENT_INK_ID}" gradientUnits="userSpaceOnUse" x1="${round(
+    x1
+  )}" x2="${round(x2)}" y1="0" y2="0">${stops(
+    PALETTE.accentInk
+  )}</linearGradient>` +
+  `<linearGradient id="${ACCENT_FILL_ID}" gradientUnits="userSpaceOnUse" x1="${round(
+    x1
+  )}" x2="${round(x2)}" y1="0" y2="0">${stops([
+    ['0%', PALETTE.accentFill[0]],
+    ['100%', PALETTE.accentFill[1]]
+  ])}</linearGradient>` +
+  `<radialGradient id="${GLOW_ID}">${stops([
+    ['0%', PALETTE.glow, GLOW.opacity],
+    ['100%', PALETTE.glow, 0]
+  ])}</radialGradient>` +
+  '</defs>'
+
+const glow = (bounds, unitsPerPx) =>
+  `<ellipse cx="${round(bounds.x + bounds.width / 2)}" cy="${round(
+    bounds.y + bounds.height
+  )}" rx="${round(bounds.width * GLOW.widthRatio)}" ry="${round(
+    GLOW.heightPx * unitsPerPx
+  )}" fill="url(#${GLOW_ID})"/>`
 
 const stripPartMetadata = markup =>
   markup
@@ -47,27 +114,30 @@ const stripPartMetadata = markup =>
 
 const toSvg = ({ title, accent }, { markup, bounds }) => {
   const pxPerUnit = Math.min(
-    DISPLAY_BOX.width / bounds.width,
-    DISPLAY_BOX.height / bounds.height
+    (DISPLAY_BOX.width - PADDING_PX * 2) / bounds.width,
+    (DISPLAY_BOX.height - PADDING_PX - GLOW.heightPx) / bounds.height
   )
   const unitsPerPx = 1 / pxPerUnit
   const pad = PADDING_PX * unitsPerPx
+  const glowPad = GLOW.heightPx * unitsPerPx
   const viewBox = [
     bounds.x - pad,
     bounds.y - pad,
     bounds.width + pad * 2,
-    bounds.height + pad * 2
+    bounds.height + pad + glowPad
   ].map(round)
   const width = Math.round(viewBox[2] * pxPerUnit)
   const height = Math.round(viewBox[3] * pxPerUnit)
   return (
     `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="${viewBox.join(
       ' '
-    )}" role="img">` +
+    )}">` +
     `<title>${title}</title>` +
-    `<style>path{fill:none;stroke:${INK};stroke-linejoin:round;stroke-linecap:round}${strokeStyles(
-      unitsPerPx
-    )}${fillStyles(accent)}</style>` +
+    `<style>${inkStyles(accent)}${strokeStyles(unitsPerPx)}${fillStyles(
+      accent
+    )}</style>` +
+    definitions(accentSpan(markup, accent)) +
+    glow(bounds, unitsPerPx) +
     stripPartMetadata(markup) +
     '</svg>\n'
   )
@@ -91,7 +161,7 @@ const writeProof = (proofDir, name, svg) => {
     '-z',
     '4',
     '-b',
-    PAPER,
+    PALETTE.paper,
     '-o',
     path.join(proofDir, `${name}.png`),
     svgFile
@@ -118,7 +188,7 @@ const build = ({ proofDir } = {}) => {
   return files.map(file => ({ file, bytes: fs.statSync(file).size }))
 }
 
-module.exports = { build, renderIcon, OUTPUT_DIR }
+module.exports = { build, renderIcon, OUTPUT_DIR, PALETTE }
 
 if (require.main === module) {
   const proofFlag = process.argv.find(arg => arg.startsWith('--proof='))
