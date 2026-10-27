@@ -19,6 +19,8 @@ The value provided need to be at least **1 minute** and not higher than **31 day
 - as number in milliseconds (e.g., <Type children="86400000"/>).
 - as humanized representation of the number (e.g., <Type children="'24h'"/>).
 
+Any value that is not one of these formats or the `min`/`max` aliases below, including an empty `ttl`, is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+
 The following humanized number variations are supported:
 
 ```bash

@@ -127,6 +127,8 @@ Any extra query parameter is forwarded to the function:
   greetings: 'hello world'
 }} />
 
+A few names are reserved by the function runtime and are rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery): `code`, `source`, `vmOpts`, `hostPage`, `extendPage`, `gotoOpts`, `getPage`, `getBrowserless`, `needsBrowser`, `needsNetwork`, `pageValues`, `targetId` and `strictTarget`. Pass those values under another name, such as `otp` instead of `code`.
+
 ## Response
 
 The result is wrapped under `data.function`:

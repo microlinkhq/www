@@ -19,6 +19,8 @@ The value provided can't be higher than [ttl](/docs/api/parameters/ttl), being s
 - as number in milliseconds (e.g., <Type children="86400000"/>).
 - as humanized representation of the number (e.g., <Type children="'24h'"/>).
 
+`false` turns it off, which is the default. Any other value, including `true` or an empty `staleTtl`, is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+
 The following humanized number variations are supported:
 
 ```bash
