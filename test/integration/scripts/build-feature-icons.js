@@ -57,6 +57,12 @@ describe('feature icons', () => {
         expect(part.shift.every(Number.isFinite)).toBe(true)
         expect(part.lines.outline).toMatch(/^m-?[\d.]/)
         expect(Object.values(part.lines).join('')).not.toMatch(/NaN|Infinity/)
+        expect(part.fill ?? '').not.toMatch(/NaN|Infinity/)
+        if (part.fill) {
+          expect(part.fill.match(/z/g)).toHaveLength(
+            part.fill.match(/m/g).length
+          )
+        }
       }
     }
   )

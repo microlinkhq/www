@@ -38,8 +38,13 @@ const joinNumbers = numbers =>
 
 const mapPath = (d, map) => {
   let current = [0, 0]
-  return [...d.matchAll(/([MLC])([^MLC]*)/g)]
+  let subpathStart = current
+  return [...d.matchAll(/([MLCZ])([^MLCZ]*)/g)]
     .map(([, command, body]) => {
+      if (command === 'Z') {
+        current = subpathStart
+        return 'z'
+      }
       const numbers = body.trim().split(/\s+/).map(Number)
       const points = []
       for (let i = 0; i < numbers.length; i += 2) {
@@ -47,6 +52,7 @@ const mapPath = (d, map) => {
           map([numbers[i], numbers[i + 1]]).map(n => Math.round(n * SCALE))
         )
       }
+      if (command === 'M') subpathStart = points[0]
       const perSegment = POINTS_PER_SEGMENT[command]
       const relative = []
       for (let i = 0; i < points.length; i += perSegment) {
@@ -169,7 +175,14 @@ const build = () => {
   return { file: OUTPUT_FILE, bytes: Buffer.byteLength(contents) }
 }
 
-module.exports = { build, generate, serialize, OUTPUT_FILE, HOVER_SPREAD }
+module.exports = {
+  build,
+  generate,
+  serialize,
+  mapPath,
+  OUTPUT_FILE,
+  HOVER_SPREAD
+}
 
 if (require.main === module) {
   const { file, bytes } = build()
