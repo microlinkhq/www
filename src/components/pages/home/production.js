@@ -14,13 +14,13 @@ import React from 'react'
 
 const FEATURES = [
   {
-    icon: 'cloud2',
+    icon: 'scale',
     title: 'Grows with you',
     description:
       'Capacity scales automatically with your traffic. One request or millions, a single script or a fleet of agents. No maintenance, no capacity planning on your side.'
   },
   {
-    icon: 'cdn',
+    icon: 'edge',
     title: 'Served from the edge',
     description: `Responses come from ${CDN_EDGES} CDN edge locations close to your users, so requests stay quick anywhere in the world.`
   },
@@ -121,8 +121,8 @@ const Production = () => (
           >
             <Box
               as='img'
-              src={`/images/icons/${icon}.png`}
-              alt={title}
+              src={`/images/icons/features/${icon}.svg`}
+              alt=''
               loading='lazy'
               css={theme({
                 maxHeight: '100%',
