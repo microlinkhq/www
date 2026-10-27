@@ -11,16 +11,20 @@ Six concept teardowns for the home page "Production-ready infrastructure" cards 
 | `cache` | Three cache layers | Concept | Coaxial cylinders separated along Z, top layer accented |
 | `security` | Lock body, shackle, key cylinder | Concept | Shackle lifts out of its body holes; key cylinder slides out of its bore along a trail |
 
-All six share one camera (`azimuth -122, elevation 30, roll 0`) and the site palette from `src/theme`: `gray8` outlines, `gray7` edges, the brand `gradientStops` on accent linework, a `pink1` to `violet1` accent fill and a `violet3` glow, matching the pink/violet tinted tiles used across the home page. The test pins each color to its token.
+All six share one camera (`azimuth -122, elevation 30, roll 0`). The generator writes geometry only, to `src/components/pages/home/feature-icons/geometry.json`: per icon a viewBox sized for the 240 × 168 px card box, a glow ellipse, and its parts in far-to-near paint order. Each part carries its own silhouette fill, its self-occluded linework per line role (relative path data, 0.1 unit precision) and its hover shift, the projected explosion vector times `HOVER_SPREAD`.
+
+Each part is rendered isolated, so occlusion between parts comes from painter's order with opaque fills instead of clipped linework. That is what lets a part slide on hover without exposing gaps where a neighbor used to hide it.
+
+`FeatureIcon` (`src/components/pages/home/feature-icons/index.js`) owns the look: `gray8` outlines, `gray7` edges, the brand `gradientStops` on accent linework, a `pink1` to `violet1` accent fill and a `violet3` glow, all read from `src/theme`. Hovering a card (`data-feature-card`) slides every part further along its assembly axis with a 40 ms stagger. The motion is gated on `(hover: hover) and (pointer: fine)` and `prefers-reduced-motion: no-preference`.
 
 ## Rebuild and proof
 
 ```sh
 npm run build:feature-icons
-node scripts/build-feature-icons --proof=/tmp/feature-icons-proof
+npm run storybook
 npm run test:integration -- test/integration/scripts/build-feature-icons.js
 ```
 
-The generator runs `optimo` (the same step as the pre-commit hook), so its output is byte-identical to the committed files.
+The story `Pages/Home/Feature icons` renders the real Production section, so hover states can be checked in a browser.
 
 `teardown/` is vendored from the teardown skill (`geometry.js`, `projection.js`, `sheet.js`). The pre-commit prettier step reformats them; the logic is unchanged.

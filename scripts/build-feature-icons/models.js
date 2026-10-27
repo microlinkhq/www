@@ -330,11 +330,7 @@ const programmable = () => {
   lid.explosion = [0, 0, LIFT * 2.4]
   parts.push(lid)
 
-  return {
-    parts,
-    trails: [{ a: [0, 0, 5], b: [0, 0, 5.1], from: 'die', to: 'lid' }],
-    accent: ['die']
-  }
+  return { parts, accent: ['die'] }
 }
 
 const cache = () => {
@@ -465,17 +461,7 @@ const security = () => {
   cylinder.explosion = [0, -16, 0]
   parts.push(cylinder)
 
-  return {
-    parts,
-    trails: [
-      {
-        a: [KEYWAY.x, FRONT, KEYWAY.z],
-        b: [KEYWAY.x, -DEPTH / 2, KEYWAY.z],
-        from: 'cylinder'
-      }
-    ],
-    accent: ['cylinder']
-  }
+  return { parts, accent: ['cylinder'] }
 }
 
 module.exports = {

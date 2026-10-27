@@ -9,6 +9,9 @@ import {
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
+import FeatureIcon, {
+  FEATURE_CARD_ATTRIBUTE
+} from 'components/pages/home/feature-icons'
 
 import React from 'react'
 
@@ -102,6 +105,7 @@ const Production = () => (
       {FEATURES.map(({ icon, title, description }) => (
         <Box
           key={title}
+          {...{ [FEATURE_CARD_ATTRIBUTE]: true }}
           css={theme({
             bg: 'white',
             p: 4,
@@ -119,17 +123,7 @@ const Production = () => (
               mb: 3
             })}
           >
-            <Box
-              as='img'
-              src={`/images/icons/features/${icon}.svg`}
-              alt=''
-              loading='lazy'
-              css={theme({
-                maxHeight: '100%',
-                maxWidth: '82%',
-                objectFit: 'contain'
-              })}
-            />
+            <FeatureIcon name={icon} />
           </Flex>
           <Text
             as='h3'
