@@ -127,8 +127,6 @@ Any extra query parameter is forwarded to the function:
   greetings: 'hello world'
 }} />
 
-Any parameter name works, including `code` or `source`. The function always gets `page`, `response` and `url` from the runtime, so a query parameter with one of those names does not replace them.
-
 ## Response
 
 The result is wrapped under `data.function`:
