@@ -12,7 +12,8 @@ export default [
       'node_modules/**',
       '.gatsby/**',
       'src/helpers/get-api-url.js',
-      'dist/**'
+      'dist/**',
+      'scripts/build-feature-icons/teardown/**'
     ]
   },
   // Scripts and config files - stricter checking

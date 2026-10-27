@@ -64,6 +64,7 @@ export default {
       story: path.resolve(src, 'story.jsx'),
       theme: path.resolve(src, 'theme'),
       components: path.resolve(src, 'components'),
+      data: path.resolve(src, 'data'),
       helpers: path.resolve(src, 'helpers')
     }
 
