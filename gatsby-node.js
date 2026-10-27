@@ -52,6 +52,11 @@ const GIT_TIMESTAMPS = JSON.parse(
   )
 )
 
+const contentLastModified = node =>
+  node.frontmatter?.modified
+    ? new Date(node.frontmatter.modified).toISOString()
+    : getLastModifiedDate(node.internal.contentFilePath)
+
 const getTimestampForFile = fileNode => {
   const relativePath = path
     .relative(process.cwd(), fileNode.absolutePath)
@@ -103,6 +108,7 @@ exports.createSchemaCustomization = ({ actions }) => {
       website: String
       githubUrl: String
       skillUrl: String
+      modified: Date @dateformat
     }
     type ChangelogLatestEntry {
       product: String
@@ -332,7 +338,7 @@ exports.onCreateNode = async ({ node, getNode, actions }) => {
     const contentFilePath = node.internal.contentFilePath
     if (contentFilePath) {
       try {
-        const lastmod = await getLastModifiedDate(contentFilePath)
+        const lastmod = await contentLastModified(node)
         createNodeField({
           node,
           name: 'lastmod',
@@ -493,6 +499,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
             description
             date
             lastEdited
+            modified
             isPro
             authors
             website
@@ -514,7 +521,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
   const createMdxPage = async node => {
     const slug = node.fields.slug.replace(/\/+$/, '')
     const contentFilePath = node.internal.contentFilePath
-    const lastEdited = await getLastModifiedDate(contentFilePath)
+    const lastEdited = await contentLastModified(node)
     const isSkillPage = node.fields.slug.startsWith('/skills/')
     const skillSlug = isSkillPage
       ? node.fields.slug.split('/').filter(Boolean).pop()

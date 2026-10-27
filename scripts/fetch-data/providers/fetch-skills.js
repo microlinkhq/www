@@ -87,14 +87,18 @@ const createFrontmatter = ({
   description,
   website,
   githubUrl,
-  skillUrl
+  skillUrl,
+  date,
+  modified
 }) => {
   const values = [
     ['title', title],
     ['description', description],
     ['website', website],
     ['githubUrl', githubUrl],
-    ['skillUrl', skillUrl]
+    ['skillUrl', skillUrl],
+    ['date', date],
+    ['modified', modified]
   ].filter(([, value]) => value)
 
   return `---
@@ -103,14 +107,44 @@ ${values.map(([key, value]) => `${key}: ${JSON.stringify(value)}`).join('\n')}
 `
 }
 
+const gitIn = (repoDir, ...args) => run('git', ['-C', repoDir, ...args])
+const git = (...args) => gitIn(SKILLS_REPO_DIR, ...args)
+
+const isShallowRepository = async () =>
+  (await git('rev-parse', '--is-shallow-repository')).stdout.trim() === 'true'
+
 const upsertSkillsRepository = async () => {
   if (existsSync(path.join(SKILLS_REPO_DIR, '.git'))) {
-    await run('git', ['-C', SKILLS_REPO_DIR, 'pull', '--ff-only'])
+    if (await isShallowRepository()) await git('fetch', '--unshallow')
+    await git('pull', '--ff-only')
     return
   }
 
   await mkdir(path.dirname(SKILLS_REPO_DIR), { recursive: true })
-  await run('git', ['clone', '--depth', '1', SKILLS_REPO_URL, SKILLS_REPO_DIR])
+  await run('git', [
+    'clone',
+    '--filter=blob:none',
+    SKILLS_REPO_URL,
+    SKILLS_REPO_DIR
+  ])
+}
+
+const toIsoDate = value => new Date(value).toISOString()
+
+const getSkillDates = async (slug, repoDir = SKILLS_REPO_DIR) => {
+  const { stdout } = await gitIn(
+    repoDir,
+    'log',
+    '--format=%cI',
+    '--',
+    path.join(slug, 'SKILL.md')
+  )
+  const commitDates = stdout.split('\n').filter(Boolean)
+  if (commitDates.length === 0) return {}
+  return {
+    date: toIsoDate(commitDates[commitDates.length - 1]),
+    modified: toIsoDate(commitDates[0])
+  }
 }
 
 const parseSkill = async slug => {
@@ -129,6 +163,7 @@ const parseSkill = async slug => {
   const githubUrl = metadata.githubUrl || metadata.github
 
   return {
+    ...(await getSkillDates(slug)),
     slug,
     name,
     description,
@@ -182,7 +217,9 @@ const writeSkillPages = async skills => {
           description: skill.description,
           website: skill.website,
           githubUrl: skill.githubUrl,
-          skillUrl: skill.skillUrl
+          skillUrl: skill.skillUrl,
+          date: skill.date,
+          modified: skill.modified
         }),
         skill.markdown,
         ''
@@ -214,4 +251,5 @@ module.exports = async () => {
   return skills
 }
 
+module.exports.getSkillDates = getSkillDates
 module.exports.dist = [SKILLS_DATA_PATH, SKILLS_CONTENT_DIR, SKILLS_REPO_DIR]
