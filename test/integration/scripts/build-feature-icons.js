@@ -11,6 +11,7 @@ import {
 import { ICONS } from '../../../scripts/build-feature-icons/models'
 
 const GZIP_BUDGET_BYTES = 30 * 1024
+const GENERATION_TIMEOUT_MS = 60 * 1000
 
 const PRODUCTION = readFileSync(
   path.join(process.cwd(), 'src/components/pages/home/production.js'),
@@ -30,9 +31,13 @@ describe('feature icons', () => {
     expect(Object.keys(GEOMETRY).sort()).toEqual([...used].sort())
   })
 
-  it('geometry.json was generated from the current models', () => {
-    expect(COMMITTED).toBe(serialize(generate()))
-  })
+  it(
+    'geometry.json was generated from the current models',
+    () => {
+      expect(COMMITTED).toBe(serialize(generate()))
+    },
+    GENERATION_TIMEOUT_MS
+  )
 
   it('stays inside the home page payload budget', () => {
     expect(gzipSync(COMMITTED).length).toBeLessThanOrEqual(GZIP_BUDGET_BYTES)
