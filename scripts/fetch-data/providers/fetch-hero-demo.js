@@ -1,7 +1,8 @@
 'use strict'
 
 const { mkdir, readdir, rm, writeFile } = require('fs/promises')
-const mql = require('@microlink/mql')
+const createClient = require('microlink.io')
+const { default: pMap } = require('p-map')
 const path = require('path')
 
 const {
@@ -11,12 +12,20 @@ const {
 } = require('../../../src/components/pages/home/hero-demo-requests')
 
 const DIST = path.resolve(__dirname, '../../../static/data/hero-demo')
+const KEYLESS_CONCURRENCY = 2
 
-const toEntry = async (vertical, client = mql) => {
+const keyless = createClient()
+
+const createFetchClient = (apiKey = process.env.MICROLINK_API_KEY) =>
+  createClient({ apiKey })
+
+const concurrencyFor = apiKey => (apiKey ? Infinity : KEYLESS_CONCURRENCY)
+
+const toEntry = async (vertical, client = createFetchClient()) => {
   const url = DEMO_URLS[vertical]
   const opts = REQUEST_OPTS[vertical]
-  const [apiUrl] = client.getApiUrl(url, opts)
-  const { response, ...body } = await client(url, opts)
+  const apiUrl = keyless.apiUrl(url, opts)
+  const { response, ...body } = await client.request(url, opts)
   return {
     apiUrl,
     body,
@@ -24,19 +33,25 @@ const toEntry = async (vertical, client = mql) => {
   }
 }
 
-const fetchHeroDemo = ({ client, dist = DIST } = {}) =>
+const fetchHeroDemo = ({
+  apiKey = process.env.MICROLINK_API_KEY,
+  client = createFetchClient(apiKey),
+  dist = DIST
+} = {}) =>
   require('../create-provider').fromCode(
     async () => {
       await mkdir(dist, { recursive: true })
-      const entries = await Promise.all(
-        Object.keys(SNAPSHOT_URLS).map(async vertical => {
+      const entries = await pMap(
+        Object.keys(SNAPSHOT_URLS),
+        async vertical => {
           const entry = await toEntry(vertical, client)
           await writeFile(
             path.join(dist, `${vertical}.json`),
             JSON.stringify(entry)
           )
           return [vertical, entry.apiUrl]
-        })
+        },
+        { concurrency: concurrencyFor(apiKey) }
       )
       const snapshots = Object.fromEntries(entries)
       const stale = (await readdir(dist)).filter(
@@ -54,3 +69,5 @@ const fetchHeroDemo = ({ client, dist = DIST } = {}) =>
 module.exports = fetchHeroDemo
 module.exports.dist = DIST
 module.exports.toEntry = toEntry
+module.exports.concurrencyFor = concurrencyFor
+module.exports.createFetchClient = createFetchClient

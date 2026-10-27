@@ -11,7 +11,7 @@ const recipes = require('@microlink/recipes')
 const { kebabCase, map } = require('lodash')
 const { default: pMap } = require('p-map')
 const { getDomain } = require('tldts')
-const mql = require('@microlink/mql')
+const createMicrolinkClient = require('microlink.io')
 const path = require('node:path')
 
 const { getLastModifiedDate, branchName } = require('./src/helpers/git')
@@ -68,19 +68,26 @@ const githubUrl = (() => {
   }
 })()
 
+const microlink = createMicrolinkClient({
+  apiKey: process.env.MICROLINK_API_KEY
+})
+
 const requestMarkdown = (url, selector, force) =>
-  mql(url, {
-    apiKey: process.env.MICROLINK_API_KEY,
-    data: {
-      markdown: selector ? { selector, attr: 'markdown' } : { attr: 'markdown' }
-    },
-    meta: false,
-    force
-  }).then(({ data: { markdown }, statusCode, response }) => ({
-    markdown,
-    statusCode,
-    duration: response.headers.get('x-response-time')
-  }))
+  microlink
+    .request(url, {
+      data: {
+        markdown: selector
+          ? { selector, attr: 'markdown' }
+          : { attr: 'markdown' }
+      },
+      meta: false,
+      force
+    })
+    .then(({ data: { markdown }, statusCode, response }) => ({
+      markdown,
+      statusCode,
+      duration: response.headers.get('x-response-time')
+    }))
 
 const markdownFetcher = url => async selector =>
   retryStaleNotFound(force => requestMarkdown(url, selector, force))
