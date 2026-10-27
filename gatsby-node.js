@@ -145,6 +145,12 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
     }
   })
 
+  if (stage === 'build-javascript' || stage === 'build-html') {
+    const config = getConfig()
+    config.devtool = false
+    actions.replaceWebpackConfig(config)
+  }
+
   if (stage === 'develop' || stage === 'develop-html') {
     const config = getConfig()
     config.devtool = 'eval'
