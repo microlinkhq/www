@@ -43,6 +43,8 @@ const Svg = styled.svg(
 )
 
 const Part = styled.g`
+  transform-box: fill-box;
+
   ${MOTION} {
     transition: transform ${speed.slowly}ms ${timings.smooth};
     transition-delay: ${({ $order }) => $order * STAGGER_MS}ms;
