@@ -16,6 +16,7 @@ const Pricing = lazy(() => import('components/pages/home/pricing'))
 const Production = lazy(() => import('components/pages/home/production'))
 const OpenSource = lazy(() => import('components/pages/home/open-source'))
 const Faqs = lazy(() => import('components/pages/home/faqs'))
+const CallToAction = lazy(() => import('components/pages/home/call-to-action'))
 
 const NEAR_VIEWPORT = { rootMargin: '25% 0px' }
 
@@ -178,6 +179,9 @@ const HomePage = () => {
         </Deferred>
         <Deferred force={forceDeferred} minHeight='40vh'>
           <Faqs />
+        </Deferred>
+        <Deferred force={forceDeferred} minHeight='40vh'>
+          <CallToAction />
         </Deferred>
         <GradualBlur />
       </Layout>
