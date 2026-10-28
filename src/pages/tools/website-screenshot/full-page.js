@@ -44,6 +44,7 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
@@ -489,7 +490,7 @@ const ScreenshotTool = () => {
     height: 1080
   })
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -522,7 +523,7 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey,
           meta: false,
           screenshot: {
             type: options.type,
@@ -601,7 +602,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory]
+    [options, setHistory, apiKey]
   )
 
   const handleHistorySelect = useCallback(entry => {

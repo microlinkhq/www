@@ -50,6 +50,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import {
   ApiErrorTitle,
   ApiErrorBody
@@ -874,7 +875,7 @@ const AnimatedScreenshotTool = () => {
     height: DEVICES.desktop.height
   })
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -912,7 +913,7 @@ const AnimatedScreenshotTool = () => {
         )
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey,
           meta: false,
           screenshot: {
             animated: {
@@ -994,7 +995,7 @@ const AnimatedScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory, localStorageData]
+    [options, setHistory, apiKey]
   )
 
   const handleHistorySelect = useCallback(entry => {

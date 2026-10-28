@@ -66,6 +66,7 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useDemoApiKey } from 'components/hook/use-demo-api-key'
 import {
   ApiErrorTitle,
   ApiErrorBody
@@ -1269,7 +1270,7 @@ const PdfTool = () => {
   const [responseData, setResponseData] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
+  const apiKey = useDemoApiKey()
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -1323,7 +1324,7 @@ const PdfTool = () => {
         }
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey,
           meta: false,
           pdf: pdfOpts,
           screenshot: true,
@@ -1402,7 +1403,7 @@ const PdfTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory, localStorageData]
+    [options, setHistory, apiKey]
   )
 
   const handleHistorySelect = useCallback(entry => {
