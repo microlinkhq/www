@@ -397,6 +397,10 @@ const ROUTES_API = [
         href: '/docs/api/parameters/prerender'
       },
       {
+        name: 'prompt',
+        href: '/docs/api/parameters/prompt'
+      },
+      {
         name: 'proxy',
         href: '/docs/api/parameters/proxy',
         posts: [
