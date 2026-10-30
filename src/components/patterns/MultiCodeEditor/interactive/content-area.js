@@ -151,7 +151,7 @@ const ContentArea = React.memo(
             }
 
             const { body, headers } = responseData
-            const contentType = headers['content-type']
+            const contentType = headers['content-type'] || ''
 
             if (contentType.includes('application/json')) {
               const jsonText = new TextDecoder().decode(body)
@@ -165,6 +165,8 @@ const ContentArea = React.memo(
             }
 
             if (contentType.startsWith('image/')) {
+              if (!imageUrl) return null
+
               const handleImageClick = () => {
                 window.open(imageUrl, '_blank', 'noopener,noreferrer')
               }
