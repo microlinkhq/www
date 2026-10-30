@@ -24,7 +24,10 @@ export const LEGAL_SECTIONS = [
   '10. Audit rights',
   '11. Data Transfer',
   '12. General Terms',
-  '13. Governing Law and Jurisdiction'
+  '13. Governing Law and Jurisdiction',
+  'Annex I: Description of the processing',
+  'Annex II: Technical and organisational measures',
+  'Annex III: Subprocessors'
 ]
 
 export const toAnchor = title => `#${slug(title)}`

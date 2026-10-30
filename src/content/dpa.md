@@ -18,6 +18,8 @@ import TableOfContents from 'components/pages/dpa/table-of-contents'
 
 <TableOfContents />
 
+**Processor**: Microlink Labs, S.L., with tax ID (CIF) B93825263 (EU VAT number ESB93825263), registered address at Paseo Fotógrafo Verdú, 2, Piso 4, Puerta IZ, 30002 Murcia, Spain, and registered in the Mercantile Registry of Murcia, sheet MU-121050 (“**Microlink**” or “**Processor**”). Contact for data protection matters: [hello@microlink.io](mailto:hello@microlink.io).
+
 This Data Processing Agreement (“**Agreement**”) forms part of the Contract for Services under the Microlink Terms and Conditions (the “**Principal Agreement**”). 
 
 This Agreement is an amendment to the Principal Agreement and is effective upon its incorporation in the Principal Agreement, which incorporation may be specified in the Principal Agreement or an executed amendment to the Principal Agreement. 
@@ -116,7 +118,7 @@ Processor shall take reasonable steps to ensure the reliability of any employee,
 
 ## 9. Deletion or return of Company Personal Data
 
-9.1 Subject to this section 9 Processor shall promptly and in any event within 10 business days of the date of cessation of any Services involving the Processing of Company Personal Data (the “Cessation Date”), delete and procure the deletion of all copies of those Company Personal Data.
+9.1 Subject to this section 9 Processor shall promptly and in any event within 15 days of the date of cessation of any Services involving the Processing of Company Personal Data (the “Cessation Date”), delete and procure the deletion of all copies of those Company Personal Data.
 
 ## 10. Audit rights
 
@@ -127,6 +129,12 @@ Processor shall take reasonable steps to ensure the reliability of any employee,
 ## 11. Data Transfer
 
 11.1 The Processor may not transfer or authorize the transfer of Data to countries outside the EU and/or the European Economic Area (EEA) without the prior written consent of the Company. If personal data processed under this Agreement is transferred from a country within the European Economic Area to a country outside the European Economic Area, the Parties shall ensure that the personal data are adequately protected. To achieve this, the Parties shall, unless agreed otherwise, rely on EU approved standard contractual clauses for the transfer of personal data.
+
+11.2 Where required by Data Protection Laws, for transfers of Company Personal Data subject to the GDPR, the Parties rely on the standard contractual clauses approved by Commission Implementing Decision (EU) 2021/914 (the “**EU SCCs**”), as follows: Module 2 (controller to processor) or Module 3 (processor to processor), as applicable, for onward transfers by Processor to Subprocessors located outside the EEA; and Module 4 (processor to controller) where the Company, acting as controller, is located outside the EEA.
+
+11.3 For transfers of Company Personal Data subject to the data protection laws of the United Kingdom, the Parties rely on the EU SCCs as supplemented by the International Data Transfer Addendum to the EU Commission Standard Contractual Clauses issued by the UK Information Commissioner’s Office (the “**UK Addendum**”).
+
+11.4 For transfers of Company Personal Data subject to the Swiss Federal Act on Data Protection (“**FADP**”), the Parties rely on the EU SCCs with the amendments required by the FADP.
 
 ## 12. General Terms
 
@@ -147,9 +155,47 @@ IN WITNESS WHEREOF, this Agreement is entered into with effect from the date
 first set out below.
 
 "Microlink"<br/>
-Microlink HQ<br/>
-Name: Jose Francisco Verdú Gambín<br/>
-Title: Founder<br/>
-Date: 2018-08-20<br/>
+Microlink Labs, S.L.<br/>
+Name: José Francisco Verdú Gambín<br/>
+Title: Sole Director<br/>
+Date: on execution<br/>
+
+## Annex I: Description of the processing
+
+**Data exporter**: the Company, acting as controller.
+
+**Data importer**: Microlink Labs, S.L., acting as processor. Contact: [hello@microlink.io](mailto:hello@microlink.io).
+
+**Subject matter and nature of the processing**: on the Company’s request, Processor fetches publicly accessible web pages and returns outputs generated from them (screenshots, PDFs, metadata) through the Microlink API. Processor only fetches publicly accessible pages and does not log in or bypass access controls.
+
+**Purpose of the processing**: providing the Services under the Principal Agreement.
+
+**Categories of personal data**: URLs and request parameters submitted by the Company; content of the publicly accessible pages fetched and the outputs generated from them (screenshots, PDFs, metadata, text); IP addresses and API keys recorded in operational logs; account contact details (email address).
+
+**Categories of data subjects**: individuals whose personal data may be contained in the URLs, request parameters or publicly accessible web pages that the Company submits for processing; and the Company’s authorised users of the Microlink dashboard and API (account holders).
+
+**Sensitive data**: none intended. The Company shall not submit special categories of personal data. Any such data that appears incidentally on a publicly accessible page submitted by the Company is processed only as part of generating the requested output and is subject to the same retention limits.
+
+**Frequency of the transfer**: on each request the Company sends to the Services.
+
+**Retention**: cached responses are kept for 24 hours by default, configurable by the Company with the `ttl` parameter up to 31 days; operational logs are kept for 15 days; Company Personal Data is deleted in accordance with Section 9.
+
+## Annex II: Technical and organisational measures
+
+- **Encryption in transit**: all traffic to the API, dashboard and log ingestion is encrypted with TLS; TLS 1.0 and 1.1 are rejected, minimum TLS 1.2.
+- **Encryption at rest**: stored outputs are encrypted with AES-256 (AWS S3 server-side encryption); compute volumes are encrypted (DigitalOcean); operational logs are encrypted with AES-256 (Datadog).
+- **Access control (customers)**: API access is authenticated with an API key sent over HTTPS. Each key is bound to one account, which determines its plan, quota, rate limits and accessible data. Accounts are isolated from one another. The Company can rotate its keys on demand, and Microlink rotates keys if compromise is suspected.
+- **Access control (personnel)**: administrative access to production systems and logs is restricted to Microlink’s two founders, using individual accounts, with no shared accounts and no third-party access.
+- **Scope minimisation**: the service only fetches publicly accessible web pages. It does not log in to websites or bypass access controls, and the API performs no write operations on customer systems.
+- **Retention**: cached outputs are kept for 24 hours by default, configurable by the Company via the `ttl` parameter up to a maximum of 31 days; operational logs are kept for 15 days; Company data is deleted within 15 days of termination.
+- **Network protection**: Cloudflare acts as the entry point for the service, providing CDN, DNS, web application firewall and TLS termination.
+- **Incident response**: Microlink maintains a documented Incident Response Plan covering detection, containment, eradication, recovery and notification, including notification to the Company without undue delay after becoming aware of a personal data breach.
+- **Vulnerability and patch management**: Microlink maintains a documented Vulnerability and Patch Management Policy with remediation targets based on severity.
+- **Physical security**: Microlink operates no physical infrastructure. Physical security is provided by its hosting subprocessors under their own certified security programmes.
+- **Subprocessors**: subprocessors are bound by written data protection terms and listed at [microlink.io/subprocessors](/subprocessors).
+
+## Annex III: Subprocessors
+
+The Subprocessors authorised under Section 5 are listed at [microlink.io/subprocessors](/subprocessors).
 
 <RequestCta variant='compact' id='request-signed' />

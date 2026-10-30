@@ -169,6 +169,14 @@
       "statusCode": 302
     },
     {
+      "source": "/tos",
+      "destination": "/terms"
+    },
+    {
+      "source": "/tos.md",
+      "destination": "/terms.md"
+    },
+    {
       "source": "/playground",
       "destination": "/editor"
     },

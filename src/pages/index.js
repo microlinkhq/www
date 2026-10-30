@@ -103,7 +103,7 @@ export const Head = () => {
     '@context': 'https://schema.org',
     '@type': 'SoftwareApplication',
     name: 'Microlink',
-    alternateName: ['Microlink.io', 'Microlink API', 'Microlink HQ'],
+    alternateName: ['Microlink.io', 'Microlink API', 'Microlink Labs, S.L.'],
     operatingSystem: 'Any',
     applicationCategory: ['DeveloperApplication', 'WebApplication'],
     url: 'https://microlink.io',

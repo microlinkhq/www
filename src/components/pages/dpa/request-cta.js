@@ -23,7 +23,7 @@ const COPY = {
 const FOOTER_LINKS = [
   { href: '/enterprise', label: 'Business & Enterprise' },
   { href: '/subprocessors', label: 'Subprocessors' },
-  { href: '/tos', label: 'Terms of service' }
+  { href: '/terms', label: 'Terms of service' }
 ]
 
 const RequestCta = ({ variant = 'full', id = 'request' }) => {
