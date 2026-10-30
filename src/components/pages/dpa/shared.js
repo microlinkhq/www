@@ -1,0 +1,36 @@
+import { slug } from 'github-slugger'
+import { layout } from 'theme'
+
+export const DPA_LEAD_REF = 'dpa'
+
+export const REQUEST_DPA_HREF = `/enterprise?ref=${DPA_LEAD_REF}`
+
+export const REQUEST_DPA_LABEL = 'Request a signed DPA'
+
+export { DPA_MAILTO } from 'components/pages/enterprise/ContactButton'
+
+export const PROCESSING_REGIONS = null
+
+export const LEGAL_SECTIONS = [
+  '1. Definitions and Interpretation',
+  '2. Processing of Company Personal Data',
+  '3. Processor Personnel',
+  '4. Security',
+  '5. Subprocessing',
+  '6. Data Subject Rights',
+  '7. Personal Data Breach',
+  '8. Data Protection Impact Assessment and Prior Consultation',
+  '9. Deletion or return of Company Personal Data',
+  '10. Audit rights',
+  '11. Data Transfer',
+  '12. General Terms',
+  '13. Governing Law and Jurisdiction'
+]
+
+export const toAnchor = title => `#${slug(title)}`
+
+export const BLOCK_STYLE = {
+  maxWidth: layout.small,
+  mx: 'auto',
+  width: '100%'
+}

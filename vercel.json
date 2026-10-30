@@ -164,6 +164,11 @@
   ],
   "redirects": [
     {
+      "source": "/business",
+      "destination": "/enterprise?ref=business",
+      "statusCode": 302
+    },
+    {
       "source": "/playground",
       "destination": "/editor"
     },

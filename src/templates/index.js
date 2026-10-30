@@ -75,7 +75,15 @@ export const Head = ({ pageContext, location }) => {
     return <Meta {...metaProps} />
   }
 
-  return <Meta {...frontmatter} />
+  const { metaTitle, ...pageFrontmatter } = frontmatter
+
+  return (
+    <Meta
+      {...pageFrontmatter}
+      title={metaTitle || pageFrontmatter.title}
+      noSuffix={Boolean(metaTitle)}
+    />
+  )
 }
 
 const Template = ({ pageContext, children, ...props }) => {

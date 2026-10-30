@@ -100,6 +100,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(`
     type MdxFrontmatter {
       description: String
+      metaTitle: String
       authors: [String]
       website: String
       githubUrl: String
@@ -491,6 +492,7 @@ const createMarkdownPages = async ({ graphql, createPage }) => {
           description: excerpt(pruneLength: 240)
           frontmatter {
             title
+            metaTitle
             subtitle
             description
             date
