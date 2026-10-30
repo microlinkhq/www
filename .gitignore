@@ -17,7 +17,6 @@ data/skills-repo/
 !data/git-timestamps-created.json
 static/logo.svg
 .vercel
-src/helpers/get-api-url.js
 src/components/pages/editor/monaco-dts.js
 static/user-agents.json
 pnpm-lock.yaml

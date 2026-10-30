@@ -17,7 +17,7 @@ import {
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { css, keyframes } from 'styled-components'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -2377,7 +2377,7 @@ const EmbedTool = ({
           return
         }
 
-        const response = await mql(nextUrl, {
+        const response = await microlink.request(nextUrl, {
           iframe: true,
           audio: true,
           video: true

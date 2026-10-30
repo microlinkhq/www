@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Globe } from 'react-feather'
 import { theme } from 'theme'
-import { getApiUrl } from 'helpers/get-api-url'
+import microlink from 'helpers/microlink'
 import Box from '../Box'
 import FeatherIcon from '../../icons/Feather'
 import { StyledImage } from './styles'
@@ -40,7 +40,7 @@ export const MicrolinkLogo = ({ url, src, style, ...props }) => {
     if (!url) return ''
 
     try {
-      return getApiUrl(url, { embed: 'logo.url' })[0]
+      return microlink.apiUrl(url, { embed: 'logo.url' })
     } catch (error) {
       return ''
     }

@@ -1,11 +1,10 @@
-import { getApiUrl } from 'helpers/get-api-url'
+import microlink from 'helpers/microlink'
 
 const PRO_API_KEY_PLACEHOLDER = 'YOUR_API_KEY'
 
 export const apiUrlFor = ({ url, params = {}, pro = false }) => {
   const options = pro ? { ...params, apiKey: PRO_API_KEY_PLACEHOLDER } : params
-  const [apiUrl] = getApiUrl(url, options)
-  return apiUrl
+  return microlink.apiUrl(url, options)
 }
 
 export const curlFor = request => {

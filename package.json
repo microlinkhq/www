@@ -124,7 +124,6 @@
     "@gatsbyjs/reach-router": "~2.0.1",
     "@kikobeats/use-query-state": "~1.2.2",
     "@mdx-js/react": "~3.1.1",
-    "@microlink/mql": "~0.17.0",
     "@microlink/og": "2",
     "@microlink/react": "~5.5.25",
     "@microlink/react-json-view": "~1.31.39",
@@ -200,7 +199,6 @@
     "@storybook/react-vite": "latest",
     "contrast": "latest",
     "debug-logfmt": "latest",
-    "esbuild": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
     "finepack": "latest",
@@ -262,7 +260,7 @@
     "test:e2e": "vitest --no-watch --project e2e",
     "test:integration": "vitest --no-watch --project integration",
     "test:unit": "vitest --no-watch --project unit",
-    "transpile": "node scripts/editor-monaco-dts.js && echo \"export { getApiUrl } from '@microlink/mql'\" | esbuild --bundle --target=ES2019 --format=esm --minify-whitespace --minify-identifiers > src/helpers/get-api-url.js",
+    "transpile": "node scripts/editor-monaco-dts.js",
     "update": "ncu -i"
   },
   "private": true,
@@ -299,8 +297,7 @@
   "standard": {
     "ignore": [
       "scripts/build-feature-icons/teardown/**",
-      "src/components/pages/editor/monaco-dts.js",
-      "src/helpers/get-api-url.js"
+      "src/components/pages/editor/monaco-dts.js"
     ]
   }
 }

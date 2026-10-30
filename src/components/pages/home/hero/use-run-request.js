@@ -2,7 +2,7 @@ import { SEARCH_EXAMPLE } from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { isRateLimited } from 'helpers/api-error'
 import { useCallback } from 'react'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import { fetchDemoSnapshot, loadingReq, snapshotReq } from './requests'
 
@@ -63,7 +63,10 @@ export const useRunRequest = ({ reqId, setReq }) =>
       setReq(loading)
       const t0 = window.performance.now()
       try {
-        const { response, ...body } = await mql(snapshot.fullUrl, opts)
+        const { response, ...body } = await microlink.request(
+          snapshot.fullUrl,
+          opts
+        )
         if (id !== reqId.current) return
         const headers = response
           ? Object.fromEntries(response.headers.entries())

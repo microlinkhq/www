@@ -2,7 +2,7 @@ import { PRODUCTS } from 'components/pages/home/catalog'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
 import { parseServerTiming } from 'helpers/server-timing'
 import { colors } from 'theme'
-import { getApiUrl } from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import screenshotSnapshot from '../../../../../static/data/hero-demo/screenshot.json'
 
@@ -69,7 +69,10 @@ const writeSharedState = (text, vertical) => {
 const loadingReq = snapshot => ({
   status: 'loading',
   D: snapshot,
-  apiUrl: getApiUrl(snapshot.fullUrl, REQUEST_OPTS[snapshot.vertical] || {})[0]
+  apiUrl: microlink.apiUrl(
+    snapshot.fullUrl,
+    REQUEST_OPTS[snapshot.vertical] || {}
+  )
 })
 
 const demoSnapshots = new Map()

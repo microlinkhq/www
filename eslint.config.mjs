@@ -11,7 +11,6 @@ export default [
       'public/**',
       'node_modules/**',
       '.gatsby/**',
-      'src/helpers/get-api-url.js',
       'dist/**',
       'scripts/build-feature-icons/teardown/**'
     ]

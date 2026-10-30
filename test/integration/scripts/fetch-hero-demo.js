@@ -5,7 +5,7 @@ import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 import provider from '../../../scripts/fetch-data/providers/fetch-hero-demo.js'
 import heroDemoRequests from '../../../src/components/pages/home/hero-demo-requests.js'
-import { getApiUrl } from '../../../src/helpers/get-api-url.js'
+import microlink from '../../../src/helpers/microlink.js'
 
 const { DEMO_URLS, SNAPSHOT_URLS, REQUEST_OPTS } = heroDemoRequests
 const { toEntry, dist, createFetchClient } = provider
@@ -77,7 +77,7 @@ describe('fetch-hero-demo provider', () => {
     for (const vertical of Object.keys(SNAPSHOT_URLS)) {
       const entry = await toEntry(vertical, createClient())
       expect(entry.apiUrl).toBe(
-        getApiUrl(SNAPSHOT_URLS[vertical], REQUEST_OPTS[vertical] || {})[0]
+        microlink.apiUrl(SNAPSHOT_URLS[vertical], REQUEST_OPTS[vertical] || {})
       )
     }
   })
