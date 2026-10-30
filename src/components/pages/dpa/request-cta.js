@@ -10,11 +10,13 @@ import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 
 import {
-  BLOCK_STYLE,
-  DPA_MAILTO,
-  REQUEST_DPA_HREF,
-  REQUEST_DPA_LABEL
-} from './shared'
+  DPA_LEAD_REF,
+  DPA_MAILTO
+} from 'components/pages/enterprise/lead-mailto'
+
+import { BLOCK_STYLE } from './shared'
+
+const REQUEST_DPA_HREF = `/enterprise?ref=${DPA_LEAD_REF}`
 
 const RELATED_LINKS = [
   { href: '/enterprise', label: 'Business & Enterprise' },
@@ -29,7 +31,7 @@ const RequestDpaButton = ({ location }) => (
     variant='black'
     onClick={() => trackEvent('dpa request', { location })}
   >
-    <Caps css={theme({ fontSize: 0 })}>{REQUEST_DPA_LABEL}</Caps>
+    <Caps css={theme({ fontSize: 0 })}>Request a signed DPA</Caps>
   </Button>
 )
 

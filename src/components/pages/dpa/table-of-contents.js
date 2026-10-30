@@ -1,3 +1,4 @@
+import { slug } from 'github-slugger'
 import { theme } from 'theme'
 import React from 'react'
 
@@ -5,7 +6,7 @@ import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 
-import { BLOCK_STYLE, LEGAL_SECTIONS, toAnchor } from './shared'
+import { BLOCK_STYLE, LEGAL_SECTIONS } from './shared'
 
 const TableOfContents = () => (
   <Box
@@ -33,7 +34,7 @@ const TableOfContents = () => (
     >
       {LEGAL_SECTIONS.map(title => (
         <Text as='li' key={title} css={theme({ py: 1, breakInside: 'avoid' })}>
-          <Link href={toAnchor(title)} externalIcon={false}>
+          <Link href={`#${slug(title)}`} externalIcon={false}>
             {title}
           </Link>
         </Text>
