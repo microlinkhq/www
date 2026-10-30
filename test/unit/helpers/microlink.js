@@ -63,6 +63,9 @@ describe('apiUrl', () => {
     expect(microlink.apiUrl(URL_TO_FETCH, { meta: false, headers: null })).toBe(
       `${FREE_ENDPOINT}&meta=false`
     )
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: undefined })).toBe(
+      FREE_ENDPOINT
+    )
     expect(microlink.apiUrl(URL_TO_FETCH, { headers: {} })).toBe(FREE_ENDPOINT)
   })
 
@@ -76,6 +79,15 @@ describe('apiUrl', () => {
     expect(microlink.apiUrl(URL_TO_FETCH, { headers: 0 })).toBe(
       `${FREE_ENDPOINT}&headers=0`
     )
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: '' })).toBe(
+      `${FREE_ENDPOINT}&headers=`
+    )
+  })
+
+  test('flattens a list of header values into the query string', () => {
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: ['a', 'b'] })).toBe(
+      `${FREE_ENDPOINT}&headers.0=a&headers.1=b`
+    )
   })
 })
 
@@ -86,6 +98,11 @@ describe('request', () => {
     fetchMock.mockResolvedValue(
       new Response(body, { headers: { 'content-type': contentType } })
     )
+
+  const jsonResponse = () =>
+    new Response('{"status":"success","data":{}}', {
+      headers: { 'content-type': 'application/json' }
+    })
 
   beforeEach(() => {
     fetchMock = vi.fn()
@@ -111,6 +128,72 @@ describe('request', () => {
     expect(sent.url).toContain('headers=googlebot')
     expect(sent.url).not.toContain('headers.0')
     expect(sent.headers.get('headers')).toBeNull()
+  })
+
+  test('keeps each scalar header when two requests overlap', async () => {
+    let release
+    const gate = new Promise(resolve => {
+      release = resolve
+    })
+    fetchMock.mockImplementation(async input => {
+      if (input.url.includes('headers=googlebot')) await gate
+      return jsonResponse()
+    })
+    const first = microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    const second = microlink.request(URL_TO_FETCH, { headers: 'bingbot' })
+    await vi.waitFor(() => {
+      expect(
+        fetchMock.mock.calls.some(call =>
+          call[0].url.includes('headers=googlebot')
+        )
+      ).toBe(true)
+    })
+    release()
+    await Promise.all([first, second])
+    const urls = fetchMock.mock.calls.map(call => call[0].url)
+    expect(urls.some(url => url.includes('headers=googlebot'))).toBe(true)
+    expect(urls.some(url => url.includes('headers=bingbot'))).toBe(true)
+  })
+
+  test('forwards object headers while a scalar request is in flight', async () => {
+    let release
+    const gate = new Promise(resolve => {
+      release = resolve
+    })
+    fetchMock.mockImplementation(async input => {
+      if (input.url.includes('headers=googlebot')) await gate
+      return jsonResponse()
+    })
+    const scalar = microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    await vi.waitFor(() => {
+      expect(
+        fetchMock.mock.calls.some(call =>
+          call[0].url.includes('headers=googlebot')
+        )
+      ).toBe(true)
+    })
+    await microlink.request(URL_TO_FETCH, {
+      headers: { 'user-agent': 'googlebot' }
+    })
+    expect(
+      fetchMock.mock.calls.some(call =>
+        call[0].url.includes('headers.user-agent=googlebot')
+      )
+    ).toBe(true)
+    release()
+    await scalar
+  })
+
+  test('a failed scalar request does not block the next one', async () => {
+    fetchMock.mockImplementation(async input => {
+      if (input.url.includes('headers=googlebot')) throw new Error('down')
+      return jsonResponse()
+    })
+    await expect(
+      microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    ).rejects.toThrow()
+    await microlink.request(URL_TO_FETCH, { headers: 'bingbot' })
+    expect(fetchMock.mock.calls.at(-1)[0].url).toContain('headers=bingbot')
   })
 
   test('a JSON result reaches the code viewers as decodable bytes', async () => {

@@ -24,6 +24,9 @@ describe('showResponseFade', () => {
     const image = { headers: { 'content-type': 'image/png' } }
     expect(showResponseFade(image, false)).toBe(false)
     expect(showResponseFade(image, true)).toBe(true)
+    expect(
+      showResponseFade({ headers: { 'content-type': 'IMAGE/PNG' } }, false)
+    ).toBe(false)
   })
 })
 
@@ -44,5 +47,33 @@ describe('responseBodyText', () => {
         headers: { 'content-type': 'application/pdf' }
       })
     ).toThrow('Unsupported content type: application/pdf')
+  })
+
+  test('prints json, text, and image bodies', () => {
+    const encode = text => new TextEncoder().encode(text)
+    expect(
+      responseBodyText({
+        body: encode('{"status":"success","data":{"title":"Microlink"}}'),
+        headers: { 'content-type': 'application/json; charset=utf-8' }
+      })
+    ).toBe('{\n  "title": "Microlink"\n}')
+    expect(
+      responseBodyText({
+        body: encode('not json'),
+        headers: { 'content-type': 'application/json' }
+      })
+    ).toBe('not json')
+    expect(
+      responseBodyText({
+        body: encode('hello'),
+        headers: { 'content-type': 'text/html' }
+      })
+    ).toBe('hello')
+    expect(
+      responseBodyText({
+        body: bytes,
+        headers: { 'content-type': 'IMAGE/PNG' }
+      })
+    ).toBe('Image content (image/png)\nSize: 3 bytes')
   })
 })
