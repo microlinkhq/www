@@ -22,7 +22,7 @@ describe('dpa page', () => {
     expect(headings).toEqual(legalSections())
   })
 
-  test('/business redirects to /enterprise with a temporary status and a lead ref', () => {
+  test('/business redirects to /enterprise with an explicit 301 or 302 and a lead ref', () => {
     const redirect = vercel.redirects.find(
       ({ source }) => source === '/business'
     )
