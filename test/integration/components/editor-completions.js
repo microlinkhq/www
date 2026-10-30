@@ -77,11 +77,12 @@ test('types every published microlink.io client method', () => {
   for (const method of clientMethods) {
     expect(MICROLINK_TYPES).toContain(method)
   }
-  expect(MICROLINK_TYPES).toContain('export type { HTTPResponse, Page }')
+  expect(MICROLINK_TYPES).toContain('type HTTPResponse = PuppeteerHTTPResponse')
+  expect(MICROLINK_TYPES).toContain('type Page = PuppeteerPage')
   expect(MICROLINK_TYPES).toContain('page: Page')
   expect(MICROLINK_TYPES).toContain('response: HTTPResponse')
   expect(MICROLINK_TYPES).toContain('url: string')
-  expect(MICROLINK_TYPES).toContain('code: FunctionInput')
+  expect(MICROLINK_TYPES).toContain('code: create.FunctionInput')
   expect(MICROLINK_TYPES).toContain('interface Metadata')
   expect(MICROLINK_TYPES).toContain('interface ExtractRules')
   expect(MICROLINK_TYPES).toContain('interface Asset')
