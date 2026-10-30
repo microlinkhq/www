@@ -26,7 +26,7 @@ The Services are provided by Microlink Labs, S.L. (“**Microlink**”, “**we*
 
 3.3 Upgrades take effect immediately and are pro-rated. Downgrades take effect at the start of the next billing cycle.
 
-3.4 Responses served from cache do not count toward your quota. When you reach your quota, requests are paused until the next billing cycle or until you upgrade. We do not charge overage fees.
+3.4 Responses served from cache do not count toward your quota. When you reach your quota, requests are paused until it resets or until you upgrade. The Free plan quota resets daily, and paid plan quotas reset at the start of the next month in UTC. We do not charge overage fees.
 
 3.5 Prices exclude taxes, which are added where applicable.
 
