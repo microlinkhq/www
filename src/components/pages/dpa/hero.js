@@ -5,7 +5,6 @@ import React from 'react'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
 import Caption from 'components/patterns/Caption/Caption'
 
 import { REQUEST_DPA_HREF, REQUEST_DPA_LABEL, BLOCK_STYLE } from './shared'
@@ -35,18 +34,6 @@ const DpaHero = () => (
       Microlink acts as a processor of the data you send through the API. This
       DPA sets out how we handle it.
     </Caption>
-    <Flex
-      css={theme({
-        pt: 4,
-        gap: 3,
-        flexDirection: ['column', 'row', 'row', 'row'],
-        alignItems: 'center',
-        justifyContent: 'center'
-      })}
-    >
-      <RequestDpaButton location='hero' />
-      <Link href='/subprocessors'>View subprocessors</Link>
-    </Flex>
   </Flex>
 )
 
