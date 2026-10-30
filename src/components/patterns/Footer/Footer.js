@@ -101,7 +101,7 @@ const FOOTER_COLUMNS = [
         links: [
           { label: 'DPA', href: '/dpa' },
           { label: 'Privacy policy', href: '/privacy' },
-          { label: 'Terms of service', href: '/tos' }
+          { label: 'Terms of service', href: '/terms' }
         ]
       }
     ]

@@ -50,7 +50,7 @@ module.exports = {
   siteMetadata: {
     // Basic
     name: 'Microlink',
-    author: 'Microlink HQ',
+    author: 'Microlink Labs, S.L.',
     headline: 'Microlink | The web, ready for AI',
     description:
       'A single API for turning any URL into data. Built for apps & agents. Powered by real browsers. Free API key, no credit card.',

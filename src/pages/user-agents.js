@@ -39,7 +39,7 @@ export const Head = () => (
           'AI user agents',
           'user agent list'
         ],
-        license: 'https://microlink.io/tos',
+        license: 'https://microlink.io/terms',
         creator: {
           '@type': 'Organization',
           name: 'Microlink',
