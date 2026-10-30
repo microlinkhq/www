@@ -5,7 +5,7 @@ import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 
-import { BLOCK_STYLE, PROCESSING_REGIONS } from './shared'
+import { BLOCK_STYLE } from './shared'
 
 const ROWS = [
   {
@@ -45,11 +45,6 @@ const ROWS = [
       'EU Standard Contractual Clauses (Commission Decision 2021/914), the UK International Data Transfer Addendum and the Swiss FADP amendments are available.'
   },
   {
-    term: 'Where data is processed',
-    todo: 'TODO(regions): confirm DigitalOcean and AWS S3 regions with Kiko',
-    description: PROCESSING_REGIONS
-  },
-  {
     term: 'Subprocessors',
     description: (
       <>
@@ -58,7 +53,7 @@ const ROWS = [
       </>
     )
   }
-].filter(({ description }) => Boolean(description))
+]
 
 const AtAGlance = () => (
   <Box

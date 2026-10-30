@@ -1,24 +1,10 @@
 import { theme } from 'theme'
-import { trackEvent } from 'helpers/gtag'
 import React from 'react'
 
-import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Caption from 'components/patterns/Caption/Caption'
 
-import { REQUEST_DPA_HREF, REQUEST_DPA_LABEL, BLOCK_STYLE } from './shared'
-
-export const RequestDpaButton = ({ location }) => (
-  <Button
-    as='a'
-    href={REQUEST_DPA_HREF}
-    variant='black'
-    onClick={() => trackEvent('dpa request', { location })}
-  >
-    <Caps css={theme({ fontSize: 0 })}>{REQUEST_DPA_LABEL}</Caps>
-  </Button>
-)
+import { BLOCK_STYLE } from './shared'
 
 const DpaHero = () => (
   <Flex

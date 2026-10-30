@@ -7,7 +7,7 @@ lastEdited: true
 
 import DpaHero from 'components/pages/dpa/hero'
 import AtAGlance from 'components/pages/dpa/at-a-glance'
-import RequestCta from 'components/pages/dpa/request-cta'
+import { RequestCta, RequestSignedCta } from 'components/pages/dpa/request-cta'
 import TableOfContents from 'components/pages/dpa/table-of-contents'
 
 <DpaHero />
@@ -198,4 +198,4 @@ Date: on execution<br/>
 
 The Subprocessors authorised under Section 5 are listed at [microlink.io/subprocessors](/subprocessors).
 
-<RequestCta variant='compact' id='request-signed' />
+<RequestSignedCta />

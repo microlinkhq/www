@@ -1,15 +1,13 @@
 import { slug } from 'github-slugger'
 import { layout } from 'theme'
 
-export const DPA_LEAD_REF = 'dpa'
+import { DPA_LEAD_REF } from 'components/pages/enterprise/lead-mailto'
+
+export { DPA_MAILTO } from 'components/pages/enterprise/lead-mailto'
 
 export const REQUEST_DPA_HREF = `/enterprise?ref=${DPA_LEAD_REF}`
 
 export const REQUEST_DPA_LABEL = 'Request a signed DPA'
-
-export { DPA_MAILTO } from 'components/pages/enterprise/ContactButton'
-
-export const PROCESSING_REGIONS = null
 
 export const LEGAL_SECTIONS = [
   '1. Definitions and Interpretation',
