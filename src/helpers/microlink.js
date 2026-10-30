@@ -42,8 +42,6 @@ const runScalarRequest = async (url, options, scalar) => {
   try {
     return await client.request(url, options)
   } finally {
-    rewriteBase = undefined
-    rewriteTarget = undefined
     globalThis.fetch = previous
   }
 }
