@@ -54,7 +54,7 @@ const ContentArea = React.memo(
         return
       }
       const { body, headers } = responseData
-      const contentType = headers['content-type'] || ''
+      const contentType = headers?.['content-type'] || ''
       if (!contentType.startsWith('image/')) {
         setImageUrl(null)
         return
@@ -151,7 +151,7 @@ const ContentArea = React.memo(
             }
 
             const { body, headers } = responseData
-            const contentType = headers['content-type'] || ''
+            const contentType = headers?.['content-type'] || ''
 
             if (contentType.includes('application/json')) {
               const jsonText = new TextDecoder().decode(body)

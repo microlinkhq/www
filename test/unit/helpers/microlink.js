@@ -43,6 +43,40 @@ describe('apiUrl', () => {
       `${FREE_ENDPOINT}&meta=false&headers.user-agent=googlebot&headers.accept-language=en&force=true`
     )
   })
+
+  test('flattens nested header values into the query string', () => {
+    expect(
+      microlink.apiUrl(URL_TO_FETCH, {
+        headers: { foo: { bar: 'baz' }, 'x-list': ['a', 'b'] }
+      })
+    ).toBe(
+      `${FREE_ENDPOINT}&headers.foo.bar=baz&headers.x-list.0=a&headers.x-list.1=b`
+    )
+  })
+
+  test('omits null header values and a null headers option', () => {
+    expect(
+      microlink.apiUrl(URL_TO_FETCH, {
+        headers: { 'user-agent': null, accept: 'text/html' }
+      })
+    ).toBe(`${FREE_ENDPOINT}&headers.accept=text%2Fhtml`)
+    expect(microlink.apiUrl(URL_TO_FETCH, { meta: false, headers: null })).toBe(
+      `${FREE_ENDPOINT}&meta=false`
+    )
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: {} })).toBe(FREE_ENDPOINT)
+  })
+
+  test('keeps a scalar headers option as one query parameter', () => {
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: 'googlebot' })).toBe(
+      `${FREE_ENDPOINT}&headers=googlebot`
+    )
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: false })).toBe(
+      `${FREE_ENDPOINT}&headers=false`
+    )
+    expect(microlink.apiUrl(URL_TO_FETCH, { headers: 0 })).toBe(
+      `${FREE_ENDPOINT}&headers=0`
+    )
+  })
 })
 
 describe('request', () => {
@@ -68,6 +102,15 @@ describe('request', () => {
     const sent = fetchMock.mock.calls[0][0]
     expect(sent.url).toContain('headers.user-agent=googlebot')
     expect(sent.headers.get('accept-language')).toBeNull()
+  })
+
+  test('sends a scalar headers option as one query parameter', async () => {
+    respondWith('{"status":"success","data":{}}', 'application/json')
+    await microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    const sent = fetchMock.mock.calls[0][0]
+    expect(sent.url).toContain('headers=googlebot')
+    expect(sent.url).not.toContain('headers.0')
+    expect(sent.headers.get('headers')).toBeNull()
   })
 
   test('a JSON result reaches the code viewers as decodable bytes', async () => {

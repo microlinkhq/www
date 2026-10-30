@@ -5,6 +5,10 @@ const { source, slice } = sourceHarness(
   'src/components/patterns/MultiCodeEditor/interactive/content-area.js'
 )
 
+const { source: editor } = sourceHarness(
+  'src/components/patterns/MultiCodeEditor/MultiCodeEditorInteractive.js'
+)
+
 const responseView = slice(
   "if (contentType.includes('application/json'))",
   'const handleKeyDown'
@@ -23,6 +27,12 @@ describe('response view', () => {
   })
 
   test('tolerates a failed request with no content type', () => {
-    expect(contentTypeRead).toBe("headers['content-type'] || ''")
+    expect(source.match(/const contentType = (.*)/g)).toEqual([
+      "const contentType = headers?.['content-type'] || ''",
+      "const contentType = headers?.['content-type'] || ''"
+    ])
+    expect(contentTypeRead).toBe("headers?.['content-type'] || ''")
+    expect(editor).toContain('showResponseFade(responseData, showApiKeyInput)')
+    expect(editor).not.toContain("headers['content-type'].includes")
   })
 })
