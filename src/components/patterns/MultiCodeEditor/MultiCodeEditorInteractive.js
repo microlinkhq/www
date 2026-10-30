@@ -15,7 +15,11 @@ import ContentArea from './interactive/content-area'
 import FadeOverlay from './interactive/fade-overlay'
 import Toolbar from './interactive/toolbar'
 import { useExecuteRequest } from './interactive/use-execute-request'
-import { useAutoExecute, useCurrentViewText } from './interactive/hooks'
+import {
+  showResponseFade,
+  useAutoExecute,
+  useCurrentViewText
+} from './interactive/hooks'
 
 const SDK_PREAMBLE_HEIGHT = 118
 const DEFAULT_LANGUAGE = 'JavaScript'
@@ -225,10 +229,7 @@ function MultiCodeEditorInteractive ({
             aria-busy={isLoading}
           >
             <If
-              condition={
-                showApiKeyInput ||
-                !responseData?.headers['content-type'].includes('image/')
-              }
+              condition={showResponseFade(responseData, showApiKeyInput)}
               render={() => <FadeOverlay $position='top' aria-hidden='true' />}
             />
 
@@ -247,10 +248,7 @@ function MultiCodeEditorInteractive ({
             />
 
             <If
-              condition={
-                showApiKeyInput ||
-                !responseData?.headers['content-type'].includes('image/')
-              }
+              condition={showResponseFade(responseData, showApiKeyInput)}
               render={() => (
                 <FadeOverlay $position='bottom' aria-hidden='true' />
               )}

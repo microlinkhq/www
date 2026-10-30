@@ -10,7 +10,7 @@ import React, { useMemo } from 'react'
 import { useMounted } from 'components/hook/use-mounted'
 import TimingsBand from 'components/patterns/Timings'
 import { useUrlInput } from 'components/hook/use-url-input'
-import { getApiUrl } from '@microlink/mql'
+import microlink from 'helpers/microlink'
 import { normalizeUrl } from 'helpers/url-input'
 import { trackEvent } from 'helpers/gtag'
 import { toCurlSnippetOrEmpty } from 'helpers/curl-snippet'
@@ -111,7 +111,8 @@ const SUGGESTIONS = [
   'https://varnish-cache.org/docs/6.2/phk/thatslow.html'
 ].map(url => ({ url, value: humanizeUrl(url) }))
 
-const getEmbedUrl = (url, embed) => getApiUrl(url, { insights: true, embed })[0]
+const getEmbedUrl = (url, embed) =>
+  microlink.apiUrl(url, { insights: true, embed })
 
 const Wappalyzer = ({ data }) => (
   <Flex

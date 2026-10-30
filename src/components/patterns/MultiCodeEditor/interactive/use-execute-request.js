@@ -1,5 +1,6 @@
 import { useCallback, useLayoutEffect, useRef } from 'react'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
+import { toRawResponse } from './raw-response'
 
 const checkForProPlanRequired = responseText =>
   responseText && responseText.includes('You need a pro plan')
@@ -28,16 +29,11 @@ export const useExecuteRequest = ({
       try {
         const result = await (async () => {
           try {
-            const raw = await mql.arrayBuffer(url, {
+            const raw = await microlink.request(url, {
               ...mqlOpts,
               ...(currentApiKey && { apiKey: currentApiKey })
             })
-            const { body, headers } = raw
-            return {
-              status: 'fulfilled',
-              headers: Object.fromEntries(headers),
-              body
-            }
+            return { status: 'fulfilled', ...toRawResponse(raw) }
           } catch (error) {
             const {
               headers,

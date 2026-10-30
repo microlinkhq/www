@@ -29,7 +29,7 @@ import {
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -1874,7 +1874,7 @@ const MarkdownTool = () => {
         let truncatedResponseStr = null
         let md = null
         try {
-          response = await mql(url, mqlOpts)
+          response = await microlink.request(url, mqlOpts)
           md = stripNoisyMeta(response.data?.markdown)
 
           if (!md) {

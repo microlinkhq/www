@@ -4,7 +4,7 @@ import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
@@ -945,7 +945,7 @@ const Builder = () => {
     setIsLoading(true)
     setError('')
     try {
-      const { data } = await mql(nextUrl, { palette: true })
+      const { data } = await microlink.request(nextUrl, { palette: true })
       setData(data)
     } catch (err) {
       setError('Could not fetch that URL. Keeping the current preview.')

@@ -6,7 +6,7 @@ import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { hasDomainLikeHostname, normalizeUrl } from 'helpers/url-input'
 import { urlVariations } from 'helpers/url-variations'
 import { useQueryState } from 'components/hook/use-query-state'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 import prependHttp from 'prepend-http'
 
 const ErrorMessage = ({ more }) => {
@@ -29,7 +29,7 @@ const ErrorMessage = ({ more }) => {
 
 const fetchFromApi = (url, fromCache, opts) => {
   const variations = urlVariations(url)
-  return fromCache(variations, opts) || mql(url, opts)
+  return fromCache(variations, opts) || microlink.request(url, opts)
 }
 
 const defaultFromCache = variations => findDemoLinkByVariations(variations)

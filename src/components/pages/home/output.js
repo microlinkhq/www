@@ -11,7 +11,7 @@ import { prefersReducedMotion } from 'helpers/reduced-motion'
 import { theme, fonts, colors, gradient, space } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
-import { getApiUrl } from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 const MONO = fonts.mono
 
@@ -337,7 +337,7 @@ const LighthouseOutput = ({ url }) => (
     as='iframe'
     title='Lighthouse report'
     src={lighthouseViewerUrl(
-      getApiUrl(url, { insights: true, embed: 'insights.lighthouse' })[0]
+      microlink.apiUrl(url, { insights: true, embed: 'insights.lighthouse' })
     )}
     css={theme({
       width: '100%',

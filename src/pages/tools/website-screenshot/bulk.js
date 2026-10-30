@@ -27,7 +27,7 @@ import {
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 import JSZip from 'jszip'
 
 import Box from 'components/elements/Box'
@@ -1951,7 +1951,7 @@ const ScreenshotTool = () => {
             force: !options.cache
           }
           const queryStr = buildSdkQuery(url, mqlOpts)
-          const response = await mql(url, mqlOpts)
+          const response = await microlink.request(url, mqlOpts)
           const duration = Date.now() - reqStart
           const headerStats = extractNerdStats(response?.response?.headers)
           const responseData = JSON.stringify(
