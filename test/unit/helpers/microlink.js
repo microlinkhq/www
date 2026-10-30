@@ -121,6 +121,13 @@ describe('request', () => {
     expect(sent.headers.get('accept-language')).toBeNull()
   })
 
+  test('restores fetch after a scalar request', async () => {
+    respondWith('{"status":"success","data":{}}', 'application/json')
+    await microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    await globalThis.fetch('https://example.com/direct')
+    expect(fetchMock.mock.calls.at(-1)[0]).toBe('https://example.com/direct')
+  })
+
   test('sends a scalar headers option as one query parameter', async () => {
     respondWith('{"status":"success","data":{}}', 'application/json')
     await microlink.request(URL_TO_FETCH, { headers: 'googlebot' })

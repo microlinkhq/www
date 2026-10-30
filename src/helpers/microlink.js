@@ -14,7 +14,7 @@ const prepareOptions = (options = {}) => {
       entries.push([key, value])
       continue
     }
-    if (value == null) continue
+    if (value === null) continue
     if (typeof value !== 'object') {
       scalar = value
       continue

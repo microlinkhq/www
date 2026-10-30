@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import {
+  currentViewText,
   responseBodyText,
   showResponseFade
 } from '../../../../../../src/components/patterns/MultiCodeEditor/interactive/hooks.js'
@@ -27,6 +28,41 @@ describe('showResponseFade', () => {
     expect(
       showResponseFade({ headers: { 'content-type': 'IMAGE/PNG' } }, false)
     ).toBe(false)
+  })
+})
+
+describe('currentViewText', () => {
+  test('returns the code, an empty body, and sorted headers', () => {
+    expect(
+      currentViewText({ activeView: 'code', code: 'fn()', responseData: null })
+    ).toBe('fn()')
+    expect(
+      currentViewText({ activeView: 'body', code: 'fn()', responseData: null })
+    ).toBe('')
+    expect(
+      currentViewText({
+        activeView: 'body',
+        code: 'fn()',
+        responseData: { body: bytes, headers: {} }
+      })
+    ).toBe('Binary content ()\nSize: 3 bytes')
+    expect(
+      currentViewText({
+        activeView: 'headers',
+        code: '',
+        responseData: null
+      })
+    ).toBe('')
+    expect(
+      currentViewText({
+        activeView: 'headers',
+        code: '',
+        responseData: { headers: { b: '2', a: '1' } }
+      })
+    ).toBe('a: 1\nb: 2')
+    expect(
+      currentViewText({ activeView: 'other', code: 'fn()', responseData: null })
+    ).toBe('')
   })
 })
 

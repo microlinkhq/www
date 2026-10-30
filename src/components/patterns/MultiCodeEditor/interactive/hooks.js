@@ -55,19 +55,24 @@ export const useAutoExecute = ({
   }, [autoExecute, executeRequest, mqlOpts, normalizedDefaultView, url])
 }
 
+export const currentViewText = ({ activeView, code, responseData }) => {
+  switch (activeView) {
+    case 'code':
+      return code
+    case 'body':
+      return responseData ? responseBodyText(responseData) : ''
+    case 'headers':
+      return Object.entries(responseData?.headers || {})
+        .sort(([a], [b]) => a.localeCompare(b))
+        .map(([key, value]) => `${key}: ${value}`)
+        .join('\n')
+    default:
+      return ''
+  }
+}
+
 export const useCurrentViewText = ({ activeView, code, responseData }) =>
-  useCallback(() => {
-    switch (activeView) {
-      case 'code':
-        return code
-      case 'body':
-        return responseData ? responseBodyText(responseData) : ''
-      case 'headers':
-        return Object.entries(responseData?.headers || {})
-          .sort(([a], [b]) => a.localeCompare(b))
-          .map(([key, value]) => `${key}: ${value}`)
-          .join('\n')
-      default:
-        return ''
-    }
-  }, [activeView, code, responseData])
+  useCallback(
+    () => currentViewText({ activeView, code, responseData }),
+    [activeView, code, responseData]
+  )
