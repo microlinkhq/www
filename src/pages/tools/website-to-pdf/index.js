@@ -29,7 +29,7 @@ import {
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 import get from 'dlv'
 
 import Box from 'components/elements/Box'
@@ -1340,7 +1340,7 @@ const PdfTool = () => {
         let response = null
         let headerStats = null
         try {
-          response = await mql(url, mqlOpts)
+          response = await microlink.request(url, mqlOpts)
           setData(response.data)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)

@@ -82,14 +82,6 @@
       },
       {
         "files": [
-          "src/helpers/get-api-url.js"
-        ],
-        "rules": [
-          "react-doctor/insecure-crypto-risk"
-        ]
-      },
-      {
-        "files": [
           "gatsby-ssr.js"
         ],
         "rules": [

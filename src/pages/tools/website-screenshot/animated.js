@@ -24,7 +24,7 @@ import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
 import get from 'dlv'
-import mql from '@microlink/mql'
+import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -930,7 +930,7 @@ const AnimatedScreenshotTool = () => {
         let response = null
         let headerStats = null
         try {
-          response = await mql(url, mqlOpts)
+          response = await microlink.request(url, mqlOpts)
           setData(response.data)
           headerStats = extractNerdStats(response.response?.headers)
           setNerdStats(headerStats)

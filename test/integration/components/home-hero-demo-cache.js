@@ -117,7 +117,7 @@ describe('hero demo snapshot cache', () => {
     expect(run).toContain('cached.apiUrl === apiUrl')
     expect(run.indexOf('fetchDemoSnapshot')).toBeGreaterThan(-1)
     expect(run.indexOf('fetchDemoSnapshot')).toBeLessThan(
-      run.indexOf('await mql(')
+      run.indexOf('await microlink.request(')
     )
   })
 
