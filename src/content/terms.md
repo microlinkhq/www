@@ -77,7 +77,9 @@ The Services, including the software, documentation and the Microlink name and l
 
 9.2 We may suspend or terminate your access if you materially breach these Terms, if payment is not made, or if your usage puts the Services or other users at risk. Where reasonable, we will tell you first and give you a chance to fix the problem.
 
-9.3 After termination, we delete your content in accordance with the [Data Processing Agreement](/dpa).
+9.3 This section applies to every plan, Free and paid. If we detect abuse, including any use that breaches section 5, we may suspend or close your account immediately and without prior notice.
+
+9.4 After termination, we delete your content in accordance with the [Data Processing Agreement](/dpa).
 
 ## 10. Disclaimer
 
