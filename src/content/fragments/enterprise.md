@@ -21,7 +21,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 ### Your data, protected
 
 - Your content is <Annotation>never used to train or fine-tune AI models</Annotation> — not by us, not by anyone.
-- You own your content. We process it only to serve you, and delete it within <Annotation variant='underline'>15 days</Annotation> of your request.
+- You own your content. We process it only to serve you, and delete it within <Annotation variant='underline'>15 days</Annotation> after your service ends.
 - A GDPR-compliant [Data Processing Agreement](/dpa).
 - Backed by a standard Master Subscription Agreement and DPA, ready for your legal team to review.
 - We never use your name or logo without your written consent.
