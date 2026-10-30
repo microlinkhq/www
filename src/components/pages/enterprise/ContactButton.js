@@ -32,7 +32,9 @@ const ContactButton = ({
   my = [4, null, 5]
 }) => {
   const leadRef = useLeadRef()
-  const leadMailto = MAILTO_BY_LEAD_REF[leadRef] ?? mailto
+  const leadMailto = Object.hasOwn(MAILTO_BY_LEAD_REF, leadRef ?? '')
+    ? MAILTO_BY_LEAD_REF[leadRef]
+    : mailto
   return (
     <Flex
       css={theme({
