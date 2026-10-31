@@ -99,7 +99,7 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
       'A single HTTP GET turns a URL into metadata, screenshots, PDFs, media, and structured extraction. Query parameters accept camelCase or snake_case. Authenticated requests use the Pro endpoint with an `x-api-key` header.',
     version: '1.0.0',
     contact: {
-      name: 'Microlink HQ',
+      name: 'Microlink Labs, S.L.',
       email: 'hello@microlink.io',
       url: SITE_URL
     },

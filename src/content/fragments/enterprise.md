@@ -13,7 +13,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 - Everything in Pro, on the same shared infrastructure.
 - Pay by card, or by invoice: <Annotation>bank transfer, with your PO number on the invoice</Annotation>.
 - Net 30 payment terms. Invoices are due within 30 days of the invoice date.
-- NDA, DPA and service agreement, signed by both parties on request. Our standard [DPA](/dpa) is published.
+- NDA, service agreement and a countersigned DPA, with EU Standard Contractual Clauses, the UK Addendum and the Swiss amendments where your transfers need them. Our standard [DPA](/dpa) is published.
 - Vendor assessments and procurement questionnaires, completed on request.
 - The same named contact for commercial and technical matters, every time. No ticket queue. Every question gets priority, with a first response within <Annotation variant='underline'>1 business day</Annotation>.
 - Annual billing, with a <Annotation variant='underline'>10% discount</Annotation>.
@@ -21,7 +21,7 @@ Included volume is sized to your usage. What you pay for is <Annotation variant=
 ### Your data, protected
 
 - Your content is <Annotation>never used to train or fine-tune AI models</Annotation> — not by us, not by anyone.
-- You own your content. We process it only to serve you, and delete it within <Annotation variant='underline'>60 days</Annotation> of your request.
+- You own your content. We process it only to serve you, and delete it within <Annotation variant='underline'>15 days</Annotation> after your service ends.
 - A GDPR-compliant [Data Processing Agreement](/dpa).
 - Backed by a standard Master Subscription Agreement and DPA, ready for your legal team to review.
 - We never use your name or logo without your written consent.

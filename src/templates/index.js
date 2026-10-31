@@ -1,6 +1,7 @@
 import { getActiveRouteName } from 'components/patterns/Aside/constants'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import Meta from 'components/elements/Meta/Meta'
+import { metaTitleProps } from 'helpers/meta-title'
 import { graphql, useStaticQuery } from 'gatsby'
 import React from 'react'
 
@@ -27,6 +28,8 @@ export const Head = ({ pageContext, location }) => {
   `)
   const siteMetadata = useSiteMetadata()
   const { name: siteName } = siteMetadata
+  const { metaTitle, ...pageFrontmatter } = frontmatter
+  const titleOverride = metaTitleProps(metaTitle)
 
   if (isDocPage || isBlogPage) {
     const activeRouteName = getActiveRouteName(location)
@@ -40,7 +43,7 @@ export const Head = ({ pageContext, location }) => {
         : validPublishedDate
 
     const metaProps = {
-      ...frontmatter,
+      ...pageFrontmatter,
       description,
       name: isDocPage
         ? activeRouteName === 'Guides'
@@ -72,10 +75,10 @@ export const Head = ({ pageContext, location }) => {
         : undefined
     }
 
-    return <Meta {...metaProps} />
+    return <Meta {...metaProps} {...titleOverride} />
   }
 
-  return <Meta {...frontmatter} />
+  return <Meta {...pageFrontmatter} {...titleOverride} />
 }
 
 const Template = ({ pageContext, children, ...props }) => {

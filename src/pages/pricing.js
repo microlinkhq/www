@@ -1423,7 +1423,7 @@ const Faqs = () => (
             </div>
             <div>
               Free and Pro run on our standard{' '}
-              <Link href='/tos'>Terms of Service</Link>. Our standard{' '}
+              <Link href='/terms'>Terms of Service</Link>. Our standard{' '}
               <Link href='/dpa'>DPA</Link> is published.
             </div>
           </>
