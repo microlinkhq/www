@@ -480,6 +480,10 @@
       "destination": "/docs/api/basics/error-codes#einvalproxy"
     },
     {
+      "source": "/egooglelink",
+      "destination": "/docs/api/basics/error-codes#egooglelink"
+    },
+    {
       "source": "/eproxyneeded",
       "destination": "/docs/api/basics/error-codes#eproxyneeded"
     },

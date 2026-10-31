@@ -1195,6 +1195,7 @@
               "EFILENAME",
               "EFATALCLIENT",
               "EFORBIDDENURL",
+              "EGOOGLELINK",
               "EHEADERS",
               "EHTMLNESTED",
               "EINVALURL",

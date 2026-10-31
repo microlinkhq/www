@@ -105,6 +105,16 @@ The URL is being resolved into an IP address whose range is not allowed.
 
 The service will only resolve URLs that point to unicast IP addresses.
 
+## EGOOGLELINK
+
+**Message**
+
+Google is holding the link right after its search. Retry in a minute.
+
+**Solution**
+
+Google result links (`google.com/goto`) can't be opened right after the search that returned them, especially several at once. Wait about a minute and send the request again, without retrying sooner, since retrying keeps the link on hold.
+
 ## EHEADERS
 
 **Message**
