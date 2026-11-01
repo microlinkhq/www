@@ -321,6 +321,16 @@ The request has `x-api-key` header present and it has been performed against [ap
 
 In order to [authenticate](/docs/api/basics/authentication/) your requests, you need to perform them against [pro.microlink.io](https://pro.microlink.io). Check [endpoint](/docs/api/basics/endpoint) to know more.
 
+## EPROMPT
+
+**Message**
+
+You need a <ProBadge/> plan for using [prompt](/docs/api/parameters/prompt) query parameter.
+
+**Solution**
+
+See [pricing](/pricing) for upgrading your plan.
+
 ## EPROXY
 
 **Message**
