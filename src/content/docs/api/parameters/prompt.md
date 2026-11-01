@@ -32,14 +32,11 @@ A second model reads a sample of the output and judges whether it answers the pr
 
 ## Response
 
-The response is the [function](/docs/api/parameters/function#response) response, so `isFulfilled`, `value`, `logging` and `profiling` mean the same, plus two fields:
+The response is the [function](/docs/api/parameters/function#response) response, so `isFulfilled`, `value`, `logging` and `profiling` mean the same, plus one field:
 
-| Field    | Description |
-| -------- | ----------- |
-| `code`   | The function as an ES module, ready to paste into your project and run with [microlink.io](https://www.npmjs.com/package/microlink.io) |
-| `prompt` | How the code was written: `attempts`, `failures` (why each rejected attempt was rejected), `check`, `cost` (`usd`, tokens, `inspections`) and `timing` in milliseconds (`model`, `inspect`, `run`, `check`) |
-
-`check.verdict` is `answers` when the output answers the prompt, `unsure` when the prompt can be read more than one way, `wrong` when the last output was rejected and no attempt was left to fix it, and `unchecked` when the check could not run.
+| Field  | Description |
+| ------ | ----------- |
+| `code` | The function as an ES module, ready to paste into your project and run with [microlink.io](https://www.npmjs.com/package/microlink.io) |
 
 When no attempt works, `isFulfilled` is `false`, `value` explains the last failure, and `code` is the last version written, so you can fix it yourself.
 
