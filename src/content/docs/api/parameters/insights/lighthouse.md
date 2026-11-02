@@ -66,3 +66,5 @@ The following presets are supported:
 - [lr-desktop](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/lr-desktop-config.js)
 - [lr-mobile](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/lr-mobile-config.js)
 - [perf](https://github.com/GoogleChrome/lighthouse/blob/5e18c5a0656b427e59890dc9c125164ef9f276c3/core/config/perf-config.js)
+
+Any other `preset` is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
