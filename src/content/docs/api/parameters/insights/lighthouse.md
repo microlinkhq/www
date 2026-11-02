@@ -7,6 +7,7 @@ import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorI
 import { Type, TypeContainer } from 'components/markdown/Type'
 import { Iframe } from 'components/markdown/Iframe'
 import { Link } from 'components/elements/Link'
+import ProBadge from 'components/patterns/ProBadge/ProBadge'
 
 Type: <TypeContainer><Type children="boolean"/> | <Type children="object"/></TypeContainer><br/>
 Default: <Type children='true'/>
@@ -47,6 +48,10 @@ Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/m
     lighthouse: { onlyCategories: ['accessibility'] }
   }
   }} />
+
+The Lighthouse settings that send request headers, `extraHeaders` and `emulatedUserAgent`, need a <ProBadge /> plan, the same as [headers](/docs/api/parameters/headers). Without one they are rejected with [EHEADERS](/docs/api/basics/error-codes#eheaders).
+
+Pass `headers`, `proxy` and `authenticate` at the top level, not inside `insights.lighthouse`: nested, they are rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
 
 You can use `'preset'` to load a set of specific Lighthouse settings at once:
 
