@@ -225,8 +225,8 @@ const PdfPage = () => {
         features={FEATURES}
       />
       <UseCases />
-      <CallToAction />
       <ProductInformation />
+      <CallToAction />
     </Layout>
   )
 }

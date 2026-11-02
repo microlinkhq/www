@@ -141,14 +141,10 @@ const HtmlPage = () => (
       }
       features={FEATURES}
     />
-    <CallToAction id='cta' {...CTA}>
-      <LangLandingsNav
-        langs={LANG_LANDINGS}
-        label='Language guides'
-        accent={ACCENT}
-      />
-    </CallToAction>
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA}>
+      <LangLandingsNav langs={LANG_LANDINGS} label='Language guides' />
+    </CallToAction>
   </Layout>
 )
 

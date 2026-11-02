@@ -2495,8 +2495,8 @@ const LinkPreviewBody = ({ status, doFetch, data, response }) => {
         features={LINK_PREVIEW_FEATURES}
       />
       <CustomerStories />
-      <CallToAction />
       <ProductInformation />
+      <CallToAction />
     </>
   )
 }

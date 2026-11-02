@@ -289,8 +289,8 @@ const MetaPage = () => {
         features={FEATURES}
       />
       <UseCases />
-      <CallToAction />
       <ProductInformation />
+      <CallToAction />
     </Layout>
   )
 }

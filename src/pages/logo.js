@@ -1,5 +1,5 @@
 import React from 'react'
-import { SECTION_VERTICAL_SPACING, colors, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, theme } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -142,14 +142,10 @@ const LogoPage = () => (
       }
       features={FEATURES}
     />
-    <CallToAction id='cta' {...CTA}>
-      <LangLandingsNav
-        langs={LANG_LANDINGS}
-        label='Language guides'
-        accent={colors.yellow9}
-      />
-    </CallToAction>
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA}>
+      <LangLandingsNav langs={LANG_LANDINGS} label='Language guides' />
+    </CallToAction>
   </Layout>
 )
 

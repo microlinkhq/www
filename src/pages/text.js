@@ -139,8 +139,8 @@ const TextPage = () => (
       }
       features={FEATURES}
     />
-    <CallToAction id='cta' {...CTA} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

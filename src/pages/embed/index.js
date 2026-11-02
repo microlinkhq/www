@@ -2320,8 +2320,8 @@ const EmbedPage = () => {
                 features={EMBED_FEATURES}
               />
               <CustomerStories />
-              <CallToAction />
               <ProductInformation />
+              <CallToAction />
             </>
           )
         }}

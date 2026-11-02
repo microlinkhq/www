@@ -32,11 +32,11 @@ const SerpApiAlternativePage = () => (
     <Hero />
     <Throughput />
     <ProductPricing title={PRICING_TITLE} caption={PRICING_CAPTION} />
-    <CallToAction id='cta' {...CTA} />
     <ProductComparison {...COMPARISON} competitorKey='serpapi' />
     <Honesty />
     <Migration />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
     <Trademarks />
   </Layout>
 )

@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 import { CallToAction as FreeKeyCallToAction } from 'components/patterns/CallToAction'
 import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { LANG_LANDINGS } from './lang/registry'
@@ -9,10 +8,6 @@ export const CallToAction = () => (
     outcome='converting URLs to markdown'
     cta='markdown:footer-cta'
   >
-    <LangLandingsNav
-      langs={LANG_LANDINGS}
-      label='Language guides'
-      accent={colors.orange9}
-    />
+    <LangLandingsNav langs={LANG_LANDINGS} label='Language guides' />
   </FreeKeyCallToAction>
 )

@@ -58,8 +58,8 @@ const FunctionPage = () => (
     />
     <FunctionFeaturesGrid />
     <FunctionUseCases />
-    <CallToAction id='cta' {...CTA} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

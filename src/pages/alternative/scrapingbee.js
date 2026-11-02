@@ -35,10 +35,10 @@ const ScrapingBeeAlternativePage = () => (
     <Billing />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
-    <CallToAction id='cta' {...CTA} />
     <ProductComparison {...COMPARISON} competitorKey='scrapingbee' />
     <Honesty />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

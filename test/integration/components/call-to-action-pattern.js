@@ -40,6 +40,15 @@ const PAGE_CTA_IMPORT = /from 'components\/pages\/[a-z-]+\/cta'/
 const rendersSharedPattern = source =>
   source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
 
+const FAQ_ELEMENT = /<(ProductInformation|ProductFaq|Faqs)\b/g
+const CTA_ELEMENT = /<CallToAction\b/
+
+const lastFaqIndex = source =>
+  Math.max(-1, ...[...source.matchAll(FAQ_ELEMENT)].map(m => m.index))
+
+const langNavBlocks = source =>
+  [...source.matchAll(/<LangLandingsNav\b[\s\S]*?\/>/g)].map(m => m[0])
+
 const docsFileFor = href =>
   path.join(SRC, 'content', `${href.replace(/^\/|\/$/g, '')}.md`)
 
@@ -57,6 +66,25 @@ describe('call to action pattern', () => {
     expect(source).not.toMatch(/\bProductCta\b/)
     expect(source).not.toMatch(/\bCtaNow\b|\bCTA_LEAD_TEXT\b/)
   })
+
+  test.each(PRODUCT_PAGES)(
+    '%s places the call to action after the FAQ',
+    file => {
+      const source = read(file)
+      const faq = lastFaqIndex(source)
+      expect(faq, 'page renders a FAQ').toBeGreaterThan(-1)
+      expect(source.search(CTA_ELEMENT)).toBeGreaterThan(faq)
+    }
+  )
+
+  test.each([...PAGE_CTAS, 'pages/html.js', 'pages/logo.js'])(
+    '%s keeps language guide links in the default link color',
+    file => {
+      for (const block of langNavBlocks(read(file))) {
+        expect(block).not.toMatch(/\baccent=/)
+      }
+    }
+  )
 
   test('the legacy product call to action is gone', () => {
     expect(
