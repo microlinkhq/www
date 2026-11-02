@@ -1,7 +1,8 @@
 import React from 'react'
 import { SECTION_VERTICAL_SPACING, colors, layout, theme } from 'theme'
-import { Check as CheckIcon } from 'react-feather'
+import { ArrowRight, Zap } from 'react-feather'
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
@@ -11,11 +12,71 @@ import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-const FREE_KEY_PERKS = [
-  `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
-  'Every Pro feature',
-  'No credit card'
-]
+const CARD_WIDTH = ['100%', '100%', '400px', '400px']
+const PILL_RADIUS = '999px'
+
+const FreeKeyCard = ({ cta, children }) => (
+  <Flex
+    css={theme({
+      flexDirection: 'column',
+      alignItems: 'center',
+      flexShrink: 0,
+      width: CARD_WIDTH,
+      p: [3, 3, 4, 4],
+      bg: 'white',
+      border: 1,
+      borderColor: 'black10',
+      borderRadius: 5,
+      boxShadow: 3,
+      textAlign: 'center'
+    })}
+  >
+    <Flex
+      css={theme({
+        alignItems: 'center',
+        gap: 2,
+        px: [3, 3, 4, 4],
+        py: 3,
+        bg: 'blue0',
+        borderRadius: PILL_RADIUS
+      })}
+    >
+      <Zap size={22} color={colors.link} aria-hidden='true' />
+      <Text
+        as='span'
+        css={theme({
+          fontWeight: 'bold',
+          fontVariantNumeric: 'tabular-nums',
+          whiteSpace: 'nowrap'
+        })}
+      >
+        {FREE_PLAN_REQUESTS_PER_DAY} requests/day
+      </Text>
+    </Flex>
+    <Text css={theme({ pt: 3, color: 'black60', textWrap: 'balance' })}>
+      Every Pro feature. No credit card.
+    </Text>
+    <SignupLink
+      component={Button}
+      forwardedAs='a'
+      cta={cta}
+      css={theme({
+        mt: 4,
+        width: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 2,
+        fontSize: [1, 1, 2, 2],
+        whiteSpace: 'normal'
+      })}
+    >
+      Get your free API key
+      <ArrowRight size={18} aria-hidden='true' />
+    </SignupLink>
+    {children && <Box css={theme({ pt: 4 })}>{children}</Box>}
+  </Flex>
+)
 
 export const CallToAction = ({ id, outcome, cta, children }) => (
   <DotsBackground
@@ -37,71 +98,40 @@ export const CallToAction = ({ id, outcome, cta, children }) => (
     >
       <Flex
         css={theme({
-          flexDirection: 'column',
+          width: '100%',
+          maxWidth: layout.large,
+          px: [0, 0, 4, 0],
+          mx: 'auto',
+          gap: [4, 4, 5, 5],
+          flexDirection: ['column', 'column', 'row', 'row'],
           alignItems: 'center',
-          maxWidth: layout.normal,
-          px: [4, 4, 4, 0],
-          mx: 'auto'
+          justifyContent: 'space-between'
         })}
       >
-        <Subhead
-          css={theme({
-            textAlign: 'center'
-          })}
-        >
-          Start free
-        </Subhead>
-        <Caption
-          forwardedAs='div'
-          css={theme({
-            pt: [3, 3, 4, 4],
-            maxWidth: [
-              layout.small,
-              layout.small,
-              layout.normal,
-              layout.normal
-            ],
-            textAlign: 'center'
-          })}
-        >
-          Sign up, add the key to your requests, and start {outcome}.
-        </Caption>
         <Flex
           css={theme({
-            pt: [4, 4, 5, 5],
-            gap: [3, 3, 4, 4],
-            flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            flexDirection: 'column',
+            alignItems: ['center', 'center', 'flex-start', 'flex-start'],
+            minWidth: 0
           })}
         >
-          <SignupLink cta={cta} css={theme({ fontSize: 2 })}>
-            Get your free API key
-          </SignupLink>
+          <Subhead
+            css={theme({ textAlign: ['center', 'center', 'left', 'left'] })}
+          >
+            Start free
+          </Subhead>
+          <Caption
+            forwardedAs='div'
+            css={theme({
+              pt: [3, 3, 4, 4],
+              maxWidth: layout.small,
+              textAlign: ['center', 'center', 'left', 'left']
+            })}
+          >
+            Sign up, add the key to your requests, and start {outcome}.
+          </Caption>
         </Flex>
-        <Flex
-          css={theme({
-            pt: [4, 4, 5, 5],
-            gap: [3, 3, 4, 4],
-            flexWrap: 'wrap',
-            justifyContent: 'center'
-          })}
-        >
-          {FREE_KEY_PERKS.map(label => (
-            <Flex
-              key={label}
-              css={theme({
-                alignItems: 'center',
-                gap: 1,
-                color: 'black80',
-                fontSize: [0, 0, 1, 1]
-              })}
-            >
-              <CheckIcon size={16} color={colors.close} />
-              <Text as='span'>{label}</Text>
-            </Flex>
-          ))}
-        </Flex>
-        {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
+        <FreeKeyCard cta={cta}>{children}</FreeKeyCard>
       </Flex>
     </Container>
   </DotsBackground>
