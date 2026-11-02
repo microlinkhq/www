@@ -49,8 +49,65 @@ const lastFaqIndex = source =>
 const langNavBlocks = source =>
   [...source.matchAll(/<LangLandingsNav\b[\s\S]*?\/>/g)].map(m => m[0])
 
-const docsFileFor = href =>
-  path.join(SRC, 'content', `${href.replace(/^\/|\/$/g, '')}.md`)
+const SHARED_CTA_IMPORT =
+  /import \{[^}]*\bCTA\b[^}]*\} from '(components\/pages\/[a-z-]+\/[a-z-]+)'/
+const SHARED_CTA_BLOCK = /export const CTA = \{[\s\S]*?\n\}/
+const CTA_JSX_BLOCK = /<(?:FreeKeyCallToAction|CallToAction)\b[^>]*>/
+const LINKS_CONST = /links=\{([A-Z_]+)\}/
+const CTA_ID = /\bcta[:=]\s*'([^']+)'/
+const HREF = /href: '([^']+)'/g
+
+const ctaConfigFor = file => {
+  const source = read(file)
+  if (source.includes('{...CTA}')) {
+    const sharedFile = `${source.match(SHARED_CTA_IMPORT)[1]}.js`
+    return read(sharedFile).match(SHARED_CTA_BLOCK)[0]
+  }
+  const pageCta = source.match(PAGE_CTA_IMPORT)
+  if (pageCta) return ctaConfigFor(`${pageCta[0].slice(6, -1)}.js`)
+  const block = source.match(CTA_JSX_BLOCK)[0]
+  const linksConst = block.match(LINKS_CONST)
+  if (!linksConst) return block
+  const links = source.match(
+    new RegExp(`const ${linksConst[1]} = \\[[\\s\\S]*?\\n\\]`)
+  )[0]
+  return `${block}\n${links}`
+}
+
+const CALLERS = [...new Set([...PAGE_CTAS, ...PRODUCT_PAGES])]
+
+const routeFileFor = href => {
+  const route = href.replace(/^\/|\/$/g, '')
+  const base = route.startsWith('docs/')
+    ? path.join(SRC, 'content', route)
+    : path.join(SRC, 'pages', route)
+  const ext = route.startsWith('docs/') ? '.md' : '.js'
+  return [`${base}${ext}`, path.join(base, `index${ext}`)].find(fs.existsSync)
+}
+
+const SIDE_LONGHANDS = {
+  p: ['pt', 'pb', 'pl', 'pr', 'px', 'py'],
+  m: ['mt', 'mb', 'ml', 'mr', 'mx', 'my'],
+  px: ['pl', 'pr'],
+  py: ['pt', 'pb'],
+  mx: ['ml', 'mr'],
+  my: ['mt', 'mb']
+}
+
+const shorthandsAfterLonghands = source =>
+  [...source.matchAll(/theme\(\{([\s\S]*?)\}\)/g)].flatMap(([, body]) => {
+    const keys = [...body.matchAll(/(?:^|[,{])\s*([a-zA-Z]+)\s*:/g)].map(
+      ([, key]) => key
+    )
+    return keys.filter(
+      (key, index) =>
+        SIDE_LONGHANDS[key] &&
+        keys.slice(0, index).some(seen => SIDE_LONGHANDS[key].includes(seen))
+    )
+  })
+
+const langNavAccents = source =>
+  langNavBlocks(source).filter(block => /\baccent=/.test(block))
 
 describe('call to action pattern', () => {
   test.each(PAGE_CTAS)('%s renders the shared pattern', file => {
@@ -80,11 +137,18 @@ describe('call to action pattern', () => {
   test.each([...PAGE_CTAS, 'pages/html.js', 'pages/logo.js'])(
     '%s keeps language guide links in the default link color',
     file => {
-      for (const block of langNavBlocks(read(file))) {
-        expect(block).not.toMatch(/\baccent=/)
-      }
+      expect(langNavAccents(read(file))).toEqual([])
     }
   )
+
+  test('only an accent prop on the language guide links is rejected', () => {
+    const allowed =
+      "<LangLandingsNav langs={LANGS} current='nodejs' label='Language guides' />"
+    expect(langNavAccents(allowed)).toEqual([])
+    expect(
+      langNavAccents('<LangLandingsNav langs={LANGS} accent={colors.red7} />')
+    ).toHaveLength(1)
+  })
 
   test('the legacy product call to action is gone', () => {
     expect(
@@ -92,10 +156,50 @@ describe('call to action pattern', () => {
     ).toBe(false)
   })
 
+  test('every file rendering the pattern is a known caller', () => {
+    const importers = fs
+      .readdirSync(SRC, { recursive: true })
+      .filter(file => file.endsWith('.js'))
+      .filter(file => read(file).includes(PATTERN_IMPORT))
+    expect(importers.filter(file => !CALLERS.includes(file))).toEqual([])
+  })
+
+  test.each(CALLERS)('%s sets the call to action copy', file => {
+    expect(ctaConfigFor(file)).toMatch(/\b(outcome|caption)[:=]/)
+  })
+
   test('every caller tracks signups under its own cta id', () => {
-    const ids = PAGE_CTAS.map(file => read(file).match(/cta='([^']+)'/)[1])
-    expect(new Set(ids).size).toBe(PAGE_CTAS.length)
-    for (const id of ids) expect(id).toMatch(/^[a-z]+:footer-cta$/)
+    const signupCallers = CALLERS.filter(
+      file => !/\baction:/.test(ctaConfigFor(file))
+    )
+    expect(signupCallers).toEqual(
+      CALLERS.filter(file => file !== 'pages/ai.js')
+    )
+    const configs = [...new Set(signupCallers.map(ctaConfigFor))]
+    const ids = configs.map(config => config.match(CTA_ID)[1])
+    expect(new Set(ids).size).toBe(configs.length)
+    for (const id of ids) expect(id).toMatch(/^[a-z-]+:footer-cta$/)
+  })
+
+  test.each(CALLERS)('%s links its next steps to pages that exist', file => {
+    for (const [, href] of ctaConfigFor(file).matchAll(HREF)) {
+      if (href.startsWith('http')) continue
+      expect(routeFileFor(href), href).toBeDefined()
+    }
+  })
+
+  test('the pattern never resets a side spacing with a later shorthand', () => {
+    expect(
+      shorthandsAfterLonghands(
+        read('components/patterns/CallToAction/index.js')
+      )
+    ).toEqual([])
+    expect(shorthandsAfterLonghands('theme({ pt: 4, m: 0, p: 0 })')).toEqual([
+      'p'
+    ])
+    expect(shorthandsAfterLonghands('theme({ p: 0, pt: 4, mx: 0 })')).toEqual(
+      []
+    )
   })
 
   test('the homepage closes with the call to action after the FAQ', () => {
@@ -115,13 +219,10 @@ describe('call to action pattern', () => {
     )
   })
 
-  test('homepage next steps link to docs pages that exist', () => {
-    const source = read('components/pages/home/call-to-action.js')
-    const hrefs = [...source.matchAll(/href: '([^']+)'/g)].map(m => m[1])
-    expect(hrefs.length).toBeGreaterThan(0)
-    for (const href of hrefs) {
-      expect(href.startsWith('/docs/')).toBe(true)
-      expect(fs.existsSync(docsFileFor(href)), href).toBe(true)
-    }
+  test('next step links resolve docs index pages and site pages', () => {
+    expect(routeFileFor('/docs/guides')).toMatch(/guides\/index\.md$/)
+    expect(routeFileFor('/docs/api/getting-started/mcp')).toMatch(/mcp\.md$/)
+    expect(routeFileFor('/pricing')).toMatch(/pages\/pricing\.js$/)
+    expect(routeFileFor('/docs/does-not-exist')).toBeUndefined()
   })
 })

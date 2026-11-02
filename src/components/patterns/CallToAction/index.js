@@ -1,5 +1,5 @@
 import React from 'react'
-import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
+import { SECTION_VERTICAL_SPACING, layout, theme, toPx } from 'theme'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
@@ -22,29 +22,28 @@ export const FREE_KEY_FACTS = [
   'No credit card'
 ]
 
-const AVATAR_SIZE = '40px'
-const AVATAR_OVERLAP = '-10px'
+const AVATAR_SIZE = 40
+const AVATAR_OVERLAP = 10
 const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
 
 const CustomerAvatars = () => (
-  <Flex as='ul' css={theme({ listStyle: 'none', m: 0, p: 0 })}>
-    {CUSTOMERS.map(({ slug, author, name, avatar }, index) => (
-      <Box
-        as='li'
-        key={slug}
-        css={theme({ ml: index === 0 ? 0 : AVATAR_OVERLAP })}
-      >
+  <Flex
+    as='ul'
+    css={theme({ listStyle: 'none', m: 0, p: 0, pl: toPx(AVATAR_OVERLAP) })}
+  >
+    {CUSTOMERS.map(({ slug, author, name, avatar }) => (
+      <Box as='li' key={slug} css={theme({ ml: toPx(-AVATAR_OVERLAP) })}>
         <img
           src={avatar}
           alt={`${author}, ${name}`}
-          width='40'
-          height='40'
+          width={AVATAR_SIZE}
+          height={AVATAR_SIZE}
           loading='lazy'
           decoding='async'
           css={theme({
             display: 'block',
-            width: AVATAR_SIZE,
-            height: AVATAR_SIZE,
+            width: toPx(AVATAR_SIZE),
+            height: toPx(AVATAR_SIZE),
             borderRadius: '50%',
             border: 2,
             borderColor: 'white',
@@ -96,23 +95,16 @@ const actionCss = theme({
   whiteSpace: 'normal'
 })
 
-const PrimaryAction = ({ cta, product, redirect, href, label }) =>
-  href
+const PrimaryAction = ({ action, cta }) =>
+  action
     ? (
-      <Button forwardedAs='a' href={href} css={actionCss}>
-        {label}
+      <Button forwardedAs='a' href={action.href} css={actionCss}>
+        {action.label}
       </Button>
       )
     : (
-      <SignupLink
-        component={Button}
-        forwardedAs='a'
-        cta={cta}
-        product={product}
-        redirect={redirect}
-        css={actionCss}
-      >
-        {label}
+      <SignupLink component={Button} forwardedAs='a' cta={cta} css={actionCss}>
+        {ACTION_LABEL}
       </SignupLink>
       )
 
@@ -150,7 +142,7 @@ const NextSteps = ({ links }) => (
       justifyContent: 'center',
       listStyle: 'none',
       m: 0,
-      p: 0
+      pl: 0
     })}
   >
     {links.map(({ href, label }) => (
@@ -169,10 +161,7 @@ export const CallToAction = ({
   outcome,
   caption,
   cta,
-  product,
-  redirect,
-  href,
-  label = ACTION_LABEL,
+  action,
   facts = FREE_KEY_FACTS,
   links = [],
   children
@@ -231,13 +220,7 @@ export const CallToAction = ({
           >
             {captionFor({ caption, outcome })}
           </Caption>
-          <PrimaryAction
-            cta={cta}
-            product={product}
-            redirect={redirect}
-            href={href}
-            label={label}
-          />
+          <PrimaryAction cta={cta} action={action} />
           <Facts facts={facts} />
           <SocialProof />
           {links.length > 0 && <NextSteps links={links} />}

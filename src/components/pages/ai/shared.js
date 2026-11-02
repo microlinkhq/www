@@ -86,8 +86,7 @@ export const HOW_TO = {
 export const CTA = {
   caption:
     'Paste the prompt into your agent and let it call Microlink for you.',
-  href: SKILL_HREF,
-  label: 'Open the skill'
+  action: { href: SKILL_HREF, label: 'Open the skill' }
 }
 
 export const FAQ_CAPTION =
