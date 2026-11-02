@@ -1,6 +1,5 @@
 import React from 'react'
-import { SECTION_VERTICAL_SPACING, colors, layout, theme } from 'theme'
-import { ArrowRight, Zap } from 'react-feather'
+import { SECTION_VERTICAL_SPACING, layout, theme } from 'theme'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
@@ -8,131 +7,177 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
+import { CUSTOMERS } from 'components/patterns/CustomerStory/customers'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import analyticsData from '../../../../data/analytics.json'
 
-const CARD_WIDTH = ['100%', '100%', '400px', '400px']
-const PILL_RADIUS = '999px'
+const [{ reqs_pretty: reqsPretty }] = analyticsData
 
-const FreeKeyCard = ({ cta, children }) => (
+const FREE_KEY_FACTS = [
+  `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
+  'Every Pro feature',
+  'No credit card'
+]
+
+const AVATAR_SIZE = '40px'
+const AVATAR_OVERLAP = '-10px'
+const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
+
+const CustomerAvatars = () => (
+  <Flex as='ul' css={theme({ listStyle: 'none', m: 0, p: 0 })}>
+    {CUSTOMERS.map(({ slug, author, name, avatar }, index) => (
+      <Box
+        as='li'
+        key={slug}
+        css={theme({ ml: index === 0 ? 0 : AVATAR_OVERLAP })}
+      >
+        <img
+          src={avatar}
+          alt={`${author}, ${name}`}
+          width='40'
+          height='40'
+          loading='lazy'
+          decoding='async'
+          css={theme({
+            display: 'block',
+            width: AVATAR_SIZE,
+            height: AVATAR_SIZE,
+            borderRadius: '50%',
+            border: 2,
+            borderColor: 'white',
+            objectFit: 'cover'
+          })}
+        />
+      </Box>
+    ))}
+  </Flex>
+)
+
+const SocialProof = () => (
   <Flex
     css={theme({
+      pt: [4, 4, 5, 5],
       flexDirection: 'column',
       alignItems: 'center',
-      flexShrink: 0,
-      width: CARD_WIDTH,
-      p: [3, 3, 4, 4],
-      bg: 'white',
-      border: 1,
-      borderColor: 'black10',
-      borderRadius: 5,
-      boxShadow: 3,
-      textAlign: 'center'
+      gap: 2
     })}
   >
-    <Flex
-      css={theme({
-        alignItems: 'center',
-        gap: 2,
-        px: [3, 3, 4, 4],
-        py: 3,
-        bg: 'blue0',
-        borderRadius: PILL_RADIUS
-      })}
-    >
-      <Zap size={22} color={colors.link} aria-hidden='true' />
+    <CustomerAvatars />
+    <Text css={theme({ color: 'black60', textWrap: 'balance' })}>
+      Trusted with{' '}
       <Text
         as='span'
         css={theme({
+          color: 'black',
           fontWeight: 'bold',
-          fontVariantNumeric: 'tabular-nums',
-          whiteSpace: 'nowrap'
+          fontVariantNumeric: 'tabular-nums'
         })}
       >
-        {FREE_PLAN_REQUESTS_PER_DAY} requests/day
-      </Text>
-    </Flex>
-    <Text css={theme({ pt: 3, color: 'black60', textWrap: 'balance' })}>
-      Every Pro feature. No credit card.
+        {reqsPretty}+
+      </Text>{' '}
+      requests every month
     </Text>
-    <SignupLink
-      component={Button}
-      forwardedAs='a'
-      cta={cta}
-      css={theme({
-        mt: 4,
-        width: '100%',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        gap: 2,
-        fontSize: [1, 1, 2, 2],
-        whiteSpace: 'normal'
-      })}
-    >
-      Get your free API key
-      <ArrowRight size={18} aria-hidden='true' />
-    </SignupLink>
-    {children && <Box css={theme({ pt: 4 })}>{children}</Box>}
   </Flex>
 )
 
 export const CallToAction = ({ id, outcome, cta, children }) => (
-  <DotsBackground
+  <Container
+    as='section'
+    id={id}
     css={theme({
-      minHeight: 'auto',
-      overflow: 'hidden',
-      isolation: 'isolate',
-      bg: 'white'
+      alignItems: 'center',
+      maxWidth: '100%',
+      bg: 'white',
+      px: [3, 3, 4, 4],
+      py: SECTION_VERTICAL_SPACING
     })}
   >
-    <Container
-      as='section'
-      id={id}
+    <Box
       css={theme({
-        alignItems: 'center',
-        maxWidth: '100%',
-        py: SECTION_VERTICAL_SPACING
+        width: '100%',
+        maxWidth: layout.large,
+        p: 2,
+        bg: 'gray0',
+        border: 1,
+        borderColor: 'black05',
+        borderRadius: 5
       })}
     >
-      <Flex
+      <DotsBackground
         css={theme({
-          width: '100%',
-          maxWidth: layout.large,
-          px: [0, 0, 4, 0],
-          mx: 'auto',
-          gap: [4, 4, 5, 5],
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center',
-          justifyContent: 'space-between'
+          minHeight: 'auto',
+          overflow: 'hidden',
+          isolation: 'isolate',
+          bg: 'white',
+          border: 1,
+          borderColor: 'black10',
+          borderRadius: 4,
+          boxShadow: 2
         })}
       >
         <Flex
           css={theme({
             flexDirection: 'column',
-            alignItems: ['center', 'center', 'flex-start', 'flex-start'],
-            minWidth: 0
+            alignItems: 'center',
+            textAlign: 'center',
+            px: [3, 4, 5, 5],
+            py: [5, 5, 6, 6]
           })}
         >
-          <Subhead
-            css={theme({ textAlign: ['center', 'center', 'left', 'left'] })}
-          >
-            Start free
-          </Subhead>
+          <Subhead>Start free</Subhead>
           <Caption
             forwardedAs='div'
             css={theme({
               pt: [3, 3, 4, 4],
               maxWidth: layout.small,
-              textAlign: ['center', 'center', 'left', 'left']
+              color: 'black70'
             })}
           >
             Sign up, add the key to your requests, and start {outcome}.
           </Caption>
+          <SignupLink
+            component={Button}
+            forwardedAs='a'
+            cta={cta}
+            css={theme({
+              mt: [4, 4, 5, 5],
+              minWidth: BUTTON_MIN_WIDTH,
+              px: [3, 3, 5, 5],
+              py: 3,
+              fontSize: [1, 1, 2, 2],
+              borderRadius: 3,
+              boxShadow: 2,
+              whiteSpace: 'normal'
+            })}
+          >
+            Get your free API key
+          </SignupLink>
+          <Text
+            css={theme({
+              pt: 3,
+              fontSize: 0,
+              color: 'black60',
+              textWrap: 'balance'
+            })}
+          >
+            {FREE_KEY_FACTS.map((fact, index) => (
+              <React.Fragment key={fact}>
+                {index > 0 && ' · '}
+                <Text
+                  as='span'
+                  css={theme({ fontSize: 'inherit', whiteSpace: 'nowrap' })}
+                >
+                  {fact}
+                </Text>
+              </React.Fragment>
+            ))}
+          </Text>
+          <SocialProof />
+          {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
         </Flex>
-        <FreeKeyCard cta={cta}>{children}</FreeKeyCard>
-      </Flex>
-    </Container>
-  </DotsBackground>
+      </DotsBackground>
+    </Box>
+  </Container>
 )
