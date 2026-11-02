@@ -7,6 +7,7 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
+import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
@@ -17,78 +18,91 @@ const FREE_KEY_PERKS = [
 ]
 
 export const CallToAction = ({ id, outcome, cta, children }) => (
-  <Container
-    as='section'
-    id={id}
+  <DotsBackground
     css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'white',
-      py: SECTION_VERTICAL_SPACING
+      minHeight: 'auto',
+      overflow: 'hidden',
+      isolation: 'isolate',
+      bg: 'white'
     })}
   >
-    <Flex
+    <Container
+      as='section'
+      id={id}
       css={theme({
-        flexDirection: 'column',
         alignItems: 'center',
-        maxWidth: layout.normal,
-        px: [4, 4, 4, 0],
-        mx: 'auto'
+        maxWidth: '100%',
+        py: SECTION_VERTICAL_SPACING
       })}
     >
-      <Subhead
-        css={theme({
-          textAlign: 'center'
-        })}
-      >
-        Start free
-      </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({
-          pt: [3, 3, 4, 4],
-          maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center'
-        })}
-      >
-        Sign up, add the key to your requests, and start {outcome}.
-      </Caption>
       <Flex
         css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 3, 4, 4],
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center'
+          flexDirection: 'column',
+          alignItems: 'center',
+          maxWidth: layout.normal,
+          px: [4, 4, 4, 0],
+          mx: 'auto'
         })}
       >
-        <SignupLink cta={cta} css={theme({ fontSize: 2 })}>
-          Get your free API key
-        </SignupLink>
+        <Subhead
+          css={theme({
+            textAlign: 'center'
+          })}
+        >
+          Start free
+        </Subhead>
+        <Caption
+          forwardedAs='div'
+          css={theme({
+            pt: [3, 3, 4, 4],
+            maxWidth: [
+              layout.small,
+              layout.small,
+              layout.normal,
+              layout.normal
+            ],
+            textAlign: 'center'
+          })}
+        >
+          Sign up, add the key to your requests, and start {outcome}.
+        </Caption>
+        <Flex
+          css={theme({
+            pt: [4, 4, 5, 5],
+            gap: [3, 3, 4, 4],
+            flexDirection: ['column', 'column', 'row', 'row'],
+            alignItems: 'center'
+          })}
+        >
+          <SignupLink cta={cta} css={theme({ fontSize: 2 })}>
+            Get your free API key
+          </SignupLink>
+        </Flex>
+        <Flex
+          css={theme({
+            pt: [4, 4, 5, 5],
+            gap: [3, 3, 4, 4],
+            flexWrap: 'wrap',
+            justifyContent: 'center'
+          })}
+        >
+          {FREE_KEY_PERKS.map(label => (
+            <Flex
+              key={label}
+              css={theme({
+                alignItems: 'center',
+                gap: 1,
+                color: 'black80',
+                fontSize: [0, 0, 1, 1]
+              })}
+            >
+              <CheckIcon size={16} color={colors.close} />
+              <Text as='span'>{label}</Text>
+            </Flex>
+          ))}
+        </Flex>
+        {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
       </Flex>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 3, 4, 4],
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        })}
-      >
-        {FREE_KEY_PERKS.map(label => (
-          <Flex
-            key={label}
-            css={theme({
-              alignItems: 'center',
-              gap: 1,
-              color: 'black80',
-              fontSize: [0, 0, 1, 1]
-            })}
-          >
-            <CheckIcon size={16} color={colors.close} />
-            <Text as='span'>{label}</Text>
-          </Flex>
-        ))}
-      </Flex>
-      {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
-    </Flex>
-  </Container>
+    </Container>
+  </DotsBackground>
 )
