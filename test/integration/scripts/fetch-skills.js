@@ -5,8 +5,13 @@ import path from 'node:path'
 import { afterAll, describe, expect, test } from 'vitest'
 import provider from '../../../scripts/fetch-data/providers/fetch-skills.js'
 
-const { createFrontmatter, getSkillDates, getSkills, upsertSkillsRepository } =
-  provider
+const {
+  createFrontmatter,
+  getSkillDates,
+  getSkills,
+  parseFrontmatter,
+  upsertSkillsRepository
+} = provider
 
 const roots = []
 const remember = dir => {
@@ -154,6 +159,16 @@ const parseOne = async frontmatter => {
   const [skill] = await getSkills(repoDir)
   return skill
 }
+
+describe('parseFrontmatter', () => {
+  test('reads only key: value lines when the frontmatter is not YAML', () => {
+    expect(
+      parseFrontmatter(
+        skillSource("name : sample\ndescription: 'a: b'c\norphan line")
+      ).meta
+    ).toEqual({ name: 'sample', description: "a: b'c" })
+  })
+})
 
 describe('getSkills frontmatter', () => {
   test('joins a folded block description into one line', async () => {

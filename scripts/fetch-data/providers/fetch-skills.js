@@ -265,5 +265,6 @@ module.exports = async () => {
 module.exports.getSkillDates = getSkillDates
 module.exports.getSkills = getSkills
 module.exports.createFrontmatter = createFrontmatter
+module.exports.parseFrontmatter = parseFrontmatter
 module.exports.upsertSkillsRepository = upsertSkillsRepository
 module.exports.dist = [SKILLS_DATA_PATH, SKILLS_CONTENT_DIR, SKILLS_REPO_DIR]
