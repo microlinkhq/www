@@ -39,7 +39,7 @@ Alternatively, you can serialize to `'html'` or `'csv'`:
   }
   }} />
 
-Any [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) setting is supported:
+These [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) settings are supported: `onlyCategories`, `onlyAudits`, `skipAudits`, `formFactor`, `screenEmulation`, `throttling`, `throttlingMethod`, `emulatedUserAgent`, `extraHeaders`, `blockedUrlPatterns`, `locale`, `output`, `ignoreStatusCode`, `disableFullPageScreenshot`, `usePassiveGathering`, `maxWaitForFcp`, `maxWaitForLoad`, `pauseAfterFcpMs`, `pauseAfterLoadMs`, `networkQuietThresholdMs` and `cpuQuietThresholdMs`. Any other setting is ignored.
 
 <MultiCodeEditorInteractive mqlCode={{
     url: 'https://css-tricks.com/nerds-guide-color-web',
