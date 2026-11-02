@@ -35,7 +35,7 @@ const PRODUCT_PAGES = [
   'pages/alternative/serpapi.js'
 ]
 
-const PAGE_CTA_IMPORT = /from 'components\/pages\/[a-z-]+\/cta'/
+const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z-]+\/cta)'/
 
 const rendersSharedPattern = source =>
   source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
@@ -64,7 +64,7 @@ const ctaConfigFor = file => {
     return read(sharedFile).match(SHARED_CTA_BLOCK)[0]
   }
   const pageCta = source.match(PAGE_CTA_IMPORT)
-  if (pageCta) return ctaConfigFor(`${pageCta[0].slice(6, -1)}.js`)
+  if (pageCta) return ctaConfigFor(`${pageCta[1]}.js`)
   const block = source.match(CTA_JSX_BLOCK)[0]
   const linksConst = block.match(LINKS_CONST)
   if (!linksConst) return block

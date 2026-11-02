@@ -49,6 +49,26 @@ const SKILL_FRONTMATTER_DEFAULTS = {
 
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---\n?/
 
+const unquote = value => value.replace(/^['"]|['"]$/g, '')
+
+const parseFlatMeta = source =>
+  source.split('\n').reduce((meta, line) => {
+    const separator = line.indexOf(':')
+    if (separator === -1) return meta
+    meta[line.slice(0, separator).trim()] = unquote(
+      line.slice(separator + 1).trim()
+    )
+    return meta
+  }, {})
+
+const parseMeta = source => {
+  try {
+    return YAML.parse(source)
+  } catch {
+    return parseFlatMeta(source)
+  }
+}
+
 const getSkillUrl = slug => `${SKILL_REPO_BLOB_URL}/${slug}/SKILL.md`
 
 const parseFrontmatter = input => {
@@ -62,7 +82,7 @@ const parseFrontmatter = input => {
   }
 
   return {
-    meta: YAML.parse(match[1]) ?? {},
+    meta: parseMeta(match[1]),
     body: input.slice(match[0].length).trim()
   }
 }

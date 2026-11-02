@@ -190,6 +190,19 @@ describe('getSkills frontmatter', () => {
     expect(skill.description).toBe('Usage: one call, no setup')
   })
 
+  test('reads an unquoted description that contains a colon', async () => {
+    const skill = await parseOne(
+      "name: 'sample'\ndescription: Usage: one call, no setup\norphan line"
+    )
+    expect(skill.name).toBe('sample')
+    expect(skill.description).toBe('Usage: one call, no setup')
+  })
+
+  test('reads an empty frontmatter as no metadata', async () => {
+    const skill = await parseOne('')
+    expect(skill.name).toBe('sample')
+  })
+
   test('reads a plain single-line description', async () => {
     const skill = await parseOne('name: sample\ndescription: Visual diffs.')
     expect(skill.description).toBe('Visual diffs.')
