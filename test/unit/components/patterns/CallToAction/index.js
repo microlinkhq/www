@@ -1,6 +1,10 @@
 import React from 'react'
 import { describe, expect, test } from 'vitest'
 import { CallToAction } from '../../../../../src/components/patterns/CallToAction'
+import {
+  CUSTOMERS,
+  customerPath
+} from '../../../../../src/components/patterns/CustomerStory/customers'
 import { renderMarkup } from '../../../../utils/render-markup'
 
 const SEPARATOR = ' · '
@@ -74,10 +78,19 @@ describe('CallToAction', () => {
     expect(markup).not.toMatch(EMPTY_ELEMENT)
   })
 
-  test('shows every customer avatar with an accessible name', () => {
+  test('links every customer avatar to its customer story', () => {
     const markup = render({ outcome: 'x' })
-    expect(count(markup, '<img ')).toBe(5)
-    expect(markup).toContain('alt="Stefan Charsley, MyMahi"')
+    const anchors = markup.match(/<a [^>]*>/g)
+    expect(count(markup, '<img ')).toBe(CUSTOMERS.length)
+    for (const { slug, name, author } of CUSTOMERS) {
+      const anchor = anchors.find(tag =>
+        tag.includes(`href="${customerPath(slug)}"`)
+      )
+      expect(anchor, slug).toBeDefined()
+      expect(anchor).toContain(
+        `aria-label="${name} customer story, with ${author}"`
+      )
+    }
     expect(markup).toContain('100M+')
   })
 

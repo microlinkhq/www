@@ -1,5 +1,14 @@
 import React from 'react'
-import { SECTION_VERTICAL_SPACING, layout, theme, toPx } from 'theme'
+import { Link as GatsbyLink } from 'gatsby'
+import styled from 'styled-components'
+import {
+  SECTION_VERTICAL_SPACING,
+  colors,
+  layout,
+  theme,
+  toPx,
+  transition
+} from 'theme'
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
@@ -8,7 +17,10 @@ import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
-import { CUSTOMERS } from 'components/patterns/CustomerStory/customers'
+import {
+  CUSTOMERS,
+  customerPath
+} from 'components/patterns/CustomerStory/customers'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
@@ -26,30 +38,62 @@ const AVATAR_SIZE = 40
 const AVATAR_OVERLAP = 10
 const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
 
+const AvatarLink = styled(GatsbyLink)`
+  position: relative;
+  display: block;
+  border-radius: 50%;
+
+  &:hover,
+  &:focus-visible {
+    z-index: 1;
+  }
+
+  &:focus-visible {
+    outline: 2px solid ${colors.link};
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition: transform ${transition.short};
+
+    &:hover,
+    &:focus-visible {
+      transform: translateY(-2px);
+    }
+  }
+`
+
 const CustomerAvatars = () => (
   <Flex
     as='ul'
+    aria-label='Customer stories'
     css={theme({ listStyle: 'none', m: 0, p: 0, pl: toPx(AVATAR_OVERLAP) })}
   >
     {CUSTOMERS.map(({ slug, author, name, avatar }) => (
       <Box as='li' key={slug} css={theme({ ml: toPx(-AVATAR_OVERLAP) })}>
-        <img
-          src={avatar}
-          alt={`${author}, ${name}`}
-          width={AVATAR_SIZE}
-          height={AVATAR_SIZE}
-          loading='lazy'
-          decoding='async'
-          css={theme({
-            display: 'block',
-            width: toPx(AVATAR_SIZE),
-            height: toPx(AVATAR_SIZE),
-            borderRadius: '50%',
-            border: 2,
-            borderColor: 'white',
-            objectFit: 'cover'
-          })}
-        />
+        <AvatarLink
+          to={customerPath(slug)}
+          aria-label={`${name} customer story, with ${author}`}
+          title={`${author}, ${name}`}
+        >
+          <img
+            src={avatar}
+            alt=''
+            width={AVATAR_SIZE}
+            height={AVATAR_SIZE}
+            loading='lazy'
+            decoding='async'
+            css={theme({
+              display: 'block',
+              width: toPx(AVATAR_SIZE),
+              height: toPx(AVATAR_SIZE),
+              borderRadius: '50%',
+              border: 2,
+              borderColor: 'white',
+              objectFit: 'cover'
+            })}
+          />
+        </AvatarLink>
       </Box>
     ))}
   </Flex>
