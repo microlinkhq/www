@@ -1,8 +1,4 @@
 import React from 'react'
-import { theme } from 'theme'
-import Flex from 'components/elements/Flex'
-import { Link } from 'components/elements/Link'
-import Text from 'components/elements/Text'
 import { CallToAction as FreeKeyCallToAction } from 'components/patterns/CallToAction'
 
 const NEXT_STEPS = [
@@ -15,26 +11,8 @@ const CallToAction = () => (
     id='get-started'
     outcome='turning any link into what you need'
     cta='home:footer-cta'
-  >
-    <Flex
-      as='ul'
-      aria-label='Other ways to start'
-      css={theme({
-        gap: [3, 3, 4, 4],
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-        listStyle: 'none',
-        m: 0,
-        p: 0
-      })}
-    >
-      {NEXT_STEPS.map(({ href, label }) => (
-        <Text as='li' key={href}>
-          <Link href={href}>{label}</Link>
-        </Text>
-      ))}
-    </Flex>
-  </FreeKeyCallToAction>
+    links={NEXT_STEPS}
+  />
 )
 
 export default CallToAction

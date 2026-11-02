@@ -310,11 +310,10 @@ export const PRICING_CAPTION = (
 )
 
 export const CTA = {
-  caption: `Point a request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first ${FREE_PLAN_REQUESTS_PER_DAY} calls a day.`,
+  caption:
+    'Point a request at the URL you are scraping today and compare the response with the one you get back now.',
   cta: 'alternative-scrapingbee:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/guides',
-  secondaryLabel: 'Read the guides'
+  links: [{ href: '/docs/guides', label: 'Read the guides' }]
 }
 
 export const FAQ_CAPTION =

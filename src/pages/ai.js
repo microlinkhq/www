@@ -3,15 +3,14 @@ import React from 'react'
 import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import {
-  ProductCta,
   ProductFaq,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 import { Hero } from 'components/pages/ai/hero'
 import { How } from 'components/pages/ai/how'
 import {
-  ACCENT,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
@@ -45,7 +44,7 @@ const AiPage = () => (
       caption={FAQ_CAPTION}
       questions={toFaqQuestions(FAQ_ITEMS)}
     />
-    <ProductCta {...CTA} accent={ACCENT} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

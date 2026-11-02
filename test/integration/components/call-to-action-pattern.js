@@ -10,9 +10,35 @@ const PAGE_CTAS = [
   'components/pages/markdown/cta.js',
   'components/pages/screenshot/cta.js',
   'components/pages/pdf/cta.js',
+  'components/pages/metadata/cta.js',
   'components/pages/home/call-to-action.js',
   'components/pages/blog/post-footer.js'
 ]
+
+const PRODUCT_PAGES = [
+  'pages/ai.js',
+  'pages/api.js',
+  'pages/embed/index.js',
+  'pages/file-conversion.js',
+  'pages/function.js',
+  'pages/html.js',
+  'pages/link-preview.js',
+  'pages/logo.js',
+  'pages/markdown.js',
+  'pages/media.js',
+  'pages/metadata.js',
+  'pages/pdf.js',
+  'pages/screenshot.js',
+  'pages/text.js',
+  'pages/alternative/browserbase.js',
+  'pages/alternative/scrapingbee.js',
+  'pages/alternative/serpapi.js'
+]
+
+const PAGE_CTA_IMPORT = /from 'components\/pages\/[a-z-]+\/cta'/
+
+const rendersSharedPattern = source =>
+  source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
 
 const docsFileFor = href =>
   path.join(SRC, 'content', `${href.replace(/^\/|\/$/g, '')}.md`)
@@ -23,6 +49,19 @@ describe('call to action pattern', () => {
     expect(source).toContain(PATTERN_IMPORT)
     expect(source).not.toMatch(/keyframes/)
     expect(source).not.toMatch(/\bSignupLink\b/)
+  })
+
+  test.each(PRODUCT_PAGES)('%s closes with the shared pattern', file => {
+    const source = read(file)
+    expect(rendersSharedPattern(source)).toBe(true)
+    expect(source).not.toMatch(/\bProductCta\b/)
+    expect(source).not.toMatch(/\bCtaNow\b|\bCTA_LEAD_TEXT\b/)
+  })
+
+  test('the legacy product call to action is gone', () => {
+    expect(
+      fs.existsSync(path.join(SRC, 'components/patterns/ProductStory/cta.js'))
+    ).toBe(false)
   })
 
   test('every caller tracks signups under its own cta id', () => {

@@ -4,6 +4,7 @@ import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
@@ -15,7 +16,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
-const FREE_KEY_FACTS = [
+export const FREE_KEY_FACTS = [
   `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
   'Every Pro feature',
   'No credit card'
@@ -82,7 +83,100 @@ const SocialProof = () => (
   </Flex>
 )
 
-export const CallToAction = ({ id, outcome, cta, children }) => (
+const ACTION_LABEL = 'Get your free API key'
+
+const actionCss = theme({
+  mt: [4, 4, 5, 5],
+  minWidth: BUTTON_MIN_WIDTH,
+  px: [3, 3, 5, 5],
+  py: 3,
+  fontSize: [1, 1, 2, 2],
+  borderRadius: 3,
+  boxShadow: 2,
+  whiteSpace: 'normal'
+})
+
+const PrimaryAction = ({ cta, product, redirect, href, label }) =>
+  href
+    ? (
+      <Button forwardedAs='a' href={href} css={actionCss}>
+        {label}
+      </Button>
+      )
+    : (
+      <SignupLink
+        component={Button}
+        forwardedAs='a'
+        cta={cta}
+        product={product}
+        redirect={redirect}
+        css={actionCss}
+      >
+        {label}
+      </SignupLink>
+      )
+
+const Facts = ({ facts }) => (
+  <Text
+    css={theme({
+      pt: 3,
+      fontSize: 0,
+      color: 'black60',
+      textWrap: 'balance'
+    })}
+  >
+    {facts.map((fact, index) => (
+      <React.Fragment key={fact}>
+        {index > 0 && ' · '}
+        <Text
+          as='span'
+          css={theme({ fontSize: 'inherit', whiteSpace: 'nowrap' })}
+        >
+          {fact}
+        </Text>
+      </React.Fragment>
+    ))}
+  </Text>
+)
+
+const NextSteps = ({ links }) => (
+  <Flex
+    as='ul'
+    aria-label='Other ways to start'
+    css={theme({
+      pt: [4, 4, 5, 5],
+      gap: [3, 3, 4, 4],
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      listStyle: 'none',
+      m: 0,
+      p: 0
+    })}
+  >
+    {links.map(({ href, label }) => (
+      <Text as='li' key={href}>
+        <Link href={href}>{label}</Link>
+      </Text>
+    ))}
+  </Flex>
+)
+
+const captionFor = ({ caption, outcome }) =>
+  caption || `Sign up, add the key to your requests, and start ${outcome}.`
+
+export const CallToAction = ({
+  id,
+  outcome,
+  caption,
+  cta,
+  product,
+  redirect,
+  href,
+  label = ACTION_LABEL,
+  facts = FREE_KEY_FACTS,
+  links = [],
+  children
+}) => (
   <Container
     as='section'
     id={id}
@@ -126,7 +220,7 @@ export const CallToAction = ({ id, outcome, cta, children }) => (
             py: [5, 5, 6, 6]
           })}
         >
-          <Subhead>Start free</Subhead>
+          <Subhead>Start building</Subhead>
           <Caption
             forwardedAs='div'
             css={theme({
@@ -135,46 +229,18 @@ export const CallToAction = ({ id, outcome, cta, children }) => (
               color: 'black70'
             })}
           >
-            Sign up, add the key to your requests, and start {outcome}.
+            {captionFor({ caption, outcome })}
           </Caption>
-          <SignupLink
-            component={Button}
-            forwardedAs='a'
+          <PrimaryAction
             cta={cta}
-            css={theme({
-              mt: [4, 4, 5, 5],
-              minWidth: BUTTON_MIN_WIDTH,
-              px: [3, 3, 5, 5],
-              py: 3,
-              fontSize: [1, 1, 2, 2],
-              borderRadius: 3,
-              boxShadow: 2,
-              whiteSpace: 'normal'
-            })}
-          >
-            Get your free API key
-          </SignupLink>
-          <Text
-            css={theme({
-              pt: 3,
-              fontSize: 0,
-              color: 'black60',
-              textWrap: 'balance'
-            })}
-          >
-            {FREE_KEY_FACTS.map((fact, index) => (
-              <React.Fragment key={fact}>
-                {index > 0 && ' · '}
-                <Text
-                  as='span'
-                  css={theme({ fontSize: 'inherit', whiteSpace: 'nowrap' })}
-                >
-                  {fact}
-                </Text>
-              </React.Fragment>
-            ))}
-          </Text>
+            product={product}
+            redirect={redirect}
+            href={href}
+            label={label}
+          />
+          <Facts facts={facts} />
           <SocialProof />
+          {links.length > 0 && <NextSteps links={links} />}
           {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
         </Flex>
       </DotsBackground>

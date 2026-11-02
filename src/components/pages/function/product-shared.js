@@ -416,11 +416,9 @@ export const HOW_TO = {
 export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption: `Write a function in the browser. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day, no card.`,
+  outcome: 'running your functions next to a real browser',
   cta: 'function:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/editor',
-  secondaryLabel: 'Open editor'
+  links: [{ href: '/editor', label: 'Open editor' }]
 }
 
 export const FAQ_CAPTION =
