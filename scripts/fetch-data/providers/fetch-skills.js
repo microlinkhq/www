@@ -6,6 +6,7 @@ const { mkdir, readdir, readFile, rm, writeFile } = require('node:fs/promises')
 const path = require('node:path')
 const { promisify } = require('node:util')
 const jsonFuture = require('json-future')
+const YAML = require('yaml')
 
 const run = promisify(execFile)
 
@@ -48,7 +49,6 @@ const SKILL_FRONTMATTER_DEFAULTS = {
 
 const FRONTMATTER_REGEX = /^---\n([\s\S]*?)\n---\n?/
 
-const unquote = value => value.replace(/^['"]|['"]$/g, '')
 const getSkillUrl = slug => `${SKILL_REPO_BLOB_URL}/${slug}/SKILL.md`
 
 const parseFrontmatter = input => {
@@ -61,23 +61,8 @@ const parseFrontmatter = input => {
     }
   }
 
-  const meta = match[1]
-    .split('\n')
-    .map(line => line.trim())
-    .filter(Boolean)
-    .reduce((acc, line) => {
-      const splitIndex = line.indexOf(':')
-      if (splitIndex === -1) return acc
-
-      const key = line.slice(0, splitIndex).trim()
-      const value = line.slice(splitIndex + 1).trim()
-
-      acc[key] = unquote(value)
-      return acc
-    }, {})
-
   return {
-    meta,
+    meta: YAML.parse(match[1]) ?? {},
     body: input.slice(match[0].length).trim()
   }
 }

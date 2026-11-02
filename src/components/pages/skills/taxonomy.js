@@ -40,6 +40,7 @@ export const SKILL_CATEGORY = {
   'microlink-mcp': 'consuming',
   'microlink-api': 'consuming',
   'unavatar-api': 'consuming',
+  difftool: 'consuming',
   browserless: 'automation',
   'html-get': 'automation',
   metascraper: 'automation',
@@ -49,5 +50,6 @@ export const SKILL_CATEGORY = {
   'nodejs-performance': 'infrastructure',
   'use-pnpm': 'infrastructure',
   'create-local-skill': 'agent',
-  'run-skill': 'agent'
+  'run-skill': 'agent',
+  'loop-review': 'agent'
 }
