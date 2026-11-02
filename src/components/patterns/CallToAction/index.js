@@ -221,7 +221,7 @@ export const CallToAction = ({
             {captionFor({ caption, outcome })}
           </Caption>
           <PrimaryAction cta={cta} action={action} />
-          <Facts facts={facts} />
+          {facts.length > 0 && <Facts facts={facts} />}
           <SocialProof />
           {links.length > 0 && <NextSteps links={links} />}
           {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}

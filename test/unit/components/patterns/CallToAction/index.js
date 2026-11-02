@@ -68,6 +68,12 @@ describe('CallToAction', () => {
     expect(count(render({ outcome: 'x', facts: ['Only'] }), SEPARATOR)).toBe(0)
   })
 
+  test('no facts leaves no empty facts line', () => {
+    const markup = render({ outcome: 'x', facts: [] })
+    expect(markup).not.toContain('No credit card')
+    expect(markup).not.toMatch(EMPTY_ELEMENT)
+  })
+
   test('shows every customer avatar with an accessible name', () => {
     const markup = render({ outcome: 'x' })
     expect(count(markup, '<img ')).toBe(5)

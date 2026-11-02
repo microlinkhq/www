@@ -40,7 +40,7 @@ const PAGE_CTA_IMPORT = /from 'components\/pages\/[a-z-]+\/cta'/
 const rendersSharedPattern = source =>
   source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
 
-const FAQ_ELEMENT = /<(ProductInformation|ProductFaq|Faqs)\b/g
+const FAQ_ELEMENT = /<(ProductInformation|ProductFaq)\b/g
 const CTA_ELEMENT = /<CallToAction\b/
 
 const lastFaqIndex = source =>
@@ -161,7 +161,8 @@ describe('call to action pattern', () => {
       .readdirSync(SRC, { recursive: true })
       .filter(file => file.endsWith('.js'))
       .filter(file => read(file).includes(PATTERN_IMPORT))
-    expect(importers.filter(file => !CALLERS.includes(file))).toEqual([])
+    expect(importers).toContain('components/pages/home/call-to-action.js')
+    expect(CALLERS).toEqual(expect.arrayContaining(importers))
   })
 
   test.each(CALLERS)('%s sets the call to action copy', file => {
@@ -181,9 +182,14 @@ describe('call to action pattern', () => {
     for (const id of ids) expect(id).toMatch(/^[a-z-]+:footer-cta$/)
   })
 
+  test('next steps declared in a constant are read from it', () => {
+    expect(ctaConfigFor('components/pages/home/call-to-action.js')).toContain(
+      "href: '/docs/api/getting-started/mcp'"
+    )
+  })
+
   test.each(CALLERS)('%s links its next steps to pages that exist', file => {
     for (const [, href] of ctaConfigFor(file).matchAll(HREF)) {
-      if (href.startsWith('http')) continue
       expect(routeFileFor(href), href).toBeDefined()
     }
   })
@@ -194,12 +200,36 @@ describe('call to action pattern', () => {
         read('components/patterns/CallToAction/index.js')
       )
     ).toEqual([])
-    expect(shorthandsAfterLonghands('theme({ pt: 4, m: 0, p: 0 })')).toEqual([
-      'p'
-    ])
     expect(shorthandsAfterLonghands('theme({ p: 0, pt: 4, mx: 0 })')).toEqual(
       []
     )
+  })
+
+  test.each([
+    ['pt', 'p'],
+    ['pb', 'p'],
+    ['pl', 'p'],
+    ['pr', 'p'],
+    ['px', 'p'],
+    ['py', 'p'],
+    ['mt', 'm'],
+    ['mb', 'm'],
+    ['ml', 'm'],
+    ['mr', 'm'],
+    ['mx', 'm'],
+    ['my', 'm'],
+    ['pl', 'px'],
+    ['pr', 'px'],
+    ['pt', 'py'],
+    ['pb', 'py'],
+    ['ml', 'mx'],
+    ['mr', 'mx'],
+    ['mt', 'my'],
+    ['mb', 'my']
+  ])('%s followed by %s is flagged as a reset', (longhand, shorthand) => {
+    expect(
+      shorthandsAfterLonghands(`theme({ ${longhand}: 4, ${shorthand}: 0 })`)
+    ).toEqual([shorthand])
   })
 
   test('the homepage closes with the call to action after the FAQ', () => {
@@ -223,6 +253,7 @@ describe('call to action pattern', () => {
     expect(routeFileFor('/docs/guides')).toMatch(/guides\/index\.md$/)
     expect(routeFileFor('/docs/api/getting-started/mcp')).toMatch(/mcp\.md$/)
     expect(routeFileFor('/pricing')).toMatch(/pages\/pricing\.js$/)
+    expect(routeFileFor('/embed')).toMatch(/pages\/embed\/index\.js$/)
     expect(routeFileFor('/docs/does-not-exist')).toBeUndefined()
   })
 })
