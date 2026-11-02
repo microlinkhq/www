@@ -234,7 +234,7 @@ const MethodGroup = ({ id, label, caption, accent, methods }) => {
 const Methods = () => (
   <Section id='methods'>
     <SectionHeader
-      title='Every product is a method.'
+      title='Every product is a method'
       caption='All of them follow the same contract: same authentication, same errors, same response shape.'
     />
     <Box

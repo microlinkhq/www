@@ -15,7 +15,6 @@ import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import Caption from 'components/patterns/Caption/Caption'
 
 import {
-  ACCENT,
   INSTALL_SNIPPET,
   REPOSITORY_URL,
   Section
@@ -182,9 +181,21 @@ const Hero = () => (
       })}
     >
       <Heading variant={null} css={theme({ textAlign: 'center' })}>
-        The official <span css={theme({ color: ACCENT })}>SDK</span>
+        The{' '}
+        <Text
+          as='span'
+          variant='gradient'
+          css={theme({
+            fontSize: 'inherit',
+            fontWeight: 'inherit',
+            letterSpacing: 'inherit',
+            lineHeight: 'inherit'
+          })}
+        >
+          Official SDK
+        </Text>
         <LineBreak />
-        for the Microlink API.
+        for Microlink API
       </Heading>
       <Caption
         forwardedAs='p'
