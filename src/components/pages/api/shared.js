@@ -417,8 +417,7 @@ export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS
 
 export const CTA = {
   outcome: 'turning any link into what you need',
-  cta: 'api:footer-cta',
-  links: [{ href: '/pricing', label: 'See pricing' }]
+  cta: 'api:footer-cta'
 }
 
 export const FAQ_CAPTION =
