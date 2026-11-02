@@ -36,7 +36,8 @@ const OTHER_PRODUCT_PAGES = [
 ]
 
 const PRODUCT_PAGES = [
-  ...new Set([...NAV_PRODUCT_ROUTES.map(pageFileFor), ...OTHER_PRODUCT_PAGES])
+  ...NAV_PRODUCT_ROUTES.map(pageFileFor),
+  ...OTHER_PRODUCT_PAGES
 ]
 
 const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z-]+\/cta)'/
@@ -78,7 +79,7 @@ const ctaConfigFor = file => {
   return `${block}\n${links}`
 }
 
-const CALLERS = [...new Set([...PAGE_CTAS, ...PRODUCT_PAGES])]
+const CALLERS = [...PAGE_CTAS, ...PRODUCT_PAGES]
 
 const routeFileFor = href => {
   const route = href.replace(/^\/|\/$/g, '')

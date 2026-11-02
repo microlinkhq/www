@@ -28,7 +28,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
-export const FREE_KEY_FACTS = [
+const FREE_KEY_FACTS = [
   `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
   'Every Pro feature',
   'No credit card'
