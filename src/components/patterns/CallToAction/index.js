@@ -35,23 +35,26 @@ export const FREE_KEY_FACTS = [
 ]
 
 const AVATAR_SIZE = 40
+const AVATAR_TOUCH_SIZE = 44
 const AVATAR_OVERLAP = 10
+const AVATAR_SIZES = [AVATAR_TOUCH_SIZE, AVATAR_SIZE, AVATAR_SIZE, AVATAR_SIZE]
+const AVATAR_OVERLAPS = [0, AVATAR_OVERLAP, AVATAR_OVERLAP, AVATAR_OVERLAP]
 const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
 
 const AvatarLink = styled(GatsbyLink)`
-  position: relative;
-  display: block;
-  border-radius: 50%;
+  touch-action: manipulation;
 
-  &:hover,
-  &:focus-visible {
-    z-index: 1;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
+  ${theme({
+    position: 'relative',
+    display: 'block',
+    borderRadius: '50%',
+    _hover: { zIndex: 1 },
+    _focusVisible: {
+      zIndex: 1,
+      outline: `2px solid ${colors.link}`,
+      outlineOffset: '2px'
+    }
+  })}
 
   @media (prefers-reduced-motion: no-preference) {
     transition: transform ${transition.short};
@@ -67,10 +70,20 @@ const CustomerAvatars = () => (
   <Flex
     as='ul'
     aria-label='Customer stories'
-    css={theme({ listStyle: 'none', m: 0, p: 0, pl: toPx(AVATAR_OVERLAP) })}
+    css={theme({
+      listStyle: 'none',
+      m: 0,
+      p: 0,
+      pl: AVATAR_OVERLAPS.map(toPx),
+      gap: [1, 0, 0, 0]
+    })}
   >
     {CUSTOMERS.map(({ slug, author, name, avatar }) => (
-      <Box as='li' key={slug} css={theme({ ml: toPx(-AVATAR_OVERLAP) })}>
+      <Box
+        as='li'
+        key={slug}
+        css={theme({ ml: AVATAR_OVERLAPS.map(overlap => toPx(-overlap)) })}
+      >
         <AvatarLink
           to={customerPath(slug)}
           aria-label={`${name} customer story, with ${author}`}
@@ -79,14 +92,14 @@ const CustomerAvatars = () => (
           <img
             src={avatar}
             alt=''
-            width={AVATAR_SIZE}
-            height={AVATAR_SIZE}
+            width={AVATAR_TOUCH_SIZE}
+            height={AVATAR_TOUCH_SIZE}
             loading='lazy'
             decoding='async'
             css={theme({
               display: 'block',
-              width: toPx(AVATAR_SIZE),
-              height: toPx(AVATAR_SIZE),
+              width: AVATAR_SIZES.map(toPx),
+              height: AVATAR_SIZES.map(toPx),
               borderRadius: '50%',
               border: 2,
               borderColor: 'white',
