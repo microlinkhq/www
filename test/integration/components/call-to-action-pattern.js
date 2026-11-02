@@ -15,24 +15,28 @@ const PAGE_CTAS = [
   'components/pages/blog/post-footer.js'
 ]
 
-const PRODUCT_PAGES = [
+const NAVIGATION_SOURCE = 'components/patterns/Toolbar/ToolbarLinks.js'
+const PRODUCTS_SECTION = /label: 'Products',[\s\S]*?\n {2}\},?\n/
+const INTERNAL_HREF = /href: '(\/[a-z-]+)'/g
+
+const pageFileFor = route =>
+  [`pages${route}.js`, `pages${route}/index.js`].find(file =>
+    fs.existsSync(path.join(SRC, file))
+  )
+
+const NAV_PRODUCT_ROUTES = [
+  ...read(NAVIGATION_SOURCE).match(PRODUCTS_SECTION)[0].matchAll(INTERNAL_HREF)
+].map(match => match[1])
+
+const OTHER_PRODUCT_PAGES = [
   'pages/ai.js',
-  'pages/api.js',
-  'pages/embed/index.js',
-  'pages/file-conversion.js',
-  'pages/function.js',
-  'pages/html.js',
-  'pages/link-preview.js',
-  'pages/logo.js',
-  'pages/markdown.js',
-  'pages/media.js',
-  'pages/metadata.js',
-  'pages/pdf.js',
-  'pages/screenshot.js',
-  'pages/text.js',
   'pages/alternative/browserbase.js',
   'pages/alternative/scrapingbee.js',
   'pages/alternative/serpapi.js'
+]
+
+const PRODUCT_PAGES = [
+  ...new Set([...NAV_PRODUCT_ROUTES.map(pageFileFor), ...OTHER_PRODUCT_PAGES])
 ]
 
 const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z-]+\/cta)'/
@@ -40,7 +44,7 @@ const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z-]+\/cta)'/
 const rendersSharedPattern = source =>
   source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
 
-const FAQ_ELEMENT = /<(ProductInformation|ProductFaq)\b/g
+const FAQ_ELEMENT = /<(ProductInformation|ProductFaq|Faq)\b/g
 const CTA_ELEMENT = /<CallToAction\b/
 
 const lastFaqIndex = source =>
@@ -115,6 +119,15 @@ describe('call to action pattern', () => {
     expect(source).toContain(PATTERN_IMPORT)
     expect(source).not.toMatch(/keyframes/)
     expect(source).not.toMatch(/\bSignupLink\b/)
+  })
+
+  test('reads every product from the Products menu', () => {
+    expect(NAV_PRODUCT_ROUTES).toEqual(
+      expect.arrayContaining(['/api', '/screenshot', '/search', '/insights'])
+    )
+    for (const route of NAV_PRODUCT_ROUTES) {
+      expect(pageFileFor(route), route).toBeDefined()
+    }
   })
 
   test.each(PRODUCT_PAGES)('%s closes with the shared pattern', file => {
