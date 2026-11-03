@@ -190,7 +190,8 @@
     "tldts": "~7.4.19",
     "top-user-agents": "~2.1.145",
     "truncate-url": "~3.0.0",
-    "unique-random-array": "~4.0.0"
+    "unique-random-array": "~4.0.0",
+    "yaml": "~2.9.1"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",

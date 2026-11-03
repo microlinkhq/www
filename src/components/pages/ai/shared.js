@@ -84,9 +84,9 @@ export const HOW_TO = {
 }
 
 export const CTA = {
-  caption: `Paste the prompt into your agent. Free API key, ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day, no card.`,
-  ctaHref: SKILL_HREF,
-  ctaLabel: 'Open the skill'
+  caption:
+    'Paste the prompt into your agent and let it call Microlink for you.',
+  action: { href: SKILL_HREF, label: 'Open the skill' }
 }
 
 export const FAQ_CAPTION =

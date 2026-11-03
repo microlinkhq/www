@@ -7,6 +7,7 @@ import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Text from 'components/elements/Text'
 import Faq from 'components/patterns/Faq/Faq'
+import { CallToAction } from 'components/patterns/CallToAction'
 import Layout from 'components/patterns/Layout'
 
 import {
@@ -51,6 +52,11 @@ const GooglePage = () => (
           </>
         )
       }))}
+    />
+    <CallToAction
+      id='cta'
+      outcome='searching Google from a single call'
+      cta='search:footer-cta'
     />
 
     <Container

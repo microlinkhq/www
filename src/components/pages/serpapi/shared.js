@@ -408,14 +408,12 @@ export const CTA = {
   caption:
     'Run the query you ran this morning and compare the JSON with what you parse today. The Search guide has a working call in the first code block.',
   cta: 'alternative-serpapi:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/guides/search',
-  secondaryLabel: 'Read the Search guide',
-  badges: [
+  facts: [
     '10 Google surfaces',
     'One SDK import',
     'Monthly quota, no hourly limit'
-  ]
+  ],
+  links: [{ href: '/docs/guides/search', label: 'Read the Search guide' }]
 }
 
 export const FAQ_CAPTION =

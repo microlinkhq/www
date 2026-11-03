@@ -11,12 +11,13 @@ import {
   ProductTimings,
   ProductCapabilities,
   ProductPricing,
-  ProductCta,
   ProductFaq,
   Subhead,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
+import { LangLandingsNav } from 'components/patterns/LangLandings'
 import { HtmlCapabilitiesVisual } from 'components/pages/html/capabilities-visual'
 import { LANG_LANDINGS } from 'components/pages/html/lang/registry'
 import {
@@ -140,8 +141,10 @@ const HtmlPage = () => (
       }
       features={FEATURES}
     />
-    <ProductCta {...CTA} accent={ACCENT} langLandings={LANG_LANDINGS} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA}>
+      <LangLandingsNav langs={LANG_LANDINGS} label='Language guides' />
+    </CallToAction>
   </Layout>
 )
 

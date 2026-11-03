@@ -5,11 +5,11 @@ import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
   ProductPricing,
-  ProductCta,
   ProductFaq,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 import { FunctionProductHero } from 'components/pages/function/product-hero'
 import { FunctionPrimer } from 'components/pages/function/primer'
 import { FunctionShowcase } from 'components/pages/function/showcase'
@@ -58,8 +58,8 @@ const FunctionPage = () => (
     />
     <FunctionFeaturesGrid />
     <FunctionUseCases />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

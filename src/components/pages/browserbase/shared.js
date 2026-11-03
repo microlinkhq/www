@@ -442,11 +442,12 @@ export const PRICING_CAPTION = (
 )
 
 export const CTA = {
-  caption: `Point a URL at the API and get the rendered result back — screenshot, PDF, Markdown, or structured data. Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day, no browser to operate.`,
+  caption:
+    'Point a URL at the API and get the rendered result back: screenshot, PDF, Markdown, or structured data. No browser to operate.',
   cta: 'alternative-browserbase:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/api/getting-started/overview',
-  secondaryLabel: 'Read the docs'
+  links: [
+    { href: '/docs/api/getting-started/overview', label: 'Read the docs' }
+  ]
 }
 
 export const FAQ_CAPTION =

@@ -11,12 +11,12 @@ import {
   ProductTimings,
   ProductCapabilities,
   ProductPricing,
-  ProductCta,
   ProductFaq,
   Subhead,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 import { ConversionCapabilitiesVisual } from 'components/pages/file-conversion/capabilities-visual'
 import {
   ACCENT,
@@ -138,8 +138,8 @@ const FileConversionPage = () => (
       }
       features={FEATURES}
     />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

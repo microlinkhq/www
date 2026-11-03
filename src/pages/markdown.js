@@ -322,8 +322,8 @@ const MarkdownPage = () => {
         features={FEATURES}
       />
       <UseCases />
-      <CallToAction />
       <ProductInformation />
+      <CallToAction />
     </Layout>
   )
 }

@@ -43,6 +43,7 @@ import Average from 'components/patterns/Average/Average'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import Faq from 'components/patterns/Faq/Faq'
+import { CallToAction } from 'components/patterns/CallToAction'
 import Features from 'components/patterns/Features/Features'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
@@ -1028,6 +1029,11 @@ const InsightsPage = () => {
               />
               <Resume />
               <ProductInformation />
+              <CallToAction
+                id='cta'
+                outcome='auditing performance on every deploy'
+                cta='insights:footer-cta'
+              />
             </>
           )
         }}

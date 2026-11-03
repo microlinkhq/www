@@ -5,11 +5,11 @@ import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import {
   ProductComparison,
-  ProductCta,
   ProductFaq,
   ProductPricing,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Hero } from 'components/pages/serpapi/hero'
 import { Honesty } from 'components/pages/serpapi/honesty'
@@ -17,7 +17,6 @@ import { Migration } from 'components/pages/serpapi/migration'
 import { Throughput } from 'components/pages/serpapi/throughput'
 import { Trademarks } from 'components/pages/serpapi/trademarks'
 import {
-  ACCENT,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
@@ -33,11 +32,11 @@ const SerpApiAlternativePage = () => (
     <Hero />
     <Throughput />
     <ProductPricing title={PRICING_TITLE} caption={PRICING_CAPTION} />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductComparison {...COMPARISON} competitorKey='serpapi' />
     <Honesty />
     <Migration />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
     <Trademarks />
   </Layout>
 )

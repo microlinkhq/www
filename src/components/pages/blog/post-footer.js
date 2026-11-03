@@ -1,23 +1,10 @@
-import { H2, Paraph, Strong } from 'components/markdown'
-import { Link } from 'components/elements/Link'
-import Chat from 'components/patterns/Chat/Chat'
 import React from 'react'
+import { CallToAction } from 'components/patterns/CallToAction'
 
 export const PostFooter = () => (
-  <>
-    <H2 id='chat'>Join the community</H2>
-    <Paraph>
-      All of these improvements or features are{' '}
-      <Strong>community driven</Strong>: We listen to your feedback and act
-      accordingly.
-    </Paraph>
-    <Paraph>
-      <Chat />
-    </Paraph>
-
-    <Paraph>
-      Whether you are building a product, an indie developer, or just interested
-      in web technologies, come <Link href='/community'>chat</Link> with us.
-    </Paraph>
-  </>
+  <CallToAction
+    id='free-api-key'
+    outcome='turning any link into what you need'
+    cta='blog:footer-cta'
+  />
 )

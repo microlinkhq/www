@@ -5,8 +5,13 @@ import path from 'node:path'
 import { afterAll, describe, expect, test } from 'vitest'
 import provider from '../../../scripts/fetch-data/providers/fetch-skills.js'
 
-const { createFrontmatter, getSkillDates, getSkills, upsertSkillsRepository } =
-  provider
+const {
+  createFrontmatter,
+  getSkillDates,
+  getSkills,
+  parseFrontmatter,
+  upsertSkillsRepository
+} = provider
 
 const roots = []
 const remember = dir => {
@@ -62,7 +67,9 @@ const SECOND_ISO = '2026-05-26T13:26:42.000Z'
 
 const createSkillsRepo = commits => {
   const repoDir = createOrigin()
-  for (const { slug, body, date } of commits) { addSkill(repoDir, slug, body, date) }
+  for (const { slug, body, date } of commits) {
+    addSkill(repoDir, slug, body, date)
+  }
   return repoDir
 }
 
@@ -140,6 +147,88 @@ describe('createFrontmatter', () => {
     })
     expect(undated).not.toContain('date:')
     expect(undated).not.toContain('modified:')
+  })
+})
+
+const skillSource = frontmatter => `---\n${frontmatter}\n---\n\n# Body\n`
+
+const parseOne = async frontmatter => {
+  const repoDir = createSkillsRepo([
+    { slug: 'sample', body: skillSource(frontmatter), date: FIRST }
+  ])
+  const [skill] = await getSkills(repoDir)
+  return skill
+}
+
+describe('parseFrontmatter', () => {
+  test('reads only key: value lines when the frontmatter is not YAML', () => {
+    expect(
+      parseFrontmatter(
+        skillSource("name : sample\ndescription: 'a: b'c\norphan line")
+      ).meta
+    ).toEqual({ name: 'sample', description: "a: b'c" })
+  })
+})
+
+describe('getSkills frontmatter', () => {
+  test('joins a folded block description into one line', async () => {
+    const skill = await parseOne(
+      [
+        'name: loop-review',
+        'description: >-',
+        '  Drives each pull request it is given to an empty code review',
+        '  and an empty simplification.'
+      ].join('\n')
+    )
+    expect(skill.name).toBe('loop-review')
+    expect(skill.description).toBe(
+      'Drives each pull request it is given to an empty code review and an empty simplification.'
+    )
+  })
+
+  test('keeps a literal block description verbatim', async () => {
+    const skill = await parseOne(
+      [
+        'name: sample',
+        'description: |',
+        '  First line.',
+        '  Second line.'
+      ].join('\n')
+    )
+    expect(skill.description).toBe('First line.\nSecond line.\n')
+  })
+
+  test('reads a quoted description that contains a colon', async () => {
+    const skill = await parseOne(
+      'name: sample\ndescription: "Usage: one call, no setup"'
+    )
+    expect(skill.description).toBe('Usage: one call, no setup')
+  })
+
+  test('reads an unquoted description that contains a colon', async () => {
+    const skill = await parseOne(
+      "name: 'sample'\ndescription: Usage: one call, no setup\norphan line"
+    )
+    expect(skill.name).toBe('sample')
+    expect(skill.description).toBe('Usage: one call, no setup')
+  })
+
+  test('reads an empty frontmatter as no metadata', async () => {
+    const skill = await parseOne('')
+    expect(skill.name).toBe('sample')
+  })
+
+  test('reads a plain single-line description', async () => {
+    const skill = await parseOne('name: sample\ndescription: Visual diffs.')
+    expect(skill.description).toBe('Visual diffs.')
+    expect(skill.markdown).toBe('# Body')
+  })
+
+  test('falls back to the default description when none is given', async () => {
+    const skill = await parseOne('name: sample')
+    expect(skill.description).toBe(
+      'Usage guide and implementation patterns for sample.'
+    )
   })
 })
 

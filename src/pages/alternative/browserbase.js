@@ -8,11 +8,11 @@ import {
   ProductTimings,
   ProductPricing,
   ProductComparison,
-  ProductCta,
   ProductFaq,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Capabilities } from 'components/pages/browserbase/capabilities'
 import { Paths } from 'components/pages/browserbase/paths'
@@ -56,7 +56,6 @@ const BrowserbaseAlternativePage = () => (
     <Paths />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductComparison {...COMPARISON} competitorKey='browserbase' />
     <Honesty />
     <OpenSource
@@ -65,6 +64,7 @@ const BrowserbaseAlternativePage = () => (
       caption='Microlink runs on open source. The rendering engine, the MCP server, and the function runtime are public — read the code, contribute, or self-host instead of renting a browser.'
     />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

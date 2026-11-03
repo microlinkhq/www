@@ -31,9 +31,8 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { Check as CheckIcon } from 'react-feather'
-
 import ArrowLink from 'components/patterns/ArrowLink'
+import { CallToAction as FreeKeyCallToAction } from 'components/patterns/CallToAction'
 import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { CUSTOMERS, customerPath } from 'components/patterns/CustomerStory'
@@ -1715,133 +1714,17 @@ const CustomerStories = () => {
   )
 }
 
-const CTA_DURATION = 6.2
-const CTA_SWEEP_PCT = (1.2 / CTA_DURATION) * 100
-const CTA_LEAD_TEXT = 'Embed'
-const CTA_LEAD_CHARS = CTA_LEAD_TEXT.split('').map((char, index) => ({
-  char,
-  id: `${char}${index}`,
-  index
-}))
-const CTA_CHAR_PCT = CTA_SWEEP_PCT / CTA_LEAD_CHARS.length
-
-const ctaCharAnim = index => {
-  const on = index * CTA_CHAR_PCT
-  const off = on + CTA_CHAR_PCT
-  return keyframes`
-    0%, ${on}%, ${off}%, 100% { color: inherit; }
-    ${on + 0.01}%, ${off - 0.01}% { color: ${ACCENT}; }
-  `
-}
-
-const ctaAnims = Array.from({ length: CTA_LEAD_CHARS.length }, (_, i) =>
-  ctaCharAnim(i)
-)
-
-const CtaChar = styled('span')`
-  animation: ${({ $i }) => ctaAnims[$i]} ${CTA_DURATION}s step-end infinite;
-`
-
-const ctaNowAnim = keyframes`
-  0%, ${CTA_SWEEP_PCT}% { color: inherit; }
-  ${CTA_SWEEP_PCT + 0.01}%, 100% { color: ${ACCENT}; }
-`
-
-const CtaNow = styled('span')`
-  animation: ${ctaNowAnim} ${CTA_DURATION}s step-end infinite;
-`
+const CTA_LINKS = [
+  { href: '/docs/guides/embed', label: 'Read the embed guide' },
+  { href: '/docs/guides/embed/sdk', label: 'Use the SDK' }
+]
 
 const CallToAction = () => (
-  <Container
-    as='section'
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'pinky',
-      py: SECTION_VERTICAL_SPACING
-    })}
-  >
-    <Flex
-      css={theme({
-        flexDirection: 'column',
-        alignItems: 'center',
-        maxWidth: layout.normal,
-        px: [4, 4, 4, 0],
-        mx: 'auto'
-      })}
-    >
-      <Subhead
-        css={theme({
-          textAlign: 'center'
-        })}
-      >
-        {CTA_LEAD_CHARS.map(({ char, id, index }) => (
-          <CtaChar key={id} $i={index}>
-            {char}
-          </CtaChar>
-        ))}{' '}
-        <CtaNow>any URL</CtaNow>
-      </Subhead>
-      <Caption
-        forwardedAs='div'
-        css={theme({
-          pt: [3, 3, 4, 4],
-          maxWidth: [layout.small, layout.small, layout.normal, layout.normal],
-          textAlign: 'center'
-        })}
-      >
-        Call the API directly for a ready-to-paste iframe and oEmbed payload, or
-        drop in the optional SDK for zero-code rendering. Free to start, no
-        credit card, no commitment.
-      </Caption>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 3, 4, 4],
-          flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center'
-        })}
-      >
-        <SignupLink
-          cta='embed:footer-cta'
-          css={theme({ fontSize: ['24px', '28px', '30px', '32px'] })}
-        >
-          Get your free API key
-        </SignupLink>
-        <Flex css={theme({ gap: [3, 3, 4, 4], fontSize: [2, 2, 3, 3] })}>
-          <Link href='/docs/guides/embed'>Read the embed guide</Link>
-          <Link href='/docs/guides/embed/sdk'>Use the SDK</Link>
-        </Flex>
-      </Flex>
-      <Flex
-        css={theme({
-          pt: [4, 4, 5, 5],
-          gap: [3, 3, 4, 4],
-          flexWrap: 'wrap',
-          justifyContent: 'center'
-        })}
-      >
-        {[
-          'Free API key',
-          `${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests/day`,
-          'No credit card'
-        ].map(label => (
-          <Flex
-            key={label}
-            css={theme({
-              alignItems: 'center',
-              gap: 1,
-              color: 'black80',
-              fontSize: [0, 0, 1, 1]
-            })}
-          >
-            <CheckIcon size={16} color={colors.close} />
-            <Text as='span'>{label}</Text>
-          </Flex>
-        ))}
-      </Flex>
-    </Flex>
-  </Container>
+  <FreeKeyCallToAction
+    outcome='embedding any URL in your product'
+    cta='embed:footer-cta'
+    links={CTA_LINKS}
+  />
 )
 
 const TOP_FAQ_ITEMS = [
@@ -2437,8 +2320,8 @@ const EmbedPage = () => {
                 features={EMBED_FEATURES}
               />
               <CustomerStories />
-              <CallToAction />
               <ProductInformation />
+              <CallToAction />
             </>
           )
         }}

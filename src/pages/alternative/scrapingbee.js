@@ -8,10 +8,10 @@ import {
   ProductTimings,
   ProductPricing,
   ProductComparison,
-  ProductCta,
   ProductFaq,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Billing } from 'components/pages/scrapingbee/billing'
 import { Honesty } from 'components/pages/scrapingbee/honesty'
@@ -35,10 +35,10 @@ const ScrapingBeeAlternativePage = () => (
     <Billing />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductComparison {...COMPARISON} competitorKey='scrapingbee' />
     <Honesty />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 

@@ -7,12 +7,12 @@ import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
   ProductPricing,
-  ProductCta,
   ProductFaq,
   ProductTimings,
   productStructured,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 import { Hero } from 'components/pages/api/hero'
 import { PageNav } from 'components/pages/api/page-nav'
 import { Quickstart } from 'components/pages/api/quickstart'
@@ -83,7 +83,7 @@ const ApiPage = () => (
         caption={FAQ_CAPTION}
         questions={toFaqQuestions(FAQ_ITEMS)}
       />
-      <ProductCta {...CTA} accent={ACCENT} />
+      <CallToAction id='cta' {...CTA} />
     </PageRoot>
   </Layout>
 )

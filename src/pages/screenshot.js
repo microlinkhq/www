@@ -212,8 +212,8 @@ const ScreenshotPage = () => {
         features={FEATURES}
       />
       <UseCases />
-      <CallToAction />
       <ProductInformation />
+      <CallToAction />
     </Layout>
   )
 }

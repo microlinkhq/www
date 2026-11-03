@@ -150,9 +150,8 @@ export const CAPABILITIES = {
 export const PRICING_CAPTION = `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Paid plans add volume and production controls.`
 
 export const CTA = {
-  caption: `Sign up for a free API key: ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day with every Pro feature, no credit card. Send a document URL and get readable content back in seconds.`,
-  cta: 'file-conversion:footer-cta',
-  ctaLabel: 'Get your free API key'
+  outcome: 'turning documents into readable content',
+  cta: 'file-conversion:footer-cta'
 }
 
 export const FAQ_CAPTION =
