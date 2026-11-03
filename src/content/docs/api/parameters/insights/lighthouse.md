@@ -39,7 +39,7 @@ Alternatively, you can serialize to `'html'` or `'csv'`:
   }
   }} />
 
-These [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) settings are supported: `onlyCategories`, `onlyAudits`, `skipAudits`, `formFactor`, `screenEmulation`, `throttling`, `throttlingMethod`, `emulatedUserAgent`, `extraHeaders`, `blockedUrlPatterns`, `locale`, `output`, `ignoreStatusCode`, `disableFullPageScreenshot`, `usePassiveGathering`, `maxWaitForFcp`, `maxWaitForLoad`, `pauseAfterFcpMs`, `pauseAfterLoadMs`, `networkQuietThresholdMs` and `cpuQuietThresholdMs`. Any other setting is ignored.
+These [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) settings are supported: `onlyCategories`, `onlyAudits`, `skipAudits`, `formFactor`, `screenEmulation`, `throttling`, `throttlingMethod`, `emulatedUserAgent`, `extraHeaders`, `blockedUrlPatterns`, `locale`, `output`, `ignoreStatusCode`, `disableFullPageScreenshot`, `usePassiveGathering`, `maxWaitForFcp`, `maxWaitForLoad`, `pauseAfterFcpMs`, `pauseAfterLoadMs`, `networkQuietThresholdMs` and `cpuQuietThresholdMs`. Any other setting is ignored. `extraHeaders` and `emulatedUserAgent` are Pro features, like [headers](/docs/api/parameters/headers); a free request using them is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
 
 <MultiCodeEditorInteractive mqlCode={{
     url: 'https://css-tricks.com/nerds-guide-color-web',
