@@ -17,7 +17,7 @@ const userAgent = user[Math.floor(Math.random() * user.length)]
 
 const browser = await puppeteer.launch()
 const page = await browser.newPage()
-await page.setUserAgent(userAgent)
+await page.setUserAgent({ userAgent })
 await page.goto('https://example.com')
 await browser.close()
 `

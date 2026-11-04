@@ -9,6 +9,10 @@ const answerOf = question =>
   toPlainText(getFaqQuestions().find(faq => faq.question === question).answer)
 
 describe('user agents page copy', () => {
+  test('builds the questions once', () => {
+    expect(getFaqQuestions()).toBe(getFaqQuestions())
+  })
+
   test('counts match the published data', () => {
     expect(USER_AGENTS_COUNT).toEqual({
       user: userAgents.user.length.toLocaleString('en-US'),
@@ -39,6 +43,7 @@ describe('user agents page copy', () => {
     ])
     expect(answer).toContain('const { user } = await fetch(')
     expect(answer).toContain('user[Math.floor(Math.random() * user.length)]')
+    expect(answer).toContain('page.setUserAgent({ userAgent })')
   })
 
   test('every question has a plain text answer for the FAQ schema', () => {

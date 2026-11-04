@@ -24,7 +24,7 @@ import userAgents from '../../static/user-agents.json'
 export const Head = () => (
   <Meta
     title={`The latest User Agent list (${new Date().getFullYear()})`}
-    description={`The ${USER_AGENTS_COUNT.user} most common browser user agents from real traffic, plus ${USER_AGENTS_COUNT.ai} AI bot and ${USER_AGENTS_COUNT.crawler} crawler names. Free JSON endpoint, updated weekly.`}
+    description={`The ${USER_AGENTS_COUNT.user} most common browser user agents from real traffic, plus the names of ${USER_AGENTS_COUNT.ai} AI bots and ${USER_AGENTS_COUNT.crawler} crawlers. Free JSON endpoint, updated weekly.`}
     structured={[
       {
         '@context': 'https://schema.org',
