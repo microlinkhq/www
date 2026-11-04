@@ -13,21 +13,24 @@ import Meta from 'components/elements/Meta/Meta'
 import Toggle from 'components/elements/Toggle/Toggle'
 
 import UserAgentList from 'components/pages/user-agents/UserAgentList'
-import UserAgentsFaq from 'components/pages/user-agents/UserAgentsFaq'
+import UserAgentsFaq, {
+  getFaqQuestions
+} from 'components/pages/user-agents/UserAgentsFaq'
+import toPlainText from 'components/patterns/Faq/to-plain-text'
+import { USER_AGENTS_COUNT } from 'components/pages/user-agents/counts'
 
 import userAgents from '../../static/user-agents.json'
 
 export const Head = () => (
   <Meta
     title={`The latest User Agent list (${new Date().getFullYear()})`}
-    description='Most common User Agent list up to date. Essential for web scraping, testing, and bot development. Covers browsers, crawlers, and AI agents. Updated weekly.'
+    description={`The ${USER_AGENTS_COUNT.user} most common browser user agents from real traffic, plus ${USER_AGENTS_COUNT.ai} AI bot and ${USER_AGENTS_COUNT.crawler} crawler names. Free JSON endpoint, updated weekly.`}
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'Dataset',
         name: 'Latest User Agent List',
-        description:
-          'The latest User Agent list for 2026. A self-updating list of the latest and most common user agents for browsers, crawlers, and AI bots. Aggregated weekly from high-authority sources to ensure reliability.',
+        description: `The ${USER_AGENTS_COUNT.user} most common browser user agents seen in real traffic, plus the names of ${USER_AGENTS_COUNT.ai} AI bots and ${USER_AGENTS_COUNT.crawler} crawlers. Updated weekly.`,
         url: 'https://microlink.io/user-agents',
         keywords: [
           'user agent list',
@@ -36,8 +39,7 @@ export const Head = () => (
           'crawler user agents',
           'web scraping user agents',
           'bot user agents',
-          'AI user agents',
-          'user agent list'
+          'AI user agents'
         ],
         license: 'https://microlink.io/terms',
         creator: {
@@ -54,32 +56,14 @@ export const Head = () => (
       {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: 'How is the user agent list obtained?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'The data comes from multiple reliable sources including CloudFlare Bot Directory, Top User Agents, Well-Known Bots, and Crawler User Agents. This data undergoes rigorous normalization including deduplication, standardization, validation, categorization, and quality assurance to ensure reliability and production-readiness.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How frequently is the user agent list updated?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: 'The user agent list is updated weekly to ensure you have the latest and most effective user agents. Check the "Last updated" timestamp at the top of the page to see when the most recent refresh occurred.'
-            }
-          },
-          {
-            '@type': 'Question',
-            name: 'How to consume the user agent list?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: "Access the full list programmatically via the API endpoint at microlink.io/user-agents.json. It's CORS-enabled and ready for direct integration into any frontend or backend application. You can also copy the JSON directly from the terminal display for testing purposes."
-            }
+        mainEntity: getFaqQuestions().map(({ question, answer }) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: toPlainText(answer)
           }
-        ]
+        }))
       }
     ]}
   />
@@ -101,8 +85,9 @@ const UserAgentsPage = () => {
       <Box as='section' id='hero'>
         <Heading>User agent list</Heading>
         <Caption forwardedAs='h2' css={theme({ pt: [3, 3, 4, 4], px: [4, 0] })}>
-          A self-updating list of the latest
-          <br />& most common user agents.
+          The most common browser user agents,
+          <br />
+          plus the names of AI bots & crawlers.
         </Caption>
         <Text
           as='p'
