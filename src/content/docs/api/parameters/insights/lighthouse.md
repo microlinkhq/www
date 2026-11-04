@@ -39,7 +39,31 @@ Alternatively, you can serialize to `'html'` or `'csv'`:
   }
   }} />
 
-These [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) settings are supported: `onlyCategories`, `onlyAudits`, `skipAudits`, `formFactor`, `screenEmulation`, `throttling`, `throttlingMethod`, `emulatedUserAgent`, `extraHeaders`, `blockedUrlPatterns`, `locale`, `output`, `ignoreStatusCode`, `disableFullPageScreenshot`, `usePassiveGathering`, `maxWaitForFcp`, `maxWaitForLoad`, `pauseAfterFcpMs`, `pauseAfterLoadMs`, `networkQuietThresholdMs` and `cpuQuietThresholdMs`. Any other setting is ignored. `extraHeaders` and `emulatedUserAgent` are Pro features, like [headers](/docs/api/parameters/headers); a free request using them is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+These [Lighthouse configuration](https://github.com/GoogleChrome/lighthouse/blob/master/docs/configuration.md) settings are supported:
+
+- `onlyCategories`: Run only these categories, such as `accessibility` or `seo`.
+- `onlyAudits`: Run only the audits named here.
+- `skipAudits`: Skip the audits named here.
+- `formFactor`: Score the run as `mobile` or `desktop`.
+- `screenEmulation`: Viewport width, height, device scale, and mobile emulation. `{disabled: true}` leaves the screen unchanged.
+- `throttling`: Network latency, throughput, and CPU slowdown for the run.
+- `throttlingMethod`: How throttling is applied. `simulate` estimates it, `devtools` applies it in the browser, and `provided` uses throttling already in place.
+- `emulatedUserAgent`: User-Agent string sent with the page. Pro, like [headers](/docs/api/parameters/headers). A free request is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+- `extraHeaders`: Extra HTTP headers sent with the page. Pro, like [headers](/docs/api/parameters/headers). A free request is rejected with [EINVALQUERY](/docs/api/basics/error-codes#einvalquery).
+- `blockedUrlPatterns`: URL patterns to block during the run.
+- `locale`: Language of the report, such as `en-US` or `es`.
+- `output`: Report format: `json`, `html`, or `csv`.
+- `ignoreStatusCode`: Warn on an error status code instead of failing the run.
+- `disableFullPageScreenshot`: Skip the full-page screenshot. It is large, and capturing it can change the page.
+- `use passiveGathering`: Collect data without extra navigations or viewport changes.
+- `maxWaitForFcp`: Milliseconds to wait for the first contentful paint. The run fails if nothing renders in time.
+- `maxWaitForLoad`: Milliseconds to wait for the page to load.
+- `pauseAfterFcpMs`: Milliseconds to wait after the first contentful paint before treating the page as loaded.
+- `pauseAfterLoadMs`: Milliseconds to wait after the load event before treating the page as loaded.
+- `networkQuietThresholdMs`: Milliseconds of network quiet required before the page is treated as loaded.
+- `cpuQuietThresholdMs`: Milliseconds without a long task required before the page is treated as loaded.
+
+Any other setting is ignored.
 
 <MultiCodeEditorInteractive mqlCode={{
     url: 'https://css-tricks.com/nerds-guide-color-web',
