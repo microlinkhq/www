@@ -19,6 +19,10 @@ const unit = {
       {
         find: /^.*\/data\/analytics\.json$/,
         replacement: `${FIXTURES}/analytics.json`
+      },
+      {
+        find: /^.*\/static\/user-agents\.json$/,
+        replacement: `${FIXTURES}/user-agents.js`
       }
     ]
   }
