@@ -26,7 +26,7 @@ It returns a web performance report over the target <Link href="/docs/api/parame
 
 The report is serialized to JSON by default to make it easy to visualize using <Link href="https://lighthouse.microlink.io" logoIcon>lighthouse.microlink.io</Link>.
 
-<Link href="https://lighthouse.microlink.io">
+<Link href="https://lighthouse.microlink.io" externalIcon={false}>
   <Image src="/images/lighthouse-viewer.png"/>
 </Link>
 
