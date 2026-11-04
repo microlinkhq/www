@@ -52,6 +52,22 @@ describe('buildUserAgents', () => {
     ).toBe(false)
   })
 
+  it('includes the bot names the user-agents page gives as examples', async () => {
+    const result = await buildUserAgents()
+    expect(Object.keys(result).sort()).toEqual([
+      'ai',
+      'crawler',
+      'updatedAt',
+      'user'
+    ])
+    for (const name of ['gptbot', 'claudebot', 'perplexitybot']) {
+      expect(result.ai).toContain(name)
+    }
+    for (const name of ['googlebot', 'ahrefsbot', 'uptimerobot']) {
+      expect(result.crawler).toContain(name)
+    }
+  })
+
   it('updatedAt is the newest installed source package publish time', async () => {
     const { updatedAt } = await buildUserAgents()
     expect(updatedAt).toBeGreaterThan(1e12)

@@ -60,7 +60,7 @@ export const getFaqQuestions = () => {
       answer: (
         <>
           <div>
-            Chrome and Firefox ship a new major version every four weeks. A
+            Chrome and Firefox ship new major versions every few weeks. A
             scraper that still sends a version from last year stands out, and{' '}
             <Link href='https://www.cloudflare.com/learning/ddos/glossary/web-application-firewall-waf/'>
               WAFs
