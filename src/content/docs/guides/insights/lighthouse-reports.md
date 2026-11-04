@@ -75,7 +75,7 @@ Presets bundle a useful set of Lighthouse settings:
 
 <Figcaption>Use a preset when you want a known Lighthouse configuration without spelling out all the settings manually.</Figcaption>
 
-Any Lighthouse configuration setting is supported. A common pattern is to limit the report to one category:
+Most Lighthouse configuration settings are supported (see the [lighthouse parameter](/docs/api/parameters/insights/lighthouse) for the list). A common pattern is to limit the report to one category:
 
 <MultiCodeEditorInteractive
   height={260}
