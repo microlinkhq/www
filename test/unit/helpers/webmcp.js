@@ -92,7 +92,7 @@ describe('get_url_metadata', () => {
   test('accepts an http URL and trims surrounding whitespace', async () => {
     const { tools, requestedQuery } = setup(success({}))
     await tools.get_url_metadata.execute({
-      url: '  http://example.com/a  '
+      url: '\u00A0http://example.com/a\u00A0'
     })
     expect(requestedQuery()).toEqual({ url: 'http://example.com/a' })
   })

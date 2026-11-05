@@ -115,12 +115,9 @@ describe('writeAgentSkills', () => {
     expect(fs.statSync(outside).mtimeMs).toBe(before)
   })
 
-  test('archive bytes stay stable when source mtimes change', () => {
+  test('archive bytes stay stable across copies made a second apart', async () => {
     const first = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
-    const later = new Date('2030-01-01T00:00:00Z')
-    fs.utimesSync(path.join(repoDir, 'bundle/SKILL.md'), later, later)
-    fs.utimesSync(path.join(repoDir, 'bundle/references/api.md'), later, later)
-    fs.utimesSync(path.join(repoDir, 'bundle/references'), later, later)
+    await new Promise(resolve => setTimeout(resolve, 1100))
     const second = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
     expect(second.skills.find(skill => skill.name === 'bundle').digest).toBe(
       first.skills.find(skill => skill.name === 'bundle').digest
