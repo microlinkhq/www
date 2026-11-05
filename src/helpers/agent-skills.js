@@ -2,13 +2,20 @@ import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import {
   copyFileSync,
+  cpSync,
+  existsSync,
+  lstatSync,
   mkdirSync,
+  mkdtempSync,
   readdirSync,
   readFileSync,
   rmSync,
+  utimesSync,
   writeFileSync
 } from 'node:fs'
+import { tmpdir } from 'node:os'
 import path from 'node:path'
+import { gzipSync } from 'node:zlib'
 
 export const AGENT_SKILLS_SCHEMA =
   'https://schemas.agentskills.io/discovery/0.2.0/schema.json'
@@ -57,12 +64,39 @@ const writeSkillMd = ({ name, skillDir, outputDir }) => {
   }
 }
 
+const EPOCH = new Date(0)
+
+const stampTree = directory => {
+  for (const entry of readdirSync(directory)) {
+    const target = path.join(directory, entry)
+    if (lstatSync(target).isDirectory()) stampTree(target)
+    utimesSync(target, EPOCH, EPOCH)
+  }
+}
+
 const writeSkillArchive = ({ name, skillDir, entries, outputDir }) => {
   const filename = `${name}.tar.gz`
   const target = path.join(outputDir, filename)
-  execFileSync('tar', ['-czf', target, '-C', skillDir, ...entries], {
-    env: { ...process.env, COPYFILE_DISABLE: '1' }
-  })
+  const staging = mkdtempSync(path.join(tmpdir(), 'agent-skill-'))
+  try {
+    const staged = path.join(staging, 'skill')
+    mkdirSync(staged)
+    for (const entry of entries) {
+      cpSync(path.join(skillDir, entry), path.join(staged, entry), {
+        recursive: true
+      })
+    }
+    stampTree(staged)
+    const archive = path.join(staging, 'archive.tar')
+    execFileSync(
+      'tar',
+      ['--format', 'ustar', '-cf', archive, '-C', staged, '--', ...entries],
+      { env: { ...process.env, COPYFILE_DISABLE: '1' } }
+    )
+    writeFileSync(target, gzipSync(readFileSync(archive), { mtime: 0 }))
+  } finally {
+    rmSync(staging, { recursive: true, force: true })
+  }
   return {
     type: 'archive',
     url: `${AGENT_SKILLS_PATHNAME}/${filename}`,
@@ -98,6 +132,25 @@ export const writeAgentSkills = ({ skills, repoDir, outputDir }) => {
   writeFileSync(
     path.join(outputDir, 'index.json'),
     `${JSON.stringify(index, null, 2)}\n`
+  )
+  return index
+}
+
+export const publishAgentSkills = ({
+  skillsPath,
+  repoDir,
+  outputDir,
+  warn,
+  info
+}) => {
+  if (!existsSync(skillsPath)) {
+    warn('Skipped agent skills index: data/skills.json is missing')
+    return null
+  }
+  const skills = JSON.parse(readFileSync(skillsPath, 'utf8'))
+  const index = writeAgentSkills({ skills, repoDir, outputDir })
+  info(
+    `Generated agent skills index with ${index.skills.length}/${skills.length} skills`
   )
   return index
 }

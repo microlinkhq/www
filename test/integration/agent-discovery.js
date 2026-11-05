@@ -64,22 +64,32 @@ describe('homepage Link header (RFC 8288)', () => {
   const links = parseLinkHeader(headersFor('/').link)
 
   test('advertises the registered discovery relations', () => {
-    expect(links.map(link => link.rel)).toEqual([
-      'api-catalog',
-      'service-desc',
-      'service-doc',
-      'describedby'
+    expect(links).toEqual([
+      {
+        target: '/.well-known/api-catalog',
+        rel: 'api-catalog',
+        type: 'application/linkset+json'
+      },
+      {
+        target: '/openapi.json',
+        rel: 'service-desc',
+        type: 'application/vnd.oai.openapi+json'
+      },
+      {
+        target: '/docs/api/getting-started/overview',
+        rel: 'service-doc',
+        type: 'text/html'
+      },
+      {
+        target: '/llms.txt',
+        rel: 'describedby',
+        type: 'text/markdown'
+      }
     ])
   })
 
   test('every target is served', () => {
     for (const link of links) expectServed(link.target)
-  })
-
-  test('api-catalog points at the well-known location', () => {
-    expect(links.find(link => link.rel === 'api-catalog').target).toBe(
-      '/.well-known/api-catalog'
-    )
   })
 })
 
@@ -90,17 +100,42 @@ describe('API catalog (RFC 9727)', () => {
     const served = headersFor('/.well-known/api-catalog')
     expect(served['content-type']).toMatch(/^application\/linkset\+json/)
     expect(served['access-control-allow-origin']).toBe('*')
+    expect(served['cross-origin-resource-policy']).toBe('cross-origin')
   })
 
   test('describes the API with service-desc, service-doc and status', () => {
-    expect(catalog.linkset).toHaveLength(1)
-    const [api] = catalog.linkset
-    expect(api.anchor).toBe('https://api.microlink.io')
-    for (const rel of ['service-desc', 'service-doc', 'status']) {
-      expect(api[rel].length).toBeGreaterThan(0)
-      for (const link of api[rel]) expectServed(link.href)
+    expect(catalog.linkset).toEqual([
+      {
+        anchor: 'https://api.microlink.io',
+        'service-desc': [
+          {
+            href: `${SITE}/openapi.json`,
+            type: 'application/vnd.oai.openapi+json'
+          }
+        ],
+        'service-doc': [
+          {
+            href: `${SITE}/docs/api/getting-started/overview`,
+            type: 'text/html'
+          },
+          {
+            href: `${SITE}/llms.txt`,
+            type: 'text/markdown'
+          }
+        ],
+        status: [
+          {
+            href: 'https://healthcheck.microlink.io',
+            type: 'application/json'
+          }
+        ]
+      }
+    ])
+    for (const link of catalog.linkset[0]['service-desc'].concat(
+      catalog.linkset[0]['service-doc']
+    )) {
+      expectServed(link.href)
     }
-    expect(api['service-desc'][0].href).toBe(`${SITE}/openapi.json`)
   })
 })
 
@@ -140,6 +175,7 @@ describe('MCP server card (SEP-2127)', () => {
       /^application\/mcp-server-card\+json/
     )
     expect(served['access-control-allow-origin']).toBe('*')
+    expect(served['cross-origin-resource-policy']).toBe('cross-origin')
   })
 })
 
@@ -150,6 +186,7 @@ describe('AI catalog (ARD)', () => {
     const served = headersFor('/.well-known/ai-catalog.json')
     expect(served['content-type']).toMatch(/^application\/json/)
     expect(served['access-control-allow-origin']).toBe('*')
+    expect(served['cross-origin-resource-policy']).toBe('cross-origin')
   })
 
   test('declares a spec version and a host', () => {
@@ -190,11 +227,9 @@ describe('AI catalog (ARD)', () => {
 
 describe('agent skills index', () => {
   test('artifacts are served with CORS', () => {
-    expect(
-      headersFor('/.well-known/agent-skills/(.*)')[
-        'access-control-allow-origin'
-      ]
-    ).toBe('*')
+    const served = headersFor('/.well-known/agent-skills/(.*)')
+    expect(served['access-control-allow-origin']).toBe('*')
+    expect(served['cross-origin-resource-policy']).toBe('cross-origin')
   })
 })
 
@@ -213,12 +248,11 @@ describe('robots.txt Content Signals', () => {
         .split(',')
         .map(pair => pair.trim().split('='))
     )
-    expect(Object.keys(values).sort()).toEqual([
-      'ai-input',
-      'ai-train',
-      'search'
-    ])
-    for (const value of Object.values(values)) { expect(['yes', 'no']).toContain(value) }
+    expect(values).toEqual({
+      'ai-train': 'yes',
+      search: 'yes',
+      'ai-input': 'yes'
+    })
   })
 
   test('keeps the sitemap', () => {
@@ -256,7 +290,10 @@ describe('auth.md', () => {
     )
   })
 
-  test('is served as markdown', () => {
-    expect(headersFor('/auth.md')['content-type']).toMatch(/^text\/markdown/)
+  test('is served as markdown and readable cross-origin', () => {
+    const served = headersFor('/auth.md')
+    expect(served['content-type']).toMatch(/^text\/markdown/)
+    expect(served['access-control-allow-origin']).toBe('*')
+    expect(served['cross-origin-resource-policy']).toBe('cross-origin')
   })
 })

@@ -3,11 +3,12 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import {
   AGENT_SKILLS_SCHEMA,
   isValidSkillName,
+  publishAgentSkills,
   writeAgentSkills
 } from '../../../src/helpers/agent-skills.js'
 
@@ -104,12 +105,99 @@ describe('writeAgentSkills', () => {
     expect(fs.existsSync(path.join(outputDir, 'bundle.tar.gz'))).toBe(false)
     expect(fs.readdirSync(outputDir).sort()).toEqual(['index.json', 'single'])
   })
+
+  test('archive bytes stay stable when source mtimes change', () => {
+    const first = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    const later = new Date('2030-01-01T00:00:00Z')
+    fs.utimesSync(path.join(repoDir, 'bundle/SKILL.md'), later, later)
+    fs.utimesSync(path.join(repoDir, 'bundle/references/api.md'), later, later)
+    fs.utimesSync(path.join(repoDir, 'bundle/references'), later, later)
+    const second = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    expect(second.skills.find(skill => skill.name === 'bundle').digest).toBe(
+      first.skills.find(skill => skill.name === 'bundle').digest
+    )
+  })
+
+  test('archives a supporting file whose name tar would treat as an option', () => {
+    writeFiles(repoDir, {
+      'dashed/SKILL.md': '---\nname: dashed\n---\n',
+      'dashed/--exclude=SKILL.md': 'kept\n'
+    })
+    const { skills } = writeAgentSkills({
+      skills: [
+        ...SKILLS,
+        { slug: 'dashed', name: 'dashed', description: 'Dash name.' }
+      ],
+      repoDir,
+      outputDir
+    })
+    const dashed = skills.find(skill => skill.name === 'dashed')
+    const entries = execFileSync(
+      'tar',
+      ['-tzf', artifactPath(outputDir, dashed.url)],
+      { encoding: 'utf8' }
+    )
+    expect(entries).toContain('SKILL.md')
+    expect(entries).toContain('--exclude=SKILL.md')
+  })
+})
+
+describe('publishAgentSkills', () => {
+  test('warns and writes nothing when the skills file is missing', () => {
+    const warn = vi.fn()
+    const info = vi.fn()
+    expect(
+      publishAgentSkills({
+        skillsPath: path.join(tmp, 'missing.json'),
+        repoDir,
+        outputDir,
+        warn,
+        info
+      })
+    ).toBeNull()
+    expect(warn).toHaveBeenCalledWith(
+      'Skipped agent skills index: data/skills.json is missing'
+    )
+    expect(info).not.toHaveBeenCalled()
+    expect(fs.existsSync(outputDir)).toBe(false)
+  })
+
+  test('publishes the skills file it is given', () => {
+    const skillsPath = path.join(tmp, 'skills.json')
+    fs.writeFileSync(skillsPath, JSON.stringify(SKILLS.slice(0, 1)))
+    const warn = vi.fn()
+    const info = vi.fn()
+    const index = publishAgentSkills({
+      skillsPath,
+      repoDir,
+      outputDir,
+      warn,
+      info
+    })
+    expect(index.skills.map(skill => skill.name)).toEqual(['single'])
+    expect(warn).not.toHaveBeenCalled()
+    expect(info).toHaveBeenCalledWith(
+      'Generated agent skills index with 1/1 skills'
+    )
+    expect(fs.existsSync(path.join(outputDir, 'index.json'))).toBe(true)
+  })
+
+  test('the production build publishes through this helper', () => {
+    const source = fs.readFileSync(
+      path.join(process.cwd(), 'gatsby-node.js'),
+      'utf8'
+    )
+    expect(source).toContain('publishAgentSkills(')
+  })
 })
 
 describe('isValidSkillName', () => {
-  test.each(['a', 'use-pnpm', 'k8s-hpa-cost-tuning'])('accepts %s', name => {
-    expect(isValidSkillName(name)).toBe(true)
-  })
+  test.each(['a', 'a'.repeat(64), 'use-pnpm', 'k8s-hpa-cost-tuning'])(
+    'accepts %s',
+    name => {
+      expect(isValidSkillName(name)).toBe(true)
+    }
+  )
 
   test.each(['', '-a', 'a-', 'a--b', 'A', 'a_b', 'a'.repeat(65), undefined])(
     'rejects %j',

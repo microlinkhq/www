@@ -240,6 +240,14 @@
         {
           "key": "content-type",
           "value": "text/markdown; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
         }
       ]
     }
@@ -775,7 +783,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "source": "/((?!tools/embed-url/|\\.well-known/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
       "destination": "/$1.md",
       "permanent": false,
       "has": [

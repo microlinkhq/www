@@ -2,6 +2,8 @@ import { KEYLESS_REQUESTS_PER_DAY } from './free-tier.js'
 
 export const MICROLINK_API_ENDPOINT = 'https://api.microlink.io'
 
+const SITE_ORIGIN = 'https://microlink.io'
+
 const URL_INPUT_SCHEMA = {
   type: 'object',
   properties: {
@@ -34,7 +36,17 @@ const toHttpUrl = value => {
 
 export const toSitePathname = value => {
   const pathname = String(value ?? '').trim()
-  if (!pathname.startsWith('/') || pathname.startsWith('//')) {
+  let resolved
+  try {
+    resolved = new URL(pathname, SITE_ORIGIN)
+  } catch {
+    resolved = null
+  }
+  if (
+    !pathname.startsWith('/') ||
+    pathname.startsWith('//') ||
+    resolved?.origin !== SITE_ORIGIN
+  ) {
     throw new TypeError(
       `Expected a microlink.io path starting with "/", received "${value}"`
     )

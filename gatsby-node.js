@@ -26,7 +26,7 @@ const {
   notFoundMarkdown
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
-const { writeAgentSkills } = require('./src/helpers/agent-skills')
+const { publishAgentSkills } = require('./src/helpers/agent-skills')
 const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
@@ -172,19 +172,18 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
 const SKILLS_DATA_PATH = path.join(process.cwd(), 'data', 'skills.json')
 
 const createAgentSkillsIndex = ({ reporter }) => {
-  if (!existsSync(SKILLS_DATA_PATH)) {
-    reporter.warn('Skipped agent skills index: data/skills.json is missing')
-    return
-  }
-  const skills = JSON.parse(readFileSync(SKILLS_DATA_PATH, 'utf8'))
-  const index = writeAgentSkills({
-    skills,
+  publishAgentSkills({
+    skillsPath: SKILLS_DATA_PATH,
     repoDir: path.join(process.cwd(), 'data', 'skills-repo'),
-    outputDir: path.join(process.cwd(), 'public', '.well-known', 'agent-skills')
+    outputDir: path.join(
+      process.cwd(),
+      'public',
+      '.well-known',
+      'agent-skills'
+    ),
+    warn: message => reporter.warn(message),
+    info: message => reporter.info(message)
   })
-  reporter.info(
-    `Generated agent skills index with ${index.skills.length}/${skills.length} skills`
-  )
 }
 
 exports.onPostBuild = async ({ graphql, reporter }) => {

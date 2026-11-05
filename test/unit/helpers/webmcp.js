@@ -89,6 +89,14 @@ describe('get_url_metadata', () => {
     expect(fetch.mock.calls[0][1]).toEqual({ signal })
   })
 
+  test('accepts an http URL and trims surrounding whitespace', async () => {
+    const { tools, requestedQuery } = setup(success({}))
+    await tools.get_url_metadata.execute({
+      url: '  http://example.com/a  '
+    })
+    expect(requestedQuery()).toEqual({ url: 'http://example.com/a' })
+  })
+
   test('encodes URLs carrying their own query string', async () => {
     const { fetch, tools, requestedQuery } = setup(success({}))
     await tools.get_url_metadata.execute({
@@ -109,7 +117,7 @@ describe('get_url_metadata', () => {
   ])('rejects %j before any request', async url => {
     const { fetch, tools } = setup(success({}))
     await expect(tools.get_url_metadata.execute({ url })).rejects.toThrow(
-      TypeError
+      /Expected an (absolute )?http\(s\) URL/
     )
     expect(fetch).not.toHaveBeenCalled()
   })
@@ -157,6 +165,14 @@ describe('take_screenshot', () => {
     })
   })
 
+  test('rejects a non-http URL before any request', async () => {
+    const { fetch, tools } = setup(success({ screenshot }))
+    await expect(
+      tools.take_screenshot.execute({ url: 'javascript:alert(1)' })
+    ).rejects.toThrow(TypeError)
+    expect(fetch).not.toHaveBeenCalled()
+  })
+
   test('adds fullPage only when asked', async () => {
     const { tools, requestedQuery } = setup(success({ screenshot }))
     await tools.take_screenshot.execute({
@@ -181,6 +197,14 @@ describe('get_url_markdown', () => {
       meta: 'false'
     })
   })
+
+  test('rejects a non-http URL before any request', async () => {
+    const { fetch, tools } = setup(success({}))
+    await expect(
+      tools.get_url_markdown.execute({ url: 'file:///etc/passwd' })
+    ).rejects.toThrow(TypeError)
+    expect(fetch).not.toHaveBeenCalled()
+  })
 })
 
 describe('open_microlink_page', () => {
@@ -192,16 +216,30 @@ describe('open_microlink_page', () => {
     expect(navigate).toHaveBeenCalledWith('/pricing')
   })
 
-  test.each(['https://evil.com', '//evil.com', 'pricing', '', undefined])(
-    'refuses %j',
-    async path => {
-      const { navigate, tools } = setup()
-      await expect(tools.open_microlink_page.execute({ path })).rejects.toThrow(
-        TypeError
-      )
-      expect(navigate).not.toHaveBeenCalled()
-    }
-  )
+  test.each([
+    'https://evil.com',
+    '//evil.com',
+    '//microlink.io/pricing',
+    '/\\evil.com',
+    '///evil.com',
+    'pricing',
+    '',
+    undefined
+  ])('refuses %j', async path => {
+    const { navigate, tools } = setup()
+    await expect(tools.open_microlink_page.execute({ path })).rejects.toThrow(
+      TypeError
+    )
+    expect(navigate).not.toHaveBeenCalled()
+  })
+
+  test('reports a path error when the URL parser rejects the input', async () => {
+    const { navigate, tools } = setup()
+    await expect(
+      tools.open_microlink_page.execute({ path: 'http://[' })
+    ).rejects.toThrow('Expected a microlink.io path starting with "/"')
+    expect(navigate).not.toHaveBeenCalled()
+  })
 
   test('toSitePathname trims whitespace', () => {
     expect(toSitePathname('  /docs  ')).toBe('/docs')
@@ -253,7 +291,9 @@ describe('registerWebMcpTools', () => {
   test('one failing registration does not block the others', async () => {
     const modelContext = {
       registerTool: vi.fn(async tool => {
-        if (tool.name === 'take_screenshot') { throw new Error('InvalidStateError') }
+        if (tool.name === 'take_screenshot') {
+          throw new Error('InvalidStateError')
+        }
       })
     }
     const registration = registerWebMcpTools({

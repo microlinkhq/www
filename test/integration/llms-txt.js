@@ -114,6 +114,24 @@ describe('buildLlmsTxt', () => {
     )
   })
 
+  test('points agents at the discovery documents', () => {
+    expect(content).toContain(
+      '- [API catalog](https://microlink.io/.well-known/api-catalog): RFC 9727 linkset of Microlink APIs'
+    )
+    expect(content).toContain(
+      '- [MCP server card](https://microlink.io/.well-known/mcp/server-card.json): Remote Microlink MCP server'
+    )
+    expect(content).toContain(
+      '- [Agent skills](https://microlink.io/.well-known/agent-skills/index.json): Agent skills discovery index'
+    )
+    expect(content).toContain(
+      '- [AI catalog](https://microlink.io/.well-known/ai-catalog.json): Agentic resource discovery manifest'
+    )
+    expect(content).toContain(
+      '- [auth.md](https://microlink.io/auth.md): How agents get and use a Microlink API key'
+    )
+  })
+
   test('points agents at the feedback discovery document', () => {
     expect(content).toContain(
       '- [Agent feedback](https://microlink.io/.well-known/agent-feedback.json): How agents report Microlink API problems'
