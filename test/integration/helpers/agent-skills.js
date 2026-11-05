@@ -106,6 +106,15 @@ describe('writeAgentSkills', () => {
     expect(fs.readdirSync(outputDir).sort()).toEqual(['index.json', 'single'])
   })
 
+  test('stamping archive mtimes does not follow symlinks', () => {
+    const outside = path.join(tmp, 'outside.txt')
+    fs.writeFileSync(outside, 'secret')
+    const before = fs.statSync(outside).mtimeMs
+    fs.symlinkSync(outside, path.join(repoDir, 'bundle/outside-link'))
+    writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    expect(fs.statSync(outside).mtimeMs).toBe(before)
+  })
+
   test('archive bytes stay stable when source mtimes change', () => {
     const first = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
     const later = new Date('2030-01-01T00:00:00Z')

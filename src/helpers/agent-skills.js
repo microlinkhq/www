@@ -5,6 +5,7 @@ import {
   cpSync,
   existsSync,
   lstatSync,
+  lutimesSync,
   mkdirSync,
   mkdtempSync,
   readdirSync,
@@ -69,7 +70,12 @@ const EPOCH = new Date(0)
 const stampTree = directory => {
   for (const entry of readdirSync(directory)) {
     const target = path.join(directory, entry)
-    if (lstatSync(target).isDirectory()) stampTree(target)
+    const stat = lstatSync(target)
+    if (stat.isSymbolicLink()) {
+      lutimesSync(target, EPOCH, EPOCH)
+      continue
+    }
+    if (stat.isDirectory()) stampTree(target)
     utimesSync(target, EPOCH, EPOCH)
   }
 }
