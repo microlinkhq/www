@@ -485,6 +485,10 @@
       "destination": "/docs/api/basics/error-codes#epro"
     },
     {
+      "source": "/eprompt",
+      "destination": "/docs/api/basics/error-codes#eprompt"
+    },
+    {
       "source": "/eproxy",
       "destination": "/docs/api/basics/error-codes#eproxy"
     },

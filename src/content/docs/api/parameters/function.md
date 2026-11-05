@@ -99,6 +99,48 @@ It returns the same normalized metadata as [meta](/docs/api/parameters/meta) for
   function: 'async ({ page }) => (await page.metadata()).title'
 }} />
 
+#### page.goal()
+
+It drives the page toward a goal written in plain language, over as many clicks, keystrokes and scrolls as it takes, and resolves once the goal is met. Paid plans only:
+
+<MultiCodeEditorInteractive height={200} mqlCode={{
+  url: 'https://news.ycombinator.com',
+  function: `async ({ page }) => {
+  const { status, accuracy } = await page.goal('Open the comments of the first story.')
+  return { status, accuracy, url: page.url() }
+}`
+}} />
+
+It resolves to:
+
+| Field       | Description                                                                                      |
+| ----------- | ------------------------------------------------------------------------------------------------ |
+| `status`    | `success` when the goal was reached, `error` otherwise                                           |
+| `error`     | `{ name, message, code, reason }` when `status` is `error`. `reason` is `captcha`, `login_wall`, `unsupported_surface`, `step_budget`, `no_change`, `stale_target` or `model_blocked` when the agent stopped on its own |
+| `steps`     | Actions taken on the page                                                                        |
+| `decisions` | Model decisions requested                                                                        |
+| `trace`     | Every action with its confidence; it includes any text typed into the page                       |
+| `accuracy`  | `{ passed, probability }`: a second model reading the final page and judging whether the goal is met |
+| `cost`      | Tokens and model calls spent                                                                     |
+| `timing`    | `{ totalMs, modelMs, otherMs, evaluationMs }`                                                    |
+
+A goal that fails does not throw, so check `status` before relying on the page. `success` is the model's judgment, and `accuracy` is a second opinion, not a proof.
+
+The second argument takes `maxSteps` (up to 60), `maxDecisions` (up to 120) and `waitMs` (up to 5000).
+
+#### page.extract() with an instruction
+
+Pass an instruction instead of rules and a model writes the rules for the current page. Name the fields you want and leave the selectors out. Paid plans only:
+
+<MultiCodeEditorInteractive height={220} mqlCode={{
+  url: 'https://news.ycombinator.com',
+  function: `({ page }) => page.extract('get the stories', {
+  stories: { attr: { title: { type: 'string' }, href: { type: 'url' } } }
+})`
+}} />
+
+It resolves to `{ status, data, rules, cost, timing }`, plus `error` when `status` is `error`. The values always come from the page: the model only writes selectors, so a wrong one gives a missing field, never an invented value. `rules` are the rules that ran: pass them back to `page.extract(rules)` to run them again with no model call.
+
 <H3>response</H3>
 
 The [puppeteer#response](https://pptr.dev/api/puppeteer.httpresponse) as result of the implicit [page.goto](https://pptr.dev/api/puppeteer.page.goto). Only available when the function loads the page in a browser:
@@ -178,6 +220,7 @@ The function parameter is available on both free and pro plans with different re
 | Code size         | 1024 bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
 | Outgoing requests | Same-origin only                               | Unrestricted |
+| AI agent          | Not available                                  | `page.goal`, `page.extract` with an instruction |
 
 When a limit is exceeded, the function returns `isFulfilled: false` with a descriptive error instead of failing the entire request:
 
@@ -207,6 +250,7 @@ The resource error types are:
 | `CodeSizeError`        | Function code exceeds the 1024 bytes free plan limit                 |
 | `ConcurrencyError`     | The same function is already running against the same URL without a key |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
+| `AgentError`           | Function called `page.goal` or `page.extract` with an instruction on the free plan |
 
 Each error message is plan-aware and tells you the exact limit that was hit.
 
