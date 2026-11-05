@@ -109,7 +109,7 @@ The service will only resolve URLs that point to unicast IP addresses.
 
 **Message**
 
-You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) query parameters.
+You need a <ProBadge/> plan for using [headers](/docs/api/parameters/headers) query parameters, or the Lighthouse `extraHeaders` and `emulatedUserAgent` settings.
 
 **Solution**
 
