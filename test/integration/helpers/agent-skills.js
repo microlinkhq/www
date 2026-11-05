@@ -3,6 +3,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { gunzipSync } from 'node:zlib'
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 
 import {
@@ -111,8 +112,125 @@ describe('writeAgentSkills', () => {
     fs.writeFileSync(outside, 'secret')
     const before = fs.statSync(outside).mtimeMs
     fs.symlinkSync(outside, path.join(repoDir, 'bundle/outside-link'))
-    writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    expect(() =>
+      writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    ).toThrow(/escapes the skill directory/)
     expect(fs.statSync(outside).mtimeMs).toBe(before)
+  })
+
+  test('omits a skill whose directory is missing and still writes the index', () => {
+    const index = writeAgentSkills({
+      skills: [
+        ...SKILLS,
+        { slug: 'missing', name: 'missing', description: 'No directory.' }
+      ],
+      repoDir,
+      outputDir
+    })
+    expect(index.skills.map(skill => skill.name)).toEqual(['single', 'bundle'])
+    expect(fs.existsSync(path.join(outputDir, 'index.json'))).toBe(true)
+  })
+
+  test('keeps relative symlinks and drops nested dotfiles', () => {
+    fs.symlinkSync('references/api.md', path.join(repoDir, 'bundle/link.md'))
+    writeFiles(repoDir, {
+      'bundle/references/.env': 'SECRET',
+      'bundle/references/.hidden/note.md': 'hidden'
+    })
+    const { skills } = writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    const extracted = path.join(tmp, 'extracted')
+    fs.mkdirSync(extracted)
+    execFileSync('tar', [
+      '-xzf',
+      artifactPath(
+        outputDir,
+        skills.find(skill => skill.name === 'bundle').url
+      ),
+      '-C',
+      extracted
+    ])
+    expect(fs.readlinkSync(path.join(extracted, 'link.md'))).toBe(
+      'references/api.md'
+    )
+    expect(fs.existsSync(path.join(extracted, 'references/.env'))).toBe(false)
+    expect(
+      fs.existsSync(path.join(extracted, 'references/.hidden/note.md'))
+    ).toBe(false)
+  })
+
+  test('rejects a relative symlink that leaves the skill directory', () => {
+    fs.writeFileSync(path.join(repoDir, 'outside.txt'), 'secret')
+    fs.symlinkSync('../outside.txt', path.join(repoDir, 'bundle/escape.md'))
+    expect(() =>
+      writeAgentSkills({ skills: SKILLS, repoDir, outputDir })
+    ).toThrow(/escapes the skill directory/)
+  })
+
+  test('archive entry order is sorted and owners stay zero across file modes', () => {
+    writeFiles(repoDir, {
+      'ordered/SKILL.md': '---\nname: ordered\n---\n',
+      'ordered/references/z.md': 'z\n',
+      'ordered/references/a.md': 'a\n'
+    })
+    const skill = {
+      slug: 'ordered',
+      name: 'ordered',
+      description: 'Ordered files.'
+    }
+    const publish = () =>
+      writeAgentSkills({
+        skills: [...SKILLS, skill],
+        repoDir,
+        outputDir
+      }).skills.find(entry => entry.name === 'ordered')
+    fs.chmodSync(path.join(repoDir, 'ordered/SKILL.md'), 0o600)
+    fs.chmodSync(path.join(repoDir, 'ordered/references'), 0o700)
+    const restrictive = publish()
+    fs.chmodSync(path.join(repoDir, 'ordered/SKILL.md'), 0o644)
+    fs.chmodSync(path.join(repoDir, 'ordered/references'), 0o755)
+    const permissive = publish()
+    expect(permissive.digest).toBe(restrictive.digest)
+    const entries = execFileSync(
+      'tar',
+      ['-tzf', artifactPath(outputDir, permissive.url)],
+      { encoding: 'utf8' }
+    )
+      .split('\n')
+      .filter(Boolean)
+    expect(entries).toEqual([...entries].sort())
+    expect(entries).toContain('references/a.md')
+    expect(entries).toContain('references/z.md')
+    expect(entries.indexOf('references/a.md')).toBeLessThan(
+      entries.indexOf('references/z.md')
+    )
+    const archive = gunzipSync(
+      fs.readFileSync(artifactPath(outputDir, permissive.url))
+    )
+    let offset = 0
+    while (offset + 512 <= archive.length) {
+      const block = archive.subarray(offset, offset + 512)
+      if (block.every(byte => byte === 0)) break
+      const uid = Number.parseInt(
+        block.subarray(108, 116).toString('ascii').replace(/\0/g, '').trim(),
+        8
+      )
+      const gid = Number.parseInt(
+        block.subarray(116, 124).toString('ascii').replace(/\0/g, '').trim(),
+        8
+      )
+      expect(uid).toBe(0)
+      expect(gid).toBe(0)
+      expect(block.subarray(265, 329).every(byte => byte === 0)).toBe(true)
+      const size = Number.parseInt(
+        block.subarray(124, 136).toString('ascii').replace(/\0/g, '').trim() ||
+          '0',
+        8
+      )
+      offset += 512
+      if (block[156] === 48 || block[156] === 0) {
+        offset += Math.ceil(size / 512) * 512
+      }
+    }
   })
 
   test('archive bytes stay stable across copies made a second apart', async () => {

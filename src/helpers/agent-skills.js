@@ -10,6 +10,7 @@ import {
   mkdtempSync,
   readdirSync,
   readFileSync,
+  readlinkSync,
   rmSync,
   utimesSync,
   writeFileSync
@@ -67,6 +68,10 @@ const writeSkillMd = ({ name, skillDir, outputDir }) => {
 
 const EPOCH = new Date(0)
 
+const HEADER_BYTES = 512
+
+const isHiddenName = name => path.basename(name).startsWith('.')
+
 const stampTree = directory => {
   for (const entry of readdirSync(directory)) {
     const target = path.join(directory, entry)
@@ -80,6 +85,113 @@ const stampTree = directory => {
   }
 }
 
+const linkStaysInside = (root, linkPath) => {
+  const link = readlinkSync(linkPath)
+  if (path.isAbsolute(link)) return false
+  const resolved = path.resolve(path.dirname(linkPath), link)
+  const base = path.resolve(root)
+  return resolved === base || resolved.startsWith(`${base}${path.sep}`)
+}
+
+const assertContainedSymlinks = root => {
+  const walk = current => {
+    for (const entry of readdirSync(current)) {
+      const target = path.join(current, entry)
+      const stat = lstatSync(target)
+      if (stat.isSymbolicLink()) {
+        if (!linkStaysInside(root, target)) {
+          throw new Error(
+            `Skill symlink escapes the skill directory: ${path.relative(
+              root,
+              target
+            )}`
+          )
+        }
+        continue
+      }
+      if (stat.isDirectory()) walk(target)
+    }
+  }
+  walk(root)
+}
+
+const listArchivePaths = directory => {
+  const paths = []
+  const walk = current => {
+    for (const entry of readdirSync(current)) {
+      if (entry.startsWith('.')) continue
+      const target = path.join(current, entry)
+      paths.push(path.relative(directory, target))
+      if (lstatSync(target).isDirectory()) walk(target)
+    }
+  }
+  walk(directory)
+  return paths.sort()
+}
+
+const readOctal = (block, offset, length) => {
+  const text = block
+    .subarray(offset, offset + length)
+    .toString('ascii')
+    .split('\0', 1)[0]
+    .trim()
+  return text ? Number.parseInt(text, 8) : 0
+}
+
+const writeOctal = (block, offset, value, length) => {
+  block.write(value.toString(8).padStart(length - 1, '0'), offset, 'ascii')
+  block[offset + length - 1] = 0
+}
+
+const normalizeUstar = buffer => {
+  const parts = []
+  let offset = 0
+  while (offset + HEADER_BYTES <= buffer.length) {
+    const block = buffer.subarray(offset, offset + HEADER_BYTES)
+    if (block.every(byte => byte === 0)) break
+    const header = Buffer.from(block)
+    const type = header[156]
+    const size = readOctal(header, 124, 12)
+    const mode = type === 53 ? 0o755 : type === 50 ? 0o777 : 0o644
+    if (type === 53) {
+      const name = header.subarray(0, 100).toString('utf8').replace(/\0.*/, '')
+      if (name && !name.endsWith('/')) {
+        header.fill(0, 0, 100)
+        header.write(`${name}/`, 0, 'utf8')
+      }
+    }
+    writeOctal(header, 100, mode, 8)
+    writeOctal(header, 108, 0, 8)
+    writeOctal(header, 116, 0, 8)
+    writeOctal(header, 124, size, 12)
+    writeOctal(header, 136, 0, 12)
+    header.fill(0x20, 148, 156)
+    header.fill(0, 265, 345)
+    const prefixBlank = header
+      .subarray(345, 500)
+      .every(byte => byte === 0 || byte === 0x20)
+    if (prefixBlank) header.fill(0, 345, 500)
+    header.write('ustar', 257, 'ascii')
+    header[262] = 0
+    header[263] = 48
+    header[264] = 48
+    let sum = 0
+    for (const byte of header) sum += byte
+    header.write(sum.toString(8).padStart(6, '0'), 148, 'ascii')
+    header[154] = 0
+    header[155] = 0x20
+    parts.push(header)
+    offset += HEADER_BYTES
+    if (type === 48 || type === 0) {
+      const bytes = Math.ceil(size / HEADER_BYTES) * HEADER_BYTES
+      parts.push(Buffer.from(buffer.subarray(offset, offset + bytes)))
+      offset += bytes
+    }
+  }
+  parts.push(Buffer.alloc(HEADER_BYTES * 2))
+  return Buffer.concat(parts)
+}
+
 const writeSkillArchive = ({ name, skillDir, entries, outputDir }) => {
   const filename = `${name}.tar.gz`
   const target = path.join(outputDir, filename)
@@ -89,17 +201,33 @@ const writeSkillArchive = ({ name, skillDir, entries, outputDir }) => {
     mkdirSync(staged)
     for (const entry of entries) {
       cpSync(path.join(skillDir, entry), path.join(staged, entry), {
-        recursive: true
+        recursive: true,
+        verbatimSymlinks: true,
+        filter: source => !isHiddenName(source)
       })
     }
     stampTree(staged)
+    assertContainedSymlinks(staged)
     const archive = path.join(staging, 'archive.tar')
     execFileSync(
       'tar',
-      ['--format', 'ustar', '-cf', archive, '-C', staged, '--', ...entries],
+      [
+        '--format',
+        'ustar',
+        '--no-recursion',
+        '-cf',
+        archive,
+        '-C',
+        staged,
+        '--',
+        ...listArchivePaths(staged)
+      ],
       { env: { ...process.env, COPYFILE_DISABLE: '1' } }
     )
-    writeFileSync(target, gzipSync(readFileSync(archive), { mtime: 0 }))
+    writeFileSync(
+      target,
+      gzipSync(normalizeUstar(readFileSync(archive)), { mtime: 0 })
+    )
   } finally {
     rmSync(staging, { recursive: true, force: true })
   }
@@ -111,6 +239,7 @@ const writeSkillArchive = ({ name, skillDir, entries, outputDir }) => {
 }
 
 const writeSkillArtifact = ({ name, skillDir, outputDir }) => {
+  if (!existsSync(skillDir)) return null
   const entries = listSkillEntries(skillDir)
   if (!entries.includes(SKILL_FILE)) return null
   return entries.length === 1
