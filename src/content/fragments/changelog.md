@@ -1,5 +1,14 @@
 ### October 2026
 
+- [Microlink](/terms): Published the [terms of service](/terms), including when free and paid quotas reset.
+- [Microlink](/dpa): The [DPA](/dpa) page has an at-a-glance summary and a signed DPA request.
+- [Microlink API](/docs/api/parameters/ttl): An invalid [ttl](/docs/api/parameters/ttl) returns a 400, and [function](/docs/api/parameters/function) values travel under `args`.
+- [Microlink SDK](/docs/sdk/getting-started/overview): The client exposes `client.request` and `client.apiUrl`.
+- [Microlink Skills](/ai): Added the [difftool](https://github.com/microlinkhq/skills) skill for visual regression diffs.
+- [Microlink API](/docs/api/getting-started/overview): Reads the full body of X Articles.
+- [Microlink](/security): The [security](/security) page credits researchers with avatars and contact links.
+- [Microlink API](/docs/api/parameters/function): Custom headers and user agent in [function](/docs/api/parameters/function) are pro only.
+- [Microlink](/pricing): [Pricing](/pricing) states the free plan's 2 concurrent requests.
 - [Microlink](/): Added [TechTailors](/use-cases/customers/techtailors) customer story.
 - [Microlink API](/docs/api/basics/rate-limit): The free API key gets 25 requests per day, and the free endpoint 5 requests per day.
 - [Microlink API](/docs/api/getting-started/overview): Unfurls Meta AI shared artifacts.
