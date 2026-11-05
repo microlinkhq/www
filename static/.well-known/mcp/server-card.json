@@ -1,0 +1,49 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/v1/server-card.schema.json",
+  "name": "io.microlink/mcp",
+  "title": "Microlink",
+  "version": "0.1.0",
+  "description": "Turn any URL into data: metadata, screenshots, PDFs, video, audio, Lighthouse insights, and color palettes through Microlink API.",
+  "websiteUrl": "https://microlink.io/docs/api/getting-started/mcp",
+  "repository": {
+    "url": "https://github.com/microlinkhq/microlink",
+    "source": "github",
+    "subfolder": "packages/mcp"
+  },
+  "icons": [
+    {
+      "src": "https://cdn.microlink.io/logo/logo.svg",
+      "mimeType": "image/svg+xml"
+    }
+  ],
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.microlink.io/mcp",
+      "supportedProtocolVersions": [
+        "2025-06-18"
+      ],
+      "headers": [
+        {
+          "name": "x-api-key",
+          "description": "Microlink API key. Optional: without it, requests use the free endpoint.",
+          "isRequired": false,
+          "isSecret": true
+        }
+      ]
+    }
+  ],
+  "serverInfo": {
+    "name": "microlink-mcp-server",
+    "version": "0.1.0"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "endpoint": "https://mcp.microlink.io/mcp"
+  },
+  "capabilities": {
+    "tools": {
+      "listChanged": true
+    }
+  }
+}

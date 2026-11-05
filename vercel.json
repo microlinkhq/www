@@ -160,6 +160,96 @@
           "value": "cross-origin"
         }
       ]
+    },
+    {
+      "source": "/",
+      "headers": [
+        {
+          "key": "Link",
+          "value": "</.well-known/api-catalog>; rel=\"api-catalog\"; type=\"application/linkset+json\", </openapi.json>; rel=\"service-desc\"; type=\"application/vnd.oai.openapi+json\", </docs/api/getting-started/overview>; rel=\"service-doc\"; type=\"text/html\", </llms.txt>; rel=\"describedby\"; type=\"text/markdown\""
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/api-catalog",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/linkset+json; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/mcp/server-card.json",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/mcp-server-card+json; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/ai-catalog.json",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/.well-known/agent-skills/(.*)",
+      "headers": [
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/auth.md",
+      "headers": [
+        {
+          "key": "content-type",
+          "value": "text/markdown; charset=utf-8"
+        },
+        {
+          "key": "access-control-allow-origin",
+          "value": "*"
+        },
+        {
+          "key": "cross-origin-resource-policy",
+          "value": "cross-origin"
+        }
+      ]
     }
   ],
   "redirects": [
@@ -693,7 +783,7 @@
       ]
     },
     {
-      "source": "/((?!tools/embed-url/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
+      "source": "/((?!tools/embed-url/|\\.well-known/|(?:recipes|404|dev-404-page|offline-plugin-app-shell-fallback)(?:/|$)|.*\\.[a-zA-Z0-9]+$).+)",
       "destination": "/$1.md",
       "permanent": false,
       "has": [

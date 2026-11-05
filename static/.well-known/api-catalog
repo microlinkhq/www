@@ -1,0 +1,29 @@
+{
+  "linkset": [
+    {
+      "anchor": "https://api.microlink.io",
+      "service-desc": [
+        {
+          "href": "https://microlink.io/openapi.json",
+          "type": "application/vnd.oai.openapi+json"
+        }
+      ],
+      "service-doc": [
+        {
+          "href": "https://microlink.io/docs/api/getting-started/overview",
+          "type": "text/html"
+        },
+        {
+          "href": "https://microlink.io/llms.txt",
+          "type": "text/markdown"
+        }
+      ],
+      "status": [
+        {
+          "href": "https://healthcheck.microlink.io",
+          "type": "application/json"
+        }
+      ]
+    }
+  ]
+}

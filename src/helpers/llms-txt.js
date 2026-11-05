@@ -11,6 +11,11 @@ const SUMMARY =
 const MACHINE_READABLE = `## Machine-readable
 
 - [OpenAPI](https://microlink.io/openapi.json): Microlink API specification
+- [API catalog](https://microlink.io/.well-known/api-catalog): RFC 9727 linkset of Microlink APIs
+- [MCP server card](https://microlink.io/.well-known/mcp/server-card.json): Remote Microlink MCP server
+- [Agent skills](https://microlink.io/.well-known/agent-skills/index.json): Agent skills discovery index
+- [AI catalog](https://microlink.io/.well-known/ai-catalog.json): Agentic resource discovery manifest
+- [auth.md](https://microlink.io/auth.md): How agents get and use a Microlink API key
 - [Agent feedback](https://microlink.io/.well-known/agent-feedback.json): How agents report Microlink API problems`
 
 const TITLE_SUFFIX = /\s+—\s+Microlink(\s+\w+)?$/

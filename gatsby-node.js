@@ -26,6 +26,7 @@ const {
   notFoundMarkdown
 } = require('./src/helpers/page-markdown')
 const { buildLlmsTxt } = require('./src/helpers/llms-txt')
+const { publishAgentSkills } = require('./src/helpers/agent-skills')
 const {
   parseLatestChangelogEntry
 } = require('./src/helpers/parse-latest-changelog-entry')
@@ -168,7 +169,25 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   }
 }
 
+const SKILLS_DATA_PATH = path.join(process.cwd(), 'data', 'skills.json')
+
+const createAgentSkillsIndex = ({ reporter }) => {
+  publishAgentSkills({
+    skillsPath: SKILLS_DATA_PATH,
+    repoDir: path.join(process.cwd(), 'data', 'skills-repo'),
+    outputDir: path.join(
+      process.cwd(),
+      'public',
+      '.well-known',
+      'agent-skills'
+    ),
+    warn: message => reporter.warn(message),
+    info: message => reporter.info(message)
+  })
+}
+
 exports.onPostBuild = async ({ graphql, reporter }) => {
+  createAgentSkillsIndex({ reporter })
   await createPageMarkdownFiles({ graphql, reporter })
   await generateOgImages({ graphql, reporter })
 }

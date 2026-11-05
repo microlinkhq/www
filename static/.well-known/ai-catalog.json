@@ -1,0 +1,60 @@
+{
+  "specVersion": "1.0",
+  "host": {
+    "displayName": "Microlink",
+    "identifier": "did:web:microlink.io",
+    "url": "https://microlink.io"
+  },
+  "entries": [
+    {
+      "identifier": "urn:air:microlink.io:mcp:microlink",
+      "displayName": "Microlink MCP server",
+      "description": "MCP tools that turn any URL into metadata, screenshots, PDFs, media, Lighthouse insights, and color palettes.",
+      "type": "application/mcp-server-card+json",
+      "url": "https://microlink.io/.well-known/mcp/server-card.json",
+      "representativeQueries": [
+        "take a full page screenshot of a website",
+        "generate a PDF from a URL",
+        "get the title, description and image of a link",
+        "run a Lighthouse audit on a web page"
+      ]
+    },
+    {
+      "identifier": "urn:air:microlink.io:api:microlink",
+      "displayName": "Microlink API",
+      "description": "One HTTP GET turns a URL into metadata, screenshots, PDFs, markdown, media, and structured extraction.",
+      "type": "application/vnd.oai.openapi+json",
+      "url": "https://microlink.io/openapi.json",
+      "representativeQueries": [
+        "API to take website screenshots",
+        "convert a web page to markdown",
+        "extract link preview metadata from a URL",
+        "scrape structured data from a web page with CSS selectors"
+      ]
+    },
+    {
+      "identifier": "urn:air:microlink.io:skills:index",
+      "displayName": "Microlink agent skills",
+      "description": "Agent skills for Microlink API, Microlink MCP, browserless, metascraper, and related open source tools.",
+      "type": "application/json",
+      "url": "https://microlink.io/.well-known/agent-skills/index.json",
+      "representativeQueries": [
+        "agent skill for taking screenshots with Microlink",
+        "how should an agent call Microlink API",
+        "skill for headless Chrome automation with browserless"
+      ]
+    },
+    {
+      "identifier": "urn:air:microlink.io:docs:llms-txt",
+      "displayName": "Microlink docs for LLMs",
+      "description": "Markdown index of every Microlink documentation, guide, and product page.",
+      "type": "text/markdown",
+      "url": "https://microlink.io/llms.txt",
+      "representativeQueries": [
+        "Microlink API documentation",
+        "list of Microlink API parameters",
+        "Microlink pricing and free tier"
+      ]
+    }
+  ]
+}

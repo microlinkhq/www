@@ -166,6 +166,10 @@ describe('markdown content negotiation', () => {
     }
   })
 
+  test('leaves well-known discovery documents alone', () => {
+    expect(matchesNegotiation('/.well-known/api-catalog')).toBe(false)
+  })
+
   test('leaves the pages without a markdown file alone', () => {
     for (const pathname of [...EXCLUDED_PATHNAMES, '/404.md']) {
       expect(matchesNegotiation(pathname.replace(/\.md$/, '')), pathname).toBe(
