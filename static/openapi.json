@@ -971,6 +971,16 @@
               }
             }
           },
+          "424": {
+            "description": "The target url sent no response in the time Microlink waited for it. Code: EUNREACHABLE. The `Retry-After` header says when to try again.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
           "429": {
             "description": "The daily or monthly rate limit has been reached. Code: ERATE.",
             "content": {
@@ -1216,6 +1226,7 @@
               "EPROXYNEEDED",
               "ERATE",
               "ETIMEOUT",
+              "EUNREACHABLE",
               "ETTL",
               "ESTTL"
             ],

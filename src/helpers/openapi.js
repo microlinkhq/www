@@ -160,6 +160,9 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
           408: errorResponse(
             'The request reached its timeout. Typical codes: ETIMEOUT, EBRWSRTIMEOUT.'
           ),
+          424: errorResponse(
+            'The target url sent no response in the time Microlink waited for it. Code: EUNREACHABLE. The `Retry-After` header says when to try again.'
+          ),
           429: errorResponse(
             'The daily or monthly rate limit has been reached. Code: ERATE.'
           ),

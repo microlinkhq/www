@@ -607,6 +607,10 @@
       "destination": "/docs/api/basics/error-codes#etimeout"
     },
     {
+      "source": "/eunreachable",
+      "destination": "/docs/api/basics/error-codes#eunreachable"
+    },
+    {
       "source": "/ettl",
       "destination": "/docs/api/basics/error-codes#ettl"
     },

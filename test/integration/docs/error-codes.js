@@ -38,5 +38,6 @@ test('a code with no retry path does not offer one', () => {
     showRetry: false
   })
   expect(getErrorMeta('EPDFTOOLARGE').showRetry).toBe(false)
+  expect(getErrorMeta('EUNREACHABLE').showRetry).toBe(false)
   expect(getErrorMeta('ETIMEOUT').showRetry).toBe(true)
 })
