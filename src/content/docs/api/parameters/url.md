@@ -67,5 +67,6 @@ If the URL cannot be processed, you'll receive one of these error codes:
 - **EFORBIDDENURL**: The URL resolves to a forbidden IP range
 - **EMAXREDIRECTS**: Too many redirects (more than 10 hops)
 - **ETIMEOUT**: The URL took too long to respond
+- **EUNREACHABLE**: The URL sent no response in the time Microlink waited for it
 
 See [error codes](/docs/api/basics/error-codes) for the complete list.

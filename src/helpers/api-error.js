@@ -5,6 +5,7 @@ const ERROR_META = {
   EPDFTOOLARGE: { title: 'Document too large', showRetry: false },
   EPAGERANGE: { title: 'Page range not found', showRetry: false },
   EPROXYNEEDED: { title: 'Antibot detected', showRetry: false },
+  EUNREACHABLE: { title: 'URL did not respond', showRetry: false },
   EMPTY_MARKDOWN: {
     title: 'This URL couldn\u2019t be analyzed',
     showRetry: true
