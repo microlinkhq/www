@@ -81,8 +81,9 @@ export const parameterFromDoc = (file, content) => {
   }
 }
 
-const errorResponse = description => ({
+const errorResponse = (description, headers) => ({
   description,
+  ...(headers && { headers }),
   content: {
     'application/json': {
       schema: { $ref: '#/components/schemas/Error' }
@@ -161,7 +162,13 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
             'The request reached its timeout. Typical codes: ETIMEOUT, EBRWSRTIMEOUT.'
           ),
           424: errorResponse(
-            'The target url sent no response in the time Microlink waited for it. Code: EUNREACHABLE. The `Retry-After` header says when to try again.'
+            'The target url sent no response in the time Microlink waited for it. Code: EUNREACHABLE. The `Retry-After` header says when to try again.',
+            {
+              'Retry-After': {
+                description: 'Seconds to wait before requesting the url again.',
+                schema: { type: 'integer', minimum: 0 }
+              }
+            }
           ),
           429: errorResponse(
             'The daily or monthly rate limit has been reached. Code: ERATE.'

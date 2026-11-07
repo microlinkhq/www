@@ -376,7 +376,9 @@ The target [url](/docs/api/parameters/url) sent no response within the time Micr
 The request fails with HTTP status `424`. A [function](/docs/api/parameters/function) that runs on the loaded page does not run, because there is no page to run it on. The response carries a `Retry-After` header in seconds. A target that does not answer is often down or throttling traffic for a while, so retrying immediately usually gets the same answer.
 
 ```js
-const mql = require('@microlink/mql')
+import mql from '@microlink/mql'
+
+const url = 'https://example.com'
 
 try {
   await mql(url)
