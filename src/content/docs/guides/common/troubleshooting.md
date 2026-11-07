@@ -25,6 +25,10 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 <Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 30 seconds on the free endpoint and 60 seconds with an API key.</Figcaption>
 
+## The URL does not respond
+
+`EUNREACHABLE` means the target sent no response within the time Microlink waited for it, and the message says how long that was. Check that the URL loads from another network. If it does, the site is most likely slow or throttling traffic for a while: wait the seconds in the `Retry-After` header before asking again, instead of retrying right away.
+
 ## The site blocks the browser <ProBadge />
 
 Some sites block headless browsers, require a region-specific IP, or trigger antibot protection. In those cases, use `proxy`:

@@ -363,6 +363,32 @@ When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/
 
 In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.
 
+## EUNREACHABLE
+
+**Message**
+
+The URL did not respond after 9.5s.
+
+**Solution**
+
+The target [url](/docs/api/parameters/url) sent no response within the time Microlink waited for it, and the message says how long that was. No status code came back: the host did not resolve, the connection did not open, or the server did not answer in time.
+
+The request fails with HTTP status `424`. A [function](/docs/api/parameters/function) that runs on the loaded page does not run, because there is no page to run it on. The response carries a `Retry-After` header in seconds. A target that does not answer is often down or throttling traffic for a while, so retrying immediately usually gets the same answer.
+
+```js
+import mql from '@microlink/mql'
+
+const url = 'https://example.com'
+
+try {
+  await mql(url)
+} catch (error) {
+  if (error.code !== 'EUNREACHABLE') throw error
+  const retryAfter = Number(error.headers['retry-after'] ?? 60)
+  // queue `url` again in `retryAfter` seconds
+}
+```
+
 ## ETTL
 
 **Message**
