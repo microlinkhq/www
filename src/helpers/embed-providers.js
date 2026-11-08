@@ -44,7 +44,7 @@ const NYTIMES_DEFAULT_IMAGE =
 const NYTIMES_LOGO =
   'https://static01.nyt.com/images/icons/t_logo_291_black.png'
 const NYTIMES_PUBLISHED_SUFFIX_RE = /\s*\(Published \d{4}\)\s*$/i
-const NYTIMES_BYLINE_PREFIX_RE = /^by\s+/i
+const NYTIMES_BYLINE_PREFIX_RE = /^by(?:\s+|$)/i
 const LONG_DATE_RE = /^([a-z]+)\s+(\d{1,2}),\s+(\d{4})$/i
 const MONTHS = [
   'january',
@@ -81,8 +81,11 @@ const parseLongDate = value => {
     .match(LONG_DATE_RE)
   if (!match) return null
   const monthIndex = MONTHS.indexOf(match[1].toLowerCase())
-  if (monthIndex === -1) return null
-  return new Date(Number(match[3]), monthIndex, Number(match[2])).toISOString()
+  const year = Number(match[3])
+  const day = Number(match[2])
+  const date = new Date(year, monthIndex, day)
+  if (date.getMonth() !== monthIndex) return null
+  return date.toISOString()
 }
 
 const cleanText = value => String(value ?? '').trim()
