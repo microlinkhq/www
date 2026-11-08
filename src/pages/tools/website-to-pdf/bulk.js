@@ -63,15 +63,14 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import ArrowLink from 'components/patterns/ArrowLink'
 
 import { useClipboard } from 'components/hook/use-clipboard'
+import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { useQueryState } from 'components/hook/use-query-state'
 import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor,
-  toForcedError
+  signupErrorFor
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
@@ -1860,8 +1859,7 @@ const BulkPreview = ({
   previewPdf,
   onClosePreview
 }) => {
-  const [{ state }] = useQueryState()
-  const forcedError = toForcedError(state)
+  const forcedError = useForcedError(null)
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
   const [downloaded, setDownloaded] = useState(false)

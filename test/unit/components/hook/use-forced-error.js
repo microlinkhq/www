@@ -8,41 +8,32 @@ vi.mock('components/hook/use-query-state', () => ({
   useQueryState: () => [globalThis.__forcedQuery, () => {}]
 }))
 
-vi.mock('react', async () => {
-  const react = await vi.importActual('react')
-  return {
-    ...react,
-    useEffect: effect => {
-      effect()
-    }
-  }
-})
-
-const Probe = ({ onError }) => {
-  useForcedError(onError)
-  return null
+const Probe = ({ error }) => {
+  const shown = useForcedError(error)
+  return <>{shown?.code || 'none'}</>
 }
+
+const shown = error => renderToStaticMarkup(<Probe error={error} />)
 
 describe('useForcedError', () => {
   beforeEach(() => {
     globalThis.__forcedQuery = { state: undefined }
   })
 
-  test('writes the forced error for a state code', () => {
+  test('a state code replaces the request error', () => {
     globalThis.__forcedQuery = { state: ' erate ' }
-    const onError = vi.fn()
-    renderToStaticMarkup(<Probe onError={onError} />)
-    expect(onError).toHaveBeenCalledWith(
-      expect.objectContaining({ code: 'ERATE' })
-    )
+    expect(shown({ code: 'ETIMEOUT' })).toContain('ERATE')
   })
 
-  test('does not write when the state is empty or not a string', () => {
-    const onError = vi.fn()
+  test('without a state code the request error shows', () => {
+    expect(shown({ code: 'ETIMEOUT' })).toContain('ETIMEOUT')
     globalThis.__forcedQuery = { state: '   ' }
-    renderToStaticMarkup(<Probe onError={onError} />)
+    expect(shown({ code: 'EFATAL' })).toContain('EFATAL')
     globalThis.__forcedQuery = { state: ['ERATE'] }
-    renderToStaticMarkup(<Probe onError={onError} />)
-    expect(onError).not.toHaveBeenCalled()
+    expect(shown({ code: 'EUNREACHABLE' })).toContain('EUNREACHABLE')
+  })
+
+  test('shows nothing when neither side is an error', () => {
+    expect(shown(null)).toContain('none')
   })
 })

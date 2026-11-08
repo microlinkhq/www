@@ -4,7 +4,7 @@ import { describe, expect, test } from 'vitest'
 const read = path =>
   readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8')
 
-const FORCED_ERROR_TOOLS = [
+const REQUEST_ERROR_TOOLS = [
   'src/components/pages/embed-url/EmbedTool.js',
   'src/pages/tools/url-to-markdown.js',
   'src/pages/tools/website-screenshot/animated.js',
@@ -20,28 +20,30 @@ const BULK_TOOLS = [
 ]
 
 describe('tool error panel', () => {
-  test('single-result tools force the panel from ?state=', () => {
-    FORCED_ERROR_TOOLS.forEach(file => {
-      expect(read(file), file).toContain('useForcedError(setError)')
+  test('single-result tools show the forced error ahead of the request', () => {
+    REQUEST_ERROR_TOOLS.forEach(file => {
+      expect(read(file), file).toContain('useForcedError(requestError)')
     })
   })
 
   test('bulk tools force the panel from ?state= while idle', () => {
     BULK_TOOLS.forEach(file => {
       const source = read(file)
-      expect(source, file).toContain('toForcedError(state)')
+      expect(source, file).toContain('useForcedError(null)')
       expect(source, file).toContain("forcedError ? 'forced-error' : 'empty'")
     })
   })
 
-  test('sitemap and sharing debugger overlay the forced error', () => {
-    expect(
-      read('src/components/pages/sitemap/hero/use-sitemap-state.js')
-    ).toContain('error: toForcedError(query.state) || error')
-    expect(
-      read('src/components/pages/sharing-debugger/hero/index.js')
-    ).toContain(
-      "toForcedError(query.state) || (status === 'error' ? error : null)"
+  test('sitemap and sharing debugger keep the forced error on top', () => {
+    const sitemap = read(
+      'src/components/pages/sitemap/hero/use-sitemap-state.js'
+    )
+    expect(sitemap).toContain('useForcedError(error)')
+    expect(sitemap).toContain('error: shownError')
+    const sharing = read('src/components/pages/sharing-debugger/hero/index.js')
+    expect(sharing).toContain('useForcedError(null)')
+    expect(sharing).toContain(
+      "forcedError || (status === 'error' ? error : null)"
     )
   })
 

@@ -51,15 +51,14 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
+import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { useQueryState } from 'components/hook/use-query-state'
 import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor,
-  toForcedError
+  signupErrorFor
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
@@ -1433,8 +1432,7 @@ const BulkPreview = ({
   isZipping,
   onReset
 }) => {
-  const [{ state }] = useQueryState()
-  const forcedError = toForcedError(state)
+  const forcedError = useForcedError(null)
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
