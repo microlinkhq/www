@@ -2067,6 +2067,8 @@ const PreviewColumn = styled(Flex)`
   flex: 1 1 0;
 `
 
+const PLAYGROUND_PATH = '/playground?product=embed'
+
 const ErrorMessage = ({ error, onRetry }) => (
   <>
     <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
@@ -2199,7 +2201,11 @@ const ResultArea = ({
         >
           {hasSignupPrompt(error?.code)
             ? (
-              <SignupPrompt code={error.code} source='embed-url' />
+              <SignupPrompt
+                code={error.code}
+                source='embed-url'
+                redirect={PLAYGROUND_PATH}
+              />
               )
             : (
               <ErrorMessage error={error} onRetry={onRetry} />

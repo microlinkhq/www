@@ -29,7 +29,7 @@ const PROMPTS = {
 
 export const hasSignupPrompt = code => Object.hasOwn(PROMPTS, code)
 
-export const SignupPrompt = ({ code, source }) => {
+export const SignupPrompt = ({ code, source, redirect }) => {
   const { slug, title, body } = PROMPTS[code]
 
   return (
@@ -58,6 +58,7 @@ export const SignupPrompt = ({ code, source }) => {
         component={Button}
         forwardedAs='a'
         cta={`${source}:${slug}`}
+        redirect={redirect}
         css={theme({
           mt: 4,
           px: 4,

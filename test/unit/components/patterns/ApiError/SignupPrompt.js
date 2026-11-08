@@ -42,6 +42,22 @@ describe('SignupPrompt', () => {
     expect(markup).toMatch(/cta=embed-url:rate-limit/)
   })
 
+  test('sends the visitor to the redirect path after signup', () => {
+    const markup = renderMarkup(
+      <SignupPrompt
+        code='ERATE'
+        source='embed-url'
+        redirect='/playground?product=embed'
+      />,
+      { url: '/tools/embed-url' }
+    )
+    expect(markup).toContain('redirect=/playground%3Fproduct%3Dembed')
+  })
+
+  test('omits the redirect when none is given', () => {
+    expect(render('ERATE')).not.toContain('redirect=')
+  })
+
   test('lists the free key facts', () => {
     expect(render('ERATE')).toContain('No credit card')
   })
