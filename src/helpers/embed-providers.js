@@ -82,9 +82,7 @@ const parseLongDate = value => {
   if (!match) return null
   const monthIndex = MONTHS.indexOf(match[1].toLowerCase())
   if (monthIndex === -1) return null
-  return new Date(
-    Date.UTC(Number(match[3]), monthIndex, Number(match[2]))
-  ).toISOString()
+  return new Date(Number(match[3]), monthIndex, Number(match[2])).toISOString()
 }
 
 const cleanText = value => String(value ?? '').trim()

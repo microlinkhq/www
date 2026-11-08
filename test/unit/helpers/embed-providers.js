@@ -4,6 +4,7 @@ import {
   buildLocalEmbedResponse,
   resolveLocalEmbedResponse
 } from '../../../src/helpers/embed-providers.js'
+import { formatDate } from '../../../src/helpers/link-card.js'
 
 const ARTICLE_URL =
   'https://www.nytimes.com/interactive/2019/08/14/magazine/1619-america-slavery.html'
@@ -41,10 +42,15 @@ describe('resolveLocalEmbedResponse for The New York Times', () => {
       title: 'The 1619 Project',
       description: 'American slavery began 400 years ago this month.',
       author: 'Nikole Hannah-Jones',
-      date: '2019-08-14T00:00:00.000Z',
       publisher: 'The New York Times',
       image: { url: OEMBED_PAYLOAD.thumbnail_url }
     })
+  })
+
+  it('keeps the publication day in the viewer timezone', async () => {
+    const fetch = vi.fn(async () => jsonResponse(OEMBED_PAYLOAD))
+    const { date } = await resolveLocalEmbedResponse(ARTICLE_URL, { fetch })
+    expect(formatDate(date)).toBe(formatDate(new Date(2019, 7, 14)))
   })
 
   it('matches nytimes subdomains such as cooking.nytimes.com', async () => {
