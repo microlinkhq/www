@@ -37,30 +37,6 @@ const buildYouTubeResponse = (url, videoId) => ({
   }
 })
 
-const NYTIMES_DOMAIN_RE = /(?:^|\.)nytimes\.com$/i
-const NYTIMES_OEMBED_ENDPOINT = 'https://www.nytimes.com/svc/oembed/json/'
-const NYTIMES_DEFAULT_IMAGE =
-  'https://static01.nyt.com/newsgraphics/images/icons/defaultPromoCrop.png'
-const NYTIMES_LOGO =
-  'https://static01.nyt.com/images/icons/t_logo_291_black.png'
-const NYTIMES_PUBLISHED_SUFFIX_RE = /\s*\(Published \d{4}\)\s*$/i
-const NYTIMES_BYLINE_PREFIX_RE = /^by(?:\s+|$)/i
-const LONG_DATE_RE = /^([a-z]+)\s+(\d{1,2}),\s+(\d{4})$/i
-const MONTHS = [
-  'january',
-  'february',
-  'march',
-  'april',
-  'may',
-  'june',
-  'july',
-  'august',
-  'september',
-  'october',
-  'november',
-  'december'
-]
-
 const humanizeSlug = slug =>
   slug
     .replace(/\.[a-z0-9]+$/i, '')
@@ -68,76 +44,6 @@ const humanizeSlug = slug =>
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/\b\w/g, c => c.toUpperCase())
-
-const titleFromPath = pathname => {
-  const segments = pathname.split('/').filter(Boolean)
-  if (segments.length === 0) return ''
-  return humanizeSlug(segments[segments.length - 1])
-}
-
-const parseLongDate = value => {
-  const match = String(value ?? '')
-    .trim()
-    .match(LONG_DATE_RE)
-  if (!match) return null
-  const monthIndex = MONTHS.indexOf(match[1].toLowerCase())
-  const year = Number(match[3])
-  const day = Number(match[2])
-  const date = new Date(year, monthIndex, day)
-  if (date.getMonth() !== monthIndex) return null
-  return date.toISOString()
-}
-
-const cleanText = value => String(value ?? '').trim()
-
-const buildNYTimesResponse = (url, parsed) => ({
-  url,
-  title: titleFromPath(parsed.pathname) || 'The New York Times',
-  description: '',
-  publisher: 'The New York Times',
-  image: {
-    url: NYTIMES_DEFAULT_IMAGE,
-    palette: ['#000000', '#ffffff']
-  },
-  logo: {
-    url: NYTIMES_LOGO
-  }
-})
-
-const mergeNYTimesOEmbed = (fallback, oembed) => {
-  const title = cleanText(oembed?.title).replace(
-    NYTIMES_PUBLISHED_SUFFIX_RE,
-    ''
-  )
-  const author = cleanText(oembed?.author_name).replace(
-    NYTIMES_BYLINE_PREFIX_RE,
-    ''
-  )
-  const date = parseLongDate(oembed?.publication_date)
-  const imageUrl = cleanText(oembed?.thumbnail_url)
-  return {
-    ...fallback,
-    title: title || fallback.title,
-    description: cleanText(oembed?.summary) || fallback.description,
-    ...(author && { author }),
-    ...(date && { date }),
-    image: { ...fallback.image, url: imageUrl || fallback.image.url }
-  }
-}
-
-const resolveNYTimesResponse = async (url, parsed, { fetchImpl, timeout }) => {
-  const fallback = buildNYTimesResponse(url, parsed)
-  try {
-    const response = await fetchImpl(
-      `${NYTIMES_OEMBED_ENDPOINT}?url=${encodeURIComponent(url)}`,
-      { signal: AbortSignal.timeout(timeout) }
-    )
-    if (!response.ok) return fallback
-    return mergeNYTimesOEmbed(fallback, await response.json())
-  } catch {
-    return fallback
-  }
-}
 
 const FIGMA_EMBED_HOST_RE = /^embed\.figma\.com$/i
 
@@ -234,21 +140,6 @@ const PROVIDERS = [
     build: (url, ctx) => buildYouTubeResponse(url, ctx.videoId)
   },
   {
-    name: 'nytimes',
-    test: url => {
-      let parsed
-      try {
-        parsed = new URL(url)
-      } catch {
-        return null
-      }
-      return NYTIMES_DOMAIN_RE.test(parsed.hostname) ? { parsed } : null
-    },
-    build: (url, ctx) => buildNYTimesResponse(url, ctx.parsed),
-    resolve: (url, ctx, options) =>
-      resolveNYTimesResponse(url, ctx.parsed, options)
-  },
-  {
     name: 'figma',
     test: url => {
       let parsed
@@ -289,33 +180,11 @@ const PROVIDERS = [
   }
 ]
 
-const LOCAL_RESOLVE_TIMEOUT_MS = 5000
-
-const matchProvider = url => {
+export const buildLocalEmbedResponse = url => {
   if (!url || typeof url !== 'string') return null
   for (const provider of PROVIDERS) {
     const ctx = provider.test(url)
-    if (ctx) return { provider, ctx }
+    if (ctx) return provider.build(url, ctx)
   }
   return null
-}
-
-export const buildLocalEmbedResponse = url => {
-  const match = matchProvider(url)
-  return match ? match.provider.build(url, match.ctx) : null
-}
-
-export const resolveLocalEmbedResponse = async (
-  url,
-  {
-    fetch: fetchImpl = globalThis.fetch,
-    timeout = LOCAL_RESOLVE_TIMEOUT_MS
-  } = {}
-) => {
-  const match = matchProvider(url)
-  if (!match) return null
-  const { provider, ctx } = match
-  return provider.resolve
-    ? provider.resolve(url, ctx, { fetchImpl, timeout })
-    : provider.build(url, ctx)
 }

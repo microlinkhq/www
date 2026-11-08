@@ -34,10 +34,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
-import {
-  buildLocalEmbedResponse,
-  resolveLocalEmbedResponse
-} from 'helpers/embed-providers'
+import { buildLocalEmbedResponse } from 'helpers/embed-providers'
 import {
   CARD_VARIANTS,
   COLOR_FIELDS,
@@ -2373,7 +2370,7 @@ const EmbedTool = ({
       lastUrlRef.current = nextUrl
 
       try {
-        const localFallback = await resolveLocalEmbedResponse(nextUrl)
+        const localFallback = buildLocalEmbedResponse(nextUrl)
         if (localFallback) {
           if (requestId !== requestIdRef.current) return
           setData(localFallback)
