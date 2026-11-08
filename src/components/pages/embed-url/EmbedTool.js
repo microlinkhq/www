@@ -94,6 +94,15 @@ const HOVER_HIGHLIGHT_KINDS = [
 
 const HOVER_FADE_KINDS = HOVER_HIGHLIGHT_KINDS.filter(k => k !== 'frame')
 
+const PROVIDER_FRAME_WIDTH_FIXES = [
+  { src: 'https://www.nytimes.com/svc/oembed/', maxWidth: '440px' }
+]
+
+const PROVIDER_FRAME_WIDTH_CSS = PROVIDER_FRAME_WIDTH_FIXES.map(
+  ({ src, maxWidth }) =>
+    `iframe[src^="${src}"]{max-width:min(100%,${maxWidth})!important}`
+).join('')
+
 const EmbedPreviewFrame = styled(Box)`
   ${theme({ p: 3, pt: '24px' })}
   flex: 1;
@@ -206,6 +215,8 @@ const IframePreviewFrame = styled(EmbedPreviewFrame)`
     border-radius: 6px;
     background: ${colors.black05};
   }
+
+  ${PROVIDER_FRAME_WIDTH_CSS}
 `
 
 const VariantSelector = styled(Flex)`
@@ -1425,7 +1436,7 @@ const RESIZE_MESSAGE_TYPE = 'microlink-embed-resize'
 const RESIZE_BRIDGE_SCRIPT = `(function(){var post=function(){try{var h=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);parent.postMessage({type:'${RESIZE_MESSAGE_TYPE}',height:h},'*')}catch(e){}};post();if(typeof ResizeObserver!=='undefined'){new ResizeObserver(post).observe(document.documentElement);if(document.body)new ResizeObserver(post).observe(document.body)}setTimeout(post,500);setTimeout(post,1500);setTimeout(post,3500)})();`
 
 const buildSandboxedSrcdoc = (html, scripts) =>
-  `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,sans-serif}body{display:flex;align-items:flex-start;justify-content:center}iframe,blockquote,img{max-width:100%}</style></head><body>${
+  `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,sans-serif}body{display:flex;align-items:flex-start;justify-content:center}iframe,blockquote,img{max-width:100%}${PROVIDER_FRAME_WIDTH_CSS}</style></head><body>${
     html || ''
   }${serializeIframeScripts(
     scripts
