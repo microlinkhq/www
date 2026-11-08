@@ -64,11 +64,14 @@ import ArrowLink from 'components/patterns/ArrowLink'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useQueryState } from 'components/hook/use-query-state'
 import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor
+  signupErrorFor,
+  toForcedError
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
@@ -1857,6 +1860,8 @@ const BulkPreview = ({
   previewPdf,
   onClosePreview
 }) => {
+  const [{ state }] = useQueryState()
+  const forcedError = toForcedError(state)
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
@@ -1988,7 +1993,7 @@ const BulkPreview = ({
     return (
       <PreviewCanvas>
         <FadeIn
-          key='empty'
+          key={forcedError ? 'forced-error' : 'empty'}
           css={theme({
             display: 'flex',
             flexDirection: 'column',
@@ -1999,11 +2004,21 @@ const BulkPreview = ({
             textAlign: 'center'
           })}
         >
-          <PreviewEmptyState
-            icon={FileText}
-            text='Paste your URLs and click Generate'
-            subtext={`Up to ${MAX_URLS} PDFs at once`}
-          />
+          {forcedError
+            ? (
+              <ToolError
+                error={forcedError}
+                source='website-to-pdf-bulk'
+                product='pdf'
+              />
+              )
+            : (
+              <PreviewEmptyState
+                icon={FileText}
+                text='Paste your URLs and click Generate'
+                subtext={`Up to ${MAX_URLS} PDFs at once`}
+              />
+              )}
         </FadeIn>
       </PreviewCanvas>
     )

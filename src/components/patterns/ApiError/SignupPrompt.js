@@ -9,6 +9,7 @@ import {
   Facts
 } from 'components/patterns/CallToAction/free-key'
 import { SignupLink } from 'components/patterns/SignupLink'
+import { isRateLimited } from 'helpers/api-error'
 import { playgroundPath } from 'helpers/dashboard-url'
 import {
   FREE_PLAN_REQUESTS_PER_DAY,
@@ -29,6 +30,13 @@ const PROMPTS = {
 }
 
 export const hasSignupPrompt = code => Object.hasOwn(PROMPTS, code)
+
+export const signupCodeFor = error => {
+  if (isRateLimited(error?.code) || isRateLimited(error?.statusCode)) {
+    return 'ERATE'
+  }
+  return hasSignupPrompt(error?.code) ? error.code : null
+}
 
 export const SignupPrompt = ({ code, source, product, url }) => {
   const { slug, title, body } = PROMPTS[code]

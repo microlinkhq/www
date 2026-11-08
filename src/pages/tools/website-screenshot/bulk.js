@@ -52,11 +52,14 @@ import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
+import { useQueryState } from 'components/hook/use-query-state'
 import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor
+  signupErrorFor,
+  toForcedError
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
@@ -1430,6 +1433,8 @@ const BulkPreview = ({
   isZipping,
   onReset
 }) => {
+  const [{ state }] = useQueryState()
+  const forcedError = toForcedError(state)
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
@@ -1439,7 +1444,7 @@ const BulkPreview = ({
     return (
       <PreviewCanvas>
         <FadeIn
-          key='empty'
+          key={forcedError ? 'forced-error' : 'empty'}
           css={theme({
             display: 'flex',
             flexDirection: 'column',
@@ -1450,11 +1455,21 @@ const BulkPreview = ({
             textAlign: 'center'
           })}
         >
-          <PreviewEmptyState
-            icon={Camera}
-            text='Paste your URLs and click Generate'
-            subtext={`Up to ${MAX_URLS} screenshots at once`}
-          />
+          {forcedError
+            ? (
+              <ToolError
+                error={forcedError}
+                source='website-screenshot-bulk'
+                product='screenshot'
+              />
+              )
+            : (
+              <PreviewEmptyState
+                icon={Camera}
+                text='Paste your URLs and click Generate'
+                subtext={`Up to ${MAX_URLS} screenshots at once`}
+              />
+              )}
         </FadeIn>
       </PreviewCanvas>
     )

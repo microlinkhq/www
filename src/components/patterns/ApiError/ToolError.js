@@ -10,7 +10,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import {
   SignupPrompt,
-  hasSignupPrompt
+  signupCodeFor
 } from 'components/patterns/ApiError/SignupPrompt'
 import { ToolSurface } from 'components/patterns/Tools/ToolSurface'
 import { getErrorMeta } from 'helpers/api-error'
@@ -88,10 +88,11 @@ export const ToolError = ({
   framed = false,
   children
 }) => {
-  const content = hasSignupPrompt(error?.code)
+  const signupCode = signupCodeFor(error)
+  const content = signupCode
     ? (
       <SignupPrompt
-        code={error.code}
+        code={signupCode}
         source={source}
         product={product}
         url={url ?? error.url}

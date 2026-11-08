@@ -20,6 +20,38 @@ describe('ToolError', () => {
     expect(markup).not.toMatch(/>Try again</)
   })
 
+  test('a numeric 429 code is the rate-limit signup', () => {
+    const markup = render({ error: { code: 429 } })
+    expect(markup).toContain('Daily limit reached')
+    expect(markup).not.toMatch(/>Try again</)
+  })
+
+  test('an HTTP 429 status wins over another code', () => {
+    const markup = render({
+      error: { code: 'EPROXYNEEDED', statusCode: 429 }
+    })
+    expect(markup).toContain('Daily limit reached')
+    expect(markup).not.toContain('This site blocks bots')
+  })
+
+  test('a signup error ignores the caller fallback and extra actions', () => {
+    const markup = render({
+      error: { code: 'EPROXYNEEDED' },
+      fallback: 'Own fallback',
+      children: <a href='https://example.com/report'>Report it</a>
+    })
+    expect(markup).toContain('This site blocks bots')
+    expect(markup).not.toContain('Own fallback')
+    expect(markup).not.toContain('Report it')
+  })
+
+  test('framed wraps a signup prompt', () => {
+    const plain = render({ error: { code: 'ERATE' } })
+    const framed = render({ error: { code: 'ERATE' }, framed: true })
+    expect(framed.length).toBeGreaterThan(plain.length)
+    expect(framed).toContain('Daily limit reached')
+  })
+
   test('the prompt uses the url carried by the error', () => {
     const markup = render({
       error: { code: 'EPROXYNEEDED', url: 'https://example.com/a' }
