@@ -9,8 +9,7 @@ export const ToolSurface = styled(Box)`
     backgroundColor: 'black0125',
     border: 1,
     borderColor: 'black10',
-    borderRadius: 4,
-    boxShadow: 2
+    borderRadius: 4
   })}
 `
 
