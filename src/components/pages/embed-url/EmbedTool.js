@@ -2313,8 +2313,8 @@ const EmbedTool = ({
   const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  useForcedError(setError)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const lastUrlRef = useRef('')
   const [config, setConfigInternal] = useState(DEFAULT_CONFIG)
   const [storedConfig, setStoredConfig] = useLocalStorage(

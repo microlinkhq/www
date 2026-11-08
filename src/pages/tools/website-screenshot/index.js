@@ -919,8 +919,8 @@ const ScreenshotTool = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
-  useForcedError(setError)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)

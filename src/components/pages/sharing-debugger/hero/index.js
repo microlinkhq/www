@@ -27,7 +27,7 @@ import {
   DEFAULT_URL,
   useSharingDebuggerState
 } from './use-sharing-debugger-state'
-import { toForcedError } from 'helpers/api-error'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 const HAS_FORCE = !isDevelopment
 
@@ -50,6 +50,7 @@ export const Hero = () => {
     doFetchRef,
     prevFetchStatusRef
   } = useSharingDebuggerState()
+  const forcedError = useForcedError(null)
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
@@ -57,8 +58,7 @@ export const Hero = () => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
         const metadata = data || null
-        const shownError =
-          toForcedError(query.state) || (status === 'error' ? error : null)
+        const shownError = forcedError || (status === 'error' ? error : null)
         const shouldShowInlineError = Boolean(shownError)
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
         const shareResultDisplayUrl =
