@@ -212,8 +212,6 @@ const IframePreviewFrame = styled(EmbedPreviewFrame)`
     display: block;
     max-width: 100%;
     border: 0;
-    border-radius: 6px;
-    background: ${colors.black05};
   }
 
   ${PROVIDER_FRAME_WIDTH_CSS}
