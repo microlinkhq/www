@@ -35,6 +35,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { buildLocalEmbedResponse } from 'helpers/embed-providers'
+import { useForcedError } from './use-forced-error'
 import {
   CARD_VARIANTS,
   COLOR_FIELDS,
@@ -2340,6 +2341,7 @@ const EmbedTool = ({
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  useForcedError(setError)
   const lastUrlRef = useRef('')
   const [config, setConfigInternal] = useState(DEFAULT_CONFIG)
   const [storedConfig, setStoredConfig] = useLocalStorage(
