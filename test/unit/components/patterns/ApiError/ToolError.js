@@ -26,6 +26,12 @@ describe('ToolError', () => {
     expect(markup).not.toMatch(/>Try again</)
   })
 
+  test('an HTTP 429 status with no code is the rate-limit signup', () => {
+    const markup = render({ error: { statusCode: 429 } })
+    expect(markup).toContain('Daily limit reached')
+    expect(markup).not.toMatch(/>Try again</)
+  })
+
   test('an HTTP 429 status wins over another code', () => {
     const markup = render({
       error: { code: 'EPROXYNEEDED', statusCode: 429 }
