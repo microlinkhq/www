@@ -26,6 +26,7 @@ import {
   DEFAULT_URL,
   useSharingDebuggerState
 } from './use-sharing-debugger-state'
+import { toForcedError } from 'helpers/api-error'
 
 const HAS_FORCE = !isDevelopment
 
@@ -55,7 +56,9 @@ export const Hero = () => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
         const metadata = data || null
-        const shouldShowInlineError = status === 'error'
+        const shownError =
+          toForcedError(query.state) || (status === 'error' ? error : null)
+        const shouldShowInlineError = Boolean(shownError)
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
         const shareResultDisplayUrl =
           buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
@@ -205,7 +208,7 @@ export const Hero = () => {
 
             {shouldShowInlineError && (
               <ErrorPanel
-                error={error}
+                error={shownError}
                 submitUrl={submitUrl}
                 inputUrl={inputUrl}
                 currentAnalyzedUrl={currentAnalyzedUrl}

@@ -23,16 +23,10 @@ import {
 } from 'components/patterns/CustomerStory/customers'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
 import { SignupLink } from 'components/patterns/SignupLink'
-import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { ACTION_LABEL, FREE_KEY_FACTS, Facts } from './free-key'
 import analyticsData from '../../../../data/analytics.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
-
-export const FREE_KEY_FACTS = [
-  `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
-  'Every Pro feature',
-  'No credit card'
-]
 
 const AVATAR_SIZE = 40
 const AVATAR_TOUCH_SIZE = 44
@@ -139,8 +133,6 @@ const SocialProof = () => (
   </Flex>
 )
 
-export const ACTION_LABEL = 'Get your free API key'
-
 const actionCss = theme({
   mt: [4, 4, 5, 5],
   minWidth: BUTTON_MIN_WIDTH,
@@ -164,29 +156,6 @@ const PrimaryAction = ({ action, cta }) =>
         {ACTION_LABEL}
       </SignupLink>
       )
-
-export const Facts = ({ facts }) => (
-  <Text
-    css={theme({
-      pt: 3,
-      fontSize: 0,
-      color: 'black60',
-      textWrap: 'balance'
-    })}
-  >
-    {facts.map((fact, index) => (
-      <React.Fragment key={fact}>
-        {index > 0 && ' · '}
-        <Text
-          as='span'
-          css={theme({ fontSize: 'inherit', whiteSpace: 'nowrap' })}
-        >
-          {fact}
-        </Text>
-      </React.Fragment>
-    ))}
-  </Text>
-)
 
 const NextSteps = ({ links }) => (
   <Flex

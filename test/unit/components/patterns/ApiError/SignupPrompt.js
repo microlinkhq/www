@@ -42,20 +42,34 @@ describe('SignupPrompt', () => {
     expect(markup).toMatch(/cta=embed-url:rate-limit/)
   })
 
-  test('sends the visitor to the redirect path after signup', () => {
+  test('lands the visitor in the product playground with the url', () => {
     const markup = renderMarkup(
       <SignupPrompt
-        code='ERATE'
+        code='EPROXYNEEDED'
         source='embed-url'
-        redirect='/playground?product=embed'
+        product='embed'
+        url='https://www.nytimes.com/a.html'
       />,
       { url: '/tools/embed-url' }
     )
-    expect(markup).toContain('redirect=/playground%3Fproduct%3Dembed')
+    const href = markup.match(/href="([^"]+)"/)[1].replace(/&amp;/g, '&')
+    const redirect = new URL(href).searchParams.get('redirect')
+    expect(redirect).toBe(
+      '/playground?product=embed&url=https%3A%2F%2Fwww.nytimes.com%2Fa.html'
+    )
+    const target = new URL(redirect, 'https://dashboard.microlink.io')
+    expect(target.searchParams.get('url')).toBe(
+      'https://www.nytimes.com/a.html'
+    )
   })
 
-  test('omits the redirect when none is given', () => {
-    expect(render('ERATE')).not.toContain('redirect=')
+  test('without a url it opens the product playground', () => {
+    expect(
+      renderMarkup(
+        <SignupPrompt code='ERATE' source='sitemap' product='links' />,
+        { url: '/tools/sitemap' }
+      )
+    ).toContain('redirect=/playground%3Fproduct%3Dlinks')
   })
 
   test('lists the free key facts', () => {

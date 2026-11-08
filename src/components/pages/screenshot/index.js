@@ -730,7 +730,8 @@ export const PreviewDisplay = ({
   emptyIcon: EmptyIcon = Camera,
   emptyText = 'Enter a URL and click Generate',
   emptySubtext = 'Your screenshot will appear here',
-  trackingVariant = 'standard'
+  trackingVariant = 'standard',
+  signupSource = 'website-screenshot'
 }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [isPreviewTooBig, setIsPreviewTooBig] = useState(false)
@@ -811,7 +812,12 @@ export const PreviewDisplay = ({
         </Choose.When>
 
         <Choose.When condition={!!error}>
-          <PreviewErrorState error={error} onRetry={onRetry} />
+          <PreviewErrorState
+            error={error}
+            onRetry={onRetry}
+            url={url}
+            signupSource={signupSource}
+          />
         </Choose.When>
 
         <Choose.When condition={!!imageUrl && imagePainted}>

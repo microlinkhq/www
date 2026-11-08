@@ -35,7 +35,7 @@ import {
 } from 'components/patterns/ApiError/ApiError'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { buildLocalEmbedResponse } from 'helpers/embed-providers'
-import { useForcedError } from './use-forced-error'
+import { useForcedError } from 'components/hook/use-forced-error'
 import {
   SignupPrompt,
   hasSignupPrompt
@@ -2067,8 +2067,6 @@ const PreviewColumn = styled(Flex)`
   flex: 1 1 0;
 `
 
-const PLAYGROUND_PATH = '/playground?product=embed'
-
 const ErrorMessage = ({ error, onRetry }) => (
   <>
     <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
@@ -2204,7 +2202,8 @@ const ResultArea = ({
               <SignupPrompt
                 code={error.code}
                 source='embed-url'
-                redirect={PLAYGROUND_PATH}
+                product='embed'
+                url={error.url}
               />
               )
             : (
@@ -2424,7 +2423,10 @@ const EmbedTool = ({
             return
           }
         }
-        setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
+        setError({
+          ...normalizeApiError.fromMql(err, 'Failed to fetch embed.'),
+          url: nextUrl
+        })
       } finally {
         if (requestId === requestIdRef.current) setIsLoading(false)
       }

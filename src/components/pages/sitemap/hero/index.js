@@ -197,6 +197,7 @@ export const Hero = () => {
       {error && (
         <ErrorPanel
           error={error}
+          url={currentUrl}
           onRetry={() => submitUrl(inputUrl || currentUrl)}
         />
       )}

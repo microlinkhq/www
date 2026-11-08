@@ -3,7 +3,7 @@ import prependHttp from 'prepend-http'
 import { useQueryState } from 'components/hook/use-query-state'
 import { hasDomainLikeHostname } from 'helpers/url-input'
 import { fetchSitemapUrls } from 'helpers/get-sitemap-urls'
-import { normalizeApiError } from 'helpers/api-error'
+import { normalizeApiError, toForcedError } from 'helpers/api-error'
 
 export const useSitemapState = () => {
   const [query, setQuery] = useQueryState()
@@ -125,7 +125,7 @@ export const useSitemapState = () => {
     setInputError,
     currentUrl,
     urls,
-    error,
+    error: toForcedError(query.state) || error,
     isLoading,
     skipBlurRef,
     lastSubmittedRef,

@@ -63,6 +63,7 @@ import {
   ApiErrorTitle,
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
+import { SignupPromptOr } from 'components/patterns/ApiError/SignupPrompt'
 import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 
 import {
@@ -77,6 +78,7 @@ import {
   MOBILE_BP
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -1332,6 +1334,7 @@ const MarkdownHistory = ({
 /* ─── Markdown Preview Display ─────────────────────────── */
 
 const MarkdownPreviewDisplay = ({
+  url,
   markdown,
   jsonData,
   isLoading,
@@ -1457,25 +1460,33 @@ const MarkdownPreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              <ApiErrorTitle code={error?.code} />
-              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                <ApiErrorBody
-                  code={error?.code}
-                  variant='tool'
-                  fallback={
-                    error?.message || 'Something went wrong. Please try again.'
-                  }
-                />
+            <SignupPromptOr
+              code={error?.code}
+              source='url-to-markdown'
+              product='markdown'
+              url={url}
+            >
+              <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
+                <ApiErrorTitle code={error?.code} />
+                <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+                  <ApiErrorBody
+                    code={error?.code}
+                    variant='tool'
+                    fallback={
+                      error?.message ||
+                      'Something went wrong. Please try again.'
+                    }
+                  />
+                </Text>
               </Text>
-            </Text>
-            {getErrorMeta(error?.code).showRetry
-              ? (
-                <Button onClick={onRetry}>
-                  <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-                </Button>
-                )
-              : null}
+              {getErrorMeta(error?.code).showRetry
+                ? (
+                  <Button onClick={onRetry}>
+                    <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+                  </Button>
+                  )
+                : null}
+            </SignupPromptOr>
           </FadeIn>
         </Choose.When>
 
@@ -1752,6 +1763,7 @@ const MarkdownTool = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [markdown, setMarkdown] = useState(null)
   const [error, setError] = useState(null)
+  useForcedError(setError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)
@@ -2076,6 +2088,7 @@ const MarkdownTool = () => {
           <ResultsExpandWrapper $expanded={hasContent}>
             <ResultsExpandInner>
               <MarkdownPreviewDisplay
+                url={lastUrl}
                 markdown={markdown}
                 isLoading={isLoading}
                 error={error}

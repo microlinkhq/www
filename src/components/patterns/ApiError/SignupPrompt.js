@@ -7,8 +7,9 @@ import {
   ACTION_LABEL,
   FREE_KEY_FACTS,
   Facts
-} from 'components/patterns/CallToAction'
+} from 'components/patterns/CallToAction/free-key'
 import { SignupLink } from 'components/patterns/SignupLink'
+import { playgroundPath } from 'helpers/dashboard-url'
 import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
@@ -29,7 +30,7 @@ const PROMPTS = {
 
 export const hasSignupPrompt = code => Object.hasOwn(PROMPTS, code)
 
-export const SignupPrompt = ({ code, source, redirect }) => {
+export const SignupPrompt = ({ code, source, product, url }) => {
   const { slug, title, body } = PROMPTS[code]
 
   return (
@@ -58,7 +59,7 @@ export const SignupPrompt = ({ code, source, redirect }) => {
         component={Button}
         forwardedAs='a'
         cta={`${source}:${slug}`}
-        redirect={redirect}
+        redirect={playgroundPath({ product, url })}
         css={theme({
           mt: 4,
           px: 4,
@@ -75,3 +76,12 @@ export const SignupPrompt = ({ code, source, redirect }) => {
     </Flex>
   )
 }
+
+export const SignupPromptOr = ({ code, source, product, url, children }) =>
+  hasSignupPrompt(code)
+    ? (
+      <SignupPrompt code={code} source={source} product={product} url={url} />
+      )
+    : (
+      <>{children}</>
+      )

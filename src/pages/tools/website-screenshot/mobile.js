@@ -72,6 +72,7 @@ import {
   MOBILE_BP
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -552,6 +553,7 @@ const ScreenshotTool = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
   const [error, setError] = useState(null)
+  useForcedError(setError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)
@@ -753,6 +755,7 @@ const ScreenshotTool = () => {
         {/* Preview Canvas */}
         <PreviewOuter>
           <PreviewDisplay
+            signupSource='website-screenshot-mobile'
             data={data}
             isLoading={isLoading}
             error={error}

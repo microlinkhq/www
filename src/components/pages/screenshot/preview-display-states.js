@@ -19,6 +19,7 @@ import {
   ApiErrorBody
 } from 'components/patterns/ApiError/ApiError'
 import { getErrorMeta } from 'helpers/api-error'
+import { SignupPromptOr } from 'components/patterns/ApiError/SignupPrompt'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import NerdStatsOverlay, {
@@ -221,7 +222,7 @@ export const PreviewLoadingState = ({
   </FadeIn>
 )
 
-export const PreviewErrorState = ({ error, onRetry }) => (
+export const PreviewErrorState = ({ error, onRetry, url, signupSource }) => (
   <FadeIn
     key='error'
     css={theme({
@@ -234,21 +235,30 @@ export const PreviewErrorState = ({ error, onRetry }) => (
       textAlign: 'center'
     })}
   >
-    <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-      <ApiErrorTitle code={error?.code} />
-      <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-        <ApiErrorBody
-          code={error?.code}
-          variant='tool'
-          fallback={error?.message || 'Something went wrong. Please try again.'}
-        />
+    <SignupPromptOr
+      code={error?.code}
+      source={signupSource}
+      product='screenshot'
+      url={url}
+    >
+      <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
+        <ApiErrorTitle code={error?.code} />
+        <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+          <ApiErrorBody
+            code={error?.code}
+            variant='tool'
+            fallback={
+              error?.message || 'Something went wrong. Please try again.'
+            }
+          />
+        </Text>
       </Text>
-    </Text>
-    {getErrorMeta(error?.code).showRetry && (
-      <Button onClick={onRetry}>
-        <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-      </Button>
-    )}
+      {getErrorMeta(error?.code).showRetry && (
+        <Button onClick={onRetry}>
+          <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+        </Button>
+      )}
+    </SignupPromptOr>
   </FadeIn>
 )
 
