@@ -122,11 +122,16 @@ Our thanks to the researchers who have reported vulnerabilities to us:
   researchers={[
     { name: 'Daniel Wang', email: 'hello@danielwang.dev' },
     { name: 'Haaris B', email: 'haaris.blacktech@gmail.com' },
-    { name: 'Rizky Armando Ramadany', email: 'lordxenon293@gmail.com' },
     {
       name: 'Peter Levashov',
       email: 'peter@severadao.ai',
       website: 'https://www.severadao.ai'
-    }
+    },
+    {
+      name: 'Pranshu Raghav',
+      email: 'pranshu21freak@gmail.com',
+      website: 'https://www.linkedin.com/in/pranshu-raghav/'
+    },
+    { name: 'Rizky Armando Ramadany', email: 'lordxenon293@gmail.com' }
   ]}
 />
