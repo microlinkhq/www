@@ -33,6 +33,7 @@ import {
   PreviewLoadingState,
   PreviewResultState
 } from './preview-display-states'
+import { ToolSurface } from 'components/patterns/Tools/ToolSurface'
 
 export {
   ActionButton,
@@ -221,16 +222,7 @@ export const CheckboxLabel = styled(Flex).attrs({ as: 'label' })`
 
 /* ─── Preview Styled Components ────────────────────────── */
 
-export const PreviewCanvas = styled(Box)`
-  ${theme({
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 3,
-    overflow: 'hidden',
-    position: 'relative'
-  })}
-  background: #fcfcfc;
-`
+export const PreviewCanvas = ToolSurface
 
 /* ─── Marketing Section Styled Components ──────────────── */
 

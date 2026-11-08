@@ -23,23 +23,15 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import { Button } from 'components/elements/Button/Button'
 import Text from 'components/elements/Text'
 
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { normalizeApiError } from 'helpers/api-error'
 import { buildLocalEmbedResponse } from 'helpers/embed-providers'
 import { useForcedError } from 'components/hook/use-forced-error'
-import {
-  SignupPrompt,
-  hasSignupPrompt
-} from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   CARD_VARIANTS,
   COLOR_FIELDS,
@@ -55,6 +47,7 @@ import {
 } from 'helpers/link-card'
 
 import { FadeIn, MOBILE_BP } from 'components/pages/screenshot'
+import { ToolSheet } from 'components/patterns/Tools/ToolSurface'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -64,17 +57,6 @@ const PREVIEW_HEIGHT_MOBILE = '400px'
 const LOCAL_STORAGE_KEY = 'embed-url-card-config'
 
 /* ─── Page-specific Styled Components ──────────────────── */
-
-const PaperSheet = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  border: 1px solid ${colors.black10};
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
-`
 
 const EDITABLE_FIELD_BY_ELEMENT = {
   headline: 'title',
@@ -398,7 +380,7 @@ const VariantPreview = ({ id, active }) => {
   )
 }
 
-const EditorShell = styled(PaperSheet)`
+const EditorShell = styled(ToolSheet)`
   ${theme({ width: '100%' })}
   min-width: 0;
   flex: 1 1 0;
@@ -835,7 +817,7 @@ const ResultGrid = styled(Flex)`
   }
 `
 
-const ResultPane = styled(PaperSheet).withConfig({
+const ResultPane = styled(ToolSheet).withConfig({
   shouldForwardProp: prop => prop !== '$autoHeight'
 })`
   ${theme({ width: '100%' })}
@@ -1594,7 +1576,7 @@ const HtmlPane = ({ html, provider }) => {
   }, [html, toClipboard, provider])
 
   return (
-    <PaperSheet css={{ width: '100%' }}>
+    <ToolSheet css={{ width: '100%' }}>
       <PaneHeader>
         <Flex css={{ flexDirection: 'column', gap: 2, minWidth: 0 }}>
           <Text
@@ -1648,7 +1630,7 @@ const HtmlPane = ({ html, provider }) => {
         </code>
       </InlineCodePre>
       <ClipboardComponent />
-    </PaperSheet>
+    </ToolSheet>
   )
 }
 
@@ -2067,28 +2049,6 @@ const PreviewColumn = styled(Flex)`
   flex: 1 1 0;
 `
 
-const ErrorMessage = ({ error, onRetry }) => (
-  <>
-    <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-      <ApiErrorTitle code={error?.code} />
-      <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-        <ApiErrorBody
-          code={error?.code}
-          variant='tool'
-          fallback={error?.message || 'Something went wrong. Please try again.'}
-        />
-      </Text>
-    </Text>
-    {getErrorMeta(error?.code).showRetry
-      ? (
-        <Button onClick={onRetry}>
-          <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-        </Button>
-        )
-      : null}
-  </>
-)
-
 const ResultArea = ({
   isLoading,
   error,
@@ -2151,7 +2111,7 @@ const ResultArea = ({
 
   if (isLoading) {
     return (
-      <PaperSheet
+      <ToolSheet
         css={{
           height: PREVIEW_HEIGHT_MOBILE,
           border: 'none',
@@ -2173,13 +2133,13 @@ const ResultArea = ({
         >
           <LoadingState />
         </FadeIn>
-      </PaperSheet>
+      </ToolSheet>
     )
   }
 
   if (error) {
     return (
-      <PaperSheet
+      <ToolSheet
         css={{
           height: PREVIEW_HEIGHT_MOBILE,
           [`@media (min-width: ${MOBILE_BP}px)`]: { height: PREVIEW_HEIGHT }
@@ -2197,20 +2157,14 @@ const ResultArea = ({
             textAlign: 'center'
           })}
         >
-          {hasSignupPrompt(error?.code)
-            ? (
-              <SignupPrompt
-                code={error.code}
-                source='embed-url'
-                product='embed'
-                url={error.url}
-              />
-              )
-            : (
-              <ErrorMessage error={error} onRetry={onRetry} />
-              )}
+          <ToolError
+            error={error}
+            onRetry={onRetry}
+            source='embed-url'
+            product='embed'
+          />
         </FadeIn>
-      </PaperSheet>
+      </ToolSheet>
     )
   }
 

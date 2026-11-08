@@ -76,12 +76,3 @@ export const SignupPrompt = ({ code, source, product, url }) => {
     </Flex>
   )
 }
-
-export const SignupPromptOr = ({ code, source, product, url, children }) =>
-  hasSignupPrompt(code)
-    ? (
-      <SignupPrompt code={code} source={source} product={product} url={url} />
-      )
-    : (
-      <>{children}</>
-      )

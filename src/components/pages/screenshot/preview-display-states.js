@@ -7,19 +7,13 @@ import { Check, Clipboard, Download, ExternalLink, Loader } from 'react-feather'
 import styled, { keyframes } from 'styled-components'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import DotSpinner from 'components/elements/DotSpinner'
 import Flex from 'components/elements/Flex'
 import Spinner from 'components/elements/Spinner'
 import Text from 'components/elements/Text'
 
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { getErrorMeta } from 'helpers/api-error'
-import { SignupPromptOr } from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import NerdStatsOverlay, {
@@ -235,30 +229,13 @@ export const PreviewErrorState = ({ error, onRetry, url, signupSource }) => (
       textAlign: 'center'
     })}
   >
-    <SignupPromptOr
-      code={error?.code}
+    <ToolError
+      error={error}
+      onRetry={onRetry}
       source={signupSource}
       product='screenshot'
       url={url}
-    >
-      <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-        <ApiErrorTitle code={error?.code} />
-        <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-          <ApiErrorBody
-            code={error?.code}
-            variant='tool'
-            fallback={
-              error?.message || 'Something went wrong. Please try again.'
-            }
-          />
-        </Text>
-      </Text>
-      {getErrorMeta(error?.code).showRetry && (
-        <Button onClick={onRetry}>
-          <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-        </Button>
-      )}
-    </SignupPromptOr>
+    />
   </FadeIn>
 )
 

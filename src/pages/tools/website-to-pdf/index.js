@@ -66,12 +66,8 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { SignupPromptOr } from 'components/patterns/ApiError/SignupPrompt'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 
@@ -1055,44 +1051,13 @@ const PdfPreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <SignupPromptOr
-              code={error?.code}
+            <ToolError
+              error={error}
+              onRetry={onRetry}
               source='website-to-pdf'
               product='pdf'
               url={url}
-            >
-              <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-                <ApiErrorTitle code={error?.code} />
-                <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                  <ApiErrorBody
-                    code={error?.code}
-                    variant='tool'
-                    fallback={
-                      error?.message ||
-                      'Something went wrong. Please try again.'
-                    }
-                  />
-                </Text>
-              </Text>
-              {getErrorMeta(error?.code).showRetry && (
-                <Caps
-                  as='button'
-                  onClick={onRetry}
-                  css={theme({
-                    fontSize: 0,
-                    cursor: 'pointer',
-                    border: 1,
-                    borderColor: 'black10',
-                    borderRadius: 2,
-                    px: 3,
-                    py: 2,
-                    bg: 'white'
-                  })}
-                >
-                  Try again
-                </Caps>
-              )}
-            </SignupPromptOr>
+            />
           </FadeIn>
         </Choose.When>
 

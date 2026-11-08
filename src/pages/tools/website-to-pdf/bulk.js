@@ -679,7 +679,7 @@ const HistoryRowThumb = styled(Box)`
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid ${colors.black10};
-  background: #fcfcfc;
+  background: ${colors.black0125};
 
   img {
     width: 100%;

@@ -19,7 +19,8 @@ import {
   buildSharingDebuggerUrl,
   buildSharingDebuggerDisplayUrl
 } from 'helpers/share-debugger-url'
-import { ErrorPanel } from './error-panel'
+import { Link } from 'components/elements/Link'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { PlatformTabs } from './platform-tabs'
 import { PreviewGrid } from './preview-grid'
 import {
@@ -207,13 +208,26 @@ export const Hero = () => {
             </Box>
 
             {shouldShowInlineError && (
-              <ErrorPanel
+              <ToolError
+                framed
                 error={shownError}
-                submitUrl={submitUrl}
-                inputUrl={inputUrl}
-                currentAnalyzedUrl={currentAnalyzedUrl}
-                query={query}
-              />
+                onRetry={() =>
+                  submitUrl(inputUrl || currentAnalyzedUrl || query.url || '')}
+                fallback={
+                  shownError.description ||
+                  shownError.message ||
+                  "We couldn't fetch metadata for this URL."
+                }
+                source='sharing-debugger'
+                product='metadata'
+                url={currentAnalyzedUrl || query.url}
+              >
+                {shownError.more && (
+                  <Link href={shownError.more} logoIcon>
+                    Report it
+                  </Link>
+                )}
+              </ToolError>
             )}
 
             {isDefaultDemo && metadata && (
