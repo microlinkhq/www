@@ -37,6 +37,10 @@ import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
 import { buildLocalEmbedResponse } from 'helpers/embed-providers'
 import { useForcedError } from './use-forced-error'
 import {
+  SignupPrompt,
+  hasSignupPrompt
+} from 'components/patterns/ApiError/SignupPrompt'
+import {
   CARD_VARIANTS,
   COLOR_FIELDS,
   DEFAULT_CONFIG,
@@ -2063,6 +2067,28 @@ const PreviewColumn = styled(Flex)`
   flex: 1 1 0;
 `
 
+const ErrorMessage = ({ error, onRetry }) => (
+  <>
+    <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
+      <ApiErrorTitle code={error?.code} />
+      <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
+        <ApiErrorBody
+          code={error?.code}
+          variant='tool'
+          fallback={error?.message || 'Something went wrong. Please try again.'}
+        />
+      </Text>
+    </Text>
+    {getErrorMeta(error?.code).showRetry
+      ? (
+        <Button onClick={onRetry}>
+          <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+        </Button>
+        )
+      : null}
+  </>
+)
+
 const ResultArea = ({
   isLoading,
   error,
@@ -2171,25 +2197,13 @@ const ResultArea = ({
             textAlign: 'center'
           })}
         >
-          <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-            <ApiErrorTitle code={error?.code} />
-            <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-              <ApiErrorBody
-                code={error?.code}
-                variant='tool'
-                fallback={
-                  error?.message || 'Something went wrong. Please try again.'
-                }
-              />
-            </Text>
-          </Text>
-          {getErrorMeta(error?.code).showRetry
+          {hasSignupPrompt(error?.code)
             ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
+              <SignupPrompt code={error.code} source='embed-url' />
               )
-            : null}
+            : (
+              <ErrorMessage error={error} onRetry={onRetry} />
+              )}
         </FadeIn>
       </PaperSheet>
     )

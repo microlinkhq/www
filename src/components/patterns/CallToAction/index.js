@@ -28,7 +28,7 @@ import analyticsData from '../../../../data/analytics.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
 
-const FREE_KEY_FACTS = [
+export const FREE_KEY_FACTS = [
   `${FREE_PLAN_REQUESTS_PER_DAY} requests/day`,
   'Every Pro feature',
   'No credit card'
@@ -139,7 +139,7 @@ const SocialProof = () => (
   </Flex>
 )
 
-const ACTION_LABEL = 'Get your free API key'
+export const ACTION_LABEL = 'Get your free API key'
 
 const actionCss = theme({
   mt: [4, 4, 5, 5],
@@ -165,7 +165,7 @@ const PrimaryAction = ({ action, cta }) =>
       </SignupLink>
       )
 
-const Facts = ({ facts }) => (
+export const Facts = ({ facts }) => (
   <Text
     css={theme({
       pt: 3,
