@@ -3,7 +3,6 @@
 import {
   borders,
   colors,
-  fontSizes,
   layout,
   theme,
   transition,
@@ -52,7 +51,6 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import PdfViewer from 'components/elements/PdfViewer/PdfViewer'
 
-import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import ChromeExtensionBanner, {
@@ -65,8 +63,15 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import ArrowLink from 'components/patterns/ArrowLink'
 
 import { useClipboard } from 'components/hook/use-clipboard'
+import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { normalizeApiError, isRateLimited } from 'helpers/api-error'
+import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import {
+  isRateLimited,
+  normalizeApiError,
+  signupErrorFor
+} from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 import {
@@ -676,7 +681,7 @@ const HistoryRowThumb = styled(Box)`
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid ${colors.black10};
-  background: #fcfcfc;
+  background: ${colors.black0125};
 
   img {
     width: 100%;
@@ -1854,6 +1859,7 @@ const BulkPreview = ({
   previewPdf,
   onClosePreview
 }) => {
+  const forcedError = useForcedError(null)
   const [ClipboardComponent, toClipboard] = useClipboard()
   const [copied, setCopied] = useState(false)
   const [downloaded, setDownloaded] = useState(false)
@@ -1861,6 +1867,7 @@ const BulkPreview = ({
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
+  const signupError = signupErrorFor(failedResults)
   const allRateLimited =
     hasRateLimit &&
     failedResults.every(r => isRateLimited(r.error?.code)) &&
@@ -1984,7 +1991,7 @@ const BulkPreview = ({
     return (
       <PreviewCanvas>
         <FadeIn
-          key='empty'
+          key={forcedError ? 'forced-error' : 'empty'}
           css={theme({
             display: 'flex',
             flexDirection: 'column',
@@ -1995,11 +2002,21 @@ const BulkPreview = ({
             textAlign: 'center'
           })}
         >
-          <PreviewEmptyState
-            icon={FileText}
-            text='Paste your URLs and click Generate'
-            subtext={`Up to ${MAX_URLS} PDFs at once`}
-          />
+          {forcedError
+            ? (
+              <ToolError
+                error={forcedError}
+                source='website-to-pdf-bulk'
+                product='pdf'
+              />
+              )
+            : (
+              <PreviewEmptyState
+                icon={FileText}
+                text='Paste your URLs and click Generate'
+                subtext={`Up to ${MAX_URLS} PDFs at once`}
+              />
+              )}
         </FadeIn>
       </PreviewCanvas>
     )
@@ -2089,13 +2106,7 @@ const BulkPreview = ({
 
   /* bulkState === 'done' */
   return (
-    <PreviewCanvas
-      css={
-        allRateLimited
-          ? theme({ bg: 'yellow0', borderColor: 'yellow3' })
-          : undefined
-      }
-    >
+    <PreviewCanvas>
       <FadeIn
         key='done'
         css={theme({
@@ -2265,42 +2276,15 @@ const BulkPreview = ({
                     </Box>
                   </Box>
                 )}
-                {hasRateLimit && (
-                  <Flex
-                    css={theme({
-                      flexDirection: 'column',
-                      textAlign: 'left',
-                      maxWidth: layout.small,
-                      mb: 3
-                    })}
-                  >
-                    <Text
-                      css={theme({
-                        fontWeight: 'bold',
-                        fontFamily: 'sans',
-                        color: 'yellow9'
-                      })}
-                      style={{
-                        fontSize: allRateLimited ? fontSizes[2] : fontSizes[1],
-                        paddingBottom: allRateLimited ? space[2] : space[1]
-                      }}
-                    >
-                      Daily limit reached
-                    </Text>
-                    <Text
-                      css={theme({
-                        fontFamily: 'sans',
-                        lineHeight: 2,
-                        mb: 3,
-                        color: 'yellow9'
-                      })}
-                      style={{
-                        fontSize: allRateLimited ? fontSizes[1] : fontSizes[0]
-                      }}
-                    >
-                      <ApiErrorBody code='ERATE' variant='tool' />
-                    </Text>
-                  </Flex>
+                {signupError && (
+                  <Box css={theme({ mb: 4 })}>
+                    <SignupPrompt
+                      code={signupError.code}
+                      source='website-to-pdf-bulk'
+                      product='pdf'
+                      url={signupError.url}
+                    />
+                  </Box>
                 )}
                 {!allRateLimited && (bulkTotalMs != null || bulkTotalBytes > 0) && (
                   <Text

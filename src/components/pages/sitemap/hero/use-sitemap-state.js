@@ -4,6 +4,7 @@ import { useQueryState } from 'components/hook/use-query-state'
 import { hasDomainLikeHostname } from 'helpers/url-input'
 import { fetchSitemapUrls } from 'helpers/get-sitemap-urls'
 import { normalizeApiError } from 'helpers/api-error'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 export const useSitemapState = () => {
   const [query, setQuery] = useQueryState()
@@ -13,6 +14,7 @@ export const useSitemapState = () => {
   const [currentUrl, setCurrentUrl] = useState('')
   const [urls, setUrls] = useState(null)
   const [error, setError] = useState(null)
+  const shownError = useForcedError(error)
   const [isLoading, setIsLoading] = useState(false)
   const skipBlurRef = useRef(false)
   const lastSubmittedRef = useRef('')
@@ -125,7 +127,7 @@ export const useSitemapState = () => {
     setInputError,
     currentUrl,
     urls,
-    error,
+    error: shownError,
     isLoading,
     skipBlurRef,
     lastSubmittedRef,

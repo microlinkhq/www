@@ -23,18 +23,15 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import { Button } from 'components/elements/Button/Button'
 import Text from 'components/elements/Text'
 
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { normalizeApiError } from 'helpers/api-error'
 import { buildLocalEmbedResponse } from 'helpers/embed-providers'
+import { useForcedError } from 'components/hook/use-forced-error'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   CARD_VARIANTS,
   COLOR_FIELDS,
@@ -50,6 +47,7 @@ import {
 } from 'helpers/link-card'
 
 import { FadeIn, MOBILE_BP } from 'components/pages/screenshot'
+import { ToolSheet } from 'components/patterns/Tools/ToolSurface'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -59,17 +57,6 @@ const PREVIEW_HEIGHT_MOBILE = '400px'
 const LOCAL_STORAGE_KEY = 'embed-url-card-config'
 
 /* ─── Page-specific Styled Components ──────────────────── */
-
-const PaperSheet = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  border: 1px solid ${colors.black10};
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
-`
 
 const EDITABLE_FIELD_BY_ELEMENT = {
   headline: 'title',
@@ -93,6 +80,15 @@ const HOVER_HIGHLIGHT_KINDS = [
 ]
 
 const HOVER_FADE_KINDS = HOVER_HIGHLIGHT_KINDS.filter(k => k !== 'frame')
+
+const PROVIDER_FRAME_WIDTH_FIXES = [
+  { src: 'https://www.nytimes.com/svc/oembed/', maxWidth: '440px' }
+]
+
+const PROVIDER_FRAME_WIDTH_CSS = PROVIDER_FRAME_WIDTH_FIXES.map(
+  ({ src, maxWidth }) =>
+    `iframe[src^="${src}"]{max-width:min(100%,${maxWidth})!important}`
+).join('')
 
 const EmbedPreviewFrame = styled(Box)`
   ${theme({ p: 3, pt: '24px' })}
@@ -203,9 +199,9 @@ const IframePreviewFrame = styled(EmbedPreviewFrame)`
     display: block;
     max-width: 100%;
     border: 0;
-    border-radius: 6px;
-    background: ${colors.black05};
   }
+
+  ${PROVIDER_FRAME_WIDTH_CSS}
 `
 
 const VariantSelector = styled(Flex)`
@@ -384,7 +380,7 @@ const VariantPreview = ({ id, active }) => {
   )
 }
 
-const EditorShell = styled(PaperSheet)`
+const EditorShell = styled(ToolSheet)`
   ${theme({ width: '100%' })}
   min-width: 0;
   flex: 1 1 0;
@@ -821,7 +817,7 @@ const ResultGrid = styled(Flex)`
   }
 `
 
-const ResultPane = styled(PaperSheet).withConfig({
+const ResultPane = styled(ToolSheet).withConfig({
   shouldForwardProp: prop => prop !== '$autoHeight'
 })`
   ${theme({ width: '100%' })}
@@ -1425,7 +1421,7 @@ const RESIZE_MESSAGE_TYPE = 'microlink-embed-resize'
 const RESIZE_BRIDGE_SCRIPT = `(function(){var post=function(){try{var h=Math.max(document.documentElement.scrollHeight,document.body?document.body.scrollHeight:0);parent.postMessage({type:'${RESIZE_MESSAGE_TYPE}',height:h},'*')}catch(e){}};post();if(typeof ResizeObserver!=='undefined'){new ResizeObserver(post).observe(document.documentElement);if(document.body)new ResizeObserver(post).observe(document.body)}setTimeout(post,500);setTimeout(post,1500);setTimeout(post,3500)})();`
 
 const buildSandboxedSrcdoc = (html, scripts) =>
-  `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,sans-serif}body{display:flex;align-items:flex-start;justify-content:center}iframe,blockquote,img{max-width:100%}</style></head><body>${
+  `<!doctype html><html><head><meta charset="utf-8"><base target="_blank"><style>html,body{margin:0;padding:0;background:transparent;font-family:system-ui,-apple-system,sans-serif}body{display:flex;align-items:flex-start;justify-content:center}iframe,blockquote,img{max-width:100%}${PROVIDER_FRAME_WIDTH_CSS}</style></head><body>${
     html || ''
   }${serializeIframeScripts(
     scripts
@@ -1580,7 +1576,7 @@ const HtmlPane = ({ html, provider }) => {
   }, [html, toClipboard, provider])
 
   return (
-    <PaperSheet css={{ width: '100%' }}>
+    <ToolSheet css={{ width: '100%' }}>
       <PaneHeader>
         <Flex css={{ flexDirection: 'column', gap: 2, minWidth: 0 }}>
           <Text
@@ -1634,7 +1630,7 @@ const HtmlPane = ({ html, provider }) => {
         </code>
       </InlineCodePre>
       <ClipboardComponent />
-    </PaperSheet>
+    </ToolSheet>
   )
 }
 
@@ -2115,7 +2111,7 @@ const ResultArea = ({
 
   if (isLoading) {
     return (
-      <PaperSheet
+      <ToolSheet
         css={{
           height: PREVIEW_HEIGHT_MOBILE,
           border: 'none',
@@ -2137,13 +2133,13 @@ const ResultArea = ({
         >
           <LoadingState />
         </FadeIn>
-      </PaperSheet>
+      </ToolSheet>
     )
   }
 
   if (error) {
     return (
-      <PaperSheet
+      <ToolSheet
         css={{
           height: PREVIEW_HEIGHT_MOBILE,
           [`@media (min-width: ${MOBILE_BP}px)`]: { height: PREVIEW_HEIGHT }
@@ -2161,27 +2157,14 @@ const ResultArea = ({
             textAlign: 'center'
           })}
         >
-          <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-            <ApiErrorTitle code={error?.code} />
-            <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-              <ApiErrorBody
-                code={error?.code}
-                variant='tool'
-                fallback={
-                  error?.message || 'Something went wrong. Please try again.'
-                }
-              />
-            </Text>
-          </Text>
-          {getErrorMeta(error?.code).showRetry
-            ? (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-              )
-            : null}
+          <ToolError
+            error={error}
+            onRetry={onRetry}
+            source='embed-url'
+            product='embed'
+          />
         </FadeIn>
-      </PaperSheet>
+      </ToolSheet>
     )
   }
 
@@ -2330,7 +2313,8 @@ const EmbedTool = ({
   const [url, setUrl] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const lastUrlRef = useRef('')
   const [config, setConfigInternal] = useState(DEFAULT_CONFIG)
   const [storedConfig, setStoredConfig] = useLocalStorage(
@@ -2393,7 +2377,10 @@ const EmbedTool = ({
             return
           }
         }
-        setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
+        setError({
+          ...normalizeApiError.fromMql(err, 'Failed to fetch embed.'),
+          url: nextUrl
+        })
       } finally {
         if (requestId === requestIdRef.current) setIsLoading(false)
       }

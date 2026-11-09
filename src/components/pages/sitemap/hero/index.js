@@ -13,7 +13,7 @@ import Caps from 'components/elements/Caps'
 import Caption from 'components/patterns/Caption/Caption'
 import { trackEvent } from 'helpers/gtag'
 import { Results } from 'components/pages/sitemap/results'
-import { ErrorPanel } from './error-panel'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { Highlights } from './highlights'
 import { ExampleLinks } from './examples'
 import { useSitemapState } from './use-sitemap-state'
@@ -195,9 +195,14 @@ export const Hero = () => {
       </Box>
 
       {error && (
-        <ErrorPanel
+        <ToolError
+          framed
           error={error}
           onRetry={() => submitUrl(inputUrl || currentUrl)}
+          fallback={error.message || "We couldn't read this site's sitemap."}
+          source='sitemap'
+          product='links'
+          url={currentUrl}
         />
       )}
 

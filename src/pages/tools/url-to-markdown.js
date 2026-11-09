@@ -33,7 +33,6 @@ import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
-import { Button } from 'components/elements/Button/Button'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -59,11 +58,8 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import { normalizeApiError } from 'helpers/api-error'
 
 import {
   OptionLabel,
@@ -77,6 +73,8 @@ import {
   MOBILE_BP
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
+import { ToolSheet } from 'components/patterns/Tools/ToolSurface'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -265,17 +263,6 @@ const USE_CASES = [
 ]
 
 /* ─── Page-specific Styled Components ──────────────────── */
-
-const PaperSheet = styled(Box)`
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  position: relative;
-  background: #fff;
-  border: 1px solid ${colors.black10};
-  border-radius: 8px;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
-`
 
 const markdownTextStyles = `
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -1332,6 +1319,7 @@ const MarkdownHistory = ({
 /* ─── Markdown Preview Display ─────────────────────────── */
 
 const MarkdownPreviewDisplay = ({
+  url,
   markdown,
   jsonData,
   isLoading,
@@ -1400,7 +1388,7 @@ const MarkdownPreviewDisplay = ({
   const displayContent = jsonData || markdown
 
   return (
-    <PaperSheet
+    <ToolSheet
       css={{
         height: PREVIEW_HEIGHT_MOBILE,
         [`@media (min-width: ${MOBILE_BP}px)`]: {
@@ -1457,25 +1445,13 @@ const MarkdownPreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              <ApiErrorTitle code={error?.code} />
-              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                <ApiErrorBody
-                  code={error?.code}
-                  variant='tool'
-                  fallback={
-                    error?.message || 'Something went wrong. Please try again.'
-                  }
-                />
-              </Text>
-            </Text>
-            {getErrorMeta(error?.code).showRetry
-              ? (
-                <Button onClick={onRetry}>
-                  <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-                </Button>
-                )
-              : null}
+            <ToolError
+              error={error}
+              onRetry={onRetry}
+              source='url-to-markdown'
+              product='markdown'
+              url={url}
+            />
           </FadeIn>
         </Choose.When>
 
@@ -1623,7 +1599,7 @@ const MarkdownPreviewDisplay = ({
 
         <Choose.Otherwise>{null}</Choose.Otherwise>
       </Choose>
-    </PaperSheet>
+    </ToolSheet>
   )
 }
 
@@ -1751,7 +1727,8 @@ const MarkdownTool = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [markdown, setMarkdown] = useState(null)
-  const [error, setError] = useState(null)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)
@@ -2076,6 +2053,7 @@ const MarkdownTool = () => {
           <ResultsExpandWrapper $expanded={hasContent}>
             <ResultsExpandInner>
               <MarkdownPreviewDisplay
+                url={lastUrl}
                 markdown={markdown}
                 isLoading={isLoading}
                 error={error}

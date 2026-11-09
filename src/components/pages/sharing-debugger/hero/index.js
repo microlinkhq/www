@@ -19,13 +19,15 @@ import {
   buildSharingDebuggerUrl,
   buildSharingDebuggerDisplayUrl
 } from 'helpers/share-debugger-url'
-import { ErrorPanel } from './error-panel'
+import { Link } from 'components/elements/Link'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { PlatformTabs } from './platform-tabs'
 import { PreviewGrid } from './preview-grid'
 import {
   DEFAULT_URL,
   useSharingDebuggerState
 } from './use-sharing-debugger-state'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 const HAS_FORCE = !isDevelopment
 
@@ -48,6 +50,7 @@ export const Hero = () => {
     doFetchRef,
     prevFetchStatusRef
   } = useSharingDebuggerState()
+  const forcedError = useForcedError(null)
 
   return (
     <FetchProvider mqlOpts={{ force: HAS_FORCE, meta: true }}>
@@ -55,7 +58,8 @@ export const Hero = () => {
         const isLoading =
           (hasQuery && status === 'initial') || status === 'fetching'
         const metadata = data || null
-        const shouldShowInlineError = status === 'error'
+        const shownError = forcedError || (status === 'error' ? error : null)
+        const shouldShowInlineError = Boolean(shownError)
         const shareResultUrl = buildSharingDebuggerUrl(currentAnalyzedUrl)
         const shareResultDisplayUrl =
           buildSharingDebuggerDisplayUrl(currentAnalyzedUrl)
@@ -204,13 +208,26 @@ export const Hero = () => {
             </Box>
 
             {shouldShowInlineError && (
-              <ErrorPanel
-                error={error}
-                submitUrl={submitUrl}
-                inputUrl={inputUrl}
-                currentAnalyzedUrl={currentAnalyzedUrl}
-                query={query}
-              />
+              <ToolError
+                framed
+                error={shownError}
+                onRetry={() =>
+                  submitUrl(inputUrl || currentAnalyzedUrl || query.url || '')}
+                fallback={
+                  shownError.description ||
+                  shownError.message ||
+                  "We couldn't fetch metadata for this URL."
+                }
+                source='sharing-debugger'
+                product='metadata'
+                url={currentAnalyzedUrl || query.url}
+              >
+                {shownError.more && (
+                  <Link href={shownError.more} logoIcon>
+                    Report it
+                  </Link>
+                )}
+              </ToolError>
             )}
 
             {isDefaultDemo && metadata && (

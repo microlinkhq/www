@@ -66,11 +66,8 @@ import NerdStatsOverlay, {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import { normalizeApiError } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 
@@ -101,6 +98,7 @@ import {
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 /* ─── Compare Slider ──────────────────────────────────── */
 
@@ -1053,36 +1051,13 @@ const PdfPreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              <ApiErrorTitle code={error?.code} />
-              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                <ApiErrorBody
-                  code={error?.code}
-                  variant='tool'
-                  fallback={
-                    error?.message || 'Something went wrong. Please try again.'
-                  }
-                />
-              </Text>
-            </Text>
-            {getErrorMeta(error?.code).showRetry && (
-              <Caps
-                as='button'
-                onClick={onRetry}
-                css={theme({
-                  fontSize: 0,
-                  cursor: 'pointer',
-                  border: 1,
-                  borderColor: 'black10',
-                  borderRadius: 2,
-                  px: 3,
-                  py: 2,
-                  bg: 'white'
-                })}
-              >
-                Try again
-              </Caps>
-            )}
+            <ToolError
+              error={error}
+              onRetry={onRetry}
+              source='website-to-pdf'
+              product='pdf'
+              url={url}
+            />
           </FadeIn>
         </Choose.When>
 
@@ -1262,7 +1237,8 @@ const PdfTool = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)
@@ -1352,7 +1328,6 @@ const PdfTool = () => {
             )
           )
         } catch (err) {
-          err.statusCode = 429
           setError(normalizeApiError.fromMql(err, 'Failed to generate PDF.'))
         }
 

@@ -27,7 +27,6 @@ import get from 'dlv'
 import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
@@ -50,11 +49,8 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import {
-  ApiErrorTitle,
-  ApiErrorBody
-} from 'components/patterns/ApiError/ApiError'
-import { normalizeApiError, getErrorMeta } from 'helpers/api-error'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import { normalizeApiError } from 'helpers/api-error'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
@@ -91,6 +87,7 @@ import {
   HISTORY_MAX_AGE_MS
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 /* ─── Animated-specific layout extensions (min-height 550px) ─── */
 
@@ -672,23 +669,13 @@ const PreviewDisplay = ({
               textAlign: 'center'
             })}
           >
-            <Text css={theme({ color: 'fullscreen', fontSize: 3, pb: 3 })}>
-              <ApiErrorTitle code={error?.code} />
-              <Text css={theme({ fontSize: 2, color: 'black60', pt: 2 })}>
-                <ApiErrorBody
-                  code={error?.code}
-                  variant='tool'
-                  fallback={
-                    error?.message || 'Something went wrong. Please try again.'
-                  }
-                />
-              </Text>
-            </Text>
-            {getErrorMeta(error?.code).showRetry && (
-              <Button onClick={onRetry}>
-                <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
-              </Button>
-            )}
+            <ToolError
+              error={error}
+              onRetry={onRetry}
+              source='website-screenshot-animated'
+              product='screenshot'
+              url={url}
+            />
           </FadeIn>
         </Choose.When>
 
@@ -863,7 +850,8 @@ const AnimatedScreenshotTool = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)

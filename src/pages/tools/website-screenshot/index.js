@@ -77,6 +77,7 @@ import {
   MOBILE_BP
 } from 'components/pages/screenshot'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { useForcedError } from 'components/hook/use-forced-error'
 
 /* ─── Constants ────────────────────────────────────────── */
 
@@ -918,7 +919,8 @@ const ScreenshotTool = () => {
 
   const [isLoading, setIsLoading] = useState(false)
   const [data, setData] = useState(null)
-  const [error, setError] = useState(null)
+  const [requestError, setError] = useState(null)
+  const error = useForcedError(requestError)
   const [lastUrl, setLastUrl] = useState('')
   const [nerdStats, setNerdStats] = useState(null)
   const [mqlQuery, setMqlQuery] = useState(null)

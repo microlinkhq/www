@@ -1,4 +1,5 @@
 import {
+  ATTRIBUTION_VALUE_MAX_LENGTH,
   UTM_KEYS,
   hasUtms,
   normalizePath,
@@ -10,6 +11,7 @@ import {
 export const DASHBOARD_URL = 'https://dashboard.microlink.io'
 export const SIGNUP_PATH = '/signup'
 export const LOGIN_PATH = '/login'
+export const PLAYGROUND_PATH = '/playground'
 
 export const PRODUCTS = [
   'screenshot',
@@ -198,4 +200,15 @@ export const dashboardPathFromHref = href => {
   if (url.origin !== DASHBOARD_URL) return undefined
   const path = normalizePath(url.pathname)
   return `${path === '/' ? LOGIN_PATH : path}${url.search}${url.hash}`
+}
+
+const playgroundQuery = params =>
+  `${PLAYGROUND_PATH}?${new URLSearchParams(params)}`
+
+export const playgroundPath = ({ product, url }) => {
+  if (!product) return undefined
+  const withUrl = url ? playgroundQuery({ product, url }) : undefined
+  return withUrl && withUrl.length <= ATTRIBUTION_VALUE_MAX_LENGTH
+    ? withUrl
+    : playgroundQuery({ product })
 }

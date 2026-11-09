@@ -1,5 +1,3 @@
-const FAVICON_SERVICE = 'https://unavatar.io/microlink/'
-
 const escAttr = value =>
   String(value ?? '')
     .replace(/&/g, '&amp;')
@@ -39,8 +37,6 @@ const buildYouTubeResponse = (url, videoId) => ({
   }
 })
 
-const NYTIMES_DOMAIN_RE = /^(?:www\.)?nytimes\.com$/i
-
 const humanizeSlug = slug =>
   slug
     .replace(/\.[a-z0-9]+$/i, '')
@@ -48,26 +44,6 @@ const humanizeSlug = slug =>
     .replace(/\s+/g, ' ')
     .trim()
     .replace(/\b\w/g, c => c.toUpperCase())
-
-const titleFromPath = pathname => {
-  const segments = pathname.split('/').filter(Boolean)
-  if (segments.length === 0) return ''
-  return humanizeSlug(segments[segments.length - 1])
-}
-
-const buildNYTimesResponse = (url, parsed) => ({
-  url,
-  title: titleFromPath(parsed.pathname) || 'The New York Times',
-  description: '',
-  publisher: 'The New York Times',
-  image: {
-    url: '',
-    palette: ['#000000', '#ffffff']
-  },
-  logo: {
-    url: `${FAVICON_SERVICE}nytimes.com`
-  }
-})
 
 const FIGMA_EMBED_HOST_RE = /^embed\.figma\.com$/i
 
@@ -162,19 +138,6 @@ const PROVIDERS = [
       return m ? { videoId: m[1] } : null
     },
     build: (url, ctx) => buildYouTubeResponse(url, ctx.videoId)
-  },
-  {
-    name: 'nytimes',
-    test: url => {
-      let parsed
-      try {
-        parsed = new URL(url)
-      } catch {
-        return null
-      }
-      return NYTIMES_DOMAIN_RE.test(parsed.hostname) ? { parsed } : null
-    },
-    build: (url, ctx) => buildNYTimesResponse(url, ctx.parsed)
   },
   {
     name: 'figma',

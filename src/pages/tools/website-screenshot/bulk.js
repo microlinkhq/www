@@ -43,7 +43,6 @@ import Spinner from 'components/elements/Spinner'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { ApiErrorBody } from 'components/patterns/ApiError/ApiError'
 import Block from 'components/patterns/Block/Block'
 import Caption from 'components/patterns/Caption/Caption'
 import { ScreenshotExtensionBanner } from 'components/patterns/ChromeExtensionBanner/ChromeExtensionBanner'
@@ -52,8 +51,15 @@ import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
+import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { normalizeApiError, isRateLimited } from 'helpers/api-error'
+import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { ToolError } from 'components/patterns/ApiError/ToolError'
+import {
+  isRateLimited,
+  normalizeApiError,
+  signupErrorFor
+} from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   extractNerdStats,
@@ -500,7 +506,7 @@ const HistoryRowThumb = styled(Box)`
   border-radius: 6px;
   overflow: hidden;
   border: 1px solid ${colors.black10};
-  background: #fcfcfc;
+  background: ${colors.black0125};
 
   img {
     width: 100%;
@@ -1426,15 +1432,17 @@ const BulkPreview = ({
   isZipping,
   onReset
 }) => {
+  const forcedError = useForcedError(null)
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
+  const signupError = signupErrorFor(failedResults)
 
   if (bulkState === 'idle') {
     return (
       <PreviewCanvas>
         <FadeIn
-          key='empty'
+          key={forcedError ? 'forced-error' : 'empty'}
           css={theme({
             display: 'flex',
             flexDirection: 'column',
@@ -1445,11 +1453,21 @@ const BulkPreview = ({
             textAlign: 'center'
           })}
         >
-          <PreviewEmptyState
-            icon={Camera}
-            text='Paste your URLs and click Generate'
-            subtext={`Up to ${MAX_URLS} screenshots at once`}
-          />
+          {forcedError
+            ? (
+              <ToolError
+                error={forcedError}
+                source='website-screenshot-bulk'
+                product='screenshot'
+              />
+              )
+            : (
+              <PreviewEmptyState
+                icon={Camera}
+                text='Paste your URLs and click Generate'
+                subtext={`Up to ${MAX_URLS} screenshots at once`}
+              />
+              )}
         </FadeIn>
       </PreviewCanvas>
     )
@@ -1720,42 +1738,14 @@ const BulkPreview = ({
                     ))}
                   </Box>
                 </Box>
-                {hasRateLimit && (
-                  <Box
-                    css={theme({
-                      width: '100%',
-                      maxWidth: '500px',
-                      textAlign: 'left',
-                      borderRadius: 2,
-                      p: 3,
-                      mb: 4
-                    })}
-                    style={{
-                      background: '#fffbeb',
-                      border: '1px solid #fef3c7'
-                    }}
-                  >
-                    <Text
-                      css={theme({
-                        fontSize: 1,
-                        fontWeight: 'bold',
-                        fontFamily: 'sans',
-                        pb: 1
-                      })}
-                      style={{ color: '#92400e' }}
-                    >
-                      Daily limit reached
-                    </Text>
-                    <Text
-                      css={theme({
-                        fontSize: 0,
-                        fontFamily: 'sans',
-                        lineHeight: 2
-                      })}
-                      style={{ color: '#78350f' }}
-                    >
-                      <ApiErrorBody code='ERATE' variant='tool' />
-                    </Text>
+                {signupError && (
+                  <Box css={theme({ mb: 4 })}>
+                    <SignupPrompt
+                      code={signupError.code}
+                      source='website-screenshot-bulk'
+                      product='screenshot'
+                      url={signupError.url}
+                    />
                   </Box>
                 )}
                 {(bulkTotalMs != null || bulkTotalBytes > 0) && (

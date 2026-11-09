@@ -34,3 +34,20 @@ normalizeApiError.fromNetwork = err => ({
   code: err.code,
   message: err.message || 'Something went wrong.'
 })
+
+const FORCED_ERROR_MESSAGE = 'Forced by the ?state= query parameter.'
+
+export const toForcedError = state => {
+  const code = typeof state === 'string' ? state.trim().toUpperCase() : ''
+  return code ? { code, message: FORCED_ERROR_MESSAGE } : null
+}
+
+export const signupErrorFor = failedResults => {
+  if (failedResults.some(result => isRateLimited(result.error?.code))) {
+    return { code: 'ERATE' }
+  }
+  const blocked = failedResults.find(
+    result => result.error?.code === 'EPROXYNEEDED'
+  )
+  return blocked ? { code: 'EPROXYNEEDED', url: blocked.url } : null
+}
