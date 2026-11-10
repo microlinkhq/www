@@ -2372,10 +2372,7 @@ const EmbedTool = ({
             return
           }
         }
-        setError({
-          ...normalizeApiError.fromMql(err, 'Failed to fetch embed.'),
-          url: nextUrl
-        })
+        setError(normalizeApiError.fromMql(err, 'Failed to fetch embed.'))
       } finally {
         if (requestId === requestIdRef.current) setIsLoading(false)
       }

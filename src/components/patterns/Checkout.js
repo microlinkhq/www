@@ -71,7 +71,8 @@ const Checkout = ({
 
   const handleCheckout = async () => {
     setIsLoading(true)
-    trackEvent('buy', { location: resolveBuyEventLocation(), cta })
+    const location = resolveBuyEventLocation()
+    trackEvent('buy', cta ? { location, cta } : { location })
 
     try {
       const { data } = await fetch(`${apiEndpoint}/payment/session`, {

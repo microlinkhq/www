@@ -42,12 +42,12 @@ export const toForcedError = state => {
   return code ? { code, message: FORCED_ERROR_MESSAGE } : null
 }
 
-export const signupErrorFor = failedResults => {
+export const upgradeErrorFor = failedResults => {
   if (failedResults.some(result => isRateLimited(result.error?.code))) {
     return { code: 'ERATE' }
   }
-  const blocked = failedResults.find(
-    result => result.error?.code === 'EPROXYNEEDED'
-  )
-  return blocked ? { code: 'EPROXYNEEDED', url: blocked.url } : null
+  if (failedResults.some(result => result.error?.code === 'EPROXYNEEDED')) {
+    return { code: 'EPROXYNEEDED' }
+  }
+  return null
 }

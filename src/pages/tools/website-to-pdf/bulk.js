@@ -70,7 +70,7 @@ import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor
+  upgradeErrorFor
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
@@ -1867,7 +1867,7 @@ const BulkPreview = ({
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
-  const signupError = signupErrorFor(failedResults)
+  const upgradeError = upgradeErrorFor(failedResults)
   const allRateLimited =
     hasRateLimit &&
     failedResults.every(r => isRateLimited(r.error?.code)) &&
@@ -2272,10 +2272,10 @@ const BulkPreview = ({
                     </Box>
                   </Box>
                 )}
-                {signupError && (
+                {upgradeError && (
                   <Box css={theme({ mb: 4 })}>
                     <UpgradePrompt
-                      code={signupError.code}
+                      code={upgradeError.code}
                       source='website-to-pdf-bulk'
                     />
                   </Box>

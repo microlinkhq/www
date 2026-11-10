@@ -35,6 +35,9 @@ describe('UpgradePrompt', () => {
 
   test('maps rate limits by code or status to ERATE', () => {
     expect(upgradeCodeFor({ statusCode: 429 })).toBe('ERATE')
+    expect(upgradeCodeFor({ statusCode: 'ERATE' })).toBe('ERATE')
+    expect(upgradeCodeFor({ code: 429 })).toBe('ERATE')
+    expect(upgradeCodeFor({ code: 'ERATE' })).toBe('ERATE')
     expect(upgradeCodeFor({ code: 'EPROXYNEEDED' })).toBe('EPROXYNEEDED')
     expect(upgradeCodeFor({ code: 'ETIMEOUT' })).toBeNull()
     expect(upgradeCodeFor(undefined)).toBeNull()

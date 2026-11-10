@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   getErrorMeta,
-  signupErrorFor,
+  upgradeErrorFor,
   toForcedError
 } from '../../../src/helpers/api-error.js'
 
@@ -31,12 +31,12 @@ describe('toForcedError', () => {
   })
 })
 
-describe('signupErrorFor', () => {
+describe('upgradeErrorFor', () => {
   const failed = (url, code) => ({ url, success: false, error: { code } })
 
   it('prefers the rate limit, which blocks every remaining url', () => {
     expect(
-      signupErrorFor([
+      upgradeErrorFor([
         failed('https://a.com', 'EPROXYNEEDED'),
         failed('https://b.com', 'ERATE')
       ])
@@ -44,23 +44,23 @@ describe('signupErrorFor', () => {
   })
 
   it('treats an HTTP 429 as the rate limit', () => {
-    expect(signupErrorFor([failed('https://a.com', 429)])).toEqual({
+    expect(upgradeErrorFor([failed('https://a.com', 429)])).toEqual({
       code: 'ERATE'
     })
   })
 
-  it('points the antibot prompt at the first blocked url', () => {
+  it('returns the antibot code when a result was blocked', () => {
     expect(
-      signupErrorFor([
+      upgradeErrorFor([
         failed('https://a.com', 'ETIMEOUT'),
         failed('https://b.com', 'EPROXYNEEDED'),
         failed('https://c.com', 'EPROXYNEEDED')
       ])
-    ).toEqual({ code: 'EPROXYNEEDED', url: 'https://b.com' })
+    ).toEqual({ code: 'EPROXYNEEDED' })
   })
 
-  it('stays quiet for errors a key does not fix', () => {
-    expect(signupErrorFor([failed('https://a.com', 'ETIMEOUT')])).toBeNull()
-    expect(signupErrorFor([])).toBeNull()
+  it('stays quiet for errors an upgrade does not fix', () => {
+    expect(upgradeErrorFor([failed('https://a.com', 'ETIMEOUT')])).toBeNull()
+    expect(upgradeErrorFor([])).toBeNull()
   })
 })
