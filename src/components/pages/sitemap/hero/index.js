@@ -201,8 +201,6 @@ export const Hero = () => {
           onRetry={() => submitUrl(inputUrl || currentUrl)}
           fallback={error.message || "We couldn't read this site's sitemap."}
           source='sitemap'
-          product='links'
-          url={currentUrl}
         />
       )}
 

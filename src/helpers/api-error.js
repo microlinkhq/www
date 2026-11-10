@@ -27,7 +27,11 @@ export const normalizeApiError = (json, res) => ({
 normalizeApiError.fromMql = (err, fallbackMessage) => ({
   code: err.statusCode === 429 ? 'ERATE' : err.code || undefined,
   message:
-    err.description || err.message || fallbackMessage || 'Something went wrong.'
+    err.description ||
+    err.message ||
+    fallbackMessage ||
+    'Something went wrong.',
+  ...(err.keyed ? { keyed: true } : {})
 })
 
 normalizeApiError.fromNetwork = err => ({
@@ -42,12 +46,18 @@ export const toForcedError = state => {
   return code ? { code, message: FORCED_ERROR_MESSAGE } : null
 }
 
-export const signupErrorFor = failedResults => {
-  if (failedResults.some(result => isRateLimited(result.error?.code))) {
+export const upgradeErrorFor = failedResults => {
+  const rateLimited = failedResults.filter(result =>
+    isRateLimited(result.error?.code)
+  )
+  if (
+    rateLimited.length > 0 &&
+    rateLimited.every(result => !result.error?.keyed)
+  ) {
     return { code: 'ERATE' }
   }
-  const blocked = failedResults.find(
-    result => result.error?.code === 'EPROXYNEEDED'
-  )
-  return blocked ? { code: 'EPROXYNEEDED', url: blocked.url } : null
+  if (failedResults.some(result => result.error?.code === 'EPROXYNEEDED')) {
+    return { code: 'EPROXYNEEDED' }
+  }
+  return null
 }

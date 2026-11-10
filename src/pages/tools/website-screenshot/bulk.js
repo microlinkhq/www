@@ -53,12 +53,12 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { UpgradePrompt } from 'components/patterns/ApiError/UpgradePrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor
+  upgradeErrorFor
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
@@ -1436,7 +1436,7 @@ const BulkPreview = ({
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
-  const signupError = signupErrorFor(failedResults)
+  const upgradeError = upgradeErrorFor(failedResults)
 
   if (bulkState === 'idle') {
     return (
@@ -1455,11 +1455,7 @@ const BulkPreview = ({
         >
           {forcedError
             ? (
-              <ToolError
-                error={forcedError}
-                source='website-screenshot-bulk'
-                product='screenshot'
-              />
+              <ToolError error={forcedError} source='website-screenshot-bulk' />
               )
             : (
               <PreviewEmptyState
@@ -1738,13 +1734,11 @@ const BulkPreview = ({
                     ))}
                   </Box>
                 </Box>
-                {signupError && (
+                {upgradeError && (
                   <Box css={theme({ mb: 4 })}>
-                    <SignupPrompt
-                      code={signupError.code}
+                    <UpgradePrompt
+                      code={upgradeError.code}
                       source='website-screenshot-bulk'
-                      product='screenshot'
-                      url={signupError.url}
                     />
                   </Box>
                 )}

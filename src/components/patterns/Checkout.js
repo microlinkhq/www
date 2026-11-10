@@ -44,7 +44,14 @@ const loadingCss = `
   }
 `
 
-const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
+const Checkout = ({
+  canonicalUrl,
+  planId,
+  stripeKey,
+  cta,
+  children,
+  ...props
+}) => {
   const [isLoading, setIsLoading] = useState(false)
   const [btnSize, setBtnSize] = useState({})
   const ref = useRef(null)
@@ -64,7 +71,8 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
 
   const handleCheckout = async () => {
     setIsLoading(true)
-    trackEvent('buy', { location: resolveBuyEventLocation() })
+    const location = resolveBuyEventLocation()
+    trackEvent('buy', cta ? { location, cta } : { location })
 
     try {
       const { data } = await fetch(`${apiEndpoint}/payment/session`, {
@@ -110,7 +118,7 @@ const Checkout = ({ canonicalUrl, planId, stripeKey, ...props }) => {
           </Flex>
           )
         : (
-          <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+            children ?? <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
           )}
     </Button>
   )

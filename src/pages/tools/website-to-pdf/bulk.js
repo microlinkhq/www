@@ -65,12 +65,12 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { UpgradePrompt } from 'components/patterns/ApiError/UpgradePrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
   normalizeApiError,
-  signupErrorFor
+  upgradeErrorFor
 } from 'helpers/api-error'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
@@ -1867,7 +1867,7 @@ const BulkPreview = ({
   const successCount = bulkResults.filter(r => r.success).length
   const failedResults = bulkResults.filter(r => !r.success)
   const hasRateLimit = failedResults.some(r => isRateLimited(r.error?.code))
-  const signupError = signupErrorFor(failedResults)
+  const upgradeError = upgradeErrorFor(failedResults)
   const allRateLimited =
     hasRateLimit &&
     failedResults.every(r => isRateLimited(r.error?.code)) &&
@@ -2004,11 +2004,7 @@ const BulkPreview = ({
         >
           {forcedError
             ? (
-              <ToolError
-                error={forcedError}
-                source='website-to-pdf-bulk'
-                product='pdf'
-              />
+              <ToolError error={forcedError} source='website-to-pdf-bulk' />
               )
             : (
               <PreviewEmptyState
@@ -2276,13 +2272,11 @@ const BulkPreview = ({
                     </Box>
                   </Box>
                 )}
-                {signupError && (
+                {upgradeError && (
                   <Box css={theme({ mb: 4 })}>
-                    <SignupPrompt
-                      code={signupError.code}
+                    <UpgradePrompt
+                      code={upgradeError.code}
                       source='website-to-pdf-bulk'
-                      product='pdf'
-                      url={signupError.url}
                     />
                   </Box>
                 )}
