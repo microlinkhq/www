@@ -1,32 +1,36 @@
 import React from 'react'
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import { ToolError } from '../../../../../src/components/patterns/ApiError/ToolError'
 import { renderMarkup } from '../../../../utils/render-markup'
+
+vi.mock('components/hook/use-site-meta', () => ({
+  useSiteMetadata: () => ({ canonicalUrl: 'https://microlink.io' })
+}))
 
 const noop = () => {}
 
 const render = props =>
-  renderMarkup(
-    <ToolError onRetry={noop} source='tool' product='pdf' {...props} />,
-    { url: '/tools/website-to-pdf' }
-  )
+  renderMarkup(<ToolError onRetry={noop} source='tool' {...props} />, {
+    url: '/tools/website-to-pdf'
+  })
 
 describe('ToolError', () => {
-  test('a key-fixable error renders the signup prompt, not the error', () => {
+  test('a Pro-fixable error renders the upgrade prompt, not the error', () => {
     const markup = render({ error: { code: 'EPROXYNEEDED' } })
     expect(markup).toContain('This site blocks bots')
-    expect(markup).toMatch(/cta=tool:antibot/)
+    expect(markup).toContain('Get Pro for')
+    expect(markup).not.toContain('signup')
     expect(markup).not.toContain('Antibot detected')
     expect(markup).not.toMatch(/>Try again</)
   })
 
-  test('a numeric 429 code is the rate-limit signup', () => {
+  test('a numeric 429 code is the rate-limit upgrade', () => {
     const markup = render({ error: { code: 429 } })
     expect(markup).toContain('Daily limit reached')
     expect(markup).not.toMatch(/>Try again</)
   })
 
-  test('an HTTP 429 status with no code is the rate-limit signup', () => {
+  test('an HTTP 429 status with no code is the rate-limit upgrade', () => {
     const markup = render({ error: { statusCode: 429 } })
     expect(markup).toContain('Daily limit reached')
     expect(markup).not.toMatch(/>Try again</)
@@ -40,7 +44,7 @@ describe('ToolError', () => {
     expect(markup).not.toContain('This site blocks bots')
   })
 
-  test('a signup error ignores the caller fallback and extra actions', () => {
+  test('an upgrade error ignores the caller fallback and extra actions', () => {
     const markup = render({
       error: { code: 'EPROXYNEEDED' },
       fallback: 'Own fallback',
@@ -51,27 +55,11 @@ describe('ToolError', () => {
     expect(markup).not.toContain('Report it')
   })
 
-  test('framed wraps a signup prompt', () => {
+  test('framed wraps an upgrade prompt', () => {
     const plain = render({ error: { code: 'ERATE' } })
     const framed = render({ error: { code: 'ERATE' }, framed: true })
     expect(framed.length).toBeGreaterThan(plain.length)
     expect(framed).toContain('Daily limit reached')
-  })
-
-  test('the prompt uses the url carried by the error', () => {
-    const markup = render({
-      error: { code: 'EPROXYNEEDED', url: 'https://example.com/a' }
-    })
-    expect(markup).toContain('url%3Dhttps%253A%252F%252Fexample.com%252Fa')
-  })
-
-  test('an explicit url wins over the error url', () => {
-    const markup = render({
-      error: { code: 'ERATE', url: 'https://example.com/a' },
-      url: 'https://example.com/b'
-    })
-    expect(markup).toContain('example.com%252Fb')
-    expect(markup).not.toContain('example.com%252Fa')
   })
 
   test('other errors render title, body and retry', () => {

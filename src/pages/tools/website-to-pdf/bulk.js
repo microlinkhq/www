@@ -65,7 +65,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import { useClipboard } from 'components/hook/use-clipboard'
 import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { UpgradePrompt } from 'components/patterns/ApiError/UpgradePrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
@@ -2004,11 +2004,7 @@ const BulkPreview = ({
         >
           {forcedError
             ? (
-              <ToolError
-                error={forcedError}
-                source='website-to-pdf-bulk'
-                product='pdf'
-              />
+              <ToolError error={forcedError} source='website-to-pdf-bulk' />
               )
             : (
               <PreviewEmptyState
@@ -2278,11 +2274,9 @@ const BulkPreview = ({
                 )}
                 {signupError && (
                   <Box css={theme({ mb: 4 })}>
-                    <SignupPrompt
+                    <UpgradePrompt
                       code={signupError.code}
                       source='website-to-pdf-bulk'
-                      product='pdf'
-                      url={signupError.url}
                     />
                   </Box>
                 )}

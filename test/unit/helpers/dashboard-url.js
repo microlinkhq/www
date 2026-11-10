@@ -7,7 +7,6 @@ import {
   dashboardUrl,
   eventLocation,
   loginUrl,
-  playgroundPath,
   productFromPath,
   signupUrl
 } from '../../../src/helpers/dashboard-url.js'
@@ -432,59 +431,6 @@ describe('dashboard-url', () => {
         dashboardPathFromHref('https://dashboard.microlink.io.evil.test')
       ).toBeUndefined()
       expect(dashboardPathFromHref(undefined)).toBeUndefined()
-    })
-  })
-
-  describe('playgroundPath', () => {
-    it('opens the product playground on the url', () => {
-      const path = playgroundPath({
-        product: 'embed',
-        url: 'https://example.com/a?b=1&c=2'
-      })
-      const target = new URL(path, 'https://dashboard.microlink.io')
-      expect(target.pathname).toBe('/playground')
-      expect(target.searchParams.get('product')).toBe('embed')
-      expect(target.searchParams.get('url')).toBe(
-        'https://example.com/a?b=1&c=2'
-      )
-    })
-
-    it('drops a url that would not survive the 200 character cap', () => {
-      const url = `https://example.com/${'a'.repeat(200)}`
-      expect(playgroundPath({ product: 'pdf', url })).toBe(
-        '/playground?product=pdf'
-      )
-    })
-
-    it('keeps a url right at the cap', () => {
-      const prefix = '/playground?product=pdf&url=https%3A%2F%2Fx.io%2F'
-      const url = `https://x.io/${'a'.repeat(200 - prefix.length)}`
-      expect(playgroundPath({ product: 'pdf', url })).toHaveLength(200)
-    })
-
-    it('opens the product playground without a url', () => {
-      expect(playgroundPath({ product: 'screenshot' })).toBe(
-        '/playground?product=screenshot'
-      )
-    })
-
-    it('returns nothing without a product', () => {
-      expect(playgroundPath({ url: 'https://example.com' })).toBeUndefined()
-    })
-
-    it('survives the redirect round trip through dashboardUrl', () => {
-      const href = dashboardUrl('/signup', {
-        pathname: '/tools/embed-url',
-        redirect: playgroundPath({
-          product: 'embed',
-          url: 'https://example.com/a?b=1&c=2'
-        })
-      })
-      const redirect = new URL(href).searchParams.get('redirect')
-      const target = new URL(redirect, 'https://dashboard.microlink.io')
-      expect(target.searchParams.get('url')).toBe(
-        'https://example.com/a?b=1&c=2'
-      )
     })
   })
 })

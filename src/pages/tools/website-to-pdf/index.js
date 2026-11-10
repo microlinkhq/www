@@ -1055,8 +1055,6 @@ const PdfPreviewDisplay = ({
               error={error}
               onRetry={onRetry}
               source='website-to-pdf'
-              product='pdf'
-              url={url}
             />
           </FadeIn>
         </Choose.When>

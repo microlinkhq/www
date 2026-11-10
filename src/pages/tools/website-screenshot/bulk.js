@@ -53,7 +53,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useForcedError } from 'components/hook/use-forced-error'
 import { useLocalStorage } from 'components/hook/use-local-storage'
-import { SignupPrompt } from 'components/patterns/ApiError/SignupPrompt'
+import { UpgradePrompt } from 'components/patterns/ApiError/UpgradePrompt'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import {
   isRateLimited,
@@ -1455,11 +1455,7 @@ const BulkPreview = ({
         >
           {forcedError
             ? (
-              <ToolError
-                error={forcedError}
-                source='website-screenshot-bulk'
-                product='screenshot'
-              />
+              <ToolError error={forcedError} source='website-screenshot-bulk' />
               )
             : (
               <PreviewEmptyState
@@ -1740,11 +1736,9 @@ const BulkPreview = ({
                 </Box>
                 {signupError && (
                   <Box css={theme({ mb: 4 })}>
-                    <SignupPrompt
+                    <UpgradePrompt
                       code={signupError.code}
                       source='website-screenshot-bulk'
-                      product='screenshot'
-                      url={signupError.url}
                     />
                   </Box>
                 )}

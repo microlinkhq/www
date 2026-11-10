@@ -673,8 +673,6 @@ const PreviewDisplay = ({
               error={error}
               onRetry={onRetry}
               source='website-screenshot-animated'
-              product='screenshot'
-              url={url}
             />
           </FadeIn>
         </Choose.When>

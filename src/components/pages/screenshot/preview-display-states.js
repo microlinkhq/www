@@ -216,7 +216,7 @@ export const PreviewLoadingState = ({
   </FadeIn>
 )
 
-export const PreviewErrorState = ({ error, onRetry, url, signupSource }) => (
+export const PreviewErrorState = ({ error, onRetry, signupSource }) => (
   <FadeIn
     key='error'
     css={theme({
@@ -229,13 +229,7 @@ export const PreviewErrorState = ({ error, onRetry, url, signupSource }) => (
       textAlign: 'center'
     })}
   >
-    <ToolError
-      error={error}
-      onRetry={onRetry}
-      source={signupSource}
-      product='screenshot'
-      url={url}
-    />
+    <ToolError error={error} onRetry={onRetry} source={signupSource} />
   </FadeIn>
 )
 

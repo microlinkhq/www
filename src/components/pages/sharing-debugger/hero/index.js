@@ -219,8 +219,6 @@ export const Hero = () => {
                   "We couldn't fetch metadata for this URL."
                 }
                 source='sharing-debugger'
-                product='metadata'
-                url={currentAnalyzedUrl || query.url}
               >
                 {shownError.more && (
                   <Link href={shownError.more} logoIcon>

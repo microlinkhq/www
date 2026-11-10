@@ -9,9 +9,9 @@ import {
   ApiErrorTitle
 } from 'components/patterns/ApiError/ApiError'
 import {
-  SignupPrompt,
-  signupCodeFor
-} from 'components/patterns/ApiError/SignupPrompt'
+  UpgradePrompt,
+  upgradeCodeFor
+} from 'components/patterns/ApiError/UpgradePrompt'
 import { ToolSurface } from 'components/patterns/Tools/ToolSurface'
 import { getErrorMeta } from 'helpers/api-error'
 
@@ -83,20 +83,13 @@ export const ToolError = ({
   onRetry,
   fallback,
   source,
-  product,
-  url,
   framed = false,
   children
 }) => {
-  const signupCode = signupCodeFor(error)
-  const content = signupCode
+  const upgradeCode = upgradeCodeFor(error)
+  const content = upgradeCode
     ? (
-      <SignupPrompt
-        code={signupCode}
-        source={source}
-        product={product}
-        url={url ?? error.url}
-      />
+      <UpgradePrompt code={upgradeCode} source={source} />
       )
     : (
       <ErrorMessage error={error} onRetry={onRetry} fallback={fallback}>

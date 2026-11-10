@@ -1449,8 +1449,6 @@ const MarkdownPreviewDisplay = ({
               error={error}
               onRetry={onRetry}
               source='url-to-markdown'
-              product='markdown'
-              url={url}
             />
           </FadeIn>
         </Choose.When>

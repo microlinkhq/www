@@ -807,7 +807,6 @@ export const PreviewDisplay = ({
           <PreviewErrorState
             error={error}
             onRetry={onRetry}
-            url={url}
             signupSource={signupSource}
           />
         </Choose.When>

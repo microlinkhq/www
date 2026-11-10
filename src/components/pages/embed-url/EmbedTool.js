@@ -2157,12 +2157,7 @@ const ResultArea = ({
             textAlign: 'center'
           })}
         >
-          <ToolError
-            error={error}
-            onRetry={onRetry}
-            source='embed-url'
-            product='embed'
-          />
+          <ToolError error={error} onRetry={onRetry} source='embed-url' />
         </FadeIn>
       </ToolSheet>
     )
