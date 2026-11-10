@@ -36,6 +36,14 @@ describe('ToolError', () => {
     expect(markup).not.toMatch(/>Try again</)
   })
 
+  test('a keyed rate limit stays the error, not the anonymous upgrade', () => {
+    const markup = render({ error: { code: 'ERATE', keyed: true } })
+    expect(markup).toContain('Rate limit reached')
+    expect(markup).toContain('Try again once it resets')
+    expect(markup).not.toContain('Daily limit reached')
+    expect(markup).not.toContain('Get Pro for')
+  })
+
   test('a string ERATE status with no code is the rate-limit upgrade', () => {
     const markup = render({ error: { statusCode: 'ERATE' } })
     expect(markup).toContain('Daily limit reached')

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 
 import {
   getErrorMeta,
+  normalizeApiError,
   upgradeErrorFor,
   toForcedError
 } from '../../../src/helpers/api-error.js'
@@ -62,5 +63,38 @@ describe('upgradeErrorFor', () => {
   it('stays quiet for errors an upgrade does not fix', () => {
     expect(upgradeErrorFor([failed('https://a.com', 'ETIMEOUT')])).toBeNull()
     expect(upgradeErrorFor([])).toBeNull()
+  })
+
+  it('leaves a keyed rate limit on the error, not the anonymous upgrade', () => {
+    const keyed = (url, code) => ({
+      ...failed(url, code),
+      error: { code, keyed: true }
+    })
+    expect(
+      upgradeErrorFor([
+        keyed('https://a.com', 'ERATE'),
+        failed('https://b.com', 'ERATE')
+      ])
+    ).toBeNull()
+    expect(upgradeErrorFor([keyed('https://a.com', 429)])).toBeNull()
+    expect(
+      upgradeErrorFor([
+        keyed('https://a.com', 'ERATE'),
+        failed('https://b.com', 'EPROXYNEEDED')
+      ])
+    ).toEqual({ code: 'EPROXYNEEDED' })
+  })
+
+  it('copies the keyed flag from the request error', () => {
+    expect(
+      normalizeApiError.fromMql({ code: 'ERATE', keyed: true }, 'fallback')
+    ).toEqual({ code: 'ERATE', message: 'fallback', keyed: true })
+    expect(
+      normalizeApiError.fromMql({ statusCode: 429, keyed: true }, 'fallback')
+    ).toMatchObject({ code: 'ERATE', keyed: true })
+    expect(normalizeApiError.fromMql({ code: 'ERATE' }, 'fallback')).toEqual({
+      code: 'ERATE',
+      message: 'fallback'
+    })
   })
 })

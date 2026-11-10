@@ -60,12 +60,19 @@ const apiUrl = (url, options) => {
     : withScalarHeader(built, prepared.scalar)
 }
 
-const request = (url, options) => {
+const request = async (url, options) => {
   const prepared = prepareOptions(options)
-  if (prepared.scalar === undefined) {
-    return client.request(url, prepared.options)
+  try {
+    if (prepared.scalar === undefined) {
+      return await client.request(url, prepared.options)
+    }
+    return await requestWithScalarHeader(url, prepared.options, prepared.scalar)
+  } catch (err) {
+    if (prepared.options.apiKey && err && typeof err === 'object') {
+      err.keyed = true
+    }
+    throw err
   }
-  return requestWithScalarHeader(url, prepared.options, prepared.scalar)
 }
 
 export default { request, apiUrl }

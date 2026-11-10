@@ -38,6 +38,13 @@ describe('UpgradePrompt', () => {
     expect(upgradeCodeFor({ statusCode: 'ERATE' })).toBe('ERATE')
     expect(upgradeCodeFor({ code: 429 })).toBe('ERATE')
     expect(upgradeCodeFor({ code: 'ERATE' })).toBe('ERATE')
+    expect(upgradeCodeFor({ code: 'ERATE', keyed: true })).toBeNull()
+    expect(upgradeCodeFor({ code: 429, keyed: true })).toBeNull()
+    expect(upgradeCodeFor({ statusCode: 429, keyed: true })).toBeNull()
+    expect(upgradeCodeFor({ statusCode: 'ERATE', keyed: true })).toBeNull()
+    expect(upgradeCodeFor({ code: 'EPROXYNEEDED', keyed: true })).toBe(
+      'EPROXYNEEDED'
+    )
     expect(upgradeCodeFor({ code: 'EPROXYNEEDED' })).toBe('EPROXYNEEDED')
     expect(upgradeCodeFor({ code: 'ETIMEOUT' })).toBeNull()
     expect(upgradeCodeFor(undefined)).toBeNull()

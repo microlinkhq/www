@@ -191,6 +191,18 @@ describe('request', () => {
     await scalar
   })
 
+  test('marks a failed request that sent an API key', async () => {
+    fetchMock.mockRejectedValue(
+      Object.assign(new Error('limited'), { code: 'ERATE' })
+    )
+    const keyed = await microlink
+      .request(URL_TO_FETCH, { apiKey: 'secret' })
+      .catch(err => err)
+    const keyless = await microlink.request(URL_TO_FETCH).catch(err => err)
+    expect(keyed.keyed).toBe(true)
+    expect(keyless.keyed).toBeUndefined()
+  })
+
   test('a failed scalar request does not block the next one', async () => {
     fetchMock.mockImplementation(async input => {
       if (input.url.includes('headers=googlebot')) throw new Error('down')

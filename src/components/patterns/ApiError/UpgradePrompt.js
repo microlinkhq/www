@@ -40,9 +40,9 @@ const ENTRY_PLAN_FACTS = [
 export const hasUpgradePrompt = code => Object.hasOwn(PROMPTS, code)
 
 export const upgradeCodeFor = error => {
-  if (isRateLimited(error?.code) || isRateLimited(error?.statusCode)) {
-    return 'ERATE'
-  }
+  const rateLimited =
+    isRateLimited(error?.code) || isRateLimited(error?.statusCode)
+  if (rateLimited) return error?.keyed ? null : 'ERATE'
   return hasUpgradePrompt(error?.code) ? error.code : null
 }
 
