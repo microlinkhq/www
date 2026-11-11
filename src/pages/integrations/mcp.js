@@ -455,7 +455,11 @@ const FAQ_ITEMS = [
         <div>
           MCP is an open standard for connecting AI applications to external
           tools. Microlink MCP implements that standard for browser and web-data
-          capabilities.
+          capabilities. The{' '}
+          <Link href='/blog/microlink-mcp-the-web-llm-ready'>
+            Microlink MCP launch post
+          </Link>{' '}
+          introduces the server.
         </div>
       </>
     )

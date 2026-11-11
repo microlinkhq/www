@@ -21,7 +21,7 @@ We launched the [initial product release in March 2018](https://www.indiehackers
 
 Microlink API returns generic metadata for any URL. Most users need specific values from the content instead, like a follower count, page hits, or a price variation.
 
-We launched [custom rules](/blog/custom-rules) for that purpose, but in practice they only work if you have a tiny rules set. Next we are building a developer-friendly client API for scraping, called the **Microlink Query Language** (MQL). Think of it as custom rules v2.0. The [MQL RFC](https://github.com/microlinkhq/open/issues/5) covers the scope:
+We launched [custom rules](/blog/microlink-api-introducing-custom-rules) for that purpose, but in practice they only work if you have a tiny rules set. Next we are building a developer-friendly client API for scraping, called the **Microlink Query Language** (MQL). Think of it as custom rules v2.0. The [MQL RFC](https://github.com/microlinkhq/open/issues/5) covers the scope:
 
 - **Built-in types:** each extracted value comes back with a declared type.
 - **Selectors declaration:** declare the selectors for what you want to extract, in one place.
@@ -39,7 +39,7 @@ The Microlink API response keeps growing, and [MQL](https://github.com/microlink
 
 Hover previews are something we wanted to build from the beginning.
 
-Today the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) turns a link into a preview card that you embed in any online publication. When your target is every website on the internet, one presentation does not fit every page, so the SDK needs more than one way to show the same data.
+Today the [Microlink SDK](/link-preview) turns a link into a preview card that you embed in any online publication. When your target is every website on the internet, one presentation does not fit every page, so the SDK needs more than one way to show the same data.
 
 A hover preview renders the same card only when the reader points at a link. The page stays clean, and the extra context appears on user interaction. The [hover preview RFC](https://github.com/microlinkhq/open/issues/18) describes the first design.
 

@@ -12,7 +12,7 @@ import { Figcaption } from 'components/markdown/Figcaption'
 import { Video } from 'components/markdown/Video'
 import { BrowserlessReport } from 'components/pages/blog/webgl-without-a-gpu'
 
-A 3D page used to take ~24s to [screenshot](/docs/api/parameters/screenshot) on Microlink, and now it takes ~6s. The change is a single Chrome flag, `--use-angle=gl`, which moves WebGL rendering from SwiftShader to Mesa llvmpipe on servers that have no GPU at all.
+A 3D page used to take ~24s to capture with the [Microlink screenshot API](/screenshot), and now it takes ~6s. The change is a single Chrome flag, `--use-angle=gl`, which moves WebGL rendering from SwiftShader to Mesa llvmpipe on servers that have no GPU at all.
 
 <Video src="/images/screenshot-animated.mp4" />
 

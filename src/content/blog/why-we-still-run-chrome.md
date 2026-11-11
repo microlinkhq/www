@@ -102,7 +102,7 @@ Chrome gives us:
 - **A complete automation surface:** CDP, Puppeteer, tracing, network control, isolated worlds, emulation, accessibility, and new Web APIs arrive on the same platform.
 - **A reference we can test:** when an optimization changes output, Chrome remains the source of truth rather than another approximation to compare.
 
-Our API sits above the engine. We can benchmark another backend, route a suitable workload to it, and fall back to Chrome without changing the public contract. We will not make a younger engine the default before it produces equivalent results on the workloads our customers send us.
+Our API sits above the engine: every call gets its [own ephemeral browser](/features/isolation), and which engine runs inside it is our choice. We can benchmark another backend, route a suitable workload to it, and fall back to Chrome without changing the public contract. We will not make a younger engine the default before it produces equivalent results on the workloads our customers send us.
 
 ## Measure correctness before speed
 

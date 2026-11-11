@@ -10,7 +10,7 @@ import { Link } from 'components/elements/Link'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Microlink } from 'components/markdown/Microlink'
 
-[Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0) can embed a provider’s **native iframe** instead of a link preview card. Set `iframe` as the [media](/docs/sdk-legacy/parameters/media/) value and the SDK renders the same player Spotify, SoundCloud, or Instagram would show on their own site.
+[Microlink SDK v4.5.0](https://github.com/microlinkhq/sdk/releases/tag/v4.5.0) can embed a provider’s **native iframe** instead of a link preview card. Set `iframe` as the [media](/link-preview) value and the SDK renders the same player Spotify, SoundCloud, or Instagram would show on their own site.
 
 **TL;DR**
 
@@ -21,25 +21,25 @@ import { Microlink } from 'components/markdown/Microlink'
 
 ## The card has three sizes
 
-**Microlink SDK** turns every link into a preview card, displayed in one of three [size](/docs/sdk-legacy/parameters/size/) variations: `'small'`, `'normal'` and `'large'`.
+**Microlink SDK** turns every link into a preview card, displayed in one of three [size](/link-preview) variations: `'small'`, `'normal'` and `'large'`.
 
 <Microlink media={['audio']} size='small' url='{{demolinks.spotify.url}}' />
 <Microlink media={['audio']} url='{{demolinks.spotify.url}}' />
 <Microlink media={['audio']} size='large' url='{{demolinks.spotify.url}}' />
 
 <Figcaption>
-Microlink SDK <Link href='/docs/sdk-legacy/parameters/size/'>size</Link> variations.
+Microlink SDK <Link href='/link-preview'>size</Link> variations.
 </Figcaption>
 
 The card gives any website or application a consistent URL preview. Some domains, like **Instagram**, **SoundCloud**, **Spotify**, **Facebook**, and **X**, have their own way of embedding their content, and next to it a generic card is less recognizable.
 
 ## `media: ['iframe']` uses the provider’s own embed
 
-**Microlink SDK v4.5** accepts `iframe` as a [media](/docs/sdk-legacy/parameters/media/) value. When the provider has a native embed, the SDK uses it:
+**Microlink SDK v4.5** accepts `iframe` as a [media](/link-preview) value. When the provider has a native embed, the SDK uses it:
 
 <Microlink media={['iframe']} url='{{demolinks.spotify.url}}' style={{textAlign:'center'}} />
 
-The [media](/docs/sdk-legacy/parameters/media/) value decides how the SDK calls the [Microlink API](/docs/api/getting-started/overview), so the response carries the field that media type needs.
+The [media](/link-preview) value decides how the SDK calls the [Microlink API](/docs/api/getting-started/overview), so the response carries the field that media type needs.
 
 For an audio provider like **SoundCloud** or **Spotify**, `media: ['audio']` tells Microlink API to detect the streaming source behind the URL by enabling the [audio](/docs/api/parameters/audio) parameter. The response includes an `audio` field with the source URL, its type, duration, and size:
 
@@ -94,20 +94,20 @@ This covers URLs whose provider doesn’t support iframes, and URLs where you do
 
 Any provider that implements the [oEmbed](https://oembed.com/) specification works with `media: ['iframe']`. A non-exhaustive list of the most common ones:
 
-- [CodePen](/meta?url=https%3A%2F%2Fcodepen.io%2Fhbagency%2Fpen%2FeKyObz)
-- [CodeSandbox](/meta?url=https%3A%2F%2Fcodesandbox.io%2Fs%2Fgracious-blackburn-n5w839zm4m)
-- [Dailymotion](/meta?url=https%3A%2F%2Fwww.dailymotion.com%2Fvideo%2Fx7ntzjb%3Fplaylist%3Dx5v2j4)
-- [Facebook](/meta?url=https%3A%2F%2Fwww.facebook.com%2Fwatch%2F%3Fv%3D10156364216738951)
-- [Flickr](/meta?url=https%3A%2F%2Fwww.flickr.com%2Fphotos%2F68166820%40N08%2F46358385844%2F)
-- [Genial.ly](/meta?url=https%3A%2F%2Fview.genial.ly%2F5dc53cfa759d2a0f4c7db5f4)
-- [Instagram](/meta?url=https%3A%2F%2Finstagram.com%2Fp%2FBeV6tOhFUor)
-- [Reddit](/meta?url=https%3A%2F%2Fwww.reddit.com%2Fr%2Fcablefail%2Fcomments%2F68e3uk%2Fholy_bjeezus_ted_talks_av_aftermath%2F)
-- [SoundCloud](/meta?url=https%3A%2F%2Fsoundcloud.com%2Fbeautybrainsp%2Fbeauty-brain-swag-bandicoot)
-- [Spotify](/meta?url=https%3A%2F%2Fopen.spotify.com%2Ftrack%2F1W2919zs8SBCLTrOB1ftQT)
-- [TED](/meta?url=https%3A%2F%2Fwww.ted.com%2Ftalks%2Fmonique_w_morris_why_black_girls_are_targeted_for_punishment_at_school_and_how_to_change_that%3Futm_campaign%3Dtedspread%26utm_medium%3Dreferral%26utm_source%3Dtedcomshare)
-- [Twitch](/meta?url=https%3A%2F%2Fwww.twitch.tv%2Fshroud%2Fclip%2FAuspiciousTubularBunnyFUNgineer)
-- [Vimeo](/meta?url=https%3A%2F%2Fvimeo.com%2F186386161)
-- [X](/meta?url=https%3A%2F%2Fx.com%2Ffuturism%2Fstatus%2F882987478541533189)
-- [YouTube](/meta?url=https%3A%2F%2Fyoutube.com%2Fwatch%3Fv%3D9P6rdqiybaw)
+- [CodePen](/tools/embed-url/codepen)
+- [CodeSandbox](/tools/embed-url/codesandbox)
+- [Dailymotion](/tools/embed-url/dailymotion)
+- [Facebook](/tools/embed-url/facebook)
+- [Flickr](/tools/embed-url/flickr)
+- [Genial.ly](/tools/embed-url)
+- [Instagram](/tools/embed-url/instagram)
+- [Reddit](/tools/embed-url/reddit)
+- [SoundCloud](/tools/embed-url/soundcloud)
+- [Spotify](/tools/embed-url/spotify)
+- [TED](/tools/embed-url/ted)
+- [Twitch](/tools/embed-url)
+- [Vimeo](/tools/embed-url/vimeo)
+- [X](/tools/embed-url/twitter-or-x)
+- [YouTube](/tools/embed-url/youtube)
 
 To use native embeds in your own previews, upgrade to Microlink SDK v4.5.0 and add `'iframe'` to the front of your `media` array.

@@ -2,8 +2,6 @@
 title: 'Product brief #1: default prerendering, new plans, and metascraper v3'
 subtitle: 'Prerendering on every request, 500 free requests per day'
 description: 'Learn about Microlink first product brief: enabling browser prerendering by default, the launch of adaptive pricing plans, and the release of metascraper v3.'
-authors:
-  - kiko
 date: '2017-12-30'
 ---
 
@@ -25,9 +23,9 @@ Improvements in the infrastructure made the response time constant even with pre
 
 ## Professional plans adapted to your usage
 
-![The new pricing table at microlink.io#pricing](https://cdn-images-1.medium.com/max/2244/1*JUalxjsY_tlU2txpxPsM9w.gif)
+![The new pricing table at microlink.io#pricing](/images/1*JUalxjsY_tlU2txpxPsM9w-9417ef29.gif)
 
-The pricing table started offering different plan configurations, so you could pick the one that matched your needs. The [authentication](/docs/#authentication) for professional plans was updated in the same release.
+The pricing table started offering different plan configurations, so you could pick the one that matched your needs. The [authentication](/docs/api/basics/authentication) for professional plans was updated in the same release.
 
 The free plan was limited to a maximum of **500 requests per day**, with one concurrent request per second.
 

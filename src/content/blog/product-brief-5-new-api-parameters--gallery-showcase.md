@@ -31,9 +31,9 @@ You rarely need to set it. Some websites return a different output based on the 
 
 ### Video detection became opt-in
 
-The [previous](/blog/product-brief-3) product brief introduced the first iteration of video support as one of the API data [types](/docs/api/getting-started/overview).
+The [previous](/blog/product-brief-3-video-support-better-prerendering--sdk-features) product brief introduced the first iteration of video support as one of the API data [types](/docs/api/getting-started/overview).
 
-The `video` field is widely used when you consume the response through the [SDK](/docs/sdk-legacy/getting-started/overview/). If you only need the rest of the extracted data, such as `title` or `image`, detecting the video made response times heavier.
+The `video` field is widely used when you consume the response through the [SDK](/link-preview). If you only need the rest of the extracted data, such as `title` or `image`, detecting the video made response times heavier.
 
 The new [video](/docs/api/parameters/video) parameter moved that decision to you, with a default value of \`false\`. Link previews rendered with the SDK had no breaking changes. If you call the API directly, pass `video` to keep the behavior you had until now.
 

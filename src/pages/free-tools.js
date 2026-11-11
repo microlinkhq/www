@@ -129,8 +129,9 @@ const FreeToolsPage = () => (
           })}
         >
           Need these as an API instead of a web page? Every tool here is one
-          HTTP call. Read the <Link href='/docs'>documentation</Link> or see{' '}
-          <Link href='/pricing'>pricing</Link> for higher volumes.
+          HTTP call. Read the{' '}
+          <Link href='/docs/api/getting-started/overview'>documentation</Link>{' '}
+          or see <Link href='/pricing'>pricing</Link> for higher volumes.
         </Text>
       </Box>
     </Flex>

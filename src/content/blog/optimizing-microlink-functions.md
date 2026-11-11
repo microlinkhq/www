@@ -17,7 +17,7 @@ import { IpcDiagram } from 'components/pages/blog/optimizing-microlink-functions
 
 <Figcaption>The Microlink Functions dashboard over the past month.</Figcaption>
 
-We iterate [Microlink Functions](/docs/api/parameters/function) to speed up the process in certain situations. A function that never reads the page no longer needs to fetch it. Similarly, a browser-driving function no longer waits for pages belonging to other requests. The first iteration took a month of work. The second took three attempts and one measurement.
+We iterate [Microlink Functions](/function) to speed up the process in certain situations. A function that never reads the page no longer needs to fetch it. Similarly, a browser-driving function no longer waits for pages belonging to other requests. The first iteration took a month of work. The second took three attempts and one measurement.
 
 **TL;DR**
 

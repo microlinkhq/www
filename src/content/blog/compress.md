@@ -21,7 +21,7 @@ The [function](/docs/api/parameters/function) query parameter accepts its code c
 
 ## Code that runs in a remote browser
 
-The `function` parameter runs your code at request time, with access to a remote headless browser. This example injects jQuery from `code.jquery.com` through `scripts`, then reads `jQuery.fn.jquery` from the page with `page.evaluate`:
+The `function` parameter runs your code at request time, with access to a remote headless browser. The [Microlink Function](/function) page covers what that sandbox can do. This example injects jQuery from `code.jquery.com` through `scripts`, then reads `jQuery.fn.jquery` from the page with `page.evaluate`:
 
 <MultiCodeEditorInteractive
   mqlCode={{

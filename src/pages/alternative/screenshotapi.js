@@ -1683,7 +1683,7 @@ export const Head = () => (
             name: 'How does Microlink handle cookie banners and ads?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both services support ad blocking and cookie banner removal. ScreenshotAPI provides 15+ resource-type toggles. Microlink uses the adblock parameter, custom CSS/JS injection, and screenshot.hide to remove elements by CSS selector.'
+              text: 'Both services support ad blocking and cookie banner removal. ScreenshotAPI provides 15+ resource-type toggles. Microlink uses the adblock parameter and custom CSS/JS injection (styles and scripts) to hide elements.'
             }
           },
           {

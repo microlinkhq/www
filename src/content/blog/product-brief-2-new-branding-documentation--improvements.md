@@ -1,8 +1,6 @@
 ---
 title: 'Product brief #2: new brand, unified docs, instant API credentials'
 description: 'Discover Microlink second product brief, featuring a fresh brand identity, unified documentation portal, and key improvements to metascraper and the SDK.'
-authors:
-  - kiko
 date: '2018-01-31'
 ---
 
@@ -14,15 +12,15 @@ Microlink has a new brand, designed by [Silvia Calavera](http://silviacalavera.e
 
 ## A new brand and instant API credentials
 
-![the new microlink.io swag logo!](https://cdn-images-1.medium.com/max/800/1*qnT4Rmic-FA4_Kf8LdZs_g.png)
+![the new microlink.io swag logo!](/images/1*qnT4Rmic-FA4_Kf8LdZs_g-ade01914.png)
 
 <Figcaption children='the new shiny microlink brand.' />
 
 When the project started, the time went into a small API that worked efficiently, and nobody stopped to design a brand for microlink.io. The design was a debt we knew we would pay later. Silvia's logo and the rebuilt website pay it.
 
-We also used the redesign to fix the payment process. You now receive your [API credentials](/docs/api/#api-basics/authentication) *immediately* after payment, handled by a dedicated payments microservice.
+We also used the redesign to fix the payment process. You now receive your [API credentials](/docs/api/basics/authentication) *immediately* after payment, handled by a dedicated payments microservice.
 
-![](https://cdn-images-1.medium.com/max/800/1*k7dpxXR6YBtpvHlnw3vrXw.png)
+![](/images/1*k7dpxXR6YBtpvHlnw3vrXw-ecee4f7f.png)
 
 <Figcaption>
   {'Meet '}
@@ -36,7 +34,7 @@ We also used the redesign to fix the payment process. You now receive your [API 
 
 <Figcaption>
   {'The only place for checking all the documentation is '}
-  <Link href='/docs' children='/docs' />.
+  <Link href='/docs/api/getting-started/overview' children='/docs' />.
 </Figcaption>
 
 As announced in [newsletter #1](https://medium.com/microlink/microlink-newsletter-1-13b8a055cd6c), we started shipping a set of front end libraries that make the [Microlink API](/docs/api/getting-started/overview) as easy to consume as possible. Next to them, we want examples and integrations for popular frameworks such as WordPress and Jekyll.
@@ -49,21 +47,21 @@ The migration took laborious work, and `/docs` is now the only place to check th
 
 ## Metascraper targets video accuracy
 
-![](https://cdn-images-1.medium.com/max/800/1*ns3f8OrzX3xOaPiS81Lc_w.png)
+![](/images/1*ns3f8OrzX3xOaPiS81Lc_w-6f6398bd.png)
 
 [metascraper](https://metascraper.js.org/) is our metadata extractor, and it gets improvements every week. The current target is data accuracy for **video** content.
 
 This period brought internal improvements and a new package, [metascraper-youtube](https://www.npmjs.com/package/metascraper-youtube), which improves the results when the target is a YouTube URL.
 
-We are also testing a new **video property** for the [Microlink API](/docs/api) ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)). It returns any video detected in the target URL, which lets the [Microlink SDK](/docs/sdk-legacy/getting-started/overview/) build a richer content preview. Results will be in a following newsletter.
+We are also testing a new **video property** for the [Microlink API](/docs/api/getting-started/overview) ([spoiler](https://api.microlink.io/?url=https://x.com/verge/status/957383241714970624)). It returns any video detected in the target URL, which lets the [Microlink SDK](/link-preview) build a richer content preview. Results will be in a following newsletter.
 
 ## A responsive Microlink SDK and 100 GitHub stars
 
-![](https://cdn-images-1.medium.com/max/800/1*kCqm2r2HwPYMceWwj5cwbA.gif)
+![](/images/1*kCqm2r2HwPYMceWwj5cwbA-05850027.gif)
 
 <Figcaption>
   {'A new '}
-  <Link href='/docs/sdk-legacy/getting-started/overview/' children='Microlink SDK' /> demo at{' '}
+  <Link href='/link-preview' children='Microlink SDK' /> demo at{' '}
   <Link href='https://microlink.io/' children='microlink.io' />.
 </Figcaption>
 

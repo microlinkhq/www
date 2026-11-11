@@ -71,6 +71,6 @@ microlink https://www.bloomberg.com/news/articles/2016-05-24/as-zenefits-stumble
 
 The proxy layer respects the other query parameters of the request, such as [prerender](/docs/api/parameters/prerender) or [ttl](/docs/api/parameters/ttl). The request above combines `prerender` with the proxy, which is why the mode reads `prerender-proxy`.
 
-When you need to route traffic through your own infrastructure, you can always provide your own [proxy](/docs/api/parameters/proxy) parameter instead.
+When you need to route traffic through your own infrastructure, you can always provide your own [proxy](/docs/api/parameters/proxy) parameter instead. The guide to [bring your own proxy](/use-cases/proxy/bring-your-own-proxy) walks through the setup.
 
-Microlink Proxy is a **cross-feature**: it is available for all the Microlink products, not only the API. To use it, send your requests on a [Microlink Pro](/pricing) plan and check `x-fetch-mode` on the responses that used to fail.
+Microlink Proxy is a **cross-feature**: it is available for all the Microlink products, not only the API. To use it, send your requests on a [Microlink Pro](/pricing) plan and check `x-fetch-mode` on the responses that used to fail. The [proxy feature page](/features/proxy) covers the current options, including residential IPs for the hardest targets.

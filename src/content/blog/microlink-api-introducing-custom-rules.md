@@ -66,7 +66,7 @@ The response contains the fields metascraper resolves for every URL, including `
 }
 ```
 
-That is enough to understand what a link points to, or to render a preview with the [SDK](/docs/sdk-legacy/getting-started/overview/). The profile avatar is not in it, because an avatar is not a generic field. A custom rule adds it.
+That is enough to understand what a link points to, or to render a preview with the [SDK](/link-preview). The profile avatar is not in it, because an avatar is not a generic field. A custom rule adds it.
 
 ## A rule is a selector, an attribute, and a type
 
