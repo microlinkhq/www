@@ -53,14 +53,6 @@
       },
       {
         "files": [
-          "src/components/hook/use-fingerprint.js"
-        ],
-        "rules": [
-          "react-doctor/no-unguarded-browser-global-in-render-or-hook-init"
-        ]
-      },
-      {
-        "files": [
           "package.json"
         ],
         "rules": [
