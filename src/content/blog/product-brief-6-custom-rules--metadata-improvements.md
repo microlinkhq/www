@@ -12,7 +12,7 @@ This brief covers four changes to [Microlink API](/docs/api/getting-started/over
 
 ## Custom rules define your own response
 
-[![](/images/subDjQ1.png)](/blog/custom-rules)
+[![](/images/subDjQ1.png)](/blog/microlink-api-introducing-custom-rules)
 
 <Figcaption>Custom rules build an API response shaped by what you need to extract.</Figcaption>
 

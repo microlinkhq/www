@@ -19,8 +19,10 @@ const MARKDOWN_EXTENSION = /\.mdx?$/
 const SCRIPT_EXTENSION = /\.js$/
 const SITE_ORIGIN = String.raw`(?:(?:https?:)?\/\/(?:www\.)?microlink\.io)?`
 const SITE_PATH = String.raw`(\/(?!\/)[^)\s]*)`
+const OPTIONAL_INTERNAL = String.raw`(?:${SITE_ORIGIN}${SITE_PATH}|[^)\s]*)`
+const NESTED_IMAGE_LINK = String.raw`\[!\[[^\]]*\]\(${OPTIONAL_INTERNAL}\)\]\(${OPTIONAL_INTERNAL}\)`
 const MARKDOWN_LINK = new RegExp(
-  String.raw`\[[^\]]*\]\(${SITE_ORIGIN}${SITE_PATH}\)|href=["']${SITE_ORIGIN}(\/(?!\/)[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/(?!\/)\S+)`,
+  String.raw`${NESTED_IMAGE_LINK}|\[[^\]]*\]\(${SITE_ORIGIN}${SITE_PATH}\)|href=["']${SITE_ORIGIN}(\/(?!\/)[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/(?!\/)\S+)`,
   'gm'
 )
 const JSX_LINK = new RegExp(
@@ -127,10 +129,12 @@ const resolves = link => {
 
 const collectLinks = (files, pattern) =>
   files.flatMap(file =>
-    [...readFileSync(file, 'utf8').matchAll(pattern)].map(([, ...groups]) => ({
-      file: path.relative(ROOT, file),
-      link: groups.find(Boolean)
-    }))
+    [...readFileSync(file, 'utf8').matchAll(pattern)].flatMap(([, ...groups]) =>
+      groups.filter(Boolean).map(link => ({
+        file: path.relative(ROOT, file),
+        link
+      }))
+    )
   )
 
 const internalLinks = [
@@ -158,6 +162,23 @@ test('every internal link resolves to a page, static file or redirect', () => {
 test('no internal link points at a redirect instead of its destination', () => {
   const redirected = internalLinks.filter(({ link }) => isRedirect(link))
   expect(redirected).toEqual([])
+})
+
+test('a linked image keeps the image and the href', () => {
+  const linksOf = (pattern, sample) =>
+    [...sample.matchAll(pattern)].flatMap(([, ...groups]) =>
+      groups.filter(Boolean)
+    )
+  expect(linksOf(MARKDOWN_LINK, '[![](/images/pic.png)](/blog/gone)')).toEqual([
+    '/images/pic.png',
+    '/blog/gone'
+  ])
+  expect(
+    linksOf(MARKDOWN_LINK, '[![](https://cdn.example/pic.png)](/blog/gone)')
+  ).toEqual(['/blog/gone'])
+  expect(
+    linksOf(MARKDOWN_LINK, '[![](/images/pic.png)](https://example.com/x)')
+  ).toEqual(['/images/pic.png'])
 })
 
 test('protocol-relative URLs are not site links', () => {
