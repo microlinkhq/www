@@ -19,10 +19,11 @@ const MARKDOWN_EXTENSION = /\.mdx?$/
 const SCRIPT_EXTENSION = /\.js$/
 const SITE_ORIGIN = String.raw`(?:(?:https?:)?\/\/(?:www\.)?microlink\.io)?`
 const SITE_PATH = String.raw`(\/(?!\/)[^)\s]*)`
+const LINK_TITLE = String.raw`(?:\s+(?:"[^"]*"|'[^']*'))?`
 const OPTIONAL_INTERNAL = String.raw`(?:${SITE_ORIGIN}${SITE_PATH}|[^)\s]*)`
-const NESTED_IMAGE_LINK = String.raw`\[!\[[^\]]*\]\(${OPTIONAL_INTERNAL}\)\]\(${OPTIONAL_INTERNAL}\)`
+const NESTED_IMAGE_LINK = String.raw`\[!\[[^\]]*\]\(${OPTIONAL_INTERNAL}${LINK_TITLE}\)\]\(${OPTIONAL_INTERNAL}${LINK_TITLE}\)`
 const MARKDOWN_LINK = new RegExp(
-  String.raw`${NESTED_IMAGE_LINK}|\[[^\]]*\]\(${SITE_ORIGIN}${SITE_PATH}\)|href=["']${SITE_ORIGIN}(\/(?!\/)[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/(?!\/)\S+)`,
+  String.raw`${NESTED_IMAGE_LINK}|\[[^\]]*\]\(${SITE_ORIGIN}${SITE_PATH}${LINK_TITLE}\)|href=["']${SITE_ORIGIN}(\/(?!\/)[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/(?!\/)\S+)`,
   'gm'
 )
 const JSX_LINK = new RegExp(
@@ -115,6 +116,8 @@ const knownRoutes = new Set([
 
 const isStaticFile = route => {
   const file = path.join(STATIC_DIR, route)
+  const relative = path.relative(STATIC_DIR, file)
+  if (relative.startsWith('..') || path.isAbsolute(relative)) return false
   return existsSync(file) && !existsSync(path.join(file, '/'))
 }
 
@@ -179,6 +182,12 @@ test('a linked image keeps the image and the href', () => {
   expect(
     linksOf(MARKDOWN_LINK, '[![](/images/pic.png)](https://example.com/x)')
   ).toEqual(['/images/pic.png'])
+  expect(
+    linksOf(MARKDOWN_LINK, '[![](/images/pic.png)](/blog/gone "Title")')
+  ).toEqual(['/images/pic.png', '/blog/gone'])
+  expect(
+    linksOf(MARKDOWN_LINK, "[![](/images/pic.png)](/blog/gone 'Title')")
+  ).toEqual(['/images/pic.png', '/blog/gone'])
 })
 
 test('protocol-relative URLs are not site links', () => {
@@ -243,6 +252,8 @@ test('generated routes resolve before their files are fetched', () => {
   expect(resolves('/data/hero-demo')).toBe(false)
   expect(isStaticFile('/robots.txt')).toBe(true)
   expect(isStaticFile('/images')).toBe(false)
+  expect(isStaticFile('/../package.json')).toBe(false)
+  expect(resolves('/../package.json')).toBe(false)
 })
 
 test('dynamic redirect markers are not literal paths', () => {

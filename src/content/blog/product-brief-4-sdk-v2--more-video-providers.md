@@ -59,7 +59,7 @@ The [vanilla](/link-preview) version shipped with its own class names, so a styl
 </script>
 ```
 
-The [styling guide](/link-preview) lists every class name the vanilla build exposes.
+The SDK's [styling reference](https://github.com/microlinkhq/sdk/blob/master/README.md#css-class-names) lists every class name the vanilla build exposes.
 
 ## The API detected video on more providers
 
