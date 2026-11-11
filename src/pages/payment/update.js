@@ -1,6 +1,5 @@
 /* global fetch */
 
-import { useFingerprint } from 'components/hook/use-fingerprint'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { useQueryState } from 'components/hook/use-query-state'
 import { PAYMENT_STATE } from 'components/pages/payment/constants'
@@ -154,34 +153,25 @@ const PaymentUpdatePage = () => {
     paymentEndpoint: apiEndpoint
   } = useSiteMetadata()
   const stripePromise = loadStripe(stripeKey, { locale: 'en' })
-  const fingerprint = useFingerprint()
 
   const [paymentState, setPaymentState] = useState(
     query.status ?? PAYMENT_STATE.initial
   )
 
   useEffect(() => {
-    if (paymentState === PAYMENT_STATE.redirected && fingerprint?.ipAddress) {
+    if (paymentState === PAYMENT_STATE.redirected) {
       fetchOnce(`${apiEndpoint}/payment/update`, {
         headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
         method: 'POST',
         body: JSON.stringify({
           customerId: query.id,
-          ipAddress: fingerprint.ipAddress,
           setupIntentId: query.setup_intent
         })
       })
         .then(() => (window.location = redirectUrl(PAYMENT_STATE.success)))
         .catch(() => (window.location = redirectUrl(PAYMENT_STATE.failed)))
     }
-  }, [
-    apiEndpoint,
-    apiKey,
-    paymentState,
-    fingerprint,
-    query.id,
-    query.setup_intent
-  ])
+  }, [apiEndpoint, apiKey, paymentState, query.id, query.setup_intent])
 
   useEffect(() => setIsLoading(false), [])
 
