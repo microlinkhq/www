@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-Generating a PDF with Microlink API requires two parameters: the target `url` and `pdf`.
+Generating a PDF with the Microlink [HTML to PDF API](/pdf) requires two parameters: the target `url` and `pdf`.
 
 Use `pdf: true` for the default behavior, or pass an object when you need PDF-specific options such as `format`, `margin`, `scale`, or `pageRanges`.
 
@@ -17,7 +17,7 @@ Use `pdf: true` for the default behavior, or pass an object when you need PDF-sp
 
 <Figcaption>Run the request and look for the generated asset under <code>data.pdf.url</code>.</Figcaption>
 
-Microlink renders the page in a headless browser, prints it to PDF, stores the result on the CDN, and returns the PDF asset metadata in the response.
+Microlink renders the page in a [headless browser](/blog/what-is-a-headless-browser), prints it to PDF, stores the result on the CDN, and returns the PDF asset metadata in the response.
 
 ## SDK installation
 

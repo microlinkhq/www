@@ -166,7 +166,7 @@ if (embed) {
 }
 ```
 
-The full provider list lives in the <Link href='/docs/api/parameters/iframe#providers-supported' children='iframe parameter reference' /> — 280+ providers including YouTube, Spotify, Twitter/X, Vimeo, Instagram, TikTok, Figma, CodeSandbox, CodePen, Reddit, Pinterest, Behance, Dribbble, TED, SoundCloud, and Mixcloud.
+The full provider list lives in the <Link href='/docs/api/parameters/iframe#providers-supported' children='iframe parameter reference' /> — 280+ providers including YouTube, Spotify, Twitter/X, Vimeo, Instagram, TikTok, Figma, CodeSandbox, CodePen, Reddit, Pinterest, Behance, Dribbble, TED, SoundCloud, and Mixcloud. Each one has its own page in the <Link href='/embed/providers' children='embed providers directory' />.
 
 ## Pair iframe with metadata in one call
 

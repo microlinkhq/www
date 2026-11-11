@@ -125,6 +125,8 @@ Use <Link href='/docs/guides/data-extraction/page-preparation' children='Data ex
 
 ## See also
 
+Every recipe is in the <Link href='/use-cases/website-to-markdown' children='website to Markdown use cases' />. The most common ones:
+
 - <Link href='/use-cases/website-to-markdown/with-metadata' children='Markdown with metadata frontmatter' /> — title, author, date and reading time on top of the body.
 - <Link href='/use-cases/website-to-markdown/clean-content' children='Clean Markdown, no boilerplate' /> — scope the conversion to the content.
 - <Link href='/use-cases/website-to-markdown/documents' children='PDF and office documents to Markdown' /> — the same request for files.

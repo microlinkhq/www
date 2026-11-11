@@ -94,12 +94,12 @@ Most pipelines treat a `403`, a `429`, and a challenge page the same way, with t
 - CAPTCHA responses differ by provider and version, such as reCAPTCHA v2 and v3.
 - A retry strategy that works for one system amplifies detection in another.
 
-Once `provider` tells you who blocked the request, you can adapt the retry strategy to that specific block, route the request through alternative IPs or proxies, escalate to full browser rendering when needed, or exit early to avoid wasting resources and costs. Detection is the decision point for all four.
+Once `provider` tells you who blocked the request, you can adapt the retry strategy to that specific block, route the request through [alternative IPs or proxies](/features/proxy), escalate to full browser rendering when needed, or exit early to avoid wasting resources and costs. Detection is the decision point for all four.
 
 ## How the Microlink API uses it
 
-Antibot detection is one of the first checks in the <Link href="/docs/api/getting-started/overview">Microlink API</Link> request flow. Instead of retrying every failure the same way, we identify why a request failed and route it through the resolution path required for that protection layer. The result is fewer retries, cleaner data, and predictable behavior at scale.
+Antibot detection is one of the first checks in the <Link href="/docs/api/getting-started/overview">Microlink API</Link> request flow. Instead of retrying every failure the same way, we identify why a request failed and route it through the resolution path required for that protection layer. The result is fewer retries, cleaner data, and predictable behavior at scale. The [antibot detection feature](/features/antibot) lists the providers it recognizes and what the API returns when one of them answers.
 
 ## Get started
 
-Run `npm install is-antibot --save`, pass any `fetch` response to `isAntibot`, and read `detected` and `provider`. You can read the source on [GitHub](https://github.com/microlinkhq/is-antibot), and our [Microlink API docs](/docs/api/getting-started/overview) cover how requests are handled.
+Run `npm install is-antibot --save`, pass any `fetch` response to `isAntibot`, and read `detected` and `provider`. You can read the source on [GitHub](https://github.com/microlinkhq/is-antibot), and our [Microlink API docs](/docs/api/getting-started/overview) cover how requests are handled. To find out which provider protects a site before you scrape it, follow the guide to [detect antibot protection](/use-cases/proxy/detect-antibot-protection).

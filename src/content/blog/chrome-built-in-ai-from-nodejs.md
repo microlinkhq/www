@@ -23,7 +23,7 @@ Built-in AI runs the model on-device, in the page. You can prompt, summarize, an
 
 We already run a [browserless](https://browserless.js.org) fleet and parse pages with [metascraper](https://metascraper.js.org). Local-first AI on that stack helps in the edge cases where the markup gives metascraper nothing else to read. Gemini Nano lives in the browser, and we run browsers, so it looked like an easy job. It wasn't.
 
-When you launch a headless browser, you get **[Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing)**: a pinned, automation-only build with no auto-update and no branded-Chrome component updater. Gemini Nano is not in the Chrome binary, and the component updater is what downloads it, so Chrome for Testing has no way to get the model on its own.
+When you launch a [headless browser](/blog/what-is-a-headless-browser), you get **[Chrome for Testing](https://developer.chrome.com/blog/chrome-for-testing)**: a pinned, automation-only build with no auto-update and no branded-Chrome component updater. Gemini Nano is not in the Chrome binary, and the component updater is what downloads it, so Chrome for Testing has no way to get the model on its own.
 
 ## You call it from Node.js, Chrome runs it
 
@@ -100,4 +100,4 @@ We take the second path, the same constraint we worked with in [WebGL without a 
 
 ## Try it
 
-Pack the model with `pnpm --filter @browserless/ai pack-model`, then call `ai.prompt`, `ai.summarize`, or `ai.detectLanguage` with a URL. The source and the full example are in [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai).
+Pack the model with `pnpm --filter @browserless/ai pack-model`, then call `ai.prompt`, `ai.summarize`, or `ai.detectLanguage` with a URL. The source and the full example are in [@browserless/ai](https://github.com/microlinkhq/browserless/tree/master/packages/ai). To let a coding agent drive browserless for you, install the [browserless skill](/skills/browserless).

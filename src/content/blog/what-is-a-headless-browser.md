@@ -106,7 +106,7 @@ import mql from '@microlink/mql'
 const { data } = await mql('https://github.com/microlinkhq', { screenshot: true }) // easy peasy
 ```
 
-The same request can extract metadata, render PDFs, or get past the [anti-bot protections](/blog/antibot-detection-at-scale) used by major platforms. Every option is in the [API docs](/docs/api/getting-started/overview).
+The same request can extract metadata, render PDFs, or get past the [anti-bot protections](/blog/antibot-detection-at-scale) used by major platforms. [Browser automation](/features/automation) adds clicks, waits, and injected scripts to the same call. Every option is in the [API docs](/docs/api/getting-started/overview).
 
 ## Learn with Playwright, ship with an API
 

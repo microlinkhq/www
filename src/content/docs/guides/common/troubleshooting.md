@@ -31,7 +31,7 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 ## The site blocks the browser <ProBadge />
 
-Some sites block headless browsers, require a region-specific IP, or trigger antibot protection. In those cases, use `proxy`:
+Some sites block headless browsers, require a region-specific IP, or trigger [antibot protection](/features/antibot). In those cases, use `proxy`:
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, proxy: { url: 'https://myproxy:603f60f5@superproxy.cool:8001' }, apiKey: 'YOUR_API_TOKEN' }} />
 

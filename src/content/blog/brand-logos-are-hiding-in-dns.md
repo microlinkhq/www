@@ -127,6 +127,8 @@ Run the request below. The `logo` field in the response is the BIMI SVG, not the
 
 <Figcaption>`logo` here comes from `default._bimi.cloudflare.com`, not from the page. The favicon path returns a 99×96 PNG for the same site.</Figcaption>
 
+To get the logo of any other domain, use the [logo API](/logo).
+
 ## Publish a BIMI record for your company
 
 If you want metadata tools (and mailboxes) to pick up your real logo, publish it. Three pieces, in order:

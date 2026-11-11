@@ -81,3 +81,5 @@ There is nothing to configure. Any [screenshot](/docs/api/parameters/screenshot)
 />
 
 <Figcaption>A WebGL page captured with Microlink, rendered through Mesa llvmpipe.</Figcaption>
+
+To capture the scene in motion instead of a still frame, [record the page as video](/use-cases/website-screenshot/animated-screenshots).
