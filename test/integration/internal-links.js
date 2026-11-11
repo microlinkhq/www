@@ -162,9 +162,7 @@ test('no internal link points at a redirect instead of its destination', () => {
 
 test('protocol-relative URLs are not site links', () => {
   const linksOf = (pattern, sample) =>
-    [...sample.matchAll(pattern)]
-      .map(([, ...groups]) => groups.find(Boolean))
-      .filter(Boolean)
+    [...sample.matchAll(pattern)].map(([, ...groups]) => groups.find(Boolean))
   expect(
     linksOf(
       MARKDOWN_LINK,
