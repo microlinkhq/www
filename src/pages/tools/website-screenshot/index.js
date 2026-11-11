@@ -49,6 +49,7 @@ import {
 } from 'components/patterns/NerdStats/NerdStats'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 
@@ -966,7 +967,7 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: storedApiKey(localStorageData),
           meta: false,
           screenshot: {
             type: options.type,
@@ -1058,7 +1059,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory]
+    [options, localStorageData, setHistory]
   )
 
   const handleHistorySelect = useCallback(entry => {

@@ -60,6 +60,7 @@ import {
   normalizeApiError,
   upgradeErrorFor
 } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   extractNerdStats,
@@ -1927,7 +1928,7 @@ const ScreenshotTool = () => {
         const reqStart = Date.now()
         try {
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey: storedApiKey(localStorageData),
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,

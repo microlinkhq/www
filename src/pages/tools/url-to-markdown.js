@@ -60,6 +60,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { normalizeApiError } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 
 import {
   OptionLabel,
@@ -1829,7 +1830,7 @@ const MarkdownTool = () => {
           : { attr: 'markdown' }
 
         const mqlOpts = {
-          apiKey: localStorageData,
+          apiKey: storedApiKey(localStorageData),
           meta: options.meta,
           data: { markdown: dataRule },
           adblock: options.adblock,
