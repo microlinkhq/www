@@ -2,6 +2,8 @@
 title: 'Product brief #1: default prerendering, new plans, and metascraper v3'
 subtitle: 'Prerendering on every request, 500 free requests per day'
 description: 'Learn about Microlink first product brief: enabling browser prerendering by default, the launch of adaptive pricing plans, and the release of metascraper v3.'
+authors:
+  - kiko
 date: '2017-12-30'
 ---
 

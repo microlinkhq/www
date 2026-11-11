@@ -1,6 +1,8 @@
 ---
 title: 'Product brief #2: new brand, unified docs, instant API credentials'
 description: 'Discover Microlink second product brief, featuring a fresh brand identity, unified documentation portal, and key improvements to metascraper and the SDK.'
+authors:
+  - kiko
 date: '2018-01-31'
 ---
 

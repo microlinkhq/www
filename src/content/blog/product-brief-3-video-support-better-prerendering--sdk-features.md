@@ -1,6 +1,8 @@
 ---
 title: 'Product brief #3: video and up to 50% faster prerendering'
 description: 'Boost your link previews with Microlink video support, auto-prerendering for 50% faster responses, and new SDK features.'
+authors:
+  - kiko
 date: '2018-03-02'
 ---
 

@@ -4,6 +4,9 @@ import { kebabCase } from 'lodash'
 import recipes from '@microlink/recipes'
 import { expect, test } from 'vitest'
 
+import { dists } from '../../scripts/fetch-data/clean'
+import { SKILL_CATEGORY } from '../../src/components/pages/skills/taxonomy'
+
 const ROOT = path.resolve(__dirname, '../..')
 const CONTENT_DIR = path.join(ROOT, 'src/content')
 const PAGES_DIR = path.join(ROOT, 'src/pages')
@@ -15,12 +18,13 @@ const VERCEL_CONFIG = path.join(ROOT, 'vercel.json')
 const MARKDOWN_EXTENSION = /\.mdx?$/
 const SCRIPT_EXTENSION = /\.js$/
 const SITE_ORIGIN = String.raw`(?:(?:https?:)?\/\/(?:www\.)?microlink\.io)?`
+const SITE_PATH = String.raw`(\/(?!\/)[^)\s]*)`
 const MARKDOWN_LINK = new RegExp(
-  String.raw`(?<!!)\[[^\]]*\]\(${SITE_ORIGIN}(\/[^)\s]*)\)|href=["']${SITE_ORIGIN}(\/[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/\S+)`,
+  String.raw`\[[^\]]*\]\(${SITE_ORIGIN}${SITE_PATH}\)|href=["']${SITE_ORIGIN}(\/(?!\/)[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/(?!\/)\S+)`,
   'gm'
 )
 const JSX_LINK = new RegExp(
-  String.raw`\bhref(?:=|: )'${SITE_ORIGIN}(\/[^']*)'|(?<!!)\[[^\]\n]*\]\(${SITE_ORIGIN}(\/[^)\s'"]*)\)`,
+  String.raw`\bhref(?:=|: )'${SITE_ORIGIN}(\/(?!\/)[^']*)'|\[[^\]\n]*\]\(${SITE_ORIGIN}(\/(?!\/)[^)\s'"]*)\)`,
   'g'
 )
 const PATH_SUFFIX = /[?#].*$/
@@ -54,9 +58,11 @@ const safeDecode = value => {
 const normalize = link =>
   safeDecode(link.replace(PATH_SUFFIX, '')).replace(TRAILING_SLASH, '$1')
 
+const isUnconditionalRedirect = redirect => !redirect.has && !redirect.missing
+
 const unconditionalRedirects = JSON.parse(
   readFileSync(VERCEL_CONFIG, 'utf8')
-).redirects.filter(redirect => !redirect.has && !redirect.missing)
+).redirects.filter(isUnconditionalRedirect)
 
 const staticRedirects = new Set(
   unconditionalRedirects
@@ -96,6 +102,11 @@ const knownRoutes = new Set([
   ...listFiles(SKILLS_DIR, MARKDOWN_EXTENSION).map(
     file => `/skills/${path.basename(file).replace(MARKDOWN_EXTENSION, '')}`
   ),
+  ...Object.keys(SKILL_CATEGORY).map(slug => `/skills/${slug}`),
+  ...dists()
+    .map(dist => path.relative(STATIC_DIR, dist))
+    .filter(rel => rel && !rel.startsWith('..') && path.extname(rel))
+    .map(rel => `/${rel.split(path.sep).join('/')}`),
   ...Object.keys(recipes).map(name => `/recipes/${kebabCase(name)}`),
   GATSBY_SITEMAP_INDEX
 ])
@@ -148,4 +159,71 @@ test('every internal link resolves to a page, static file or redirect', () => {
 test('no internal link points at a redirect instead of its destination', () => {
   const redirected = internalLinks.filter(({ link }) => isRedirect(link))
   expect(redirected).toEqual([])
+})
+
+test('protocol-relative URLs are not site links', () => {
+  const linksOf = (pattern, sample) =>
+    [...sample.matchAll(pattern)]
+      .map(([, ...groups]) => groups.find(Boolean))
+      .filter(Boolean)
+  expect(
+    linksOf(
+      MARKDOWN_LINK,
+      [
+        '[pkg](//unpkg.com/@microlink/vanilla)',
+        '<a href="//cdn.example.com/app.js">',
+        '<a href="https://microlink.io/pricing">'
+      ].join('\n')
+    )
+  ).toEqual(['/pricing'])
+  expect(
+    linksOf(
+      JSX_LINK,
+      [
+        "href: '//unpkg.com/pkg'",
+        "href: '//microlink.io/pricing'",
+        "href='/pricing'"
+      ].join('\n')
+    )
+  ).toEqual(['/pricing', '/pricing'])
+})
+
+test('conditional redirects stay off the unconditional list', () => {
+  expect(isUnconditionalRedirect({ source: '/x', has: [{}] })).toBe(false)
+  expect(isUnconditionalRedirect({ source: '/x', missing: [{}] })).toBe(false)
+  expect(isUnconditionalRedirect({ source: '/x' })).toBe(true)
+})
+
+test('static and dynamic redirect sources match before a link is repointed', () => {
+  expect(isRedirect('/docs')).toBe(true)
+  expect(isRedirect('/oss')).toBe(true)
+  expect(isRedirect('/docs/sdk-legacy/parameters/size')).toBe(true)
+  expect(isRedirect('/docs/sdk-legacy/a/b')).toBe(true)
+  expect(isRedirect('/docs/mql/data/attr')).toBe(true)
+  expect(isRedirect('/docs/sdk/parameters/size')).toBe(true)
+  expect(isRedirect('/docs/sdk/methods/insights/foo')).toBe(true)
+  expect(isRedirect('/docs/sdk/methods/insights/foo/bar')).toBe(false)
+  expect(isRedirect('/docs/sdk/methods/insights/foo.md')).toBe(true)
+  const dotted = toRedirectPattern('/docs/v1.0/:name')
+  expect(dotted.test('/docs/v1.0/intro')).toBe(true)
+  expect(dotted.test('/docs/v1X0/intro')).toBe(false)
+  expect(isRedirect('/customers/acme')).toBe(true)
+  expect(isRedirect('/feature/proxy')).toBe(true)
+  expect(isRedirect('/pricing')).toBe(false)
+  expect(isRedirect('/docs/sdk/methods/extract')).toBe(false)
+})
+
+test('generated routes resolve before their files are fetched', () => {
+  expect(resolves('/skills/microlink')).toBe(true)
+  expect(resolves('/skills/microlink-api')).toBe(true)
+  expect(resolves('/user-agents.json')).toBe(true)
+})
+
+test('a markdown twin of a page resolves', () => {
+  expect(resolves('/pricing.md')).toBe(true)
+})
+
+test('malformed percent-encoding does not throw', () => {
+  expect(() => resolves('/%')).not.toThrow()
+  expect(resolves('/%')).toBe(false)
 })
