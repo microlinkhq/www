@@ -36,7 +36,7 @@ const GATSBY_SITEMAP_INDEX = '/sitemap-index.xml'
 const listFiles = (dir, extension) =>
   existsSync(dir)
     ? readdirSync(dir, { recursive: true, withFileTypes: true })
-      .filter(entry => entry.isFile() && extension.test(entry.name))
+      .filter(entry => extension.test(entry.name))
       .map(entry => path.join(entry.parentPath, entry.name))
     : []
 
@@ -105,7 +105,7 @@ const knownRoutes = new Set([
   ...Object.keys(SKILL_CATEGORY).map(slug => `/skills/${slug}`),
   ...dists()
     .map(dist => path.relative(STATIC_DIR, dist))
-    .filter(rel => rel && !rel.startsWith('..') && path.extname(rel))
+    .filter(rel => !rel.startsWith('..') && path.extname(rel))
     .map(rel => `/${rel.split(path.sep).join('/')}`),
   ...Object.keys(recipes).map(name => `/recipes/${kebabCase(name)}`),
   GATSBY_SITEMAP_INDEX
@@ -220,12 +220,16 @@ test('generated routes resolve before their files are fetched', () => {
   expect(resolves('/user-agents.json')).toBe(true)
   expect(resolves('/docs')).toBe(true)
   expect(resolves('/oss')).toBe(true)
+  expect(resolves('/../data/skills.json')).toBe(false)
+  expect(resolves('/data/hero-demo')).toBe(false)
+  expect(isStaticFile('/robots.txt')).toBe(true)
+  expect(isStaticFile('/images')).toBe(false)
 })
 
 test('dynamic redirect markers are not literal paths', () => {
   expect(DYNAMIC_SEGMENT.test('/files/*')).toBe(true)
   expect(DYNAMIC_SEGMENT.test('/docs/:name')).toBe(true)
-  expect(DYNAMIC_SEGMENT.test('/docs/(.*)')).toBe(true)
+  expect(DYNAMIC_SEGMENT.test('/docs/(foo)')).toBe(true)
   expect(DYNAMIC_SEGMENT.test('/docs/[id]')).toBe(true)
   expect(DYNAMIC_SEGMENT.test('/pricing')).toBe(false)
 })
