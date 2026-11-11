@@ -65,6 +65,6 @@ Microlink Cards is part of the [Microlink](https://microlink.io) ecosystem. Micr
 
 Microlink Cards is a product built on Microlink itself. The editor is a free canvas for any image composition, and each composition has a unique URL.
 
-That URL goes to the [Microlink API](https://microlink.io/docs/api/getting-started/overview) with the [screenshot](https://microlink.io/docs/api/parameters/screenshot) parameter enabled. The API returns the rendered image and serves it from the [Microlink CDN](https://microlink.io/blog/edge-cdn/).
+That URL goes to the [Microlink API](/docs/api/getting-started/overview) with the [screenshot](/docs/api/parameters/screenshot) parameter enabled. The API returns the rendered image and serves it from the [Microlink CDN](/blog/edge-cdn).
 
 Open the editor at `cards.microlink.io/editor`, change a color or a line of code, and the URL in the address bar is your card.

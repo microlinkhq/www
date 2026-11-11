@@ -40,7 +40,7 @@ The script we walk through below is a simplified version you can extend. It fetc
 I wanted this to stay small and practical: one `audit.js` file and three npm packages, installed with a single `npm install`.
 
 * [**sitemapper**](https://www.npmjs.com/package/sitemapper): reads every URL from your sitemap, including nested sitemap indexes.
-* [**microlink/mql**](/docs/mql/getting-started/installation): fetches metadata the same way social networks see it.
+* [**microlink/mql**](/docs/sdk/methods/extract): fetches metadata the same way social networks see it.
 * [**p-map**](https://www.npmjs.com/package/p-map): limits concurrency so a run stays inside the free tier of the API.
 
 Setup takes five minutes. Create a folder, initialize it, and install the three packages:

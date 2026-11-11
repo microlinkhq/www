@@ -211,14 +211,11 @@ export const getFaqQuestions = () => {
           </div>
           <div>
             If you'd rather not run that yourself, the{' '}
-            <Link href='https://microlink.io/docs/api/getting-started/overview'>
-              Microlink API
-            </Link>{' '}
+            <Link href='/docs/api/getting-started/overview'>Microlink API</Link>{' '}
             handles proxy rotation,{' '}
             <Link href='/blog/antibot-detection-at-scale'>bot detection</Link>{' '}
             and hard-to-reach platforms such as the major social networks for
-            you. Plans{' '}
-            <Link href='https://microlink.io/pricing'>start for free</Link>.
+            you. Plans <Link href='/pricing'>start for free</Link>.
           </div>
         </>
       )

@@ -12,15 +12,15 @@ This brief covers four changes to [Microlink API](/docs/api/getting-started/over
 
 ## Custom rules define your own response
 
-[![](/images/subDjQ1.png)](/blog/custom-rules)
+[![Custom rules post](/images/subDjQ1.png)](/blog/microlink-api-introducing-custom-rules)
 
 <Figcaption>Custom rules build an API response shaped by what you need to extract.</Figcaption>
 
-Microlink API extracts data from any URL. Link previews are one use case, and they are what our [SDK](/docs/sdk-legacy/getting-started/overview/) renders. Because the default response returns generic metadata, the API was hard to apply to other problems, like pulling one specific value out of a page.
+Microlink API extracts data from any URL. Link previews are one use case, and they are what our [SDK](/link-preview) renders. Because the default response returns generic metadata, the API was hard to apply to other problems, like pulling one specific value out of a page.
 
 **Custom rules** let you set up a custom API response. You specify what you want with CSS selectors, and you declare a type for each value (`url`, `author`, `date`, etc.), so the data never comes back with an unexpected shape.
 
-In other words, you can use Microlink API as a scraper as a service. The [custom rules post](/blog/custom-rules) walks through a full example that extracts data from an Instagram profile.
+In other words, you can use Microlink API as a scraper as a service. The [custom rules post](/blog/microlink-api-introducing-custom-rules) walks through a full example that extracts data from an Instagram profile.
 
 ## Compression now has its own docs section
 

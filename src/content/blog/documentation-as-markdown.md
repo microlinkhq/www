@@ -43,7 +43,7 @@ For us, the main benefit was architectural: one canonical docs source, served as
 
 ## The Markdown comes from an MQL data rule
 
-MQL data rules already serialize any page as text, Markdown, or HTML. The [attr](/docs/mql/data/attr) field sets the output format, and an optional [selector](/docs/mql/data/selector) narrows the extraction to part of the page.
+MQL data rules already serialize any page as text, Markdown, or HTML. The [attr](/docs/sdk/methods/extract/attr) field sets the output format, and an optional [selector](/docs/sdk/methods/extract/selector) narrows the extraction to part of the page.
 
 ![](/images/S0QqYLR.jpeg)
 
@@ -115,4 +115,4 @@ On top of those steps sit many smaller rules that we tested against a large set 
 
 ## Try it on your own docs
 
-Run the same conversion on any page with `curl https://markdown.microlink.io/` followed by its URL, or copy the `mql` rule above into your build to generate a `.md` file for each of your docs pages. The [attr](/docs/mql/data/attr) reference lists every serialization format the rule supports.
+Run the same conversion on any page with `curl https://markdown.microlink.io/` followed by its URL, or copy the `mql` rule above into your build to generate a `.md` file for each of your docs pages. The [attr](/docs/sdk/methods/extract/attr) reference lists every serialization format the rule supports.

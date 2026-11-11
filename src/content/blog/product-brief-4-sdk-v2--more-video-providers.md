@@ -9,11 +9,11 @@ date: '2018-04-11'
 
 import { Microlink } from 'components/markdown/Microlink'
 
-This sprint shipped two changes. [Microlink SDK 2.0](/docs/sdk-legacy/getting-started/overview) removed the `round` parameter from the card preview, so you styled the card with CSS instead. And the `video` property of the Microlink API learned to detect video on more providers, including Amazon, Facebook, Instagram, Vimeo, X, and YouTube.
+This sprint shipped two changes. [Microlink SDK 2.0](/link-preview) removed the `round` parameter from the card preview, so you styled the card with CSS instead. And the `video` property of the Microlink API learned to detect video on more providers, including Amazon, Facebook, Instagram, Vimeo, X, and YouTube.
 
 ## SDK 2.0 removed the round parameter
 
-SDK 2.0 was a breaking release. It dropped `round` from the [API Parameters](/docs/sdk-legacy/getting-started/overview) you could pass to customize the card preview. The only thing `round` did was apply a `border-radius` around the card.
+SDK 2.0 was a breaking release. It dropped `round` from the [API Parameters](/link-preview) you could pass to customize the card preview. The only thing `round` did was apply a `border-radius` around the card.
 
 We removed it to reduce the number of configurable parameters. Since `round` only set one CSS property, `border-radius`, a stylesheet rule or a `style` prop could do the same job without a dedicated parameter.
 
@@ -23,7 +23,7 @@ The default card style was still there to extend. To show it, here is a link pre
 
 ## Style the card with CSS instead
 
-With [@microlink/react](/docs/sdk-legacy/integrations/react/), you passed your CSS as the `style` property of the `<Microlink>` component. This example sets `borderRadius: '.42857em'` on the browserless card:
+With [@microlink/react](/link-preview), you passed your CSS as the `style` property of the `<Microlink>` component. This example sets `borderRadius: '.42857em'` on the browserless card:
 
 **React**
 
@@ -37,9 +37,9 @@ import Microlink from '@microlink/react'
 />
 ```
 
-Read more about the `style` prop in the [styling section](/docs/sdk-legacy/integrations/react/#styling) of the `@microlink/react` docs.
+Read more about the `style` prop in the [styling section](/link-preview) of the `@microlink/react` docs.
 
-The [vanilla](/docs/sdk-legacy/integrations/vanilla/) version shipped with its own class names, so a stylesheet rule on `.microlink_card` did the same job. The `<a>` tag carried `data-media='logo'` and the `card-preview` class, and `microlink('.card-preview')` turned it into a card once `DOMContentLoaded` fired:
+The [vanilla](/link-preview) version shipped with its own class names, so a stylesheet rule on `.microlink_card` did the same job. The `<a>` tag carried `data-media='logo'` and the `card-preview` class, and `microlink('.card-preview')` turned it into a card once `DOMContentLoaded` fired:
 
 **Vanilla**
 
@@ -59,11 +59,11 @@ The [vanilla](/docs/sdk-legacy/integrations/vanilla/) version shipped with its o
 </script>
 ```
 
-The [styling guide](/docs/sdk-legacy/getting-started/styling/) lists every class name the vanilla build exposes.
+The SDK's [styling reference](https://github.com/microlinkhq/sdk/blob/master/README.md#css-class-names) lists every class name the vanilla build exposes.
 
 ## The API detected video on more providers
 
-The `video` property landed in the API in the [previous product brief](/blog/product-brief-3). In this sprint we extended it from the original providers to the most popular sites on the internet, so a URL from any of them came back with its video detected.
+The `video` property landed in the API in the [previous product brief](/blog/product-brief-3-video-support-better-prerendering--sdk-features). In this sprint we extended it from the original providers to the most popular sites on the internet, so a URL from any of them came back with its video detected.
 
 **Amazon**
 

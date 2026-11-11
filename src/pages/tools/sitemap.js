@@ -11,7 +11,7 @@ import { sitemapCardCode } from 'helpers/get-sitemap-urls'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
 const RobotsTxt = () => <Link href='/robots.txt'>robots.txt</Link>
-const SitemapXml = () => <Link href='/sitemap.xml'>sitemap.xml</Link>
+const SitemapXml = () => <Link href='/sitemap-index.xml'>sitemap.xml</Link>
 
 const TOP_FAQ_ITEMS = [
   {

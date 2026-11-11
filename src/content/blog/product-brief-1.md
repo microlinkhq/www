@@ -25,9 +25,9 @@ Improvements in the infrastructure made the response time constant even with pre
 
 ## Professional plans adapted to your usage
 
-![The new pricing table at microlink.io#pricing](https://cdn-images-1.medium.com/max/2244/1*JUalxjsY_tlU2txpxPsM9w.gif)
+![The new pricing table at microlink.io#pricing](/images/1*JUalxjsY_tlU2txpxPsM9w-9417ef29.gif)
 
-The pricing table started offering different plan configurations, so you could pick the one that matched your needs. The [authentication](/docs/#authentication) for professional plans was updated in the same release.
+The pricing table started offering different plan configurations, so you could pick the one that matched your needs. The [authentication](/docs/api/basics/authentication) for professional plans was updated in the same release.
 
 The free plan was limited to a maximum of **500 requests per day**, with one concurrent request per second.
 

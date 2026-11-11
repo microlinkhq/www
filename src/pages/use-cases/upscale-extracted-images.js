@@ -338,7 +338,9 @@ const LearnMore = () => (
       </Subhead>
       <Flex css={theme({ flexDirection: 'column', gap: 3 })}>
         <ResourceLink href='/metadata'>Microlink Metadata API</ResourceLink>
-        <ResourceLink href='/docs'>Microlink docs</ResourceLink>
+        <ResourceLink href='/docs/api/getting-started/overview'>
+          Microlink docs
+        </ResourceLink>
         <ResourceLink href='https://magnific.com/api'>
           Magnific API
         </ResourceLink>

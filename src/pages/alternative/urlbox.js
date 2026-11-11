@@ -687,16 +687,13 @@ const FAQ_ITEMS = [
           screenshot is taken.
         </div>
         <div>
-          Use{' '}
-          <Link href='/docs/api/parameters/screenshot/hide'>
-            screenshot.hide
-          </Link>{' '}
-          to remove specific elements by CSS selector — sticky banners, chat
-          widgets, or any overlay that clutters the capture.
+          Use <Link href='/docs/api/parameters/styles'>styles</Link> to hide
+          specific elements with CSS: sticky banners, chat widgets, or any
+          overlay that clutters the capture.
         </div>
       </>
     ),
-    text: 'Both Microlink and Urlbox support ad blocking and cookie banner removal. Microlink uses the adblock parameter and custom CSS/JS injection to dismiss consent dialogs before the screenshot is taken. You can also use screenshot.hide to remove specific elements by CSS selector.'
+    text: 'Both Microlink and Urlbox support ad blocking and cookie banner removal. Microlink uses the adblock parameter and custom CSS/JS injection to dismiss consent dialogs before the screenshot is taken. You can also use styles to hide specific elements with CSS.'
   },
   {
     question: 'What uptime and SLA does Microlink guarantee?',

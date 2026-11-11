@@ -24,7 +24,7 @@ Any successive API access based on the same URL will consume the shallow copy cr
 
 **Edge node cache**
 
-Since Microlink relies on [CloudFlare CDN](https://microlink.io/blog/edge-cdn/), after the unified cache is warm, any successive API access based on the sam URL will be served from the nearest edge node over [CloudFlare Network](https://www.cloudflare.com/network).
+Since Microlink relies on [CloudFlare CDN](/blog/edge-cdn), after the unified cache is warm, any successive API access based on the same URL will be served from the nearest edge node over [CloudFlare Network](https://www.cloudflare.com/network).
 
 That means not only response will be served from cache, also it will be served from the nearest distance relative to the request origin. That's reflected under `cf-cache-status` response header as <Type children="'HIT'"/>.
 
