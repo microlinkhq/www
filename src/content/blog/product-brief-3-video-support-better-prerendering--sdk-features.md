@@ -1,8 +1,6 @@
 ---
 title: 'Product brief #3: video and up to 50% faster prerendering'
 description: 'Boost your link previews with Microlink video support, auto-prerendering for 50% faster responses, and new SDK features.'
-authors:
-  - kiko
 date: '2018-03-02'
 ---
 
@@ -41,7 +39,7 @@ Most of that gain came from work on [browserless](https://browserless.js.org), o
 ![](/images/MkuOzT9.gif)
 
 <Figcaption>
-  <Link href='/docs' children='Microlink SDK' /> now supports video
+  <Link href='/link-preview' children='Microlink SDK' /> now supports video
   previsualizations.{' '}
   <Link
     href='https://sdk-react.microlink.io/?selectedKind=Normal&selectedStory=with%20video%20media&full=0&addons=1&stories=1&panelRight=0&addonPanel=kadira%2Fjsx%2Fpanel'
@@ -50,14 +48,14 @@ Most of that gain came from work on [browserless](https://browserless.js.org), o
   the rest.
 </Figcaption>
 
-Because the API now returned a `video` field, the [SDK](/docs/sdk-legacy/getting-started/overview) placed that streaming source directly into the preview card instead of a static image.
+Because the API now returned a `video` field, the [SDK](/link-preview) placed that streaming source directly into the preview card instead of a static image.
 
-![](https://cdn-images-1.medium.com/max/1440/1*PWDop7s7KmmmvccVbULiyA.gif)
+![](/images/1*PWDop7s7KmmmvccVbULiyA-40712b70.gif)
 
 <Figcaption>
   Video support is included for{' '}
   <Link
-    href='/docs/sdk-legacy/parameters/size'
+    href='/link-preview'
     children='normal or large'
   />{' '}
   card sizes.
@@ -65,13 +63,13 @@ Because the API now returned a `video` field, the [SDK](/docs/sdk-legacy/getting
 
 The card also took three playback properties, named `autoplay`, `muted`, and `loop` in the SDK docs:
 
-- **[autoplay](/docs/sdk-legacy/parameters/media/auto-play):** start the video as soon as the card renders.
-- **[muted](/docs/sdk-legacy/parameters/media/muted):** play the video without sound.
-- **[loop](/docs/sdk-legacy/parameters/media/loop):** restart the video when it ends.
+- **[autoplay](/link-preview):** start the video as soon as the card renders.
+- **[muted](/link-preview):** play the video without sound.
+- **[loop](/link-preview):** restart the video when it ends.
 
 ## Cards loaded images smoothly and could flip their layout
 
-![](https://cdn-images-1.medium.com/max/1440/1*FwTUJSw1Vn4g8eC5wzMCkQ.gif)
+![](/images/1*FwTUJSw1Vn4g8eC5wzMCkQ-7e7cca1e.gif)
 
 <Figcaption>
   The loading animation, with credit to{' '}
@@ -85,17 +83,17 @@ The SDK card got a new transition between how it looked before its image and dat
 <Figcaption>
   Using the new{' '}
   <Link
-    href='/docs/sdk-legacy/parameters/direction'
+    href='/link-preview'
     children='direction'
   />{' '}
   API parameter to invert the media position in the card.
 </Figcaption>
 
-A new field called [reverse](/docs/sdk-legacy/parameters/direction) inverted the orientation of the card's content, placing the media on the opposite side from the text.
+A new field called [reverse](/link-preview) inverted the orientation of the card's content, placing the media on the opposite side from the text.
 
 ## Updating to SDK 1.7.0
 
-The features above required version **1.7.0 or above** of the [Microlink SDK](/docs). You could load it from a CDN or install it from npm.
+The features above required version **1.7.0 or above** of the [Microlink SDK](/link-preview). You could load it from a CDN or install it from npm.
 
 ### From a CDN
 
@@ -111,7 +109,7 @@ The CDN was the quickest way to add the frontend library. You pasted the script 
 <script type="text/javascript" src="//unpkg.com/@microlink/vanilla@latest/cjs/microlink.min.js"></script>`}</PreCode>
 ```
 
-The [vanilla integration docs](/docs/sdk-legacy/integrations/vanilla) cover the full setup.
+The [vanilla integration docs](/link-preview) cover the full setup.
 
 ### From npm
 
@@ -129,4 +127,4 @@ npm install @microlink/vanilla@latest
 npm update @microlink/react@latest
 ```
 
-The [React integration docs](/docs/sdk-legacy/integrations/react) show how to render a card with `@microlink/react` once it is installed.
+The [React integration docs](/link-preview) show how to render a card with `@microlink/react` once it is installed.
