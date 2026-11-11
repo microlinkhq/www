@@ -10,7 +10,7 @@ export const CONTENT = {
   hero: {
     title: 'SERP to Markdown: the whole Google results page from a query',
     intro:
-      'SERP to Markdown means reading the whole results page, not only the ten links: the snippets, the questions and the order everything appears in. SEO teams archive it, analysts watch search features come and go, and models summarize what a query looks like today. The [Search API](/search) takes a query, not a URL, and returns the results page as Markdown or HTML next to the structured results.',
+      'SERP to Markdown means reading the whole results page, not only the ten links: the snippets, the questions and the order everything appears in. [SEO teams](/use-cases/industries/seo-and-marketing) archive it, analysts watch search features come and go, and models summarize what a query looks like today. The [Search API](/search) takes a query, not a URL, and returns the results page as Markdown or HTML next to the structured results.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'
