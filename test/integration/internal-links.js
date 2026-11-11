@@ -24,7 +24,7 @@ const MARKDOWN_LINK = new RegExp(
   'gm'
 )
 const JSX_LINK = new RegExp(
-  String.raw`\bhref(?:=|: )'${SITE_ORIGIN}(\/(?!\/)[^']*)'|\[[^\]\n]*\]\(${SITE_ORIGIN}(\/(?!\/)[^)\s'"]*)\)`,
+  String.raw`\bhref(?:=|: )'${SITE_ORIGIN}(\/(?!\/)[^']*)'|\[[^\]\n]*\]\(${SITE_ORIGIN}(\/(?!\/)[^)\s]*)\)`,
   'g'
 )
 const PATH_SUFFIX = /[?#].*$/
@@ -119,7 +119,6 @@ const isStaticFile = route => {
 const resolves = link => {
   const route = normalize(link)
   return (
-    knownRoutes.has(route) ||
     knownRoutes.has(route.replace(/\.md$/, '')) ||
     isRedirect(link) ||
     isStaticFile(route)
@@ -172,10 +171,12 @@ test('protocol-relative URLs are not site links', () => {
       [
         '[pkg](//unpkg.com/@microlink/vanilla)',
         '<a href="//cdn.example.com/app.js">',
-        '<a href="https://microlink.io/pricing">'
+        '<a href="https://microlink.io/pricing">',
+        '[pkg]: //unpkg.com/@microlink/vanilla',
+        '[home]: https://microlink.io/pricing'
       ].join('\n')
     )
-  ).toEqual(['/pricing'])
+  ).toEqual(['/pricing', '/pricing'])
   expect(
     linksOf(
       JSX_LINK,
@@ -217,6 +218,26 @@ test('generated routes resolve before their files are fetched', () => {
   expect(resolves('/skills/microlink')).toBe(true)
   expect(resolves('/skills/microlink-api')).toBe(true)
   expect(resolves('/user-agents.json')).toBe(true)
+  expect(resolves('/docs')).toBe(true)
+  expect(resolves('/oss')).toBe(true)
+})
+
+test('dynamic redirect markers are not literal paths', () => {
+  expect(DYNAMIC_SEGMENT.test('/files/*')).toBe(true)
+  expect(DYNAMIC_SEGMENT.test('/docs/:name')).toBe(true)
+  expect(DYNAMIC_SEGMENT.test('/docs/(.*)')).toBe(true)
+  expect(DYNAMIC_SEGMENT.test('/docs/[id]')).toBe(true)
+  expect(DYNAMIC_SEGMENT.test('/pricing')).toBe(false)
+})
+
+test('internal images are scanned', () => {
+  expect(
+    internalLinks.some(
+      ({ file, link }) =>
+        file.endsWith('product-brief-1.md') &&
+        link === '/images/1*JUalxjsY_tlU2txpxPsM9w-9417ef29.gif'
+    )
+  ).toBe(true)
 })
 
 test('a markdown twin of a page resolves', () => {
