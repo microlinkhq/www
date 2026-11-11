@@ -406,7 +406,7 @@
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
 - [Microlink MQL](/docs/sdk/methods/extract): Added [email](/docs/sdk/methods/extract/type) as type.
 - [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
-- [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
+- [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
 ### September 2021
 
@@ -489,7 +489,7 @@
 
 ### October 2020
 
-- [Microlink](/): Refreshed [pricing](https://microlink.io#pricing) plans with inclusive VAT.
+- [Microlink](/): Refreshed [pricing](/pricing) plans with inclusive VAT.
 - [Microlink Cluster](/status) is now using high availability Redis instances with automatic failover.
 
 ### September 2020

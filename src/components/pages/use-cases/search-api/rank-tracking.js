@@ -10,7 +10,7 @@ export const CONTENT = {
   hero: {
     title: 'Track Google rankings by country with a keyword rank checker API',
     intro:
-      'A keyword rank checker API answers one question on a loop: where does my domain rank for this query, in this country, today? SEO teams, agencies reporting to clients and product teams watching a launch all need that number per keyword and per market. The [Search API](/search) returns the results in order, so the rank is where your domain appears in the list.',
+      'A keyword rank checker API answers one question on a loop: where does my domain rank for this query, in this country, today? [SEO teams](/use-cases/industries/seo-and-marketing), agencies reporting to clients and product teams watching a launch all need that number per keyword and per market. The [Search API](/search) returns the results in order, so the rank is where your domain appears in the list.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'

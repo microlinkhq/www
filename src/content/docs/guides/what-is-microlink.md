@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-Microlink is an API that turns any URL into structured data, screenshots, PDFs, and more. You send a URL, Microlink opens it in a headless browser, and returns exactly what you asked for — metadata, images, documents, or custom-extracted fields — through a single HTTP GET request.
+Microlink is an API that turns any URL into structured data, screenshots, PDFs, and more. You send a URL, Microlink opens it in a [headless browser](/blog/what-is-a-headless-browser), and returns exactly what you asked for — metadata, images, documents, or custom-extracted fields — through a single HTTP GET request.
 
 <MultiCodeEditorInteractive height={120} mqlCode={{ url: 'https://github.com/microlinkhq' }} />
 
@@ -121,9 +121,9 @@ Microlink is the right tool when you need browser rendering without owning brows
 
 ### Automatic proxy resolution <ProBadge />
 
-Many websites actively block automated requests through IP rate limiting, CAPTCHAs, anti-bot shields, or geo-restrictions. With a <ProBadge /> plan, Microlink includes **automatic proxy resolution** — the API routes requests through rotating, high-quality proxies so you don't have to deal with blocking yourself.
+Many websites actively block automated requests through IP rate limiting, CAPTCHAs, [anti-bot shields](/features/antibot), or geo-restrictions. With a <ProBadge /> plan, Microlink includes **automatic proxy resolution** — the API routes requests through rotating, high-quality proxies so you don't have to deal with blocking yourself.
 
-This means you can reliably extract data, take screenshots, or generate PDFs from sites that resist scraping, without configuring or paying for a separate proxy service. The proxy infrastructure is [well-tested against the top 500 most popular websites worldwide](https://microlink.io/blog/proxy-capabilities).
+This means you can reliably extract data, take screenshots, or generate PDFs from sites that resist scraping, without configuring or paying for a separate proxy service. The proxy infrastructure is [well-tested against the top 500 most popular websites worldwide](/blog/microlink-proxy-how-it-works).
 
 You can also bring your own proxy if you need a specific geographic location or a provider you already pay for. See the <Link href='/docs/api/parameters/proxy' children='proxy reference' /> for details.
 

@@ -14,9 +14,15 @@ const VERCEL_CONFIG = path.join(ROOT, 'vercel.json')
 
 const MARKDOWN_EXTENSION = /\.mdx?$/
 const SCRIPT_EXTENSION = /\.js$/
-const MARKDOWN_LINK =
-  /(?<!!)\[[^\]]*\]\((\/[^)\s]*)\)|href=["'](\/[^"']*)["']|^\[[^\]]+\]:\s*(\/\S+)/gm
-const JSX_LINK = /\bhref(?:=|: )'(\/[^']*)'/g
+const SITE_ORIGIN = String.raw`(?:(?:https?:)?\/\/(?:www\.)?microlink\.io)?`
+const MARKDOWN_LINK = new RegExp(
+  String.raw`(?<!!)\[[^\]]*\]\(${SITE_ORIGIN}(\/[^)\s]*)\)|href=["']${SITE_ORIGIN}(\/[^"']*)["']|^\[[^\]]+\]:\s*${SITE_ORIGIN}(\/\S+)`,
+  'gm'
+)
+const JSX_LINK = new RegExp(
+  String.raw`\bhref(?:=|: )'${SITE_ORIGIN}(\/[^']*)'|(?<!!)\[[^\]\n]*\]\(${SITE_ORIGIN}(\/[^)\s'"]*)\)`,
+  'g'
+)
 const PATH_SUFFIX = /[?#].*$/
 const TRAILING_SLASH = /(.)\/+$/
 const DYNAMIC_SEGMENT = /[[:*(]/

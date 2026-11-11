@@ -9,7 +9,7 @@ import { Link } from 'components/elements/Link'
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-Microlink turns any URL into a rich preview, an interactive player, or a plain asset URL — pick how it gets rendered.
+Microlink turns any URL into a [rich preview](/embed), an interactive player, or a plain asset URL — pick how it gets rendered.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://www.youtube.com/watch?v=9P6rdqiybaw' }} />
 

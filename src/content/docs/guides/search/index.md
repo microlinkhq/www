@@ -20,7 +20,7 @@ npm install microlink.io
 
 ## Your first query
 
-Create a client with your <Link href='https://microlink.io/#pricing' children='API key' />, then query any surface:
+Create a client with your <Link href='https://dashboard.microlink.io/signup' children='API key' />, then query any surface:
 
 ```js
 import createClient from 'microlink.io'

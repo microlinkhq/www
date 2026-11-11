@@ -10,7 +10,7 @@ export const CONTENT = {
   hero: {
     title: 'Find the queries people type with a Google Autocomplete API',
     intro:
-      'A Google Autocomplete API returns the queries people start typing, the most direct record of how a market phrases a problem. SEO teams plan content with it, product teams name features with it, and agents expand a vague prompt into precise searches. The [Search API](/search) returns suggestions, related searches and People Also Ask questions as JSON.',
+      'A Google Autocomplete API returns the queries people start typing, the most direct record of how a market phrases a problem. [SEO teams](/use-cases/industries/seo-and-marketing) plan content with it, product teams name features with it, and agents expand a vague prompt into precise searches. The [Search API](/search) returns suggestions, related searches and People Also Ask questions as JSON.',
     cta: {
       label: 'Start with the Search API',
       href: '/search'

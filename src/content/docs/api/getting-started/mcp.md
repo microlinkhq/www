@@ -34,7 +34,7 @@ Use this `mcpServers` entry:
 }
 ```
 
-Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): {FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature. Paid plans at [microlink.io/pricing](https://microlink.io/pricing) add volume.
+Sign up for a free API key at [dashboard.microlink.io](https://dashboard.microlink.io/signup): {FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature. Paid plans at [microlink.io/pricing](/pricing) add volume.
 
 ## Usage
 
