@@ -35,12 +35,12 @@
 - [Microlink](/): Serves `/.well-known/agent-feedback.json` so agents can find the feedback endpoint.
 - [Microlink](/): The homepage hero badge copies the install command.
 - [Microlink API](/docs/api/parameters/force): [force](/docs/api/parameters/force) purges every cached copy at the edge.
-- [Microlink OSS](/oss): [youtube-dl-exec v3.1](https://github.com/microlinkhq/youtube-dl-exec) types every yt-dlp flag.
+- [Microlink OSS](/open-source): [youtube-dl-exec v3.1](https://github.com/microlinkhq/youtube-dl-exec) types every yt-dlp flag.
 - [Microlink API](/docs/api/getting-started/overview): Error responses link to the feedback form instead of email.
 - [Microlink](https://dashboard.microlink.io): Sign up requires a work email.
 - [Microlink Blog](/blog): Published [Optimizing Microlink Functions](/blog/optimizing-microlink-functions).
 - [Microlink API](/docs/api/getting-started/overview): Unfurls Kahoot quizzes and Claude links.
-- [Microlink MQL](/docs/mql/getting-started/overview): Works from CommonJS without `require(esm)`.
+- [Microlink MQL](/docs/sdk/methods/extract): Works from CommonJS without `require(esm)`.
 
 ### September 2026
 
@@ -102,7 +102,7 @@
 ### July 2026
 
 - [Microlink](/): Redesigned [features](/features) with a unified showcase across all capability pages.
-- [Microlink](/): Published RFC 9116 [security.txt](/security.txt) and expanded the [security](/security) disclosure policy.
+- [Microlink](/): Published RFC 9116 [security.txt](/.well-known/security.txt) and expanded the [security](/security) disclosure policy.
 - [Browserless v13.6](https://browserless.js.org): Fixed screenshots failing when [quality](/docs/api/parameters/screenshot/quality) is set without jpeg/webp.
 - [Microlink API](/docs/api/getting-started/overview): Improved [pdf](/docs/api/parameters/pdf) for SPA pages, tall documents, and [pageRanges](/docs/api/parameters/pdf/pageRanges).
 - [Microlink](/): Added [antibot](/features/antibot) and [isolation](/features/isolation) feature landings.
@@ -132,12 +132,12 @@
 - [Microlink](/): Added [CLI](/integrations/cli) page.
 - [Microlink](/): Added [search](/search) landing and [search guides](/docs/guides/search).
 - [Microlink](/): Expanded [embed](/embed) provider directory to 380+ providers.
-- [Microlink API](/docs): Added [function](/docs/guides/function) guide.
+- [Microlink API](/docs/api/getting-started/overview): Added [function](/docs/guides/function) guide.
 - [Microlink API](/docs/api/getting-started/overview): Added [cacheKey](/docs/api/parameters/cacheKey) query parameter.
 - [Microlink](/): Added [link-preview](/link-preview) page.
 - [Browserless v13](https://browserless.js.org): Upgraded to Puppeteer 25.
 - [Microlink](/): Added [embed](/embed) tool.
-- [Microlink](/): Added [customers](/customers) page.
+- [Microlink](/): Added [customers](/use-cases/customers) page.
 - [unavatar.io](https://unavatar.io): Added [npm](https://unavatar.io/npm), [Product Hunt](https://unavatar.io/producthunt), [Docker Hub](https://unavatar.io/dockerhub), [CodePen](https://unavatar.io/codepen), [Hugging Face](https://unavatar.io/huggingface), [Thingiverse](https://unavatar.io/thingiverse), and [Cults3D](https://unavatar.io/cults3d) support.
 - [Microlink](/): Added feature landings for [proxy](/features/proxy), [ttl](/features/ttl), and [headers](/features/headers).
 - [Microlink API](/docs/api/getting-started/overview): Improved Twitter/X URLs resolution.
@@ -147,7 +147,7 @@
 - [Microlink](/): Added detailed [pricing](/pricing) page.
 - [Metascraper v5.50](https://metascraper.js.org): Added Reddit integration.
 - [Microlink API](/docs/api/getting-started/overview): Added [JSON](/docs/guides/data-extraction) data extraction support.
-- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/api/parameters/markdown) table and code block rendering.
+- [Microlink API](/docs/api/getting-started/overview): Improved [markdown](/docs/guides/content-conversion/url-to-markdown) table and code block rendering.
 - [Microlink API](/docs/api/getting-started/overview): Improved Reddit, Instagram, and LinkedIn URLs resolution.
 - [Microlink CLI](https://github.com/microlinkhq/microlink): Added [headers](/docs/api/parameters/headers) support.
 - [unavatar.io](https://unavatar.io): Added [Pinterest](https://unavatar.io/pinterest), [Snapchat](https://unavatar.io/snapchat), [Discord](https://unavatar.io/discord), [Behance](https://unavatar.io/behance), [Threads](https://unavatar.io/threads), [Steam](https://unavatar.io/steam), [Tumblr](https://unavatar.io/tumblr), [Facebook](https://unavatar.io/facebook), [Flickr](https://unavatar.io/flickr), [Stack Overflow](https://unavatar.io/stackoverflow), [Buy Me a Coffee](https://unavatar.io/buymeacoffee), [Google Play](https://unavatar.io/google-play), [Apple Store](https://unavatar.io/apple-store), [Xbox Gamertag](https://unavatar.io/xboxgamertag), and [PSN Profiles](https://unavatar.io/psnprofiles) support.
@@ -158,7 +158,7 @@
 
 - [Optimo](https://x.com/microlinkhq/status/2034224454033723796): Introduced Optimo.
 - [Microlink](/): Added [skills](/skills) page.
-- [Microlink API](/docs): Added [guides](/docs/guides).
+- [Microlink API](/docs/api/getting-started/overview): Added [guides](/docs/guides).
 - [unavatar.io](https://unavatar.io): Added [Mastodon](https://unavatar.io/#/?id=mastodon) support.
 - [unavatar.io](https://unavatar.io): Added [LinkedIn](https://unavatar.io/#/?id=linkedin) support.
 
@@ -220,7 +220,7 @@
 
 ### March 2025
 
-- [Microlink OSS](/oss): Improved [html-get](https://github.com/microlinkhq/html-get) for PDF.
+- [Microlink OSS](/open-source): Improved [html-get](https://github.com/microlinkhq/html-get) for PDF.
 
 ### January 2025
 
@@ -228,12 +228,12 @@
 
 ### December 2024
 
-- [Microlink OSS](/oss): Released [splashy v6](https://splashy.microlink.io/).
+- [Microlink OSS](/open-source): Released [splashy v6](https://splashy.microlink.io/).
 - [Microlink API](/docs/api/getting-started/overview): The query parameter [meta](/docs/api/parameters/meta) returns `redirects` as part of the response payload.
 
 ### October 2024
 
-- [Microlink OSS](/oss): Added rewriting capabilities to [html-get](https://github.com/microlinkhq/html-get).
+- [Microlink OSS](/open-source): Added rewriting capabilities to [html-get](https://github.com/microlinkhq/html-get).
 - [react-json-view](https://react-json-view.microlink.io/): Project revamp.
 - [unavatar.io](https://unavatar.io) Added OnlyFans as provider.
 
@@ -258,13 +258,13 @@
 ### January 2024
 
 - [Microlink](/): Released [logo.microlink.io](https://logo.microlink.io).
-- [Microlink OSS](/oss): Released [top-user-agents](https://github.com/microlinkhq/top-user-agents).
-- [Microlink OSS](/oss): Released [@microlink/ua](https://github.com/microlinkhq/ua).
+- [Microlink OSS](/open-source): Released [top-user-agents](https://github.com/microlinkhq/top-user-agents).
+- [Microlink OSS](/open-source): Released [@microlink/ua](https://github.com/microlinkhq/ua).
 
 ### December 2023
 
 - [unavatar.io](https://unavatar.io) Crossed 1,000 stars on GitHub.
-- [Microlink OSS](/oss): Released [tinyspawn](https://github.com/microlinkhq/tinyspawn).
+- [Microlink OSS](/open-source): Released [tinyspawn](https://github.com/microlinkhq/tinyspawn).
 - [Metascraper v5.43](https://github.com/microlinkhq/metascraper/pull/683): Added video detection inside iframes.
 - [Metascraper v5.43](https://github.com/microlinkhq/metascraper/pull/678): Improved audio detection inside iframes.
 - [Metascraper v5.42](https://github.com/microlinkhq/metascraper/pull/677): Added TypeScript types.
@@ -315,7 +315,7 @@
 
 - [Microlink MQL](/docs/sdk/methods/extract): Added nested selectorAll support.
 - [Microlink API](/docs/api/getting-started/overview): Improved logo detection.
-- [Microlink OSS](/oss): Released [nanoclamp](https://nanoclamp.microlink.io) 2.0
+- [Microlink OSS](/open-source): Released [nanoclamp](https://nanoclamp.microlink.io) 2.0
 - [Microlink MQL](/docs/sdk/methods/extract): Added ESM bundle and [demo](https://mql.microlink.io) site.
 
 ### October 2022
@@ -333,7 +333,7 @@
 - [Microlink Recipes](/recipes): Added [youtube-dl](/recipes/youtube-dl) recipe.
 - [Microlink API](/docs/api/getting-started/overview): Added integrity verification for assets.
 - [Microlink](/): Released [Microlink Edge Proxy](https://github.com/microlinkhq/edge-proxy).
-- [Microlink API](/docs/api/getting-started/overview): Added [countryCode](/docs/api/parameters/proxy/countryCode) support.
+- [Microlink API](/docs/api/getting-started/overview): Added [proxy location](/docs/api/parameters/proxy/location) support.
 - [Browserless v9.6](https://browserless.js.org): Improved evasion techniques.
 - [Microlink Cards](https://cards.microlink.io): Added [workos-docs](https://cards.microlink.io/editor?preset=workos-docs) preset.
 
@@ -386,7 +386,7 @@
 
 ### December 2021
 
-- [Microlink OSS](/oss): Released [ffprobe](https://github.com/microlinkhq/ffprobe).
+- [Microlink OSS](/open-source): Released [ffprobe](https://github.com/microlinkhq/ffprobe).
 
 ### November 2021
 
@@ -406,7 +406,7 @@
 - [Microlink Recipes](/recipes): Added [emails](/recipes/emails) recipe.
 - [Microlink MQL](/docs/sdk/methods/extract): Added [email](/docs/sdk/methods/extract/type) as type.
 - [Microlink Security](/.well-known/security.txt): Special thanks to Daniel Wang for improving service security.
-- [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](https://microlink.io/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](https://microlink.io/docs/api/basics/error-codes#eforbiddenurl) error codes.
+- [Microlink API](/docs/api/getting-started/overview): Added [efatalclient](/docs/api/basics/error-codes#efatalclient) and [eforbiddenurl](/docs/api/basics/error-codes#eforbiddenurl) error codes.
 
 ### September 2021
 
@@ -422,29 +422,29 @@
 ### August 2021
 
 - [unavatar.io](https://unavatar.io) crossed 20 millions requests per month
-- [Microlink OSS](/oss): Released [metatags](https://github.com/microlinkhq/metatags).
+- [Microlink OSS](/open-source): Released [metatags](https://github.com/microlinkhq/metatags).
 - [Microlink API](/docs/api/getting-started/overview): Added [staleTtl](/docs/api/parameters/staleTtl) query parameter.
 
 ### July 2021
 
-- [Microlink OSS](/oss): Sponsored [unavatar.io](https://unavatar.io).
+- [Microlink OSS](/open-source): Sponsored [unavatar.io](https://unavatar.io).
 - [Microlink Recipes](/recipes): Added [Instagram](/recipes/instagram) recipe.
 - [Microlink Recipes](/recipes): Added [Telegram](/recipes/telegram) recipe.
 - [Microlink Recipes](/recipes): Added [Reddit](/recipes/reddit) recipe.
-- [Microlink OSS](/oss) Released [keyv](https://github.com/microlinkhq/keyvhq).
+- [Microlink OSS](/open-source) Released [keyv](https://github.com/microlinkhq/keyvhq).
 - [Metascraper v5.22.0](https://metascraper.js.org): Added more heuristic cases for logo detection.
-- [Microlink Proxy](/blog/proxy-capabilities): Added Wallmart URLs support.
+- [Microlink Proxy](/blog/microlink-proxy-how-it-works): Added Wallmart URLs support.
 
 ### June 2021
 
 - [Microlink](/): Added [Microlink Enterprise](/enterprise) plan.
 - [Browserless v9](https://browserless.js.org): Official release.
-- [Microlink Blog](/blog): Added [Microlink Proxy](/blog/proxy-capabilities) post.
+- [Microlink Blog](/blog): Added [Microlink Proxy](/blog/microlink-proxy-how-it-works) post.
 - [Metascraper v5.22.0](https://metascraper.js.org): Added Instagram integration.
 
 ### May 2021
 
-- [Microlink OSS](/oss) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info).
+- [Microlink OSS](/open-source) Added [spotify-url-info](https://github.com/microlinkhq/spotify-url-info).
 - [Browserless v9 beta](https://github.com/microlinkhq/browserless/pull/280): A total rework improving how Chromium's process are managed.
 - [Microlink Function](https://github.com/microlinkhq/function): Added more [allowed](https://github.com/microlinkhq/function#npm-packages) NPM packages.
 - [Microlink Cluster](/status): Improve stability, better k8s autoscaling setup.
@@ -465,7 +465,7 @@
 
 - [Microlink Cards](https://cards.microlink.io): Added [meta](https://cards.microlink.io/editor?preset=meta) preset.
 - [Microlink API](/docs/api/getting-started/overview): The service now relies on [CloudFlare DNS](https://one.one.one.one/) for domain resolution.
-- [Microlink OSS](/oss): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository.
+- [Microlink OSS](/open-source): Created [youtube-dl-exec](https://github.com/microlinkhq/youtube-dl-exec) repository.
 
 ### January 2021
 
@@ -489,7 +489,7 @@
 
 ### October 2020
 
-- [Microlink](/): Refreshed [pricing](https://microlink.io#pricing) plans with inclusive VAT.
+- [Microlink](/): Refreshed [pricing](/pricing) plans with inclusive VAT.
 - [Microlink Cluster](/status) is now using high availability Redis instances with automatic failover.
 
 ### September 2020
@@ -510,5 +510,5 @@
 
 ### June 2020
 
-- [Microlink](/): Launched [Microlink OSS](/oss).
+- [Microlink](/): Launched [Microlink OSS](/open-source).
 - [Microlink SDK](/link-preview): Added CSS variables support.

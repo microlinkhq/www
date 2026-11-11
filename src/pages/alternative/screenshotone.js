@@ -1627,7 +1627,7 @@ export const Head = () => (
             name: 'How does Microlink handle sites with cookie banners or ads?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'Both Microlink and ScreenshotOne support ad blocking and cookie banner removal. In Microlink you enable them with the adblock parameter and custom CSS/JS injection to dismiss consent dialogs before the screenshot is taken. You can also use screenshot.hide to remove specific elements by CSS selector — useful for sticky banners, chat widgets, or any overlay that clutters the capture.'
+              text: 'Both Microlink and ScreenshotOne support ad blocking and cookie banner removal. In Microlink you enable them with the adblock parameter and custom CSS/JS injection to dismiss consent dialogs before the screenshot is taken. You can also use styles to hide specific elements with CSS, useful for sticky banners, chat widgets, or any overlay that clutters the capture.'
             }
           },
           {

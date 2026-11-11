@@ -726,7 +726,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Microlink supports ad blocking via the adblock parameter and custom CSS/JS injection to dismiss consent dialogs. Screenshot Machine supports cookie-banner handling through click and hide selectors, but it does not advertise a dedicated ad-blocking or cookie-blocking rules engine. Use screenshot.hide to remove specific elements by CSS selector.'
+    text: 'Microlink supports ad blocking via the adblock parameter and custom CSS/JS injection to dismiss consent dialogs. Screenshot Machine supports cookie-banner handling through click and hide selectors, but it does not advertise a dedicated ad-blocking or cookie-blocking rules engine. Use styles to hide specific elements with CSS.'
   },
   {
     question: 'What uptime and SLA does Microlink guarantee?',

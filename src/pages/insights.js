@@ -920,7 +920,11 @@ const ProductInformation = () => {
                 enterprise solutions.
               </div>
               <div>
-                Check our <Link href='/docs'>comprehensive documentation</Link>,{' '}
+                Check our{' '}
+                <Link href='/docs/api/getting-started/overview'>
+                  comprehensive documentation
+                </Link>
+                ,{' '}
                 <Link href='https://github.com/microlinkhq'>
                   GitHub repositories
                 </Link>

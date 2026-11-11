@@ -36,7 +36,7 @@ const startHereLinks = vertical =>
     { href: vertical.productHref, label: `Microlink ${vertical.product}` },
     { href: vertical.docsHref, label: vertical.docsLabel },
     vertical.toolHref && { href: vertical.toolHref, label: vertical.toolLabel },
-    { href: '/docs', label: 'Microlink docs' }
+    { href: '/docs/api/getting-started/overview', label: 'Microlink docs' }
   ].filter(Boolean)
 
 const otherVerticalSlugs = vertical =>
