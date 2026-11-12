@@ -280,23 +280,28 @@ export const HONESTY = {
   items: [
     {
       title: 'Published concurrency',
-      body: 'ScrapingBee states a concurrency figure on every plan, from 50 on Freelance up to 400 on Business+, and higher again on Enterprise tiers. Microlink does not cap requests per minute on paid plans, but it does not publish a parallel-worker number either. If a contractual concurrency figure is what you are buying against, ScrapingBee gives you one to point at.'
+      description:
+        'ScrapingBee states a concurrency figure on every plan, from 50 on Freelance up to 400 on Business+, and higher again on Enterprise tiers. Microlink does not cap requests per minute on paid plans, but it does not publish a parallel-worker number either. If a contractual concurrency figure is what you are buying against, ScrapingBee gives you one to point at.'
     },
     {
       title: 'A mode that prices itself',
-      body: 'Auto mode tries the cheapest configuration that works and only bills the attempt that succeeds, and max_cost caps what any single request may spend. It is a real answer to the credit spread above, and Microlink has no equivalent because it has no spread to manage.'
+      description:
+        'Auto mode tries the cheapest configuration that works and only bills the attempt that succeeds, and max_cost caps what any single request may spend. It is a real answer to the credit spread above, and Microlink has no equivalent because it has no spread to manage.'
     },
     {
       title: 'A dedicated stealth tier',
-      body: 'Stealth proxies are a separate, explicitly priced product for the hardest targets. Microlink resolves proxies automatically and does not sell an escalation tier above that.'
+      description:
+        'Stealth proxies are a separate, explicitly priced product for the hardest targets. Microlink resolves proxies automatically and does not sell an escalation tier above that.'
     },
     {
       title: 'Extraction described in prose',
-      body: 'ai_query and ai_extract_rules let you ask for a field in plain language. Microlink extraction is declarative CSS and regex rules — precise and repeatable, but you write the selector.'
+      description:
+        'ai_query and ai_extract_rules let you ask for a field in plain language. Microlink extraction is declarative CSS and regex rules — precise and repeatable, but you write the selector.'
     },
     {
       title: 'Very high scraping volume',
-      body: 'Published Enterprise tiers run to 14, 24 and 41 million credits a month. If crawling breadth is the whole job, and metadata, PDF and insights are not, that ceiling matters more than format breadth.'
+      description:
+        'Published Enterprise tiers run to 14, 24 and 41 million credits a month. If crawling breadth is the whole job, and metadata, PDF and insights are not, that ceiling matters more than format breadth.'
     }
   ]
 }

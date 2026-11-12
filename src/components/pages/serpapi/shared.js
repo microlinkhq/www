@@ -375,19 +375,22 @@ export const HONESTY = {
   items: [
     {
       title: 'Anything past ten Google surfaces',
-      body: 'SerpApi lists more than a hundred APIs: Amazon, Walmart, Bing, YouTube, Yandex, Yelp, Zillow, Baidu, DuckDuckGo and the App Store, plus 57 Google APIs that include AI Overview, AI Mode, Trends, Flights, Hotels, Jobs and Lens. Microlink Search covers ten Google surfaces. If the job is Amazon pricing or tracking AI Overviews, there is no Microlink answer to compare.'
+      description:
+        'SerpApi lists more than a hundred APIs: Amazon, Walmart, Bing, YouTube, Yandex, Yelp, Zillow, Baidu, DuckDuckGo and the App Store, plus 57 Google APIs that include AI Overview, AI Mode, Trends, Flights, Hotels, Jobs and Lens. Microlink Search covers ten Google surfaces. If the job is Amazon pricing or tracking AI Overviews, there is no Microlink answer to compare.'
     },
     {
       title: 'A throughput number in the contract',
-      body: 'Every SerpApi plan states the successful searches it guarantees per hour, from 50 on Free to 640,000 on its largest Cloud tier. Microlink applies no throttling and sells no parallelism tier, so there is nothing to throttle, but there is also no figure to size a worker pool against or point to in a review.'
+      description:
+        'Every SerpApi plan states the successful searches it guarantees per hour, from 50 on Free to 640,000 on its largest Cloud tier. Microlink applies no throttling and sells no parallelism tier, so there is nothing to throttle, but there is also no figure to size a worker pool against or point to in a review.'
     },
     {
       title: 'Certifications and legal cover',
-      body: 'SerpApi publishes SOC 2 Type II, SOC 3 and ISO 27001 certification, a 99.95% uptime SLA with credits on every plan, a U.S. Legal Shield of up to $2 million from the Production plan up, and a ZeroTrace mode on Enterprise that retains no query or result. If procurement is the gate, that list is the answer.'
+      description:
+        'SerpApi publishes SOC 2 Type II, SOC 3 and ISO 27001 certification, a 99.95% uptime SLA with credits on every plan, a U.S. Legal Shield of up to $2 million from the Production plan up, and a ZeroTrace mode on Enterprise that retains no query or result. If procurement is the gate, that list is the answer.'
     },
     {
       title: 'Native clients and a free tier',
-      body: `SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, with ${FREE_PLAN_REQUESTS_PER_DAY} free requests a day on the free API key. If the service is written in Java and wants a native client, that settles it.`
+      description: `SerpApi ships clients for Ruby, Python, JavaScript, Go, PHP, Java, Rust, .NET, Swift and C++, plus a CLI, and 250 searches a month at no cost. Microlink Search is a JavaScript SDK method, a CLI subcommand and an MCP tool, with ${FREE_PLAN_REQUESTS_PER_DAY} free requests a day on the free API key. If the service is written in Java and wants a native client, that settles it.`
     }
   ]
 }
@@ -591,3 +594,6 @@ export const STRUCTURED = [
     }))
   }
 ]
+
+export const TRADEMARKS =
+  'SerpApi and Google are trademarks of their respective owners. Microlink is not affiliated with or endorsed by either company. Competitor details come from their public pages and may have changed since they were checked.'

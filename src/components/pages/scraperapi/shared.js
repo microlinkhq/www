@@ -318,23 +318,28 @@ export const HONESTY = {
   items: [
     {
       title: 'Jobs that run without you',
-      body: 'The Async API takes up to 50,000 URLs in one batch, keeps retrying each page for up to 24 hours, and delivers results through a status URL or a webhook. Microlink is synchronous: you hold the connection, and the retrying and the queue are yours to build.'
+      description:
+        'The Async API takes up to 50,000 URLs in one batch, keeps retrying each page for up to 24 hours, and delivers results through a status URL or a webhook. Microlink is synchronous: you hold the connection, and the retrying and the queue are yours to build.'
     },
     {
       title: 'Parsers somebody else maintains',
-      body: 'Structured endpoints return clean JSON or CSV for Amazon, Walmart, eBay, Home Depot and other named domains, and an AI parser can be trained for the rest. Microlink extraction is declarative CSS and regex, precise and repeatable, but you write the selector and you fix it when the markup moves.'
+      description:
+        'Structured endpoints return clean JSON or CSV for Amazon, Walmart, eBay, Home Depot and other named domains, and an AI parser can be trained for the rest. Microlink extraction is declarative CSS and regex, precise and repeatable, but you write the selector and you fix it when the markup moves.'
     },
     {
       title: 'A concurrency number in writing',
-      body: 'Every plan states concurrent threads, from 20 on Hobby to 500 on Advanced and higher on Enterprise. Microlink applies no throttling on paid plans, which is better in practice and worse on paper: there is no published figure to size a worker pool against.'
+      description:
+        'Every plan states concurrent threads, from 20 on Hobby to 500 on Advanced and higher on Enterprise. Microlink applies no throttling on paid plans, which is better in practice and worse on paper: there is no published figure to size a worker pool against.'
     },
     {
       title: 'Static HTML at the lowest price',
-      body: 'A flat request with no flags is 1 credit, so the $49 plan works out at $0.49 per 1,000 pages against $1.07 on Microlink. If the targets are static, nothing needs a browser and metadata is not the point, ScraperAPI is cheaper per page.'
+      description:
+        'A flat request with no flags is 1 credit, so the $49 plan works out at $0.49 per 1,000 pages against $1.07 on Microlink. If the targets are static, nothing needs a browser and metadata is not the point, ScraperAPI is cheaper per page.'
     },
     {
       title: 'Volume past the self-serve ceiling',
-      body: 'Published plans run to 21,500,000 credits a month at $1,975, with Enterprise above that. Microlink self-serve Pro tops out at 420,000 requests a month, so anything larger is a conversation rather than a checkout.'
+      description:
+        'Published plans run to 21,500,000 credits a month at $1,975, with Enterprise above that. Microlink self-serve Pro tops out at 420,000 requests a month, so anything larger is a conversation rather than a checkout.'
     }
   ]
 }

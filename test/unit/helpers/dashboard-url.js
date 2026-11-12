@@ -49,6 +49,7 @@ describe('dashboard-url', () => {
       expect(productFromPath('/alternative/firecrawl')).toBe('extract')
       expect(productFromPath('/alternative/jina-reader')).toBe('extract')
       expect(productFromPath('/alternative/serpapi')).toBe('search')
+      expect(productFromPath('/alternative/clearbit')).toBe('metadata')
       expect(productFromPath('/docs/guides/pdf/basics')).toBe('pdf')
       expect(productFromPath('/use-cases/website-metadata/anything')).toBe(
         'metadata'

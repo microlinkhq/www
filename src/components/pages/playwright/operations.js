@@ -7,13 +7,13 @@ import {
   StoryCardGrid
 } from 'components/patterns/ProductStory'
 
-import { ACCENT_NAME, HONESTY } from './shared'
+import { ACCENT_NAME, OPERATIONS } from './shared'
 
-export const Honesty = () => (
-  <Section id='jina-reader-strengths' bg='gray0'>
-    <SectionHeader title={HONESTY.title} caption={HONESTY.caption} />
-    <StoryCardGrid $columns={2}>
-      {HONESTY.items.map((item, index) => (
+export const Operations = () => (
+  <Section id='playwright-in-production'>
+    <SectionHeader title={OPERATIONS.title} caption={OPERATIONS.caption} />
+    <StoryCardGrid $columns={3}>
+      {OPERATIONS.items.map((item, index) => (
         <StoryCard
           key={item.title}
           accent={ACCENT_NAME}

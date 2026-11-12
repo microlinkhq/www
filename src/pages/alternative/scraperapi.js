@@ -8,20 +8,22 @@ import {
   ProductFaq,
   ProductHero,
   ProductPricing,
+  ProductStrengths,
   ProductTimings,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Credits } from 'components/pages/scraperapi/credits'
-import { Honesty } from 'components/pages/scraperapi/honesty'
 import {
   ACCENT,
+  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
   HERO,
+  HONESTY,
   META,
   PRICING_CAPTION,
   STRUCTURED,
@@ -36,7 +38,11 @@ const ScraperApiAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='scraperapi' />
-    <Honesty />
+    <ProductStrengths
+      id='scraperapi-strengths'
+      accent={ACCENT_NAME}
+      {...HONESTY}
+    />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
   </Layout>
