@@ -1,6 +1,7 @@
 import { layout, colors, theme, transition, fontWeights, fonts } from 'theme'
 import { track } from '@vercel/analytics'
 import { issueUrl } from 'helpers/issue-url'
+import { footerAlternativeLinks } from 'helpers/alternatives'
 import FeatherIcon from 'components/icons/Feather'
 import React, { useState, useCallback, useId } from 'react'
 
@@ -135,26 +136,7 @@ const FOOTER_COLUMNS = [
   },
   {
     title: 'Comparisons',
-    links: [
-      { label: 'vs ApiFlash', href: '/alternative/apiflash' },
-      { label: 'vs Browserbase', href: '/alternative/browserbase' },
-      { label: 'vs Cloudflare', href: '/alternative/cloudflare' },
-      { label: 'vs Context.dev', href: '/alternative/context-dev' },
-      { label: 'vs Embedly', href: '/alternative/embedly' },
-      { label: 'vs Firecrawl', href: '/alternative/firecrawl' },
-      { label: 'vs Iframely', href: '/alternative/iframely' },
-      { label: 'vs Jina Reader', href: '/alternative/jina-reader' },
-      { label: 'vs ScraperAPI', href: '/alternative/scraperapi' },
-      { label: 'vs ScrapingBee', href: '/alternative/scrapingbee' },
-      { label: 'vs ScreenshotAPI', href: '/alternative/screenshotapi' },
-      { label: 'vs ScreenshotLayer', href: '/alternative/screenshotlayer' },
-      { label: 'vs ScreenshotMachine', href: '/alternative/screenshotmachine' },
-      { label: 'vs ScreenshotOne', href: '/alternative/screenshotone' },
-      { label: 'vs SerpApi', href: '/alternative/serpapi' },
-      { label: 'vs Thum.io', href: '/alternative/thumio' },
-      { label: 'vs Url2Png', href: '/alternative/url2png' },
-      { label: 'vs Urlbox', href: '/alternative/urlbox' }
-    ]
+    links: footerAlternativeLinks()
   }
 ]
 

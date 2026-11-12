@@ -164,8 +164,11 @@ const splitLastWord = label => {
     : [label.slice(0, index + 1), label.slice(index + 1)]
 }
 
-export const UseCaseCard = ({ entry }) => {
-  const accent = accentOf(entry)
+export const UseCaseCard = ({
+  entry,
+  href = pathToUseCase(entry.slug),
+  accent = accentOf(entry)
+}) => {
   const [lead, lastWord] = splitLastWord(entry.cta || FALLBACK_CTA)
 
   return (
@@ -199,10 +202,7 @@ export const UseCaseCard = ({ entry }) => {
         {entry.blurb}
       </Text>
       <Box css={theme({ px: [3, 3, 4, 4], pt: 3, pb: [3, 3, 4, 4] })}>
-        <CardLink
-          href={pathToUseCase(entry.slug)}
-          css={theme({ color: 'link' })}
-        >
+        <CardLink href={href} css={theme({ color: 'link' })}>
           {lead}
           <KeepTogether>
             {lastWord}&nbsp;<Arrow aria-hidden='true'>→</Arrow>
