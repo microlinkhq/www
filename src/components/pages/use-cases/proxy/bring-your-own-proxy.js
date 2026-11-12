@@ -91,7 +91,7 @@ export const CONTENT = {
         kicker: 'One option per call',
         title: 'Switch proxies without relaunching anything.',
         body: 'Each request carries its own proxy.url, so two providers, two countries or a rotated credential are two values, not two browser pools. The same option works on screenshots, PDFs, Markdown, metadata and extraction.',
-        note: 'If you do not need a specific provider, you may not need this at all: every API key, the free one included, already comes with a managed proxy, explained in the [rotating proxy alternative](/use-cases/proxy/rotating-proxy-alternative).'
+        note: 'If you do not need a specific provider, you may not need this at all: a [Pro plan](/pricing) includes a managed proxy. The [proxy feature page](/features/proxy) covers how that route is chosen.'
       },
       {
         kicker: 'Credentials stay server-side',

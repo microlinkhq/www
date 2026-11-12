@@ -7,7 +7,7 @@ authors:
 date: '2026-09-13'
 ---
 
-[Browserless](https://browserless.js.org) now runs its page-cleaning work in a Chrome isolated world, where the page cannot observe it. Before every [screenshot](/docs/api/parameters/screenshot), it dismisses cookie banners, hides ads, and closes newsletter modals, and until last week each of those DOM calls ran where the page could watch.
+[Browserless](https://browserless.js.org) now runs its page-cleaning work in a Chrome isolated world, where the page cannot observe it. Before every [screenshot](/docs/api/parameters/screenshot), it [dismisses cookie banners, hides ads](/features/adblock), and closes newsletter modals, and until last week each of those DOM calls ran where the page could watch.
 
 **TL;DR**
 
@@ -132,6 +132,6 @@ Measured across those detectors with 3 runs per side, 24 runs in total, and zero
 
 **Notification overlays now appear in screenshots.** With `Notification` restored, sites that gate an opt-in prompt on the API existing now render it. AliExpress does this, and denying the permission does not help, because the site reads `denied` and renders the prompt anyway. The overlay was absent before only because the API was missing, so this is the visible cost of exposing it.
 
-The detector scores barely moved, from 100/100 to 90/100 and from 38% to 31%, because they are dominated by signals we do not hide: real headless Chrome, a datacenter IP, and no GPU. No detector site was ever going to show you the part that changed.
+The detector scores barely moved, from 100/100 to 90/100 and from 38% to 31%, because they are dominated by signals we do not hide: real headless Chrome, a datacenter IP, and no GPU. No detector site was ever going to show you the part that changed. When a target blocks on the IP, the [proxy feature](/features/proxy) routes the request through residential IPs instead.
 
 A real site watching its own DOM now sees 99% less of us.

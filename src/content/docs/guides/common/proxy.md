@@ -23,7 +23,7 @@ Not every site needs one. Use a proxy when you encounter:
 
 ## Automatic proxy <ProBadge />
 
-Every <ProBadge /> plan includes **automatic proxy resolution** — you do not need to supply a proxy URL. When Microlink detects that a site requires a proxy to fetch correctly, it routes the request through a rotating proxy pool automatically.
+Every <ProBadge /> plan includes **[automatic proxy resolution](/features/proxy)** — you do not need to supply a proxy URL. When Microlink detects that a site requires a proxy to fetch correctly, it routes the request through a rotating proxy pool automatically.
 
 Microlink identifies the specific antibot provider blocking your request and [routes it through a dedicated resolution path](/blog/antibot-detection-at-scale). For most sites, the Pro plan handles this automatically. We ensure performance across the [Top 500](/blog/microlink-proxy-how-it-works) most popular websites worldwide.
 

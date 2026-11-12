@@ -125,9 +125,13 @@ export const FAQ_ITEMS = faqFromItems([
       <div>
         Yes. The classifier is published as{' '}
         <Link href='https://github.com/microlinkhq/is-antibot'>is-antibot</Link>{' '}
-        so you can audit how providers and signals are matched.
+        so you can audit how providers and signals are matched. The{' '}
+        <Link href='/blog/antibot-detection-at-scale'>
+          is-antibot launch post
+        </Link>{' '}
+        explains why naming the provider changes the retry strategy.
       </div>
     ),
-    text: 'Yes. The classifier is published as is-antibot so you can audit how providers and signals are matched.'
+    text: 'Yes. The classifier is published as is-antibot so you can audit how providers and signals are matched. The is-antibot launch post explains why naming the provider changes the retry strategy.'
   }
 ])

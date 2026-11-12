@@ -37,7 +37,7 @@ curl -H 'Accept: text/markdown' https://microlink.io/docs/api/getting-started/ov
 
 Documentation is no longer read only by humans in a browser. Teams paste a page like `/docs/api/getting-started/overview` into AI tools, agents fetch references from links, and IDE copilots work best with clean Markdown inputs.
 
-Markdown fits LLM context windows better than rendered HTML: it drops layout artifacts, keeps the heading hierarchy, and carries less noise. It also speeds up the copy and paste workflow for developers using ChatGPT, Claude, Codex, Cursor, or internal agents.
+Markdown fits LLM context windows better than rendered HTML: it drops layout artifacts, keeps the heading hierarchy, and carries less noise. It also speeds up the copy and paste workflow for developers using ChatGPT, Claude, Codex, Cursor, or internal agents. To assemble that context from any site, not only docs, see [LLM context from any URL](/use-cases/website-to-markdown/llm-context).
 
 For us, the main benefit was architectural: one canonical docs source, served as HTML at `/docs/...` and as Markdown at `/docs/....md`. We did not have to build or maintain a separate Markdown documentation system to expose machine-friendly content.
 
@@ -115,4 +115,4 @@ On top of those steps sit many smaller rules that we tested against a large set 
 
 ## Try it on your own docs
 
-Run the same conversion on any page with `curl https://markdown.microlink.io/` followed by its URL, or copy the `mql` rule above into your build to generate a `.md` file for each of your docs pages. The [attr](/docs/sdk/methods/extract/attr) reference lists every serialization format the rule supports.
+The [URL to Markdown API](/markdown) runs the same conversion on any page. From a terminal, run `curl https://markdown.microlink.io/` followed by its URL, or copy the `mql` rule above into your build to generate a `.md` file for each of your docs pages. The [attr](/docs/sdk/methods/extract/attr) reference lists every serialization format the rule supports.

@@ -431,7 +431,20 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'When does the function start a browser?',
-    text: 'Only when your code references page. Without it, Microlink skips the headless browser entirely, so plain compute runs faster and cheaper. Reference page to get the full Puppeteer API for clicks, waits, and evaluation.'
+    text: 'Only when your code references page. Without it, Microlink skips the headless browser entirely, so plain compute runs faster and cheaper. Reference page to get the full Puppeteer API for clicks, waits, and evaluation. How we measured the speedup is in the post on optimizing Microlink Functions.',
+    answer: (
+      <div>
+        Only when your code references <code>page</code>. Without it, Microlink
+        skips the headless browser entirely, so plain compute runs faster and
+        cheaper. Reference <code>page</code> to get the full Puppeteer API for
+        clicks, waits, and evaluation. How we measured the speedup is in the
+        post on{' '}
+        <Link href='/blog/optimizing-microlink-functions'>
+          optimizing Microlink Functions
+        </Link>
+        .
+      </div>
+    )
   },
   {
     question: 'When should I use Function instead of extract()?',

@@ -40,7 +40,7 @@ Add Microlink to your client’s MCP config:
 
 Agents fetching the real web hit bot detection, cookie banners that halt execution, and raw HTML that buries the content under thousands of tokens of nav bars, footers, and ads.
 
-Every Microlink MCP request routes through Microlink’s headless browser infrastructure, with anti-bot evasion, automatic cookie banner dismissal, and proxy routing. The target site sees Microlink, not your agent and not your IP. Your agent gets structured, clean output instead of a raw dump.
+Every Microlink MCP request routes through Microlink’s [headless browser](/blog/what-is-a-headless-browser) infrastructure, with anti-bot evasion, automatic cookie banner dismissal, and proxy routing. The target site sees Microlink, not your agent and not your IP. Your agent gets structured, clean output instead of a raw dump.
 
 ## Markdown uses 80% fewer tokens than raw HTML
 
