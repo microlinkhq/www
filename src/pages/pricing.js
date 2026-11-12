@@ -11,7 +11,7 @@ import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import LineBreak from 'components/elements/LineBreak'
 import Meta from 'components/elements/Meta/Meta'
-import { PLANS } from 'components/elements/PricePicker'
+import { DEFAULT_PLAN, PLANS } from 'helpers/pro-plans'
 import Heading from 'components/elements/Heading'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -1563,7 +1563,7 @@ const CtaNow = styled('span')`
 const Cta = () => {
   const [currency] = useCurrencyContext()
   const { symbol } = CURRENCIES[currency]
-  const startingPrice = formatPrice({ EUR: 39, USD: 49 }, currency)
+  const startingPrice = formatPrice(DEFAULT_PLAN.monthlyPrice, currency)
   return (
     <Container
       as='section'

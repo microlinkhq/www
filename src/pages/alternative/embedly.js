@@ -30,6 +30,7 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { DEFAULT_PLAN } from 'helpers/pro-plans'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -50,8 +51,8 @@ const CTA_LINK_FONT_SIZE = [
  */
 const PRICING = {
   microlink: {
-    price: 49,
-    requests: 46000
+    price: DEFAULT_PLAN.monthlyPrice.USD,
+    requests: DEFAULT_PLAN.reqsPerMonthTotal
   },
   embedly: {
     cardsPrice: 14,

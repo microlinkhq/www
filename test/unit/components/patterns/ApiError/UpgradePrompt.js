@@ -1,6 +1,6 @@
 import React from 'react'
 import { describe, expect, test, vi } from 'vitest'
-import { PLANS } from '../../../../../src/components/elements/PricePicker'
+import { PLANS } from '../../../../../src/helpers/pro-plans'
 import {
   ENTRY_PLAN,
   UpgradePrompt,

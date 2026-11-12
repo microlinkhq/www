@@ -37,12 +37,12 @@ Giving a [url](/docs/api/parameters/url) as input, you get structured data as ou
     "date": "2020-09-22T09:33:36.000Z",
     "url": "https://github.com/microlinkhq",
     "logo": {
-      "url": "https://logo.clearbit.com/github.com",
+      "url": "https://github.com/fluidicon.png",
       "type": "png",
-      "size": 6313,
-      "height": 128,
-      "width": 128,
-      "size_pretty": "6.31 kB"
+      "size": 33270,
+      "height": 512,
+      "width": 512,
+      "size_pretty": "33.3 kB"
     }
   }
 }

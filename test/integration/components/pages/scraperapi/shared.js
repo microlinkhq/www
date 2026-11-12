@@ -2,6 +2,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
 
+import {
+  DEFAULT_PLAN,
+  pricePerThousand
+} from '../../../../../src/helpers/pro-plans'
+
 const ROOT = process.cwd()
 const read = file => fs.readFileSync(path.join(ROOT, file), 'utf8')
 
@@ -15,18 +20,11 @@ const flat = text => text.replace(/\s+/g, ' ')
 const pagesOf = label => Number(label.replace(/,/g, '').match(/\d+/)[0])
 const creditsOf = label => Number(label.match(/[\d.]+/)[0])
 
-const plan = () => {
-  const picker = read('src/components/elements/PricePicker.js')
-  const usd = Number(picker.match(/USD: (\d+)/)[1])
-  const monthDays = Number(picker.match(/MONTH_DAYS = (\d+)/)[1])
-  const requests = Number(picker.match(/createPlanFromMonthly\((\d+)\)/)[1])
-  const price = Math.round((requests / monthDays / 1000) * usd)
-  return {
-    requests,
-    price,
-    perThousand: (price / (requests / 1000)).toFixed(2)
-  }
-}
+const plan = () => ({
+  requests: DEFAULT_PLAN.reqsPerMonthTotal,
+  price: DEFAULT_PLAN.monthlyPrice.USD,
+  perThousand: pricePerThousand(DEFAULT_PLAN, 'USD')
+})
 
 const creditRows = source =>
   [

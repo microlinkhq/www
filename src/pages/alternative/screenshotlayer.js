@@ -34,6 +34,7 @@ import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { DEFAULT_PLAN } from 'helpers/pro-plans'
 
 const RaceHero = styled(Box)`
   width: 100%;
@@ -203,8 +204,8 @@ const SCREENSHOTLAYER_PRO_PRICE = 59.99
 const SCREENSHOTLAYER_PRO_REQUESTS = 30000
 const SCREENSHOTLAYER_FREE_REQUESTS = 100
 const SCREENSHOTLAYER_OVERAGE_PER_10K = 79.99
-const MICROLINK_PRICE = 49
-const MICROLINK_REQUESTS = 46000
+const MICROLINK_PRICE = DEFAULT_PLAN.monthlyPrice.USD
+const MICROLINK_REQUESTS = DEFAULT_PLAN.reqsPerMonthTotal
 
 const VOLUME_ADVANTAGE_PCT = Math.floor(
   ((MICROLINK_REQUESTS - SCREENSHOTLAYER_PRO_REQUESTS) /
