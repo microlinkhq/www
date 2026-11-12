@@ -43,7 +43,10 @@ const MONTHLY_FREE_RENEWAL = [
     String.raw`${COMPETITOR_SUBJECT}\b${FREE_OFFER}[^.\`'"]{0,40}?${RENEWAL_VERB}${GAP}${MONTHLY}`,
     'g'
   ),
-  new RegExp(String.raw`\ballowance${GAP}${RENEWAL_VERB}${GAP}${MONTHLY}`, 'g'),
+  new RegExp(
+    String.raw`${COMPETITOR_SUBJECT}\ballowance${GAP}${RENEWAL_VERB}${GAP}${MONTHLY}`,
+    'g'
+  ),
   /\bmicrolink: '[\d,]+\/month'/g
 ]
 
@@ -226,10 +229,24 @@ describe('free tier quota', () => {
       'free requests reset monthly',
       'Microlink free tier renews monthly',
       'The allowance renews monthly',
-      "microlink: '100/month'"
+      "microlink: '100/month'",
+      "microlink: '1,000/month'",
+      'An free tier renews monthly',
+      'Our free plan renews monthly',
+      'the free plan renews a month',
+      'a free api key that renews monthly',
+      'a free request resets monthly',
+      'The Free Plan renews monthly',
+      'The free Tier renews monthly',
+      'The free\ttier renews monthly',
+      'The free\ntier renews monthly',
+      'The free&nbsp;tier renews monthly',
+      'The free\\u00a0tier renews monthly'
     ]
     const competitorClaims = [
       "Firecrawl's free plan renews monthly",
+      'Firecrawl\u2019s free plan renews monthly',
+      "ScrapingBee's allowance renews monthly",
       'ScraperAPI free plan resets monthly',
       'Jina Reader free tier refills every month',
       'A free API key that renews daily',
