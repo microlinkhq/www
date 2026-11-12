@@ -47,6 +47,7 @@ describe('dashboard-url', () => {
     it('maps competitor, docs and use-case paths where the vertical is obvious', () => {
       expect(productFromPath('/alternative/screenshotone')).toBe('screenshot')
       expect(productFromPath('/alternative/firecrawl')).toBe('extract')
+      expect(productFromPath('/alternative/jina-reader')).toBe('extract')
       expect(productFromPath('/alternative/serpapi')).toBe('search')
       expect(productFromPath('/docs/guides/pdf/basics')).toBe('pdf')
       expect(productFromPath('/use-cases/website-metadata/anything')).toBe(

@@ -81,7 +81,8 @@ export const PATH_PRODUCTS = {
     '/features/scraping',
     '/docs/guides/content-conversion',
     '/docs/guides/data-extraction',
-    '/alternative/firecrawl'
+    '/alternative/firecrawl',
+    '/alternative/jina-reader'
   ],
   function: [
     '/function',
