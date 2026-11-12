@@ -5,6 +5,11 @@ import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GradientText } from 'components/patterns/ProductStory'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_DAY,
+  KEYLESS_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 export const ACCENT_NAME = 'teal'
 export const ACCENT = colors.teal7
@@ -86,7 +91,7 @@ export const CREDITS = {
   columns: ['Request', 'Credits', 'Pages for $49'],
   rows: [
     {
-      config: 'Any URL, no flags',
+      config: 'Standard domain, no flags',
       credits: '1 credit',
       pages: '100,000 pages'
     },
@@ -145,7 +150,8 @@ export const CREDITS = {
       at all. Read the crossover plainly: while a ScraperAPI request stays under
       2.17 credits it buys more pages than Microlink does for the same $49, and
       above that Microlink buys more. Ultra premium is paid plans only, and
-      ScraperAPI bills successful requests, 404s included.
+      ScraperAPI bills successful requests, 404s included, plus any request the
+      client cancels before 70 seconds.
     </>
   )
 }
@@ -177,7 +183,7 @@ export const COMPARISON = {
       note: 'ScraperAPI: 1 credit flat, 5 on Amazon, Walmart and eBay, 25 on Google and Bing, 30 on LinkedIn, 10 to render, 10 to bypass an anti-bot system, 75 for an ultra premium proxy with rendering. A Microlink request costs the same whatever it carries.'
     },
     {
-      feature: 'Real browser on every call',
+      feature: 'Browser rendering included',
       href: '/docs/api/parameters/prerender',
       microlink: true,
       scraperapi: 'Opt-in, 10 credits',
@@ -203,9 +209,9 @@ export const COMPARISON = {
     {
       feature: 'Concurrency',
       href: '/docs/api/basics/rate-limit',
-      microlink: 'No throttling',
+      microlink: 'No throttling on Pro',
       scraperapi: '20 to 500 threads',
-      note: 'ScraperAPI sells concurrent threads per plan, 20 on Hobby up to 500 on Advanced. Microlink applies no throttling: parallel requests are bounded by the monthly quota.'
+      note: `ScraperAPI sells concurrent threads per plan, 20 on Hobby up to 500 on Advanced. Microlink applies no throttling on paid plans, where parallel requests are bounded by the monthly quota; the free API key runs ${FREE_PLAN_CONCURRENT_REQUESTS} at a time.`
     },
     {
       feature: 'Page metadata',
@@ -273,10 +279,10 @@ export const COMPARISON = {
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '100/month',
-      scraperapi: '5,000 once',
+      microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
+      scraperapi: '1,000/month',
       highlight: true,
-      note: 'The free Microlink API key renews 100 requests every month with no card and no expiry, and 25 a day need no key at all. ScraperAPI gives a 7-day trial with 5,000 credits.'
+      note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and no expiry, and ${KEYLESS_REQUESTS_PER_DAY} a day need no key at all. ScraperAPI starts with a 7-day trial of 5,000 credits, then a free plan of 1,000 credits a month.`
     },
     {
       feature: 'Asynchronous jobs',
@@ -337,14 +343,12 @@ export const PRICING_CAPTION = (
     One request counted whether the call renders, proxies, or lands on a domain
     somebody else charges 30 credits for, and a{' '}
     <Link href='/features/ttl'>cache hit</Link> not counted at all. Start on the
-    free API key and move to a paid plan when the monthly ceiling gets in the
-    way.
+    free API key and move to a paid plan when the daily ceiling gets in the way.
   </Text>
 )
 
 export const CTA = {
-  caption:
-    'Point one request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers the first 100 calls a month.',
+  caption: `Point one request at the URL you are scraping today and compare the response with the one you get back now. A free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} calls a day.`,
   cta: 'alternative-scraperapi:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/data-extraction',
@@ -431,26 +435,27 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is there a concurrency limit to plan around?',
-    text: 'The two APIs answer this differently. ScraperAPI sells concurrency as a plan attribute, from 20 threads on Hobby to 500 on Advanced, so a pool of workers is sized against that figure. Microlink applies no throttling and does not sell parallelism as a tier, so throughput is bounded by the monthly quota rather than bought up, but there is no contractual number to design against either.'
+    text: 'The two APIs answer this differently. ScraperAPI sells concurrency as a plan attribute, from 20 threads on Hobby to 500 on Advanced, so a pool of workers is sized against that figure. Microlink applies no throttling on paid plans and does not sell parallelism as a tier, so throughput is bounded by the monthly quota rather than bought up, but there is no contractual number to design against either.'
   },
   {
     question: 'What happens to a request that fails?',
-    text: 'Microlink retries internal browser errors with exponential backoff, twice by default, inside the same call. There is no job queue: a page that keeps failing comes back as an error for your code to handle. ScraperAPI bills successful responses only, 200 and 404 included, and its Async API keeps retrying a job in the background for up to 24 hours.',
+    text: 'Microlink retries internal browser errors with exponential backoff, twice by default, inside the same call. There is no job queue: a page that keeps failing comes back as an error for your code to handle. ScraperAPI bills successful responses, 200 and 404 included, plus any request the client cancels before 70 seconds, and its Async API keeps retrying a job in the background for up to 24 hours.',
     answer: (
       <div>
         Microlink retries internal browser errors with exponential backoff,{' '}
         <Link href='/docs/api/parameters/retry'>twice by default</Link>, inside
         the same call. There is no job queue: a page that keeps failing comes
         back as an <Link href='/docs/api/basics/error-codes'>error</Link> for
-        your code to handle. ScraperAPI bills successful responses only, 200 and
-        404 included, and its <Link href={SCRAPERAPI_ASYNC}>Async API</Link>{' '}
-        keeps retrying a job in the background for up to 24 hours.
+        your code to handle. ScraperAPI bills successful responses, 200 and 404
+        included, plus any request the client cancels before 70 seconds, and its{' '}
+        <Link href={SCRAPERAPI_ASYNC}>Async API</Link> keeps retrying a job in
+        the background for up to 24 hours.
       </div>
     )
   },
   {
     question: 'What does the free tier include?',
-    text: 'A free API key with 100 requests per month and every Pro capability, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are included, along with the edge cache, proxy and adblock. Unauthenticated calls get 25 a day with no signup at all. ScraperAPI gives a 7-day trial with 5,000 credits.'
+    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests per day and every Pro capability, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are included, along with the edge cache, proxy and adblock. Unauthenticated calls get ${KEYLESS_REQUESTS_PER_DAY} a day with no signup at all. ScraperAPI starts with a 7-day trial of 5,000 credits, then a free plan of 1,000 credits a month.`
   }
 ]
 
