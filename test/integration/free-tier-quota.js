@@ -246,6 +246,7 @@ describe('free tier quota', () => {
     const competitorClaims = [
       "Firecrawl's free plan renews monthly",
       'Firecrawl\u2019s free plan renews monthly',
+      "Context.dev's free plan renews monthly",
       "ScrapingBee's allowance renews monthly",
       'ScraperAPI free plan resets monthly',
       'Jina Reader free tier refills every month',
