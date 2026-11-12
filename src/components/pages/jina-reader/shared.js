@@ -5,6 +5,11 @@ import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GradientText } from 'components/patterns/ProductStory'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_REQUESTS_PER_DAY,
+  KEYLESS_REQUESTS_PER_DAY
+} from 'helpers/free-tier'
 
 export const ACCENT_NAME = 'teal'
 export const ACCENT = colors.teal7
@@ -181,10 +186,10 @@ export const COMPARISON = {
     {
       feature: 'Requests per minute',
       href: '/docs/api/basics/rate-limit',
-      microlink: 'No throttling',
+      microlink: 'No throttling on Pro',
       jina: '20 to 5,000',
       highlight: true,
-      note: 'Microlink runs as many parallel requests as the monthly quota allows. Reader publishes 20 RPM without a key and 5,000 RPM on its premium key.'
+      note: `Microlink Pro runs as many parallel requests as the monthly quota allows; the free API key runs ${FREE_PLAN_CONCURRENT_REQUESTS} at a time. Reader publishes 20 RPM without a key and 5,000 RPM on its premium key.`
     },
     {
       feature: 'Page metadata',
@@ -231,8 +236,8 @@ export const COMPARISON = {
       feature: 'Proxy for blocked targets',
       href: '/features/proxy',
       microlink: 'Managed, any API key',
-      jina: 'Bring your own',
-      note: 'A managed residential proxy comes with every Microlink API key, the free one included. Reader forwards requests through the proxy URL you pass in X-Proxy-Url.'
+      jina: 'Managed with a key, or your own',
+      note: 'A managed residential proxy comes with every Microlink API key, the free one included, and proxy.location pins the exit country. Reader takes x-proxy: auto or a country code with a key, or forwards through the proxy URL you pass in X-Proxy-Url.'
     },
     {
       feature: 'Antibot reporting',
@@ -257,10 +262,10 @@ export const COMPARISON = {
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '100/month',
+      microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       jina: '10M tokens, 20 RPM keyless',
       highlight: true,
-      note: 'The free Microlink API key renews 100 requests every month with no card and every Pro feature. Every new Reader key comes with 10M free tokens, and Reader answers without a key at 20 RPM.'
+      note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and every Pro feature, and ${KEYLESS_REQUESTS_PER_DAY} a day need no key at all. Every new Reader key comes with 10M free tokens once, and Reader answers without a key at 20 RPM.`
     },
     {
       feature: 'Token trimming and chunking',
@@ -294,8 +299,7 @@ export const PRICING_CAPTION = (
 )
 
 export const CTA = {
-  caption:
-    'Point a request at the URL you read through Reader this morning and compare the response. The free API key covers the first 100 calls a month.',
+  caption: `Point a request at the URL you read through Reader this morning and compare the response. The free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} calls a day.`,
   cta: 'alternative-jina-reader:footer-cta',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/content-conversion/url-to-markdown',
@@ -314,7 +318,7 @@ export const HONESTY = {
   items: [
     {
       title: 'Nothing to sign up for',
-      body: 'Reader answers a prefixed URL with no API key at 20 requests a minute, and every new key comes with 10M free tokens. Microlink needs a signup, and the free key renews 100 requests a month.'
+      body: `Reader answers a prefixed URL with no API key at 20 requests a minute, and every new key comes with 10M free tokens. Microlink answers ${KEYLESS_REQUESTS_PER_DAY} requests a day without a key; past that it needs a signup, and the free key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`
     },
     {
       title: 'Markdown sized for a context window',
@@ -384,13 +388,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What are the rate limits?',
-    text: 'Microlink applies no throttling: you can run as many parallel requests as your monthly quota allows, and the quota is the only ceiling. Reader publishes 20 requests per minute without an API key and 5,000 per minute on its premium key.',
+    text: `Microlink applies no throttling on paid plans: you can run as many parallel requests as your monthly quota allows, and the quota is the only ceiling. The free API key runs ${FREE_PLAN_CONCURRENT_REQUESTS} requests at a time against a daily quota. Reader publishes 20 requests per minute without an API key and 5,000 per minute on its premium key.`,
     answer: (
       <div>
-        Microlink applies no throttling: run as many parallel requests as the
-        monthly <Link href='/docs/api/basics/rate-limit'>quota</Link> allows,
-        and the quota is the only ceiling. Reader publishes 20 requests per
-        minute without an API key and 5,000 per minute on its premium key.
+        Microlink applies no throttling on paid plans: run as many parallel
+        requests as the monthly{' '}
+        <Link href='/docs/api/basics/rate-limit'>quota</Link> allows, and the
+        quota is the only ceiling. The free API key runs{' '}
+        {FREE_PLAN_CONCURRENT_REQUESTS}&nbsp;requests at a time against a daily
+        quota. Reader publishes 20 requests per minute without an API key and
+        5,000 per minute on its premium key.
       </div>
     )
   },
@@ -409,15 +416,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is the free API key enough to evaluate it?',
-    text: 'It covers 100 requests a month with every Pro feature included: markdown, screenshot, PDF, metadata, search, insights, the SDK, the edge cache, the residential proxy and adblock. No credit card, and the allowance renews monthly, so an evaluation never runs out mid-test.',
+    text: `It covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature included: markdown, screenshot, PDF, metadata, search, insights, the SDK, the edge cache, the residential proxy and adblock. No credit card, and the allowance renews daily, so an evaluation picks up again the next morning.`,
     answer: (
       <div>
-        It covers 100&nbsp;requests a month with every Pro feature included:
-        markdown, screenshot, PDF, metadata, search,{' '}
+        It covers {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day with every
+        Pro feature included: markdown, screenshot, PDF, metadata, search,{' '}
         <Link href='/insights'>insights</Link>, the SDK, the edge cache, the
         residential <Link href='/features/proxy'>proxy</Link> and adblock. No
-        credit card, and the allowance renews monthly, so an evaluation never
-        runs out mid-test.
+        credit card, and the allowance renews daily, so an evaluation picks up
+        again the next morning.
       </div>
     )
   }
@@ -448,7 +455,7 @@ export const STRUCTURED = [
       url: 'https://microlink.io/markdown',
       offers: {
         '@type': 'Offer',
-        price: '39',
+        price: '0',
         priceCurrency: 'EUR',
         url: 'https://microlink.io/pricing'
       }
