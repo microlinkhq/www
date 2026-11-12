@@ -100,6 +100,13 @@ const isRedirect = link => {
   )
 }
 
+const generatedStaticFiles = new Set(
+  dists()
+    .map(dist => path.relative(STATIC_DIR, dist))
+    .filter(rel => !rel.startsWith('..') && path.extname(rel))
+    .map(rel => `/${rel.split(path.sep).join('/')}`)
+)
+
 const knownRoutes = new Set([
   ...listFiles(PAGES_DIR, SCRIPT_EXTENSION).map(file =>
     toRoute(PAGES_DIR, file, SCRIPT_EXTENSION)
@@ -111,13 +118,13 @@ const knownRoutes = new Set([
     file => `/skills/${path.basename(file).replace(MARKDOWN_EXTENSION, '')}`
   ),
   ...Object.keys(SKILL_CATEGORY).map(slug => `/skills/${slug}`),
-  ...dists()
-    .map(dist => path.relative(STATIC_DIR, dist))
-    .filter(rel => !rel.startsWith('..') && path.extname(rel))
-    .map(rel => `/${rel.split(path.sep).join('/')}`),
+  ...generatedStaticFiles,
   ...Object.keys(recipes).map(name => `/recipes/${kebabCase(name)}`),
   GATSBY_SITEMAP_INDEX
 ])
+
+const isStaticAsset = route =>
+  generatedStaticFiles.has(route) || isStaticFile(route)
 
 const isStaticFile = route => {
   const file = path.join(STATIC_DIR, route)
@@ -189,7 +196,7 @@ const absoluteSiteLinks = [
 test('internal page links are relative so they route client-side', () => {
   const absolute = absoluteSiteLinks.filter(
     ({ file, link }) =>
-      !SAMPLE_OUTPUT_FILES.has(file) && !isStaticFile(normalize(link))
+      !SAMPLE_OUTPUT_FILES.has(file) && !isStaticAsset(normalize(link))
   )
   expect(absolute).toEqual([])
 })
@@ -294,6 +301,8 @@ test('generated routes resolve before their files are fetched', () => {
   expect(resolves('/../data/skills.json')).toBe(false)
   expect(resolves('/data/hero-demo')).toBe(false)
   expect(isStaticFile('/robots.txt')).toBe(true)
+  expect(isStaticAsset('/user-agents.json')).toBe(true)
+  expect(isStaticAsset('/pricing')).toBe(false)
   expect(isStaticFile('/images')).toBe(false)
   expect(isStaticFile('/../package.json')).toBe(false)
   expect(resolves('/../package.json')).toBe(false)
