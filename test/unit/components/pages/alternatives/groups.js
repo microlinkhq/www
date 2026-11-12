@@ -14,12 +14,14 @@ describe('alternative groups', () => {
   test('links each card to its comparison and uses the short name', () => {
     const html = renderMarkup(<Groups />)
 
-    expect(cta(html, '/alternative/clearbit')).toContain('Microlink vs')
-    expect(cta(html, '/alternative/clearbit')).toContain('Clearbit')
-    expect(cta(html, '/alternative/clearbit')).not.toContain('Logo API')
-    expect(cta(html, '/alternative/cloudflare')).not.toContain(
-      'Browser Rendering'
-    )
+    const clearbit = cta(html, '/alternative/clearbit')
+    const cloudflare = cta(html, '/alternative/cloudflare')
+
+    expect(clearbit).toContain('Microlink vs')
+    expect(clearbit).toContain('Clearbit')
+    expect(clearbit).not.toContain('Logo')
+    expect(cloudflare).toContain('Cloudflare')
+    expect(cloudflare).not.toContain('Browser')
     expect(cta(html, '/alternative/puppeteer')).toContain('Puppeteer')
     expect(cta(html, '/alternative/puppeteer')).not.toContain('undefined')
     expect(html).not.toContain('href="/use-cases/')
