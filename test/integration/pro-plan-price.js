@@ -16,12 +16,21 @@ const DATED_RECORDS = [
 const CURRENCY = { '€': 'EUR', $: 'USD' }
 
 const PRICE_FOR_REQUESTS =
-  /([€$])(\d+)(?:\/month| (?:per|a) month)? (?:for|buys) ([\d,]+)\b(?![\d,])/g
+  /([€$])(\d+)\b(?!\.\d)(?:\/month| (?:per|a) month)? (?:for|buys|covers) ([\d,]+)\b(?!,\d)/g
 const REQUESTS_FOR_PRICE =
-  /\b([\d,]+) (?:API )?requests,? (?:for|from) ([€$])(\d+)\b(?![.\d])/g
+  /\b([\d,]+) (?:API )?requests,? (?:for|from|at) ([€$])(\d+)\b(?!\.\d)/g
 const STARTING_PRICE =
-  /\bPro(?: plans?)? (?:start(?:s|ing)? at|from) ([€$])(\d+)\b(?![.\d])/g
+  /\bPro(?: plans?)? (?:start(?:s|ing)? at|from) ([€$])(\d+)\b(?!\.\d)/g
+const CARD_PRICE =
+  /([€$])(\d+)\b(?!\.\d)\s*\/(?:mo|month)\s+([\d,]+)\s*requests/g
+const SAME_PRICE =
+  /same ([€$])(\d+)\b(?!\.\d), (?:Microlink gives you )?([\d,]+) requests/g
+const PRO_ROW = /([€$])(\d+)\b(?!\.\d) Pro plan\b[^€$]{0,80}?([\d,]+) requests/g
+const NAMED_TIER =
+  /Microlink Pro, ([€$])(\d+)\b(?!\.\d)[^€$]{0,40}?([\d,]+) requests/g
+const SAME_LABEL = /same ([€$])(\d+)\b(?!\.\d) (?:plan\b|per month)/g
 const MICROLINK_TIER = /\b(?:Microlink['’]s|its) ([€$])(\d+) tier\b/g
+const SOURCE_SUFFIX = /\.(jsx?|md)$/
 const RATE = /\$(\d+\.\d\d) per (?:1,000|thousand)\b/g
 const MICROLINK_RATE_SUBJECT = /Microlink|self-serve|rate holds at|^\s*At $/i
 const SENTENCE_START = /(?:[.!?:;]\s|['"`(])(?=[^.!?:;'"`(]*$)/
@@ -32,13 +41,15 @@ const toPlainText = source =>
     .replace(/\{' '\}/g, ' ')
     .replace(/<\/?[A-Za-z][^>]*>/g, '')
     .replace(/&nbsp;|\\u00a0|\u00a0/g, ' ')
+    .replace(/&euro;/g, '€')
+    .replace(/\\u20ac/g, '€')
     .replace(/\s+/g, ' ')
 
 const walk = dir =>
   fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
     const full = path.join(dir, entry.name)
     if (entry.isDirectory()) return walk(full)
-    return /\.(jsx?|md)$/.test(entry.name) ? [full] : []
+    return SOURCE_SUFFIX.test(entry.name) ? [full] : []
   })
 
 const isDatedRecord = file =>
@@ -87,6 +98,36 @@ const planPriceClaims = text => [
     currency: CURRENCY[match[1]],
     price: Number(match[2]),
     plan: DEFAULT_PLAN
+  })),
+  ...[...text.matchAll(CARD_PRICE)].map(match => ({
+    quote: match[0],
+    currency: CURRENCY[match[1]],
+    price: Number(match[2]),
+    plan: planFor(toCount(match[3]))
+  })),
+  ...[...text.matchAll(SAME_PRICE)].map(match => ({
+    quote: match[0],
+    currency: CURRENCY[match[1]],
+    price: Number(match[2]),
+    plan: planFor(toCount(match[3]))
+  })),
+  ...[...text.matchAll(PRO_ROW)].map(match => ({
+    quote: match[0],
+    currency: CURRENCY[match[1]],
+    price: Number(match[2]),
+    plan: planFor(toCount(match[3]))
+  })),
+  ...[...text.matchAll(NAMED_TIER)].map(match => ({
+    quote: match[0],
+    currency: CURRENCY[match[1]],
+    price: Number(match[2]),
+    plan: planFor(toCount(match[3]))
+  })),
+  ...[...text.matchAll(SAME_LABEL)].map(match => ({
+    quote: match[0],
+    currency: CURRENCY[match[1]],
+    price: Number(match[2]),
+    plan: DEFAULT_PLAN
   }))
 ]
 
@@ -114,6 +155,12 @@ describe('pro plan price', () => {
     expect(PLANS.map(plan => pricePerThousand(plan, 'USD'))).toEqual(
       PLANS.map(() => USD_RATE)
     )
+  })
+
+  test('the guard reads js, jsx, and markdown sources', () => {
+    expect(
+      ['a.js', 'a.jsx', 'a.md'].filter(name => SOURCE_SUFFIX.test(name))
+    ).toEqual(['a.js', 'a.jsx', 'a.md'])
   })
 
   test('the guard sees the plan prices the copy states', () => {
@@ -161,7 +208,34 @@ describe('pro plan price', () => {
         'Pro plans start at €45/month',
         "<Link href='/pricing'>Pro plans</Link> starting at $39/month.",
         'Microlink’s $39 tier',
-        'from $49 for 46,000 to $400 for 420,000'
+        'from $49 for 46,000 to $400 for 420,000',
+        '46,000 requests for $59.',
+        '€45 for 46,000, with proxy included',
+        'includes 46,000 requests at $59',
+        'tier is &euro;45/month for 46,000 requests',
+        'comparison tier is \\u20ac45/month for 46,000 requests',
+        '$59/month covers 46,000 requests',
+        'Microlink $59 /mo 46,000 requests/month',
+        'Pro €45 /month 46,000 requests/month',
+        'for the same $59, 46,000 requests',
+        'For the same $59, Microlink gives you 46,000 requests',
+        'the $59 Pro plan on pricing: 46,000 requests',
+        "Microlink Pro, $59', cells: ['46,000 requests'",
+        'into the same $59 plan',
+        'volume for the same $59 per month',
+        '$59 per month for 46,000 requests',
+        '$59 a month for 46,000 requests',
+        '$59 buys 46,000 requests',
+        '46,000 API requests for $59',
+        '46,000 requests, for $59',
+        '46,000 requests from $59',
+        'Pro plan starts at €45/month',
+        'Pro starts at €45/month',
+        'Pro plans starts at €45/month',
+        'Pro plans from €45',
+        "Microlink's $39 tier",
+        'on its €45 tier',
+        'Microlink $59/mo 46,000 requests/month'
       ].filter(sentence => !flaggedPlan(sentence))
     ).toEqual([])
     expect(
@@ -169,14 +243,21 @@ describe('pro plan price', () => {
         'Iframely Business is $49/month for 25,000 hits.',
         'Urlbox Hi-Fi is $49/month for 5,000 renders',
         'Screenshot Machine Pro is listed at €59/month for 20,000 fresh screenshots',
-        'Logo.dev Startup is $33 for 1,000,000 images'
+        'Logo.dev Startup is $33 for 1,000,000 images',
+        '46,000 requests at ~$0.00107 each',
+        'Iframely gives you 25,000 hits at $49',
+        'Thum.io $20 /mo then 10,000 screenshot hits',
+        '$59.99 /mo for 30,000 snapshots',
+        'SerpApi Production, $150 with 15,000 searches'
       ].filter(flaggedPlan)
     ).toEqual([])
     expect(
       [
         'Microlink costs $1.25 per 1,000 requests',
         'Self-serve Pro plans cost $0.99 per 1,000 requests',
-        'At $2.00 per 1,000 requests, the API bill grows'
+        'At $2.00 per 1,000 requests, the API bill grows',
+        'Microlink costs $1.25 per thousand requests',
+        'The rate holds at $1.25 per 1,000 requests'
       ].filter(sentence => !flaggedRate(sentence))
     ).toEqual([])
     expect(
