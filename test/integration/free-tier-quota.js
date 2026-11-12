@@ -33,6 +33,10 @@ const MISSTATED_FREE_RATE = [
   /shared concurrency/gi,
   /don't apply any throttling/gi
 ]
+const MONTHLY_FREE_RENEWAL = [
+  /free (?:api key|tier|plan)[^.`'"]{0,40}?(?:renews|resets) (?:monthly|every month)/gi,
+  /\ballowance (?:renews|resets) (?:monthly|every month)/gi
+]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
 const WORD = String.raw`[^\s\u00a0,;:<>'"\`(){}\\&/]+`
@@ -161,6 +165,19 @@ const misstatedFreeRateClaims = () =>
       )
   )
 
+const monthlyFreeRenewalClaims = () =>
+  SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
+    ({ file, source }) =>
+      MONTHLY_FREE_RENEWAL.flatMap(pattern =>
+        [...source.matchAll(pattern)].map(
+          match =>
+            `${location(file, source, match.index)} → "${
+              match[0]
+            }" contradicts the daily free tiers, say it renews daily`
+        )
+      )
+  )
+
 describe('free tier quota', () => {
   test('keyless allowance is below the free plan allowance', () => {
     expect(KEYLESS_REQUESTS_PER_DAY).toBeLessThan(FREE_PLAN_REQUESTS_PER_DAY)
@@ -180,6 +197,10 @@ describe('free tier quota', () => {
 
   test('copy states the free key concurrency cap instead of an uncapped one', () => {
     expect(misstatedFreeRateClaims()).toEqual([])
+  })
+
+  test('no free tier is said to renew monthly', () => {
+    expect(monthlyFreeRenewalClaims()).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {

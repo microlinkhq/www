@@ -377,7 +377,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What does the free tier include?',
-    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.`
+    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews daily, so an evaluation picks up again the next morning.`
   },
   {
     question: 'Do cached responses still cost a request?',

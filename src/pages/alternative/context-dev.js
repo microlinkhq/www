@@ -257,7 +257,7 @@ const COMPARISON_DATA = [
     note: 'On Context.dev that bundle is 1 + 10 + 5 = 16 credits across separate endpoint calls.'
   },
   {
-    feature: 'Free tier that renews monthly',
+    feature: 'Free tier that renews daily',
     microlink: true,
     contextdev: false,
     highlight: true,
@@ -1672,7 +1672,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Context.dev Alternative: Brand & Web Data in One Request'
-    description='Context.dev bills a credit menu — 10 for brand data, 5 for screenshots, 10 for extraction. Microlink returns metadata, logo, palette, markdown, and screenshots in one flat-priced request, with a free tier that renews monthly.'
+    description='Context.dev bills a credit menu — 10 for brand data, 5 for screenshots, 10 for extraction. Microlink returns metadata, logo, palette, markdown, and screenshots in one flat-priced request, with a free tier that renews daily.'
     schemaType='WebPage'
     structured={[
       {

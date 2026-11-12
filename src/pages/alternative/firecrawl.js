@@ -241,7 +241,7 @@ const COMPARISON_DATA = [
     note: 'Firecrawl: search 2 credits per 10 results, browser interaction 2 per minute, enhanced proxy 5 per request.'
   },
   {
-    feature: 'Free tier that renews monthly',
+    feature: 'Free tier that renews daily',
     microlink: true,
     firecrawl: false,
     highlight: true,
@@ -1668,7 +1668,7 @@ export const Head = () => (
         '@type': 'WebPage',
         name: 'Firecrawl Alternative: LLM-Ready Markdown, No Credit Math',
         description:
-          'Compare Microlink and Firecrawl for LLM-ready web data. Microlink converts URLs, PDFs, and office documents into markdown, metadata, and screenshots at a flat per-request price, with the residential proxy included and a free tier that renews monthly.',
+          'Compare Microlink and Firecrawl for LLM-ready web data. Microlink converts URLs, PDFs, and office documents into markdown, metadata, and screenshots at a flat per-request price, with the residential proxy included and a free tier that renews daily.',
         url: 'https://microlink.io/alternative/firecrawl',
         mainEntity: {
           '@type': 'SoftwareApplication',
