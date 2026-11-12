@@ -16,19 +16,20 @@ const DATED_RECORDS = [
 const CURRENCY = { '€': 'EUR', $: 'USD' }
 
 const PRICE_FOR_REQUESTS =
-  /([€$])(\d+)\b(?!\.\d)(?:\/month| (?:per|a) month)? (?:for|buys|covers) ([\d,]+)\b(?!,\d)/g
+  /([€$])(\d+(?:\.\d+)?)(?!\d)(?:\/month| (?:per|a) month)? (?:for|buys|covers) ([\d,]+)\b(?!,\d)/g
 const REQUESTS_FOR_PRICE =
-  /\b([\d,]+) (?:API )?requests,? (?:for|from|at) ([€$])(\d+)\b(?!\.\d)/g
+  /\b([\d,]+) (?:API )?requests,? (?:for|from|at) ([€$])(\d+(?:\.\d+)?)(?!\d)/g
 const STARTING_PRICE =
-  /\bPro(?: plans?)? (?:start(?:s|ing)? at|from) ([€$])(\d+)\b(?!\.\d)/g
+  /\bPro(?: plans?)? (?:start(?:s|ing)? at|from) ([€$])(\d+(?:\.\d+)?)(?!\d)/g
 const CARD_PRICE =
-  /([€$])(\d+)\b(?!\.\d)\s*\/(?:mo|month)\s+([\d,]+)\s*requests/g
+  /([€$])(\d+(?:\.\d+)?)(?!\d)\s*\/(?:mo|month)\s+([\d,]+)\s*requests/g
 const SAME_PRICE =
-  /same ([€$])(\d+)\b(?!\.\d), (?:Microlink gives you )?([\d,]+) requests/g
-const PRO_ROW = /([€$])(\d+)\b(?!\.\d) Pro plan\b[^€$]{0,80}?([\d,]+) requests/g
+  /same ([€$])(\d+(?:\.\d+)?)(?!\d), (?:Microlink gives you )?([\d,]+) requests/g
+const PRO_ROW =
+  /([€$])(\d+(?:\.\d+)?)(?!\d) Pro plan\b[^€$]{0,80}?([\d,]+) requests/g
 const NAMED_TIER =
-  /Microlink Pro, ([€$])(\d+)\b(?!\.\d)[^€$]{0,40}?([\d,]+) requests/g
-const SAME_LABEL = /same ([€$])(\d+)\b(?!\.\d) (?:plan\b|per month)/g
+  /Microlink Pro, ([€$])(\d+(?:\.\d+)?)(?!\d)[^€$]{0,40}?([\d,]+) requests/g
+const SAME_LABEL = /same ([€$])(\d+(?:\.\d+)?)(?!\d) (?:plan\b|per month)/g
 const MICROLINK_TIER = /\b(?:Microlink['’]s|its) ([€$])(\d+) tier\b/g
 const SOURCE_SUFFIX = /\.(jsx?|md)$/
 const RATE = /\$(\d+\.\d\d) per (?:1,000|thousand)\b/g
@@ -223,6 +224,7 @@ describe('pro plan price', () => {
         "Microlink{'\\u2019'}s $39 tier",
         'from $49 for 46,000 to $400 for 420,000',
         '46,000 requests for $59.',
+        '46,000 requests for $49.99',
         '€45 for 46,000, with proxy included',
         'includes 46,000 requests at $59',
         'tier is &euro;45/month for 46,000 requests',
@@ -265,6 +267,7 @@ describe('pro plan price', () => {
         'Iframely gives you 25,000 hits at $49',
         'Thum.io $20 /mo then 10,000 screenshot hits',
         '$59.99 /mo for 30,000 snapshots',
+        '46,000 requests for $49.00',
         'SerpApi Production, $150 with 15,000 searches'
       ].filter(flaggedPlan)
     ).toEqual([])
