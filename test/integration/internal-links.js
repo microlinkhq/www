@@ -36,7 +36,7 @@ const DYNAMIC_SEGMENT = /[[:*(]/
 const NAMED_SEGMENT = /^\/[\w/-]*:\w+/
 const GATSBY_SITEMAP_INDEX = '/sitemap-index.xml'
 const ABSOLUTE_SITE_LINK =
-  /(?:\]\(|\bhref(?:=|: ?)\{?\s*["'`])(?:https?:)?\/\/(?:www\.)?microlink\.io(\/[^)"'`\s]*)?(?=[)"'`\s])/g
+  /(?:\]\(|\bhref(?:=|: ?)\{?\s*["'`])(?:https?:)?\/\/(?:www\.)?microlink\.io([/?#][^)"'`\s]*)?(?=[)"'`\s])/g
 const SAMPLE_OUTPUT_FILES = new Set([
   'src/components/pages/markdown/lang/markdown-demo.js'
 ])
@@ -180,7 +180,9 @@ test('no internal link points at a redirect instead of its destination', () => {
 })
 
 const absoluteLinksIn = source =>
-  [...source.matchAll(ABSOLUTE_SITE_LINK)].map(([, link]) => link || '/')
+  [...source.matchAll(ABSOLUTE_SITE_LINK)].map(([, suffix = '']) =>
+    suffix.startsWith('/') ? suffix : `/${suffix}`
+  )
 
 const absoluteSiteLinks = [
   ...listFiles(CONTENT_DIR, MARKDOWN_EXTENSION),
@@ -209,12 +211,14 @@ test('absolute site links are found with and without a path', () => {
         "<Link href='https://www.microlink.io/' children='x' />",
         '<a href={`https://microlink.io/pricing`}>',
         "href: 'https://microlink.io/blog/x#h'",
+        '[f](https://microlink.io#features)',
+        '[q](https://microlink.io?ref=blog)',
         '[d](https://dashboard.microlink.io)',
         '[e](https://microlink.io.evil.test/x)',
         '[p](/pricing)'
       ].join('\n')
     )
-  ).toEqual(['/', '/', '/pricing', '/blog/x#h'])
+  ).toEqual(['/', '/', '/pricing', '/blog/x#h', '/#features', '/?ref=blog'])
 })
 
 test('a linked image keeps the image and the href', () => {
