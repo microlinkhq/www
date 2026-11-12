@@ -157,6 +157,18 @@ describe('pro plan price', () => {
     )
   })
 
+  test('dated records are the changelog file and files inside the blog', () => {
+    const changelog = path.join(SRC, 'content', 'fragments', 'changelog.md')
+    const post = path.join(SRC, 'content', 'blog', 'post.md')
+    expect(isDatedRecord(changelog)).toBe(true)
+    expect(isDatedRecord(post)).toBe(true)
+    expect(isDatedRecord(`${changelog}x`)).toBe(false)
+    expect(
+      isDatedRecord(path.join(SRC, 'content', 'blog-extra', 'post.md'))
+    ).toBe(false)
+    expect(isDatedRecord(path.join(SRC, 'pages', 'pricing.js'))).toBe(false)
+  })
+
   test('the guard reads js, jsx, and markdown sources', () => {
     expect(
       ['a.js', 'a.jsx', 'a.md'].filter(name => SOURCE_SUFFIX.test(name))
@@ -229,6 +241,9 @@ describe('pro plan price', () => {
         '46,000 API requests for $59',
         '46,000 requests, for $59',
         '46,000 requests from $59',
+        '46,000&nbsp;requests for $59',
+        '46,000\\u00a0requests for $59',
+        '46,000\u00a0requests for $59',
         'Pro plan starts at €45/month',
         'Pro starts at €45/month',
         'Pro plans starts at €45/month',
