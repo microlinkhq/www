@@ -5,13 +5,13 @@ import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import {
   ProductComparison,
-  ProductCta,
   ProductFaq,
   ProductHero,
   ProductPricing,
   ProductTimings,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
+import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Credits } from 'components/pages/scraperapi/credits'
 import { Honesty } from 'components/pages/scraperapi/honesty'
@@ -35,10 +35,10 @@ const ScraperApiAlternativePage = () => (
     <Credits />
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
-    <ProductCta {...CTA} accent={ACCENT} />
     <ProductComparison {...COMPARISON} competitorKey='scraperapi' />
     <Honesty />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
+    <CallToAction id='cta' {...CTA} />
   </Layout>
 )
 
