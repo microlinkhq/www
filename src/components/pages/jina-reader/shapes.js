@@ -1,25 +1,33 @@
 import { layout, theme } from 'theme'
 import React from 'react'
+import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
 import {
-  FeatureTable,
-  HIGHLIGHT_BG,
   Section,
-  SectionHeader,
+  SectionHeader
+} from 'components/patterns/ProductStory/section'
+import {
+  HIGHLIGHT_BG,
+  ProseTable,
   TableCard
-} from 'components/patterns/ProductStory'
+} from 'components/patterns/ProductStory/table'
 
 import { SHAPES } from './shared'
+
+const ShapeRow = styled.tr`
+  background: ${({ $highlight }) =>
+    $highlight ? HIGHLIGHT_BG : 'transparent'};
+`
 
 export const Shapes = () => (
   <Section id='shapes' bg='pinky'>
     <SectionHeader title={SHAPES.title} caption={SHAPES.caption} />
 
     <TableCard>
-      <FeatureTable>
+      <ProseTable>
         <thead>
           <tr>
             {SHAPES.columns.map(column => (
@@ -31,27 +39,16 @@ export const Shapes = () => (
         </thead>
         <tbody>
           {SHAPES.rows.map(({ id, need, jina, microlink, highlight }) => (
-            <tr
-              key={id}
-              css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
-            >
-              <Text
-                as='th'
-                scope='row'
-                css={theme({ fontWeight: highlight ? 'bold' : 'regular' })}
-              >
+            <ShapeRow key={id} $highlight={highlight}>
+              <Text as='th' scope='row'>
                 {need}
               </Text>
-              <Text as='td' css={theme({ color: 'black60' })}>
-                {jina}
-              </Text>
-              <Text as='td' css={theme({ fontWeight: 'bold', color: 'black' })}>
-                {microlink}
-              </Text>
-            </tr>
+              <td>{jina}</td>
+              <td>{microlink}</td>
+            </ShapeRow>
           ))}
         </tbody>
-      </FeatureTable>
+      </ProseTable>
     </TableCard>
 
     <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>

@@ -4,7 +4,7 @@ import { colors } from 'theme'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { GradientText } from 'components/patterns/ProductStory'
+import { GradientText } from 'components/patterns/ProductStory/section'
 import {
   FREE_PLAN_CONCURRENT_REQUESTS,
   FREE_PLAN_REQUESTS_PER_DAY,
@@ -41,15 +41,8 @@ export const META = {
 
 export const HERO = {
   title: 'The Jina Reader alternative that bills per request',
-  description: (
-    <Text as='span'>
-      Jina Reader meters the tokens it hands back, so a long page costs more
-      than a short one, and one call returns one shape of that page. Microlink
-      counts one request per call at the same price on every plan, and that
-      single response carries the markdown, the screenshot, the PDF and the page
-      metadata together.
-    </Text>
-  ),
+  description:
+    'Jina Reader meters the tokens it hands back, so a long page costs more than a short one. Microlink counts one request per call at the same price on every plan, and that single response carries the markdown, the screenshot, the PDF and the page metadata together.',
   cta: 'alternative-jina-reader:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/content-conversion/url-to-markdown',
@@ -74,16 +67,16 @@ export const TIMINGS = {
 export const SHAPES = {
   title: (
     <>
-      One response, <GradientText>not one shape per call</GradientText>.
+      One JSON response, <GradientText>PDF included</GradientText>.
     </>
   ),
   caption: (
     <>
-      Reader picks the output with an <code>X-Respond-With</code> header, and
-      that header takes a single value: markdown, html, text, screenshot or
-      pageshot. Every other representation of the same URL is another call.
-      Microlink takes the formats as request parameters, so they come back in
-      the same JSON.
+      Reader selects the output with an <code>X-Respond-With</code> header, and
+      that header can combine formats, such as{' '}
+      <code>markdown+html+screenshot</code>, when the request accepts JSON.
+      Microlink takes each format as its own parameter, and the same JSON
+      includes a PDF of the page, which Reader does not document as an output.
     </>
   ),
   columns: ['What you need back', 'Jina Reader', 'Microlink'],
@@ -97,20 +90,21 @@ export const SHAPES = {
     {
       id: 'html',
       need: 'The rendered HTML',
-      jina: 'X-Respond-With: html, a second call',
-      microlink: 'Same response'
+      jina: 'X-Respond-With: html, or markdown+html',
+      microlink: 'data.html.attr=html, same response'
     },
     {
       id: 'screenshot',
       need: 'A screenshot',
-      jina: 'X-Respond-With: screenshot, a third call',
+      jina: 'X-Respond-With: screenshot, or added with +',
       microlink: 'screenshot=true, same response'
     },
     {
       id: 'pdf',
       need: 'A PDF of the page',
-      jina: 'Not documented',
-      microlink: 'pdf=true, same response'
+      jina: 'Not a documented output',
+      microlink: 'pdf=true, same response',
+      highlight: true
     },
     {
       id: 'metadata',
@@ -120,23 +114,25 @@ export const SHAPES = {
     },
     {
       id: 'total',
-      need: 'Calls to collect all of it',
-      jina: '3 or more',
-      microlink: '1',
-      highlight: true
+      need: 'Calls for markdown, HTML, and a screenshot',
+      jina: '1, joined with +',
+      microlink: '1'
     }
   ],
   footnote: (
     <>
       Reader values are the ones published in the{' '}
       <Link href={JINA_READER_REPO}>Reader repository</Link> and on{' '}
-      <Link href={JINA_READER}>jina.ai/reader</Link>; the JSON fields are the
-      ones that page lists for its JSON mode. The Microlink column is the
-      request in the{' '}
+      <Link href={JINA_READER}>jina.ai/reader</Link>. Combined{' '}
+      <code>X-Respond-With</code> values are the ones that source accepts,
+      joined with <code>+</code>, and they need{' '}
+      <code>Accept: application/json</code>. The Microlink column is the request
+      in the{' '}
       <Link href='/docs/guides/content-conversion/url-to-markdown'>
         URL to Markdown guide
       </Link>{' '}
-      with <code>screenshot</code> and <code>pdf</code> added to it.
+      with <code>data.html.attr=html</code>, <code>screenshot</code> and{' '}
+      <code>pdf</code> added to it.
     </>
   )
 }
@@ -171,17 +167,17 @@ export const COMPARISON = {
       feature: 'Formats in one response',
       href: '/formats',
       microlink: 'Markdown, HTML, screenshot, PDF, metadata',
-      jina: 'One per call',
+      jina: 'Combined formats, no PDF',
       highlight: true,
-      note: 'X-Respond-With takes a single value. A Microlink request accepts the formats as parameters and returns them together.'
+      note: 'X-Respond-With accepts a combination such as markdown+html+screenshot when Accept is application/json. Microlink takes each format as its own parameter, including pdf, and returns them as fields of one JSON response.'
     },
     {
       feature: 'Response caching',
       href: '/features/ttl',
       microlink: '1 minute to 31 days',
-      jina: '5 minutes',
+      jina: '1 hour',
       highlight: true,
-      note: 'Microlink cache hits are free and fast, and ttl is settable with any API key. Reader serves the same URL from cache for 5 minutes, with X-No-Cache and X-Cache-Tolerance to control reuse.'
+      note: 'Microlink cache hits are free and fast, and ttl is settable with any API key. Reader caches a fetched page for 1 hour (3600 seconds). X-No-Cache bypasses it, and X-Cache-Tolerance sets how stale a cached page may be.'
     },
     {
       feature: 'Requests per minute',
@@ -209,8 +205,8 @@ export const COMPARISON = {
       feature: 'Screenshot controls',
       href: '/screenshot',
       microlink: 'Device, viewport, full page, element',
-      jina: 'A URL to a screenshot',
-      note: 'Reader returns a screenshot (or a full-page pageshot) with no documented device or viewport options.'
+      jina: 'Screenshot URL and viewport',
+      note: 'Reader returns a screenshot or a full-page pageshot, and accepts a viewport (width, height, device scale, mobile, landscape, touch). Microlink sets device, viewport, full page, and element on the same request.'
     },
     {
       feature: 'Lighthouse and technology detection',
