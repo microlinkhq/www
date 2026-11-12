@@ -148,10 +148,11 @@ export const CREDITS = {
       <Link href='/pricing'>pricing</Link>: 46,000 requests, $1.07 per 1,000 on
       every tier, and a <Link href='/features/ttl'>cache hit</Link> not counted
       at all. Read the crossover plainly: while a ScraperAPI request stays under
-      2.17 credits it buys more pages than Microlink does for the same $49, and
-      above that Microlink buys more. Ultra premium is paid plans only, and
-      ScraperAPI bills successful requests, 404s included, plus any request the
-      client cancels before 70 seconds.
+      2.17 credits it buys more pages than Microlink does for the same $49. At 5
+      credits, and at every published step above that, Microlink buys more.
+      Ultra premium is paid plans only, and ScraperAPI bills successful
+      requests, 404s included, plus any request the client cancels before 70
+      seconds.
     </>
   )
 }

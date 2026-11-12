@@ -1,3 +1,7 @@
+### November 2026
+
+- [Microlink](/): Added [ScraperAPI](/alternative/scraperapi) alternative.
+
 ### October 2026
 
 - [Microlink](/terms): Published the [terms of service](/terms), including when free and paid quotas reset.
