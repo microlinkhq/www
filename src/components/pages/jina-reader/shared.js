@@ -231,9 +231,9 @@ export const COMPARISON = {
     {
       feature: 'Proxy for blocked targets',
       href: '/features/proxy',
-      microlink: 'Managed, any API key',
+      microlink: 'Managed on Pro',
       jina: 'Managed with a key, or your own',
-      note: 'A managed residential proxy comes with every Microlink API key, the free one included, and proxy.location pins the exit country. Reader takes x-proxy: auto or a country code with a key, or forwards through the proxy URL you pass in X-Proxy-Url.'
+      note: 'Routing through the residential proxy is a Pro capability, and proxy.location pins the exit country. A blocked request returns EPROXYNEEDED on every plan. Reader takes x-proxy: auto or a country code with a key, or forwards through the proxy URL you pass in X-Proxy-Url.'
     },
     {
       feature: 'Antibot reporting',
@@ -415,15 +415,15 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is the free API key enough to evaluate it?',
-    text: `It covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature included: markdown, screenshot, PDF, metadata, search, insights, the SDK, the edge cache, the residential proxy and adblock. No credit card, and the allowance renews daily, so an evaluation picks up again the next morning.`,
+    text: `It covers ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with markdown, screenshot, PDF, metadata, search, insights, the SDK, the edge cache and adblock. Residential proxy routing is a Pro capability. No credit card, and the allowance renews daily, so an evaluation picks up again the next morning.`,
     answer: (
       <div>
-        It covers {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day with every
-        Pro feature included: markdown, screenshot, PDF, metadata, search,{' '}
-        <Link href='/insights'>insights</Link>, the SDK, the edge cache, the
-        residential <Link href='/features/proxy'>proxy</Link> and adblock. No
-        credit card, and the allowance renews daily, so an evaluation picks up
-        again the next morning.
+        It covers {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests a day with
+        markdown, screenshot, PDF, metadata, search,{' '}
+        <Link href='/insights'>insights</Link>, the SDK, the edge cache and
+        adblock. Residential <Link href='/features/proxy'>proxy</Link> routing
+        is a Pro capability. No credit card, and the allowance renews daily, so
+        an evaluation picks up again the next morning.
       </div>
     )
   }

@@ -24,6 +24,13 @@ describe('Jina Reader comparison claims', () => {
     expect(cache.note).not.toMatch(/5 minutes/)
   })
 
+  test('keeps managed proxy routing on Pro', () => {
+    const proxy = row('Proxy for blocked targets')
+    expect(proxy.microlink).toBe('Managed on Pro')
+    expect(proxy.note).toMatch(/Pro capability/)
+    expect(proxy.note).not.toMatch(/free one included/)
+  })
+
   test('credits Reader with a documented viewport', () => {
     const shot = row('Screenshot controls')
     expect(shot.note).not.toMatch(/no documented device or viewport/)
