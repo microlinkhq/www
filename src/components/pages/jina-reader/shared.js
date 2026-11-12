@@ -317,19 +317,22 @@ export const HONESTY = {
   items: [
     {
       title: 'Nothing to sign up for',
-      body: `Reader answers a prefixed URL with no API key at 20 requests a minute, and every new key comes with 10M free tokens. Microlink answers ${KEYLESS_REQUESTS_PER_DAY} requests a day without a key; past that it needs a signup, and the free key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`
+      description: `Reader answers a prefixed URL with no API key at 20 requests a minute, and every new key comes with 10M free tokens. Microlink answers ${KEYLESS_REQUESTS_PER_DAY} requests a day without a key; past that it needs a signup, and the free key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`
     },
     {
       title: 'Markdown sized for a context window',
-      body: 'X-Max-Tokens trims the response, X-Token-Budget refuses a page that would blow the budget, X-Markdown-Chunking splits by heading, and the link and image summaries collapse the rest. Microlink returns the whole document and leaves the budget to you.'
+      description:
+        'X-Max-Tokens trims the response, X-Token-Budget refuses a page that would blow the budget, X-Markdown-Chunking splits by heading, and the link and image summaries collapse the rest. Microlink returns the whole document and leaves the budget to you.'
     },
     {
       title: 'Files without a public URL',
-      body: 'A local PDF or office file can be posted straight to the Reader file body field, and jina-ocr-v1 reads a scan at 40× the tokens. Microlink converts the same file types, but only from a URL it can fetch.'
+      description:
+        'A local PDF or office file can be posted straight to the Reader file body field, and jina-ocr-v1 reads a scan at 40× the tokens. Microlink converts the same file types, but only from a URL it can fetch.'
     },
     {
       title: 'Images described, not just linked',
-      body: 'X-With-Generated-Alt captions images with a vision model, so a model reads what is in them. Microlink returns the image URLs and leaves captioning to you.'
+      description:
+        'X-With-Generated-Alt captions images with a vision model, so a model reads what is in them. Microlink returns the image URLs and leaves captioning to you.'
     }
   ]
 }
@@ -473,3 +476,6 @@ export const STRUCTURED = [
     }))
   }
 ]
+
+export const TRADEMARKS =
+  'Jina, Jina AI and Jina Reader are trademarks of their respective owners. Microlink is not affiliated with or endorsed by them. Competitor details come from their public pages and may have changed since they were checked.'

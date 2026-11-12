@@ -8,26 +8,29 @@ import {
   ProductFaq,
   ProductHero,
   ProductPricing,
+  ProductStrengths,
   ProductTimings,
+  ProductTrademarks,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { CallToAction } from 'components/patterns/CallToAction'
 
-import { Honesty } from 'components/pages/jina-reader/honesty'
 import { Shapes } from 'components/pages/jina-reader/shapes'
-import { Trademarks } from 'components/pages/jina-reader/trademarks'
 import {
   ACCENT,
+  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
   HERO,
+  HONESTY,
   META,
   PRICING_CAPTION,
   STRUCTURED,
   TIMINGS,
-  TIMINGS_ACCENT
+  TIMINGS_ACCENT,
+  TRADEMARKS
 } from 'components/pages/jina-reader/shared'
 
 const JinaReaderAlternativePage = () => (
@@ -37,10 +40,14 @@ const JinaReaderAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='jina' />
-    <Honesty />
+    <ProductStrengths
+      id='jina-reader-strengths'
+      accent={ACCENT_NAME}
+      {...HONESTY}
+    />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
-    <Trademarks />
+    <ProductTrademarks>{TRADEMARKS}</ProductTrademarks>
   </Layout>
 )
 

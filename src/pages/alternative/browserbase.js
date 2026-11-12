@@ -4,28 +4,30 @@ import Meta from 'components/elements/Meta/Meta'
 import Layout from 'components/patterns/Layout'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
-  ProductHero,
-  ProductTimings,
-  ProductPricing,
   ProductComparison,
   ProductFaq,
+  ProductHero,
+  ProductPricing,
+  ProductStrengths,
   productStructured,
+  ProductTimings,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Capabilities } from 'components/pages/browserbase/capabilities'
 import { Paths } from 'components/pages/browserbase/paths'
-import { Honesty } from 'components/pages/browserbase/honesty'
 import {
   ACCENT,
+  ACCENT_NAME,
   COMPARISON,
-  HERO,
-  PRICING_CAPTION,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
+  HERO,
+  HONESTY,
   META,
+  PRICING_CAPTION,
   TIMINGS,
   TIMINGS_ACCENT
 } from 'components/pages/browserbase/shared'
@@ -57,7 +59,7 @@ const BrowserbaseAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='browserbase' />
-    <Honesty />
+    <ProductStrengths id='when-browserbase' accent={ACCENT_NAME} {...HONESTY} />
     <OpenSource
       repos={REPOS}
       accent={ACCENT}

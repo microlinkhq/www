@@ -7,24 +7,27 @@ import {
   ProductComparison,
   ProductFaq,
   ProductPricing,
+  ProductStrengths,
+  ProductTrademarks,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Hero } from 'components/pages/serpapi/hero'
-import { Honesty } from 'components/pages/serpapi/honesty'
 import { Migration } from 'components/pages/serpapi/migration'
 import { Throughput } from 'components/pages/serpapi/throughput'
-import { Trademarks } from 'components/pages/serpapi/trademarks'
 import {
+  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
+  HONESTY,
   META,
   PRICING_CAPTION,
   PRICING_TITLE,
-  STRUCTURED
+  STRUCTURED,
+  TRADEMARKS
 } from 'components/pages/serpapi/shared'
 
 const SerpApiAlternativePage = () => (
@@ -33,11 +36,15 @@ const SerpApiAlternativePage = () => (
     <Throughput />
     <ProductPricing title={PRICING_TITLE} caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='serpapi' />
-    <Honesty />
+    <ProductStrengths
+      id='serpapi-strengths'
+      accent={ACCENT_NAME}
+      {...HONESTY}
+    />
     <Migration />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
-    <Trademarks />
+    <ProductTrademarks>{TRADEMARKS}</ProductTrademarks>
   </Layout>
 )
 

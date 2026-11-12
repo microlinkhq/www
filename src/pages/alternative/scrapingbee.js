@@ -4,24 +4,26 @@ import Meta from 'components/elements/Meta/Meta'
 
 import Layout from 'components/patterns/Layout'
 import {
-  ProductHero,
-  ProductTimings,
-  ProductPricing,
   ProductComparison,
   ProductFaq,
+  ProductHero,
+  ProductPricing,
+  ProductStrengths,
+  ProductTimings,
   toFaqQuestions
 } from 'components/patterns/ProductStory'
 import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Billing } from 'components/pages/scrapingbee/billing'
-import { Honesty } from 'components/pages/scrapingbee/honesty'
 import {
   ACCENT,
+  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
   FAQ_ITEMS,
   HERO,
+  HONESTY,
   META,
   PRICING_CAPTION,
   STRUCTURED,
@@ -36,7 +38,11 @@ const ScrapingBeeAlternativePage = () => (
     <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='scrapingbee' />
-    <Honesty />
+    <ProductStrengths
+      id='scrapingbee-strengths'
+      accent={ACCENT_NAME}
+      {...HONESTY}
+    />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
   </Layout>
