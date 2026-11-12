@@ -33,6 +33,22 @@ const MISSTATED_FREE_RATE = [
   /shared concurrency/gi,
   /don't apply any throttling/gi
 ]
+const GAP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0)+`
+const MONTHLY = String.raw`(?:monthly|(?:every|each|a)${GAP}month)\b`
+const FREE_OFFER = String.raw`[Ff]ree${GAP}(?:API${GAP}key|api${GAP}key|[Tt]ier|[Pp]lan|requests?)\b`
+const RENEWAL_VERB = String.raw`(?:renew|reset|refill)\w*`
+const COMPETITOR_SUBJECT = String.raw`(?<!\b(?!(?:A|An|The|Our|Microlink)\b)[A-Z][\w.]*(?:'s|’s)?${GAP})`
+const MONTHLY_FREE_RENEWAL = [
+  new RegExp(
+    String.raw`${COMPETITOR_SUBJECT}\b${FREE_OFFER}[^.\`'"]{0,40}?${RENEWAL_VERB}${GAP}${MONTHLY}`,
+    'g'
+  ),
+  new RegExp(
+    String.raw`${COMPETITOR_SUBJECT}\ballowance${GAP}${RENEWAL_VERB}${GAP}${MONTHLY}`,
+    'g'
+  ),
+  /\bmicrolink: '[\d,]+\/month'/g
+]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
 const WORD = String.raw`[^\s\u00a0,;:<>'"\`(){}\\&/]+`
@@ -161,6 +177,19 @@ const misstatedFreeRateClaims = () =>
       )
   )
 
+const monthlyFreeRenewalClaims = () =>
+  SOURCES.filter(({ file }) => !isDatedRecord(file)).flatMap(
+    ({ file, source }) =>
+      MONTHLY_FREE_RENEWAL.flatMap(pattern =>
+        [...source.matchAll(pattern)].map(
+          match =>
+            `${location(file, source, match.index)} → "${
+              match[0]
+            }" contradicts the daily free tiers, say it renews daily`
+        )
+      )
+  )
+
 describe('free tier quota', () => {
   test('keyless allowance is below the free plan allowance', () => {
     expect(KEYLESS_REQUESTS_PER_DAY).toBeLessThan(FREE_PLAN_REQUESTS_PER_DAY)
@@ -180,6 +209,52 @@ describe('free tier quota', () => {
 
   test('copy states the free key concurrency cap instead of an uncapped one', () => {
     expect(misstatedFreeRateClaims()).toEqual([])
+  })
+
+  test('no free tier is said to renew monthly', () => {
+    expect(monthlyFreeRenewalClaims()).toEqual([])
+  })
+
+  test('the monthly renewal guard tells Microlink claims from competitor ones', () => {
+    const flagged = sentence =>
+      MONTHLY_FREE_RENEWAL.some(pattern => {
+        pattern.lastIndex = 0
+        return pattern.test(sentence)
+      })
+    const microlinkClaims = [
+      'a free API key that renews monthly',
+      'A free tier that refills every month',
+      'The free\u00a0tier renews monthly',
+      'the free plan, renewing each month',
+      'free requests reset monthly',
+      'Microlink free tier renews monthly',
+      'The allowance renews monthly',
+      "microlink: '100/month'",
+      "microlink: '1,000/month'",
+      'An free tier renews monthly',
+      'Our free plan renews monthly',
+      'the free plan renews a month',
+      'a free api key that renews monthly',
+      'a free request resets monthly',
+      'The Free Plan renews monthly',
+      'The free Tier renews monthly',
+      'The free\ttier renews monthly',
+      'The free\ntier renews monthly',
+      'The free&nbsp;tier renews monthly',
+      'The free\\u00a0tier renews monthly'
+    ]
+    const competitorClaims = [
+      "Firecrawl's free plan renews monthly",
+      'Firecrawl\u2019s free plan renews monthly',
+      "Context.dev's free plan renews monthly",
+      "ScrapingBee's allowance renews monthly",
+      'ScraperAPI free plan resets monthly',
+      'Jina Reader free tier refills every month',
+      'A free API key that renews daily',
+      'quota resets monthly on Pro'
+    ]
+    expect(microlinkClaims.filter(sentence => !flagged(sentence))).toEqual([])
+    expect(competitorClaims.filter(flagged)).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {

@@ -83,8 +83,8 @@ export const COMPARISON = {
         knowledge base
       </Link>{' '}
       and <Link href='https://www.scrapingbee.com/pricing/'>pricing page</Link>,
-      including the last three, where ScrapingBee has capabilities Microlink
-      does not.
+      including the last two, where ScrapingBee has capabilities Microlink does
+      not.
     </>
   ),
   columns: ['Microlink', 'ScrapingBee'],
@@ -182,18 +182,19 @@ export const COMPARISON = {
       note: 'Microlink Search comes with every API key, free one included; included on every ScrapingBee plan.'
     },
     {
+      feature: 'Pick the exit country',
+      href: '/docs/api/parameters/proxy/location',
+      microlink: '181 countries',
+      scrapingbee: 'From Startup',
+      note: 'Microlink proxy.location takes any of 181 ISO country codes with any API key, the free one included. ScrapingBee country_code works from the Startup plan up.'
+    },
+    {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '100/month',
+      microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       scrapingbee: '1,000 once',
       highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and no expiry; ScrapingBee gives a one-time trial allowance.`
-    },
-    {
-      feature: 'Geotargeting',
-      microlink: false,
-      scrapingbee: true,
-      note: 'ScrapingBee country_code from the Startup plan up. Microlink has no country selector.'
     },
     {
       feature: 'Sticky sessions',
@@ -377,7 +378,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What does the free tier include?',
-    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews monthly, so evaluation never runs out mid-test.`
+    text: `A free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests per day and every Pro feature, no credit card. Screenshot, PDF, metadata, markdown, search, insights and the SDK are all included, along with the global edge cache, proxy and adblock. The allowance renews daily, so an evaluation picks up again the next morning.`
   },
   {
     question: 'Do cached responses still cost a request?',
@@ -397,17 +398,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Does Microlink support geotargeting like country_code?',
-    text: 'No. ScrapingBee lets you pick an exit country with country_code from the Startup plan up, and Microlink has no equivalent country selector — proxy: true resolves a residential route automatically but you do not choose the region. If a request has to originate in a specific country, that is a reason to stay on ScrapingBee or to pass your own proxy server to Microlink and control the region there.',
+    text: 'Yes. proxy.location takes any of 181 ISO country codes with any API key, the free one included, so country_code maps to it one to one, and proxy.url routes through a proxy server you supply instead. ScrapingBee lets you pick an exit country with country_code from the Startup plan up.',
     answer: (
       <div>
-        No. ScrapingBee lets you pick an exit country with{' '}
-        <code>country_code</code> from the Startup plan up, and Microlink has no
-        equivalent country selector — <code>proxy: true</code> resolves a
-        residential route automatically but you do not choose the region. If a
-        request has to originate in a specific country, that is a reason to stay
-        on ScrapingBee, or to pass your own proxy server to{' '}
-        <Link href='/features/proxy'>Microlink</Link> and control the region
-        there.
+        Yes.{' '}
+        <Link href='/docs/api/parameters/proxy/location'>proxy.location</Link>{' '}
+        takes any of 181 ISO country codes with any API key, the free one
+        included, so <code>country_code</code> maps to it one to one, and{' '}
+        <Link href='/docs/api/parameters/proxy/url'>proxy.url</Link> routes
+        through a proxy server you supply instead. ScrapingBee lets you pick an
+        exit country with <code>country_code</code> from the Startup plan up.
       </div>
     )
   },

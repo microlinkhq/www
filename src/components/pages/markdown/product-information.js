@@ -112,7 +112,7 @@ export const ProductInformation = () => {
             <>
               <div>
                 Microlink bills a flat per-request price with the residential
-                proxy included and a free API key that renews monthly, where
+                proxy included and a free API key that renews daily, where
                 credit-based providers meter stealth proxies, screenshots, and
                 extraction separately.
               </div>
