@@ -6,7 +6,7 @@ lastEdited: true
 
 import { Link } from 'components/elements/Link'
 
-Microlink respects your privacy regarding any information we may collect from you across our website <Link href='https://microlink.io' children='microlink.io' />, and other sites we own and operate, according to EU General Data Protection Regulation (GDPR). See our [Data Processing Agreement](/dpa).
+Microlink respects your privacy regarding any information we may collect from you across our website <Link href='/' children='microlink.io' />, and other sites we own and operate, according to EU General Data Protection Regulation (GDPR). See our [Data Processing Agreement](/dpa).
 
 ## Information we collect
 

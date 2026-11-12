@@ -61,7 +61,7 @@ export const unmarshall = decompressFromURI
 
 ## Images rendered by the Microlink API
 
-Microlink Cards is part of the [Microlink](https://microlink.io) ecosystem. Microlink provides cloud-based browsers for any browser flow, such as taking a screenshot, getting the full HTML, or generating a PDF.
+Microlink Cards is part of the [Microlink](/) ecosystem. Microlink provides cloud-based browsers for any browser flow, such as taking a screenshot, getting the full HTML, or generating a PDF.
 
 Microlink Cards is a product built on Microlink itself. The editor is a free canvas for any image composition, and each composition has a unique URL.
 

@@ -35,6 +35,11 @@ const TRAILING_SLASH = /(.)\/+$/
 const DYNAMIC_SEGMENT = /[[:*(]/
 const NAMED_SEGMENT = /^\/[\w/-]*:\w+/
 const GATSBY_SITEMAP_INDEX = '/sitemap-index.xml'
+const ABSOLUTE_SITE_LINK =
+  /(?:\]\(|\bhref(?:=|: ?)\{?\s*["'`])(?:https?:)?\/\/(?:www\.)?microlink\.io(\/[^)"'`\s]*)?(?=[)"'`\s])/g
+const SAMPLE_OUTPUT_FILES = new Set([
+  'src/components/pages/markdown/lang/markdown-demo.js'
+])
 
 const listFiles = (dir, extension) =>
   existsSync(dir)
@@ -165,6 +170,44 @@ test('every internal link resolves to a page, static file or redirect', () => {
 test('no internal link points at a redirect instead of its destination', () => {
   const redirected = internalLinks.filter(({ link }) => isRedirect(link))
   expect(redirected).toEqual([])
+})
+
+const absoluteLinksIn = source =>
+  [...source.matchAll(ABSOLUTE_SITE_LINK)].map(([, link]) => link || '/')
+
+const absoluteSiteLinks = [
+  ...listFiles(CONTENT_DIR, MARKDOWN_EXTENSION),
+  ...listFiles(PAGES_DIR, SCRIPT_EXTENSION),
+  ...listFiles(COMPONENTS_DIR, SCRIPT_EXTENSION)
+].flatMap(file =>
+  absoluteLinksIn(readFileSync(file, 'utf8')).map(link => ({
+    file: path.relative(ROOT, file),
+    link
+  }))
+)
+
+test('internal page links are relative so they route client-side', () => {
+  const absolute = absoluteSiteLinks.filter(
+    ({ file, link }) =>
+      !SAMPLE_OUTPUT_FILES.has(file) && !isStaticFile(normalize(link))
+  )
+  expect(absolute).toEqual([])
+})
+
+test('absolute site links are found with and without a path', () => {
+  expect(
+    absoluteLinksIn(
+      [
+        '[home](https://microlink.io)',
+        "<Link href='https://www.microlink.io/' children='x' />",
+        '<a href={`https://microlink.io/pricing`}>',
+        "href: 'https://microlink.io/blog/x#h'",
+        '[d](https://dashboard.microlink.io)',
+        '[e](https://microlink.io.evil.test/x)',
+        '[p](/pricing)'
+      ].join('\n')
+    )
+  ).toEqual(['/', '/', '/pricing', '/blog/x#h'])
 })
 
 test('a linked image keeps the image and the href', () => {
