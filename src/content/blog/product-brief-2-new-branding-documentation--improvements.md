@@ -41,7 +41,7 @@ We also used the redesign to fix the payment process. You now receive your [API 
 
 As announced in [newsletter #1](https://medium.com/microlink/microlink-newsletter-1-13b8a055cd6c), we started shipping a set of front end libraries that make the [Microlink API](/docs/api/getting-started/overview) as easy to consume as possible. Next to them, we want examples and integrations for popular frameworks such as WordPress and Jekyll.
 
-Maintaining documentation for several libraries is laborious, so we combined **all** the documentation for [microlink.io](https://microlink.io) into one place. After comparing multiple approaches and how other companies handle it, we based the portal on the [Vercel documentation](https://vercel.com/docs).
+Maintaining documentation for several libraries is laborious, so we combined **all** the documentation for [microlink.io](/) into one place. After comparing multiple approaches and how other companies handle it, we based the portal on the [Vercel documentation](https://vercel.com/docs).
 
 <Microlink size='large' url={'https://x.com/Kikobeats/status/956221717319421952'} />
 
@@ -64,7 +64,7 @@ We are also testing a new **video property** for the [Microlink API](/docs/api/g
 <Figcaption>
   {'A new '}
   <Link href='/link-preview' children='Microlink SDK' /> demo at{' '}
-  <Link href='https://microlink.io/' children='microlink.io' />.
+  <Link href='/' children='microlink.io' />.
 </Figcaption>
 
 The [Microlink SDK repository](https://github.com/microlinkhq/microlinkjs) reached 100 stars on GitHub.

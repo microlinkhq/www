@@ -35,6 +35,11 @@ const TRAILING_SLASH = /(.)\/+$/
 const DYNAMIC_SEGMENT = /[[:*(]/
 const NAMED_SEGMENT = /^\/[\w/-]*:\w+/
 const GATSBY_SITEMAP_INDEX = '/sitemap-index.xml'
+const ABSOLUTE_SITE_LINK =
+  /(?:\]\(|\bhref(?:=|: ?)\{?\s*["'`])(?:https?:)?\/\/(?:www\.)?microlink\.io([/?#][^)"'`\s]*)?(?=[)"'`\s])/g
+const SAMPLE_OUTPUT_FILES = new Set([
+  'src/components/pages/markdown/lang/markdown-demo.js'
+])
 
 const listFiles = (dir, extension) =>
   existsSync(dir)
@@ -95,6 +100,13 @@ const isRedirect = link => {
   )
 }
 
+const generatedStaticFiles = new Set(
+  dists()
+    .map(dist => path.relative(STATIC_DIR, dist))
+    .filter(rel => !rel.startsWith('..') && path.extname(rel))
+    .map(rel => `/${rel.split(path.sep).join('/')}`)
+)
+
 const knownRoutes = new Set([
   ...listFiles(PAGES_DIR, SCRIPT_EXTENSION).map(file =>
     toRoute(PAGES_DIR, file, SCRIPT_EXTENSION)
@@ -106,13 +118,13 @@ const knownRoutes = new Set([
     file => `/skills/${path.basename(file).replace(MARKDOWN_EXTENSION, '')}`
   ),
   ...Object.keys(SKILL_CATEGORY).map(slug => `/skills/${slug}`),
-  ...dists()
-    .map(dist => path.relative(STATIC_DIR, dist))
-    .filter(rel => !rel.startsWith('..') && path.extname(rel))
-    .map(rel => `/${rel.split(path.sep).join('/')}`),
+  ...generatedStaticFiles,
   ...Object.keys(recipes).map(name => `/recipes/${kebabCase(name)}`),
   GATSBY_SITEMAP_INDEX
 ])
+
+const isStaticAsset = route =>
+  generatedStaticFiles.has(route) || isStaticFile(route)
 
 const isStaticFile = route => {
   const file = path.join(STATIC_DIR, route)
@@ -165,6 +177,48 @@ test('every internal link resolves to a page, static file or redirect', () => {
 test('no internal link points at a redirect instead of its destination', () => {
   const redirected = internalLinks.filter(({ link }) => isRedirect(link))
   expect(redirected).toEqual([])
+})
+
+const absoluteLinksIn = source =>
+  [...source.matchAll(ABSOLUTE_SITE_LINK)].map(([, suffix = '']) =>
+    suffix.startsWith('/') ? suffix : `/${suffix}`
+  )
+
+const absoluteSiteLinks = [
+  ...listFiles(CONTENT_DIR, MARKDOWN_EXTENSION),
+  ...listFiles(PAGES_DIR, SCRIPT_EXTENSION),
+  ...listFiles(COMPONENTS_DIR, SCRIPT_EXTENSION)
+].flatMap(file =>
+  absoluteLinksIn(readFileSync(file, 'utf8')).map(link => ({
+    file: path.relative(ROOT, file),
+    link
+  }))
+)
+
+test('internal page links are relative so they route client-side', () => {
+  const absolute = absoluteSiteLinks.filter(
+    ({ file, link }) =>
+      !SAMPLE_OUTPUT_FILES.has(file) && !isStaticAsset(normalize(link))
+  )
+  expect(absolute).toEqual([])
+})
+
+test('absolute site links are found with and without a path', () => {
+  expect(
+    absoluteLinksIn(
+      [
+        '[home](https://microlink.io)',
+        "<Link href='https://www.microlink.io/' children='x' />",
+        '<a href={`https://microlink.io/pricing`}>',
+        "href: 'https://microlink.io/blog/x#h'",
+        '[f](https://microlink.io#features)',
+        '[q](https://microlink.io?ref=blog)',
+        '[d](https://dashboard.microlink.io)',
+        '[e](https://microlink.io.evil.test/x)',
+        '[p](/pricing)'
+      ].join('\n')
+    )
+  ).toEqual(['/', '/', '/pricing', '/blog/x#h', '/#features', '/?ref=blog'])
 })
 
 test('a linked image keeps the image and the href', () => {
@@ -251,6 +305,8 @@ test('generated routes resolve before their files are fetched', () => {
   expect(resolves('/../data/skills.json')).toBe(false)
   expect(resolves('/data/hero-demo')).toBe(false)
   expect(isStaticFile('/robots.txt')).toBe(true)
+  expect(isStaticAsset('/user-agents.json')).toBe(true)
+  expect(isStaticAsset('/pricing')).toBe(false)
   expect(isStaticFile('/images')).toBe(false)
   expect(isStaticFile('/../package.json')).toBe(false)
   expect(resolves('/../package.json')).toBe(false)
