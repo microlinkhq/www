@@ -68,7 +68,8 @@ export const PATH_PRODUCTS = {
     '/docs/api/parameters/insights',
     '/alternative/embedly',
     '/alternative/iframely',
-    '/alternative/context-dev'
+    '/alternative/context-dev',
+    '/alternative/clearbit'
   ],
   extract: [
     '/markdown',
