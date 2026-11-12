@@ -358,7 +358,7 @@ export const COMPARISON = {
     {
       feature: 'Free tier',
       href: '/pricing',
-      microlink: '100/month',
+      microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       browserbase: '1 hour',
       highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.`

@@ -33,9 +33,18 @@ const MISSTATED_FREE_RATE = [
   /shared concurrency/gi,
   /don't apply any throttling/gi
 ]
+const GAP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0)+`
+const MONTHLY = String.raw`(?:monthly|(?:every|each|a)${GAP}month)\b`
+const FREE_OFFER = String.raw`[Ff]ree${GAP}(?:API${GAP}key|api${GAP}key|[Tt]ier|[Pp]lan|requests?)\b`
+const RENEWAL_VERB = String.raw`(?:renew|reset|refill)\w*`
+const COMPETITOR_SUBJECT = String.raw`(?<!\b(?!(?:A|An|The|Our|Microlink)\b)[A-Z][\w.]*(?:'s|’s)?${GAP})`
 const MONTHLY_FREE_RENEWAL = [
-  /free (?:api key|tier|plan)[^.`'"]{0,40}?(?:renews|resets) (?:monthly|every month)/gi,
-  /\ballowance (?:renews|resets) (?:monthly|every month)/gi
+  new RegExp(
+    String.raw`${COMPETITOR_SUBJECT}\b${FREE_OFFER}[^.\`'"]{0,40}?${RENEWAL_VERB}${GAP}${MONTHLY}`,
+    'g'
+  ),
+  new RegExp(String.raw`\ballowance${GAP}${RENEWAL_VERB}${GAP}${MONTHLY}`, 'g'),
+  /\bmicrolink: '[\d,]+\/month'/g
 ]
 
 const SEP = String.raw`(?:[ \t\n\u00a0]|&nbsp;|\\u00a0|<\/?b>)+`
@@ -201,6 +210,33 @@ describe('free tier quota', () => {
 
   test('no free tier is said to renew monthly', () => {
     expect(monthlyFreeRenewalClaims()).toEqual([])
+  })
+
+  test('the monthly renewal guard tells Microlink claims from competitor ones', () => {
+    const flagged = sentence =>
+      MONTHLY_FREE_RENEWAL.some(pattern => {
+        pattern.lastIndex = 0
+        return pattern.test(sentence)
+      })
+    const microlinkClaims = [
+      'a free API key that renews monthly',
+      'A free tier that refills every month',
+      'The free\u00a0tier renews monthly',
+      'the free plan, renewing each month',
+      'free requests reset monthly',
+      'Microlink free tier renews monthly',
+      'The allowance renews monthly',
+      "microlink: '100/month'"
+    ]
+    const competitorClaims = [
+      "Firecrawl's free plan renews monthly",
+      'ScraperAPI free plan resets monthly',
+      'Jina Reader free tier refills every month',
+      'A free API key that renews daily',
+      'quota resets monthly on Pro'
+    ]
+    expect(microlinkClaims.filter(sentence => !flagged(sentence))).toEqual([])
+    expect(competitorClaims.filter(flagged)).toEqual([])
   })
 
   test('markdown that interpolates a quota imports it at the top level', () => {

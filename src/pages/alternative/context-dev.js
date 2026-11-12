@@ -898,7 +898,7 @@ const WHY_SWITCH_ITEMS = [
   },
   {
     number: '03',
-    title: 'A free tier that refills every month',
+    title: 'A free tier that refills every day',
     description: (
       <>
         Context.dev hands you <b>500 one-time credits</b> — 250 if you sign up
