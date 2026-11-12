@@ -217,10 +217,10 @@ export const FAQ_ITEMS = faqFromItems([
   },
   {
     question: 'How does this compare to a credit-based scraping API?',
-    text: 'Scraping APIs priced in credits charge a multiplier per option — rendering, premium proxy and stealth each cost more than a plain fetch, and some charge more for the domain you point at. Microlink counts one request per API call whatever the call does. See the ScrapingBee and ScraperAPI comparisons for the numbers side by side.',
+    text: 'Scraping APIs priced in credits charge a multiplier per option: rendering, premium proxy and stealth each cost more than a plain fetch, and some charge more for the domain you point at. Microlink counts one request per API call whatever the call does. See the ScrapingBee and ScraperAPI comparisons for the numbers side by side.',
     answer: (
       <div>
-        Scraping APIs priced in credits charge a multiplier per option —
+        Scraping APIs priced in credits charge a multiplier per option:
         rendering, premium proxy and stealth each cost more than a plain fetch,
         and some charge more for the domain you point at. Microlink counts one
         request per API call whatever the call does. See the{' '}
