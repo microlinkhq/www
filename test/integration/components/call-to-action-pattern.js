@@ -31,6 +31,7 @@ const NAV_PRODUCT_ROUTES = [
 const OTHER_PRODUCT_PAGES = [
   'pages/ai.js',
   'pages/alternative/browserbase.js',
+  'pages/alternative/jina-reader.js',
   'pages/alternative/scrapingbee.js',
   'pages/alternative/serpapi.js'
 ]

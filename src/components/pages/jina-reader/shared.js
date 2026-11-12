@@ -299,12 +299,15 @@ export const PRICING_CAPTION = (
 )
 
 export const CTA = {
-  caption: `Point a request at the URL you read through Reader this morning and compare the response. The free API key covers ${FREE_PLAN_REQUESTS_PER_DAY} calls a day.`,
+  caption:
+    'Point a request at the URL you read through Reader this morning and compare the response.',
   cta: 'alternative-jina-reader:footer-cta',
-  ctaLabel: 'Get your free API key',
-  secondaryHref: '/docs/guides/content-conversion/url-to-markdown',
-  secondaryLabel: 'Read the Markdown guide',
-  badges: ['One request per call', 'Markdown, PDF, screenshot', 'No token math']
+  links: [
+    {
+      href: '/docs/guides/content-conversion/url-to-markdown',
+      label: 'Read the Markdown guide'
+    }
+  ]
 }
 
 export const HONESTY = {
