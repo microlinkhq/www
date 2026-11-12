@@ -51,5 +51,6 @@ export const SKILL_CATEGORY = {
   'use-pnpm': 'infrastructure',
   'create-local-skill': 'agent',
   'run-skill': 'agent',
-  'loop-review': 'agent'
+  'loop-review': 'agent',
+  'seo-link-building': 'agent'
 }
