@@ -40,7 +40,7 @@ const toPlainText = source =>
     .replace(/\{'\\u2019'\}/g, '’')
     .replace(/\{' '\}/g, ' ')
     .replace(/<\/?[A-Za-z][^>]*>/g, '')
-    .replace(/&nbsp;|\\u00a0|\u00a0/g, ' ')
+    .replace(/&nbsp;|\\u00a0/g, ' ')
     .replace(/&euro;/g, '€')
     .replace(/\\u20ac/g, '€')
     .replace(/\s+/g, ' ')
@@ -220,6 +220,7 @@ describe('pro plan price', () => {
         'Pro plans start at €45/month',
         "<Link href='/pricing'>Pro plans</Link> starting at $39/month.",
         'Microlink’s $39 tier',
+        "Microlink{'\\u2019'}s $39 tier",
         'from $49 for 46,000 to $400 for 420,000',
         '46,000 requests for $59.',
         '€45 for 46,000, with proxy included',
@@ -243,6 +244,7 @@ describe('pro plan price', () => {
         '46,000 requests from $59',
         '46,000&nbsp;requests for $59',
         '46,000\\u00a0requests for $59',
+        "46,000 requests{' '}for $59",
         '46,000\u00a0requests for $59',
         'Pro plan starts at €45/month',
         'Pro starts at €45/month',
