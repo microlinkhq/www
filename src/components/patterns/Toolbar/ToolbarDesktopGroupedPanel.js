@@ -95,14 +95,19 @@ const GroupedMenuGroupBox = styled(Box)`
   ${({ $stacked }) => theme({ mt: $stacked ? GROUP_STACK_GAP : 0 })}
 `
 
-const toColumns = groups =>
-  groups.reduce(
-    (columns, group) =>
-      group.stacked && columns.length > 0
-        ? [...columns.slice(0, -1), [...columns[columns.length - 1], group]]
-        : [...columns, [group]],
-    []
-  )
+const toColumns = groups => {
+  const columns = []
+
+  for (const group of groups) {
+    if (group.stacked && columns.length > 0) {
+      columns[columns.length - 1].push(group)
+    } else {
+      columns.push([group])
+    }
+  }
+
+  return columns
+}
 
 const GroupedMenuGroup = ({
   section,
