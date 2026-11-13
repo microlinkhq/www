@@ -21,40 +21,73 @@ describe('toolbar grouped sections', () => {
     ])
   })
 
-  test('tools are grouped by what they do, integrations last and compact', () => {
+  test('tools are grouped by what you do with a URL, integrations last', () => {
     const { groups } = sectionOf('Tools')
     expect(labelsOf(groups)).toEqual([
       'Capture',
+      'Build',
       'Convert',
-      'Debug',
+      'Inspect',
       'Integrations'
-    ])
-    expect(groups.filter(({ compact }) => compact)).toEqual([
-      groups[groups.length - 1]
     ])
   })
 
-  test('lists Difftool as an external tool under Debug', () => {
+  test('Build stacks under Capture, every other group starts a column', () => {
+    const stacked = sectionOf('Tools').groups.filter(({ stacked }) => stacked)
+    expect(labelsOf(stacked)).toEqual(['Build'])
+  })
+
+  test('Inspect holds the tools that look into a URL', () => {
+    expect(labelsOf(groupOf('Tools', 'Inspect').items)).toEqual([
+      'Sharing Debugger',
+      'Difftool',
+      'Geolocation',
+      'Sitemap URLs'
+    ])
     expect(
-      groupOf('Tools', 'Debug').items.find(({ label }) => label === 'Difftool')
+      groupOf('Tools', 'Inspect').items.find(
+        ({ label }) => label === 'Difftool'
+      )
     ).toMatchObject({
       href: 'https://difftool.microlink.io',
       externalIcon: false
     })
   })
 
-  test('lists Geolocation as a Debug tool, not an integration', () => {
-    expect(labelsOf(groupOf('Tools', 'Debug').items)).toContain('Geolocation')
-    expect(labelsOf(groupOf('Tools', 'Integrations').items)).not.toContain(
-      'Geolocation'
-    )
+  test('Build holds the browser tools that write Microlink code', () => {
+    expect(labelsOf(groupOf('Tools', 'Build').items)).toEqual([
+      'Editor',
+      'Component Builder'
+    ])
+  })
+
+  test('integrations are things you add to your own stack, by audience', () => {
+    expect(labelsOf(groupOf('Tools', 'Integrations').items)).toEqual([
+      'AI',
+      'MCP',
+      'SDK',
+      'CLI',
+      'n8n',
+      'Extensions'
+    ])
+  })
+
+  test('Embed Providers is a reference page under Resources', () => {
+    expect(labelsOf(sectionOf('Resources').items)).toContain('Embed Providers')
+    expect(labelsOf(sectionOf('Tools').items)).not.toContain('Embed Providers')
   })
 
   test('tools footer links to the tools index', () => {
-    expect(sectionOf('Tools').footer).toEqual({
+    expect(sectionOf('Tools').footer).toMatchObject({
       label: 'See all tools',
       href: '/tools'
     })
+  })
+
+  test('tools footer names the latest tool, which exists in the menu', () => {
+    const { footer, items } = sectionOf('Tools')
+    expect(footer.latest).toBe('Difftool')
+    expect(labelsOf(items)).toContain(footer.latest)
   })
 
   test.each(['Products', 'Tools'])(
@@ -69,18 +102,11 @@ describe('toolbar grouped sections', () => {
     }
   )
 
-  test.each(['Products', 'Tools'])(
-    'every non-compact %s item has a description',
-    name => {
-      sectionOf(name)
-        .groups.filter(({ compact }) => !compact)
-        .forEach(({ items }) =>
-          items.forEach(item =>
-            expect(item.description, item.label).toBeTruthy()
-          )
-        )
-    }
-  )
+  test.each(['Products', 'Tools'])('every %s item has a description', name => {
+    sectionOf(name).groups.forEach(({ items }) =>
+      items.forEach(item => expect(item.description, item.label).toBeTruthy())
+    )
+  })
 
   test('ungrouped sections keep their flat items', () => {
     const resources = sectionOf('Resources')

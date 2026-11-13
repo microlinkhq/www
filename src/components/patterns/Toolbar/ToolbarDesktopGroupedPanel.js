@@ -8,8 +8,7 @@ import { theme } from 'theme'
 import {
   TOOLBAR_LIST_RESET_STYLES,
   TOOLBAR_MENU_ITEM_MEDIA_STYLES,
-  TOOLBAR_MENU_ITEM_TITLE_STYLES,
-  TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
+  TOOLBAR_MENU_ITEM_TITLE_STYLES
 } from './ToolbarStyles'
 
 import {
@@ -45,7 +44,6 @@ const GroupedMenuItem = ({
   description,
   logo,
   icon,
-  compact,
   onItemClick
 }) => (
   <GroupedMenuItemLink
@@ -57,7 +55,6 @@ const GroupedMenuItem = ({
     data-event-location='Toolbar'
     data-event-name={label}
     onClick={onItemClick}
-    compact={compact}
   >
     <ToolbarMenuItemMedia
       label={label}
@@ -65,9 +62,7 @@ const GroupedMenuItem = ({
       icon={icon}
       iconClassName={RESOURCE_MENU_ITEM_ICON_CLASSNAME}
       iconCss={theme({
-        ...(compact
-          ? TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
-          : TOOLBAR_MENU_ITEM_MEDIA_STYLES),
+        ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
         flexShrink: 0
       })}
       imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
@@ -80,7 +75,7 @@ const GroupedMenuItem = ({
       >
         {label}
       </Text>
-      {!compact && description && (
+      {description && (
         <Text
           as='span'
           className='menu-item-description'
@@ -93,11 +88,28 @@ const GroupedMenuItem = ({
   </GroupedMenuItemLink>
 )
 
-const GroupedMenuGroup = ({ section, label, compact, items, onItemClick }) => {
+const GROUP_STACK_GAP = 4
+
+const toColumns = groups =>
+  groups.reduce(
+    (columns, group) =>
+      group.stacked && columns.length > 0
+        ? [...columns.slice(0, -1), [...columns[columns.length - 1], group]]
+        : [...columns, [group]],
+    []
+  )
+
+const GroupedMenuGroup = ({
+  section,
+  label,
+  items,
+  isStacked,
+  onItemClick
+}) => {
   const headingId = toSectionDomId(`${section}-${label}`)
 
   return (
-    <GroupedMenuColumn>
+    <Box css={theme({ mt: isStacked ? GROUP_STACK_GAP : 0 })}>
       <Text as='p' id={headingId} css={theme(GROUP_HEADING_STYLES)}>
         {label}
       </Text>
@@ -106,7 +118,7 @@ const GroupedMenuGroup = ({ section, label, compact, items, onItemClick }) => {
         aria-labelledby={headingId}
         css={theme({
           flexDirection: 'column',
-          gap: compact ? 0 : 1,
+          gap: 1,
           ...TOOLBAR_LIST_RESET_STYLES
         })}
       >
@@ -114,26 +126,34 @@ const GroupedMenuGroup = ({ section, label, compact, items, onItemClick }) => {
           <GroupedMenuItem
             key={item.label}
             {...item}
-            compact={compact}
             onItemClick={onItemClick}
           />
         ))}
       </Flex>
-    </GroupedMenuColumn>
+    </Box>
   )
 }
 
-const ToolbarDesktopGroupedPanel = ({ section, onItemClick }) => (
-  <Box css={getGroupedMenuGridStyles(section.groups)}>
-    {section.groups.map(group => (
-      <GroupedMenuGroup
-        key={group.label}
-        section={section.label}
-        {...group}
-        onItemClick={onItemClick}
-      />
-    ))}
-  </Box>
-)
+const ToolbarDesktopGroupedPanel = ({ section, onItemClick }) => {
+  const columns = toColumns(section.groups)
+
+  return (
+    <Box css={getGroupedMenuGridStyles(columns)}>
+      {columns.map(groups => (
+        <GroupedMenuColumn key={groups[0].label}>
+          {groups.map((group, index) => (
+            <GroupedMenuGroup
+              key={group.label}
+              section={section.label}
+              {...group}
+              isStacked={index > 0}
+              onItemClick={onItemClick}
+            />
+          ))}
+        </GroupedMenuColumn>
+      ))}
+    </Box>
+  )
+}
 
 export default ToolbarDesktopGroupedPanel

@@ -151,20 +151,20 @@ const TOOLS_INTEGRATIONS_ITEMS = [
     label: 'AI',
     href: '/ai',
     actively: 'exact',
-    description: 'Prompt your agent to use Microlink',
+    description: 'Teach your agent Microlink',
     icon: SparklesIcon
-  }),
-  createNavigationItem({
-    label: 'SDK',
-    href: '/integrations/sdk',
-    description: 'Every product, one import',
-    icon: PackageIcon
   }),
   createNavigationItem({
     label: 'MCP',
     href: '/integrations/mcp',
     description: 'Microlink for your AI agent',
     icon: BrainIcon
+  }),
+  createNavigationItem({
+    label: 'SDK',
+    href: '/integrations/sdk',
+    description: 'Every product, one import',
+    icon: PackageIcon
   }),
   createNavigationItem({
     label: 'CLI',
@@ -177,17 +177,6 @@ const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/integrations/n8n',
     description: 'Microlink in your workflows',
     icon: Share2Icon
-  }),
-  createNavigationItem({
-    label: 'Component Builder',
-    href: '/integrations/builder',
-    icon: LayoutIcon
-  }),
-  createNavigationItem({
-    label: 'Embed Providers',
-    href: '/embed/providers',
-    description: '300+ embeddable sites',
-    icon: GridIcon
   }),
   createNavigationItem({
     label: 'Extensions',
@@ -333,7 +322,7 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Browse and use tools built on top of the Microlink API.',
-    footer: { label: 'See all tools', href: '/tools' },
+    footer: { label: 'See all tools', href: '/tools', latest: 'Difftool' },
     groups: [
       {
         label: 'Capture',
@@ -358,6 +347,25 @@ export const NAVIGATION_SECTIONS = [
             actively: 'exact',
             description: 'Capture many sites at once',
             icon: BookImageIcon
+          })
+        ]
+      },
+      {
+        label: 'Build',
+        stacked: true,
+        items: [
+          createNavigationItem({
+            label: 'Editor',
+            href: '/editor',
+            actively: 'exact',
+            description: 'Write and run Microlink code',
+            icon: Code
+          }),
+          createNavigationItem({
+            label: 'Component Builder',
+            href: '/integrations/builder',
+            description: 'Build link preview cards',
+            icon: LayoutIcon
           })
         ]
       },
@@ -395,28 +403,14 @@ export const NAVIGATION_SECTIONS = [
         ]
       },
       {
-        label: 'Debug',
+        label: 'Inspect',
         items: [
-          createNavigationItem({
-            label: 'Editor',
-            href: '/editor',
-            actively: 'exact',
-            description: 'Write and run Microlink code',
-            icon: Code
-          }),
           createNavigationItem({
             label: 'Sharing Debugger',
             href: '/tools/sharing-debugger',
             actively: 'exact',
             description: 'Preview social share cards',
             icon: BugIcon
-          }),
-          createNavigationItem({
-            label: 'Sitemap URLs',
-            href: '/tools/sitemap',
-            actively: 'exact',
-            description: 'List all URLs in a sitemap',
-            icon: Map
           }),
           createNavigationItem({
             label: 'Difftool',
@@ -431,12 +425,18 @@ export const NAVIGATION_SECTIONS = [
             description: 'IP & request insights',
             externalIcon: false,
             icon: GlobeIcon
+          }),
+          createNavigationItem({
+            label: 'Sitemap URLs',
+            href: '/tools/sitemap',
+            actively: 'exact',
+            description: 'List all URLs in a sitemap',
+            icon: Map
           })
         ]
       },
       {
         label: 'Integrations',
-        compact: true,
         items: TOOLS_INTEGRATIONS_ITEMS
       }
     ]
@@ -504,6 +504,12 @@ export const NAVIGATION_SECTIONS = [
         href: '/features',
         description: 'Explore API capabilities — scraping, functions, proxy',
         icon: Sliders
+      }),
+      createNavigationItem({
+        label: 'Embed Providers',
+        href: '/embed/providers',
+        description: '300+ embeddable sites',
+        icon: GridIcon
       }),
       createNavigationItem({
         label: 'Use cases',

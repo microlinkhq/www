@@ -252,23 +252,14 @@ export const ResourcesBlogColumn = styled(Box)(
 )
 
 const GROUPED_MENU_COLUMN = 'minmax(0, 1fr)'
-const GROUPED_MENU_COMPACT_COLUMN = 'max-content'
-
-const toGroupedMenuColumns = groups =>
-  groups
-    .map(({ compact }) =>
-      compact ? GROUPED_MENU_COMPACT_COLUMN : GROUPED_MENU_COLUMN
-    )
-    .join(' ')
-
-export const getGroupedMenuGridStyles = groups =>
+export const getGroupedMenuGridStyles = columns =>
   theme({
     display: 'grid',
     gridTemplateColumns: [
       GROUPED_MENU_COLUMN,
       `repeat(2, ${GROUPED_MENU_COLUMN})`,
       `repeat(2, ${GROUPED_MENU_COLUMN})`,
-      toGroupedMenuColumns(groups)
+      `repeat(${columns.length}, ${GROUPED_MENU_COLUMN})`
     ]
   })
 
@@ -281,16 +272,14 @@ export const GroupedMenuColumn = styled(Box)(
   })
 )
 
-export const GroupedMenuItemLink = styled(ToolbarNavLink).withConfig({
-  shouldForwardProp: prop => prop !== 'compact'
-})`
+export const GroupedMenuItemLink = styled(ToolbarNavLink)`
   border-radius: 10px;
-  white-space: ${({ compact }) => (compact ? 'nowrap' : 'normal')};
+  white-space: normal;
 
   > a {
     border-radius: inherit;
-    align-items: ${({ compact }) => (compact ? 'center' : 'flex-start')};
-    padding: ${({ compact }) => (compact ? '6px 12px' : '8px 12px')};
+    align-items: flex-start;
+    padding: 8px 12px;
     ${MENU_LINK_HOVER_STYLES};
   }
 
@@ -328,7 +317,7 @@ export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   }
 `
 
-export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
+export const PanelFooterEntryLink = styled(ToolbarNavLink)`
   border-radius: 12px;
   min-width: 0;
   max-width: 80%;
@@ -376,7 +365,7 @@ export const PANEL_FOOTER_STYLES = {
   minWidth: 0
 }
 
-export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
+export const PanelFooterPageLink = styled(ToolbarNavLink)`
   flex-shrink: 0;
 
   > a {
