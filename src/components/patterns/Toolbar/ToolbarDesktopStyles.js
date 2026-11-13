@@ -268,7 +268,12 @@ const toGroupedMenuColumns = groups =>
     )
     .join(' ')
 
-export const getGroupedMenuGridStyles = groups =>
+const GROUPED_MENU_DIVIDER_STYLES = {
+  gap: '1px',
+  bg: 'black10'
+}
+
+export const getGroupedMenuGridStyles = (groups, dividers) =>
   theme({
     display: 'grid',
     gridTemplateColumns: [
@@ -277,8 +282,7 @@ export const getGroupedMenuGridStyles = groups =>
       `repeat(2, ${GROUPED_MENU_COLUMN})`,
       toGroupedMenuColumns(groups)
     ],
-    gap: '1px',
-    bg: 'black10'
+    ...(dividers && GROUPED_MENU_DIVIDER_STYLES)
   })
 
 export const GroupedMenuColumn = styled(Box)(
@@ -380,6 +384,13 @@ export const PANEL_FOOTER_STYLES = {
   gap: 3,
   mt: 3,
   minWidth: 0
+}
+
+export const PANEL_DIVIDED_FOOTER_STYLES = {
+  ...PANEL_FOOTER_STYLES,
+  pt: 3,
+  borderTop: 1,
+  borderTopColor: 'black10'
 }
 
 export const ProductsChangelogPageLink = styled(ToolbarNavLink)`

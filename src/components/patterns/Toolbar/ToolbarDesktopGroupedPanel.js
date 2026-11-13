@@ -123,8 +123,12 @@ const GroupedMenuGroup = ({ section, label, compact, items, onItemClick }) => {
   )
 }
 
-const ToolbarDesktopGroupedPanel = ({ section, onItemClick }) => (
-  <Box css={getGroupedMenuGridStyles(section.groups)}>
+const ToolbarDesktopGroupedPanel = ({
+  section,
+  dividers = true,
+  onItemClick
+}) => (
+  <Box css={getGroupedMenuGridStyles(section.groups, dividers)}>
     {section.groups.map(group => (
       <GroupedMenuGroup
         key={group.label}
