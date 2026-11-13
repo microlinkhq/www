@@ -1,5 +1,4 @@
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
@@ -10,39 +9,9 @@ import { riseInAnimation } from 'helpers/rise-in'
 import { colors, fontWeights, shadows, speed, theme, transition } from 'theme'
 
 import { ToolbarNavLink } from './ToolbarLinks'
-import {
-  TOOLBAR_LIST_RESET_STYLES,
-  TOOLBAR_SECTION_DESCRIPTION_STYLES
-} from './ToolbarStyles'
-
-export const LABEL_STYLE = {
-  ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
-  mb: 2,
-  maxWidth: 560
-}
 
 const MEGA_MENU_MAX_WIDTH_PX = 1140
 const MEGA_MENU_GUTTER_PX = 48
-
-const THREE_COLUMN_GRID = 'repeat(3, minmax(180px, 1fr))'
-
-export const getMegaMenuGridStyles = columns =>
-  theme({
-    display: 'grid',
-    gridTemplateColumns:
-      columns > 3
-        ? [
-            THREE_COLUMN_GRID,
-            THREE_COLUMN_GRID,
-            THREE_COLUMN_GRID,
-          `repeat(${columns}, minmax(180px, 1fr))`
-          ]
-        : `repeat(${columns}, minmax(180px, 1fr))`,
-    gap: '4px 32px',
-    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
-    margin: TOOLBAR_LIST_RESET_STYLES.m,
-    padding: TOOLBAR_LIST_RESET_STYLES.p
-  })
 
 export const TOP_LEVEL_LINK_LAYOUT_STYLES = {
   px: 3,
@@ -184,143 +153,62 @@ export const MegaMenuSection = styled(Box).withConfig({
   display: ${({ isActive }) => (isActive ? 'block' : 'none')};
 `
 
-export const MenuItemIcon = styled(Box)`
-  border-radius: 9px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform ${transition.medium}, color ${transition.medium};
-  color: ${colors.black70};
-`
+export const MENU_ITEM_ICON_CLASSNAME = 'menu-item-icon'
 
-export const RESOURCE_MENU_ITEM_ICON_CLASSNAME = 'resource-menu-item-icon'
+const GROUPED_MENU_COLUMN = 'minmax(0, 1fr)'
 
-export const MegaMenuItemLink = styled(ToolbarNavLink)`
-  border-radius: 12px;
-
-  > a {
-    border-radius: inherit;
-    align-items: baseline;
-    ${MENU_LINK_HOVER_STYLES};
-  }
-
-  &:hover
-    ${MenuItemIcon},
-    &:focus-within
-    ${MenuItemIcon},
-    > .active
-    ${MenuItemIcon},
-    &:hover
-    .menu-item-description,
-  &:focus-within .menu-item-description,
-  > .active .menu-item-description {
-    color: ${colors.black};
-  }
-`
-
-export const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
-  border-radius: 10px;
-
-  > a {
-    align-items: flex-start;
-  }
-
-  .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
-    transition: color ${transition.medium};
-  }
-
-  &:hover
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
-    &:focus-within
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
-    > .active
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
-    color: ${colors.black};
-  }
-`
-
-export const ResourcesLayout = styled(Flex)(
-  theme({
-    alignItems: 'stretch',
-    flexDirection: ['column', 'column', 'row', 'row'],
-    gap: [4, 4, 4, 4]
-  })
-)
-
-export const ResourcesListColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '58%', '58%'],
-    minWidth: 0,
-    pr: [0, 0, 4, 4],
-    borderRight: [0, 0, '1px solid', '1px solid'],
-    borderColor: [null, null, 'black10', 'black10']
-  })
-)
-
-export const ResourcesListGrid = styled(Flex)(
+export const getGroupedMenuGridStyles = columns =>
   theme({
     display: 'grid',
     gridTemplateColumns: [
-      'minmax(180px, 1fr)',
-      'repeat(2, minmax(180px, 1fr))',
-      'repeat(2, minmax(180px, 1fr))',
-      'repeat(2, minmax(180px, 1fr))'
-    ],
-    gap: '4px 16px',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0
+      GROUPED_MENU_COLUMN,
+      `repeat(2, ${GROUPED_MENU_COLUMN})`,
+      `repeat(2, ${GROUPED_MENU_COLUMN})`,
+      `repeat(${columns.length}, ${GROUPED_MENU_COLUMN})`
+    ]
   })
-)
 
-export const ResourcesBlogColumn = styled(Box)(
+export const GroupedMenuColumn = styled(Box)(
   theme({
-    width: ['100%', '100%', '42%', '42%'],
-    minWidth: 0
-  })
-)
-
-export const ToolsLayout = styled(Flex)(
-  theme({
-    alignItems: 'stretch',
-    flexDirection: ['column', 'column', 'row', 'row'],
-    gap: [4, 4, 4, 4]
-  })
-)
-
-export const ToolsListColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '58%', '58%'],
+    bg: 'white',
     minWidth: 0,
-    pr: [0, 0, 4, 4],
-    borderRight: [0, 0, '1px solid', '1px solid'],
-    borderColor: [null, null, 'black10', 'black10']
+    px: 1,
+    py: 3
   })
 )
 
-export const ToolsIntegrationsColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '42%', '42%'],
-    minWidth: 0
-  })
-)
-
-export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
-  border-radius: 12px;
-  min-width: 0;
+export const GroupedMenuItemLink = styled(ToolbarNavLink)`
+  border-radius: 10px;
+  white-space: normal;
 
   > a {
-    display: block;
-    min-width: 0;
-    width: 100%;
     border-radius: inherit;
-    padding: 12px;
+    align-items: flex-start;
+    padding: 8px 12px;
     ${MENU_LINK_HOVER_STYLES};
+  }
+
+  .${MENU_ITEM_ICON_CLASSNAME} {
+    transition: color ${transition.medium};
+  }
+
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description {
+    color: ${colors.black80};
+  }
+
+  &:hover
+    .${MENU_ITEM_ICON_CLASSNAME},
+    &:focus-within
+    .${MENU_ITEM_ICON_CLASSNAME},
+    > .active
+    .${MENU_ITEM_ICON_CLASSNAME} {
+    color: ${colors.black};
   }
 `
 
-export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
+export const PanelFooterEntryLink = styled(ToolbarNavLink)`
   border-radius: 12px;
   min-width: 0;
   max-width: 80%;
@@ -356,7 +244,19 @@ export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
   }
 `
 
-export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
+export const PANEL_FOOTER_STYLES = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 3,
+  mt: 3,
+  pt: 3,
+  borderTop: 1,
+  borderTopColor: 'black10',
+  minWidth: 0
+}
+
+export const PanelFooterPageLink = styled(ToolbarNavLink)`
   flex-shrink: 0;
 
   > a {

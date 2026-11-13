@@ -73,7 +73,7 @@ const NewsletterPage = () => {
                     autoComplete='email'
                     inputMode='email'
                     aria-label='Email address'
-                    css={theme({ width: '8rem' })}
+                    css={theme({ width: ['10rem', null, '16rem'] })}
                     iconComponent={
                       <FeatherIcon
                         icon={Mail}
