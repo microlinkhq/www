@@ -36,7 +36,7 @@ export const HERO = {
   ctaLabel: 'Get your free API key',
   editorHeight: 100,
   mqlCode: {
-    url: 'https://stripe.com/blog/payment-api-design',
+    url: 'https://stripe.dev/blog/payment-api-design',
     data: { text: { attr: 'text' } },
     meta: false
   }

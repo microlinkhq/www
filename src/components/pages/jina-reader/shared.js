@@ -48,7 +48,7 @@ export const HERO = {
   secondaryHref: '/docs/guides/content-conversion/url-to-markdown',
   secondaryLabel: 'Read the Markdown guide',
   mqlCode: {
-    url: 'https://stripe.com/blog/payment-api-design',
+    url: 'https://stripe.dev/blog/payment-api-design',
     screenshot: true,
     data: { markdown: { attr: 'markdown' } }
   }

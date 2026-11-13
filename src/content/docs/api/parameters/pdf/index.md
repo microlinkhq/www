@@ -30,12 +30,12 @@ When it's enabled, a new `pdf` data field will be part of the response payload.
     "url": "https://rauchg.com/2014/7-principles-of-rich-web-applications",
     "date": "2019-11-27T18:34:47.000Z",
     "logo": {
-      "url": "https://logo.clearbit.com/rauchg.com",
+      "url": "https://rauchg.com/icon.png?icon.7e34900e.png",
       "type": "png",
-      "size": 17675,
-      "height": 128,
-      "width": 128,
-      "size_pretty": "17.7 kB"
+      "size": 13004,
+      "height": 512,
+      "width": 512,
+      "size_pretty": "13 kB"
     },
     "pdf": {
       "size_pretty": "1.36 MB",

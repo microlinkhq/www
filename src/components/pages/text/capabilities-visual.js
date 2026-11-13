@@ -14,7 +14,7 @@ import {
 } from 'components/patterns/ProductStory/demo-card'
 
 const LOOP = '13s'
-const URL_TEXT = 'stripe.com/blog/payment-api-design'
+const URL_TEXT = 'stripe.dev/blog/payment-api-design'
 const TYPE_START = 2
 const TYPE_END = 15
 
@@ -153,7 +153,7 @@ export const TextCapabilitiesVisual = () => (
     footer={
       <>
         <FooterLayer as='span' $from={0} $to={28}>
-          reading stripe.com/blog/payment-api-design…
+          reading stripe.dev/blog/payment-api-design…
         </FooterLayer>
         <FooterLayer as='span' $from={28} $to={100}>
           <b>✓ 1,850 tokens</b> · readable text · boilerplate removed

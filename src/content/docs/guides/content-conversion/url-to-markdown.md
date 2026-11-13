@@ -12,7 +12,7 @@ Use [attr](/docs/sdk/methods/extract/attr) with `markdown` to serialize any URL 
 <MultiCodeEditorInteractive
   height={280}
   mqlCode={{
-    url: 'https://stripe.com/docs/api',
+    url: 'https://docs.stripe.com/api',
     data: {
       markdown: {
         attr: 'markdown'
@@ -50,7 +50,7 @@ Add [embed](/docs/api/parameters/embed) with `markdown` when the API URL should 
 <MultiCodeEditorInteractive
   height={300}
   mqlCode={{
-    url: 'https://stripe.com/docs/api',
+    url: 'https://docs.stripe.com/api',
     data: {
       markdown: {
         attr: 'markdown'
@@ -66,7 +66,7 @@ Add [embed](/docs/api/parameters/embed) with `markdown` when the API URL should 
 The same request as a raw URL:
 
 ```bash
-https://api.microlink.io?url=https://stripe.com/docs/api&data.markdown.attr=markdown&meta=false&embed=markdown
+https://api.microlink.io?url=https://docs.stripe.com/api&data.markdown.attr=markdown&meta=false&embed=markdown
 ```
 
 ## Scope noisy pages

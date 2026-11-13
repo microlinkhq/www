@@ -31,6 +31,7 @@ import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import { DEFAULT_PLAN } from 'helpers/pro-plans'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
@@ -51,8 +52,8 @@ const CTA_LINK_FONT_SIZE = [
  */
 const PRICING = {
   microlink: {
-    price: 49,
-    requests: 46000
+    price: DEFAULT_PLAN.monthlyPrice.USD,
+    requests: DEFAULT_PLAN.reqsPerMonthTotal
   },
   url2png: {
     price: 199,

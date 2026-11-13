@@ -19,7 +19,7 @@ When you send a [url](/docs/api/parameters/url) to Microlink API, the following 
   A video URL that best represents the article.
 - `lang` <small>(e.g., <Type children="en"/>)</small><br/>
   An [ISO 639-1](https://en.wikipedia.org/wiki/ISO_639-1) representation of the url content language.
-- `logo` <small>(e.g., <Type children="'https://logo.clearbit.com/instagram.com'"/>)</small><br/>
+- `logo` <small>(e.g., <Type children="'https://static.cdninstagram.com/…/icwX0xAk0pz.webp'"/>)</small><br/>
   An image URL that best represents the publisher brand.
 - `publisher` <small>(e.g., <Type children="'Instagram'"/>)</small><br/>
   A human-readable representation of the publisher's name.

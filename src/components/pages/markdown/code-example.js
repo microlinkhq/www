@@ -173,7 +173,7 @@ export const CodeExample = () => {
             <MultiCodeEditorInteractive
               height={100}
               mqlCode={{
-                url: 'https://stripe.com/docs/api',
+                url: 'https://docs.stripe.com/api',
                 data: {
                   markdown: {
                     attr: 'markdown'
