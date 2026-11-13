@@ -2,150 +2,125 @@ import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
-import FeatherIcon from 'components/icons/Feather'
-import { ChevronRight } from 'react-feather'
 import React from 'react'
 
 import { theme } from 'theme'
 
-import { TOOLS_INTEGRATIONS_ITEMS } from './ToolbarLinks'
 import {
-  TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,
-  TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
   TOOLBAR_MENU_ITEM_TITLE_STYLES,
   TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-  TOOLBAR_TOP_LEVEL_CAPS_STYLES,
-  TOOLBAR_TOP_LEVEL_TEXT_STYLES
+  TOOLBAR_TOP_LEVEL_CAPS_STYLES
 } from './ToolbarStyles'
 
 import {
   LABEL_STYLE,
   RESOURCE_MENU_ITEM_ICON_CLASSNAME,
   ResourcesMegaMenuItemLink,
-  ToolsIntegrationsColumn,
-  ToolsLayout,
-  ToolsListColumn
+  ToolsGroupsGrid,
+  getToolsGroupColumnStyles,
+  toSectionDomId
 } from './ToolbarDesktopStyles'
 
 import ToolbarDesktopSectionItemsGrid from './ToolbarDesktopSectionItemsGrid'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
-const ToolbarDesktopToolsPanel = ({ section, onItemClick }) => (
-  <ToolsLayout>
-    <ToolsListColumn>
-      <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
-      <ToolbarDesktopSectionItemsGrid
-        items={section.items}
-        columns={section.columns}
-        onItemClick={onItemClick}
-      />
-    </ToolsListColumn>
-    {TOOLS_INTEGRATIONS_ITEMS.length > 0 && (
-      <ToolsIntegrationsColumn>
-        <Box
+const ToolbarDesktopCompactItems = ({ items, onItemClick, ...props }) => (
+  <Flex
+    as='ul'
+    css={theme({
+      flexDirection: 'column',
+      gap: '4px',
+      ...TOOLBAR_LIST_RESET_STYLES
+    })}
+    {...props}
+  >
+    {items.map(
+      ({ label, href, actively, title, externalIcon, logo, icon: Icon }) => (
+        <ResourcesMegaMenuItemLink
+          key={label}
+          forwardedAs='li'
+          href={href}
+          title={title}
+          actively={actively}
+          externalIcon={externalIcon}
+          data-event-location='Toolbar'
+          data-event-name={label}
+          onClick={onItemClick}
           css={theme({
-            mb: 3,
-            ...TOOLBAR_TOP_LEVEL_TEXT_STYLES
+            '> a': {
+              padding: '6px 12px',
+              alignItems: 'center'
+            },
+            whiteSpace: 'nowrap'
           })}
         >
-          <Caps
-            as='span'
-            css={theme({
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 1,
-              ...TOOLBAR_TOP_LEVEL_CAPS_STYLES
+          <ToolbarMenuItemMedia
+            label={label}
+            logo={logo}
+            icon={Icon}
+            iconClassName={RESOURCE_MENU_ITEM_ICON_CLASSNAME}
+            iconCss={theme({
+              ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
+              color: 'black60'
             })}
+          />
+          <Text
+            as='span'
+            className='menu-item-title'
+            css={theme(TOOLBAR_MENU_ITEM_TITLE_STYLES)}
           >
-            Integrations
-            <FeatherIcon icon={ChevronRight} size={TOOLBAR_CHEVRON_ICON_SIZE} />
-          </Caps>
-        </Box>
-        <Flex
-          as='ul'
-          css={theme({
-            flexDirection: 'column',
-            gap: '4px',
-            ...TOOLBAR_LIST_RESET_STYLES
-          })}
-        >
-          {TOOLS_INTEGRATIONS_ITEMS.map(
-            ({
-              label,
-              href,
-              actively,
-              title,
-              externalIcon,
-              logo,
-              description,
-              icon: Icon
-            }) => (
-              <ResourcesMegaMenuItemLink
-                key={label}
-                forwardedAs='li'
-                href={href}
-                title={title}
-                actively={actively}
-                externalIcon={externalIcon}
-                data-event-location='Toolbar'
-                data-event-name={label}
-                onClick={onItemClick}
-                css={theme({
-                  '> a': {
-                    padding: '6px 12px',
-                    alignItems: 'center'
-                  },
-                  whiteSpace: 'nowrap'
-                })}
-              >
-                <ToolbarMenuItemMedia
-                  label={label}
-                  logo={logo}
-                  icon={Icon}
-                  iconClassName={RESOURCE_MENU_ITEM_ICON_CLASSNAME}
-                  iconCss={theme({
-                    ...TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES,
-                    top: '-2px',
-                    color: 'black60'
-                  })}
-                />
-                <Flex
-                  as='span'
-                  css={{
-                    display: 'inline-flex',
-                    alignItems: 'baseline',
-                    gap: '0.25em'
-                  }}
-                >
-                  <Text
-                    as='span'
-                    className='menu-item-title'
-                    css={theme({
-                      ...TOOLBAR_MENU_ITEM_TITLE_STYLES,
-                      display: 'inline'
-                    })}
-                  >
-                    {label}
-                  </Text>
-                  <Text
-                    as='span'
-                    className='menu-item-description'
-                    css={theme({
-                      ...TOOLBAR_MENU_ITEM_DESCRIPTION_STYLES,
-                      fontSize: '16px'
-                    })}
-                  >
-                    &nbsp;{description}
-                  </Text>
-                </Flex>
-              </ResourcesMegaMenuItemLink>
-            )
-          )}
-        </Flex>
-      </ToolsIntegrationsColumn>
+            {label}
+          </Text>
+        </ResourcesMegaMenuItemLink>
+      )
     )}
-  </ToolsLayout>
+  </Flex>
+)
+
+const ToolbarDesktopToolsGroup = ({ label, compact, items, onItemClick }) => {
+  const headingId = toSectionDomId(`tools-${label}`)
+  const listProps = { items, onItemClick, 'aria-labelledby': headingId }
+
+  return (
+    <Box css={getToolsGroupColumnStyles(compact)}>
+      <Caps
+        as='p'
+        id={headingId}
+        css={theme({
+          ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+          color: 'black60',
+          m: 0,
+          pb: 2,
+          px: '12px'
+        })}
+      >
+        {label}
+      </Caps>
+      {compact
+        ? (
+          <ToolbarDesktopCompactItems {...listProps} />
+          )
+        : (
+          <ToolbarDesktopSectionItemsGrid columns={1} {...listProps} />
+          )}
+    </Box>
+  )
+}
+
+const ToolbarDesktopToolsPanel = ({ section, onItemClick }) => (
+  <>
+    <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
+    <ToolsGroupsGrid>
+      {section.groups.map(group => (
+        <ToolbarDesktopToolsGroup
+          key={group.label}
+          {...group}
+          onItemClick={onItemClick}
+        />
+      ))}
+    </ToolsGroupsGrid>
+  </>
 )
 
 export default ToolbarDesktopToolsPanel

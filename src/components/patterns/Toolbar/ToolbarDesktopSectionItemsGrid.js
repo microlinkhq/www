@@ -20,8 +20,13 @@ import {
 
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
-const ToolbarDesktopSectionItemsGrid = ({ items, columns, onItemClick }) => (
-  <Flex as='ul' css={getMegaMenuGridStyles(columns)}>
+const ToolbarDesktopSectionItemsGrid = ({
+  items,
+  columns,
+  onItemClick,
+  ...props
+}) => (
+  <Flex as='ul' css={getMegaMenuGridStyles(columns)} {...props}>
     {items.map(
       ({
         label,

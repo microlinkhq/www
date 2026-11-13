@@ -18,9 +18,7 @@ import React, { useEffect, useState } from 'react'
 import {
   DIRECT_NAV_ITEMS,
   NAVIGATION_SECTIONS,
-  TOOLS_INTEGRATIONS_ITEMS,
   ToolbarNavLink,
-  getSectionItems,
   getToolbarSectionFromPathname
 } from './ToolbarLinks'
 import { NavMicrolinkLogo } from './NavLogo'
@@ -304,6 +302,34 @@ const MobileMenuItems = ({ items, onItemClick, ...props }) => (
   </Flex>
 )
 
+const MobileMenuGroup = ({ label, items, onItemClick }) => {
+  const headingId = toMobileSectionDomId(`tools-${label}`)
+
+  return (
+    <>
+      <Caps
+        as='p'
+        id={headingId}
+        css={theme({
+          ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
+          color: 'black60',
+          m: 0,
+          pt: 3,
+          pb: 1,
+          px: '12px'
+        })}
+      >
+        {label}
+      </Caps>
+      <MobileMenuItems
+        items={items}
+        onItemClick={onItemClick}
+        aria-labelledby={headingId}
+      />
+    </>
+  )
+}
+
 const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
   const [isOpen, setOpen] = useState(false)
@@ -328,7 +354,7 @@ const ToolbarMobile = ({ animated }) => {
         ({ label: name }) => name === next
       )
       if (section) {
-        getSectionItems(section).forEach(({ href }) => prefetchPath(href))
+        section.items.forEach(({ href }) => prefetchPath(href))
       }
     }
   }
@@ -342,7 +368,7 @@ const ToolbarMobile = ({ animated }) => {
         ({ label }) => label === activeSection
       )
       if (section) {
-        getSectionItems(section).forEach(({ href }) => prefetchPath(href))
+        section.items.forEach(({ href }) => prefetchPath(href))
       }
     }
   }, [isOpen, location.pathname])
@@ -422,83 +448,75 @@ const ToolbarMobile = ({ animated }) => {
           })}
         >
           <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-            {NAVIGATION_SECTIONS.map(({ label, description, items }) => {
-              const isExpanded = openSection === label
+            {NAVIGATION_SECTIONS.map(
+              ({ label, description, items, groups }) => {
+                const isExpanded = openSection === label
 
-              return (
-                <Box as='li' key={label}>
-                  <SectionContainer>
-                    <SectionToggle
-                      type='button'
-                      isExpanded={isExpanded}
-                      aria-expanded={isExpanded}
-                      aria-controls={toMobileSectionDomId(label)}
-                      onClick={() => toggleSection(label)}
-                    >
-                      <Caps
-                        as='span'
-                        css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
-                      >
-                        {label}
-                      </Caps>
-                      <SectionChevron
-                        icon={ChevronDown}
+                return (
+                  <Box as='li' key={label}>
+                    <SectionContainer>
+                      <SectionToggle
+                        type='button'
                         isExpanded={isExpanded}
-                        size={TOOLBAR_CHEVRON_ICON_SIZE}
-                      />
-                    </SectionToggle>
-                    {isExpanded && (
-                      <Text
-                        as='p'
-                        css={theme({
-                          ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
-                          mt: 0,
-                          mb: 0,
-                          px: 2,
-                          pb: 2,
-                          pt: 2
-                        })}
+                        aria-expanded={isExpanded}
+                        aria-controls={toMobileSectionDomId(label)}
+                        onClick={() => toggleSection(label)}
                       >
-                        {description}
-                      </Text>
-                    )}
-                  </SectionContainer>
-                  {isExpanded && (
-                    <Box
-                      id={toMobileSectionDomId(label)}
-                      css={theme({ mt: 1, mb: 2 })}
-                    >
-                      <MobileMenuItems items={items} onItemClick={closeMenu} />
-                      {label === 'Tools' && (
-                        <>
-                          <Caps
-                            as='p'
-                            id={toMobileSectionDomId('Integrations')}
-                            css={theme({
-                              ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
-                              color: 'black60',
-                              m: 0,
-                              pt: 3,
-                              pb: 1,
-                              px: '12px'
-                            })}
-                          >
-                            Integrations
-                          </Caps>
-                          <MobileMenuItems
-                            items={TOOLS_INTEGRATIONS_ITEMS}
-                            onItemClick={closeMenu}
-                            aria-labelledby={toMobileSectionDomId(
-                              'Integrations'
-                            )}
-                          />
-                        </>
+                        <Caps
+                          as='span'
+                          css={theme(TOOLBAR_TOP_LEVEL_CAPS_STYLES)}
+                        >
+                          {label}
+                        </Caps>
+                        <SectionChevron
+                          icon={ChevronDown}
+                          isExpanded={isExpanded}
+                          size={TOOLBAR_CHEVRON_ICON_SIZE}
+                        />
+                      </SectionToggle>
+                      {isExpanded && (
+                        <Text
+                          as='p'
+                          css={theme({
+                            ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
+                            mt: 0,
+                            mb: 0,
+                            px: 2,
+                            pb: 2,
+                            pt: 2
+                          })}
+                        >
+                          {description}
+                        </Text>
                       )}
-                    </Box>
-                  )}
-                </Box>
-              )
-            })}
+                    </SectionContainer>
+                    {isExpanded && (
+                      <Box
+                        id={toMobileSectionDomId(label)}
+                        css={theme({ mt: 1, mb: 2 })}
+                      >
+                        {groups
+                          ? (
+                              groups.map(group => (
+                                <MobileMenuGroup
+                                  key={group.label}
+                                  {...group}
+                                  onItemClick={closeMenu}
+                                />
+                              ))
+                            )
+                          : (
+                            <MobileMenuItems
+                              items={items}
+                              onItemClick={closeMenu}
+                            />
+                            )}
+                      </Box>
+                    )}
+                  </Box>
+                )
+              }
+            )}
             {DIRECT_NAV_ITEMS.map(
               ({ label, href, actively, title, externalIcon }) => (
                 <MobileDirectNavLink

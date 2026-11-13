@@ -281,30 +281,28 @@ export const ResourcesBlogColumn = styled(Box)(
   })
 )
 
-export const ToolsLayout = styled(Flex)(
+export const ToolsGroupsGrid = styled(Box)(
   theme({
-    alignItems: 'stretch',
-    flexDirection: ['column', 'column', 'row', 'row'],
-    gap: [4, 4, 4, 4]
+    display: 'grid',
+    gridTemplateColumns: [
+      'minmax(0, 1fr)',
+      'repeat(2, minmax(0, 1fr))',
+      'repeat(2, minmax(0, 1fr))',
+      'repeat(4, minmax(0, 1fr))'
+    ],
+    gap: '24px 16px'
   })
 )
 
-export const ToolsListColumn = styled(Box)(
+export const getToolsGroupColumnStyles = compact =>
   theme({
-    width: ['100%', '100%', '58%', '58%'],
     minWidth: 0,
-    pr: [0, 0, 4, 4],
-    borderRight: [0, 0, '1px solid', '1px solid'],
-    borderColor: [null, null, 'black10', 'black10']
+    ...(compact && {
+      pl: [0, 0, 0, 3],
+      borderLeft: [0, 0, 0, 1],
+      borderLeftColor: 'black10'
+    })
   })
-)
-
-export const ToolsIntegrationsColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '42%', '42%'],
-    minWidth: 0
-  })
-)
 
 export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;

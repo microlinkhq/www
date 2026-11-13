@@ -39,6 +39,7 @@ import { Terminal as TerminalIcon } from 'components/icons/Terminal'
 import { WandSparkles as WandSparklesIcon } from 'components/icons/WandSparkles'
 import { Sparkles as SparklesIcon } from 'components/icons/Sparkles'
 import { Globe as GlobeIcon } from 'components/icons/Globe'
+import { GitCompare as GitCompareIcon } from 'components/icons/GitCompare'
 import { Grid as GridIcon } from 'components/icons/Grid'
 import { Brain as BrainIcon } from 'components/icons/Brain'
 import { theme, transition } from 'theme'
@@ -145,7 +146,7 @@ export const DASHBOARD_NAV_ITEM = createNavigationItem({
 
 export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
-export const TOOLS_INTEGRATIONS_ITEMS = [
+const TOOLS_INTEGRATIONS_ITEMS = [
   createNavigationItem({
     label: 'AI',
     href: '/ai',
@@ -205,6 +206,106 @@ export const TOOLS_INTEGRATIONS_ITEMS = [
 
 const UNAVATAR_LOGO =
   'data:image/png;base64,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'
+
+export const TOOLS_GROUPS = [
+  {
+    label: 'Capture',
+    items: [
+      createNavigationItem({
+        label: 'Website Screenshot',
+        href: '/tools/website-screenshot',
+        actively: screenshotToolMatcher,
+        description: 'Capture any site as an image',
+        icon: CameraIcon
+      }),
+      createNavigationItem({
+        label: 'Full Page Screenshot',
+        href: '/tools/website-screenshot/full-page',
+        actively: 'exact',
+        description: 'Capture the entire page',
+        icon: Maximize
+      }),
+      createNavigationItem({
+        label: 'Bulk Screenshots',
+        href: '/tools/website-screenshot/bulk',
+        actively: 'exact',
+        description: 'Capture many sites at once',
+        icon: BookImageIcon
+      })
+    ]
+  },
+  {
+    label: 'Convert',
+    items: [
+      createNavigationItem({
+        label: 'Website to PDF',
+        href: '/tools/website-to-pdf',
+        actively: 'exact',
+        description: 'Convert any URL to a PDF file',
+        icon: FileText
+      }),
+      createNavigationItem({
+        label: 'Bulk URLs to PDFs',
+        href: '/tools/website-to-pdf/bulk',
+        actively: 'exact',
+        description: 'Convert many URLs to PDFs',
+        icon: Layers
+      }),
+      createNavigationItem({
+        label: 'URL to Markdown',
+        href: '/tools/url-to-markdown',
+        actively: 'exact',
+        description: 'Convert any URL to markdown',
+        icon: MarkdownIcon
+      }),
+      createNavigationItem({
+        label: 'Embed URL',
+        href: '/tools/embed-url',
+        actively: 'exact',
+        description: 'Turn any URL into a rich card',
+        icon: Link2
+      })
+    ]
+  },
+  {
+    label: 'Debug',
+    items: [
+      createNavigationItem({
+        label: 'Editor',
+        href: '/editor',
+        actively: 'exact',
+        description: 'Write and run Microlink code',
+        icon: Code
+      }),
+      createNavigationItem({
+        label: 'Sharing Debugger',
+        href: '/tools/sharing-debugger',
+        actively: 'exact',
+        description: 'Preview social share cards',
+        icon: BugIcon
+      }),
+      createNavigationItem({
+        label: 'Sitemap URLs',
+        href: '/tools/sitemap',
+        actively: 'exact',
+        description: 'List all URLs in a sitemap',
+        icon: Map
+      }),
+      createNavigationItem({
+        label: 'Difftool',
+        href: 'https://difftool.microlink.io',
+        externalIcon: false,
+        description: 'Compare two URLs visually',
+        icon: GitCompareIcon
+      })
+    ]
+  },
+  {
+    label: 'Integrations',
+    compact: true,
+    items: TOOLS_INTEGRATIONS_ITEMS
+  }
+]
 
 export const NAVIGATION_SECTIONS = [
   {
@@ -315,79 +416,8 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Browse and use tools built on top of the Microlink API.',
-    columns: 2,
-    items: [
-      createNavigationItem({
-        label: 'Editor',
-        href: '/editor',
-        actively: 'exact',
-        description: 'Write Microlink code and run it in the browser',
-        icon: Code
-      }),
-      createNavigationItem({
-        label: 'Website Screenshot',
-        href: '/tools/website-screenshot',
-        actively: screenshotToolMatcher,
-        description: 'Capture any website as a screenshot',
-        icon: CameraIcon
-      }),
-      createNavigationItem({
-        label: 'Sharing Debugger',
-        href: '/tools/sharing-debugger',
-        actively: 'exact',
-        description: 'Preview social cards before publishing links',
-        icon: BugIcon
-      }),
-      createNavigationItem({
-        label: 'Sitemap URLs',
-        href: '/tools/sitemap',
-        actively: 'exact',
-        description: 'List every page from a site sitemap',
-        icon: Map
-      }),
-      createNavigationItem({
-        label: 'Website to PDF',
-        href: '/tools/website-to-pdf',
-        actively: 'exact',
-        description: 'Convert any URL to a PDF file',
-        icon: FileText
-      }),
-      createNavigationItem({
-        label: 'URL to Markdown',
-        href: '/tools/url-to-markdown',
-        actively: 'exact',
-        description: 'Convert any URL to a markdown file',
-        icon: MarkdownIcon
-      }),
-      createNavigationItem({
-        label: 'Embed URL',
-        href: '/tools/embed-url',
-        actively: 'exact',
-        description: 'Turn any URL into an embeddable rich card',
-        icon: Link2
-      }),
-      createNavigationItem({
-        label: 'Full Page Screenshot',
-        href: '/tools/website-screenshot/full-page',
-        actively: 'exact',
-        description: 'Generate full page screenshots',
-        icon: Maximize
-      }),
-      createNavigationItem({
-        label: 'Bulk Screenshots',
-        href: '/tools/website-screenshot/bulk',
-        actively: 'exact',
-        description: 'Capture multiple websites as screenshots in one go',
-        icon: BookImageIcon
-      }),
-      createNavigationItem({
-        label: 'Bulk URLs to PDFs',
-        href: '/tools/website-to-pdf/bulk',
-        actively: 'exact',
-        description: 'Convert multiple URLs to PDFs at once',
-        icon: Layers
-      })
-    ]
+    groups: TOOLS_GROUPS,
+    items: TOOLS_GROUPS.flatMap(({ items }) => items)
   },
   {
     label: 'Resources',
@@ -476,12 +506,9 @@ export const NAVIGATION_SECTIONS = [
   }
 ]
 
-export const getSectionItems = ({ label, items }) =>
-  label === 'Tools' ? [...items, ...TOOLS_INTEGRATIONS_ITEMS] : items
-
 export const getToolbarSectionFromPathname = pathname => {
   const section = NAVIGATION_SECTIONS.find(section =>
-    getSectionItems(section).some(
+    section.items.some(
       ({ href }) => href.startsWith('/') && pathname.startsWith(href)
     )
   )
