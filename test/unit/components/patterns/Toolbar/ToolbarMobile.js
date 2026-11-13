@@ -1,9 +1,13 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import React from 'react'
 
 import { renderMarkup } from '../../../../utils/render-markup'
 import { NAVIGATION_SECTIONS } from '../../../../../src/components/patterns/Toolbar/ToolbarLinks'
 import { MobileSectionBody } from '../../../../../src/components/patterns/Toolbar/ToolbarMobile'
+
+vi.mock('../../../../../src/components/patterns/Toolbar/NavLogo', () => ({
+  NavMicrolinkLogo: () => null
+}))
 
 const Icon = () => null
 

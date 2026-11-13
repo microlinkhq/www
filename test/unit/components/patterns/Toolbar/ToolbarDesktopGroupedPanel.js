@@ -11,8 +11,11 @@ const Icon = () => null
 const sectionOf = name =>
   NAVIGATION_SECTIONS.find(({ label }) => label === name)
 
-const between = (html, start, end) =>
-  html.slice(html.indexOf(start), html.indexOf(end))
+const between = (html, start, end) => {
+  const from = html.indexOf(start)
+  const to = html.indexOf(end, from)
+  return html.slice(from, to)
+}
 
 const renderStyled = element => {
   const sheet = new ServerStyleSheet()
@@ -134,6 +137,7 @@ describe('toolbar grouped panel', () => {
 
     const plain = between(html, 'href="/plain"', '</a>')
     expect(html).toContain('Compare two URLs visually')
+    expect(plain).toContain('href="/plain"')
     expect(plain).not.toContain('menu-item-description')
   })
 
@@ -159,6 +163,7 @@ describe('toolbar grouped panel', () => {
     }
 
     const internal = between(html, 'href="/screenshot"', '</a>')
+    expect(internal).toContain('href="/screenshot"')
     expect(internal).not.toContain('target=')
   })
 })
