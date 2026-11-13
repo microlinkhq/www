@@ -290,7 +290,8 @@ export const ToolsGroupsGrid = styled(Box)(
       'repeat(2, minmax(0, 1fr))',
       'repeat(4, minmax(0, 1fr))'
     ],
-    gap: '24px 16px'
+    gap: '24px 16px',
+    mt: 4
   })
 )
 
