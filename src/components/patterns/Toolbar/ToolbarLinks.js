@@ -229,13 +229,13 @@ export const NAVIGATION_SECTIONS = [
           createNavigationItem({
             label: 'PDF',
             href: '/pdf',
-            description: 'Print-ready PDFs from any page',
+            description: 'PDFs from any webpage',
             icon: PDFIcon
           }),
           createNavigationItem({
             label: 'HTML',
             href: '/html',
-            description: 'Rendered HTML after JavaScript',
+            description: 'HTML after JavaScript runs',
             icon: Code
           }),
           createNavigationItem({
@@ -293,7 +293,7 @@ export const NAVIGATION_SECTIONS = [
           createNavigationItem({
             label: 'Embed',
             href: '/embed',
-            description: 'Embeddable cards from any URL',
+            description: 'Rich cards from any URL',
             icon: Code
           }),
           createNavigationItem({
@@ -312,13 +312,13 @@ export const NAVIGATION_SECTIONS = [
             label: 'API',
             href: '/api',
             actively: 'exact',
-            description: 'One endpoint for every product',
+            description: 'One endpoint, every product',
             icon: ServerIcon
           }),
           createNavigationItem({
             label: 'Function',
             href: '/function',
-            description: 'Run browser code on any page',
+            description: 'Browser code on any page',
             icon: TerminalIcon
           }),
           createNavigationItem({

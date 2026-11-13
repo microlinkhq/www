@@ -285,7 +285,7 @@ export const GroupedMenuColumn = styled(Box)(
   theme({
     bg: 'white',
     minWidth: 0,
-    px: 2,
+    px: 1,
     py: 3
   })
 )
@@ -298,15 +298,28 @@ export const GroupedMenuItemLink = styled(ToolbarNavLink).withConfig({
 
   > a {
     border-radius: inherit;
-    align-items: flex-start;
+    align-items: ${({ compact }) => (compact ? 'center' : 'flex-start')};
     padding: ${({ compact }) => (compact ? '6px 12px' : '8px 12px')};
     ${MENU_LINK_HOVER_STYLES};
+  }
+
+  .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+    transition: color ${transition.medium};
   }
 
   &:hover .menu-item-description,
   &:focus-within .menu-item-description,
   > .active .menu-item-description {
     color: ${colors.black80};
+  }
+
+  &:hover
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    &:focus-within
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    > .active
+    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+    color: ${colors.black};
   }
 `
 

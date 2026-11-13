@@ -7,15 +7,20 @@ import { theme } from 'theme'
 
 import {
   TOOLBAR_LIST_RESET_STYLES,
-  TOOLBAR_MENU_ITEM_TITLE_STYLES
+  TOOLBAR_MENU_ITEM_MEDIA_STYLES,
+  TOOLBAR_MENU_ITEM_TITLE_STYLES,
+  TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
 } from './ToolbarStyles'
 
 import {
   GroupedMenuColumn,
   GroupedMenuItemLink,
+  RESOURCE_MENU_ITEM_ICON_CLASSNAME,
   getGroupedMenuGridStyles,
   toSectionDomId
 } from './ToolbarDesktopStyles'
+
+import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
 
 const GROUP_HEADING_STYLES = {
   fontSize: 0,
@@ -38,6 +43,8 @@ const GroupedMenuItem = ({
   title,
   externalIcon,
   description,
+  logo,
+  icon,
   compact,
   onItemClick
 }) => (
@@ -52,6 +59,19 @@ const GroupedMenuItem = ({
     onClick={onItemClick}
     compact={compact}
   >
+    <ToolbarMenuItemMedia
+      label={label}
+      logo={logo}
+      icon={icon}
+      iconClassName={RESOURCE_MENU_ITEM_ICON_CLASSNAME}
+      iconCss={theme({
+        ...(compact
+          ? TOOLBAR_RESOURCE_MENU_ITEM_MEDIA_STYLES
+          : TOOLBAR_MENU_ITEM_MEDIA_STYLES),
+        flexShrink: 0
+      })}
+      imageCss={TOOLBAR_MENU_ITEM_MEDIA_STYLES}
+    />
     <Box as='span'>
       <Text
         as='span'
