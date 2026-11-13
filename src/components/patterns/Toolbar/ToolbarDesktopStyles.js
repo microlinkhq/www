@@ -288,22 +288,52 @@ export const ToolsGroupsGrid = styled(Box)(
       'minmax(0, 1fr)',
       'repeat(2, minmax(0, 1fr))',
       'repeat(2, minmax(0, 1fr))',
-      'repeat(4, minmax(0, 1fr))'
+      'repeat(3, minmax(0, 1fr)) max-content'
     ],
     gap: '24px 16px',
-    mt: 4
+    mt: 3
   })
 )
+
+const TOOLS_GROUP_CARD_STYLES = {
+  display: 'flex',
+  flexDirection: 'column',
+  p: 1,
+  border: 1,
+  borderColor: 'black10',
+  borderRadius: 5
+}
+
+const TOOLS_GROUP_COMPACT_STYLES = {
+  pl: [0, 0, 0, 3],
+  borderLeft: [0, 0, 0, 1],
+  borderLeftColor: [null, null, null, 'black10']
+}
 
 export const getToolsGroupColumnStyles = compact =>
   theme({
     minWidth: 0,
-    ...(compact && {
-      pl: [0, 0, 0, 3],
-      borderLeft: [0, 0, 0, 1],
-      borderLeftColor: [null, null, null, 'black10']
-    })
+    ...(compact ? TOOLS_GROUP_COMPACT_STYLES : TOOLS_GROUP_CARD_STYLES)
   })
+
+const TOOLS_GROUP_HEADING_STYLES = {
+  color: 'black60',
+  pb: 2,
+  px: '12px'
+}
+
+const TOOLS_GROUP_CARD_HEADING_STYLES = {
+  color: 'black40',
+  order: 1,
+  mt: 'auto',
+  pt: 3,
+  pb: 1,
+  px: '12px',
+  textAlign: 'right'
+}
+
+export const getToolsGroupHeadingStyles = compact =>
+  compact ? TOOLS_GROUP_HEADING_STYLES : TOOLS_GROUP_CARD_HEADING_STYLES
 
 export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;

@@ -19,6 +19,7 @@ import {
   ResourcesMegaMenuItemLink,
   ToolsGroupsGrid,
   getToolsGroupColumnStyles,
+  getToolsGroupHeadingStyles,
   toSectionDomId
 } from './ToolbarDesktopStyles'
 
@@ -89,10 +90,8 @@ const ToolbarDesktopToolsGroup = ({ label, compact, items, onItemClick }) => {
         id={headingId}
         css={theme({
           ...TOOLBAR_TOP_LEVEL_CAPS_STYLES,
-          color: 'black60',
           m: 0,
-          pb: 2,
-          px: '12px'
+          ...getToolsGroupHeadingStyles(compact)
         })}
       >
         {label}
