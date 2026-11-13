@@ -14,7 +14,7 @@ import {
 import {
   GroupedMenuColumn,
   GroupedMenuItemLink,
-  RESOURCE_MENU_ITEM_ICON_CLASSNAME,
+  MENU_ITEM_ICON_CLASSNAME,
   getGroupedMenuGridStyles,
   toSectionDomId
 } from './ToolbarDesktopStyles'
@@ -60,7 +60,7 @@ const GroupedMenuItem = ({
       label={label}
       logo={logo}
       icon={icon}
-      iconClassName={RESOURCE_MENU_ITEM_ICON_CLASSNAME}
+      iconClassName={MENU_ITEM_ICON_CLASSNAME}
       iconCss={theme({
         ...TOOLBAR_MENU_ITEM_MEDIA_STYLES,
         flexShrink: 0

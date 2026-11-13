@@ -444,91 +444,112 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Resources',
     description: 'Guides and tools to support your development and growth.',
-    items: [
-      createNavigationItem({
-        label: 'Blog',
-        href: '/blog',
-        description: 'Read product stories and technical deep dives',
-        icon: BarChart2
-      }),
-      createNavigationItem({
-        label: 'Newsletter',
-        href: '/newsletter',
-        description: 'Get monthly updates, launches, and tutorials',
-        icon: InboxIcon
-      }),
-      createNavigationItem({
-        label: 'Open Source',
-        href: '/open-source',
-        description: 'Explore public projects powering Microlink tools',
-        icon: AwardIcon
-      }),
-      createNavigationItem({
-        label: 'About',
-        href: '/about',
-        description: 'Meet the team building Microlink products',
-        icon: Building2Icon
-      }),
-      createNavigationItem({
-        label: 'Benchmark',
-        href: '/benchmarks/screenshot-api',
-        description: 'Compare screenshot API speed and reliability',
-        icon: Zap
-      }),
-      createNavigationItem({
-        label: 'Changelog',
-        href: '/changelog',
-        description: 'Track shipped improvements and platform releases',
-        icon: Map
-      }),
-      createNavigationItem({
-        label: 'Community',
-        href: '/community',
-        description: 'Join discussions, ask questions, share solutions',
-        icon: Users
-      }),
-      createNavigationItem({
-        label: 'Status',
-        href: '/status',
-        description: 'Monitor uptime and incident history in real time',
-        icon: Activity
-      }),
-      createNavigationItem({
-        label: 'Recipes',
-        href: '/recipes',
-        description: 'Use ready-made recipes for common workflows',
-        icon: WandSparklesIcon
-      }),
-      createNavigationItem({
-        label: 'Features',
-        href: '/features',
-        description: 'Explore API capabilities — scraping, functions, proxy',
-        icon: Sliders
-      }),
-      createNavigationItem({
-        label: 'Embed Providers',
-        href: '/embed/providers',
-        description: '300+ embeddable sites',
-        icon: GridIcon
-      }),
-      createNavigationItem({
-        label: 'Use cases',
-        href: '/use-cases',
-        description: 'See how teams build with Microlink',
-        icon: Layers
-      }),
-      createNavigationItem({
-        label: 'Skills',
-        href: '/skills',
-        description: 'Browse reusable workflow skills',
-        icon: BotIcon
-      }),
-      createNavigationItem({
-        label: 'User Agents',
-        href: '/user-agents',
-        description: 'Use curated browser signatures for testing',
-        icon: ShieldUserIcon
-      })
+    footer: { label: 'Blog', href: '/blog' },
+    groups: [
+      {
+        label: 'Learn',
+        items: [
+          createNavigationItem({
+            label: 'Features',
+            href: '/features',
+            description: 'Scraping, functions, proxy',
+            icon: Sliders
+          }),
+          createNavigationItem({
+            label: 'Use cases',
+            href: '/use-cases',
+            description: 'How teams use Microlink',
+            icon: Layers
+          }),
+          createNavigationItem({
+            label: 'Recipes',
+            href: '/recipes',
+            description: 'Ready-made workflow recipes',
+            icon: WandSparklesIcon
+          }),
+          createNavigationItem({
+            label: 'Skills',
+            href: '/skills',
+            description: 'Reusable agent skills',
+            icon: BotIcon
+          })
+        ]
+      },
+      {
+        label: 'Reference',
+        items: [
+          createNavigationItem({
+            label: 'Benchmark',
+            href: '/benchmarks/screenshot-api',
+            description: 'Screenshot API speed tests',
+            icon: Zap
+          }),
+          createNavigationItem({
+            label: 'Embed Providers',
+            href: '/embed/providers',
+            description: '300+ embeddable sites',
+            icon: GridIcon
+          }),
+          createNavigationItem({
+            label: 'User Agents',
+            href: '/user-agents',
+            description: 'Curated browser signatures',
+            icon: ShieldUserIcon
+          })
+        ]
+      },
+      {
+        label: 'Updates',
+        items: [
+          createNavigationItem({
+            label: 'Blog',
+            href: '/blog',
+            description: 'Stories and deep dives',
+            icon: BarChart2
+          }),
+          createNavigationItem({
+            label: 'Changelog',
+            href: '/changelog',
+            description: 'Every shipped improvement',
+            icon: Map
+          }),
+          createNavigationItem({
+            label: 'Newsletter',
+            href: '/newsletter',
+            description: 'Monthly updates and launches',
+            icon: InboxIcon
+          }),
+          createNavigationItem({
+            label: 'Status',
+            href: '/status',
+            description: 'Uptime and incident history',
+            icon: Activity
+          })
+        ]
+      },
+      {
+        label: 'Company',
+        items: [
+          createNavigationItem({
+            label: 'About',
+            href: '/about',
+            description: 'The team behind Microlink',
+            icon: Building2Icon
+          }),
+          createNavigationItem({
+            label: 'Open Source',
+            href: '/open-source',
+            description: 'Projects powering Microlink',
+            icon: AwardIcon
+          }),
+          createNavigationItem({
+            label: 'Community',
+            href: '/community',
+            description: 'Questions and discussions',
+            icon: Users
+          })
+        ]
+      }
     ]
   }
 ].map(withGroupItems)

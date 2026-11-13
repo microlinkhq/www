@@ -1,5 +1,4 @@
 import Box from 'components/elements/Box'
-import Flex from 'components/elements/Flex'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import FeatherIcon from 'components/icons/Feather'
 import styled, { css } from 'styled-components'
@@ -154,104 +153,10 @@ export const MegaMenuSection = styled(Box).withConfig({
   display: ${({ isActive }) => (isActive ? 'block' : 'none')};
 `
 
-export const MenuItemIcon = styled(Box)`
-  border-radius: 9px;
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform ${transition.medium}, color ${transition.medium};
-  color: ${colors.black70};
-`
-
-export const RESOURCE_MENU_ITEM_ICON_CLASSNAME = 'resource-menu-item-icon'
-
-export const MegaMenuItemLink = styled(ToolbarNavLink)`
-  border-radius: 12px;
-
-  > a {
-    border-radius: inherit;
-    align-items: baseline;
-    ${MENU_LINK_HOVER_STYLES};
-  }
-
-  &:hover
-    ${MenuItemIcon},
-    &:focus-within
-    ${MenuItemIcon},
-    > .active
-    ${MenuItemIcon},
-    &:hover
-    .menu-item-description,
-  &:focus-within .menu-item-description,
-  > .active .menu-item-description {
-    color: ${colors.black};
-  }
-`
-
-export const ResourcesMegaMenuItemLink = styled(MegaMenuItemLink)`
-  border-radius: 10px;
-
-  > a {
-    align-items: flex-start;
-  }
-
-  .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
-    transition: color ${transition.medium};
-  }
-
-  &:hover
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
-    &:focus-within
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
-    > .active
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
-    color: ${colors.black};
-  }
-`
-
-export const ResourcesLayout = styled(Flex)(
-  theme({
-    alignItems: 'stretch',
-    flexDirection: ['column', 'column', 'row', 'row'],
-    gap: [4, 4, 4, 4]
-  })
-)
-
-export const ResourcesListColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '58%', '58%'],
-    minWidth: 0,
-    pr: [0, 0, 4, 4],
-    borderRight: [0, 0, '1px solid', '1px solid'],
-    borderColor: [null, null, 'black10', 'black10']
-  })
-)
-
-export const ResourcesListGrid = styled(Flex)(
-  theme({
-    display: 'grid',
-    gridTemplateColumns: [
-      'minmax(180px, 1fr)',
-      'repeat(2, minmax(180px, 1fr))',
-      'repeat(2, minmax(180px, 1fr))',
-      'repeat(2, minmax(180px, 1fr))'
-    ],
-    gap: '4px 16px',
-    listStyle: 'none',
-    margin: 0,
-    padding: 0
-  })
-)
-
-export const ResourcesBlogColumn = styled(Box)(
-  theme({
-    width: ['100%', '100%', '42%', '42%'],
-    minWidth: 0
-  })
-)
+export const MENU_ITEM_ICON_CLASSNAME = 'menu-item-icon'
 
 const GROUPED_MENU_COLUMN = 'minmax(0, 1fr)'
+
 export const getGroupedMenuGridStyles = columns =>
   theme({
     display: 'grid',
@@ -283,7 +188,7 @@ export const GroupedMenuItemLink = styled(ToolbarNavLink)`
     ${MENU_LINK_HOVER_STYLES};
   }
 
-  .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+  .${MENU_ITEM_ICON_CLASSNAME} {
     transition: color ${transition.medium};
   }
 
@@ -294,26 +199,12 @@ export const GroupedMenuItemLink = styled(ToolbarNavLink)`
   }
 
   &:hover
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    .${MENU_ITEM_ICON_CLASSNAME},
     &:focus-within
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME},
+    .${MENU_ITEM_ICON_CLASSNAME},
     > .active
-    .${RESOURCE_MENU_ITEM_ICON_CLASSNAME} {
+    .${MENU_ITEM_ICON_CLASSNAME} {
     color: ${colors.black};
-  }
-`
-
-export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
-  border-radius: 12px;
-  min-width: 0;
-
-  > a {
-    display: block;
-    min-width: 0;
-    width: 100%;
-    border-radius: inherit;
-    padding: 12px;
-    ${MENU_LINK_HOVER_STYLES};
   }
 `
 

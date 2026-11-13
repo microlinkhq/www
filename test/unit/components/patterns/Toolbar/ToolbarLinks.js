@@ -90,7 +90,7 @@ describe('toolbar grouped sections', () => {
     expect(labelsOf(items)).toContain(footer.latest)
   })
 
-  test.each(['Products', 'Tools'])(
+  test.each(['Products', 'Tools', 'Resources'])(
     '%s items are every group item, each listed once',
     name => {
       const section = sectionOf(name)
@@ -102,16 +102,34 @@ describe('toolbar grouped sections', () => {
     }
   )
 
-  test.each(['Products', 'Tools'])('every %s item has a description', name => {
-    sectionOf(name).groups.forEach(({ items }) =>
-      items.forEach(item => expect(item.description, item.label).toBeTruthy())
-    )
+  test.each(['Products', 'Tools', 'Resources'])(
+    'every %s item has a description',
+    name => {
+      sectionOf(name).groups.forEach(({ items }) =>
+        items.forEach(item => expect(item.description, item.label).toBeTruthy())
+      )
+    }
+  )
+
+  test('resources are grouped by why you open them', () => {
+    expect(labelsOf(sectionOf('Resources').groups)).toEqual([
+      'Learn',
+      'Reference',
+      'Updates',
+      'Company'
+    ])
+    expect(labelsOf(groupOf('Resources', 'Reference').items)).toEqual([
+      'Benchmark',
+      'Embed Providers',
+      'User Agents'
+    ])
   })
 
-  test('ungrouped sections keep their flat items', () => {
-    const resources = sectionOf('Resources')
-    expect(resources.groups).toBeUndefined()
-    expect(resources.items.length).toBeGreaterThan(0)
+  test('resources footer links to the blog', () => {
+    expect(sectionOf('Resources').footer).toEqual({
+      label: 'Blog',
+      href: '/blog'
+    })
   })
 
   test.each([
@@ -122,6 +140,7 @@ describe('toolbar grouped sections', () => {
     ['/screenshot', 'Products'],
     ['/file-conversion', 'Products'],
     ['/blog', 'Resources'],
+    ['/user-agents', 'Resources'],
     ['/nowhere', '']
   ])('maps %s to the %s section', (pathname, section) => {
     expect(getToolbarSectionFromPathname(pathname)).toBe(section)
