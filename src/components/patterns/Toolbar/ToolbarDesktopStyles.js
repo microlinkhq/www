@@ -278,11 +278,7 @@ export const getGroupedMenuGridStyles = groups =>
       toGroupedMenuColumns(groups)
     ],
     gap: '1px',
-    bg: 'black10',
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 4,
-    overflow: 'hidden'
+    bg: 'black10'
   })
 
 export const GroupedMenuColumn = styled(Box)(
