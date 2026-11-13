@@ -300,7 +300,7 @@ export const getToolsGroupColumnStyles = compact =>
     ...(compact && {
       pl: [0, 0, 0, 3],
       borderLeft: [0, 0, 0, 1],
-      borderLeftColor: 'black10'
+      borderLeftColor: [null, null, null, 'black10']
     })
   })
 
