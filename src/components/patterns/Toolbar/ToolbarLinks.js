@@ -189,7 +189,7 @@ const TOOLS_INTEGRATIONS_ITEMS = [
 const UNAVATAR_LOGO =
   'data:image/png;base64,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'
 
-const withGroupItems = section =>
+export const withGroupItems = section =>
   section.groups
     ? { ...section, items: section.groups.flatMap(({ items }) => items) }
     : section
@@ -554,12 +554,24 @@ export const NAVIGATION_SECTIONS = [
   }
 ].map(withGroupItems)
 
-export const getToolbarSectionFromPathname = pathname => {
-  const section = NAVIGATION_SECTIONS.find(section =>
-    section.items.some(
-      ({ href }) => href.startsWith('/') && pathname.startsWith(href)
-    )
-  )
+const hrefsForSection = section => {
+  const hrefs = section.items.map(({ href }) => href)
+  if (section.footer?.href) hrefs.push(section.footer.href)
+  return hrefs
+}
 
-  return section ? section.label : ''
+export const getToolbarSectionFromPathname = pathname => {
+  let match = ''
+  let label = ''
+
+  for (const section of NAVIGATION_SECTIONS) {
+    for (const href of hrefsForSection(section)) {
+      if (!href.startsWith('/') || !pathname.startsWith(href)) continue
+      if (href.length <= match.length) continue
+      match = href
+      label = section.label
+    }
+  }
+
+  return label
 }

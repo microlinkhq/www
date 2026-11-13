@@ -330,6 +330,22 @@ const MobileMenuGroup = ({ section, label, items, onItemClick }) => {
   )
 }
 
+export const MobileSectionBody = ({ label, groups, items, onItemClick }) =>
+  groups
+    ? (
+        groups.map(group => (
+          <MobileMenuGroup
+            key={group.label}
+            section={label}
+            {...group}
+            onItemClick={onItemClick}
+          />
+        ))
+      )
+    : (
+      <MobileMenuItems items={items} onItemClick={onItemClick} />
+      )
+
 const ToolbarMobile = ({ animated }) => {
   const location = useLocation()
   const [isOpen, setOpen] = useState(false)
@@ -495,23 +511,12 @@ const ToolbarMobile = ({ animated }) => {
                         id={toMobileSectionDomId(label)}
                         css={theme({ mt: 1, mb: 2 })}
                       >
-                        {groups
-                          ? (
-                              groups.map(group => (
-                                <MobileMenuGroup
-                                  key={group.label}
-                                  section={label}
-                                  {...group}
-                                  onItemClick={closeMenu}
-                                />
-                              ))
-                            )
-                          : (
-                            <MobileMenuItems
-                              items={items}
-                              onItemClick={closeMenu}
-                            />
-                            )}
+                        <MobileSectionBody
+                          label={label}
+                          groups={groups}
+                          items={items}
+                          onItemClick={closeMenu}
+                        />
                       </Box>
                     )}
                   </Box>

@@ -2,6 +2,7 @@ import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import React from 'react'
+import styled from 'styled-components'
 
 import { theme } from 'theme'
 
@@ -90,6 +91,10 @@ const GroupedMenuItem = ({
 
 const GROUP_STACK_GAP = 4
 
+const GroupedMenuGroupBox = styled(Box)`
+  ${({ $stacked }) => theme({ mt: $stacked ? GROUP_STACK_GAP : 0 })}
+`
+
 const toColumns = groups =>
   groups.reduce(
     (columns, group) =>
@@ -109,7 +114,7 @@ const GroupedMenuGroup = ({
   const headingId = toSectionDomId(`${section}-${label}`)
 
   return (
-    <Box css={theme({ mt: isStacked ? GROUP_STACK_GAP : 0 })}>
+    <GroupedMenuGroupBox $stacked={isStacked}>
       <Text as='p' id={headingId} css={theme(GROUP_HEADING_STYLES)}>
         {label}
       </Text>
@@ -130,7 +135,7 @@ const GroupedMenuGroup = ({
           />
         ))}
       </Flex>
-    </Box>
+    </GroupedMenuGroupBox>
   )
 }
 

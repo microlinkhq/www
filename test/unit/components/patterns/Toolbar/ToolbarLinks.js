@@ -2,7 +2,8 @@ import { describe, expect, test } from 'vitest'
 
 import {
   NAVIGATION_SECTIONS,
-  getToolbarSectionFromPathname
+  getToolbarSectionFromPathname,
+  withGroupItems
 } from '../../../../../src/components/patterns/Toolbar/ToolbarLinks'
 
 const sectionOf = name =>
@@ -132,16 +133,44 @@ describe('toolbar grouped sections', () => {
     })
   })
 
+  test('a section without groups keeps the items it already has', () => {
+    const section = { label: 'Plain', items: [{ label: 'One', href: '/one' }] }
+    expect(withGroupItems(section)).toBe(section)
+  })
+
+  test('each internal href maps to the section that lists it', () => {
+    for (const section of NAVIGATION_SECTIONS) {
+      for (const item of section.items) {
+        if (!item.href.startsWith('/')) continue
+        expect(getToolbarSectionFromPathname(item.href), item.href).toBe(
+          section.label
+        )
+      }
+    }
+  })
+
   test.each([
     ['/tools/website-screenshot/bulk', 'Tools'],
+    ['/tools/website-screenshot/mobile', 'Tools'],
     ['/editor', 'Tools'],
     ['/integrations/mcp', 'Tools'],
     ['/extensions', 'Tools'],
+    ['/tools', 'Tools'],
     ['/screenshot', 'Products'],
     ['/file-conversion', 'Products'],
+    ['/embed', 'Products'],
+    ['/embed/providers', 'Resources'],
+    ['/embed/providers/extra', 'Resources'],
+    ['/metadata', 'Products'],
+    ['/media', 'Products'],
     ['/blog', 'Resources'],
+    ['/blog/post', 'Resources'],
     ['/user-agents', 'Resources'],
-    ['/nowhere', '']
+    ['/changelog', 'Resources'],
+    ['/nowhere', ''],
+    ['https://difftool.microlink.io', ''],
+    ['https://geolocation.microlink.io', ''],
+    ['https://unavatar.io', '']
   ])('maps %s to the %s section', (pathname, section) => {
     expect(getToolbarSectionFromPathname(pathname)).toBe(section)
   })
