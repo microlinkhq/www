@@ -14,11 +14,11 @@ import {
 } from './ToolbarStyles'
 
 import {
-  LABEL_STYLE,
+  PANEL_FOOTER_STYLES,
   ProductsChangelogEntryLink,
   ProductsChangelogPageLink
 } from './ToolbarDesktopStyles'
-import ToolbarDesktopSectionItemsGrid from './ToolbarDesktopSectionItemsGrid'
+import ToolbarDesktopGroupedPanel from './ToolbarDesktopGroupedPanel'
 
 const ToolbarDesktopProductsPanel = ({
   section,
@@ -26,26 +26,9 @@ const ToolbarDesktopProductsPanel = ({
   onItemClick
 }) => (
   <>
-    <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
-    <ToolbarDesktopSectionItemsGrid
-      items={section.items}
-      columns={section.columns}
-      onItemClick={onItemClick}
-    />
+    <ToolbarDesktopGroupedPanel section={section} onItemClick={onItemClick} />
     {latestChangelogEntry && (
-      <Box
-        css={theme({
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 3,
-          mt: 3,
-          pt: 3,
-          borderTop: 1,
-          borderTopColor: 'black10',
-          minWidth: 0
-        })}
-      >
+      <Box css={theme(PANEL_FOOTER_STYLES)}>
         <ProductsChangelogEntryLink
           forwardedAs='div'
           href={latestChangelogEntry.href}

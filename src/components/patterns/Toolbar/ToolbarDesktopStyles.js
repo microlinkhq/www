@@ -10,10 +10,7 @@ import { riseInAnimation } from 'helpers/rise-in'
 import { colors, fontWeights, shadows, speed, theme, transition } from 'theme'
 
 import { ToolbarNavLink } from './ToolbarLinks'
-import {
-  TOOLBAR_LIST_RESET_STYLES,
-  TOOLBAR_SECTION_DESCRIPTION_STYLES
-} from './ToolbarStyles'
+import { TOOLBAR_SECTION_DESCRIPTION_STYLES } from './ToolbarStyles'
 
 export const LABEL_STYLE = {
   ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
@@ -23,26 +20,6 @@ export const LABEL_STYLE = {
 
 const MEGA_MENU_MAX_WIDTH_PX = 1140
 const MEGA_MENU_GUTTER_PX = 48
-
-const THREE_COLUMN_GRID = 'repeat(3, minmax(180px, 1fr))'
-
-export const getMegaMenuGridStyles = columns =>
-  theme({
-    display: 'grid',
-    gridTemplateColumns:
-      columns > 3
-        ? [
-            THREE_COLUMN_GRID,
-            THREE_COLUMN_GRID,
-            THREE_COLUMN_GRID,
-          `repeat(${columns}, minmax(180px, 1fr))`
-          ]
-        : `repeat(${columns}, minmax(180px, 1fr))`,
-    gap: '4px 32px',
-    listStyle: TOOLBAR_LIST_RESET_STYLES.listStyle,
-    margin: TOOLBAR_LIST_RESET_STYLES.m,
-    padding: TOOLBAR_LIST_RESET_STYLES.p
-  })
 
 export const TOP_LEVEL_LINK_LAYOUT_STYLES = {
   px: 3,
@@ -281,59 +258,61 @@ export const ResourcesBlogColumn = styled(Box)(
   })
 )
 
-export const ToolsGroupsGrid = styled(Box)(
+const GROUPED_MENU_COLUMN = 'minmax(0, 1fr)'
+const GROUPED_MENU_COMPACT_COLUMN = 'max-content'
+
+const toGroupedMenuColumns = groups =>
+  groups
+    .map(({ compact }) =>
+      compact ? GROUPED_MENU_COMPACT_COLUMN : GROUPED_MENU_COLUMN
+    )
+    .join(' ')
+
+export const getGroupedMenuGridStyles = groups =>
   theme({
     display: 'grid',
     gridTemplateColumns: [
-      'minmax(0, 1fr)',
-      'repeat(2, minmax(0, 1fr))',
-      'repeat(2, minmax(0, 1fr))',
-      'repeat(3, minmax(0, 1fr)) max-content'
+      GROUPED_MENU_COLUMN,
+      `repeat(2, ${GROUPED_MENU_COLUMN})`,
+      `repeat(2, ${GROUPED_MENU_COLUMN})`,
+      toGroupedMenuColumns(groups)
     ],
-    gap: '24px 16px',
-    mt: 3
+    gap: '1px',
+    bg: 'black10',
+    border: 1,
+    borderColor: 'black10',
+    borderRadius: 4,
+    overflow: 'hidden'
+  })
+
+export const GroupedMenuColumn = styled(Box)(
+  theme({
+    bg: 'white',
+    minWidth: 0,
+    px: 2,
+    py: 3
   })
 )
 
-const TOOLS_GROUP_CARD_STYLES = {
-  display: 'flex',
-  flexDirection: 'column',
-  p: 1,
-  border: 1,
-  borderColor: 'black10',
-  borderRadius: 5
-}
+export const GroupedMenuItemLink = styled(ToolbarNavLink).withConfig({
+  shouldForwardProp: prop => prop !== 'compact'
+})`
+  border-radius: 10px;
+  white-space: ${({ compact }) => (compact ? 'nowrap' : 'normal')};
 
-const TOOLS_GROUP_COMPACT_STYLES = {
-  pl: [0, 0, 0, 3],
-  borderLeft: [0, 0, 0, 1],
-  borderLeftColor: [null, null, null, 'black10']
-}
+  > a {
+    border-radius: inherit;
+    align-items: flex-start;
+    padding: ${({ compact }) => (compact ? '6px 12px' : '8px 12px')};
+    ${MENU_LINK_HOVER_STYLES};
+  }
 
-export const getToolsGroupColumnStyles = compact =>
-  theme({
-    minWidth: 0,
-    ...(compact ? TOOLS_GROUP_COMPACT_STYLES : TOOLS_GROUP_CARD_STYLES)
-  })
-
-const TOOLS_GROUP_HEADING_STYLES = {
-  color: 'black60',
-  pb: 2,
-  px: '12px'
-}
-
-const TOOLS_GROUP_CARD_HEADING_STYLES = {
-  color: 'black40',
-  order: 1,
-  mt: 'auto',
-  pt: 3,
-  pb: 1,
-  px: '12px',
-  textAlign: 'right'
-}
-
-export const getToolsGroupHeadingStyles = compact =>
-  compact ? TOOLS_GROUP_HEADING_STYLES : TOOLS_GROUP_CARD_HEADING_STYLES
+  &:hover .menu-item-description,
+  &:focus-within .menu-item-description,
+  > .active .menu-item-description {
+    color: ${colors.black80};
+  }
+`
 
 export const ResourcesLatestPostLink = styled(ToolbarNavLink)`
   border-radius: 12px;
@@ -384,6 +363,15 @@ export const ProductsChangelogEntryLink = styled(ToolbarNavLink)`
     color: ${colors.black};
   }
 `
+
+export const PANEL_FOOTER_STYLES = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  gap: 3,
+  mt: 3,
+  minWidth: 0
+}
 
 export const ProductsChangelogPageLink = styled(ToolbarNavLink)`
   flex-shrink: 0;

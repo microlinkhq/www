@@ -207,222 +207,243 @@ const TOOLS_INTEGRATIONS_ITEMS = [
 const UNAVATAR_LOGO =
   'data:image/png;base64,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'
 
-export const TOOLS_GROUPS = [
-  {
-    label: 'Capture',
-    items: [
-      createNavigationItem({
-        label: 'Website Screenshot',
-        href: '/tools/website-screenshot',
-        actively: screenshotToolMatcher,
-        description: 'Capture any site as an image',
-        icon: CameraIcon
-      }),
-      createNavigationItem({
-        label: 'Full Page Screenshot',
-        href: '/tools/website-screenshot/full-page',
-        actively: 'exact',
-        description: 'Capture the entire page',
-        icon: Maximize
-      }),
-      createNavigationItem({
-        label: 'Bulk Screenshots',
-        href: '/tools/website-screenshot/bulk',
-        actively: 'exact',
-        description: 'Capture many sites at once',
-        icon: BookImageIcon
-      })
-    ]
-  },
-  {
-    label: 'Convert',
-    items: [
-      createNavigationItem({
-        label: 'Website to PDF',
-        href: '/tools/website-to-pdf',
-        actively: 'exact',
-        description: 'Convert any URL to a PDF file',
-        icon: FileText
-      }),
-      createNavigationItem({
-        label: 'Bulk URLs to PDFs',
-        href: '/tools/website-to-pdf/bulk',
-        actively: 'exact',
-        description: 'Convert many URLs to PDFs',
-        icon: Layers
-      }),
-      createNavigationItem({
-        label: 'URL to Markdown',
-        href: '/tools/url-to-markdown',
-        actively: 'exact',
-        description: 'Convert any URL to markdown',
-        icon: MarkdownIcon
-      }),
-      createNavigationItem({
-        label: 'Embed URL',
-        href: '/tools/embed-url',
-        actively: 'exact',
-        description: 'Turn any URL into a rich card',
-        icon: Link2
-      })
-    ]
-  },
-  {
-    label: 'Debug',
-    items: [
-      createNavigationItem({
-        label: 'Editor',
-        href: '/editor',
-        actively: 'exact',
-        description: 'Write and run Microlink code',
-        icon: Code
-      }),
-      createNavigationItem({
-        label: 'Sharing Debugger',
-        href: '/tools/sharing-debugger',
-        actively: 'exact',
-        description: 'Preview social share cards',
-        icon: BugIcon
-      }),
-      createNavigationItem({
-        label: 'Sitemap URLs',
-        href: '/tools/sitemap',
-        actively: 'exact',
-        description: 'List all URLs in a sitemap',
-        icon: Map
-      }),
-      createNavigationItem({
-        label: 'Difftool',
-        href: 'https://difftool.microlink.io',
-        externalIcon: false,
-        description: 'Compare two URLs visually',
-        icon: GitCompareIcon
-      })
-    ]
-  },
-  {
-    label: 'Integrations',
-    compact: true,
-    items: TOOLS_INTEGRATIONS_ITEMS
-  }
-]
+const withGroupItems = section =>
+  section.groups
+    ? { ...section, items: section.groups.flatMap(({ items }) => items) }
+    : section
 
 export const NAVIGATION_SECTIONS = [
   {
     label: 'Products',
     description: 'APIs and tooling to turn any URL into structured output.',
-    columns: 4,
-    items: [
-      createNavigationItem({
-        label: 'API',
-        href: '/api',
-        actively: 'exact',
-        description: 'One REST endpoint for every Microlink product',
-        icon: ServerIcon
-      }),
-      createNavigationItem({
-        label: 'Screenshot',
-        href: '/screenshot',
-        description: 'Generate pixel-perfect captures for any URL',
-        icon: FocusIcon
-      }),
-      createNavigationItem({
-        label: 'Link Preview',
-        href: '/link-preview',
-        description: 'Turn any URL into a beautiful link preview',
-        icon: LinkIcon
-      }),
-      createNavigationItem({
-        label: 'Markdown',
-        href: '/markdown',
-        description: 'Built for agents handling website content',
-        icon: MarkdownIcon
-      }),
-      createNavigationItem({
-        label: 'Metadata',
-        href: '/metadata',
-        description: 'Extract normalized metadata from any website',
-        icon: TagIcon
-      }),
-      createNavigationItem({
-        label: 'Embed',
-        href: '/embed',
-        description: 'Turn any URL into a rich, embeddable card',
-        icon: Code
-      }),
-      createNavigationItem({
-        label: 'Search',
-        href: '/search',
-        description: 'Turn Google results into structured data',
-        icon: SearchIcon
-      }),
-      createNavigationItem({
-        label: 'PDF',
-        href: '/pdf',
-        description: 'Create production-ready PDFs from live webpages',
-        icon: PDFIcon
-      }),
-      createNavigationItem({
-        label: 'Logo',
-        href: '/logo',
-        description: 'Fetch favicons and logos from websites',
-        icon: Image
-      }),
-      createNavigationItem({
-        label: 'HTML',
-        href: '/html',
-        description: 'Get the rendered HTML after JavaScript runs',
-        icon: Code
-      }),
-      createNavigationItem({
-        label: 'Function',
-        href: '/function',
-        description: 'Run custom browser code on any page',
-        icon: TerminalIcon
-      }),
-      createNavigationItem({
-        label: 'Text',
-        href: '/text',
-        description: 'Extract clean, LLM-ready text from any page',
-        icon: AlignLeftIcon
-      }),
-      createNavigationItem({
-        label: 'Media',
-        href: '/media',
-        description: 'Resolve the direct video or audio file behind any URL',
-        icon: VideoIcon
-      }),
-      createNavigationItem({
-        label: 'File Conversion',
-        href: '/file-conversion',
-        description: 'Convert any file into HTML, Markdown or text',
-        icon: RepeatIcon
-      }),
-      createNavigationItem({
-        label: 'Insights',
-        href: '/insights',
-        description: 'Run lighthouse insights across pages at scale',
-        icon: LighthouseIcon
-      }),
-      createNavigationItem({
-        label: 'Unavatar',
-        href: 'https://unavatar.io',
-        description: 'Serve reliable avatars from email domains',
-        externalIcon: false,
-        logo: UNAVATAR_LOGO
-      })
+    groups: [
+      {
+        label: 'Capture',
+        items: [
+          createNavigationItem({
+            label: 'Screenshot',
+            href: '/screenshot',
+            description: 'Pixel-perfect website captures',
+            icon: FocusIcon
+          }),
+          createNavigationItem({
+            label: 'PDF',
+            href: '/pdf',
+            description: 'Print-ready PDFs from any page',
+            icon: PDFIcon
+          }),
+          createNavigationItem({
+            label: 'HTML',
+            href: '/html',
+            description: 'Rendered HTML after JavaScript',
+            icon: Code
+          }),
+          createNavigationItem({
+            label: 'Insights',
+            href: '/insights',
+            description: 'Lighthouse audits at scale',
+            icon: LighthouseIcon
+          })
+        ]
+      },
+      {
+        label: 'Extract',
+        items: [
+          createNavigationItem({
+            label: 'Markdown',
+            href: '/markdown',
+            description: 'Website content for agents',
+            icon: MarkdownIcon
+          }),
+          createNavigationItem({
+            label: 'Text',
+            href: '/text',
+            description: 'Clean, LLM-ready page text',
+            icon: AlignLeftIcon
+          }),
+          createNavigationItem({
+            label: 'Metadata',
+            href: '/metadata',
+            description: 'Normalized website metadata',
+            icon: TagIcon
+          }),
+          createNavigationItem({
+            label: 'Logo',
+            href: '/logo',
+            description: 'Favicons and website logos',
+            icon: Image
+          }),
+          createNavigationItem({
+            label: 'Media',
+            href: '/media',
+            description: 'Direct video and audio files',
+            icon: VideoIcon
+          })
+        ]
+      },
+      {
+        label: 'Preview',
+        items: [
+          createNavigationItem({
+            label: 'Link Preview',
+            href: '/link-preview',
+            description: 'Rich previews for any link',
+            icon: LinkIcon
+          }),
+          createNavigationItem({
+            label: 'Embed',
+            href: '/embed',
+            description: 'Embeddable cards from any URL',
+            icon: Code
+          }),
+          createNavigationItem({
+            label: 'Unavatar',
+            href: 'https://unavatar.io',
+            description: 'Avatars from email or domain',
+            externalIcon: false,
+            logo: UNAVATAR_LOGO
+          })
+        ]
+      },
+      {
+        label: 'Build',
+        items: [
+          createNavigationItem({
+            label: 'API',
+            href: '/api',
+            actively: 'exact',
+            description: 'One endpoint for every product',
+            icon: ServerIcon
+          }),
+          createNavigationItem({
+            label: 'Function',
+            href: '/function',
+            description: 'Run browser code on any page',
+            icon: TerminalIcon
+          }),
+          createNavigationItem({
+            label: 'Search',
+            href: '/search',
+            description: 'Google results as JSON',
+            icon: SearchIcon
+          }),
+          createNavigationItem({
+            label: 'File Conversion',
+            href: '/file-conversion',
+            description: 'Files to Markdown, HTML, text',
+            icon: RepeatIcon
+          })
+        ]
+      }
     ]
   },
   {
     label: 'Tools',
     description: 'Browse and use tools built on top of the Microlink API.',
-    groups: TOOLS_GROUPS,
-    items: TOOLS_GROUPS.flatMap(({ items }) => items)
+    footer: { label: 'See all tools', href: '/tools' },
+    groups: [
+      {
+        label: 'Capture',
+        items: [
+          createNavigationItem({
+            label: 'Website Screenshot',
+            href: '/tools/website-screenshot',
+            actively: screenshotToolMatcher,
+            description: 'Capture any site as an image',
+            icon: CameraIcon
+          }),
+          createNavigationItem({
+            label: 'Full Page Screenshot',
+            href: '/tools/website-screenshot/full-page',
+            actively: 'exact',
+            description: 'Capture the entire page',
+            icon: Maximize
+          }),
+          createNavigationItem({
+            label: 'Bulk Screenshots',
+            href: '/tools/website-screenshot/bulk',
+            actively: 'exact',
+            description: 'Capture many sites at once',
+            icon: BookImageIcon
+          })
+        ]
+      },
+      {
+        label: 'Convert',
+        items: [
+          createNavigationItem({
+            label: 'Website to PDF',
+            href: '/tools/website-to-pdf',
+            actively: 'exact',
+            description: 'Convert any URL to a PDF file',
+            icon: FileText
+          }),
+          createNavigationItem({
+            label: 'Bulk URLs to PDFs',
+            href: '/tools/website-to-pdf/bulk',
+            actively: 'exact',
+            description: 'Convert many URLs to PDFs',
+            icon: Layers
+          }),
+          createNavigationItem({
+            label: 'URL to Markdown',
+            href: '/tools/url-to-markdown',
+            actively: 'exact',
+            description: 'Convert any URL to markdown',
+            icon: MarkdownIcon
+          }),
+          createNavigationItem({
+            label: 'Embed URL',
+            href: '/tools/embed-url',
+            actively: 'exact',
+            description: 'Turn any URL into a rich card',
+            icon: Link2
+          })
+        ]
+      },
+      {
+        label: 'Debug',
+        items: [
+          createNavigationItem({
+            label: 'Editor',
+            href: '/editor',
+            actively: 'exact',
+            description: 'Write and run Microlink code',
+            icon: Code
+          }),
+          createNavigationItem({
+            label: 'Sharing Debugger',
+            href: '/tools/sharing-debugger',
+            actively: 'exact',
+            description: 'Preview social share cards',
+            icon: BugIcon
+          }),
+          createNavigationItem({
+            label: 'Sitemap URLs',
+            href: '/tools/sitemap',
+            actively: 'exact',
+            description: 'List all URLs in a sitemap',
+            icon: Map
+          }),
+          createNavigationItem({
+            label: 'Difftool',
+            href: 'https://difftool.microlink.io',
+            externalIcon: false,
+            description: 'Compare two URLs visually',
+            icon: GitCompareIcon
+          })
+        ]
+      },
+      {
+        label: 'Integrations',
+        compact: true,
+        items: TOOLS_INTEGRATIONS_ITEMS
+      }
+    ]
   },
   {
     label: 'Resources',
     description: 'Guides and tools to support your development and growth.',
-    columns: 3,
     items: [
       createNavigationItem({
         label: 'Blog',
@@ -504,7 +525,7 @@ export const NAVIGATION_SECTIONS = [
       })
     ]
   }
-]
+].map(withGroupItems)
 
 export const getToolbarSectionFromPathname = pathname => {
   const section = NAVIGATION_SECTIONS.find(section =>

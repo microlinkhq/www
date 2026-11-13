@@ -302,8 +302,8 @@ const MobileMenuItems = ({ items, onItemClick, ...props }) => (
   </Flex>
 )
 
-const MobileMenuGroup = ({ label, items, onItemClick }) => {
-  const headingId = toMobileSectionDomId(`tools-${label}`)
+const MobileMenuGroup = ({ section, label, items, onItemClick }) => {
+  const headingId = toMobileSectionDomId(`${section}-${label}`)
 
   return (
     <>
@@ -500,6 +500,7 @@ const ToolbarMobile = ({ animated }) => {
                               groups.map(group => (
                                 <MobileMenuGroup
                                   key={group.label}
+                                  section={label}
                                   {...group}
                                   onItemClick={closeMenu}
                                 />
