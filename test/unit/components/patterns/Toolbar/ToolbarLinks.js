@@ -43,6 +43,13 @@ describe('toolbar grouped sections', () => {
     })
   })
 
+  test('lists Geolocation as a Debug tool, not an integration', () => {
+    expect(labelsOf(groupOf('Tools', 'Debug').items)).toContain('Geolocation')
+    expect(labelsOf(groupOf('Tools', 'Integrations').items)).not.toContain(
+      'Geolocation'
+    )
+  })
+
   test('tools footer links to the tools index', () => {
     expect(sectionOf('Tools').footer).toEqual({
       label: 'See all tools',

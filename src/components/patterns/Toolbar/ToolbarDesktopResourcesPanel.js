@@ -17,7 +17,6 @@ import {
 } from './ToolbarStyles'
 
 import {
-  LABEL_STYLE,
   RESOURCE_MENU_ITEM_ICON_CLASSNAME,
   ResourcesBlogColumn,
   ResourcesLayout,
@@ -36,7 +35,6 @@ const ToolbarDesktopResourcesPanel = ({
 }) => (
   <ResourcesLayout>
     <ResourcesListColumn>
-      <Text css={theme(LABEL_STYLE)}>{section.description}</Text>
       <ResourcesListGrid as='ul'>
         {section.items.flatMap(
           ({ label, href, actively, title, externalIcon, logo, icon: Icon }) =>

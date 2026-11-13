@@ -10,13 +10,6 @@ import { riseInAnimation } from 'helpers/rise-in'
 import { colors, fontWeights, shadows, speed, theme, transition } from 'theme'
 
 import { ToolbarNavLink } from './ToolbarLinks'
-import { TOOLBAR_SECTION_DESCRIPTION_STYLES } from './ToolbarStyles'
-
-export const LABEL_STYLE = {
-  ...TOOLBAR_SECTION_DESCRIPTION_STYLES,
-  mb: 2,
-  maxWidth: 560
-}
 
 const MEGA_MENU_MAX_WIDTH_PX = 1140
 const MEGA_MENU_GUTTER_PX = 48

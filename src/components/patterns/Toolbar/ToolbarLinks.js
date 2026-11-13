@@ -194,13 +194,6 @@ const TOOLS_INTEGRATIONS_ITEMS = [
     href: '/extensions',
     description: 'Microlink in your browser',
     icon: ChromeIcon
-  }),
-  createNavigationItem({
-    label: 'Geolocation',
-    href: 'https://geolocation.microlink.io',
-    description: 'IP & request insights',
-    externalIcon: false,
-    icon: GlobeIcon
   })
 ]
 
@@ -431,6 +424,13 @@ export const NAVIGATION_SECTIONS = [
             externalIcon: false,
             description: 'Compare two URLs visually',
             icon: GitCompareIcon
+          }),
+          createNavigationItem({
+            label: 'Geolocation',
+            href: 'https://geolocation.microlink.io',
+            description: 'IP & request insights',
+            externalIcon: false,
+            icon: GlobeIcon
           })
         ]
       },
