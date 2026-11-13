@@ -14,7 +14,7 @@ import {
 } from './ToolbarStyles'
 
 import {
-  PANEL_DIVIDED_FOOTER_STYLES,
+  PANEL_FOOTER_STYLES,
   ProductsChangelogEntryLink,
   ProductsChangelogPageLink
 } from './ToolbarDesktopStyles'
@@ -26,13 +26,9 @@ const ToolbarDesktopProductsPanel = ({
   onItemClick
 }) => (
   <>
-    <ToolbarDesktopGroupedPanel
-      section={section}
-      dividers={false}
-      onItemClick={onItemClick}
-    />
+    <ToolbarDesktopGroupedPanel section={section} onItemClick={onItemClick} />
     {latestChangelogEntry && (
-      <Box css={theme(PANEL_DIVIDED_FOOTER_STYLES)}>
+      <Box css={theme(PANEL_FOOTER_STYLES)}>
         <ProductsChangelogEntryLink
           forwardedAs='div'
           href={latestChangelogEntry.href}
