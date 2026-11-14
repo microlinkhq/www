@@ -19,6 +19,17 @@ const BULK_TOOLS = [
   'src/pages/tools/website-to-pdf/bulk.js'
 ]
 
+const KEYED_TOOLS = [
+  'src/pages/tools/url-to-markdown.js',
+  'src/pages/tools/website-screenshot/animated.js',
+  'src/pages/tools/website-screenshot/bulk.js',
+  'src/pages/tools/website-screenshot/full-page.js',
+  'src/pages/tools/website-screenshot/index.js',
+  'src/pages/tools/website-screenshot/mobile.js',
+  'src/pages/tools/website-to-pdf/bulk.js',
+  'src/pages/tools/website-to-pdf/index.js'
+]
+
 describe('tool error panel', () => {
   test('single-result tools show the forced error ahead of the request', () => {
     REQUEST_ERROR_TOOLS.forEach(file => {
@@ -45,6 +56,32 @@ describe('tool error panel', () => {
     expect(sharing).toContain(
       "forcedError || (status === 'error' ? error : null)"
     )
+  })
+
+  test('saved API keys are sent as a string, including after hydration', () => {
+    KEYED_TOOLS.forEach(file => {
+      const source = read(file)
+      expect(source, file).toContain('storedApiKey(localStorageData)')
+      expect(source, file).not.toContain('localStorageData?.apiKey')
+      expect(source, file).not.toContain('apiKey: localStorageData,')
+    })
+    ;[
+      'src/pages/tools/website-screenshot/full-page.js',
+      'src/pages/tools/website-screenshot/index.js',
+      'src/pages/tools/website-screenshot/mobile.js'
+    ].forEach(file => {
+      expect(read(file), file).toContain(
+        '[options, localStorageData, setHistory]'
+      )
+    })
+  })
+
+  test('a keyed bulk rate limit keeps the failure list', () => {
+    const source = read('src/pages/tools/website-to-pdf/bulk.js')
+    expect(source).toContain(
+      "const collapseRateLimit = allRateLimited && upgradeError?.code === 'ERATE'"
+    )
+    expect(source).not.toContain('!allRateLimited')
   })
 
   test('the nytimes iframe cap is in both preview paths', () => {

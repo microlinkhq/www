@@ -51,6 +51,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { normalizeApiError } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import NerdStatsOverlay, {
   NerdStatsToggle,
   extractNerdStats,
@@ -898,7 +899,7 @@ const AnimatedScreenshotTool = () => {
         )
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: storedApiKey(localStorageData),
           meta: false,
           screenshot: {
             animated: {

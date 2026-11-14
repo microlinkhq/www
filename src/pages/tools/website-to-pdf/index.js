@@ -68,6 +68,7 @@ import { useClipboard } from 'components/hook/use-clipboard'
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { normalizeApiError } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 
@@ -1297,7 +1298,7 @@ const PdfTool = () => {
         }
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: storedApiKey(localStorageData),
           meta: false,
           pdf: pdfOpts,
           screenshot: true,
