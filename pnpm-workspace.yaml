@@ -1,2 +1,4 @@
 dangerouslyAllowAllBuilds: true
 minimumReleaseAge: 0
+patchedDependencies:
+  gatsby-plugin-mdx@5.16.0: patches/gatsby-plugin-mdx@5.16.0.patch

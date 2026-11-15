@@ -1,0 +1,30 @@
+diff --git a/dist/gatsby-mdx-loader.js b/dist/gatsby-mdx-loader.js
+index 0e499395c4c223a67705d98f62489f77916716bb..89450a3cae3444c6de2679c15c0d7df628e8ea61 100644
+--- a/dist/gatsby-mdx-loader.js
++++ b/dist/gatsby-mdx-loader.js
+@@ -7,6 +7,8 @@ exports.default = void 0;
+ var _path = require("gatsby-core-utils/path");
+ var _cacheHelpers = require("./cache-helpers");
+ var _compileMdx = require("./compile-mdx");
++var _crypto = require("crypto");
++var _frontmatter = require("./frontmatter");
+ /* eslint-disable @babel/no-invalid-this */
+ 
+ // Custom MDX Loader that compiles MDX to JSX
+@@ -26,11 +28,12 @@ const gatsbyMDXLoader = async function (source) {
+   if (!mdxNode) {
+     return source;
+   }
+-  const compileRes = await (0, _compileMdx.compileMDX)(
+-  // We want to work with the transformed source from our layout plugin
+-  {
++  const {
++    body
++  } = (0, _frontmatter.parseFrontmatter)((0, _crypto.createHash)(`md5`).update(source).digest(`hex`), source);
++  const compileRes = await (0, _compileMdx.compileMDX)({
+     absolutePath: resourcePath,
+-    source: mdxNode.body
++    source: body
+   }, options, cache, reporter);
+   if (compileRes !== null && compileRes !== void 0 && compileRes.processedMDX) {
+     return compileRes.processedMDX;
