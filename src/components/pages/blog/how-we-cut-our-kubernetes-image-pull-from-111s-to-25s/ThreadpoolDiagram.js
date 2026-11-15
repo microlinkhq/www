@@ -22,7 +22,7 @@ export const ThreadpoolDiagram = () => (
     id='threadpool'
     viewBox='0 0 960 340'
     title='Every pod shares 4 libuv threads between compression, cache reads, DNS lookups and file reads'
-    description='Each pod has a libuv threadpool of 4 threads. Compressing a cache value, reading a cache value, DNS lookups and file reads all take turns on the same 4 threads, so the time one compression takes is time the others wait.'
+    description='Each pod has a libuv threadpool of 4 threads. Compression, cache reads, DNS lookups and file reads share those threads. One compression holds one thread. When long compressions fill all four, cache reads, DNS lookups and file reads wait for a free thread.'
   >
     <Nest
       x={40}

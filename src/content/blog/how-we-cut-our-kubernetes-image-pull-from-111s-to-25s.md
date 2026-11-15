@@ -185,7 +185,7 @@ Compression sits on the response path.
 
 Every response we cache is compressed before it is written, and the write finishes before the response is sent. That makes the compression level part of the response time.
 
-The compression runs on the libuv threadpool: 4 threads per pod, shared with DNS lookups, file reads and every cache read. At brotli quality 11, the zlib default, it costs about 2.5s per MB, so one large value can hold a thread for seconds while other requests wait for it.
+The compression runs on the libuv threadpool: 4 threads per pod, shared with DNS lookups, file reads and every cache read. At brotli quality 11, the zlib default, it costs about 2.5s per MB, so one large value can hold a thread for seconds. Other work waits when the rest of the pool is busy too.
 
 <ThreadpoolDiagram />
 
@@ -204,12 +204,10 @@ A 24MB value now compresses in 591ms instead of 61s with this change alone.
 
 ## Measure your own pull
 
-You can check whether your pull is download or decompression with one command.
-
-Time it on a fresh node: a pull on a node that already holds the base layers only measures the layers that changed, and ours took 13.8s that way. Read the `Pulled` event of a pod whose node is less than 10 minutes old:
+The `Pulled` event is the whole pull, download and unpack together. Read it for a pod on a node that has not pulled this image yet. A young node can still hold the layers from an earlier pull, and that event is then a cache hit.
 
 ```bash
 kubectl get events --field-selector reason=Pulled
 ```
 
-If your pull takes several times longer than the download, you are paying for decompression, and zstd is the first change to make.
+A pull on a node that already holds the base layers only measures the layers that changed, and ours took 13.8s that way. If a node with none of the layers takes several times longer, most of that gap is decompression, and zstd is the first change to make.
