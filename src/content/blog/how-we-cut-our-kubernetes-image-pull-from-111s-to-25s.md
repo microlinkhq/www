@@ -7,7 +7,7 @@ date: '2026-11-15'
 ---
 
 import { Figcaption } from 'components/markdown/Figcaption'
-import { ColdStartDiagram, LayerCopyDiagram, PullTimeDiagram, ScaleDownWindowDiagram, ThreadpoolDiagram } from 'components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s'
+import { ColdStartDiagram, ColdStartStepsDiagram, LayerCopyDiagram, PullTimeDiagram, ScaleDownWindowDiagram, SecondPoolDiagram, ThreadpoolDiagram, UnneededTimeDiagram } from 'components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s'
 
 <ColdStartDiagram />
 
@@ -130,6 +130,10 @@ With the three changes in place, these are the medians for a pod that lands on a
 | **Image pull** | **25s** |
 | The container starts and passes its readiness check | 5s |
 
+<ColdStartStepsDiagram />
+
+<Figcaption>Every step of a cold start on one seconds scale. The image pull is 25s of 122s.</Figcaption>
+
 That adds up to about 2 minutes, and the pull is now 20% of it. It used to be the largest step on its own.
 
 Most of what is left is the cloud provider: from the moment the VM is created, a node takes about 75s before it can even start pulling. A smaller image cannot win that time back. A node that is already warm can.
@@ -158,6 +162,10 @@ The autoscaler removes nodes it considers unneeded.
 
 A node running one API pod requests about 42% of its memory, under the 0.5 threshold that marks it as unneeded. At the 10m default, the cluster bought 1,256 distinct API nodes in 7 days for a median fleet of 15. It now waits 20m before removing one.
 
+<UnneededTimeDiagram />
+
+<Figcaption>One API pod keeps a node under the 0.5 line, so the autoscaler counts it as unneeded. Waiting 20 min instead of 10 keeps it for the next burst.</Figcaption>
+
 ### A second pool for when the first runs out
 
 A new node only helps if the cloud provider has one to give.
@@ -165,6 +173,10 @@ A new node only helps if the cloud provider has one to give.
 Our region ran short of our machine type more than once: it answered 160 resize requests with "insufficient capacity", and accepted 22 more that it never filled. An accepted resize is the worse case, because the autoscaler waits out its 15 min provisioning timeout before it gives up.
 
 So we added a second node pool, `api-secondary`, on a different machine type with the same price and benchmark. When the primary pool cannot grow, the next scale-up goes to the secondary one, and a capacity shortage costs seconds instead of the fleet. Each pool can grow to 60 nodes, enough for all 120 pods at 2 per node, so either one can hold the whole fleet alone.
+
+<SecondPoolDiagram />
+
+<Figcaption>Every scale-up tries the primary pool first. The secondary pool only takes one when the primary cannot add a node.</Figcaption>
 
 A second pool needs an order. Without an expander, the autoscaler picks a pool at random: in one day, the secondary took 13 of 19 scale-ups while the primary was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10, so the secondary only takes a scale-up when the primary cannot.
 

@@ -20,6 +20,19 @@ import {
   THREADPOOL_TASKS,
   ThreadpoolDiagram
 } from '../../../../../src/components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s/ThreadpoolDiagram'
+import {
+  COLD_START_STEPS,
+  COLD_START_TOTAL_SECONDS,
+  ColdStartStepsDiagram
+} from '../../../../../src/components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s/ColdStartStepsDiagram'
+import {
+  NODE_POOLS,
+  SecondPoolDiagram
+} from '../../../../../src/components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s/SecondPoolDiagram'
+import {
+  UNNEEDED_ROWS,
+  UnneededTimeDiagram
+} from '../../../../../src/components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s/UnneededTimeDiagram'
 import themeSpec from '../../../../../src/theme'
 
 const render = () => {
@@ -119,5 +132,43 @@ describe('ThreadpoolDiagram', () => {
       expect(html).toContain(`Thread ${index + 1}: ${task.name}`)
     })
     expect(html).not.toContain('quality 11')
+  })
+})
+
+describe('ColdStartStepsDiagram', () => {
+  test('adds up the six measured steps to 122s', () => {
+    expect(COLD_START_STEPS.map(step => step.seconds)).toEqual([
+      16, 41, 28, 7, 25, 5
+    ])
+    expect(COLD_START_TOTAL_SECONDS).toBe(122)
+  })
+
+  test('labels every step and its seconds', () => {
+    const html = renderComponent(ColdStartStepsDiagram)
+    for (const step of COLD_START_STEPS) {
+      expect(html).toContain(step.name)
+      expect(html).toContain(`${step.seconds}s`)
+    }
+  })
+})
+
+describe('UnneededTimeDiagram', () => {
+  test('shows the memory request against the threshold and both wait times', () => {
+    const html = renderComponent(UnneededTimeDiagram)
+    expect(html).toContain('42% of memory requested')
+    expect(html).toContain('UNNEEDED BELOW 0.5')
+    for (const row of UNNEEDED_ROWS) { expect(html).toContain(`${row.minutes} min`) }
+  })
+})
+
+describe('SecondPoolDiagram', () => {
+  test('orders the pools by priority', () => {
+    const html = renderComponent(SecondPoolDiagram)
+    expect(NODE_POOLS.map(pool => pool.priority)).toEqual([
+      'PRIORITY 100',
+      'PRIORITY 10'
+    ])
+    for (const pool of NODE_POOLS) expect(html).toContain(pool.label)
+    expect(html).toContain('INSUFFICIENT CAPACITY')
   })
 })
