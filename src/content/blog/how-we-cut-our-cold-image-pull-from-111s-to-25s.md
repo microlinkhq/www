@@ -35,6 +35,8 @@ The runtime stage used to start from `browserless/base`. Its install layer still
 
 The runtime stage now starts from plain `ubuntu:22.04` and installs its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and Mesa, and the runtime copies only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
 
+A smaller build has less to fall back on. `canvas` installs a prebuilt binary from GitHub releases, and when that download times out it compiles from source, which fails because the app stage has no `pkg-config` or cairo headers. It happened once, in a preview build, and a retry passed. We opened an issue for it and left the retry as the fix until it costs a release.
+
 All sizes are zstd level 3, measured on 2026-11-11:
 
 | Layer set | Before (zstd) | After (zstd) | Before (unpacked) | After (unpacked) |
@@ -76,6 +78,8 @@ A faster cold start helps less if the cluster keeps paying for it. Three setting
 - **Scale-down window:** a ReplicaSet deletes not-ready pods first, so at 120s the HPA killed the pods new nodes were bought for. Over 7 days, 701 of 1299 scale-downs came within 5 min of a scale-up and API nodes lived a median 40 min. At [300s](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window), a replay created 23% fewer pods.
 - **Unneeded time:** a node with one API pod requests about 42% of its memory, under the 0.5 threshold. At the 10m default, the cluster bought 1,256 distinct API nodes in 7 days for a median fleet of 15. It now waits 20m.
 - **Pool choice:** without an expander, the autoscaler picks a pool at random. On 2026-11-13 the Intel fallback pool took 13 of 19 scale-ups while the AMD pool was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10.
+
+The 23% comes from a replay, not from production. We opened a second issue to check the 300s window against 7 days of real scale-downs on 2026-11-18.
 
 ## Not every 408 storm is a capacity problem
 
