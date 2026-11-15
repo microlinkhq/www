@@ -39,7 +39,7 @@ export const hoverImageSources = markdown => {
   let match
   while ((match = open.exec(markdown))) {
     let quote = null
-    let expr = 0
+    let seenBrace = false
     let attrs = ''
     let i = match.index + match[0].length
     for (; i < markdown.length; i++) {
@@ -54,8 +54,8 @@ export const hoverImageSources = markdown => {
         attrs += ch
         continue
       }
-      if (ch === '{') expr += 1
-      if (ch === '>' && expr === 0) break
+      if (ch === '{') seenBrace = true
+      if (ch === '>' && !seenBrace) break
       attrs += ch
     }
     const src = attrs.match(SRC_ATTR)
