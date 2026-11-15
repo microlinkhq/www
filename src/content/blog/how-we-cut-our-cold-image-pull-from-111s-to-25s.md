@@ -6,7 +6,7 @@ authors:
 date: '2026-11-15'
 ---
 
-A Microlink API pod on a node that already has its image is Ready in about 4s. On a new [DigitalOcean Kubernetes](https://docs.digitalocean.com/products/kubernetes/) node it waited about 1m50s for the node and a median 111s for the image pull, so a burst waited about 4 min for capacity.
+A Microlink API pod on a node that already has its image is Ready in about 4s. On a new Kubernetes node it waited about 1m50s for the node and a median 111s for the image pull, so a burst waited about 4 min for capacity.
 
 **TL;DR**
 
@@ -61,13 +61,13 @@ These are medians for a pod scheduled onto a node that does not exist yet, on 3.
 | Step | Time |
 | --- | --- |
 | Pod pending to scale-up triggered | 16s |
-| Droplet created to node registered | 41s |
-| Node registered to Ready (Cilium, DOKS critical components taint) | 28s |
+| VM created to node registered | 41s |
+| Node registered to Ready (Cilium, provider readiness taint) | 28s |
 | Taint removed to pull start | 7s |
 | Image pull | 25s |
 | Pull end to pod Ready | 5s |
 
-The pull is now the smallest of the big steps. The rest belongs to DigitalOcean's provisioning, so the floor without any pull is about 75s. The next large win is a node that is already warm, not a smaller image.
+The pull is now the smallest of the big steps. The rest belongs to the cloud provider's provisioning, so the floor without any pull is about 75s. The next large win is a node that is already warm, not a smaller image.
 
 ## The autoscaler was throwing nodes away
 
@@ -75,7 +75,7 @@ A faster cold start helps less if the cluster keeps paying for it. Three setting
 
 - **Scale-down window:** a ReplicaSet deletes not-ready pods first, so at 120s the HPA killed the pods new nodes were bought for. Over 7 days, 701 of 1299 scale-downs came within 5 min of a scale-up and API nodes lived a median 40 min. At [300s](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window), a replay created 23% fewer pods.
 - **Unneeded time:** a node with one API pod requests about 42% of its memory, under the 0.5 threshold. At the 10m default, the cluster bought 1,256 distinct API nodes in 7 days for a median fleet of 15. It now waits 20m.
-- **Pool choice:** without an expander, DigitalOcean picks a pool at random. On 2026-11-13 the Intel fallback pool took 13 of 19 scale-ups while the AMD pool was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10.
+- **Pool choice:** without an expander, the autoscaler picks a pool at random. On 2026-11-13 the Intel fallback pool took 13 of 19 scale-ups while the AMD pool was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10.
 
 ## Not every 408 storm is a capacity problem
 
