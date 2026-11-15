@@ -55,7 +55,6 @@ export const hoverImageSources = markdown => {
         continue
       }
       if (ch === '{') expr += 1
-      if (ch === '}') expr -= 1
       if (ch === '>' && expr === 0) break
       attrs += ch
     }
@@ -122,6 +121,7 @@ describe('HoverImage', () => {
   test('reads every src spelling a markdown page can write', () => {
     const cases = [
       ['<HoverImage src="/images/a.png">', '/images/a.png'],
+      ['<HoverImage src = "/images/a.png">', '/images/a.png'],
       ["<HoverImage src='/images/a.png'>", '/images/a.png'],
       ['<HoverImage alt="a>b" src="/images/a.png">', '/images/a.png'],
       ['<HoverImage alt=\'a>b\' src="/images/a.png">', '/images/a.png'],

@@ -136,6 +136,14 @@ describe('ThreadpoolDiagram', () => {
     const html = renderComponent(ThreadpoolDiagram)
     expect(THREADPOOL_TASKS).toHaveLength(4)
     for (const task of THREADPOOL_TASKS) expect(html).toContain(task.name)
+    expect(overlayBefore(html, 'Compress a cache value')).toContain(
+      'stroke="#d92d6e"'
+    )
+    for (const name of ['Read a cache value', 'DNS lookup', 'File read']) {
+      const overlay = overlayBefore(html, name)
+      expect(overlay).toContain('stroke="rgba(0,0,0,0.4)"')
+      expect(overlay).not.toContain('fill-opacity')
+    }
     expect(html).not.toContain('quality 11')
   })
 })
