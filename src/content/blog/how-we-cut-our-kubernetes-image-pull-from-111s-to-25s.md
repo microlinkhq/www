@@ -6,88 +6,179 @@ authors:
 date: '2026-11-15'
 ---
 
-![A pod on a new node, from pending to Ready: before, waiting for the node then a long image pull; after, a shorter wait and a short pull.](/images/cold-pod-start.svg)
+import { Figcaption } from 'components/markdown/Figcaption'
+import { ColdStartDiagram, LayerCopyDiagram, PullTimeDiagram, ScaleDownWindowDiagram, ThreadpoolDiagram } from 'components/pages/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s'
 
-A Microlink API pod on a node that already has its image is Ready in about 4s. On a new Kubernetes node it waited about 1m50s for the node and a median 111s for the image pull, so a burst waited about 4 min for capacity.
+<ColdStartDiagram />
+
+<Figcaption>A pod on a new node, from pending to Ready. The node wait shrank a little; the image pull went from 111s to 25s.</Figcaption>
+
+The Microlink API runs on Kubernetes, and the cluster grows with traffic in two steps. First it adds pods: a pod on a node that already has our image is Ready in about 4s. When the nodes are full, it adds a node, and the new pod waits for the node (about 1m50s) and for the image pull (a median 111s). A burst waited about 4 min for capacity, so we set out to shorten it.
 
 **TL;DR**
 
-- A cold image pull went from a median of **111s to 25s**: zstd, a base image built from `ubuntu:22.04`, and a pruned `node_modules`.
-- A pod on a new node is now Ready in **about 2 min**, down from about 4 min. Without the pull, the floor is about 75s.
-- The autoscaler bought 1,256 distinct API nodes in 7 days for a median fleet of 15. A 20m unneeded time, a 300s scale-down window and a priority expander target that churn.
-- A 408 storm that looked like missing capacity was brotli quality 11 on cache writes. At quality 8, a 24MB value compresses in **591ms instead of 61s**.
+- A cold image pull is **77% faster**, from a median of 111s to 25s: zstd, a slimmer base image, and a pruned <HoverImage src="/images/node-modules-heaviest-objects.png" alt="Heaviest objects in the universe: the Sun, a neutron star and a black hole bend spacetime, and node_modules bends it furthest.">`node_modules`</HoverImage>.
+- A pod on a new node is Ready **about 50% faster**, in about 2 min instead of about 4 min. From VM creation, a node still needs about 75s before the pull can start.
+- The autoscaler bought 1,256 distinct API nodes in 7 days for a median fleet of 15. A 300s scale-down window creates **23% fewer pods** in a 7-day replay.
+- Cache values now use the brotli quality that compresses without adding to the response time. At quality 8, a 24MB value compresses **99% faster** than at 11, in 591ms instead of 61s.
 
 ## The pull was decompression, not download
 
-Most of that wait was ours. Each node holds 2 pods on 8 vCPUs, and the 2.09&nbsp;GB image downloads from Docker Hub in about 12s, so the pull was decompression and disk, not network. You can check your own image the same way, with the command at the end of this post.
+Pulling an image is two jobs:
 
-Docker pushes layers as gzip unless told otherwise. Our build now pushes with buildx at [zstd level 3 and forced compression](https://docs.docker.com/build/exporters/), which every cluster can read because they all run containerd 2.x. On fresh [s-8vcpu-16gb-amd](https://kikobeats.com/digitalocean-droplets-benchmark/#basic--premium-amd-8vcpu) nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s.
+1. **Download**: the node fetches each compressed layer from the registry.
+2. **Unpack**: the node decompresses each layer onto its disk.
 
-The release build cache needed the same setting. Left on its gzip default, one release pushed the image and then died exporting the cache with a BuildKit `EOF`, so nothing was deployed. Preview builds never write the cache, so only a release could hit it.
+The container cannot start until the last layer is unpacked, so either job can hold it back.
+
+Docker pushes layers as gzip unless told otherwise. And guess what could be better than gzip? Exactly, [zstd](https://en.wikipedia.org/wiki/Zstd).
+
+<PullTimeDiagram />
+
+Our build now pushes with buildx using [zstd compression](https://docs.docker.com/build/exporters/#compression) at level 3, with `force-compression` set so layers that were already gzip are compressed again as zstd. Every cluster can read it, because they all run containerd 2.x. On fresh nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s. 
+
+We saved 35s to 38s per pull with this change alone.
 
 ## Pull time follows the unpacked bytes
 
-Once the format was fixed, the time tracked how many bytes each node writes to disk. Docker layers are additive: a later layer that moves or `chown`s a file stores it again. One release shipped Chrome and `node_modules` twice that way, a 399MB zstd layer of copies, next to a 422MB pnpm store and 175MB of pnpm and node-gyp caches.
+Our image carries a whole browser.
 
-`pnpm install`, the move of Chrome to `/opt/chrome`, and the `chown -R` of the app now run in one `RUN`, and that `RUN` removes the store before it ends. Puppeteer downloads only [the Chrome we run](/blog/why-we-still-run-chrome). `chrome-headless-shell` (285MB) is skipped in `.puppeteerrc.js`.
+Our Dockerfile builds one image with the API and the browser it drives: [Screenshots](/screenshot), [PDFs](/pdf), [functions](/function), [Lighthouse reports](/insights), and [metadata](/metadata) or [markdown](/markdown) from any page that needs rendering all run in Chrome, so Chrome ships inside the image next to `node_modules`.
 
-## We stopped inheriting someone else's base image
 
-The runtime stage used to start from `browserless/base`. Its install layer still shipped `build-essential`, `git`, `pdftk` with OpenJDK 11, Ubuntu's Mesa 23 with libLLVM-15, and a Node 18 under nvm. The API runs none of them, and deleting them in a later layer frees nothing.
+Installing the dependencies brings both: `pnpm install` fetches the npm packages, and Puppeteer downloads Chrome along with them. 
 
-The runtime stage now starts from plain `ubuntu:22.04` and installs its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and [Mesa](/blog/webgl-without-a-gpu), and the runtime copies only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
+Two later steps then touch those files: Chrome moves to `/opt/chrome`, and `chown -R` gives the app to the user it runs as.
 
-A smaller build has less to fall back on. `canvas` installs a prebuilt binary from GitHub releases, and when that download times out it compiles from source, which fails because the app stage has no `pkg-config` or cairo headers. It happened once, in a preview build, and a retry passed. We opened an issue for it and left the retry as the fix until it costs a release.
+Docker layers are additive: a later layer that moves or `chown`s a file stores it again. One release shipped Chrome and `node_modules` twice that way, a 399MB zstd layer of copies, next to a 422MB pnpm store and 175MB of pnpm and node-gyp caches.
 
-All sizes are zstd level 3, measured on 2026-11-11:
+<LayerCopyDiagram />
+
+The fix was to do it all in a single `RUN`:
+
+```dockerfile
+RUN pnpm install --production --dangerously-allow-all-builds \
+ && rm -rf "$(pnpm store path)" /root/.cache \
+ && chrome="$(find node_modules/.cache/chrome -type f -name chrome -print -quit)" \
+ && mv "$(dirname "$chrome")" /opt/chrome \
+ && chown -R root:chrome /opt/chrome \
+ && chown -R blessuser:blessuser /usr/src/app
+```
+
+Nothing is stored twice, and the store never reaches a layer. 
+
+We also stopped downloading a browser we never use: Puppeteer fetches only [the Chrome we run](/blog/why-we-still-run-chrome), and `.puppeteerrc.js` skips `chrome-headless-shell` (285MB).
+
+We dropped 996MB of zstd layers with this change alone.
+
+## We built our own base image
+
+Every image starts from a base image, and every layer of that base ships to every node.
+
+A file the base installs stays in the image even if a later layer deletes it.
+
+Our runtime used to start from a third-party browser base image. Its install layer still shipped tools the API never runs:
+
+- `build-essential` and `git`
+- `pdftk` with OpenJDK 11
+- Ubuntu's Mesa 23 with libLLVM-15
+- A Node.js binary under under nvm
+
+Now the runtime starts from a plain OS image and installs only its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and [Mesa](/blog/webgl-without-a-gpu), and the runtime copies in only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
 
 | Layer set | Before (zstd) | After (zstd) | Before (unpacked) | After (unpacked) |
 | --- | --- | --- | --- | --- |
 | Base layers | 1035.6MB | 636.1MB | 2769.7MB | 1610.5MB |
 | App image | 1322.9MB | 919.0MB | 3686.8MB | 2512.1MB |
 
-Cold pulls on new AMD nodes went from 47s to 30-33s.
+Cold pulls on new nodes went from 47s to 30-33s. We saved 14s to 17s per pull with this change alone.
 
 ## Pruning files mattered more than pruning bytes
 
-The last change deletes the source maps, type definitions and readmes inside `node_modules` with [`untracked`](https://github.com/Kikobeats/untracked), in the same `RUN` and before the pnpm store goes. pnpm hardlinks packages from the store, so the space only leaves with it:
+Unpacking a layer pays for every file it writes, not only for every byte.
+
+And `node_modules` is full of files the API never reads at runtime:
+
+- Source maps
+- TypeScript type definitions
+- Readmes, changelogs and other docs
+
+We delete them with [untracked](https://github.com/Kikobeats/untracked), in the same `RUN` and before the pnpm store goes. pnpm hardlinks packages from the store, so the space only leaves with it:
 
 ```dockerfile
-pnpm dlx untracked@latest prune node_modules
+RUN pnpm install --production --dangerously-allow-all-builds \
+ && pnpm dlx untracked@latest prune node_modules \
+ && rm -rf "$(pnpm store path)" /root/.cache
 ```
 
-That removed 17,489 files and 110.9MB from the production tree. The compressed image only went from 935.2MB to 921.6MB, yet cold pulls on fresh nodes on 2026-11-15 took 24.7s and 26.1s, down from 30-33s. The drop is larger than the bytes explain, which points at the file count.
+That removed 17,489 files and 110.9MB from the production tree. The compressed image barely moved, from 935.2MB to 921.6MB, yet cold pulls on fresh nodes took 24.7s and 26.1s, down from 30-33s. The bytes alone do not explain that drop; the file count does.
+
+We saved 4s to 8s per pull with this change alone.
 
 ## Where the two minutes go now
 
-These are medians for a pod scheduled onto a node that does not exist yet:
+We timed every step of a cold start.
+
+With the three changes in place, these are the medians for a pod that lands on a node that does not exist yet:
 
 | Step | Time |
 | --- | --- |
-| Pod pending to scale-up triggered | 16s |
-| VM created to node registered | 41s |
-| Node registered to Ready (Cilium, provider readiness taint) | 28s |
-| Taint removed to pull start | 7s |
-| Image pull | 25s |
-| Pull end to pod Ready | 5s |
+| The autoscaler notices the pending pod | 16s |
+| The cloud provider boots the VM and it joins the cluster | 41s |
+| The node finishes its network and system setup and reports Ready | 28s |
+| Kubernetes schedules the pod and the pull starts | 7s |
+| **Image pull** | **25s** |
+| The container starts and passes its readiness check | 5s |
 
-The pull is now the smallest of the big steps. The rest belongs to the cloud provider's provisioning, so the floor without any pull is about 75s. The next large win is a node that is already warm, not a smaller image.
+That adds up to about 2 minutes, and the pull is now 20% of it. It used to be the largest step on its own.
 
-## The autoscaler was throwing nodes away
+Most of what is left is the cloud provider: from the moment the VM is created, a node takes about 75s before it can even start pulling. A smaller image cannot win that time back. A node that is already warm can.
 
-A faster cold start helps less if the cluster keeps paying for it. Three settings made each new node live longer.
+## Keeping the nodes we pay for
 
-- **Scale-down window:** a ReplicaSet deletes not-ready pods first, so at 120s the HPA killed the pods new nodes were bought for. Over 7 days, 701 of 1299 scale-downs came within 5 min of a scale-up and API nodes lived a median 40 min. At [300s](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window), a replay created 23% fewer pods.
-- **Unneeded time:** a node with one API pod requests about 42% of its memory, under the 0.5 threshold. At the 10m default, the cluster bought 1,256 distinct API nodes in 7 days for a median fleet of 15. It now waits 20m.
-- **Pool choice:** without an expander, the autoscaler picks a pool at random. On 2026-11-13 the Intel fallback pool took 13 of 19 scale-ups while the AMD pool was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10.
+A faster cold start only pays off if the cluster keeps the node it just started.
 
-The 23% comes from a replay, not from production. We opened a second issue to check the 300s window against 7 days of real scale-downs on 2026-11-18.
+We made three changes so a new node arrives when we need it and lives long enough to serve traffic.
 
-## Not every 408 storm is a capacity problem
+### A scale-down window longer than a cold start
 
-On 2026-11-14 at 03:29Z the fleet went to a 23.9% 408 rate during one customer's burst of function requests. We replayed 7 days of CPU, in-flight requests, pods and nodes at 15s resolution against the HPA rules. In that burst, the pods needed jumped from 14 to 57-89 within 30s. Extra headroom added 1 to 3 pods, and lowering the CPU target from 80% to 70% helped the rest of the week but not that minute.
+When the HPA scales down, the ReplicaSet deletes pods that are not Ready first.
 
-The real cost was in the cache write. Those responses were 5 to 20MB, and every cache value was compressed at brotli quality 11, about 2.5s per MB, on the libuv threadpool's 4 threads. Each response spent a median 19.8s after extraction, and every other request on the pod waited behind it for DNS and cache reads.
+With a 120s window, that was often the pod a brand new node had just been bought for. Over 7 days, 701 of 1299 scale-downs came within 5 min of a scale-up, and API nodes lived a median of 40 min.
+
+<ScaleDownWindowDiagram />
+
+<Figcaption>A ReplicaSet deletes pods that are not Ready first. With a window shorter than a cold start, the pod a new node was bought for is the one that goes.</Figcaption>
+
+We raised the [stabilization window](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window) to 300s. Replaying those 7 days, the cluster created 23% fewer pods. The replay is not production, so we opened an issue to check the 300s window against 7 days of real scale-downs.
+
+### Twenty minutes before a node counts as unneeded
+
+The autoscaler removes nodes it considers unneeded.
+
+A node running one API pod requests about 42% of its memory, under the 0.5 threshold that marks it as unneeded. At the 10m default, the cluster bought 1,256 distinct API nodes in 7 days for a median fleet of 15. It now waits 20m before removing one.
+
+### A second pool for when the first runs out
+
+A new node only helps if the cloud provider has one to give.
+
+Our region ran short of our machine type more than once: it answered 160 resize requests with "insufficient capacity", and accepted 22 more that it never filled. An accepted resize is the worse case, because the autoscaler waits out its 15 min provisioning timeout before it gives up.
+
+So we added a second node pool, `api-secondary`, on a different machine type with the same price and benchmark. When the primary pool cannot grow, the next scale-up goes to the secondary one, and a capacity shortage costs seconds instead of the fleet. Each pool can grow to 60 nodes, enough for all 120 pods at 2 per node, so either one can hold the whole fleet alone.
+
+A second pool needs an order. Without an expander, the autoscaler picks a pool at random: in one day, the secondary took 13 of 19 scale-ups while the primary was far under its max. The [priority expander](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders) now gives `api-primary` 100 and `api-secondary` 10, so the secondary only takes a scale-up when the primary cannot.
+
+## Compression that costs no response time
+
+Compression sits on the response path.
+
+Every response we cache is compressed before it is written, and the write finishes before the response is sent. That makes the compression level part of the response time.
+
+The compression runs on the libuv threadpool: 4 threads per pod, shared with DNS lookups, file reads and every cache read. At brotli quality 11, the zlib default, it costs about 2.5s per MB, so one large value can hold a thread for seconds while other requests wait for it.
+
+<ThreadpoolDiagram />
+
+<Figcaption>The threadpool has 4 threads for the whole pod. Compression, DNS lookups and cache reads all take turns on them.</Figcaption>
 
 We benchmarked [brotli quality](https://nodejs.org/api/zlib.html) on real payloads:
 
@@ -96,11 +187,15 @@ We benchmarked [brotli quality](https://nodejs.org/api/zlib.html) on real payloa
 | 850kB HTML page | 20ms | 26ms | 637ms | 2.0s |
 | 24MB page with inlined photos | 591ms | 2.1s | not measured | 61s |
 
-Quality 8 stores 14.9% more bytes than 11 on text, which costs Redis memory. Decoding does not depend on the quality, so entries written at 11 still read. No burst of that size has come since, so its effect in production is not measured yet.
+Our rule is the highest quality that adds nothing to the response duration, which is quality 8. Quality 9 looks close on text, but it spends 3.6x longer searching data that does not compress, like inlined photos. The trade-off is size: quality 8 stores 14.9% more bytes than 11 on text, which costs Redis memory. Decoding does not depend on the quality, so entries written at 11 still read.
 
-## Measure the pull on a fresh node
+A 24MB value now compresses in 591ms instead of 61s with this change alone.
 
-A pull you time on a node that already holds the base layers measures one layer. Ours took 13.8s that way. Read the `Pulled` event of a pod whose node is less than 10 minutes old:
+## Measure your own pull
+
+You can check whether your pull is download or decompression with one command.
+
+Time it on a fresh node: a pull on a node that already holds the base layers only measures the layers that changed, and ours took 13.8s that way. Read the `Pulled` event of a pod whose node is less than 10 minutes old:
 
 ```bash
 kubectl get events --field-selector reason=Pulled

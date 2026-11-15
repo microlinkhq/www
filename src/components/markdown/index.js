@@ -23,6 +23,7 @@ import { CodeInline } from './CodeInline'
 import { MultiCodeEditor } from './MultiCodeEditor'
 import { Iframe } from './Iframe'
 import { Video } from './Video'
+import { HoverImage } from './HoverImage'
 import { Image } from './Image'
 import { Table, Thead, Tbody, Tr, Th, Td } from './Table'
 
@@ -327,6 +328,7 @@ const ScopedComponents = {
   H4,
   H5,
   H6,
+  HoverImage,
   Image,
   Li,
   MultiCodeEditor,
