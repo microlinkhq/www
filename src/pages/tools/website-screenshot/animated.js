@@ -285,8 +285,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
+          label='Website URL'
           id='ws-url'
           type='url'
           inputMode='url'

@@ -1,9 +1,20 @@
-import { transition, colors, borders, theme, touchTargets } from 'theme'
-import React, { useMemo, useState } from 'react'
-import styled, { css } from 'styled-components'
+import { transition, colors, theme, touchTargets } from 'theme'
+import React, { useId, useMemo } from 'react'
+import styled from 'styled-components'
 
 import Text from '../Text'
 import Flex from '../Flex'
+import Box from '../Box'
+
+const RAISED_LABEL_SCALE = 0.92
+const RAISED_LABEL_SHIFT_X = '-12px'
+const FOCUS_RING_WIDTH = '3px'
+const DISABLED_OPACITY = 0.55
+const EMPTY_PLACEHOLDER = ' '
+const INVALID_FIELD = "input[aria-invalid='true']"
+
+const focusRing = color =>
+  `0 0 0 ${FOCUS_RING_WIDTH} color-mix(in oklch, ${color} 20%, transparent)`
 
 const StyledInputBase = styled(Text)(
   {
@@ -18,7 +29,7 @@ const StyledInputBase = styled(Text)(
       outline: 'none'
     },
     '&:disabled': {
-      opacity: 1 / 4
+      cursor: 'not-allowed'
     }
   },
   theme({
@@ -30,40 +41,130 @@ const StyledInputBase = styled(Text)(
 
 const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
-const focusStyle = css`
-  border-color: ${colors.black80};
-  svg {
-    stroke: ${colors.black80};
-    color: ${colors.black80};
+const InputWrapper = styled(Flex)(
+  theme({
+    bg: 'white',
+    color: 'black80',
+    border: 1,
+    borderColor: 'black10',
+    borderRadius: 4
+  }),
+  {
+    position: 'relative',
+    minHeight: touchTargets.minHeight,
+    touchAction: 'manipulation',
+    WebkitTapHighlightColor: 'transparent',
+    transition: ['border-color', 'box-shadow', 'opacity']
+      .map(property => `${property} ${transition.short}`)
+      .join(', '),
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none'
+    },
+    '@media (hover: hover) and (pointer: fine)': {
+      '&:hover': {
+        borderColor: colors.black20
+      }
+    },
+    '&:focus-within': {
+      borderColor: colors.link,
+      boxShadow: focusRing(colors.link),
+      svg: {
+        stroke: colors.black80,
+        color: colors.black80
+      }
+    },
+    [`&:has(${INVALID_FIELD})`]: {
+      borderColor: colors.red8
+    },
+    [`&:has(${INVALID_FIELD}):focus-within`]: {
+      boxShadow: focusRing(colors.red8)
+    },
+    '&:has(input:disabled)': {
+      opacity: DISABLED_OPACITY,
+      cursor: 'not-allowed'
+    }
   }
-`
+)
 
-const InputWrapper = styled(Flex).withConfig({
-  shouldForwardProp: prop => !['focus'].includes(prop)
-})`
-  background: ${colors.white};
-  border: ${borders[1]};
-  border-color: ${colors.black10};
-  color: ${colors.black80};
-  transition: border-color, stroke, color, box-shadow ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  min-height: ${touchTargets.minHeight};
+const FloatingLabelText = styled(Text).attrs({ as: 'span' })(
+  theme({
+    fontSize: 1,
+    lineHeight: 0,
+    bg: 'white',
+    color: 'black60',
+    px: '2px'
+  }),
+  {
+    maxWidth: '100%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
+    transformOrigin: 'left center',
+    transition: `color ${transition.short}`,
+    '@media (prefers-reduced-motion: no-preference)': {
+      transition: ['color', 'transform']
+        .map(property => `${property} ${transition.short}`)
+        .join(', ')
+    }
+  }
+)
 
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
+const FloatingLabelLayer = styled(Box)(theme({ px: '6px' }), {
+  position: 'absolute',
+  inset: 0,
+  display: 'flex',
+  alignItems: 'center',
+  pointerEvents: 'none',
+  containerType: 'size'
+})
 
-  ${props => props.focus && focusStyle}
-  &:hover {
-    ${focusStyle};
+const raisedLabel = `${FloatingLabelLayer} > ${FloatingLabelText}`
+
+const raisedLabelStyle = {
+  color: colors.black70,
+  transform: `translate(${RAISED_LABEL_SHIFT_X}, calc(-50cqh - 0.5px)) scale(${RAISED_LABEL_SCALE})`
+}
+
+const FloatingLabelField = styled(Box)({
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center',
+  flex: 1,
+  minWidth: 0,
+  alignSelf: 'stretch',
+  input: {
+    flex: 1,
+    minWidth: 0,
+    paddingTop: '12px',
+    paddingBottom: '12px'
+  },
+  'input::placeholder': {
+    opacity: 0
+  },
+  'input:focus::placeholder': {
+    opacity: 1
+  },
+  [`input:focus ~ ${raisedLabel}, input:not(:placeholder-shown) ~ ${raisedLabel}`]:
+    raisedLabelStyle,
+  [`input:autofill ~ ${raisedLabel}`]: raisedLabelStyle,
+  [`input:focus ~ ${raisedLabel}`]: {
+    color: colors.link
+  },
+  [`${INVALID_FIELD} ~ ${raisedLabel}`]: {
+    color: colors.red8
   }
-  &:focus-within {
-    ${focusStyle};
-    box-shadow: 0px 0px 0px 4px
-      color-mix(in oklch, ${colors.link} 20%, transparent);
-  }
-`
+})
+
+const InputHint = styled(Text)(
+  theme({
+    fontSize: 0,
+    lineHeight: 1,
+    color: 'black60',
+    pt: 1
+  })
+)
+
+const joinIds = (...ids) => ids.filter(Boolean).join(' ') || undefined
 
 const Input = ({
   innerRef,
@@ -73,9 +174,12 @@ const Input = ({
   labelCss,
   autoComplete,
   inputMode,
+  label,
+  hint,
+  placeholder,
   ...props
 }) => {
-  const [isFocus, setFocus] = useState(Boolean(props.autoFocus))
+  const hintId = `${useId()}-hint`
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -87,29 +191,42 @@ const Input = ({
     return `${props.id}-suggestions`
   }, [props.id, suggestions])
 
-  return (
+  const input = (
+    <InputBase
+      list={list}
+      ref={innerRef}
+      autoComplete={autoComplete}
+      inputMode={inputMode}
+      placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}
+      {...props}
+      aria-describedby={joinIds(props['aria-describedby'], hint && hintId)}
+    />
+  )
+
+  const field = (
     <InputWrapper
       as='label'
-      focus={isFocus}
       css={theme({
         pr: suggestions ? 0 : 2,
-        py: '12px',
+        py: label ? 0 : '12px',
         pl: 2,
         alignItems: 'center',
-        borderRadius: 2,
         ...labelCss
       })}
     >
       {Icon && <Flex>{Icon}</Flex>}
-      <InputBase
-        list={list}
-        ref={innerRef}
-        onFocus={() => setFocus(true)}
-        onBlur={() => setFocus(false)}
-        autoComplete={autoComplete}
-        inputMode={inputMode}
-        {...props}
-      />
+      {label
+        ? (
+          <FloatingLabelField>
+            {input}
+            <FloatingLabelLayer>
+              <FloatingLabelText>{label}</FloatingLabelText>
+            </FloatingLabelLayer>
+          </FloatingLabelField>
+          )
+        : (
+            input
+          )}
 
       {suggestions && (
         <datalist id={list}>
@@ -119,6 +236,15 @@ const Input = ({
         </datalist>
       )}
     </InputWrapper>
+  )
+
+  if (!hint) return field
+
+  return (
+    <Box>
+      {field}
+      <InputHint id={hintId}>{hint}</InputHint>
+    </Box>
   )
 }
 
