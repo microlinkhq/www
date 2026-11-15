@@ -1,6 +1,6 @@
 ---
-title: 'How we cut our cold image pull from 111s to 25s'
-description: 'The Microlink API pull went from 111s to 25s with zstd, a slimmer base image and a pruned node_modules. Then we stopped the autoscaler from throwing new nodes away, and fixed the request path that made bursts expensive.'
+title: 'How we cut our Kubernetes image pull from 111s to 25s'
+description: 'Cold Kubernetes image pulls went from 111s to 25s with zstd, a slimmer base image and fewer files. A new pod now starts in about 2 min instead of 4.'
 authors:
   - kiko
 date: '2026-11-15'
@@ -29,13 +29,13 @@ The release build cache needed the same setting. Left on its gzip default, one r
 
 Once the format was fixed, the time tracked how many bytes each node writes to disk. Docker layers are additive: a later layer that moves or `chown`s a file stores it again. One release shipped Chrome and `node_modules` twice that way, a 399MB zstd layer of copies, next to a 422MB pnpm store and 175MB of pnpm and node-gyp caches.
 
-`pnpm install`, the move of Chrome to `/opt/chrome`, and the `chown -R` of the app now run in one `RUN`, and that `RUN` removes the store before it ends. Puppeteer downloads only the Chrome we run. `chrome-headless-shell` (285MB) is skipped in `.puppeteerrc.js`.
+`pnpm install`, the move of Chrome to `/opt/chrome`, and the `chown -R` of the app now run in one `RUN`, and that `RUN` removes the store before it ends. Puppeteer downloads only [the Chrome we run](/blog/why-we-still-run-chrome). `chrome-headless-shell` (285MB) is skipped in `.puppeteerrc.js`.
 
 ## We stopped inheriting someone else's base image
 
 The runtime stage used to start from `browserless/base`. Its install layer still shipped `build-essential`, `git`, `pdftk` with OpenJDK 11, Ubuntu's Mesa 23 with libLLVM-15, and a Node 18 under nvm. The API runs none of them, and deleting them in a later layer frees nothing.
 
-The runtime stage now starts from plain `ubuntu:22.04` and installs its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and Mesa, and the runtime copies only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
+The runtime stage now starts from plain `ubuntu:22.04` and installs its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and [Mesa](/blog/webgl-without-a-gpu), and the runtime copies only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
 
 A smaller build has less to fall back on. `canvas` installs a prebuilt binary from GitHub releases, and when that download times out it compiles from source, which fails because the app stage has no `pkg-config` or cairo headers. It happened once, in a preview build, and a retry passed. We opened an issue for it and left the retry as the fix until it costs a release.
 
