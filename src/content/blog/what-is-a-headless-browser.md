@@ -96,7 +96,7 @@ I have spent more hours than I care to admit debugging headless browsers in [Doc
 
 At [Vercel](https://vercel.com/) I spent years on edge performance and on the obscure edge cases of headless browsers. Running Puppeteer at scale meant zombie processes, cold starts, and memory leaks, and I learned each one in production.
 
-That experience is why Microlink became my primary mission: fix the cold start and the font problem once, in one place, so the teams calling it do not have to. We turned the browser into a [utility](/metadata) that you call instead of operate.
+That experience is why Microlink became my primary mission: fix the [cold start](/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s) and the font problem once, in one place, so the teams calling it do not have to. We turned the browser into a [utility](/metadata) that you call instead of operate.
 
 Instead of maintaining Dockerfiles and concurrency limits, you call `mql` with a URL and the options you need, here a screenshot of the microlinkhq GitHub profile:
 

@@ -70,7 +70,7 @@ meson setup build \
   -Dllvm=enabled -Dshared-llvm=enabled
 ```
 
-The build enables llvmpipe only, skips Vulkan, and links **shared LLVM**, which is where the JIT speed lives. The toolchain is huge (LLVM, clang, Rust, ~160 `-dev` packages), so the Dockerfile is multi-stage: it compiles Mesa, then copies only the artifacts into a clean image with `COPY`. The result is **2.65GB instead of 4.5GB**.
+The build enables llvmpipe only, skips Vulkan, and links **shared LLVM**, which is where the JIT speed lives. The toolchain is huge (LLVM, clang, Rust, ~160 `-dev` packages), so the Dockerfile is multi-stage: it compiles Mesa, then copies only the artifacts into [a clean image](/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s) with `COPY`. The result is **2.65GB instead of 4.5GB**.
 
 ## browserless.report() reads the live GL context
 

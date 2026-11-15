@@ -14,6 +14,8 @@
   "src/content/blog/faster-webgl-screenshots.md": "2026-06-15T00:00:00.000Z",
   "src/content/blog/headless.md": "2026-01-15T00:00:00.000Z",
   "src/content/blog/how-microlink-accidentally-became-the-perfect-escape-hatch-for-openai-agents.md": "2026-09-10T00:00:00.000Z",
+  "src/content/blog/how-we-cut-our-cold-image-pull-from-111s-to-25s.md": "2026-11-15T00:00:00.000Z",
+  "src/content/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s.md": "2026-11-15T00:00:00.000Z",
   "src/content/blog/master-plan-2019.md": "2026-01-06T00:00:00.000Z",
   "src/content/blog/master-plan-for-2019.md": "2026-08-14T00:00:00.000Z",
   "src/content/blog/microlink-adblock-now-handles-cookie-banners.md": "2026-02-17T00:00:00.000Z",

@@ -15,7 +15,7 @@ Microlink is an API that turns any URL into structured data, screenshots, PDFs, 
 
 <Figcaption>Every request starts with a URL. By default, Microlink returns normalized metadata for the page.</Figcaption>
 
-No infrastructure to manage. No browser to install. No Puppeteer cluster to scale. You get a production-ready API that handles rendering, caching, and asset delivery out of the box. 
+No infrastructure to manage. No browser to install. No [Puppeteer cluster to scale](/blog/how-we-cut-our-kubernetes-image-pull-from-111s-to-25s). You get a production-ready API that handles rendering, caching, and asset delivery out of the box. 
 
 Plus automatic proxy resolution on any <ProBadge /> plan to bypass IP blocking, CAPTCHAs, cookie banners, and other scraping shields, so you can reliably reach sites that actively resist automation.
 
