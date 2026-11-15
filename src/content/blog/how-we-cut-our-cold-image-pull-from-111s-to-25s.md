@@ -6,6 +6,8 @@ authors:
 date: '2026-11-15'
 ---
 
+![A pod on a new node, from pending to Ready: before, waiting for the node then a long image pull; after, a shorter wait and a short pull.](/images/cold-pod-start.svg)
+
 A Microlink API pod on a node that already has its image is Ready in about 4s. On a new Kubernetes node it waited about 1m50s for the node and a median 111s for the image pull, so a burst waited about 4 min for capacity.
 
 **TL;DR**
@@ -19,7 +21,7 @@ A Microlink API pod on a node that already has its image is Ready in about 4s. O
 
 Most of that wait was ours. Each node holds 2 pods on 8 vCPUs, and the 2.09&nbsp;GB image downloads from Docker Hub in about 12s, so the pull was decompression and disk, not network. You can check your own image the same way, with the command at the end of this post.
 
-Docker pushes layers as gzip unless told otherwise. Our build now pushes with buildx at [zstd level 3 and forced compression](https://docs.docker.com/build/exporters/), which every cluster can read because they all run containerd 2.x. On fresh [`s-8vcpu-16gb-amd`](https://kikobeats.com/digitalocean-droplets-benchmark/#basic--premium-amd-8vcpu) nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s.
+Docker pushes layers as gzip unless told otherwise. Our build now pushes with buildx at [zstd level 3 and forced compression](https://docs.docker.com/build/exporters/), which every cluster can read because they all run containerd 2.x. On fresh [s-8vcpu-16gb-amd](https://kikobeats.com/digitalocean-droplets-benchmark/#basic--premium-amd-8vcpu) nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s.
 
 The release build cache needed the same setting. Left on its gzip default, the 3.90.9 release pushed the image and then died exporting the cache with a BuildKit `EOF`, so nothing was deployed. Preview builds never write the cache, so only a release could hit it.
 
