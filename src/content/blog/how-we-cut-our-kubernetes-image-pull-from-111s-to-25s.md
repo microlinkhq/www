@@ -35,7 +35,7 @@ Docker pushes layers as gzip unless told otherwise. And guess what could be bett
 
 <PullTimeDiagram />
 
-Our build now pushes with buildx using [zstd compression](https://docs.docker.com/build/exporters/#compression) at level 3, with `force-compression` set so layers that were already gzip are compressed again as zstd. Every cluster can read it, because they all run containerd 2.x. On fresh nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s. 
+Our build now pushes with buildx using [zstd compression](https://docs.docker.com/build/exporters/#compression) at level 3, with `force-compression` set so layers that were already gzip are compressed again as zstd. Every cluster can read it, because they all run containerd 2.x. On fresh nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s.
 
 We saved 35s to 38s per pull with this change alone.
 
@@ -45,8 +45,7 @@ Our image carries a whole browser.
 
 Our Dockerfile builds one image with the API and the browser it drives: [Screenshots](/screenshot), [PDFs](/pdf), [functions](/function), [Lighthouse reports](/insights), and [metadata](/metadata) or [markdown](/markdown) from any page that needs rendering all run in Chrome, so Chrome ships inside the image next to `node_modules`.
 
-
-Installing the dependencies brings both: `pnpm install` fetches the npm packages, and Puppeteer downloads Chrome along with them. 
+Installing the dependencies brings both: `pnpm install` fetches the npm packages, and Puppeteer downloads Chrome along with them.
 
 Two later steps then touch those files: Chrome moves to `/opt/chrome`, and `chown -R` gives the app to the user it runs as.
 
@@ -65,7 +64,7 @@ RUN pnpm install --production --dangerously-allow-all-builds \
  && chown -R blessuser:blessuser /usr/src/app
 ```
 
-Nothing is stored twice, and the store never reaches a layer. 
+Nothing is stored twice, and the store never reaches a layer.
 
 We also stopped downloading a browser we never use: Puppeteer fetches only [the Chrome we run](/blog/why-we-still-run-chrome), and `.puppeteerrc.js` skips `chrome-headless-shell` (285MB).
 
@@ -82,7 +81,7 @@ Our runtime used to start from a third-party browser base image. Its install lay
 - `build-essential` and `git`
 - `pdftk` with OpenJDK 11
 - Ubuntu's Mesa 23 with libLLVM-15
-- A Node.js binary under under nvm
+- A Node.js binary under nvm
 
 Now the runtime starts from a plain OS image and installs only its own list. One Dockerfile builds everything: a `builder` stage compiles ImageMagick, libvips, pandoc and [Mesa](/blog/webgl-without-a-gpu), and the runtime copies in only what they produce. Its last `RUN` fails the build when a named binary or a linked library is missing, so a slimmer image cannot ship broken.
 
@@ -132,7 +131,7 @@ With the three changes in place, these are the medians for a pod that lands on a
 
 <ColdStartStepsDiagram />
 
-<Figcaption>Every step of a cold start on one seconds scale. The image pull is 25s of 122s.</Figcaption>
+<Figcaption>Every step of a cold start on one scale. The image pull is 25s of 122s.</Figcaption>
 
 That adds up to about 2 minutes, and the pull is now 20% of it. It used to be the largest step on its own.
 
@@ -170,7 +169,7 @@ A node running one API pod requests about 42% of its memory, under the 0.5 thres
 
 A new node only helps if the cloud provider has one to give.
 
-Our region ran short of our machine type more than once: it answered 160 resize requests with "insufficient capacity", and accepted 22 more that it never filled. An accepted resize is the worse case, because the autoscaler waits out its 15 min provisioning timeout before it gives up.
+Our region ran short of our machine type more than once: it answered 160 resize requests with "insufficient capacity", and accepted 22 more that it never filled. An accepted resize is worse, because the autoscaler waits out its 15 min provisioning timeout before it gives up.
 
 So we added a second node pool, `api-secondary`, on a different machine type with the same price and benchmark. When the primary pool cannot grow, the next scale-up goes to the secondary one, and a capacity shortage costs seconds instead of the fleet. Each pool can grow to 60 nodes, enough for all 120 pods at 2 per node, so either one can hold the whole fleet alone.
 

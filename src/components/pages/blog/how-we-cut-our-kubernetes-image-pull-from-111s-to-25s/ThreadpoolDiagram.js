@@ -41,7 +41,7 @@ export const ThreadpoolDiagram = () => (
         width={832}
         height={52}
         tone={task.tone}
-        name={`Thread ${index + 1}: ${task.name}`}
+        name={task.name}
         note={task.note}
       />
     ))}

@@ -48,7 +48,9 @@ export const ColdStartStepsDiagram = () => (
     id='cold-start-steps'
     viewBox='0 0 960 400'
     title='Where the two minutes of a cold start go'
-    description={`A pod on a new node waits ${COLD_START_TOTAL_SECONDS} seconds in six steps: ${COLD_START_STEPS.map(
+    description={`A pod on a new node waits ${COLD_START_TOTAL_SECONDS} seconds in ${
+      COLD_START_STEPS.length
+    } steps: ${COLD_START_STEPS.map(
       step => `${step.name.toLowerCase()} ${step.seconds} seconds`
     ).join(', ')}.`}
   >

@@ -72,6 +72,13 @@ describe('ColdStartDiagram', () => {
   })
 })
 
+const overlayBefore = (html, name) => {
+  const at = html.indexOf(`>${name}</text>`)
+  expect(at).toBeGreaterThan(-1)
+  const rects = [...html.slice(0, at).matchAll(/<rect\b[^>]*>/g)]
+  return rects.at(-1)[0]
+}
+
 const renderComponent = Component => {
   const sheet = new ServerStyleSheet()
   try {
@@ -128,9 +135,7 @@ describe('ThreadpoolDiagram', () => {
   test('shows every kind of work that shares the 4 threads', () => {
     const html = renderComponent(ThreadpoolDiagram)
     expect(THREADPOOL_TASKS).toHaveLength(4)
-    THREADPOOL_TASKS.forEach((task, index) => {
-      expect(html).toContain(`Thread ${index + 1}: ${task.name}`)
-    })
+    for (const task of THREADPOOL_TASKS) expect(html).toContain(task.name)
     expect(html).not.toContain('quality 11')
   })
 })
@@ -145,10 +150,22 @@ describe('ColdStartStepsDiagram', () => {
 
   test('labels every step and its seconds', () => {
     const html = renderComponent(ColdStartStepsDiagram)
+    expect(html).toContain(
+      `${COLD_START_TOTAL_SECONDS} seconds in ${COLD_START_STEPS.length} steps`
+    )
     for (const step of COLD_START_STEPS) {
       expect(html).toContain(step.name)
       expect(html).toContain(`${step.seconds}s`)
     }
+    const focal = overlayBefore(html, 'Image pull')
+    const plain = overlayBefore(html, 'Container ready')
+    expect(focal).toContain('stroke="#d92d6e"')
+    expect(focal).toContain('fill-opacity="0.08"')
+    expect(plain).toContain('stroke="#000"')
+    expect(plain).not.toContain('fill-opacity')
+    expect(overlayBefore(html, '25s')).toContain('fill-opacity="0.08"')
+    expect(overlayBefore(html, '5s')).toContain('stroke="rgba(0,0,0,0.4)"')
+    expect(overlayBefore(html, '5s')).not.toContain('fill-opacity')
   })
 })
 
@@ -157,7 +174,13 @@ describe('UnneededTimeDiagram', () => {
     const html = renderComponent(UnneededTimeDiagram)
     expect(html).toContain('42% of memory requested')
     expect(html).toContain('UNNEEDED BELOW 0.5')
-    for (const row of UNNEEDED_ROWS) { expect(html).toContain(`${row.minutes} min`) }
+    for (const row of UNNEEDED_ROWS) {
+      expect(html).toContain(`${row.minutes} min`)
+    }
+    expect(overlayBefore(html, '10 min')).toContain('stroke-dasharray="4,3"')
+    const kept = overlayBefore(html, '20 min')
+    expect(kept).toContain('stroke="rgba(0,0,0,0.4)"')
+    expect(kept).not.toContain('stroke-dasharray')
   })
 })
 
