@@ -1,6 +1,7 @@
 ### November 2026
 
-- [Microlink](/): Added [ScraperAPI](/alternative/scraperapi) alternative.
+- [Microlink](https://dashboard.microlink.io): Paid invoices go to the billing emails set in Settings.
+- [Microlink](/alternative): Added the [alternatives](/alternative) hub, plus [Clearbit](/alternative/clearbit), [Jina Reader](/alternative/jina-reader), [Playwright](/alternative/playwright), [Puppeteer](/alternative/puppeteer), and [ScraperAPI](/alternative/scraperapi) alternatives.
 
 ### October 2026
 
