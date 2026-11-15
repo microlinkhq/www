@@ -23,11 +23,11 @@ Most of that wait was ours. Each node holds 2 pods on 8 vCPUs, and the 2.09&nbsp
 
 Docker pushes layers as gzip unless told otherwise. Our build now pushes with buildx at [zstd level 3 and forced compression](https://docs.docker.com/build/exporters/), which every cluster can read because they all run containerd 2.x. On fresh [s-8vcpu-16gb-amd](https://kikobeats.com/digitalocean-droplets-benchmark/#basic--premium-amd-8vcpu) nodes, the gzip pulls took 107s and 99s. The zstd pulls of the same image took 69s and 64s.
 
-The release build cache needed the same setting. Left on its gzip default, the 3.90.9 release pushed the image and then died exporting the cache with a BuildKit `EOF`, so nothing was deployed. Preview builds never write the cache, so only a release could hit it.
+The release build cache needed the same setting. Left on its gzip default, one release pushed the image and then died exporting the cache with a BuildKit `EOF`, so nothing was deployed. Preview builds never write the cache, so only a release could hit it.
 
 ## Pull time follows the unpacked bytes
 
-Once the format was fixed, the time tracked how many bytes each node writes to disk. Docker layers are additive: a later layer that moves or `chown`s a file stores it again. Release 3.90.10 shipped Chrome and `node_modules` twice that way, a 399MB zstd layer of copies, next to a 422MB pnpm store and 175MB of pnpm and node-gyp caches.
+Once the format was fixed, the time tracked how many bytes each node writes to disk. Docker layers are additive: a later layer that moves or `chown`s a file stores it again. One release shipped Chrome and `node_modules` twice that way, a 399MB zstd layer of copies, next to a 422MB pnpm store and 175MB of pnpm and node-gyp caches.
 
 `pnpm install`, the move of Chrome to `/opt/chrome`, and the `chown -R` of the app now run in one `RUN`, and that `RUN` removes the store before it ends. Puppeteer downloads only the Chrome we run. `chrome-headless-shell` (285MB) is skipped in `.puppeteerrc.js`.
 
@@ -46,7 +46,7 @@ All sizes are zstd level 3, measured on 2026-11-11:
 | Base layers | 1035.6MB | 636.1MB | 2769.7MB | 1610.5MB |
 | App image | 1322.9MB | 919.0MB | 3686.8MB | 2512.1MB |
 
-Cold pulls on new AMD nodes went from 47s to 30-33s with v3.94.1.
+Cold pulls on new AMD nodes went from 47s to 30-33s.
 
 ## Pruning files mattered more than pruning bytes
 
@@ -60,7 +60,7 @@ That removed 17,489 files and 110.9MB from the production tree. The compressed i
 
 ## Where the two minutes go now
 
-These are medians for a pod scheduled onto a node that does not exist yet, on 3.95.3:
+These are medians for a pod scheduled onto a node that does not exist yet:
 
 | Step | Time |
 | --- | --- |
@@ -96,7 +96,7 @@ We benchmarked [brotli quality](https://nodejs.org/api/zlib.html) on real payloa
 | 850kB HTML page | 20ms | 26ms | 637ms | 2.0s |
 | 24MB page with inlined photos | 591ms | 2.1s | not measured | 61s |
 
-Quality 8 stores 14.9% more bytes than 11 on text, which costs Redis memory. Decoding does not depend on the quality, so entries written at 11 still read. It shipped in 3.95.2, and no burst of that size has come since, so its effect in production is not measured yet.
+Quality 8 stores 14.9% more bytes than 11 on text, which costs Redis memory. Decoding does not depend on the quality, so entries written at 11 still read. No burst of that size has come since, so its effect in production is not measured yet.
 
 ## Measure the pull on a fresh node
 
