@@ -151,7 +151,7 @@ With a 120s window, that was often the pod a brand new node had just been bought
 
 <ScaleDownWindowDiagram />
 
-<Figcaption>A ReplicaSet deletes pods that are not Ready first. With a window shorter than a cold start, the pod a new node was bought for is the one that goes.</Figcaption>
+<Figcaption>A ReplicaSet deletes pods that are not Ready first. When a scale-down happens inside a window shorter than a cold start, the pod a new node was bought for is the one that goes.</Figcaption>
 
 We raised the [stabilization window](https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/#stabilization-window) to 300s. Replaying those 7 days, the cluster created 23% fewer pods. The replay is not production, so we opened an issue to check the 300s window against 7 days of real scale-downs.
 
@@ -204,10 +204,10 @@ A 24MB value now compresses in 591ms instead of 61s with this change alone.
 
 ## Measure your own pull
 
-The `Pulled` event is the whole pull, download and unpack together. Read it for a pod on a node that has not pulled this image yet. A young node can still hold the layers from an earlier pull, and that event is then a cache hit.
+The `Pulled` event is the whole pull, download and unpack together. Read it on a node provisioned before any pull. A node that has not pulled this image can still hold layers it shares with another image, and that event is then only partly a cold pull.
 
 ```bash
 kubectl get events --field-selector reason=Pulled
 ```
 
-A pull on a node that already holds the base layers only measures the layers that changed, and ours took 13.8s that way. If a node with none of the layers takes several times longer, most of that gap is decompression, and zstd is the first change to make.
+A pull on a node that already holds the base layers only measures the layers that changed, and ours took 13.8s that way. A node with none of the layers takes longer because it still downloads and unpacks the rest. The two durations do not say how much of that gap is decompression.
