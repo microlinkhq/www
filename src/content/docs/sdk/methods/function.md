@@ -3,7 +3,10 @@ title: 'function'
 description: 'Execute your own JavaScript against a live page with the Microlink SDK: full Puppeteer access, npm packages, named arguments, profiling, and automatic compression, with no browser fleet to manage.'
 ---
 
-import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_FUNCTION_CODE_SIZE
+} from 'helpers/free-tier'
 import FunctionCompression from 'content/fragments/function-compression.md'
 
 Execute your own JavaScript remotely and get the value back. The function runs in a sandboxed Node.js runtime on Microlink's side; code that never touches `page` runs faster and cheaper:
@@ -87,7 +90,7 @@ const { value } = await microlink.function(
 | ----------------- | ---------------------------------------------- | ------------ |
 | Timeout           | 15 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
-| Code size         | 5120 bytes                                     | Unlimited    |
+| Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
 | Outgoing requests | Same-origin only                               | Unrestricted |
 

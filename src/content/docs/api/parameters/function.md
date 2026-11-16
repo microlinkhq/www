@@ -5,7 +5,10 @@ description: 'Execute custom JavaScript code inside a headless browser to perfor
 
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
-import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_FUNCTION_CODE_SIZE
+} from 'helpers/free-tier'
 import FunctionCompression from 'content/fragments/function-compression.md'
 
 Type: <Type children='<string>'/>
@@ -175,7 +178,7 @@ The function parameter is available on both free and pro plans with different re
 | ----------------- | ---------------------------------------------- | ------------ |
 | Timeout           | 15 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
-| Code size         | 5120 bytes                                     | Unlimited    |
+| Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
 | Outgoing requests | Same-origin only                               | Unrestricted |
 
@@ -204,7 +207,7 @@ The resource error types are:
 | `TimeoutError`         | Function wall-clock time exceeded the plan limit                     |
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
-| `CodeSizeError`        | Function code exceeds the 5120 bytes free plan limit                 |
+| `CodeSizeError`        | Function code exceeds the {FREE_PLAN_FUNCTION_CODE_SIZE} bytes free plan limit                 |
 | `ConcurrencyError`     | The same function is already running against the same URL without a key |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 

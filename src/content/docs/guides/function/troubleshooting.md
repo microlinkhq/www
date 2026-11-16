@@ -4,6 +4,7 @@ description: 'Handle function errors, understand resource limit errors, and debu
 ---
 
 import { Link } from 'components/elements/Link'
+import { FREE_PLAN_FUNCTION_CODE_SIZE } from 'helpers/free-tier'
 
 ## Error handling
 
@@ -36,7 +37,7 @@ When a function exceeds its plan limits, the API returns a descriptive error ins
 | `TimeoutError`         | Function wall-clock time exceeded the plan limit                     |
 | `CpuTimeError`         | Function CPU time exceeded the plan limit                            |
 | `MemoryError`          | Function memory usage exceeded the plan limit                        |
-| `CodeSizeError`        | Function code exceeds the 5120 bytes free plan limit                 |
+| `CodeSizeError`        | Function code exceeds the {FREE_PLAN_FUNCTION_CODE_SIZE} bytes free plan limit                 |
 | `ConcurrencyError`     | The same function is already running against the same URL without a key |
 | `OutgoingRequestError` | Function made a cross-origin network request on the free plan        |
 
@@ -80,7 +81,7 @@ Each error message is plan-aware:
 
 Binary data such as `Buffer` and typed arrays is allocated off the heap and is reported separately as `profiling.memory.external`. It does not count toward this limit, so a function returning large screenshots or PDFs is unlikely to hit `MemoryError`.
 
-**CodeSizeError** — the function code exceeds the 5120 bytes free plan limit:
+**CodeSizeError** — the function code exceeds the {FREE_PLAN_FUNCTION_CODE_SIZE} bytes free plan limit:
 
 1. Use the [SDK](/docs/sdk/methods/function), which compresses code automatically.
 2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.

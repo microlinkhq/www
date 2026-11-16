@@ -7,6 +7,7 @@ import Text from 'components/elements/Text'
 import { GradientText } from 'components/patterns/ProductStory/section'
 import {
   FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_FUNCTION_CODE_SIZE,
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
@@ -445,14 +446,14 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What are the limits of a function call?',
-    text: `On paid plans a function gets 60 seconds, 128 MB of memory, unlimited code size and unrestricted outgoing requests. On the free plan it gets 15 seconds, 64 MB, 5120 bytes of code, ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin requests only. Hitting a limit returns a named error such as TimeoutError instead of failing the whole request.`,
+    text: `On paid plans a function gets 60 seconds, 128 MB of memory, unlimited code size and unrestricted outgoing requests. On the free plan it gets 15 seconds, 64 MB, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code, ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin requests only. Hitting a limit returns a named error such as TimeoutError instead of failing the whole request.`,
     answer: (
       <div>
         On paid plans a function gets 60 seconds, 128&nbsp;MB of memory,
         unlimited code size and unrestricted outgoing requests. On the free plan
-        it gets 15 seconds, 64&nbsp;MB, 5120 bytes of code,{' '}
-        {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin
-        requests only. Hitting a limit returns a named error such as{' '}
+        it gets 15 seconds, 64&nbsp;MB, {FREE_PLAN_FUNCTION_CODE_SIZE} bytes of
+        code, {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and
+        same-origin requests only. Hitting a limit returns a named error such as{' '}
         <code>TimeoutError</code> instead of failing the whole request. See{' '}
         <Link href='/docs/guides/function/troubleshooting'>
           function troubleshooting
