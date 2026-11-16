@@ -2,6 +2,7 @@
 
 import {
   colors,
+  shadows,
   layout,
   theme,
   transition,
@@ -18,6 +19,7 @@ import { Button } from 'components/elements/Button/Button'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import { focusRing } from 'components/elements/field-chrome'
 import Label from 'components/elements/Label'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
@@ -88,8 +90,7 @@ export const OptionLabel = styled(Label)`
 `
 
 const SegmentedWrapper = styled(Flex)`
-  background: #eef1f5;
-  ${theme({ borderRadius: 2, p: '3px' })}
+  ${theme({ bg: 'black05', borderRadius: 2, p: '3px' })}
 `
 
 const SegmentedOption = styled(Box)
@@ -114,9 +115,8 @@ const SegmentedOption = styled(Box)
     gap: '6px'
   })}
   background: ${({ $active }) => ($active ? 'white' : 'transparent')};
-  color: ${({ $active }) => ($active ? colors.black80 : colors.black70)};
-  box-shadow: ${({ $active }) =>
-    $active ? '0 1px 3px rgba(0,0,0,0.1)' : 'none'};
+  color: ${({ $active }) => ($active ? colors.black : colors.black70)};
+  box-shadow: ${({ $active }) => ($active ? shadows[1] : 'none')};
   transition: background ${transition.medium}, color ${transition.medium},
     box-shadow ${transition.medium};
   touch-action: manipulation;
@@ -126,8 +126,10 @@ const SegmentedOption = styled(Box)
     transition: none;
   }
 
-  &:hover {
-    color: ${colors.black80};
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      color: ${colors.black};
+    }
   }
 
   &:active {
@@ -135,8 +137,11 @@ const SegmentedOption = styled(Box)
   }
 
   &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: -2px;
+    outline: none;
+    box-shadow: ${({ $active }) =>
+      [$active && shadows[1], focusRing(colors.link)]
+        .filter(Boolean)
+        .join(', ')};
   }
 
   @media (max-width: ${MOBILE_BP - 1}px) {
