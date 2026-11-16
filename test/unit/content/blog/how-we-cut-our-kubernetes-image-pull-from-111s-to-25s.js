@@ -20,7 +20,7 @@ describe('how we cut our kubernetes image pull', () => {
     expect(post).toContain('Read it on a node provisioned before any pull.')
   })
 
-  test('counts layers shared with another image', () => {
+  test('says a node can still hold layers shared with another image', () => {
     expect(post).toContain(
       'A node that has not pulled this image can still hold layers it shares with another image'
     )

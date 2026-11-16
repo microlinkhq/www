@@ -67,7 +67,7 @@ export const ScaleDownWindowDiagram = () => (
   <Diagram
     id='scale-down-window'
     viewBox='0 0 960 320'
-    title='A scale-down window shorter than a cold start can let a scale-down delete the pod it bought a node for'
+    title='When a scale-down happens inside a window shorter than a cold start, it can delete the pod a new node was bought for'
     description='A cold start took about 4 minutes. These bars line the window up with the start of that cold start. With a 120 second window, the HPA can scale down while the new pod is still starting, and a ReplicaSet deletes pods that are not Ready first. With a 300 second window, that same pod is Ready before the window ends.'
   >
     {SCALE_DOWN_ROWS.map(row => (

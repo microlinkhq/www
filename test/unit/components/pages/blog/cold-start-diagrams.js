@@ -128,7 +128,7 @@ describe('ScaleDownWindowDiagram', () => {
       expect(html).toContain(row.note)
     }
     expect(html).toContain('deleted at 120s, not Ready')
-    expect(html).toContain('can let a scale-down delete')
+    expect(html).toContain('it can delete the pod a new node was bought for')
   })
 })
 
