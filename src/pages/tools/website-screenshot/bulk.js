@@ -933,14 +933,14 @@ const OptionsPanel = ({
 
           <Box css={theme({ pb: '12px' })}>
             <OptionLabel as='span'>Viewport</OptionLabel>
-            <Flex css={{ alignItems: 'center' }}>
+            <Flex css={theme({ alignItems: 'center', pt: 2 })}>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Width'
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
                   placeholder='1920'
-                  aria-label='Viewport width in pixels'
                   value={options.customWidth}
                   onChange={e => {
                     setOptions(prev => ({
@@ -950,11 +950,7 @@ const OptionsPanel = ({
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
               <Flex
@@ -968,11 +964,11 @@ const OptionsPanel = ({
               </Flex>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Height'
                   id='ws-height'
                   type='number'
                   inputMode='numeric'
                   placeholder='1080'
-                  aria-label='Viewport height in pixels'
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {
@@ -983,11 +979,7 @@ const OptionsPanel = ({
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
             </Flex>

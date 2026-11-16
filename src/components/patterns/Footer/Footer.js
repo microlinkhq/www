@@ -2,7 +2,6 @@ import { layout, colors, theme, transition, fontWeights, fonts } from 'theme'
 import { track } from '@vercel/analytics'
 import { issueUrl } from 'helpers/issue-url'
 import { footerAlternativeLinks } from 'helpers/alternatives'
-import FeatherIcon from 'components/icons/Feather'
 import React, { useState, useCallback, useId } from 'react'
 
 import IntersectionObserver from '../../elements/IntersectionObserver'
@@ -24,7 +23,7 @@ import {
   NewsletterHoneypot,
   useNewsletter
 } from 'components/hook/use-newsletter'
-import { ChevronDown, Mail } from 'react-feather'
+import { ChevronDown } from 'react-feather'
 import styled from 'styled-components'
 
 import { FEATURES } from 'components/patterns/FeatureStory'
@@ -468,30 +467,15 @@ const Footer = ({ ...props }) => {
 
           <form action={NEWSLETTER_ACTION} method='post' onSubmit={onSubmit}>
             <NewsletterHoneypot />
-            <Flex css={theme({ alignItems: 'center' })}>
+            <Flex css={theme({ alignItems: 'stretch' })}>
               <Input
                 type='email'
                 name='email'
                 placeholder='you@domain.com'
                 autoComplete='email'
                 inputMode='email'
-                aria-label='Email address'
-                iconComponent={
-                  <FeatherIcon
-                    icon={Mail}
-                    color={secondaryColor}
-                    size={[0, 0, 1, 1]}
-                  />
-                }
-                css={theme({ fontSize: 0, width: '8rem' })}
-                labelCss={{
-                  borderColor: colors.black10,
-                  '&:hover': { borderColor: secondaryColor },
-                  '&:focus-within': {
-                    borderColor: colors.black80,
-                    boxShadow: 'none'
-                  }
-                }}
+                label='Email address'
+                css={theme({ fontSize: 0, width: '10rem' })}
                 required
               />
               <Button

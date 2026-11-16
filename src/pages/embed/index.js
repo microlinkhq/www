@@ -25,6 +25,7 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Input from 'components/elements/Input/Input'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -125,43 +126,14 @@ const HeroInputBar = styled('form')`
   ${theme({
     width: '100%',
     px: [2, 3, 3, 3],
-    py: '10px',
+    pt: 3,
+    pb: '10px',
     bg: 'white'
   })};
   display: flex;
-  align-items: center;
+  align-items: stretch;
   gap: 8px;
   border-bottom: ${borders[1]} ${colors.black05};
-`
-
-const HeroInput = styled('input')`
-  ${theme({
-    fontSize: ['13px', '13px', '14px', '14px'],
-    fontFamily: 'mono',
-    px: 2,
-    py: '8px',
-    color: 'black',
-    bg: 'white',
-    borderRadius: 4
-  })};
-  flex: 1;
-  min-width: 0;
-  border: ${borders[1]} ${colors.black10};
-  letter-spacing: 0;
-  outline: none;
-  transition: border-color ${transition.short};
-
-  &::placeholder {
-    color: ${colors.black40};
-  }
-
-  &:hover {
-    border-color: ${colors.black20};
-  }
-
-  &:focus-visible {
-    border-color: ${colors.black40};
-  }
 `
 
 const HeroPreviewButton = styled('button')`
@@ -538,16 +510,23 @@ const Hero = function Hero ({
           >
             <HeroPreviewShell>
               <HeroInputBar onSubmit={handleInputSubmit}>
-                <HeroInput
+                <Input
+                  label='URL'
+                  raised
                   type='text'
                   value={inputValue}
                   onChange={handleInputChange}
                   placeholder={placeholderText}
-                  aria-label='URL to preview'
                   spellCheck={false}
                   autoComplete='off'
                   autoCorrect='off'
                   autoCapitalize='off'
+                  labelCss={{ flex: 1, minWidth: 0 }}
+                  css={theme({
+                    fontFamily: 'mono',
+                    fontSize: [1, 1, 0, 0],
+                    color: 'black'
+                  })}
                 />
                 <HeroPreviewButton
                   type='submit'

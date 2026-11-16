@@ -1,5 +1,5 @@
 import { colors, theme, transition } from 'theme'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useId, useMemo, useState } from 'react'
 import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
@@ -10,6 +10,7 @@ import Box from 'components/elements/Box'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
+import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
@@ -223,32 +224,22 @@ const SectionLabel = styled(Caps)`
 
 const RangeInput = styled.input.attrs({ type: 'range' })`
   flex: 1;
-  min-width: 80px;
+  min-width: 48px;
   accent-color: ${colors.link};
   cursor: pointer;
 `
 
-const NumberField = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '64px'
-  })}
-  background: white;
-  text-align: right;
+const FIELD_INPUT_CSS = theme({ fontFamily: 'mono', fontSize: 1 })
 
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-`
+const HEX_INPUT_CSS = theme({
+  fontFamily: 'mono',
+  fontSize: 1,
+  textTransform: 'lowercase'
+})
+
+const NUMBER_FIELD_SHELL = { width: '80px', flexShrink: 0 }
+
+const HEX_FIELD_SHELL = { width: '120px', flexShrink: 0 }
 
 const SelectField = styled.select`
   ${theme({
@@ -276,28 +267,6 @@ const ColorField = styled.input.attrs({ type: 'color' })`
   background: white;
   cursor: pointer;
   flex-shrink: 0;
-`
-
-const HexField = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '88px'
-  })}
-  background: white;
-  text-transform: lowercase;
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
 `
 
 const CheckboxWrap = styled(Flex).attrs({ as: 'label' })`
@@ -349,44 +318,7 @@ const PreviewStage = styled(Flex)`
   width: 100%;
 `
 
-const OmniboxWrapper = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    bg: 'white',
-    borderRadius: '999px',
-    border: 1,
-    borderColor: 'black10',
-    py: '6px',
-    pl: '6px',
-    pr: '6px',
-    gap: '6px',
-    width: '100%',
-    fontFamily: 'sans'
-  })}
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
-
-  &:focus-within {
-    border-color: ${colors.black20};
-  }
-`
-
-const OmniboxInput = styled.input`
-  ${theme({ fontFamily: 'sans', fontSize: [1, 1, 2, 2], color: 'black80' })}
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 10px 14px;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-  }
-`
+const OMNIBOX_SHELL = { pr: '6px', gap: '6px', width: '100%' }
 
 const OmniboxButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   ${theme({
@@ -533,37 +465,57 @@ const PropPill = styled(Box)`
 
 /* ─── Small control helpers ────────────────────────────── */
 
-const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => (
-  <FieldRow>
-    <FieldLabel>{label}</FieldLabel>
-    <Flex css={{ alignItems: 'center', gap: 10, flex: 1, marginLeft: 16 }}>
-      <RangeInput
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={e => onChange(Number(e.target.value))}
-        aria-label={label}
-      />
-      <NumberField
-        type='number'
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={e => onChange(Number(e.target.value))}
-        aria-label={`${label} value`}
-      />
-      {suffix && (
-        <Text
-          css={theme({ fontFamily: 'mono', fontSize: 0, color: 'black40' })}
-        >
-          {suffix}
-        </Text>
-      )}
-    </Flex>
-  </FieldRow>
-)
+const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => {
+  const captionId = useId()
+  return (
+    <FieldRow>
+      <FieldLabel id={captionId}>{label}</FieldLabel>
+      <Flex
+        css={{
+          alignItems: 'center',
+          gap: 10,
+          flex: 1,
+          minWidth: 0,
+          marginLeft: 16
+        }}
+      >
+        <RangeInput
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={e => onChange(Number(e.target.value))}
+          aria-label={label}
+        />
+        <Input
+          label='Value'
+          aria-describedby={captionId}
+          type='number'
+          inputMode={Number.isInteger(step) ? 'numeric' : 'decimal'}
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={e => onChange(Number(e.target.value))}
+          css={FIELD_INPUT_CSS}
+          labelCss={NUMBER_FIELD_SHELL}
+        />
+        {suffix && (
+          <Text
+            css={theme({
+              fontFamily: 'mono',
+              fontSize: 0,
+              color: 'black40',
+              flexShrink: 0
+            })}
+          >
+            {suffix}
+          </Text>
+        )}
+      </Flex>
+    </FieldRow>
+  )
+}
 
 const SegmentedField = ({ label, options, value, onChange }) => (
   <Box css={theme({ pb: 2 })}>
@@ -596,24 +548,30 @@ const SelectRow = ({ label, options, value, onChange }) => (
   </FieldRow>
 )
 
-const ColorRow = ({ label, value, onChange }) => (
-  <FieldRow>
-    <FieldLabel>{label}</FieldLabel>
-    <Flex css={{ alignItems: 'center', gap: 8 }}>
-      <ColorField
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        aria-label={label}
-      />
-      <HexField
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        spellCheck={false}
-        aria-label={`${label} hex`}
-      />
-    </Flex>
-  </FieldRow>
-)
+const ColorRow = ({ label, value, onChange }) => {
+  const captionId = useId()
+  return (
+    <FieldRow>
+      <FieldLabel id={captionId}>{label}</FieldLabel>
+      <Flex css={{ alignItems: 'center', gap: 8 }}>
+        <ColorField
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          aria-label={label}
+        />
+        <Input
+          label='Hex'
+          aria-describedby={captionId}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          spellCheck={false}
+          css={HEX_INPUT_CSS}
+          labelCss={HEX_FIELD_SHELL}
+        />
+      </Flex>
+    </FieldRow>
+  )
+}
 
 /* ─── Tabs ─────────────────────────────────────────────── */
 
@@ -828,24 +786,26 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
   return (
     <Box css={{ width: '100%' }}>
-      <OmniboxWrapper>
-        <OmniboxInput
-          type='url'
-          inputMode='url'
-          placeholder={DEFAULT_URL}
-          value={url}
-          onChange={e => {
-            setUrl(e.target.value)
-            if (error) setError('')
-          }}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              if (!isLoading) handleSubmit()
-            }
-          }}
-          aria-invalid={!!error}
-        />
+      <Input
+        label='URL'
+        raised
+        type='url'
+        inputMode='url'
+        placeholder={DEFAULT_URL}
+        value={url}
+        onChange={e => {
+          setUrl(e.target.value)
+          if (error) setError('')
+        }}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            if (!isLoading) handleSubmit()
+          }
+        }}
+        aria-invalid={!!error}
+        labelCss={OMNIBOX_SHELL}
+      >
         <OmniboxButton
           onClick={handleSubmit}
           disabled={isLoading}
@@ -856,7 +816,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           </span>
           <ArrowRight size={16} />
         </OmniboxButton>
-      </OmniboxWrapper>
+      </Input>
       {error && (
         <Text
           role='alert'

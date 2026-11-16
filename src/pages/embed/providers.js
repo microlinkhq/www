@@ -60,6 +60,7 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Input from 'components/elements/Input/Input'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
@@ -1743,38 +1744,6 @@ const SearchWrapper = styled.div`
   margin: 0 auto;
   display: flex;
   align-items: center;
-  position: relative;
-`
-
-const SearchInput = styled.input`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: [1, 1, 2, 2],
-    color: 'black80',
-    borderRadius: '12px',
-    border: 1,
-    borderColor: 'black10'
-  })}
-  width: 100%;
-  height: 50px;
-  padding: 0 16px 0 44px;
-  background: ${colors.white};
-  outline: none;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
-
-  &:focus {
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 3px color-mix(in oklch, ${colors.link} 12.5%, transparent);
-  }
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: 599px) {
-    font-size: 16px;
-  }
 `
 
 const ProviderCardLink = styled.a`
@@ -1934,28 +1903,33 @@ const ProviderGrid = () => {
       })}
     >
       <SearchWrapper css={theme({ pb: [3, 3, 4, 4] })}>
-        <svg
-          viewBox='0 0 24 24'
-          width='18'
-          height='18'
-          fill='none'
-          stroke={colors.black30}
-          strokeWidth='2'
-          strokeLinecap='round'
-          strokeLinejoin='round'
-          style={{ position: 'absolute', left: 16, zIndex: 1 }}
-        >
-          <circle cx='11' cy='11' r='8' />
-          <line x1='21' y1='21' x2='16.65' y2='16.65' />
-        </svg>
-        <SearchInput
+        <Input
           type='search'
+          label='Search providers'
           placeholder='Search providers…'
           value={search}
           onChange={e => {
             setSearch(e.target.value)
             setPage(0)
           }}
+          labelCss={{ flex: 1, minWidth: 0 }}
+          css={theme({ width: '100%' })}
+          iconComponent={
+            <svg
+              viewBox='0 0 24 24'
+              width='18'
+              height='18'
+              fill='none'
+              stroke={colors.black30}
+              strokeWidth='2'
+              strokeLinecap='round'
+              strokeLinejoin='round'
+              aria-hidden='true'
+            >
+              <circle cx='11' cy='11' r='8' />
+              <line x1='21' y1='21' x2='16.65' y2='16.65' />
+            </svg>
+          }
         />
       </SearchWrapper>
       <Box

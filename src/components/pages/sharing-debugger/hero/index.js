@@ -166,7 +166,7 @@ export const Hero = () => {
                         />
                       }
                       aria-invalid={Boolean(inputError)}
-                      aria-label='URL to debug'
+                      label='URL'
                       autoCapitalize='none'
                       autoComplete='url'
                       autoCorrect='off'

@@ -6,7 +6,14 @@ import {
   transition,
   SECTION_VERTICAL_SPACING
 } from 'theme'
-import React, { useState, useCallback, useEffect, useMemo, useRef } from 'react'
+import React, {
+  useState,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef
+} from 'react'
 import {
   ArrowRight,
   Clipboard,
@@ -23,6 +30,7 @@ import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
@@ -522,33 +530,27 @@ const FormRow = styled(Flex)`
   justify-content: space-between;
 `
 
+const FieldStack = styled(Box)`
+  ${theme({ py: 2 })}
+`
+
 const FormLabel = styled(Text)`
   ${theme({ fontSize: 1, color: 'black80', fontFamily: 'sans' })}
   flex: 1;
   min-width: 0;
 `
 
-const NumberField = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '70px'
-  })}
-  background: white;
-  text-align: right;
+const FIELD_INPUT_CSS = theme({ fontFamily: 'mono', fontSize: 1 })
 
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-`
+const HEX_INPUT_CSS = theme({
+  fontFamily: 'mono',
+  fontSize: 1,
+  textTransform: 'lowercase'
+})
+
+const PIXELS_FIELD_SHELL = { width: '96px', flexShrink: 0 }
+
+const HEX_FIELD_SHELL = { width: '120px', flexShrink: 0 }
 
 const SelectField = styled.select`
   ${theme({
@@ -589,28 +591,6 @@ const ColorField = styled.input.attrs({ type: 'color' })`
   &::-webkit-color-swatch {
     border: none;
     border-radius: 4px;
-  }
-`
-
-const ColorFieldHex = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '90px'
-  })}
-  background: white;
-  text-transform: lowercase;
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
   }
 `
 
@@ -696,18 +676,6 @@ const ViewToggleButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   }
 `
 
-const UnitFieldWrap = styled(Box)`
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  flex-shrink: 0;
-
-  & input {
-    padding-right: 26px;
-    width: 80px;
-  }
-`
-
 const RangeInput = styled.input.attrs({ type: 'range' })`
   flex: 1;
   min-width: 80px;
@@ -752,17 +720,6 @@ const ChipButton = styled(Box)
     outline: 2px solid ${colors.link};
     outline-offset: 2px;
   }
-`
-
-const UnitSuffix = styled.span`
-  position: absolute;
-  right: 8px;
-  top: 50%;
-  transform: translateY(-50%);
-  pointer-events: none;
-  color: ${colors.black40};
-  font-size: 11px;
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
 `
 
 const HelpIconWrap = styled(Box).attrs({ as: 'span' })`
@@ -847,59 +804,7 @@ const PaneHeader = styled(Flex)`
   flex-shrink: 0;
 `
 
-const OmniboxWrapper = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    bg: 'white',
-    borderRadius: '999px',
-    border: 1,
-    borderColor: 'black10',
-    py: '6px',
-    pl: '6px',
-    pr: '6px',
-    gap: '6px',
-    width: '100%',
-    fontFamily: 'sans'
-  })}
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:focus-within {
-    border-color: ${colors.black20};
-  }
-`
-
-const OmniboxInput = styled.input`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: [1, 1, 2, 2],
-    color: 'black80'
-  })}
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 10px 14px;
-
-  &:focus,
-  &:focus-visible {
-    outline: none;
-    box-shadow: none;
-  }
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-  }
-`
+const OMNIBOX_SHELL = { pr: '6px', gap: '6px', width: '100%' }
 
 const OmniboxConvertButton = styled(Box).attrs({
   as: 'button',
@@ -1220,24 +1125,25 @@ const Omnibar = ({
 
   return (
     <Box css={{ width: '100%' }}>
-      <OmniboxWrapper>
-        <OmniboxInput
-          id='embed-url'
-          type='url'
-          inputMode='url'
-          autoComplete='url'
-          placeholder={placeholderProp || 'Paste a URL…'}
-          value={url}
-          onChange={handleUrlChange}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              if (!isLoading) handleSubmit()
-            }
-          }}
-          aria-describedby={urlError ? 'embed-url-error' : undefined}
-          aria-invalid={!!urlError}
-        />
+      <Input
+        label='URL'
+        id='embed-url'
+        type='url'
+        inputMode='url'
+        autoComplete='url'
+        placeholder={placeholderProp || 'Paste a URL…'}
+        value={url}
+        onChange={handleUrlChange}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            if (!isLoading) handleSubmit()
+          }
+        }}
+        aria-describedby={urlError ? 'embed-url-error' : undefined}
+        aria-invalid={!!urlError}
+        labelCss={OMNIBOX_SHELL}
+      >
         <OmniboxConvertButton
           onClick={() => handleSubmit()}
           disabled={isLoading}
@@ -1246,7 +1152,7 @@ const Omnibar = ({
           <span className='omnibox-btn-label'>Generate preview</span>
           <ArrowRight size={16} />
         </OmniboxConvertButton>
-      </OmniboxWrapper>
+      </Input>
       {urlError
         ? (
           <Text
@@ -1729,6 +1635,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
 }
 
 const FrameTab = ({ config, set, setHoverTarget }) => {
+  const captionId = useId()
   const hover = target => ({
     onMouseEnter: () => setHoverTarget(target),
     onMouseLeave: () => setHoverTarget(null)
@@ -1739,7 +1646,9 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
       <SectionHeader>Frame</SectionHeader>
       <Box>
         <FormRow css={{ alignItems: 'flex-start' }} {...hover('frame')}>
-          <FormLabel css={{ paddingTop: 6 }}>Border</FormLabel>
+          <FormLabel id={`${captionId}-border`} css={{ paddingTop: 6 }}>
+            Border
+          </FormLabel>
           <Flex
             css={{
               flexDirection: 'column',
@@ -1758,18 +1667,19 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   set('border', Math.max(0, Number(e.target.value) || 0))}
                 aria-label='Border width'
               />
-              <UnitFieldWrap>
-                <NumberField
-                  type='number'
-                  min='0'
-                  max='10'
-                  value={config.border}
-                  onChange={e =>
-                    set('border', Math.max(0, Number(e.target.value) || 0))}
-                  aria-label='Border width in pixels'
-                />
-                <UnitSuffix aria-hidden='true'>px</UnitSuffix>
-              </UnitFieldWrap>
+              <Input
+                label='Pixels'
+                aria-describedby={`${captionId}-border`}
+                type='number'
+                inputMode='numeric'
+                min='0'
+                max='10'
+                value={config.border}
+                onChange={e =>
+                  set('border', Math.max(0, Number(e.target.value) || 0))}
+                css={FIELD_INPUT_CSS}
+                labelCss={PIXELS_FIELD_SHELL}
+              />
             </Flex>
             <Flex css={{ gap: 4, flexWrap: 'wrap' }}>
               {[0, 1, 2, 4].map(v => (
@@ -1787,7 +1697,9 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
           </Flex>
         </FormRow>
         <FormRow css={{ alignItems: 'flex-start' }} {...hover('frame')}>
-          <FormLabel css={{ paddingTop: 6 }}>Radius</FormLabel>
+          <FormLabel id={`${captionId}-radius`} css={{ paddingTop: 6 }}>
+            Radius
+          </FormLabel>
           <Flex
             css={{
               flexDirection: 'column',
@@ -1806,18 +1718,19 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
                   set('radius', Math.max(0, Number(e.target.value) || 0))}
                 aria-label='Border radius'
               />
-              <UnitFieldWrap>
-                <NumberField
-                  type='number'
-                  min='0'
-                  max='40'
-                  value={config.radius}
-                  onChange={e =>
-                    set('radius', Math.max(0, Number(e.target.value) || 0))}
-                  aria-label='Border radius in pixels'
-                />
-                <UnitSuffix aria-hidden='true'>px</UnitSuffix>
-              </UnitFieldWrap>
+              <Input
+                label='Pixels'
+                aria-describedby={`${captionId}-radius`}
+                type='number'
+                inputMode='numeric'
+                min='0'
+                max='40'
+                value={config.radius}
+                onChange={e =>
+                  set('radius', Math.max(0, Number(e.target.value) || 0))}
+                css={FIELD_INPUT_CSS}
+                labelCss={PIXELS_FIELD_SHELL}
+              />
             </Flex>
             <Flex css={{ gap: 4, flexWrap: 'wrap' }}>
               {[0, 4, 8, 16, 24].map(v => (
@@ -1848,16 +1761,20 @@ const FrameTab = ({ config, set, setHoverTarget }) => {
           </SelectField>
         </FormRow>
         <FormRow {...hover('frame')}>
-          <FormLabel>Color</FormLabel>
+          <FormLabel id={`${captionId}-color`}>Color</FormLabel>
           <Flex css={{ gap: 8, alignItems: 'center' }}>
             <ColorField
               value={config.shadowColor}
               onChange={e => set('shadowColor', e.target.value)}
             />
-            <ColorFieldHex
-              type='text'
+            <Input
+              label='Hex'
+              aria-describedby={`${captionId}-color`}
+              spellCheck={false}
               value={config.shadowColor}
               onChange={e => set('shadowColor', e.target.value)}
+              css={HEX_INPUT_CSS}
+              labelCss={HEX_FIELD_SHELL}
             />
           </Flex>
         </FormRow>
@@ -1907,31 +1824,35 @@ const FontsTab = ({ config, set, setHoverTarget }) => {
           ))}
         </SelectField>
       </FormRow>
-      <FormRow {...hover('frame')}>
-        <FormLabel>Line height</FormLabel>
-        <NumberField
+      <FieldStack {...hover('frame')}>
+        <Input
+          label='Line height'
           type='number'
+          inputMode='decimal'
           step='0.1'
           min='1'
           max='3'
           value={config.lineHeight}
           onChange={e =>
             set('lineHeight', Math.max(1, Number(e.target.value) || 1))}
+          css={FIELD_INPUT_CSS}
         />
-      </FormRow>
+      </FieldStack>
 
       <SectionHeader>Sizes (px)</SectionHeader>
       {FONT_SIZE_FIELDS.map(({ key, label, target }) => (
-        <FormRow key={key} {...hover(target)}>
-          <FormLabel>{label}</FormLabel>
-          <NumberField
+        <FieldStack key={key} {...hover(target)}>
+          <Input
+            label={label}
             type='number'
+            inputMode='numeric'
             min='8'
             max='48'
             value={config[key]}
             onChange={e => set(key, Math.max(8, Number(e.target.value) || 8))}
+            css={FIELD_INPUT_CSS}
           />
-        </FormRow>
+        </FieldStack>
       ))}
     </Box>
   )
@@ -1947,6 +1868,7 @@ const COLOR_TARGET_MAP = {
 }
 
 const ColorsTab = ({ config, set, setHoverTarget }) => {
+  const captionId = useId()
   const themeKey = config.theme === 'dark' ? 'darkColors' : 'lightColors'
   const hover = target => ({
     onMouseEnter: () => setHoverTarget(target),
@@ -1976,16 +1898,20 @@ const ColorsTab = ({ config, set, setHoverTarget }) => {
       </SectionHeader>
       {COLOR_FIELDS.map(({ id, label }) => (
         <FormRow key={id} {...hover(COLOR_TARGET_MAP[id])}>
-          <FormLabel>{label}</FormLabel>
+          <FormLabel id={`${captionId}-${id}`}>{label}</FormLabel>
           <Flex css={{ gap: 8, alignItems: 'center' }}>
             <ColorField
               value={config[themeKey][id]}
               onChange={e => set(`${themeKey}.${id}`, e.target.value)}
             />
-            <ColorFieldHex
-              type='text'
+            <Input
+              label='Hex'
+              aria-describedby={`${captionId}-${id}`}
+              spellCheck={false}
               value={config[themeKey][id]}
               onChange={e => set(`${themeKey}.${id}`, e.target.value)}
+              css={HEX_INPUT_CSS}
+              labelCss={HEX_FIELD_SHELL}
             />
           </Flex>
         </FormRow>

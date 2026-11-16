@@ -334,15 +334,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           </Box>
 
           <Box css={theme({ pb: '12px' })}>
-            <OptionLabel as='span'>Width in px</OptionLabel>
-            <Flex css={{ alignItems: 'center' }}>
-              <Box css={{ flex: 1, maxWidth: '100px' }}>
+            <Flex css={theme({ alignItems: 'center', pt: 2 })}>
+              <Box css={{ flex: 1, maxWidth: '140px' }}>
                 <Input
+                  label='Width (px)'
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
                   placeholder='1920'
-                  aria-label='Viewport width in pixels'
                   value={options.customWidth}
                   onChange={e => {
                     setOptions(prev => ({
@@ -352,11 +351,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
             </Flex>

@@ -353,6 +353,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               />
             </Box>
             <Input
+              label='Seconds'
               id='ws-duration-input'
               type='number'
               inputMode='numeric'
@@ -360,7 +361,6 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               max={MAX_DURATION_S}
               step={1}
               placeholder={String(DEFAULT_DURATION_S)}
-              aria-label='Animation duration in seconds'
               value={options.duration}
               onChange={e => {
                 const raw = e.target.value
@@ -380,23 +380,9 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   }))
                 }
               }}
-              css={theme({
-                width: '70px',
-                fontSize: 1,
-                height: '18px',
-                textAlign: 'center'
-              })}
+              labelCss={{ width: '104px', flexShrink: 0 }}
+              css={theme({ width: '100%', fontSize: 1 })}
             />
-            <Text
-              css={theme({
-                fontFamily: 'sans',
-                fontSize: 0,
-                color: 'black50',
-                flexShrink: 0
-              })}
-            >
-              s
-            </Text>
           </Flex>
         </PanelSection>
 

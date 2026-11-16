@@ -37,6 +37,7 @@ import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Input from 'components/elements/Input/Input'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -62,7 +63,6 @@ import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { normalizeApiError } from 'helpers/api-error'
 
 import {
-  OptionLabel,
   CheckboxLabel,
   StepCard,
   SectionIcon,
@@ -528,41 +528,6 @@ const LoadingDot = styled.span`
   }
 `
 
-const SelectorInput = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '7px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80'
-  })}
-  width: 100%;
-  min-width: 0;
-  background: white;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-    min-height: 44px;
-  }
-`
-
 const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
   ${theme({
     alignItems: 'center',
@@ -602,60 +567,6 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
 `
 
 /* ─── Omnibox + Settings Popover ──────────────────────── */
-
-const OmniboxWrapper = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    bg: 'white',
-    borderRadius: '999px',
-    border: 1,
-    borderColor: 'black10',
-    py: '6px',
-    pl: '6px',
-    pr: '6px',
-    gap: '6px',
-    width: '100%',
-    fontFamily: 'sans'
-  })}
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:focus-within {
-    border-color: ${colors.black20};
-  }
-`
-
-const OmniboxInput = styled.input`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: [1, 1, 2, 2],
-    color: 'black80'
-  })}
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 8px 4px;
-
-  &:focus,
-  &:focus-visible {
-    outline: none;
-    box-shadow: none;
-  }
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-  }
-`
 
 const OmniboxConvertButton = styled(Box).attrs({
   as: 'button',
@@ -948,29 +859,11 @@ const SettingsPopover = ({
               </Tooltip>
             </CheckboxLabel>
 
-            <Box css={theme({ pt: 2 })}>
-              <Flex css={{ alignItems: 'center', gap: '6px' }}>
-                <OptionLabel as='span'>HTML Selector</OptionLabel>
-                <Tooltip
-                  content={
-                    <Tooltip.Content>
-                      Target specific elements on the page using a CSS selector.
-                      When set, the tool matches <b>all</b> elements and joins
-                      their markdown with a line break — useful for repeating
-                      structures like article lists, cards, or table rows.
-                    </Tooltip.Content>
-                }
-                >
-                  <HelpCircle
-                    size={16}
-                    color={colors.black60}
-                    style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
-                  />
-                </Tooltip>
-              </Flex>
-              <SelectorInput
+            <Box css={theme({ pt: 3 })}>
+              <Input
                 id='md-selector'
-                type='text'
+                label='HTML Selector'
+                hint='Matches every element and joins their markdown.'
                 placeholder='article, main, .content…'
                 value={options.customSelector}
                 onChange={e =>
@@ -980,7 +873,11 @@ const SettingsPopover = ({
                   }))}
                 spellCheck={false}
                 autoComplete='off'
-                aria-label='HTML selector to target specific content'
+                css={theme({
+                  width: '100%',
+                  fontFamily: 'mono',
+                  fontSize: [1, 1, 0, 0]
+                })}
               />
             </Box>
           </Box>
@@ -1639,69 +1536,75 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
   }, [options.url, onSubmit, setOptions])
 
   return (
-    <Box css={{ width: '100%' }}>
-      <OmniboxWrapper>
-        <OmniboxInput
-          id='md-url'
-          type='url'
-          inputMode='url'
-          autoComplete='url'
-          placeholder='Paste a URL…'
-          value={options.url}
-          onChange={handleUrlChange}
-          onKeyDown={e => {
-            if (e.key === 'Enter') {
-              e.preventDefault()
-              if (!isLoading) handleSubmit()
-            }
-          }}
-          aria-describedby={urlError ? 'md-url-error' : undefined}
-          aria-invalid={!!urlError}
-          style={{ order: 1 }}
-        />
-
-        <Box
-          ref={popoverAnchorRef}
-          css={{ position: 'relative', flexShrink: 0, order: 0 }}
+    <Box
+      css={theme({
+        display: 'grid',
+        gridTemplateColumns: 'auto minmax(0, 1fr)',
+        alignItems: 'center',
+        columnGap: '6px',
+        width: '100%'
+      })}
+    >
+      <Box ref={popoverAnchorRef} css={{ position: 'relative' }}>
+        <SettingsIconButton
+          onClick={() => setShowPopover(prev => !prev)}
+          aria-label='Conversion settings'
+          aria-expanded={showPopover}
         >
-          <SettingsIconButton
-            onClick={() => setShowPopover(prev => !prev)}
-            aria-label='Conversion settings'
-            aria-expanded={showPopover}
-          >
-            <Settings size={18} />
-            {hasNonDefaultSettings ? <ActiveDot /> : null}
-          </SettingsIconButton>
-          {showPopover
-            ? (
-              <>
-                <PopoverBackdrop onClick={() => setShowPopover(false)} />
-                <SettingsPopover
-                  options={options}
-                  setOptions={setOptions}
-                  showAdvanced={showAdvanced}
-                  setShowAdvanced={setShowAdvanced}
-                />
-              </>
-              )
-            : null}
-        </Box>
+          <Settings size={18} />
+          {hasNonDefaultSettings ? <ActiveDot /> : null}
+        </SettingsIconButton>
+        {showPopover
+          ? (
+            <>
+              <PopoverBackdrop onClick={() => setShowPopover(false)} />
+              <SettingsPopover
+                options={options}
+                setOptions={setOptions}
+                showAdvanced={showAdvanced}
+                setShowAdvanced={setShowAdvanced}
+              />
+            </>
+            )
+          : null}
+      </Box>
 
-        <OmniboxConvertButton
-          onClick={handleSubmit}
-          disabled={isLoading}
-          style={{ order: 2 }}
-        >
+      <Input
+        id='md-url'
+        type='url'
+        inputMode='url'
+        autoComplete='url'
+        label='URL'
+        placeholder='Paste a URL…'
+        value={options.url}
+        onChange={handleUrlChange}
+        onKeyDown={e => {
+          if (e.key === 'Enter') {
+            e.preventDefault()
+            if (!isLoading) handleSubmit()
+          }
+        }}
+        aria-describedby={urlError ? 'md-url-error' : undefined}
+        aria-invalid={!!urlError}
+        labelCss={{ borderRadius: 5, pl: 3, pr: '6px' }}
+      >
+        <OmniboxConvertButton onClick={handleSubmit} disabled={isLoading}>
           <span className='omnibox-btn-label'>Convert</span>
           <ArrowRight size={16} />
         </OmniboxConvertButton>
-      </OmniboxWrapper>
+      </Input>
       {urlError
         ? (
           <Text
             id='md-url-error'
             role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+            css={theme({
+              gridColumn: 2,
+              color: 'fullscreen',
+              fontSize: 0,
+              pt: 1,
+              pl: 3
+            })}
           >
             {urlError}
           </Text>

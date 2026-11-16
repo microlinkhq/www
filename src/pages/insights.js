@@ -344,6 +344,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               })}
               iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
+              label='URL'
               placeholder='Visit URL'
               suggestions={SUGGESTIONS}
               type='text'
@@ -395,6 +396,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     }
                   >
                     <Input
+                      label='Technology stack cURL'
                       readOnly
                       onClick={event => {
                         event.target.select()
@@ -435,6 +437,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 }
               >
                 <Input
+                  label='Report cURL'
                   readOnly
                   onClick={event => {
                     event.target.select()
