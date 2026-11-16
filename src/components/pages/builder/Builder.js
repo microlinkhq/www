@@ -174,11 +174,6 @@ const SectionHeader = styled(Box).attrs({ as: 'button', type: 'button' })`
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: color ${transition.short};
-
-  &:hover {
-    color: ${colors.black60};
-  }
 
   & svg {
     flex-shrink: 0;
@@ -208,6 +203,21 @@ const FieldRow = styled(Flex)`
 
 const FieldLabel = styled(Text)`
   ${theme({ fontFamily: 'sans', fontSize: 0, color: 'black80' })}
+`
+
+const RangeLabel = styled(FieldLabel)`
+  ${theme({ width: '88px' })}
+  flex-shrink: 0;
+`
+
+const RangeSuffix = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'black40',
+    width: '4ch'
+  })}
+  flex-shrink: 0;
 `
 
 const SectionLabel = styled(Caps)`
@@ -469,14 +479,13 @@ const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => {
   const captionId = useId()
   return (
     <FieldRow>
-      <FieldLabel id={captionId}>{label}</FieldLabel>
+      <RangeLabel id={captionId}>{label}</RangeLabel>
       <Flex
         css={{
           alignItems: 'center',
           gap: 10,
           flex: 1,
-          minWidth: 0,
-          marginLeft: 16
+          minWidth: 0
         }}
       >
         <RangeInput
@@ -500,18 +509,7 @@ const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => {
           css={FIELD_INPUT_CSS}
           labelCss={NUMBER_FIELD_SHELL}
         />
-        {suffix && (
-          <Text
-            css={theme({
-              fontFamily: 'mono',
-              fontSize: 0,
-              color: 'black40',
-              flexShrink: 0
-            })}
-          >
-            {suffix}
-          </Text>
-        )}
+        {suffix && <RangeSuffix>{suffix}</RangeSuffix>}
       </Flex>
     </FieldRow>
   )
