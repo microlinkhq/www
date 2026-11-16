@@ -1,4 +1,5 @@
-import { transition, colors, theme, touchTargets } from 'theme'
+import { transition, colors, theme } from 'theme'
+import { fieldChrome, fieldChromeTokens } from '../field-chrome'
 import React, { useId, useMemo } from 'react'
 import styled from 'styled-components'
 
@@ -12,13 +13,8 @@ const FIELD_TEXT_INSET = 8
 const LABEL_PADDING_X = 2
 const RAISED_LABEL_INSET = -FIELD_TEXT_INSET + LABEL_PADDING_X
 const FIELD_PADDING_Y = '12px'
-const FOCUS_RING_WIDTH = '3px'
-const DISABLED_OPACITY = 0.55
 const EMPTY_PLACEHOLDER = ' '
 const INVALID_FIELD = "input[aria-invalid='true']"
-
-const focusRing = color =>
-  `0 0 0 ${FOCUS_RING_WIDTH} color-mix(in oklch, ${color} 20%, transparent)`
 
 const StyledInputBase = styled(Text)(
   {
@@ -53,47 +49,18 @@ const StyledInputBase = styled(Text)(
 const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
 
 const InputWrapper = styled(Flex)(
-  theme({
-    bg: 'white',
-    color: 'black80',
-    border: 1,
-    borderColor: 'black10',
-    borderRadius: 4
+  fieldChromeTokens,
+  fieldChrome({
+    focus: '&:focus-within',
+    invalid: `&:has(${INVALID_FIELD})`,
+    disabled: '&:has(input:disabled)'
   }),
   {
     position: 'relative',
     textAlign: 'left',
-    minHeight: touchTargets.minHeight,
-    touchAction: 'manipulation',
-    WebkitTapHighlightColor: 'transparent',
-    transition: ['border-color', 'box-shadow', 'opacity']
-      .map(property => `${property} ${transition.short}`)
-      .join(', '),
-    '@media (prefers-reduced-motion: reduce)': {
-      transition: 'none'
-    },
-    '@media (hover: hover) and (pointer: fine)': {
-      '&:hover': {
-        borderColor: colors.black20
-      }
-    },
-    '&:focus-within': {
-      borderColor: colors.link,
-      boxShadow: focusRing(colors.link),
-      svg: {
-        stroke: colors.black80,
-        color: colors.black80
-      }
-    },
-    [`&:has(${INVALID_FIELD})`]: {
-      borderColor: colors.red8
-    },
-    [`&:has(${INVALID_FIELD}):focus-within`]: {
-      boxShadow: focusRing(colors.red8)
-    },
-    '&:has(input:disabled)': {
-      opacity: DISABLED_OPACITY,
-      cursor: 'not-allowed'
+    '&:focus-within svg': {
+      stroke: colors.black80,
+      color: colors.black80
     }
   }
 )
@@ -145,6 +112,7 @@ const raisedLabel = `${FloatingLabelLayer} > ${FloatingLabelText}`
 
 const raisedLabelStyle = {
   color: colors.black70,
+  maxWidth: `${100 / RAISED_LABEL_SCALE}%`,
   transform: `translate(calc(${RAISED_LABEL_INSET}px - var(--label-rest-inset)), calc(-50cqh - 0.5px)) scale(${RAISED_LABEL_SCALE})`
 }
 
@@ -233,7 +201,7 @@ const Input = ({
       inputMode={inputMode}
       placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}
       $floating={Boolean(label)}
-      aria-labelledby={label ? labelId : undefined}
+      aria-labelledby={label && !props['aria-label'] ? labelId : undefined}
       {...props}
       aria-describedby={joinIds(props['aria-describedby'], hint && hintId)}
     />

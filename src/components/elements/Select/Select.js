@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { theme, transition, fonts, colors, touchTargets } from 'theme'
+import { theme } from 'theme'
+import { fieldChrome, fieldChromeTokens } from '../field-chrome'
 import React from 'react'
 
 import Box from '../Box'
@@ -11,13 +12,15 @@ const arrow = encodeURI(
 const ARROW_SIZE = '7px'
 
 const StyledSelect = styled(Box)(
+  fieldChromeTokens,
+  fieldChrome({
+    focus: '&:focus-visible',
+    invalid: "&[aria-invalid='true']",
+    disabled: '&:disabled'
+  }),
   {
-    background: 'transparent',
-    color: 'inherit',
     width: 'inherit',
     cursor: 'pointer',
-    transitionProperty: 'border-color, box-shadow',
-    transition: transition.medium,
     fontSize: 'inherit',
     lineHeight: 'inherit',
     appearance: 'none',
@@ -25,34 +28,15 @@ const StyledSelect = styled(Box)(
     backgroundPosition: `calc(100% - ${ARROW_SIZE}) center`,
     backgroundRepeat: 'no-repeat',
     backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
-    touchAction: 'manipulation',
-    WebkitTapHighlightColor: 'transparent',
-    minHeight: touchTargets.minHeight,
-    '@media (prefers-reduced-motion: reduce)': {
-      transition: 'none'
+    '&:focus-visible': {
+      outline: 'none'
     }
   },
   theme({
-    pl: '8px',
-    pr: '4px',
+    pl: 2,
+    pr: '20px',
     m: 0,
-    border: 1,
-    borderRadius: 2,
-    fontFamily: fonts.sans,
-    borderColor: 'black20',
-    _hover: {
-      '&:hover': {
-        borderColor: 'black80'
-      }
-    },
-    _focus: {
-      borderColor: 'black80',
-      boxShadow: `0 0 0 2px ${colors.link}`,
-      outline: 'none'
-    },
-    _disabled: {
-      opacity: 1 / 4
-    }
+    fontFamily: 'sans'
   })
 )
 

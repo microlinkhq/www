@@ -165,4 +165,17 @@ describe('Input', () => {
     expect(css).toMatch(/(\.[\w-]+){3}\{padding-left:2px;padding-right:2px;?\}/)
     expect(css).toContain('text-align:left')
   })
+
+  test('a raised label may use the width its 0.92 scale frees, so short fields do not clip it', () => {
+    const { css } = render({ label: 'Height' })
+    expect(css).toMatch(/max-width:108\.69\d*%/)
+  })
+
+  test('an explicit aria-label still names the input when a visible label is set', () => {
+    const tag = inputTag(
+      render({ label: 'Pixels', 'aria-label': 'Border width in pixels' }).markup
+    )
+    expect(attribute(tag, 'aria-label')).toBe('Border width in pixels')
+    expect(tag).not.toContain('aria-labelledby')
+  })
 })
