@@ -12,17 +12,19 @@ const post = readFileSync(
 describe('how we cut our kubernetes image pull', () => {
   test('deletes the new pod only when a scale-down happens inside the short window', () => {
     expect(post).toContain(
-      'When a scale-down happens inside a window shorter than a cold start, the pod a new node was bought for is the one that goes.'
+      'When a scale-down happens inside a window shorter than a cold start, the pod a new node was bought for can be the one that goes.'
     )
   })
 
-  test('reads the pull on a node provisioned before any pull', () => {
-    expect(post).toContain('Read it on a node provisioned before any pull.')
+  test('reads the pull on a newly provisioned node whose layers are absent', () => {
+    expect(post).toContain(
+      "Read it on a newly provisioned node, after you check that this image's layers are absent."
+    )
   })
 
-  test('says a node can still hold layers shared with another image', () => {
+  test('says a node can still hold layers from an earlier pull or another image', () => {
     expect(post).toContain(
-      'A node that has not pulled this image can still hold layers it shares with another image'
+      'A node can still hold those layers from an earlier pull, or from another image that shares them'
     )
   })
 
