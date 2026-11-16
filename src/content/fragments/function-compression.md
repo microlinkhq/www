@@ -6,4 +6,4 @@ If you call the API directly, compress the function body and prefix the payload 
 - `gz#` for gzip
 - `lz#` for lz-string
 
-The free plan's 1024 bytes code size limit applies to the code once decompressed, so compression keeps the URL short but does not raise the limit. Read [how to compress](/blog/compress) to know more.
+The free plan's 5120 bytes code size limit applies to the code once decompressed, so compression keeps the URL short but does not raise the limit. Read [how to compress](/blog/compress) to know more.

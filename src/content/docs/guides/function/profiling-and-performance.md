@@ -52,7 +52,7 @@ The function parameter is available on both free and pro plans:
 | ----------------- | ---------------------------------------------- | ------------ |
 | Timeout           | 15 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
-| Code size         | 1024 bytes                                     | Unlimited    |
+| Code size         | 5120 bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
 | Outgoing requests | Same-origin only                               | Unrestricted |
 
