@@ -1,3 +1,5 @@
+import { FREE_PLAN_FUNCTION_CODE_SIZE } from '../../../../helpers/free-tier'
+
 export const CONTENT = {
   slug: 'scraping/npm-packages-remotely',
   head: {
@@ -97,7 +99,7 @@ const { isFulfilled, value } = await microlink.function(
       {
         kicker: 'Sandboxed',
         title: 'Clear limits, clear errors.',
-        body: 'The free plan, with or without an API key, gets 15 seconds, 64 MB, 1024 bytes of code and same-origin requests only; a paid plan gets up to 60 seconds, 128 MB, unlimited code and any outgoing request. Each limit has its own named error.',
+        body: `The free plan, with or without an API key, gets 15 seconds, 64 MB, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code and same-origin requests only; a paid plan gets up to 60 seconds, 128 MB, unlimited code and any outgoing request. Each limit has its own named error.`,
         note: 'When not to: packages that spawn child processes or write to the filesystem outside the sandbox fail with ERR_ACCESS_DENIED, and heavy CPU work can hit CpuTimeError. If a declarative rule can read the value, [scrape it to JSON](/use-cases/scraping/website-to-json) instead.'
       }
     ]

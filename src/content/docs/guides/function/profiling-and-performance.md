@@ -5,7 +5,10 @@ description: 'Understand execution phases, plan limits, and optimization techniq
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Link } from 'components/elements/Link'
-import { FREE_PLAN_CONCURRENT_REQUESTS } from 'helpers/free-tier'
+import {
+  FREE_PLAN_CONCURRENT_REQUESTS,
+  FREE_PLAN_FUNCTION_CODE_SIZE
+} from 'helpers/free-tier'
 import FunctionCompression from 'content/fragments/function-compression.md'
 
 Every function response includes profiling data with phase-level timing and resource usage.
@@ -52,7 +55,7 @@ The function parameter is available on both free and pro plans:
 | ----------------- | ---------------------------------------------- | ------------ |
 | Timeout           | 15 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
-| Code size         | 1024 bytes                                     | Unlimited    |
+| Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
 | Outgoing requests | Same-origin only                               | Unrestricted |
 
