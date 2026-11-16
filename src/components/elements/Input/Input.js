@@ -62,6 +62,7 @@ const InputWrapper = styled(Flex)(
   }),
   {
     position: 'relative',
+    textAlign: 'left',
     minHeight: touchTargets.minHeight,
     touchAction: 'manipulation',
     WebkitTapHighlightColor: 'transparent',
@@ -102,10 +103,13 @@ const FloatingLabelText = styled(Text).attrs({ as: 'span' })(
     fontSize: 1,
     lineHeight: 0,
     bg: 'white',
-    color: 'black60',
-    px: `${LABEL_PADDING_X}px`
+    color: 'black60'
   }),
   {
+    '&&&': {
+      paddingLeft: `${LABEL_PADDING_X}px`,
+      paddingRight: `${LABEL_PADDING_X}px`
+    },
     maxWidth: '100%',
     overflow: 'hidden',
     whiteSpace: 'nowrap',

@@ -159,4 +159,10 @@ describe('Input', () => {
   test('without a label there is no aria-labelledby', () => {
     expect(inputTag(render({}).markup)).not.toContain('aria-labelledby')
   })
+
+  test('outer styles cannot shift the label or center the typed text', () => {
+    const { css } = render({ label: 'API key' })
+    expect(css).toMatch(/(\.[\w-]+){3}\{padding-left:2px;padding-right:2px;?\}/)
+    expect(css).toContain('text-align:left')
+  })
 })
