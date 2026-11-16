@@ -83,9 +83,8 @@ Binary data such as `Buffer` and typed arrays is allocated off the heap and is r
 
 **CodeSizeError** — the function code exceeds the {FREE_PLAN_FUNCTION_CODE_SIZE} bytes free plan limit:
 
-1. Use the [SDK](/docs/sdk/methods/function), which compresses code automatically.
-2. Compress the function body manually with `lz#`, `br#`, or `gz#` prefixes when calling the API directly.
-3. Upgrade to pro for unlimited code size.
+1. Shrink the function: drop unused code and move large constants into function arguments. Compression does not help, because the limit applies to the decompressed code.
+2. Upgrade to pro for unlimited code size.
 
 **ConcurrencyError** — the same function is already running twice against the same URL. On the free plan, up to 2 copies of a function run per URL at a time, whatever IP address or free API key sends them:
 
