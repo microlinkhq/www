@@ -131,4 +131,32 @@ describe('Input', () => {
     const { css } = render({ iconComponent: <svg data-icon /> })
     expect(css).not.toContain('flex:0 0 24px')
   })
+
+  test('the input is named by the label text alone, even with a trailing control inside the field', () => {
+    const { markup } = render({
+      label: 'URL',
+      children: <button type='submit'>Convert</button>
+    })
+    const labelId = attribute(markup.match(/<span[^>]*>URL<\/span>/)[0], 'id')
+    expect(attribute(inputTag(markup), 'aria-labelledby')).toBe(labelId)
+    expect(markup).toMatch(
+      /<input\b[\s\S]*<button type="submit">Convert<\/button><\/label>$/
+    )
+  })
+
+  test('raised keeps the label on the border and the placeholder visible at rest', () => {
+    const resting = render({ label: 'URL', placeholder: 'https://' }).css
+    const raised = render({
+      label: 'URL',
+      placeholder: 'https://',
+      raised: true
+    }).css
+    expect(resting).not.toMatch(/\{[^}]*::placeholder\{opacity:1;?\}/)
+    expect(raised).toMatch(/input::placeholder\{opacity:1;?\}/)
+    expect(raised).toMatch(/\.[\w-]+ \.[\w-]+>\.[\w-]+\{[^}]*scale\(0\.92\)/)
+  })
+
+  test('without a label there is no aria-labelledby', () => {
+    expect(inputTag(render({}).markup)).not.toContain('aria-labelledby')
+  })
 })

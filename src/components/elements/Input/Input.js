@@ -150,7 +150,14 @@ const IconSlot = styled(Flex)({
   alignItems: 'center'
 })
 
-const FloatingLabelField = styled(Box)({
+const alwaysRaised = {
+  'input::placeholder': { opacity: 1 },
+  [raisedLabel]: raisedLabelStyle
+}
+
+const FloatingLabelField = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== 'raised'
+})(({ raised }) => ({
   position: 'relative',
   display: 'flex',
   alignItems: 'center',
@@ -171,8 +178,9 @@ const FloatingLabelField = styled(Box)({
   },
   [`${INVALID_FIELD} ~ ${raisedLabel}`]: {
     color: colors.red8
-  }
-})
+  },
+  ...(raised && alwaysRaised)
+}))
 
 const InputHint = styled(Text)(
   theme({
@@ -194,11 +202,14 @@ const Input = ({
   autoComplete,
   inputMode,
   label,
+  raised = false,
   hint,
   placeholder,
   ...props
 }) => {
-  const hintId = `${useId()}-hint`
+  const id = useId()
+  const hintId = `${id}-hint`
+  const labelId = `${id}-label`
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -218,6 +229,7 @@ const Input = ({
       inputMode={inputMode}
       placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}
       $floating={Boolean(label)}
+      aria-labelledby={label ? labelId : undefined}
       {...props}
       aria-describedby={joinIds(props['aria-describedby'], hint && hintId)}
     />
@@ -236,11 +248,11 @@ const Input = ({
     >
       {label
         ? (
-          <FloatingLabelField>
+          <FloatingLabelField raised={raised}>
             {Icon && <IconSlot>{Icon}</IconSlot>}
             {input}
             <FloatingLabelLayer hasIcon={Boolean(Icon)}>
-              <FloatingLabelText>{label}</FloatingLabelText>
+              <FloatingLabelText id={labelId}>{label}</FloatingLabelText>
             </FloatingLabelLayer>
           </FloatingLabelField>
           )
@@ -250,6 +262,8 @@ const Input = ({
             {input}
           </>
           )}
+
+      {children}
 
       {suggestions && (
         <datalist id={list}>
