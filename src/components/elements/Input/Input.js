@@ -7,7 +7,11 @@ import Flex from '../Flex'
 import Box from '../Box'
 
 const RAISED_LABEL_SCALE = 0.92
-const RAISED_LABEL_SHIFT_X = '-12px'
+const ICON_SLOT_WIDTH = 24
+const FIELD_TEXT_INSET = 8
+const LABEL_PADDING_X = 2
+const RAISED_LABEL_INSET = -FIELD_TEXT_INSET + LABEL_PADDING_X
+const FIELD_PADDING_Y = '12px'
 const FOCUS_RING_WIDTH = '3px'
 const DISABLED_OPACITY = 0.55
 const EMPTY_PLACEHOLDER = ' '
@@ -36,7 +40,14 @@ const StyledInputBase = styled(Text)(
     border: 0,
     p: 0,
     mx: 2
-  })
+  }),
+  ({ $floating }) =>
+    $floating && {
+      flex: 1,
+      minWidth: 0,
+      paddingTop: FIELD_PADDING_Y,
+      paddingBottom: FIELD_PADDING_Y
+    }
 )
 
 const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
@@ -92,7 +103,7 @@ const FloatingLabelText = styled(Text).attrs({ as: 'span' })(
     lineHeight: 0,
     bg: 'white',
     color: 'black60',
-    px: '2px'
+    px: `${LABEL_PADDING_X}px`
   }),
   {
     maxWidth: '100%',
@@ -109,21 +120,35 @@ const FloatingLabelText = styled(Text).attrs({ as: 'span' })(
   }
 )
 
-const FloatingLabelLayer = styled(Box)(theme({ px: '6px' }), {
+const labelRestInset = hasIcon =>
+  (hasIcon ? ICON_SLOT_WIDTH : 0) + FIELD_TEXT_INSET - LABEL_PADDING_X
+
+const FloatingLabelLayer = styled(Box).withConfig({
+  shouldForwardProp: prop => prop !== 'hasIcon'
+})(({ hasIcon }) => ({
+  '--label-rest-inset': `${labelRestInset(hasIcon)}px`,
   position: 'absolute',
   inset: 0,
   display: 'flex',
   alignItems: 'center',
+  paddingLeft: 'var(--label-rest-inset)',
+  paddingRight: `${FIELD_TEXT_INSET}px`,
   pointerEvents: 'none',
   containerType: 'size'
-})
+}))
 
 const raisedLabel = `${FloatingLabelLayer} > ${FloatingLabelText}`
 
 const raisedLabelStyle = {
   color: colors.black70,
-  transform: `translate(${RAISED_LABEL_SHIFT_X}, calc(-50cqh - 0.5px)) scale(${RAISED_LABEL_SCALE})`
+  transform: `translate(calc(${RAISED_LABEL_INSET}px - var(--label-rest-inset)), calc(-50cqh - 0.5px)) scale(${RAISED_LABEL_SCALE})`
 }
+
+const IconSlot = styled(Flex)({
+  flex: `0 0 ${ICON_SLOT_WIDTH}px`,
+  justifyContent: 'center',
+  alignItems: 'center'
+})
 
 const FloatingLabelField = styled(Box)({
   position: 'relative',
@@ -132,12 +157,6 @@ const FloatingLabelField = styled(Box)({
   flex: 1,
   minWidth: 0,
   alignSelf: 'stretch',
-  input: {
-    flex: 1,
-    minWidth: 0,
-    paddingTop: '12px',
-    paddingBottom: '12px'
-  },
   'input::placeholder': {
     opacity: 0
   },
@@ -198,6 +217,7 @@ const Input = ({
       autoComplete={autoComplete}
       inputMode={inputMode}
       placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}
+      $floating={Boolean(label)}
       {...props}
       aria-describedby={joinIds(props['aria-describedby'], hint && hintId)}
     />
@@ -214,18 +234,21 @@ const Input = ({
         ...labelCss
       })}
     >
-      {Icon && <Flex>{Icon}</Flex>}
       {label
         ? (
           <FloatingLabelField>
+            {Icon && <IconSlot>{Icon}</IconSlot>}
             {input}
-            <FloatingLabelLayer>
+            <FloatingLabelLayer hasIcon={Boolean(Icon)}>
               <FloatingLabelText>{label}</FloatingLabelText>
             </FloatingLabelLayer>
           </FloatingLabelField>
           )
         : (
-            input
+          <>
+            {Icon && <Flex>{Icon}</Flex>}
+            {input}
+          </>
           )}
 
       {suggestions && (

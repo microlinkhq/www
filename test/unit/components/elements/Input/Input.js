@@ -107,8 +107,28 @@ describe('Input', () => {
     expect(css).toMatch(/input:not\(:placeholder-shown\)~\.[\w-]+>\.[\w-]+/)
     expect(css).toMatch(/input:autofill~\.[\w-]+>\.[\w-]+/)
     expect(css).toContain(
-      'transform:translate(-12px, calc(-50cqh - 0.5px)) scale(0.92)'
+      'transform:translate(calc(-6px - var(--label-rest-inset)), calc(-50cqh - 0.5px)) scale(0.92)'
     )
     expect(css).not.toMatch(/transition:[^;}]*\b(top|left|all)\b/)
+  })
+
+  test('the label rests on the input text and rises to the field edge', () => {
+    const { css } = render({ label: 'Email' })
+    expect(css).toContain('--label-rest-inset:6px')
+  })
+
+  test('with an icon the label rests after the icon slot and still rises to the field edge', () => {
+    const { markup, css } = render({
+      label: 'Site URL',
+      iconComponent: <svg data-icon />
+    })
+    expect(css).toContain('--label-rest-inset:30px')
+    expect(markup.indexOf('data-icon')).toBeLessThan(markup.indexOf('<input'))
+    expect(markup.match(/<svg data-icon/g)).toHaveLength(1)
+  })
+
+  test('without a label the icon keeps its natural width', () => {
+    const { css } = render({ iconComponent: <svg data-icon /> })
+    expect(css).not.toContain('flex:0 0 24px')
   })
 })
