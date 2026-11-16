@@ -166,9 +166,12 @@ describe('Input', () => {
     expect(css).toContain('text-align:left')
   })
 
-  test('a raised label may use the width its 0.92 scale frees, so short fields do not clip it', () => {
-    const { css } = render({ label: 'Height' })
-    expect(css).toMatch(/max-width:108\.69\d*%/)
+  test('a raised label may grow into the room its shift and the field padding free', () => {
+    const { css } = render({ label: 'Seconds' })
+    expect(css).toContain(
+      'max-width:calc((100% + var(--label-rest-inset) + 18px) / 0.92)'
+    )
+    expect(css).toMatch(/flex-shrink:0;max-width:calc\(/)
   })
 
   test('an explicit aria-label still names the input when a visible label is set', () => {

@@ -12,6 +12,9 @@ const ICON_SLOT_WIDTH = 24
 const FIELD_TEXT_INSET = 8
 const LABEL_PADDING_X = 2
 const RAISED_LABEL_INSET = -FIELD_TEXT_INSET + LABEL_PADDING_X
+const RAISED_LABEL_RIGHT_GAP = 4
+const RAISED_LABEL_EXTRA_ROOM =
+  FIELD_TEXT_INSET * 2 - RAISED_LABEL_INSET - RAISED_LABEL_RIGHT_GAP
 const FIELD_PADDING_Y = '12px'
 const EMPTY_PLACEHOLDER = ' '
 const INVALID_FIELD = "input[aria-invalid='true']"
@@ -112,7 +115,8 @@ const raisedLabel = `${FloatingLabelLayer} > ${FloatingLabelText}`
 
 const raisedLabelStyle = {
   color: colors.black70,
-  maxWidth: `${100 / RAISED_LABEL_SCALE}%`,
+  flexShrink: 0,
+  maxWidth: `calc((100% + var(--label-rest-inset) + ${RAISED_LABEL_EXTRA_ROOM}px) / ${RAISED_LABEL_SCALE})`,
   transform: `translate(calc(${RAISED_LABEL_INSET}px - var(--label-rest-inset)), calc(-50cqh - 0.5px)) scale(${RAISED_LABEL_SCALE})`
 }
 

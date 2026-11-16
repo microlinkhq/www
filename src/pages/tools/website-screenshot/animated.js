@@ -380,7 +380,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   }))
                 }
               }}
-              labelCss={{ width: '104px', flexShrink: 0 }}
+              labelCss={{ width: '76px', flexShrink: 0 }}
               css={theme({ width: '100%', fontSize: 1 })}
             />
           </Flex>
