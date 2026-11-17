@@ -357,13 +357,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
+          label='Website URL'
           id='ws-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='browserless.js.org'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {

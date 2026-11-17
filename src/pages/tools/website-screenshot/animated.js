@@ -285,13 +285,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
+          label='Website URL'
           id='ws-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='unavatar.io'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -353,14 +354,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               />
             </Box>
             <Input
+              label='Seconds'
               id='ws-duration-input'
               type='number'
               inputMode='numeric'
               min={MIN_DURATION_S}
               max={MAX_DURATION_S}
               step={1}
-              placeholder={String(DEFAULT_DURATION_S)}
-              aria-label='Animation duration in seconds'
+              example={String(DEFAULT_DURATION_S)}
               value={options.duration}
               onChange={e => {
                 const raw = e.target.value
@@ -380,23 +381,9 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   }))
                 }
               }}
-              css={theme({
-                width: '70px',
-                fontSize: 1,
-                height: '18px',
-                textAlign: 'center'
-              })}
+              labelCss={{ width: '76px', flexShrink: 0 }}
+              css={theme({ width: '100%', fontSize: 1 })}
             />
-            <Text
-              css={theme({
-                fontFamily: 'sans',
-                fontSize: 0,
-                color: 'black50',
-                flexShrink: 0
-              })}
-            >
-              s
-            </Text>
           </Flex>
         </PanelSection>
 

@@ -31,7 +31,7 @@ import Heading from 'components/elements/Heading'
 import Hide from 'components/elements/Hide'
 import { Iframe } from 'components/elements/Iframe/Iframe'
 import Image from 'components/elements/Image/Image'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -338,13 +338,14 @@ const LiveDemo = React.memo(function LiveDemo ({
         >
           <Box>
             <Input
-              css={theme({
-                fontSize: 2,
-                width: ['100%', '100%', 128, 128]
-              })}
+              css={theme({ fontSize: 2, width: '100%' })}
+              labelCss={{
+                width: ['100%', '100%', URL_FIELD_WIDTH, URL_FIELD_WIDTH]
+              }}
               iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
-              placeholder='Visit URL'
+              label='URL'
+              example='unavatar.io'
               suggestions={SUGGESTIONS}
               type='text'
               value={inputUrl}
@@ -395,6 +396,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                     }
                   >
                     <Input
+                      label='Technology stack cURL'
                       readOnly
                       onClick={event => {
                         event.target.select()
@@ -435,6 +437,7 @@ const LiveDemo = React.memo(function LiveDemo ({
                 }
               >
                 <Input
+                  label='Report cURL'
                   readOnly
                   onClick={event => {
                     event.target.select()

@@ -56,5 +56,23 @@ export const Default = () => (
       placeholder: 'you@domain.com',
       suggestions: [{ value: 'you@gmail.com' }, { value: 'you@hotmail.com' }]
     })}
+
+    {createStory('Input floating label', {
+      type: 'email',
+      label: 'Email',
+      placeholder: 'you@domain.com'
+    })}
+
+    {createStory('Input floating label with hint', {
+      label: 'Extra recipients',
+      hint: 'Comma-separated emails, e.g. jane@acme.com, ops@acme.com'
+    })}
+
+    {createStory('Input invalid', {
+      type: 'email',
+      label: 'Email',
+      defaultValue: 'not-an-email',
+      'aria-invalid': true
+    })}
   </>
 )

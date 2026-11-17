@@ -1,7 +1,6 @@
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { layout, theme } from 'theme'
-import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
@@ -16,7 +15,6 @@ import {
   NewsletterHoneypot,
   useNewsletter
 } from 'components/hook/use-newsletter'
-import { Mail } from 'react-feather'
 
 export const Head = () => (
   <Meta description='Get early access & updates on new releases.' />
@@ -72,15 +70,9 @@ const NewsletterPage = () => {
                     placeholder='you@domain.com'
                     autoComplete='email'
                     inputMode='email'
-                    aria-label='Email address'
+                    label='Email address'
+                    autoFocus
                     css={theme({ width: ['10rem', null, '16rem'] })}
-                    iconComponent={
-                      <FeatherIcon
-                        icon={Mail}
-                        color='black40'
-                        size={[0, 0, 1, 1]}
-                      />
-                    }
                     required
                   />
 

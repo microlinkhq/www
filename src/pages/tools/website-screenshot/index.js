@@ -344,41 +344,6 @@ const NativeColorPicker = styled.input.attrs({ type: 'color' })`
   }
 `
 
-const HexTextInput = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '7px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80'
-  })}
-  flex: 1;
-  min-width: 0;
-  background: white;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-    min-height: 44px;
-  }
-`
-
 /* ─── Color Picker Component ──────────────────────────── */
 
 const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
@@ -458,21 +423,23 @@ const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
       </OptionLabel>
       <Flex
         aria-labelledby='custom-color-label'
-        css={{ alignItems: 'center', gap: space[2] }}
+        css={theme({ alignItems: 'center', gap: 2, pt: 2 })}
       >
         <NativeColorPicker
           value={nativePickerValue}
           onChange={e => onCustomHexChange(e.target.value)}
           aria-label='Pick a custom color'
         />
-        <HexTextInput
-          placeholder='#FF057C'
+        <Input
+          label='Hex color'
+          placeholder='e.g., #FF057C'
           value={customHex}
           onChange={e => onCustomHexChange(e.target.value.trim())}
-          aria-label='Enter hex color code'
           spellCheck={false}
           autoComplete='off'
           maxLength={7}
+          labelCss={{ flex: 1, minWidth: 0 }}
+          css={theme({ width: '100%', fontFamily: 'mono', fontSize: 1 })}
         />
       </Flex>
     </Box>
@@ -594,13 +561,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
+          label='Website URL'
           id='ws-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='unavatar.io'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -646,14 +614,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
 
           <Box css={theme({ pb: '12px' })}>
             <OptionLabel as='span'>Viewport</OptionLabel>
-            <Flex css={{ alignItems: 'center' }}>
+            <Flex css={theme({ alignItems: 'stretch', pt: 2 })}>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Width'
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1920'
-                  aria-label='Viewport width in pixels'
+                  example='1920'
                   value={options.customWidth}
                   onChange={e => {
                     const nextWidth = Number(e.target.value)
@@ -671,11 +639,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  labelCss={{ pr: 1 }}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
               <Flex
@@ -689,11 +654,11 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               </Flex>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Height'
                   id='ws-height'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1080'
-                  aria-label='Viewport height in pixels'
+                  example='1080'
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {
@@ -712,11 +677,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  labelCss={{ pr: 1 }}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
               <Box css={theme({ pl: 2, width: ['92px', '98px'] })}>
@@ -727,6 +689,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   onChange={e => handleAspectRatioChange(e.target.value)}
                   css={theme({
                     width: '100%',
+                    height: '100%',
                     fontSize: 1,
                     bg: 'white'
                   })}

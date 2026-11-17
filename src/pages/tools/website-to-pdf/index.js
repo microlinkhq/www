@@ -493,13 +493,14 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
     >
       {/* ── Primary Input ───────────────────── */}
       <PanelSection>
-        <OptionLabel as='span'>Website URL</OptionLabel>
         <Input
+          label='Website URL'
           id='pdf-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='browserless.js.org'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -613,7 +614,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 />
               </Tooltip>
             </Box>
-            <Flex css={theme({ alignItems: 'center', gap: 2, pt: 1 })}>
+            <Flex css={theme({ alignItems: 'center', gap: 2, pt: 2 })}>
               <input
                 id='pdf-scale-range'
                 type='range'
@@ -627,22 +628,18 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 style={{ flex: 1, accentColor: colors.link }}
               />
               <Input
+                label='Scale'
                 id='pdf-scale'
                 type='number'
                 inputMode='decimal'
                 step='0.1'
                 min='0.1'
                 max='2'
-                aria-label='PDF zoom scale value'
                 value={options.scale}
                 onChange={e =>
                   setOptions(prev => ({ ...prev, scale: e.target.value }))}
-                css={theme({
-                  width: '60px',
-                  fontSize: 1,
-                  height: '18px',
-                  textAlign: 'center'
-                })}
+                labelCss={{ width: '96px', flexShrink: 0 }}
+                css={theme({ width: '100%', fontSize: 1 })}
               />
             </Flex>
           </Box>
@@ -758,7 +755,8 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 pt: 1,
                 display: 'grid',
                 gridTemplateColumns: '1fr 1fr',
-                gap: '12px'
+                rowGap: 3,
+                columnGap: '12px'
               })}
             >
               <Box css={{ gridColumn: '1 / -1' }}>
@@ -786,145 +784,90 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     display: 'grid',
                     gridTemplateColumns: '1fr 1fr',
                     gap: '12px',
-                    alignItems: 'center'
+                    alignItems: 'center',
+                    paddingTop: space[2]
                   }}
                 >
                   <Input
+                    label='Start page'
                     id='pdf-page-from'
                     type='number'
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    placeholder='First page'
-                    aria-label='Start page'
+                    placeholder='e.g., 1'
                     value={options.pageFrom}
                     onChange={e =>
                       setOptions(prev => ({
                         ...prev,
                         pageFrom: e.target.value
                       }))}
-                    css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                    css={theme({ width: '100%', fontSize: 1 })}
                   />
                   <Input
+                    label='End page'
                     id='pdf-page-to'
                     type='number'
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    placeholder='Last page'
-                    aria-label='End page'
+                    placeholder='e.g., 3'
                     value={options.pageTo}
                     onChange={e =>
                       setOptions(prev => ({
                         ...prev,
                         pageTo: e.target.value
                       }))}
-                    css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                    css={theme({ width: '100%', fontSize: 1 })}
                   />
                 </Box>
               </Box>
 
               <Box>
-                <Box css={{ display: 'flex', alignItems: 'center' }}>
-                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                    Margin
-                  </OptionLabel>
-                  <Tooltip
-                    content={
-                      <Tooltip.Content>
-                        Margins around the PDF content. Accepts CSS units: px,
-                        in, cm, mm.
-                      </Tooltip.Content>
-                    }
-                  >
-                    <HelpCircle
-                      size={14}
-                      color={colors.black40}
-                      style={{ marginLeft: '4px' }}
-                    />
-                  </Tooltip>
-                </Box>
                 <Input
+                  label='Margin'
+                  hint='px, in, cm or mm'
                   id='pdf-margin'
                   type='text'
-                  placeholder='e.g. 10px'
-                  aria-label='PDF margin'
+                  placeholder='e.g., 10px'
                   value={options.margin}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, margin: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
-                  css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
 
               <Box>
-                <Box css={{ display: 'flex', alignItems: 'center' }}>
-                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                    Width
-                  </OptionLabel>
-                  <Tooltip
-                    content={
-                      <Tooltip.Content>
-                        Override paper width with a CSS value, e.g.
-                        &quot;640px&quot;, &quot;8.5in&quot;, or
-                        &quot;210mm&quot;.
-                      </Tooltip.Content>
-                    }
-                  >
-                    <HelpCircle
-                      size={14}
-                      color={colors.black40}
-                      style={{ marginLeft: '4px' }}
-                    />
-                  </Tooltip>
-                </Box>
                 <Input
+                  label='Paper width'
+                  hint='px, in, cm or mm'
                   id='pdf-width'
                   type='text'
-                  placeholder='e.g. 640px'
-                  aria-label='Custom paper width'
+                  placeholder='e.g., 640px'
                   value={options.width}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, width: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
-                  css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
 
               <Box>
-                <Box css={{ display: 'flex', alignItems: 'center' }}>
-                  <OptionLabel as='span' css={{ marginBottom: 0 }}>
-                    Height
-                  </OptionLabel>
-                  <Tooltip
-                    content={
-                      <Tooltip.Content>
-                        Override paper height with a CSS value, e.g.
-                        &quot;480px&quot;, &quot;11in&quot;, or
-                        &quot;297mm&quot;.
-                      </Tooltip.Content>
-                    }
-                  >
-                    <HelpCircle
-                      size={14}
-                      color={colors.black40}
-                      style={{ marginLeft: '4px' }}
-                    />
-                  </Tooltip>
-                </Box>
                 <Input
+                  label='Paper height'
+                  hint='px, in, cm or mm'
                   id='pdf-height'
                   type='text'
-                  placeholder='e.g. 480px'
-                  aria-label='Custom paper height'
+                  placeholder='e.g., 480px'
                   value={options.height}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, height: e.target.value }))}
                   spellCheck={false}
                   autoComplete='off'
-                  css={theme({ width: '100%', fontSize: 1, height: '18px' })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
             </Box>

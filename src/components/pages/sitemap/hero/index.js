@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import Caps from 'components/elements/Caps'
 import Caption from 'components/patterns/Caption/Caption'
@@ -113,8 +113,14 @@ export const Hero = () => {
             <Box css={theme({ width: ['100%', 'auto'] })}>
               <Input
                 id='sitemap-url'
+                autoFocus
                 labelCss={{
-                  width: ['100%', '320px', '320px', '320px']
+                  width: [
+                    '100%',
+                    URL_FIELD_WIDTH,
+                    URL_FIELD_WIDTH,
+                    URL_FIELD_WIDTH
+                  ]
                 }}
                 css={theme({
                   fontSize: 2,
@@ -126,13 +132,13 @@ export const Hero = () => {
                   />
                 }
                 aria-invalid={Boolean(inputError)}
-                aria-label='Site URL to inspect'
+                label='Site URL'
                 autoCapitalize='none'
                 autoComplete='url'
                 autoCorrect='off'
                 inputMode='url'
                 name='url'
-                placeholder='https://example.com…'
+                example='unavatar.io'
                 spellCheck={false}
                 type='text'
                 value={inputUrl}

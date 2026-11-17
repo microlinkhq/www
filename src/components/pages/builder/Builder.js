@@ -1,6 +1,6 @@
 import { colors, theme, transition } from 'theme'
-import React, { useCallback, useMemo, useState } from 'react'
-import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
+import React, { useCallback, useId, useMemo, useState } from 'react'
+import { ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -8,8 +8,10 @@ import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
@@ -26,6 +28,7 @@ import {
   deriveVariant
 } from 'helpers/link-card'
 import { FILENAMES, GENERATORS, HIGHLIGHT_ALIASES } from './generators'
+import { inputModeForStep } from './input-mode'
 import { MOBILE_BP } from 'components/pages/screenshot'
 
 /* ─── Config ───────────────────────────────────────────── */
@@ -78,25 +81,26 @@ const BUILDER_DEFAULT_CONFIG = {
 
 // Default URL previewed in the builder, and the placeholder shown in the
 // omnibar — a recognizable, well-designed card to land on.
-const DEFAULT_URL = 'stripe.com'
+const DEFAULT_URL = 'unavatar.io'
 
 // Shown in the live preview by default, before the user fetches another URL.
 // Baked from the Microlink API so the default card renders instantly (no
 // fetch-on-load), then any real URL the user enters replaces it.
 const SAMPLE_DATA = {
-  url: 'https://stripe.com',
-  title: 'Stripe | Financial Infrastructure to Grow Your Revenue',
+  url: 'https://unavatar.io',
+  title:
+    'unavatar.io: The universal avatars API for username, email, and domain — plus logos, icons & artwork',
   description:
-    'Stripe is a financial services platform that helps all types of businesses accept payments, build flexible billing models, and manage money movement.',
-  publisher: 'stripe.com',
+    'Universal avatars API: resolve user avatars by username, email, or domain from GitHub, Gravatar, X, Google, Instagram, and 99+ providers.',
+  publisher: 'unavatar.io',
   author: null,
   date: null,
   image: {
-    url: 'https://images.stripeassets.com/fzn2n1nzq965/XtX984S1GJVsVOXFC7kMu/01988281e867728dfb09aa7793a6e3b9/Stripe.jpg?q=80',
-    palette: ['#ED87D8']
+    url: 'https://unavatar.io/api/og?v=qqo4dhib3',
+    palette: ['#FFFEFE']
   },
   logo: {
-    url: 'https://images.stripeassets.com/fzn2n1nzq965/4vVgZi0ZMoEzOhkcv7EVwK/8cce6fdcf2733b2ec8e99548908847ed/favicon.png?w=180&h=180'
+    url: 'https://unavatar.io/apple-touch-icon.png'
   }
 }
 
@@ -173,11 +177,6 @@ const SectionHeader = styled(Box).attrs({ as: 'button', type: 'button' })`
   border: none;
   cursor: pointer;
   text-align: left;
-  transition: color ${transition.short};
-
-  &:hover {
-    color: ${colors.black60};
-  }
 
   & svg {
     flex-shrink: 0;
@@ -209,6 +208,21 @@ const FieldLabel = styled(Text)`
   ${theme({ fontFamily: 'sans', fontSize: 0, color: 'black80' })}
 `
 
+const RangeLabel = styled(FieldLabel)`
+  ${theme({ width: '88px' })}
+  flex-shrink: 0;
+`
+
+const RangeSuffix = styled(Text)`
+  ${theme({
+    fontFamily: 'mono',
+    fontSize: 0,
+    color: 'black40',
+    width: '4ch'
+  })}
+  flex-shrink: 0;
+`
+
 const SectionLabel = styled(Caps)`
   ${theme({
     fontSize: 0,
@@ -223,32 +237,22 @@ const SectionLabel = styled(Caps)`
 
 const RangeInput = styled.input.attrs({ type: 'range' })`
   flex: 1;
-  min-width: 80px;
+  min-width: 48px;
   accent-color: ${colors.link};
   cursor: pointer;
 `
 
-const NumberField = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '64px'
-  })}
-  background: white;
-  text-align: right;
+const FIELD_INPUT_CSS = theme({ fontFamily: 'mono', fontSize: 1 })
 
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-`
+const HEX_INPUT_CSS = theme({
+  fontFamily: 'mono',
+  fontSize: 1,
+  textTransform: 'lowercase'
+})
+
+const NUMBER_FIELD_SHELL = { width: '80px', flexShrink: 0 }
+
+const HEX_FIELD_SHELL = { width: '120px', flexShrink: 0 }
 
 const SelectField = styled.select`
   ${theme({
@@ -276,28 +280,6 @@ const ColorField = styled.input.attrs({ type: 'color' })`
   background: white;
   cursor: pointer;
   flex-shrink: 0;
-`
-
-const HexField = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '6px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80',
-    width: '88px'
-  })}
-  background: white;
-  text-transform: lowercase;
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
 `
 
 const CheckboxWrap = styled(Flex).attrs({ as: 'label' })`
@@ -347,77 +329,6 @@ const PreviewStage = styled(Flex)`
   background-size: 16px 16px;
   min-height: 320px;
   width: 100%;
-`
-
-const OmniboxWrapper = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    bg: 'white',
-    borderRadius: '999px',
-    border: 1,
-    borderColor: 'black10',
-    py: '6px',
-    pl: '6px',
-    pr: '6px',
-    gap: '6px',
-    width: '100%',
-    fontFamily: 'sans'
-  })}
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
-
-  &:focus-within {
-    border-color: ${colors.black20};
-  }
-`
-
-const OmniboxInput = styled.input`
-  ${theme({ fontFamily: 'sans', fontSize: [1, 1, 2, 2], color: 'black80' })}
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 10px 14px;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-  }
-`
-
-const OmniboxButton = styled(Box).attrs({ as: 'button', type: 'button' })`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    borderRadius: '999px',
-    cursor: 'pointer',
-    flexShrink: 0
-  })}
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: ${colors.link};
-  color: white;
-  white-space: nowrap;
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: wait;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    padding: 10px 14px;
-
-    .btn-label {
-      display: none;
-    }
-  }
 `
 
 // Layout shell. The builder is a single centered column (`Content`); on wide
@@ -533,37 +444,45 @@ const PropPill = styled(Box)`
 
 /* ─── Small control helpers ────────────────────────────── */
 
-const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => (
-  <FieldRow>
-    <FieldLabel>{label}</FieldLabel>
-    <Flex css={{ alignItems: 'center', gap: 10, flex: 1, marginLeft: 16 }}>
-      <RangeInput
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={e => onChange(Number(e.target.value))}
-        aria-label={label}
-      />
-      <NumberField
-        type='number'
-        value={value}
-        min={min}
-        max={max}
-        step={step}
-        onChange={e => onChange(Number(e.target.value))}
-        aria-label={`${label} value`}
-      />
-      {suffix && (
-        <Text
-          css={theme({ fontFamily: 'mono', fontSize: 0, color: 'black40' })}
-        >
-          {suffix}
-        </Text>
-      )}
-    </Flex>
-  </FieldRow>
-)
+const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => {
+  const captionId = useId()
+  return (
+    <FieldRow>
+      <RangeLabel id={captionId}>{label}</RangeLabel>
+      <Flex
+        css={{
+          alignItems: 'center',
+          gap: 10,
+          flex: 1,
+          minWidth: 0
+        }}
+      >
+        <RangeInput
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={e => onChange(Number(e.target.value))}
+          aria-label={label}
+        />
+        <Input
+          label='Value'
+          aria-describedby={captionId}
+          type='number'
+          inputMode={inputModeForStep(step)}
+          value={value}
+          min={min}
+          max={max}
+          step={step}
+          onChange={e => onChange(Number(e.target.value))}
+          css={FIELD_INPUT_CSS}
+          labelCss={NUMBER_FIELD_SHELL}
+        />
+        {suffix && <RangeSuffix>{suffix}</RangeSuffix>}
+      </Flex>
+    </FieldRow>
+  )
+}
 
 const SegmentedField = ({ label, options, value, onChange }) => (
   <Box css={theme({ pb: 2 })}>
@@ -596,24 +515,30 @@ const SelectRow = ({ label, options, value, onChange }) => (
   </FieldRow>
 )
 
-const ColorRow = ({ label, value, onChange }) => (
-  <FieldRow>
-    <FieldLabel>{label}</FieldLabel>
-    <Flex css={{ alignItems: 'center', gap: 8 }}>
-      <ColorField
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        aria-label={label}
-      />
-      <HexField
-        value={value}
-        onChange={e => onChange(e.target.value)}
-        spellCheck={false}
-        aria-label={`${label} hex`}
-      />
-    </Flex>
-  </FieldRow>
-)
+const ColorRow = ({ label, value, onChange }) => {
+  const captionId = useId()
+  return (
+    <FieldRow>
+      <FieldLabel id={captionId}>{label}</FieldLabel>
+      <Flex css={{ alignItems: 'center', gap: 8 }}>
+        <ColorField
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          aria-label={label}
+        />
+        <Input
+          label='Hex'
+          aria-describedby={captionId}
+          value={value}
+          onChange={e => onChange(e.target.value)}
+          spellCheck={false}
+          css={HEX_INPUT_CSS}
+          labelCss={HEX_FIELD_SHELL}
+        />
+      </Flex>
+    </FieldRow>
+  )
+}
 
 /* ─── Tabs ─────────────────────────────────────────────── */
 
@@ -818,7 +743,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
     // An empty submit previews the placeholder URL rather than erroring.
     const next = prependHttp((url || '').trim() || DEFAULT_URL)
     if (!isUrl(next)) {
-      setError('Please enter a valid URL (e.g. stripe.com)')
+      setError('Please enter a valid URL (e.g. unavatar.io)')
       return
     }
     setError('')
@@ -828,11 +753,14 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
   return (
     <Box css={{ width: '100%' }}>
-      <OmniboxWrapper>
-        <OmniboxInput
+      <Flex css={{ justifyContent: 'center' }}>
+        <Input
+          label='URL'
+          raised
+          autoFocus
           type='url'
           inputMode='url'
-          placeholder={DEFAULT_URL}
+          example={DEFAULT_URL}
           value={url}
           onChange={e => {
             setUrl(e.target.value)
@@ -845,22 +773,26 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
             }
           }}
           aria-invalid={!!error}
+          labelCss={{ width: URL_FIELD_WIDTH, minWidth: 0, flexShrink: 1 }}
         />
-        <OmniboxButton
+        <Button
+          type='button'
           onClick={handleSubmit}
-          disabled={isLoading}
-          aria-label='Fetch preview'
+          loading={isLoading}
+          css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <span className='btn-label'>
-            {isLoading ? 'Fetching…' : 'Preview'}
-          </span>
-          <ArrowRight size={16} />
-        </OmniboxButton>
-      </OmniboxWrapper>
+          <Caps css={theme({ fontSize: 0 })}>Preview</Caps>
+        </Button>
+      </Flex>
       {error && (
         <Text
           role='alert'
-          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+          css={theme({
+            color: 'fullscreen',
+            fontSize: 0,
+            pt: 1,
+            textAlign: 'center'
+          })}
         >
           {error}
         </Text>

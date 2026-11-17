@@ -32,11 +32,13 @@ import styled, { keyframes } from 'styled-components'
 import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -62,7 +64,6 @@ import { ToolError } from 'components/patterns/ApiError/ToolError'
 import { normalizeApiError } from 'helpers/api-error'
 
 import {
-  OptionLabel,
   CheckboxLabel,
   StepCard,
   SectionIcon,
@@ -528,41 +529,6 @@ const LoadingDot = styled.span`
   }
 `
 
-const SelectorInput = styled.input`
-  ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
-    px: 2,
-    py: '7px',
-    borderRadius: '6px',
-    border: 1,
-    borderColor: 'black10',
-    color: 'black80'
-  })}
-  width: 100%;
-  min-width: 0;
-  background: white;
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  &:focus {
-    outline: none;
-    border-color: ${colors.link};
-    box-shadow: 0 0 0 1px ${colors.link};
-  }
-
-  &:focus-visible {
-    outline: none;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-    min-height: 44px;
-  }
-`
-
 const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
   ${theme({
     alignItems: 'center',
@@ -602,115 +568,6 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
 `
 
 /* ─── Omnibox + Settings Popover ──────────────────────── */
-
-const OmniboxWrapper = styled(Flex)`
-  ${theme({
-    alignItems: 'center',
-    bg: 'white',
-    borderRadius: '999px',
-    border: 1,
-    borderColor: 'black10',
-    py: '6px',
-    pl: '6px',
-    pr: '6px',
-    gap: '6px',
-    width: '100%',
-    fontFamily: 'sans'
-  })}
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
-  transition: border-color ${transition.medium}, box-shadow ${transition.medium};
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:focus-within {
-    border-color: ${colors.black20};
-  }
-`
-
-const OmniboxInput = styled.input`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: [1, 1, 2, 2],
-    color: 'black80'
-  })}
-  flex: 1;
-  min-width: 0;
-  border: none;
-  background: transparent;
-  outline: none;
-  padding: 8px 4px;
-
-  &:focus,
-  &:focus-visible {
-    outline: none;
-    box-shadow: none;
-  }
-
-  &::placeholder {
-    color: ${colors.black30};
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    font-size: 16px;
-  }
-`
-
-const OmniboxConvertButton = styled(Box).attrs({
-  as: 'button',
-  type: 'button'
-})`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    borderRadius: '999px',
-    cursor: 'pointer',
-    flexShrink: 0
-  })}
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: ${colors.link};
-  color: white;
-  transition: transform ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: wait;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    padding: 10px 14px;
-
-    .omnibox-btn-label {
-      display: none;
-    }
-  }
-`
 
 const SettingsIconButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   ${theme({
@@ -948,30 +805,12 @@ const SettingsPopover = ({
               </Tooltip>
             </CheckboxLabel>
 
-            <Box css={theme({ pt: 2 })}>
-              <Flex css={{ alignItems: 'center', gap: '6px' }}>
-                <OptionLabel as='span'>HTML Selector</OptionLabel>
-                <Tooltip
-                  content={
-                    <Tooltip.Content>
-                      Target specific elements on the page using a CSS selector.
-                      When set, the tool matches <b>all</b> elements and joins
-                      their markdown with a line break — useful for repeating
-                      structures like article lists, cards, or table rows.
-                    </Tooltip.Content>
-                }
-                >
-                  <HelpCircle
-                    size={16}
-                    color={colors.black60}
-                    style={{ marginTop: '1px', cursor: 'help', flexShrink: 0 }}
-                  />
-                </Tooltip>
-              </Flex>
-              <SelectorInput
+            <Box css={theme({ pt: 3 })}>
+              <Input
                 id='md-selector'
-                type='text'
-                placeholder='article, main, .content…'
+                label='HTML Selector'
+                hint='Matches every element and joins their markdown.'
+                placeholder='e.g., article'
                 value={options.customSelector}
                 onChange={e =>
                   setOptions(prev => ({
@@ -980,7 +819,11 @@ const SettingsPopover = ({
                   }))}
                 spellCheck={false}
                 autoComplete='off'
-                aria-label='HTML selector to target specific content'
+                css={theme({
+                  width: '100%',
+                  fontFamily: 'mono',
+                  fontSize: [1, 1, 0, 0]
+                })}
               />
             </Box>
           </Box>
@@ -1639,14 +1482,49 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
   }, [options.url, onSubmit, setOptions])
 
   return (
-    <Box css={{ width: '100%' }}>
-      <OmniboxWrapper>
-        <OmniboxInput
+    <Box
+      css={theme({
+        display: 'grid',
+        gridTemplateColumns: 'auto auto',
+        justifyContent: 'center',
+        alignItems: 'center',
+        columnGap: '6px',
+        width: '100%'
+      })}
+    >
+      <Box ref={popoverAnchorRef} css={{ position: 'relative' }}>
+        <SettingsIconButton
+          onClick={() => setShowPopover(prev => !prev)}
+          aria-label='Conversion settings'
+          aria-expanded={showPopover}
+        >
+          <Settings size={18} />
+          {hasNonDefaultSettings ? <ActiveDot /> : null}
+        </SettingsIconButton>
+        {showPopover
+          ? (
+            <>
+              <PopoverBackdrop onClick={() => setShowPopover(false)} />
+              <SettingsPopover
+                options={options}
+                setOptions={setOptions}
+                showAdvanced={showAdvanced}
+                setShowAdvanced={setShowAdvanced}
+              />
+            </>
+            )
+          : null}
+      </Box>
+
+      <Flex css={{ minWidth: 0 }}>
+        <Input
           id='md-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='Paste a URL…'
+          label='URL'
+          example='metascraper.js.org'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -1657,51 +1535,29 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           }}
           aria-describedby={urlError ? 'md-url-error' : undefined}
           aria-invalid={!!urlError}
-          style={{ order: 1 }}
+          labelCss={{ width: URL_FIELD_WIDTH, minWidth: 0, flexShrink: 1 }}
         />
-
-        <Box
-          ref={popoverAnchorRef}
-          css={{ position: 'relative', flexShrink: 0, order: 0 }}
-        >
-          <SettingsIconButton
-            onClick={() => setShowPopover(prev => !prev)}
-            aria-label='Conversion settings'
-            aria-expanded={showPopover}
-          >
-            <Settings size={18} />
-            {hasNonDefaultSettings ? <ActiveDot /> : null}
-          </SettingsIconButton>
-          {showPopover
-            ? (
-              <>
-                <PopoverBackdrop onClick={() => setShowPopover(false)} />
-                <SettingsPopover
-                  options={options}
-                  setOptions={setOptions}
-                  showAdvanced={showAdvanced}
-                  setShowAdvanced={setShowAdvanced}
-                />
-              </>
-              )
-            : null}
-        </Box>
-
-        <OmniboxConvertButton
+        <Button
+          type='button'
           onClick={handleSubmit}
-          disabled={isLoading}
-          style={{ order: 2 }}
+          loading={isLoading}
+          css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <span className='omnibox-btn-label'>Convert</span>
-          <ArrowRight size={16} />
-        </OmniboxConvertButton>
-      </OmniboxWrapper>
+          <Caps css={theme({ fontSize: 0 })}>Convert</Caps>
+        </Button>
+      </Flex>
       {urlError
         ? (
           <Text
             id='md-url-error'
             role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+            css={theme({
+              gridColumn: '1 / -1',
+              color: 'fullscreen',
+              fontSize: 0,
+              pt: 1,
+              textAlign: 'center'
+            })}
           >
             {urlError}
           </Text>

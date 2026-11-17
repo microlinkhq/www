@@ -37,6 +37,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
+import { useFocusOnMount } from 'components/hook/use-focus-on-mount'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Spinner from 'components/elements/Spinner'
@@ -739,6 +740,7 @@ const OptionsPanel = ({
   isLoading,
   bulkProgress
 }) => {
+  const focusOnMount = useFocusOnMount()
   const [urlError, setUrlError] = useState('')
   const [viewportError, setViewportError] = useState('')
 
@@ -875,8 +877,9 @@ const OptionsPanel = ({
         </Flex>
         <BulkTextarea
           id='ws-urls'
+          ref={focusOnMount}
           placeholder={
-            'https://example.com\nhttps://github.com\nhttps://google.com\n…'
+            'https://unavatar.io\nhttps://metascraper.js.org\nhttps://browserless.js.org\n…'
           }
           value={options.urlsText}
           onChange={handleUrlsChange}
@@ -933,14 +936,14 @@ const OptionsPanel = ({
 
           <Box css={theme({ pb: '12px' })}>
             <OptionLabel as='span'>Viewport</OptionLabel>
-            <Flex css={{ alignItems: 'center' }}>
+            <Flex css={theme({ alignItems: 'center', pt: 2 })}>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Width'
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1920'
-                  aria-label='Viewport width in pixels'
+                  example='1920'
                   value={options.customWidth}
                   onChange={e => {
                     setOptions(prev => ({
@@ -950,11 +953,7 @@ const OptionsPanel = ({
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
               <Flex
@@ -968,11 +967,11 @@ const OptionsPanel = ({
               </Flex>
               <Box css={{ flex: 1 }}>
                 <Input
+                  label='Height'
                   id='ws-height'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1080'
-                  aria-label='Viewport height in pixels'
+                  example='1080'
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {
@@ -983,11 +982,7 @@ const OptionsPanel = ({
                     }))
                     if (viewportError) setViewportError('')
                   }}
-                  css={theme({
-                    width: '100%',
-                    fontSize: 1,
-                    height: '18px'
-                  })}
+                  css={theme({ width: '100%', fontSize: 1 })}
                 />
               </Box>
             </Flex>
