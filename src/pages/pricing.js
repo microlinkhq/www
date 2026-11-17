@@ -51,6 +51,10 @@ import {
   FREE_PLAN_CONCURRENT_REQUESTS,
   FREE_PLAN_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 
 const FAQ_SCHEMA = {
   '@context': 'https://schema.org',
@@ -292,7 +296,12 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Request timeout',
-    values: ['30 seconds', '90 seconds', '90 seconds', '90 seconds']
+    values: [
+      `${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds`,
+      `${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds`,
+      `${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds`,
+      `${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds`
+    ]
   },
   { label: 'SLA', values: ['Best effort', '99.9%', '99.9%', '99.9%'] },
   { label: 'Dedicated endpoint', values: [false, false, false, true] },

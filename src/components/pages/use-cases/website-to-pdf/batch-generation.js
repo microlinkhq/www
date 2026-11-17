@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-to-pdf/batch-generation',
   head: {
@@ -17,7 +21,7 @@ export const CONTENT = {
     paragraphs: [
       'Ten thousand renders in an hour needs dozens of Chrome instances, memory to match, and a queue that survives crashes. One page with a runaway script stalls a worker, a leaked tab eats the instance, and the job that was meant to finish overnight is still running when customers log in.',
       'Most teams build that pool once, watch it fail at the next peak, and rebuild it with more capacity that idles the rest of the month. PDF libraries that skip the browser avoid the fleet, and also skip the CSS, the fonts and the charts that made the page worth printing.',
-      'Microlink applies [no throttling](/docs/api/basics/rate-limit), so the batch runs as fast as your quota allows, in parallel. Each render gets its own isolated browser and a 60-second budget with any API key, transient failures are retried server-side with [retry](/docs/api/parameters/retry), and documents you request again are served from the cache.'
+      `Microlink applies [no throttling](/docs/api/basics/rate-limit), so the batch runs as fast as your quota allows, in parallel. Each render gets its own isolated browser and a ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS}-second budget with any API key, transient failures are retried server-side with [retry](/docs/api/parameters/retry), and documents you request again are served from the cache.`
     ]
   },
   how: {
@@ -99,7 +103,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'Per-request budget: 30 seconds on the free endpoint, 60 seconds with an API key.'
+        note: `Per-request budget: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint, ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.`
       }
     ],
     outro:
@@ -138,8 +142,7 @@ const documents = await pool(urls, 20, url => microlink.pdf(url, { ttl: '7d' }))
     },
     {
       question: 'What is the time limit for each PDF in a batch?',
-      answer:
-        'The request timeout is 30 seconds on the free endpoint and 60 seconds with an API key, and values above the plan ceiling are capped. A very long or heavy page that exceeds it fails for that document only, with EPDFTOOLARGE when the PDF cannot be rendered in time. Lower pdf.scale or split the source into shorter pages.'
+      answer: `The request timeout is ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key, and values above the plan ceiling are capped. A very long or heavy page that exceeds it fails for that document only, with EPDFTOOLARGE when the PDF cannot be rendered in time. Lower pdf.scale or split the source into shorter pages.`
     },
     {
       question: 'How do I handle failures inside a bulk PDF job?',

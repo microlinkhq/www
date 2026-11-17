@@ -3,6 +3,10 @@ title: 'Function: Troubleshooting'
 description: 'Handle function errors, understand resource limit errors, and debug common failure modes in function requests.'
 ---
 
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_FUNCTION_CODE_SIZE } from 'helpers/free-tier'
 
@@ -60,7 +64,7 @@ Each error message is plan-aware:
 
 ## Fixing resource limit errors
 
-**TimeoutError** — the function exceeded its plan timeout (10s free, 60s pro):
+**TimeoutError** — the function exceeded its plan timeout ({FREE_PLAN_FUNCTION_TIMEOUT_SECONDS}s free, {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}s pro):
 
 1. Reduce the function to a trivial check such as `({ page }) => page.title()` to confirm the page itself loads in time.
 2. Drop anything else from the request — a function asked for on its own skips metadata, while adding `screenshot`, `pdf`, `insights`, `iframe`, `video`, `audio`, `palette` or a `data` rule brings it back.

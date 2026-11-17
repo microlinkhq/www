@@ -1,3 +1,8 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
+
 export const CONTENT = {
   slug: 'website-to-markdown/documents',
   head: {
@@ -104,7 +109,7 @@ export const CONTENT = {
         kicker: 'No local parsers',
         title: 'Conversion happens at fetch time on Microlink’s side.',
         body: 'There is nothing to install and no binary dependency to patch. The document is fetched, converted to an HTML DOM and serialized inside the same request that handles HTML pages.',
-        note: 'Large documents take longer to convert. The request timeout is 30 seconds on the free endpoint and 60 seconds with an API key, and a cached conversion skips the work entirely. For a folder of files, see [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion).'
+        note: `Large documents take longer to convert. The request timeout is ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key, and a cached conversion skips the work entirely. For a folder of files, see [bulk Markdown conversion](/use-cases/website-to-markdown/bulk-conversion).`
       },
       {
         kicker: 'Honest limits',

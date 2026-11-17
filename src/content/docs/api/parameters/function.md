@@ -3,6 +3,10 @@ title: 'function'
 description: 'Execute custom JavaScript code inside a headless browser to perform advanced scraping or automation tasks. Gain full control over the page lifecycle with Puppeteer access.'
 ---
 
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Type } from 'components/markdown/Type'
 import {
@@ -176,7 +180,7 @@ The function parameter is available on both free and pro plans with different re
 
 |                   | Free plan                                      | Paid plan    |
 | ----------------- | ---------------------------------------------- | ------------ |
-| Timeout           | 10 seconds                                     | 60 seconds   |
+| Timeout           | {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds                                     | {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
 | Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |

@@ -11,6 +11,10 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 
 export const ACCENT_NAME = 'green'
 export const ACCENT = colors.green7
@@ -229,7 +233,7 @@ export const COMPARISON = {
       microlink: true,
       puppeteer: true,
       highlight: true,
-      note: 'function receives page, a full Puppeteer Page already navigated to the URL, plus response and headers. Paid plans allow 60 seconds and 128 MB per run.'
+      note: `function receives page, a full Puppeteer Page already navigated to the URL, plus response and headers. Paid plans allow ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds and 128 MB per run.`
     },
     {
       feature: 'Chrome install and upgrades',
@@ -304,7 +308,7 @@ export const COMPARISON = {
     },
     {
       feature: 'Session length',
-      microlink: '60 s per call',
+      microlink: `${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} s per call`,
       puppeteer: 'Unbounded',
       note: 'A browser you launch stays open as long as your process does.'
     },
@@ -342,8 +346,7 @@ export const HONESTY = {
   items: [
     {
       title: 'Long sessions that keep state',
-      description:
-        'A login, then fifty clicks, then a download, all in one browser that stays open for an hour. Microlink gives each call a fresh browser and a 60-second ceiling on paid plans, so state across calls is yours to carry.'
+      description: `A login, then fifty clicks, then a download, all in one browser that stays open for an hour. Microlink gives each call a fresh browser and a ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second ceiling on paid plans, so state across calls is yours to carry.`
     },
     {
       title: 'End-to-end tests',
@@ -446,14 +449,16 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'What are the limits of a function call?',
-    text: `On paid plans a function gets 60 seconds, 128 MB of memory, unlimited code size and unrestricted outgoing requests. On the free plan it gets 10 seconds, 64 MB, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code, ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin requests only. Hitting a limit returns a named error such as TimeoutError instead of failing the whole request.`,
+    text: `On paid plans a function gets ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 128 MB of memory, unlimited code size and unrestricted outgoing requests. On the free plan it gets ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64 MB, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code, ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin requests only. Hitting a limit returns a named error such as TimeoutError instead of failing the whole request.`,
     answer: (
       <div>
-        On paid plans a function gets 60 seconds, 128&nbsp;MB of memory,
-        unlimited code size and unrestricted outgoing requests. On the free plan
-        it gets 10 seconds, 64&nbsp;MB, {FREE_PLAN_FUNCTION_CODE_SIZE} bytes of
-        code, {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and
-        same-origin requests only. Hitting a limit returns a named error such as{' '}
+        On paid plans a function gets {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}{' '}
+        seconds, 128&nbsp;MB of memory, unlimited code size and unrestricted
+        outgoing requests. On the free plan it gets{' '}
+        {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64&nbsp;MB,{' '}
+        {FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code,{' '}
+        {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests and same-origin
+        requests only. Hitting a limit returns a named error such as{' '}
         <code>TimeoutError</code> instead of failing the whole request. See{' '}
         <Link href='/docs/guides/function/troubleshooting'>
           function troubleshooting

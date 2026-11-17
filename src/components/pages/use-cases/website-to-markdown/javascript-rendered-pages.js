@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-to-markdown/javascript-rendered-pages',
   head: {
@@ -81,7 +85,7 @@ export const CONTENT = {
       {
         name: 'waitForTimeout',
         href: '/docs/api/parameters/waitForTimeout',
-        note: 'A fixed delay for pages with no stable selector. Capped by the request timeout: 30 seconds on the free endpoint, 60 seconds with any API key.'
+        note: `A fixed delay for pages with no stable selector. Capped by the request timeout: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint, ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with any API key.`
       },
       {
         name: 'click',
@@ -137,8 +141,7 @@ export const CONTENT = {
     {
       question:
         'How long can a Markdown conversion wait for a single-page app?',
-      answer:
-        'Up to the request [timeout](/docs/api/parameters/timeout): 30 seconds on the free endpoint and 60 seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.'
+      answer: `Up to the request [timeout](/docs/api/parameters/timeout): ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key. A longer waitForTimeout is ignored, so prefer waitForSelector, which returns as soon as the content appears.`
     },
     {
       question:
