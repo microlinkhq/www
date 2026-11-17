@@ -9,7 +9,7 @@ import { Story } from 'story'
 
 const states = [null, 'hover', 'disabled', 'loading']
 
-const variants = ['base', 'black', 'white', 'magic']
+const variants = ['base', 'black', 'white', 'magic', 'gradient']
 
 const text = 'BUY'
 
@@ -81,18 +81,7 @@ export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
       <Labeled name='gradient'>
-        <Button variant='gradient' css={theme({ mx: 3 })}>
-          <Caps
-            css={theme({
-              background: 'white',
-              px: 3,
-              py: 2,
-              color: 'black'
-            })}
-          >
-            Get in touch
-          </Caps>
-        </Button>
+        <BuyButton variant='gradient'>BUY NOW</BuyButton>
       </Labeled>
       <Labeled name='base'>
         <BuyButton>BUY</BuyButton>
