@@ -12,14 +12,8 @@ import {
 
 const SRC = path.join(process.cwd(), 'src')
 const HELPER = path.join(SRC, 'helpers', 'plan-timeouts.js')
-const DATED_RECORDS = [
-  path.join(SRC, 'content', 'fragments', 'changelog.md'),
-  path.join(SRC, 'content', 'blog')
-]
-const COMPETITOR_PAGES = [
-  path.join(SRC, 'pages', 'alternative'),
-  path.join(SRC, 'pages', 'benchmarks')
-]
+const DATED_RECORDS = [path.join(SRC, 'content', 'fragments', 'changelog.md')]
+const COMPETITOR_PAGES = [path.join(SRC, 'pages', 'alternative')]
 const CONSTANTS = [
   'FREE_PLAN_REQUEST_TIMEOUT_SECONDS',
   'PRO_PLAN_REQUEST_TIMEOUT_SECONDS',
@@ -39,7 +33,7 @@ const GUARDED_TIMEOUTS = [
 
 const GAP = String.raw`(?:[ \t\u00a0-]|&nbsp;|\\u00a0)?`
 const TIMEOUT_LITERAL = new RegExp(
-  String.raw`(?<![\d.,$=])(?<!timeout:\s?['"\`])\b(?:${GUARDED_TIMEOUTS.join(
+  String.raw`(?<![.,$=])(?<!timeout:\s?['"\`])\b(?:${GUARDED_TIMEOUTS.join(
     '|'
   )})${GAP}(?:s|sec|seconds?)\b`,
   'g'
@@ -65,8 +59,9 @@ const readProse = file => {
 const isUnder = roots => file =>
   roots.some(root => file === root || file.startsWith(root + path.sep))
 
+const aboveProRequest = seconds => seconds > PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+
 const SOURCES = trackedSources()
-  .filter(file => file !== HELPER)
   .filter(file => !isUnder(DATED_RECORDS)(file))
   .filter(file => !isUnder(COMPETITOR_PAGES)(file))
   .map(file => ({ file, source: readProse(file) }))
@@ -82,14 +77,16 @@ const planTimeoutsOn = line =>
 
 const hardcodedTimeouts = () =>
   SOURCES.flatMap(({ file, source }) =>
-    source.split('\n').flatMap((line, index) =>
-      planTimeoutsOn(line).map(
-        ([literal]) =>
-          `${path.relative(process.cwd(), file)}:${
-            index + 1
-          } → hardcoded ${literal} plan timeout, import it from helpers/plan-timeouts`
+    source
+      .split('\n')
+      .flatMap((line, index) =>
+        planTimeoutsOn(line).map(
+          ([literal]) =>
+            `${path.relative(process.cwd(), file)}:${
+              index + 1
+            } → hardcoded ${literal} plan timeout, import it from helpers/plan-timeouts`
+        )
       )
-    )
   )
 
 const mdxImportsOutsideCode = () =>
@@ -138,14 +135,30 @@ describe('plan timeouts', () => {
       'On paid plans a function gets 60&nbsp;seconds',
       'the request timeout is 90\\u00a0s with an API key',
       '60s pro',
-      `pro${' '.repeat(77)}10 seconds`
+      `pro${' '.repeat(77)}10 seconds`,
+      '30 seconds on the free endpoint',
+      '30 seconds on free',
+      '60 seconds with an API key',
+      '60 seconds per run',
+      'the plan timeout is 10s',
+      '90 seconds is the plan ceiling',
+      'the request timeout is 90s',
+      'the request ceiling is 90 seconds',
+      '30\tseconds on the free plan',
+      `30${String.fromCharCode(0xa0)}seconds on the free plan`,
+      'a 30-second timeout on the free plan',
+      '30sec on the free plan'
     ]
     const notTimeouts = [
       'Browserbase documents that limit, along with a 60 second timeout',
       'https://microlink.io&timeout=10s with an API key',
       "mqlCode={{ url: 'https://microlink.io', timeout: '10s' }} on pro",
       'the free plan gives 25 requests per day',
-      `pro${' '.repeat(78)}10 seconds`
+      `pro${' '.repeat(78)}10 seconds`,
+      'the free plan renews in 1,60 seconds',
+      'the free plan costs $60 seconds',
+      'timeout: "10s" on pro',
+      'timeout: `10s` on pro'
     ]
     expect(hardcoded.filter(line => !flagged(line))).toEqual([])
     expect(notTimeouts.filter(flagged)).toEqual([])
@@ -183,14 +196,32 @@ describe('plan timeouts', () => {
     const short = SOURCES.flatMap(({ file, source }) =>
       [...source.matchAll(responseWait)].flatMap(match => {
         const seconds = Number(match[1] || match[2] || match[3])
-        return seconds > PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+        return aboveProRequest(seconds)
           ? []
           : [
-              `${path.relative(process.cwd(), file)} waits ${seconds}s, under the ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro request`
+            `${path.relative(
+              process.cwd(),
+              file
+            )} waits ${seconds}s, under the ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro request`
             ]
       })
     )
     expect(short).toEqual([])
+    expect(aboveProRequest(PRO_PLAN_REQUEST_TIMEOUT_SECONDS)).toBe(false)
+  })
+
+  test('the scan includes every tracked copy extension', () => {
+    const tracked = execFileSync('git', ['ls-files', '-z', '--', 'src'], {
+      encoding: 'utf8'
+    })
+      .split('\0')
+      .filter(Boolean)
+    const present = new Set(tracked.map(file => path.extname(file)))
+    const scanned = new Set(trackedSources().map(file => path.extname(file)))
+    const missed = ['.js', '.jsx', '.md'].filter(
+      ext => present.has(ext) && !scanned.has(ext)
+    )
+    expect(missed).toEqual([])
   })
 
   test('a timeout error example quotes the API message', () => {
