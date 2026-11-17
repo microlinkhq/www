@@ -15,7 +15,6 @@ import styled from 'styled-components'
 import get from 'dlv'
 
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -36,6 +35,8 @@ import {
   PreviewResultState
 } from './preview-display-states'
 import { ToolSurface } from 'components/patterns/Tools/ToolSurface'
+
+export { GenerateButton } from './generate-button'
 
 export {
   ActionButton,
@@ -155,52 +156,6 @@ const SegmentedOption = styled(Box)
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-`
-
-export const GenerateButton = styled(Button)`
-  &&& {
-    background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-    box-shadow: 0 4px 14px 0 rgba(236, 72, 153, 0.39);
-    color: white;
-    border: none;
-    width: 100%;
-    max-width: 420px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    justify-content: center;
-    transition: opacity ${transition.medium}, transform ${transition.short},
-      box-shadow ${transition.medium};
-
-    @media (prefers-reduced-motion: reduce) {
-      transition: none;
-    }
-
-    &:hover:not(:disabled) {
-      opacity: 0.92;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px 0 rgba(236, 72, 153, 0.45);
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: white;
-    }
-
-    &:active:not(:disabled) {
-      transform: translateY(0);
-      box-shadow: 0 2px 8px 0 rgba(236, 72, 153, 0.3);
-    }
-
-    &:focus-visible {
-      outline: 2px solid ${colors.link};
-      outline-offset: 2px;
-    }
-
-    &:disabled {
-      opacity: 0.7;
-      cursor: wait;
-      background: linear-gradient(135deg, #ec4899 0%, #8b5cf6 100%);
-      color: white;
-    }
   }
 `
 
