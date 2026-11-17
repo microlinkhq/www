@@ -38,6 +38,6 @@ It also takes a percentage of your plan budget. Use it to get an answer back bef
 https://microlink.io&timeout=80%25     # 80% of the plan budget
 ```
 
-In a URL, `%` is written `%25`, so `timeout=80%25` reaches the API as `80%`. A bare `%` is rejected with a 400 before the request reaches the API. The SDKs encode it for you, so there you pass `'80%'`.
+In a URL, `%` is written `%25`, so `timeout=80%25` reaches the API as `80%`. On pro, a bare `%` is rejected with a 400 before the request reaches the API. The SDKs encode it for you, so there you pass `'80%'`.
 
 <Figcaption>`timeout=80%` is {PRO_PLAN_REQUEST_TIMEOUT_SECONDS * 0.8} seconds on pro and {FREE_PLAN_REQUEST_TIMEOUT_SECONDS * 0.8} seconds on free. A percentage above 100% is the whole plan budget.</Figcaption>
