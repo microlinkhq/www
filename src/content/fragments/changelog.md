@@ -1,5 +1,6 @@
 ### November 2026
 
+- [Microlink API](/docs/api/parameters/timeout): [timeout](/docs/api/parameters/timeout) is now 90s on pro (30s on the free plan).
 - [Microlink](https://dashboard.microlink.io): Paid invoices go to the billing emails set in Settings.
 - [Microlink](/alternative): Added the [alternatives](/alternative) hub, plus [Clearbit](/alternative/clearbit), [Jina Reader](/alternative/jina-reader), [Playwright](/alternative/playwright), [Puppeteer](/alternative/puppeteer), and [ScraperAPI](/alternative/scraperapi) alternatives.
 

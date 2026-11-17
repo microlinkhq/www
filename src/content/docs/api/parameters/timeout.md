@@ -8,7 +8,7 @@ import { Type, TypeContainer } from 'components/markdown/Type'
 import { Figcaption } from 'components/markdown/Figcaption'
 
 Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></TypeContainer><br/>
-Default: <Type children="30s"/> (free) / <Type children="60s"/> (pro)
+Default: <Type children="30s"/> (free) / <Type children="90s"/> (pro)
 
 It sets the maximum quantity of time allowed for the internal request lifecycle over the target [url](/docs/api/parameters/url).
 

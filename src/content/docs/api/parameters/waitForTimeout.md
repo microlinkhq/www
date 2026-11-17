@@ -10,7 +10,7 @@ Type: <TypeContainer><Type children='<string>'/> | <Type children='<number>'/></
 
 It tells the browser to wait a quantity of time in milliseconds before processing the content over the target [url](/docs/api/parameters/url).
 
-The wait cannot exceed the request [timeout](/docs/api/parameters/timeout) for your plan (30s free, 60s pro). A larger value is ignored.
+The wait cannot exceed the request [timeout](/docs/api/parameters/timeout) for your plan (30s free, 90s pro). A larger value is ignored.
 
 <MultiCodeEditorInteractive mqlCode={{ url: 'https://dev.to', screenshot: true, waitForTimeout: 3000 }} />
 

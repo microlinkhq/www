@@ -20,7 +20,7 @@ const RESPONSE_TYPE = `type response struct {
 }`
 
 const CLIENT =
-  'var client = &http.Client{Timeout: 90 * time.Second} // above the API budget: 30s free, 60s pro'
+  'var client = &http.Client{Timeout: 120 * time.Second} // above the API budget: 30s free, 90s pro'
 
 const SCREENSHOT_URL_FUNC = `func screenshotURL(target string) (string, error) {
     query := url.Values{
@@ -659,7 +659,7 @@ func main() {
               <Link href='/docs/api/parameters/timeout'>
                 30 seconds on free
               </Link>
-              , 60 seconds on Pro.
+              , 90 seconds on Pro.
             </div>
           </>
         )

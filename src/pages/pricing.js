@@ -292,7 +292,7 @@ const COMPARISON_ROWS = [
   },
   {
     label: 'Request timeout',
-    values: ['60 seconds', '60 seconds', '60 seconds', '60 seconds']
+    values: ['30 seconds', '90 seconds', '90 seconds', '90 seconds']
   },
   { label: 'SLA', values: ['Best effort', '99.9%', '99.9%', '99.9%'] },
   { label: 'Dedicated endpoint', values: [false, false, false, true] },

@@ -191,7 +191,7 @@ When a limit is exceeded, the function returns `isFulfilled: false` with a descr
       "isFulfilled": false,
       "value": {
         "name": "TimeoutError",
-        "message": "Function exceeded the 15s free plan timeout. Upgrade to pro for up to 60s."
+        "message": "Function exceeded the 15s free plan timeout. Upgrade to pro for up to 90s."
       },
       "profiling": {},
       "logging": {}
