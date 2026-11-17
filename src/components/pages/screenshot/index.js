@@ -144,6 +144,12 @@ const SegmentedOption = styled(Box)
         .join(', ')};
   }
 
+  @media (forced-colors: active) {
+    &:focus-visible {
+      outline: 2px solid CanvasText;
+    }
+  }
+
   @media (max-width: ${MOBILE_BP - 1}px) {
     min-height: 44px;
     display: flex;

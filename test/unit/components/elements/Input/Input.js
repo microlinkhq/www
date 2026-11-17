@@ -128,6 +128,9 @@ describe('Input', () => {
     expect(css).toMatch(
       /@media \(prefers-reduced-motion: reduce\)\{[^{]*\{[^}]*transition:none/
     )
+    expect(css).toMatch(
+      /@media \(forced-colors: active\)\{[^}]*:focus-visible\{[^}]*outline:2px solid CanvasText/
+    )
   })
 
   test('the label moves only when motion is allowed', () => {

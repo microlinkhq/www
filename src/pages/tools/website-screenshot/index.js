@@ -432,7 +432,7 @@ const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
         />
         <Input
           label='Hex color'
-          example='#FF057C'
+          placeholder='e.g., #FF057C'
           value={customHex}
           onChange={e => onCustomHexChange(e.target.value.trim())}
           spellCheck={false}

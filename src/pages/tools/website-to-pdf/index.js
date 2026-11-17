@@ -795,7 +795,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    example='1'
+                    placeholder='e.g., 1'
                     value={options.pageFrom}
                     onChange={e =>
                       setOptions(prev => ({
@@ -811,7 +811,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    example='3'
+                    placeholder='e.g., 3'
                     value={options.pageTo}
                     onChange={e =>
                       setOptions(prev => ({
@@ -829,7 +829,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-margin'
                   type='text'
-                  example='10px'
+                  placeholder='e.g., 10px'
                   value={options.margin}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, margin: e.target.value }))}
@@ -845,7 +845,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-width'
                   type='text'
-                  example='640px'
+                  placeholder='e.g., 640px'
                   value={options.width}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, width: e.target.value }))}
@@ -861,7 +861,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-height'
                   type='text'
-                  example='480px'
+                  placeholder='e.g., 480px'
                   value={options.height}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, height: e.target.value }))}

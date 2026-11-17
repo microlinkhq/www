@@ -810,7 +810,7 @@ const SettingsPopover = ({
                 id='md-selector'
                 label='HTML Selector'
                 hint='Matches every element and joins their markdown.'
-                example='article'
+                placeholder='e.g., article'
                 value={options.customSelector}
                 onChange={e =>
                   setOptions(prev => ({

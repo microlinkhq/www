@@ -7,6 +7,8 @@ export const shouldFillExample = (event, example) =>
   !event.altKey &&
   !event.ctrlKey &&
   !event.metaKey &&
+  !event.currentTarget.readOnly &&
+  !event.currentTarget.disabled &&
   event.currentTarget.value === ''
 
 export const fillInput = (input, value) => {

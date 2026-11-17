@@ -35,6 +35,11 @@ const StyledInputBase = styled(Text)(
     '&:focus-visible': {
       outline: 'none'
     },
+    '@media (forced-colors: active)': {
+      '&:focus-visible': {
+        outline: '2px solid CanvasText'
+      }
+    },
     '&:disabled': {
       cursor: 'not-allowed'
     }

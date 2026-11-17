@@ -50,6 +50,9 @@ describe('Select', () => {
       )
     )
     expect(css).toMatch(/:disabled\{[^}]*opacity:0\.55/)
+    expect(css).toMatch(
+      /@media \(forced-colors: active\)\{[^}]*:focus-visible\{[^}]*outline:2px solid CanvasText/
+    )
   })
 
   test('the selected text never runs under the arrow', () => {

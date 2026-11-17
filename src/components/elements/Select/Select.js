@@ -30,6 +30,11 @@ const StyledSelect = styled(Box)(
     backgroundSize: `${ARROW_SIZE} ${ARROW_SIZE}`,
     '&:focus-visible': {
       outline: 'none'
+    },
+    '@media (forced-colors: active)': {
+      '&:focus-visible': {
+        outline: '2px solid CanvasText'
+      }
     }
   },
   theme({

@@ -47,6 +47,24 @@ describe('shouldFillExample', () => {
     )
   })
 
+  test('a read-only field keeps Tab as focus navigation', () => {
+    expect(
+      shouldFillExample(
+        keyEvent({ currentTarget: { value: '', readOnly: true } }),
+        'example.com'
+      )
+    ).toBe(false)
+  })
+
+  test('a disabled field keeps Tab as focus navigation', () => {
+    expect(
+      shouldFillExample(
+        keyEvent({ currentTarget: { value: '', disabled: true } }),
+        'example.com'
+      )
+    ).toBe(false)
+  })
+
   test('without an example Tab is untouched', () => {
     expect(shouldFillExample(keyEvent(), undefined)).toBe(false)
     expect(shouldFillExample(keyEvent(), '')).toBe(false)
