@@ -1,6 +1,6 @@
 import { transition, colors, theme } from 'theme'
 import { fieldChrome, fieldChromeTokens } from '../field-chrome'
-import { exampleHint, fillInput, shouldFillExample } from './example'
+import { applyExampleKey, exampleHint } from './example'
 import { useFocusOnMount } from 'components/hook/use-focus-on-mount'
 import React, { forwardRef, useId, useMemo } from 'react'
 import styled from 'styled-components'
@@ -199,11 +199,7 @@ const Input = ({
   const labelId = `${id}-label`
 
   const handleKeyDown = event => {
-    if (shouldFillExample(event, example)) {
-      event.preventDefault()
-      fillInput(event.currentTarget, example)
-    }
-    onKeyDown?.(event)
+    applyExampleKey(event, example, onKeyDown)
   }
 
   const shownPlaceholder = placeholder ?? (example && exampleHint(example))

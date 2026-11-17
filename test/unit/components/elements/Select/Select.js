@@ -42,8 +42,14 @@ describe('Select', () => {
 
   test('the focus ring shows for keyboard focus, and invalid turns it red', () => {
     expect(css).toMatch(/:focus-visible\{[^}]*border-color:#0473e4/)
-    expect(css).toContain(`box-shadow:${focusRing(colors.red8)}`)
-    expect(css).toContain("[aria-invalid='true']")
+    expect(css).toMatch(
+      new RegExp(
+        `\\[aria-invalid='true'\\]:focus-visible\\{[^}]*box-shadow:${focusRing(
+          colors.red8
+        ).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`
+      )
+    )
+    expect(css).toMatch(/:disabled\{[^}]*opacity:0\.55/)
   })
 
   test('the selected text never runs under the arrow', () => {

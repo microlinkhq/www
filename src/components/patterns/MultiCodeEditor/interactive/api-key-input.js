@@ -29,7 +29,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 type='text'
                 label='API key'
                 placeholder='Enter your API key…'
-                css={theme({ width: '8rem', fontSize: '12px', py: '4px' })}
+                css={theme({ width: '8rem', fontSize: '12px' })}
                 value={tempApiKey}
                 onChange={e => setTempApiKey(e.target.value)}
               />

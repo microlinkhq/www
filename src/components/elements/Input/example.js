@@ -17,3 +17,11 @@ export const fillInput = (input, value) => {
   setValue.call(input, value)
   input.dispatchEvent(new Event('input', { bubbles: true }))
 }
+
+export const applyExampleKey = (event, example, onKeyDown) => {
+  if (shouldFillExample(event, example)) {
+    event.preventDefault()
+    fillInput(event.currentTarget, example)
+  }
+  onKeyDown?.(event)
+}

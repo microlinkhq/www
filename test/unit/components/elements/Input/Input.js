@@ -2,8 +2,11 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { describe, expect, test } from 'vitest'
-import themeSpec, { colors } from '../../../../../src/theme'
+import themeSpec, { colors, transition } from '../../../../../src/theme'
 import Input from '../../../../../src/components/elements/Input/Input'
+import { focusRing } from '../../../../../src/components/elements/field-chrome'
+
+const cssText = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 
 const render = props => {
   const sheet = new ServerStyleSheet()
@@ -98,7 +101,45 @@ describe('Input', () => {
     const { css } = render({ label: 'Email' })
     expect(css).toContain(":has(input[aria-invalid='true'])")
     expect(css).toContain(`border-color:${colors.red8}`)
-    expect(css).toContain(':has(input:disabled)')
+    expect(css).toMatch(/:has\(input:disabled\)\{[^}]*opacity:0\.55/)
+    expect(css).toMatch(
+      new RegExp(
+        `:has\\(input\\[aria-invalid='true'\\]\\):focus-within\\{[^}]*box-shadow:${cssText(
+          focusRing(colors.red8)
+        )}`
+      )
+    )
+  })
+
+  test('hover and reduced motion stay on the field chrome', () => {
+    const { css } = render({ label: 'Email' })
+    expect(css).toContain(
+      `transition:${['border-color', 'box-shadow', 'opacity']
+        .map(property => `${property} ${transition.short}`)
+        .join(',')}`
+    )
+    expect(css).toMatch(
+      new RegExp(
+        `@media \\(hover: hover\\) and \\(pointer: fine\\)\\{[^{]*:hover\\{[^}]*border-color:${cssText(
+          colors.black20
+        )}`
+      )
+    )
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: reduce\)\{[^{]*\{[^}]*transition:none/
+    )
+  })
+
+  test('the label moves only when motion is allowed', () => {
+    const { css } = render({ label: 'Email' })
+    expect(css).toMatch(
+      /@media \(prefers-reduced-motion: no-preference\)\{[^{]*\{[^}]*transition:[^;}]*transform/
+    )
+    const unguarded = css.replace(
+      /@media \(prefers-reduced-motion: no-preference\)\{(?:[^{}]|\{[^}]*\})*\}/g,
+      ''
+    )
+    expect(unguarded).not.toMatch(/transition:[^;}]*transform/)
   })
 
   test('the label raises on focus, on a value, and on autofill, using transforms only', () => {

@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'vitest'
 import {
+  applyExampleKey,
   exampleHint,
   fillInput,
   shouldFillExample
@@ -52,23 +53,82 @@ describe('shouldFillExample', () => {
   })
 })
 
+const shadowedInput = (own = '') => {
+  const proto = {}
+  const state = { proto: '', own, events: [] }
+  Object.defineProperty(proto, 'value', {
+    configurable: true,
+    get: () => state.proto,
+    set: next => {
+      state.proto = next
+    }
+  })
+  const input = Object.create(proto)
+  Object.defineProperty(input, 'value', {
+    configurable: true,
+    get: () => state.own,
+    set: next => {
+      state.own = next
+    }
+  })
+  input.dispatchEvent = event => state.events.push(event)
+  return { input, state }
+}
+
 describe('fillInput', () => {
   test('sets the value through the prototype setter and emits a bubbling input event', () => {
-    const events = []
-    const proto = {}
-    let stored = ''
-    Object.defineProperty(proto, 'value', {
-      get: () => stored,
-      set: next => {
-        stored = next
-      }
-    })
-    const input = Object.create(proto)
-    input.dispatchEvent = event => events.push(event)
+    const { input, state } = shadowedInput()
     fillInput(input, 'example.com')
-    expect(input.value).toBe('example.com')
-    expect(events).toHaveLength(1)
-    expect(events[0].type).toBe('input')
-    expect(events[0].bubbles).toBe(true)
+    expect(state.proto).toBe('example.com')
+    expect(state.own).toBe('')
+    expect(state.events).toHaveLength(1)
+    expect(state.events[0].type).toBe('input')
+    expect(state.events[0].bubbles).toBe(true)
+  })
+})
+
+describe('applyExampleKey', () => {
+  test('Tab on an empty field fills the example and still notifies the caller', () => {
+    const { input, state } = shadowedInput()
+    const seen = []
+    const event = {
+      ...keyEvent(),
+      currentTarget: input,
+      preventDefault: () => {
+        event.defaultPrevented = true
+      }
+    }
+    applyExampleKey(event, 'example.com', seen.push.bind(seen))
+    expect(event.defaultPrevented).toBe(true)
+    expect(state.proto).toBe('example.com')
+    expect(state.own).toBe('')
+    expect(seen).toEqual([event])
+  })
+
+  test('a field with a value keeps Tab and still notifies the caller', () => {
+    const seen = []
+    const event = {
+      ...keyEvent({}, 'stripe.com'),
+      preventDefault: () => {
+        event.defaultPrevented = true
+      }
+    }
+    applyExampleKey(event, 'example.com', seen.push.bind(seen))
+    expect(event.defaultPrevented).toBeUndefined()
+    expect(seen).toEqual([event])
+  })
+
+  test('without a caller handler, Tab still fills', () => {
+    const { input, state } = shadowedInput()
+    const event = {
+      ...keyEvent(),
+      currentTarget: input,
+      preventDefault: () => {
+        event.defaultPrevented = true
+      }
+    }
+    applyExampleKey(event, 'example.com')
+    expect(event.defaultPrevented).toBe(true)
+    expect(state.proto).toBe('example.com')
   })
 })

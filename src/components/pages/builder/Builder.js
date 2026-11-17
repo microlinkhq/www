@@ -28,6 +28,7 @@ import {
   deriveVariant
 } from 'helpers/link-card'
 import { FILENAMES, GENERATORS, HIGHLIGHT_ALIASES } from './generators'
+import { inputModeForStep } from './input-mode'
 import { MOBILE_BP } from 'components/pages/screenshot'
 
 /* ─── Config ───────────────────────────────────────────── */
@@ -468,7 +469,7 @@ const RangeField = ({ label, value, min, max, step = 1, suffix, onChange }) => {
           label='Value'
           aria-describedby={captionId}
           type='number'
-          inputMode={Number.isInteger(step) ? 'numeric' : 'decimal'}
+          inputMode={inputModeForStep(step)}
           value={value}
           min={min}
           max={max}
