@@ -55,8 +55,67 @@ const PAGE_SOURCES = ['src/pages', 'src/templates'].flatMap(dir =>
     .map(file => path.join(dir, file))
 )
 
-const SERVER_RENDERED_EXPORT =
-  /export\s+(const|let|async\s+function|function)\s+(getServerData|config)\b/
+const SERVER_RENDERED_APIS = ['getServerData', 'config']
+
+const exportedSpecifier = specifier => {
+  const parts = specifier.trim().split(/\s+as\s+/)
+  return parts[parts.length - 1].trim()
+}
+
+const exportsServerRenderedApi = source => {
+  const declaration =
+    /export\s+(?:(?:const|let|var)\s+|async\s+function\*\s*|function\*\s*|async\s+function\s+|function\s+)([A-Za-z_$][\w$]*)/g
+  for (const match of source.matchAll(declaration)) {
+    if (SERVER_RENDERED_APIS.includes(match[1])) return true
+  }
+  const specifierExport = /export\s*\{([^}]*)\}/g
+  for (const match of source.matchAll(specifierExport)) {
+    for (const specifier of match[1].split(',')) {
+      if (SERVER_RENDERED_APIS.includes(exportedSpecifier(specifier))) { return true }
+    }
+  }
+  return false
+}
+
+const gatsbyServerApis = () => {
+  const pageMode = fs.readFileSync(
+    path.join(gatsbyDir, 'dist/utils/page-mode.js'),
+    'utf8'
+  )
+  const parser = fs.readFileSync(
+    path.join(gatsbyDir, 'dist/query/file-parser.js'),
+    'utf8'
+  )
+  const fields = [
+    ...new Set(
+      [...pageMode.matchAll(/component\.(\w+)/g)].map(match => match[1])
+    )
+  ]
+  return fields.flatMap(field => {
+    const found = parser.match(
+      new RegExp(`${field}: findApiExport\\(ast, \`([^\`]+)\`\\)`)
+    )
+    return found ? [found[1]] : []
+  })
+}
+
+const serverRenderedSources = api => [
+  `export const ${api} = () => {}`,
+  `export let ${api} = () => {}`,
+  `export var ${api} = () => {}`,
+  `export function ${api}() {}`,
+  `export async function ${api}() {}`,
+  `export function* ${api}() {}`,
+  `export function*${api}() {}`,
+  `export async function* ${api}() {}`,
+  `export async function*${api}() {}`,
+  `export { ${api} }`,
+  `export {${api}}`,
+  `export { ${api} } from "./mod"`,
+  `export { local as ${api} }`,
+  `export { local as ${api} } from "./mod"`,
+  `export {\n  other,\n  ${api}\n}`
+]
 
 afterEach(() => vi.unstubAllEnvs())
 
@@ -71,12 +130,30 @@ describe('dev HTML shell compiles without page components', () => {
 
   test('no page needs server rendering in develop', () => {
     const serverRendered = PAGE_SOURCES.filter(file =>
-      SERVER_RENDERED_EXPORT.test(
+      exportsServerRenderedApi(
         fs.readFileSync(path.join(process.cwd(), file), 'utf8')
       )
     )
     expect(PAGE_SOURCES.length).toBeGreaterThan(0)
     expect(serverRendered).toEqual([])
+  })
+
+  test('server-render scan matches every export Gatsby reads', () => {
+    const apis = gatsbyServerApis()
+    expect(apis.length).toBeGreaterThan(0)
+    for (const api of apis) {
+      for (const source of serverRenderedSources(api)) {
+        expect(exportsServerRenderedApi(source), source).toBe(true)
+      }
+      for (const source of [
+        `export { ${api} as helper }`,
+        `export const ${api}Helper = 1`,
+        `function ${api}() {}`,
+        `export default function ${api}() {}`
+      ]) {
+        expect(exportsServerRenderedApi(source), source).toBe(false)
+      }
+    }
   })
 
   test('other requests in develop-html are left alone', () => {
@@ -100,6 +177,16 @@ describe('dev HTML shell compiles without page components', () => {
       '$virtual/async-requires'
     )
   })
+
+  test.each(['build-javascript', 'build-html'])(
+    '%s keeps real page components',
+    stage => {
+      const { plugins } = runStage(stage)
+      expect(resolveRequest(plugins, '$virtual/async-requires')).toBe(
+        '$virtual/async-requires'
+      )
+    }
+  )
 })
 
 describe('dev webpack cache stays in memory', () => {
