@@ -9,7 +9,7 @@ import { Story } from 'story'
 
 const states = [null, 'hover', 'disabled', 'loading']
 
-const variants = ['base', 'alternative', 'outline', 'magic', 'gradient']
+const variants = ['base', 'magic']
 
 const text = 'BUY'
 

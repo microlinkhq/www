@@ -6,7 +6,7 @@ import Spinner from 'components/elements/Spinner'
 import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState, useRef, useEffect } from 'react'
-import { gradient, theme } from 'theme'
+import { colors, theme } from 'theme'
 import { trackEvent } from 'helpers/gtag'
 
 const PRODUCT_LANDING_SLUGS = [
@@ -37,7 +37,7 @@ function resolveBuyEventLocation () {
 
 const loadingCss = `
   &&&:disabled {
-    background: ${gradient};
+    background: ${colors.link};
     box-shadow: none;
     opacity: 0.8;
     .path { stroke: white; }

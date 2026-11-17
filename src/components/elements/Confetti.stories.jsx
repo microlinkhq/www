@@ -49,7 +49,7 @@ const ConfettiStory = () => {
             </Button>
 
             {showConfetti && (
-              <Button variant='outline' onClick={stopConfetti}>
+              <Button variant='magic' onClick={stopConfetti}>
                 <Caps css={theme({ fontSize: 0 })}>Stop</Caps>
               </Button>
             )}

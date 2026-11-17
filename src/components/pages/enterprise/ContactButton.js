@@ -42,7 +42,6 @@ const ContactButton = ({
       })}
     >
       <Button
-        variant='alternative'
         onClick={() => {
           trackEvent(event, { ref: leadRef })
           window.open(leadMailto, '_blank', 'noopener noreferrer')
@@ -53,7 +52,7 @@ const ContactButton = ({
       <Button
         as='a'
         href={bookCallUrl(medium, leadRef)}
-        variant='outline'
+        variant='magic'
         title={BOOK_CALL_TITLE}
         rel='noopener noreferrer'
         target='_blank'

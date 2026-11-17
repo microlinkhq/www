@@ -73,7 +73,6 @@ const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
       </PlanCheckList>
       <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
         <Checkout
-          variant='gradient'
           planId={planId}
           canonicalUrl={canonicalUrl}
           stripeKey={stripeKey}

@@ -111,7 +111,6 @@ const BookCall = () => (
       <BookCallButton
         forwardedAs='a'
         href={bookCallUrl('pricing')}
-        variant='alternative'
         title={BOOK_CALL_TITLE}
         rel='noopener noreferrer'
         target='_blank'

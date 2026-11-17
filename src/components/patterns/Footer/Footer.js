@@ -483,7 +483,6 @@ const Footer = ({ ...props }) => {
                 loading={isLoading}
                 data-event-location='Footer'
                 data-event-name='Be Notified'
-                variant='alternative'
                 css={theme({ ml: 2 })}
               >
                 <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>

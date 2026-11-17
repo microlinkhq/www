@@ -1,11 +1,4 @@
-import {
-  transition,
-  theme as themeProp,
-  colors,
-  cx,
-  gradient,
-  touchTargets
-} from 'theme'
+import { transition, theme as themeProp, colors, cx, touchTargets } from 'theme'
 import styled, { css } from 'styled-components'
 import Box from '../Box'
 import React, { forwardRef } from 'react'
@@ -13,8 +6,7 @@ import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { magicStyle } from './magic'
 
-const OUTLINED_VARIANTS = ['outline', 'magic']
-const SELF_HOVER_VARIANTS = ['gradient', 'magic']
+const isMagic = variant => variant === 'magic'
 
 const getVariant = ({ theme, variant }) => {
   const { background = 'link', color = 'white' } =
@@ -63,26 +55,7 @@ const StyledButton = styled(Box).withConfig({
     outline-offset: 2px;
   }
 
-  ${({ variant }) => variant === 'magic' && magicStyle}
-
-  ${({ variant }) =>
-    variant === 'gradient' &&
-    `
-    &&& {
-      transition: filter ${transition.short}, transform ${transition.short};
-      background: ${gradient};
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          box-shadow: none;
-          color: ${colors.white};
-          filter: hue-rotate(40deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-    }
-  `}
+  ${({ variant }) => isMagic(variant) && magicStyle}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
@@ -99,9 +72,7 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: OUTLINED_VARIANTS.includes(variant)
-          ? `0 0 0 1px ${cx(color)}`
-          : undefined,
+        boxShadow: isMagic(variant) ? `0 0 0 1px ${cx(color)}` : undefined,
         cursor: 'pointer',
         _disabled: {
           opacity: 0.8,
@@ -114,7 +85,7 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${!SELF_HOVER_VARIANTS.includes(variant) &&
+      ${!isMagic(variant) &&
       css`
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {

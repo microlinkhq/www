@@ -1622,7 +1622,6 @@ const Cta = () => {
             component={Button}
             as='a'
             cta='pricing:final-cta'
-            variant='alternative'
             data-event-location='Pricing'
             data-event-name='Final CTA · Get started free'
             onClick={() => trackEvent('pricing cta')}

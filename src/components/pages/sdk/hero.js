@@ -214,7 +214,7 @@ const Hero = () => (
         <Button
           as='a'
           href={REPOSITORY_URL}
-          variant='outline'
+          variant='magic'
           rel='noopener noreferrer'
           target='_blank'
           data-event-location='SDK Hero'
