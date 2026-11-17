@@ -7,7 +7,7 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import { Metatags } from 'components/pages/sharing-debugger/metatags'
 import Caps from 'components/elements/Caps'
@@ -151,10 +151,15 @@ export const Hero = () => {
                   <Box>
                     <Input
                       id='sharing-debugger-url'
-                      css={theme({
-                        fontSize: 2,
-                        width: ['100%', '320px', '320px', '320px']
-                      })}
+                      css={theme({ fontSize: 2, width: '100%' })}
+                      labelCss={{
+                        width: [
+                          '100%',
+                          URL_FIELD_WIDTH,
+                          URL_FIELD_WIDTH,
+                          URL_FIELD_WIDTH
+                        ]
+                      }}
                       iconComponent={
                         <InputIcon.Microlink
                           src={

@@ -38,7 +38,7 @@ import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
@@ -1485,7 +1485,8 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
     <Box
       css={theme({
         display: 'grid',
-        gridTemplateColumns: 'auto minmax(0, 1fr)',
+        gridTemplateColumns: 'auto auto',
+        justifyContent: 'center',
         alignItems: 'center',
         columnGap: '6px',
         width: '100%'
@@ -1533,7 +1534,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           }}
           aria-describedby={urlError ? 'md-url-error' : undefined}
           aria-invalid={!!urlError}
-          labelCss={{ flex: 1, minWidth: 0 }}
+          labelCss={{ width: URL_FIELD_WIDTH, minWidth: 0, flexShrink: 1 }}
         />
         <Button
           type='button'

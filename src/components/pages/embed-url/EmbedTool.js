@@ -25,7 +25,7 @@ import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 
 import Tooltip from 'components/patterns/Tooltip/Tooltip'
@@ -1063,7 +1063,7 @@ const Omnibar = ({
 
   return (
     <Box css={{ width: '100%' }}>
-      <Flex>
+      <Flex css={{ justifyContent: 'center' }}>
         <Input
           label='URL'
           id='embed-url'
@@ -1081,7 +1081,7 @@ const Omnibar = ({
           }}
           aria-describedby={urlError ? 'embed-url-error' : undefined}
           aria-invalid={!!urlError}
-          labelCss={{ flex: 1, minWidth: 0 }}
+          labelCss={{ width: URL_FIELD_WIDTH, minWidth: 0, flexShrink: 1 }}
         />
         <Button
           type='button'

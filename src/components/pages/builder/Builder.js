@@ -11,7 +11,7 @@ import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
 import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
-import Input from 'components/elements/Input/Input'
+import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 
 import MultiCodeEditor from 'components/patterns/MultiCodeEditor/MultiCodeEditor'
@@ -751,7 +751,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
   return (
     <Box css={{ width: '100%' }}>
-      <Flex>
+      <Flex css={{ justifyContent: 'center' }}>
         <Input
           label='URL'
           raised
@@ -770,7 +770,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
             }
           }}
           aria-invalid={!!error}
-          labelCss={{ flex: 1, minWidth: 0 }}
+          labelCss={{ width: URL_FIELD_WIDTH, minWidth: 0, flexShrink: 1 }}
         />
         <Button
           type='button'

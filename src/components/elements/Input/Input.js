@@ -19,6 +19,8 @@ const FIELD_PADDING_Y = '12px'
 const EMPTY_PLACEHOLDER = ' '
 const INVALID_FIELD = "input[aria-invalid='true']"
 
+export const URL_FIELD_WIDTH = '400px'
+
 const StyledInputBase = styled(Text)(
   {
     lineHeight: 'inherit',
