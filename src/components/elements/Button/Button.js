@@ -57,7 +57,7 @@ const StyledButton = styled(Box).withConfig({
 
   ${({ shimmer }) => shimmer && shimmerStyle}
 
-  ${({ theme, variant, shimmer }) => {
+  ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
     const hover = hoverStyle({ theme, variant })
     return css`
@@ -85,17 +85,14 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${!shimmer &&
-      css`
-        @media (hover: hover) and (pointer: fine) {
-          &:hover:not(:disabled) {
-            cursor: ${hover.cursor};
-            background: ${hover.background};
-            color: ${hover.color};
-            box-shadow: ${hover.boxShadow};
-          }
+      @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:disabled) {
+          cursor: ${hover.cursor};
+          background: ${hover.background};
+          color: ${hover.color};
+          box-shadow: ${hover.boxShadow};
         }
-      `}
+      }
     `
   }}
 `
