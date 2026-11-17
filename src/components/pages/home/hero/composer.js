@@ -45,7 +45,11 @@ const Composer = styled.div`
 `
 
 const ComposerEditor = styled.div`
-  outline: none;
+  &,
+  &:focus-visible {
+    outline: none;
+  }
+
   cursor: text;
   scrollbar-width: none;
   ${theme({

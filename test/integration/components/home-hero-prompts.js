@@ -114,6 +114,16 @@ describe('home hero prompts', () => {
     expect(editor).not.toContain('grape')
   })
 
+  test('editor focus shows on the composer ring, never as the global focus outline', () => {
+    const editor = composerSlice('const ComposerEditor', 'const CLOSE_ICON_SVG')
+    const focusRule = editor.slice(0, editor.indexOf('}') + 1)
+    expect(focusRule).toMatch(/&:focus-visible\s*\{\s*outline: none;/)
+    expect(composer).toContain("&:has([contenteditable='true']:focus)")
+    expect(composerSlice('const composerFocus', 'const Composer =')).toContain(
+      'borderColor'
+    )
+  })
+
   test('url chip uses the docs inline-code style', () => {
     const editor = composerSlice('const ComposerEditor', 'const CLOSE_ICON_SVG')
     const tag = editor.slice(editor.indexOf('[data-url-tag]'))
