@@ -846,16 +846,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           onClick={handleSubmit}
           loading={isLoading}
         >
-          <Flex
-            css={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: space[2]
-            }}
-          >
-            <Camera size={16} />
-            Generate screenshot
-          </Flex>
+          Generate screenshot
         </GenerateButton>
       </StickyGenerateWrapper>
     </Box>
