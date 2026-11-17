@@ -131,7 +131,7 @@ describe('published files', () => {
         fs.readFileSync(path.join(PARAMETERS_DIR, file), 'utf8'),
         'description'
       )
-      return description !== '' && !llms.includes(description)
+      return !llms.includes(description)
     })
     expect(missing).toEqual([])
   })
