@@ -1,6 +1,6 @@
 ---
 title: 'timeout'
-description: 'Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.'
+description: 'Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts milliseconds, human-readable durations, or a percentage of your plan budget.'
 ---
 
 import {
@@ -31,3 +31,13 @@ https://microlink.io&timeout=10second  # 10000
 https://microlink.io&timeout=10seconds # 10000
 https://microlink.io&timeout=10000     # 10000
 ```
+
+It also takes a percentage of your plan budget. Use it to get an answer back before the plan timeout fires, whatever plan the key is on:
+
+```bash
+https://microlink.io&timeout=80%25     # 80% of the plan budget
+```
+
+In a URL, `%` is written `%25`, so `timeout=80%25` reaches the API as `80%`. On pro, a bare `%` is rejected with a 400 before the request reaches the API. The SDKs encode it for you, so there you pass `'80%'`.
+
+<Figcaption>`timeout=80%` is {PRO_PLAN_REQUEST_TIMEOUT_SECONDS * 0.8} seconds on pro and {FREE_PLAN_REQUEST_TIMEOUT_SECONDS * 0.8} seconds on free. A percentage above 100% is the whole plan budget.</Figcaption>

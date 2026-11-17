@@ -6,6 +6,7 @@ import {
   OPENAPI_PATH,
   buildOpenApi,
   errorCodesFrom,
+  frontmatterField,
   parameterFromDoc,
   parameterNameFrom,
   schemaFromTypes,
@@ -123,6 +124,18 @@ describe('OpenAPI document', () => {
 })
 
 describe('published files', () => {
+  test('llms.txt repeats every parameter description', () => {
+    const llms = fs.readFileSync(path.join(ROOT, 'static/llms.txt'), 'utf8')
+    const missing = parameterFiles.filter(file => {
+      const description = frontmatterField(
+        fs.readFileSync(path.join(PARAMETERS_DIR, file), 'utf8'),
+        'description'
+      )
+      return !llms.includes(description)
+    })
+    expect(missing).toEqual([])
+  })
+
   test('serves openapi.json with CORS so agents can fetch it', () => {
     const rule = headers.find(({ source }) => source === '/openapi.json')
     expect(rule).toBeDefined()

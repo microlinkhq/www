@@ -69,7 +69,7 @@
 - [scroll](https://microlink.io/docs/api/parameters/scroll.md): Navigate to specific sections of a webpage by scrolling to a DOM element matching a CSS selector.
 - [staleTtl](https://microlink.io/docs/api/parameters/staleTtl.md): Optimize API performance by serving cached content while simultaneously refreshing it in the background.
 - [styles](https://microlink.io/docs/api/parameters/styles.md): Inject custom CSS into a webpage before it is rendered or captured. The styles parameter supports both inline CSS rules and absolute URLs to external stylesheets.
-- [timeout](https://microlink.io/docs/api/parameters/timeout.md): Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.
+- [timeout](https://microlink.io/docs/api/parameters/timeout.md): Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts milliseconds, human-readable durations, or a percentage of your plan budget.
 - [ttl](https://microlink.io/docs/api/parameters/ttl.md): Define the cache expiration time for your requests to balance data freshness and response speed. The ttl parameter supports human-readable formats.
 - [url](https://microlink.io/docs/api/parameters/url.md): The primary address of the website you want to process. The url parameter is the core requirement for any Microlink API request, serving as the base for metadata extraction.
 - [video](https://microlink.io/docs/api/parameters/video.md): Detect and extract direct video source URLs from any website in a browser-friendly format.

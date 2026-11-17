@@ -91,7 +91,7 @@ const metadata = await microlink.metadata('https://example.com', {
 
 ### Request
 
-- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle (default: {FREE_PLAN_REQUEST_TIMEOUT_SECONDS}s free / {PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro).
+- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle, as a duration or a percentage of the plan budget such as `'80%'` (default: {FREE_PLAN_REQUEST_TIMEOUT_SECONDS}s free / {PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro).
 - [retry](/docs/api/parameters/retry) `<number>` — how many retries to perform under an internal browser error (default: `2`).
 - [proxy](/docs/api/parameters/proxy) `<string> | <object>` — resolves any sub-request through an HTTP proxy server.
 - [filename](/docs/api/parameters/filename) `<string>` — the filename associated with a generated asset.
