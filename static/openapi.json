@@ -795,7 +795,7 @@
             "name": "timeout",
             "in": "query",
             "required": false,
-            "description": "Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts values in milliseconds or human-readable formats.",
+            "description": "Define the maximum duration allowed for the API to process a request before timing out. The timeout parameter accepts milliseconds, human-readable durations, or a percentage of your plan budget.",
             "schema": {
               "oneOf": [
                 {
