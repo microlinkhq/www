@@ -51,7 +51,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 setApiKey('')
                 setTempApiKey('')
               }}
-              variant='magic'
+              variant='outline'
             >
               <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
             </Button>

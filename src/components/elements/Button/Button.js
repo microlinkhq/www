@@ -4,9 +4,9 @@ import Box from '../Box'
 import React, { forwardRef } from 'react'
 import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
-import { magicStyle } from './magic'
+import { outlineStyle } from './outline'
 
-const isMagic = variant => variant === 'magic'
+const isOutline = variant => variant === 'outline'
 
 const getVariant = ({ theme, variant }) => {
   const { background = 'link', color = 'white' } =
@@ -55,7 +55,7 @@ const StyledButton = styled(Box).withConfig({
     outline-offset: 2px;
   }
 
-  ${({ variant }) => isMagic(variant) && magicStyle}
+  ${({ variant }) => isOutline(variant) && outlineStyle}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
@@ -72,7 +72,7 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: isMagic(variant) ? `0 0 0 1px ${cx(color)}` : undefined,
+        boxShadow: isOutline(variant) ? `0 0 0 1px ${cx(color)}` : undefined,
         cursor: 'pointer',
         _disabled: {
           opacity: 0.8,
@@ -85,7 +85,7 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${!isMagic(variant) &&
+      ${!isOutline(variant) &&
       css`
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {

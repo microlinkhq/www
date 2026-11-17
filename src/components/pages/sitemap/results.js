@@ -117,7 +117,7 @@ const downloadTxt = urls => {
 }
 
 const ActionButton = ({ children, ...props }) => (
-  <Button type='button' variant='magic' {...props}>
+  <Button type='button' variant='outline' {...props}>
     <Flex as='span' css={theme({ alignItems: 'center' })}>
       {children}
     </Flex>

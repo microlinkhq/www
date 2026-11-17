@@ -32,7 +32,7 @@ const sweep = keyframes`
   to { background-position: 75% 75%; }
 `
 
-export const magicStyle = css`
+export const outlineStyle = css`
   &&& {
     position: relative;
     z-index: 1;

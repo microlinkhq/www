@@ -307,7 +307,7 @@ export const variants = {
     gradient: textGradient
   },
   buttons: {
-    magic: {
+    outline: {
       background: 'white',
       color: 'black'
     }

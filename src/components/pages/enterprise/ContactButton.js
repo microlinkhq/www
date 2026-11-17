@@ -52,7 +52,7 @@ const ContactButton = ({
       <Button
         as='a'
         href={bookCallUrl(medium, leadRef)}
-        variant='magic'
+        variant='outline'
         title={BOOK_CALL_TITLE}
         rel='noopener noreferrer'
         target='_blank'
