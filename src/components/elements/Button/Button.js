@@ -4,7 +4,7 @@ import Box from '../Box'
 import React, { forwardRef } from 'react'
 import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
-import { outlineStyle } from './outline'
+import { shimmerStyle } from './shimmer'
 
 const isOutline = variant => variant === 'outline'
 
@@ -27,7 +27,7 @@ export const hoverStyle = ({ theme, variant }) => {
 }
 
 const StyledButton = styled(Box).withConfig({
-  shouldForwardProp: prop => !['variant'].includes(prop)
+  shouldForwardProp: prop => !['variant', 'shimmer'].includes(prop)
 })`
   transition: background-color ${transition.short}, color ${transition.short},
     box-shadow ${transition.short}, transform ${transition.short};
@@ -55,9 +55,9 @@ const StyledButton = styled(Box).withConfig({
     outline-offset: 2px;
   }
 
-  ${({ variant }) => isOutline(variant) && outlineStyle}
+  ${({ shimmer }) => shimmer && shimmerStyle}
 
-  ${({ theme, variant }) => {
+  ${({ theme, variant, shimmer }) => {
     const { background, color } = getVariant({ theme, variant })
     const hover = hoverStyle({ theme, variant })
     return css`
@@ -85,7 +85,7 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${!isOutline(variant) &&
+      ${!shimmer &&
       css`
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {

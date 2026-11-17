@@ -9,7 +9,12 @@ import { Story } from 'story'
 
 const states = [null, 'hover', 'disabled', 'loading']
 
-const variants = ['base', 'outline']
+const combinations = [
+  { name: 'base' },
+  { name: 'base + shimmer', shimmer: true },
+  { name: 'outline', variant: 'outline' },
+  { name: 'outline + shimmer', variant: 'outline', shimmer: true }
+]
 
 const text = 'BUY'
 
@@ -80,25 +85,25 @@ export default { title: 'Elements/Button' }
 export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
-      {variants.map(variant => (
-        <Labeled key={variant} name={variant}>
-          <BuyButton variant={variant}>{text}</BuyButton>
+      {combinations.map(({ name, ...props }) => (
+        <Labeled key={name} name={name}>
+          <BuyButton {...props}>{text}</BuyButton>
         </Labeled>
       ))}
     </Flex>
-    {variants.map((variant, index) => (
+    {combinations.map(({ name, ...props }, index) => (
       <Flex
         css={theme({ pt: index > 0 ? 4 : 0, flexDirection: 'column' })}
-        key={variant}
+        key={name}
       >
-        <VariantName>{variant}</VariantName>
+        <VariantName>{name}</VariantName>
         <Flex css={theme({ pt: 2 })}>
           {states.map(state =>
             createElement(
               BuyButton,
               {
                 key: state,
-                variant,
+                ...props,
                 state,
                 [`data-${state}`]: true,
                 disabled: state === 'disabled',

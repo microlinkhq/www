@@ -32,7 +32,7 @@ const sweep = keyframes`
   to { background-position: 75% 75%; }
 `
 
-export const outlineStyle = css`
+export const shimmerStyle = css`
   &&& {
     position: relative;
     z-index: 1;
