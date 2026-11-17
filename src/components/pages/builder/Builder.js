@@ -1,6 +1,6 @@
 import { colors, theme, transition } from 'theme'
 import React, { useCallback, useId, useMemo, useState } from 'react'
-import { ArrowRight, ChevronDown, RotateCcw } from 'react-feather'
+import { ChevronDown, RotateCcw } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -8,6 +8,7 @@ import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
+import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Input from 'components/elements/Input/Input'
@@ -326,40 +327,6 @@ const PreviewStage = styled(Flex)`
   background-size: 16px 16px;
   min-height: 320px;
   width: 100%;
-`
-
-const OMNIBOX_SHELL = { pr: '6px', gap: '6px', width: '100%' }
-
-const OmniboxButton = styled(Box).attrs({ as: 'button', type: 'button' })`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    borderRadius: '999px',
-    cursor: 'pointer',
-    flexShrink: 0
-  })}
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: ${colors.link};
-  color: white;
-  white-space: nowrap;
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: wait;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    padding: 10px 14px;
-
-    .btn-label {
-      display: none;
-    }
-  }
 `
 
 // Layout shell. The builder is a single centered column (`Content`); on wide
@@ -784,37 +751,36 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
 
   return (
     <Box css={{ width: '100%' }}>
-      <Input
-        label='URL'
-        raised
-        type='url'
-        inputMode='url'
-        placeholder={DEFAULT_URL}
-        value={url}
-        onChange={e => {
-          setUrl(e.target.value)
-          if (error) setError('')
-        }}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            e.preventDefault()
-            if (!isLoading) handleSubmit()
-          }
-        }}
-        aria-invalid={!!error}
-        labelCss={OMNIBOX_SHELL}
-      >
-        <OmniboxButton
+      <Flex>
+        <Input
+          label='URL'
+          raised
+          type='url'
+          inputMode='url'
+          placeholder={DEFAULT_URL}
+          value={url}
+          onChange={e => {
+            setUrl(e.target.value)
+            if (error) setError('')
+          }}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              if (!isLoading) handleSubmit()
+            }
+          }}
+          aria-invalid={!!error}
+          labelCss={{ flex: 1, minWidth: 0 }}
+        />
+        <Button
+          type='button'
           onClick={handleSubmit}
-          disabled={isLoading}
-          aria-label='Fetch preview'
+          loading={isLoading}
+          css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <span className='btn-label'>
-            {isLoading ? 'Fetching…' : 'Preview'}
-          </span>
-          <ArrowRight size={16} />
-        </OmniboxButton>
-      </Input>
+          <Caps css={theme({ fontSize: 0 })}>Preview</Caps>
+        </Button>
+      </Flex>
       {error && (
         <Text
           role='alert'

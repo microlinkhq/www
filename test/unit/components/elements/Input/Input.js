@@ -132,16 +132,10 @@ describe('Input', () => {
     expect(css).not.toContain('flex:0 0 24px')
   })
 
-  test('the input is named by the label text alone, even with a trailing control inside the field', () => {
-    const { markup } = render({
-      label: 'URL',
-      children: <button type='submit'>Convert</button>
-    })
+  test('the input is named by the label text alone', () => {
+    const { markup } = render({ label: 'URL' })
     const labelId = attribute(markup.match(/<span[^>]*>URL<\/span>/)[0], 'id')
     expect(attribute(inputTag(markup), 'aria-labelledby')).toBe(labelId)
-    expect(markup).toMatch(
-      /<input\b[\s\S]*<button type="submit">Convert<\/button><\/label>$/
-    )
   })
 
   test('raised keeps the label on the border and the placeholder visible at rest', () => {

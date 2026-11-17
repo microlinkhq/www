@@ -173,7 +173,6 @@ const Input = ({
   innerRef,
   iconComponent: Icon,
   suggestions,
-  children,
   labelCss,
   autoComplete,
   inputMode,
@@ -238,8 +237,6 @@ const Input = ({
             {input}
           </>
           )}
-
-      {children}
 
       {suggestions && (
         <datalist id={list}>

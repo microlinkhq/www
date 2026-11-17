@@ -32,6 +32,7 @@ import styled, { keyframes } from 'styled-components'
 import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Choose from 'components/elements/Choose'
 import Container from 'components/elements/Container'
@@ -567,61 +568,6 @@ const AdvancedToggle = styled(Flex).attrs({ as: 'button', type: 'button' })`
 `
 
 /* ─── Omnibox + Settings Popover ──────────────────────── */
-
-const OmniboxConvertButton = styled(Box).attrs({
-  as: 'button',
-  type: 'button'
-})`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    borderRadius: '999px',
-    cursor: 'pointer',
-    flexShrink: 0
-  })}
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: ${colors.link};
-  color: white;
-  transition: transform ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: wait;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    padding: 10px 14px;
-
-    .omnibox-btn-label {
-      display: none;
-    }
-  }
-`
 
 const SettingsIconButton = styled(Box).attrs({ as: 'button', type: 'button' })`
   ${theme({
@@ -1569,30 +1515,35 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           : null}
       </Box>
 
-      <Input
-        id='md-url'
-        type='url'
-        inputMode='url'
-        autoComplete='url'
-        label='URL'
-        placeholder='Paste a URL…'
-        value={options.url}
-        onChange={handleUrlChange}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            e.preventDefault()
-            if (!isLoading) handleSubmit()
-          }
-        }}
-        aria-describedby={urlError ? 'md-url-error' : undefined}
-        aria-invalid={!!urlError}
-        labelCss={{ borderRadius: 5, pl: 3, pr: '6px' }}
-      >
-        <OmniboxConvertButton onClick={handleSubmit} disabled={isLoading}>
-          <span className='omnibox-btn-label'>Convert</span>
-          <ArrowRight size={16} />
-        </OmniboxConvertButton>
-      </Input>
+      <Flex css={{ minWidth: 0 }}>
+        <Input
+          id='md-url'
+          type='url'
+          inputMode='url'
+          autoComplete='url'
+          label='URL'
+          placeholder='Paste a URL…'
+          value={options.url}
+          onChange={handleUrlChange}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              if (!isLoading) handleSubmit()
+            }
+          }}
+          aria-describedby={urlError ? 'md-url-error' : undefined}
+          aria-invalid={!!urlError}
+          labelCss={{ flex: 1, minWidth: 0 }}
+        />
+        <Button
+          type='button'
+          onClick={handleSubmit}
+          loading={isLoading}
+          css={theme({ ml: 2, flexShrink: 0 })}
+        >
+          <Caps css={theme({ fontSize: 0 })}>Convert</Caps>
+        </Button>
+      </Flex>
       {urlError
         ? (
           <Text

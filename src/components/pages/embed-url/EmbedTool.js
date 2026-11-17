@@ -14,19 +14,14 @@ import React, {
   useMemo,
   useRef
 } from 'react'
-import {
-  ArrowRight,
-  Clipboard,
-  Check,
-  RotateCcw,
-  HelpCircle
-} from 'react-feather'
+import { Clipboard, Check, RotateCcw, HelpCircle } from 'react-feather'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { css, keyframes } from 'styled-components'
 import microlink from 'helpers/microlink'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
@@ -804,63 +799,6 @@ const PaneHeader = styled(Flex)`
   flex-shrink: 0;
 `
 
-const OMNIBOX_SHELL = { pr: '6px', gap: '6px', width: '100%' }
-
-const OmniboxConvertButton = styled(Box).attrs({
-  as: 'button',
-  type: 'button'
-})`
-  ${theme({
-    fontFamily: 'sans',
-    fontSize: 0,
-    fontWeight: 'bold',
-    borderRadius: '999px',
-    cursor: 'pointer',
-    flexShrink: 0
-  })}
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 20px;
-  border: none;
-  background: ${colors.link};
-  color: white;
-  transition: transform ${transition.short};
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-  white-space: nowrap;
-
-  @media (prefers-reduced-motion: reduce) {
-    transition: none;
-  }
-
-  &:hover:not(:disabled) {
-    transform: translateY(-1px);
-  }
-
-  &:active:not(:disabled) {
-    transform: translateY(0);
-  }
-
-  &:disabled {
-    opacity: 0.7;
-    cursor: wait;
-  }
-
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  @media (max-width: ${MOBILE_BP - 1}px) {
-    padding: 10px 14px;
-
-    .omnibox-btn-label {
-      display: none;
-    }
-  }
-`
-
 const LOADING_MESSAGES = [
   'Fetching the link.',
   'Reading the page.',
@@ -1125,34 +1063,35 @@ const Omnibar = ({
 
   return (
     <Box css={{ width: '100%' }}>
-      <Input
-        label='URL'
-        id='embed-url'
-        type='url'
-        inputMode='url'
-        autoComplete='url'
-        placeholder={placeholderProp || 'Paste a URL…'}
-        value={url}
-        onChange={handleUrlChange}
-        onKeyDown={e => {
-          if (e.key === 'Enter') {
-            e.preventDefault()
-            if (!isLoading) handleSubmit()
-          }
-        }}
-        aria-describedby={urlError ? 'embed-url-error' : undefined}
-        aria-invalid={!!urlError}
-        labelCss={OMNIBOX_SHELL}
-      >
-        <OmniboxConvertButton
+      <Flex>
+        <Input
+          label='URL'
+          id='embed-url'
+          type='url'
+          inputMode='url'
+          autoComplete='url'
+          placeholder={placeholderProp || 'Paste a URL…'}
+          value={url}
+          onChange={handleUrlChange}
+          onKeyDown={e => {
+            if (e.key === 'Enter') {
+              e.preventDefault()
+              if (!isLoading) handleSubmit()
+            }
+          }}
+          aria-describedby={urlError ? 'embed-url-error' : undefined}
+          aria-invalid={!!urlError}
+          labelCss={{ flex: 1, minWidth: 0 }}
+        />
+        <Button
+          type='button'
           onClick={() => handleSubmit()}
-          disabled={isLoading}
-          aria-label='Generate preview'
+          loading={isLoading}
+          css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <span className='omnibox-btn-label'>Generate preview</span>
-          <ArrowRight size={16} />
-        </OmniboxConvertButton>
-      </Input>
+          <Caps css={theme({ fontSize: 0 })}>Preview</Caps>
+        </Button>
+      </Flex>
       {urlError
         ? (
           <Text
