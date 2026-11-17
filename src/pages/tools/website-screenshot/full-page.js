@@ -1,5 +1,12 @@
 import { trackEvent } from 'helpers/gtag'
-import { borders, colors, layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
+import {
+  borders,
+  colors,
+  layout,
+  theme,
+  space,
+  SECTION_VERTICAL_SPACING
+} from 'theme'
 import React, { useState, useCallback, useEffect } from 'react'
 import {
   Camera,
@@ -437,7 +444,16 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           onClick={handleSubmit}
           loading={isLoading}
         >
-          Generate screenshot
+          <Flex
+            css={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: space[2]
+            }}
+          >
+            <Camera size={16} />
+            Generate screenshot
+          </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
     </Box>

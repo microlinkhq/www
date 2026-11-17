@@ -1101,13 +1101,17 @@ const OptionsPanel = ({
                   Capturing {bulkProgress.current} of {bulkProgress.total}…
                 </>
                 )
-              : detectedUrls.length > 1
-                ? (
-              `Generate ${Math.min(detectedUrls.length, MAX_URLS)} screenshots`
-                  )
-                : (
-                    'Generate screenshot'
-                  )}
+              : (
+                <>
+                  <Camera size={16} />
+                  {detectedUrls.length > 1
+                    ? `Generate ${Math.min(
+                    detectedUrls.length,
+                    MAX_URLS
+                  )} screenshots`
+                    : 'Generate screenshot'}
+                </>
+                )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>

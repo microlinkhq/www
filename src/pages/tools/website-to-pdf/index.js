@@ -882,7 +882,16 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           onClick={handleSubmit}
           loading={isLoading}
         >
-          Generate PDF
+          <Flex
+            css={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: space[2]
+            }}
+          >
+            <FileText size={16} />
+            Generate PDF
+          </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
     </Box>

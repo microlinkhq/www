@@ -1485,13 +1485,14 @@ const OptionsPanel = ({
                   Generating {bulkProgress.current} of {bulkProgress.total}…
                 </>
                 )
-              : detectedUrls.length > 1
-                ? (
-              `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
-                  )
-                : (
-                    'Generate PDF'
-                  )}
+              : (
+                <>
+                  <FileText size={16} />
+                  {detectedUrls.length > 1
+                    ? `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
+                    : 'Generate PDF'}
+                </>
+                )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
