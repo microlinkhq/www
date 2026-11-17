@@ -21,7 +21,7 @@ export const hoverStyle = ({ theme, variant }) => {
     cursor: 'pointer',
     background: hoverBackground,
     color: hoverColor,
-    boxShadow: `0 0 0 1px ${hoverColor}`
+    boxShadow: `0 0 1px 1px ${hoverColor}`
   }
 }
 
