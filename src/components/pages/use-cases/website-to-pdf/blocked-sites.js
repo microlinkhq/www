@@ -1,4 +1,4 @@
-import { PRO_PLAN_REQUEST_TIMEOUT_SECONDS } from 'helpers/plan-timeouts'
+import { PRO_PLAN_REQUEST_TIMEOUT_SECONDS } from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-to-pdf/blocked-sites',
   head: {

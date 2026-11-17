@@ -1,7 +1,7 @@
 import {
   FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
   PRO_PLAN_REQUEST_TIMEOUT_SECONDS
-} from 'helpers/plan-timeouts'
+} from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'scraping/javascript-rendered-pages',
   head: {

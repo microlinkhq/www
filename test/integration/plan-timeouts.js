@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
@@ -49,12 +50,11 @@ const PLAN_CUE =
 const FENCED_CODE = /^\s*(```|~~~)[\s\S]*?^\s*\1/gm
 const blankOut = block => block.replace(/[^\n]/g, '')
 
-const walk = dir =>
-  fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
-    const full = path.join(dir, entry.name)
-    if (entry.isDirectory()) return walk(full)
-    return /\.(jsx?|md)$/.test(entry.name) ? [full] : []
-  })
+const trackedSources = () =>
+  execFileSync('git', ['ls-files', '-z', '--', 'src'], { encoding: 'utf8' })
+    .split('\0')
+    .filter(file => /\.(jsx?|md)$/.test(file))
+    .map(file => path.join(process.cwd(), file))
 
 const readProse = file => {
   const source = fs.readFileSync(file, 'utf8')
@@ -64,7 +64,7 @@ const readProse = file => {
 const isUnder = roots => file =>
   roots.some(root => file === root || file.startsWith(root + path.sep))
 
-const SOURCES = walk(SRC)
+const SOURCES = trackedSources()
   .filter(file => file !== HELPER)
   .filter(file => !isUnder(DATED_RECORDS)(file))
   .filter(file => !isUnder(COMPETITOR_PAGES)(file))

@@ -2,7 +2,7 @@ import { FREE_PLAN_FUNCTION_CODE_SIZE } from '../../../../helpers/free-tier'
 import {
   FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
   PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
-} from 'helpers/plan-timeouts'
+} from '../../../../helpers/plan-timeouts'
 
 export const CONTENT = {
   slug: 'scraping/npm-packages-remotely',
