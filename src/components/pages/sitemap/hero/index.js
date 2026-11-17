@@ -1,5 +1,4 @@
 import React from 'react'
-import { ArrowRight } from 'react-feather'
 import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -158,26 +157,7 @@ export const Hero = () => {
               })}
               loading={isLoading}
             >
-              <Flex
-                as='span'
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                })}
-              >
-                List URLs
-                <Box
-                  as='span'
-                  aria-hidden
-                  css={theme({
-                    display: 'inline-flex',
-                    ml: 2,
-                    lineHeight: 0
-                  })}
-                >
-                  <ArrowRight size={16} />
-                </Box>
-              </Flex>
+              List URLs
             </Button>
           </Flex>
         </Flex>

@@ -5,6 +5,8 @@ import Flex from 'components/elements/Flex'
 import React, { useState, useCallback } from 'react'
 import { theme } from 'theme'
 
+const COMPACT_BUTTON_FONT_SIZE = '12px'
+
 const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
   const [tempApiKey, setTempApiKey] = useState('')
 
@@ -33,7 +35,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 onChange={e => setTempApiKey(e.target.value)}
               />
               <Button
-                css={theme({ ml: 2, fontSize: '12px' })}
+                css={theme({ ml: 2, fontSize: COMPACT_BUTTON_FONT_SIZE })}
                 disabled={!tempApiKey.trim()}
                 onClick={handleSubmit}
               >
@@ -45,7 +47,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
         <Choose.Otherwise
           render={() => (
             <Button
-              css={theme({ ml: 2, fontSize: '12px' })}
+              css={theme({ ml: 2, fontSize: COMPACT_BUTTON_FONT_SIZE })}
               onClick={() => {
                 setApiKey('')
                 setTempApiKey('')

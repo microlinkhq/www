@@ -81,6 +81,7 @@ Compute the slug from the topic, then verify no collision in `src/pages/use-case
 
 Non-negotiable:
 
+- Buttons follow `AGENTS.md` › Buttons: no variant for normal actions, `variant='featured'` for the single conversion CTA, `ArrowLink` for a secondary action, plain uppercase labels with no `Caps` and no icon. `test/integration/button-usage.js` enforces it.
 - **Accent is always blue.** Import `ACCENT` from the module; never define it locally, never pass
   a different accent. `CtaSection` hardcodes `colors.link` for its background, so a different
   accent would look broken.

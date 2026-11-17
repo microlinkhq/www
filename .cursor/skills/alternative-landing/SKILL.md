@@ -66,6 +66,7 @@ Then, **depending on the category**:
 
 These are non-negotiable:
 
+- Buttons follow `AGENTS.md` › Buttons: no variant for normal actions, `variant='featured'` for the single conversion CTA, `ArrowLink` for a secondary action, plain uppercase labels with no `Caps` and no icon. `test/integration/button-usage.js` enforces it.
 - Never guess the competitor URL. Ask if it is missing.
 - Never invent competitor features, pricing, SLA, rate limits, integrations, or infrastructure claims.
 - Never invent benchmark numbers or extrapolate them to unbenchmarked competitors.

@@ -75,6 +75,24 @@ The typography components own their size. Compose pages from them; do not restyl
 - Sanctioned escapes only (each is a real, reviewed reason a heading needs a different size): `fontSize: 'inherit'` (a gradient sub-span tracking its parent), `forwardedAs='div'` (a stat-number display reusing the heading style), or a named `UPPER_SNAKE_CASE` constant (a deliberate, centrally-defined token, e.g. `CARD_TITLE_FONT_SIZE`, `SUBSECTION_TITLE_FONT_SIZE`).
 - ENFORCED: `test/integration/typography-overrides.js` fails the build on any per-call override outside those escapes — including the raw `SubheadBase`/`HeadingBase`/`CaptionBase` import aliases, so renaming the import does not bypass it. Run `npm test`; do not weaken the test to pass — fix the call site.
 
+### Buttons
+
+`Button` (`src/components/elements/Button/Button.js`) owns the whole look: label case, weight, size, tracking, radius, hover, focus ring and loading. Compose call sites from it; do not restyle the label at the call site.
+
+| Variant | Look | Use |
+| --- | --- | --- |
+| `default` (no prop) | blue fill | every normal action |
+| `featured` | brand pink fill + shimmer on hover | the one conversion action of a view (Buy, Generate). At most one per view |
+
+- MUST: Pass only `variant='featured'` or no variant. There is no outline, black, white or gradient button; those were folded into these two.
+- MUST: A secondary action next to a button is an `ArrowLink` ("Read the docs ›"), not a second button.
+- NEVER: Wrap the label in `Caps` or `Text`. `Button` uppercases and tracks the label itself; `Caps` resets it to regular weight and its own size.
+- NEVER: Put an icon next to a text label. Icon-only buttons keep their icon and need an `aria-label`.
+- MUST: Show a pending request with the `loading` prop. It stacks the spinner over the label so the button keeps its size. A button that reports progress in words ("Capturing 3 of 10…") renders that as its label with `disabled`, and does not pass `loading`.
+- NEVER: Override the label's `fontSize`, `fontWeight`, `letterSpacing` or `textTransform` at the call site. A deliberate exception is a named `UPPER_SNAKE_CASE` constant (e.g. the code editor's `COMPACT_BUTTON_FONT_SIZE`).
+- SHOULD: Change a button's corner with `--button-radius`, never `borderRadius`, so the featured shimmer ring follows it.
+- ENFORCED: `test/integration/button-usage.js` fails the build on an unknown variant (also in `styled(Button).attrs`), a `Caps` label, an icon beside a label, or a label typography override. Run `npm test`; fix the call site, do not weaken the test.
+
 ## Interactions
 
 ### Keyboard
@@ -96,7 +114,7 @@ The typography components own their size. Compose pages from them; do not restyl
 
 - MUST: Hydration-safe inputs (no lost focus/value)
 - NEVER: Block paste in `<input>`/`<textarea>`
-- MUST: Loading buttons show spinner and keep original label
+- MUST: Loading buttons keep their size: `Button`'s `loading` shows the spinner over the original label, which stays in the markup as the accessible name
 - MUST: Enter submits focused input; in `<textarea>`, ⌘/Ctrl+Enter submits
 - MUST: Keep submit enabled until request starts; then disable with spinner
 - MUST: Accept free text, validate after—don't block typing
