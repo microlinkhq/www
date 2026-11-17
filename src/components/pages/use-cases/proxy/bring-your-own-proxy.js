@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'proxy/bring-your-own-proxy',
   head: {
@@ -70,7 +74,7 @@ export const CONTENT = {
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: 'Maximum request time: 30 seconds on the free endpoint, 60 seconds with an API key.'
+        note: `Maximum request time: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint, ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.`
       }
     ],
     outro:

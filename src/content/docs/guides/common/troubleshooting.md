@@ -3,6 +3,10 @@ title: 'Common patterns: Troubleshooting'
 description: 'Debug common issues across all Microlink workflows. Fix timeouts, blocked sites, auth errors, plan-related errors, and learn to read response headers for diagnosis.'
 ---
 
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { MultiCodeEditorInteractive } from 'components/markdown/MultiCodeEditorInteractive'
 import { Link } from 'components/elements/Link'
@@ -23,7 +27,7 @@ If you hit `ETIMEOUT` or `EBRWSRTIMEOUT`, reduce the amount of work before raisi
 
 <MultiCodeEditorInteractive height={210} mqlCode={{ url: 'https://example.com', meta: false, retry: 3, timeout: '20s' }} />
 
-<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is 30 seconds on the free endpoint and 60 seconds with an API key.</Figcaption>
+<Figcaption>Increase timeout only after removing unnecessary work. The maximum allowed timeout is {FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and {PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.</Figcaption>
 
 ## The URL does not respond
 

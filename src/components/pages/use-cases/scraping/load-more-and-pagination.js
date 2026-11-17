@@ -1,4 +1,8 @@
 import { FREE_PLAN_REQUESTS_PER_DAY } from '../../../../helpers/free-tier'
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from '../../../../helpers/plan-timeouts'
 
 export const CONTENT = {
   slug: 'scraping/load-more-and-pagination',
@@ -77,7 +81,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         name: 'function',
         href: '/docs/api/parameters/function',
-        note: 'Runs your Puppeteer code on the page. 15 seconds on the free plan, up to 60 seconds on a paid plan.'
+        note: `Runs your Puppeteer code on the page. ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds on the free plan, up to ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds on a paid plan.`
       },
       {
         name: 'click',
@@ -100,8 +104,7 @@ const quotes = results.flatMap(result => result.quotes)`,
         note: 'Returns every item on the page as an array.'
       }
     ],
-    outro:
-      'Size the function to its time budget: every click waits for a network round trip on the target, so ten clicks on a slow site can exceed the 15 second free limit and return a TimeoutError. The [function troubleshooting guide](/docs/guides/function/troubleshooting) covers timeouts and the other plan-aware errors.'
+    outro: `Size the function to its time budget: every click waits for a network round trip on the target, so ten clicks on a slow site can exceed the ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} second free limit and return a TimeoutError. The [function troubleshooting guide](/docs/guides/function/troubleshooting) covers timeouts and the other plan-aware errors.`
   },
   why: {
     title: 'Why one request per page beats a long-lived crawler',
@@ -123,7 +126,7 @@ const quotes = results.flatMap(result => result.quotes)`,
       {
         kicker: 'Bounded',
         title: 'Every run has a clear ceiling.',
-        body: 'The free plan gives a function 15 seconds and 64 MB, a paid plan up to 60 seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.',
+        body: `The free plan gives a function ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds and 64 MB, a paid plan up to ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds and 128 MB. Hitting a limit returns isFulfilled false with a named error instead of hanging.`,
         note: 'When not to: infinite feeds with thousands of items do not fit in one call. Look for the JSON endpoint the page calls as you scroll and read it page by page as [cached JSON](/use-cases/scraping/json-endpoints) instead.'
       }
     ]
@@ -147,8 +150,7 @@ const quotes = results.flatMap(result => result.quotes)`,
     {
       question:
         'How many times can a function click Load more before it times out?',
-      answer:
-        'As many as fit in the time limit: 15 seconds on the free plan and up to 60 seconds on a paid plan. Pass a click count as a custom option, and check profiling in the response to see how long each run took.'
+      answer: `As many as fit in the time limit: ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds on the free plan and up to ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds on a paid plan. Pass a click count as a custom option, and check profiling in the response to see how long each run took.`
     },
     {
       question: 'Does each scraped page count as a separate request?',

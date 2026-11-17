@@ -4,6 +4,10 @@ description: 'Execute your own JavaScript against a live page with the Microlink
 ---
 
 import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
+import {
   FREE_PLAN_CONCURRENT_REQUESTS,
   FREE_PLAN_FUNCTION_CODE_SIZE
 } from 'helpers/free-tier'
@@ -88,7 +92,7 @@ const { value } = await microlink.function(
 
 |                   | Free plan                                      | Paid plan    |
 | ----------------- | ---------------------------------------------- | ------------ |
-| Timeout           | 15 seconds                                     | 60 seconds   |
+| Timeout           | {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds                                     | {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
 | Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |

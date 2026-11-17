@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-metadata/javascript-rendered-pages',
   head: {
@@ -133,8 +137,7 @@ export const CONTENT = {
     {
       question:
         'Can the metadata request wait for the og:image tag specifically?',
-      answer:
-        'Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of 30 seconds on the free endpoint and 60 seconds with an API key.'
+      answer: `Yes. waitForSelector accepts any CSS selector, including meta[property="og:image"], so the extraction waits until the app injects the tag. A fixed waitForTimeout also works, but it cannot exceed the request timeout of ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.`
     },
     {
       question: 'How do I confirm a browser was used to extract the metadata?',

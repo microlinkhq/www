@@ -3,6 +3,10 @@ import { colors } from 'theme'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 
 const Accent = ({ children }) => (
   <span style={{ color: colors.red6 }}>{children}</span>
@@ -19,8 +23,7 @@ const RESPONSE_TYPE = `type response struct {
     } \`json:"data"\`
 }`
 
-const CLIENT =
-  'var client = &http.Client{Timeout: 90 * time.Second} // above the API budget: 30s free, 60s pro'
+const CLIENT = `var client = &http.Client{Timeout: 120 * time.Second} // above the API budget: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS}s free, ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro`
 
 const SCREENSHOT_URL_FUNC = `func screenshotURL(target string) (string, error) {
     query := url.Values{
@@ -657,9 +660,9 @@ func main() {
             <div>
               Give your <code>http.Client</code> a timeout above the API budget:{' '}
               <Link href='/docs/api/parameters/timeout'>
-                30 seconds on free
+                {FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on free
               </Link>
-              , 60 seconds on Pro.
+              , {PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on Pro.
             </div>
           </>
         )

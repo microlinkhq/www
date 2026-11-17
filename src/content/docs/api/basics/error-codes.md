@@ -3,6 +3,10 @@ title: Error codes
 description: 'Troubleshoot Microlink API error codes including EAUTH, ERATE, and EBRWSRTIMEOUT. Find solutions for authentication issues, rate limits, timeouts, and specific Pro plan parameter requirements.'
 ---
 
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 import { Type } from 'components/markdown/Type'
 
 import ProBadge from 'components/patterns/ProBadge/ProBadge'
@@ -49,7 +53,7 @@ The URL provided reached the maximum browser navigation time allowed.
 
 When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
 
-In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.
+In order to avoid this error, the request should be resolved before timeout. The maximum is {FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and {PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.
 
 ## ECONCURRENCY
 
@@ -361,7 +365,7 @@ The request reached maximum timeout.
 
 When the target [url](/docs/api/parameters/url) reached the [timeout](/docs/api/parameters/timeout) associated with the request lifecycle, this error is thrown.
 
-In order to avoid this error, the request should be resolved before timeout. The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.
+In order to avoid this error, the request should be resolved before timeout. The maximum is {FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and {PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.
 
 ## EUNREACHABLE
 

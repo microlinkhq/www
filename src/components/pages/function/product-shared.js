@@ -10,6 +10,10 @@ import {
   FREE_PLAN_FUNCTION_CODE_SIZE,
   FREE_PLAN_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 
 export const ACCENT = colors.indigo8
 export const ACCENT_NAME = 'indigo'
@@ -474,7 +478,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is Function available on the free plan?',
-    text: `Yes. On the free plan, with or without an API key, a function runs for up to 15 seconds with 64 MB of memory, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code, same-origin requests only and up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The free API key adds ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day. Paid plans raise the limits to 60 seconds, 128 MB, unlimited code size and unrestricted outgoing requests.`
+    text: `Yes. On the free plan, with or without an API key, a function runs for up to ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds with 64 MB of memory, ${FREE_PLAN_FUNCTION_CODE_SIZE} bytes of code, same-origin requests only and up to ${FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests. The free API key adds ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day. Paid plans raise the limits to ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 128 MB, unlimited code size and unrestricted outgoing requests.`
   },
   {
     question: 'Does every call execute the function again?',

@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-screenshot/dynamic-content',
   head: {
@@ -68,7 +72,7 @@ export const CONTENT = {
             waitForSelector: '.chart svg'
           }
         },
-        note: 'The request timeout is 30 seconds on the free endpoint and 60 seconds with an API key, and every wait has to fit inside it.'
+        note: `The request timeout is ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key, and every wait has to fit inside it.`
       }
     ],
     params: [
@@ -140,8 +144,7 @@ export const CONTENT = {
     {
       question:
         'How long can the screenshot API wait for JavaScript to finish?',
-      answer:
-        'Up to the request timeout: 30 seconds on the free endpoint and 60 seconds with an API key. A waitForTimeout larger than that is ignored, so prefer a selector wait that ends as soon as the content is there.'
+      answer: `Up to the request timeout: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key. A waitForTimeout larger than that is ignored, so prefer a selector wait that ends as soon as the content is there.`
     },
     {
       question: 'Do I need prerender to screenshot a single-page app?',
@@ -186,8 +189,7 @@ export const CONTENT = {
       },
       {
         title: 'Call the same request as a URL',
-        description:
-          'Pass the same options as query parameters. Every wait has to fit inside the request timeout: 30 seconds on the free endpoint, 60 seconds with an API key.'
+        description: `Pass the same options as query parameters. Every wait has to fit inside the request timeout: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint, ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key.`
       }
     ]
   }

@@ -3,6 +3,11 @@ title: 'Options'
 description: 'How the Microlink SDK routes options, plus the shared options every method accepts: browser emulation, page lifecycle, cache, and request controls.'
 ---
 
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
+
 Every method accepts an options object as its last argument. Its keys are routed automatically so you never have to remember how the underlying API call is shaped:
 
 - **Method-specific keys** — such as `fullPage` for [screenshot](/docs/sdk/methods/screenshot), `format` for [pdf](/docs/sdk/methods/pdf), or `selector` for [markdown](/docs/sdk/methods/markdown) — are nested under the right product parameter. Each method page lists its own keys.
@@ -86,18 +91,18 @@ const metadata = await microlink.metadata('https://example.com', {
 
 ### Request
 
-- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle (default: `'30s'` free / `'60s'` pro).
+- [timeout](/docs/api/parameters/timeout) `<string> | <number>` — the maximum time allowed for the request lifecycle (default: {FREE_PLAN_REQUEST_TIMEOUT_SECONDS}s free / {PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro).
 - [retry](/docs/api/parameters/retry) `<number>` — how many retries to perform under an internal browser error (default: `2`).
 - [proxy](/docs/api/parameters/proxy) `<string> | <object>` — resolves any sub-request through an HTTP proxy server.
 - [filename](/docs/api/parameters/filename) `<string>` — the filename associated with a generated asset.
 - [ping](/docs/api/parameters/ping) `<boolean> | <object>` — verifies every URL in the payload is publicly reachable (default: `true`).
 - [palette](/docs/api/parameters/palette) `<boolean>` — adds dominant colors and accessible color pairs to every image field (default: `false`).
 
-On pro, give a slow page the full 60s, retry harder, and name the resulting document:
+On pro, give a slow page the full {PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s, retry harder, and name the resulting document:
 
 ```js
 const { url } = await microlink.pdf('https://example.com/report', {
-  timeout: '60s',
+  timeout: '90s',
   retry: 3,
   filename: 'report.pdf'
 })

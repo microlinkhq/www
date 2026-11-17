@@ -1,3 +1,7 @@
+import {
+  FREE_PLAN_REQUEST_TIMEOUT_SECONDS,
+  PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+} from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-to-pdf/dynamic-content',
   head: {
@@ -68,7 +72,7 @@ export const CONTENT = {
             waitUntil: 'domcontentloaded'
           }
         },
-        note: 'The free endpoint has a 30-second timeout; any API key extends it to 60 seconds. If the report sits behind a login, forward the session as described in [PDF invoices from authenticated pages](/use-cases/website-to-pdf/invoices-and-receipts).'
+        note: `The free endpoint has a ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS}-second timeout; any API key extends it to ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds. If the report sits behind a login, forward the session as described in [PDF invoices from authenticated pages](/use-cases/website-to-pdf/invoices-and-receipts).`
       }
     ],
     params: [
@@ -144,8 +148,7 @@ export const CONTENT = {
     },
     {
       question: 'How long can the PDF API wait for content to render?',
-      answer:
-        'Up to the request timeout: 30 seconds on the free endpoint and 60 seconds with an API key. A waitForTimeout larger than that is ignored. Keep your waits well inside that budget, because the print itself also needs time.'
+      answer: `Up to the request timeout: ${FREE_PLAN_REQUEST_TIMEOUT_SECONDS} seconds on the free endpoint and ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key. A waitForTimeout larger than that is ignored. Keep your waits well inside that budget, because the print itself also needs time.`
     },
     {
       question: 'Do charts print to PDF with their final values?',

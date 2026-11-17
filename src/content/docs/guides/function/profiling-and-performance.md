@@ -3,6 +3,10 @@ title: 'Function: Profiling and performance'
 description: 'Understand execution phases, plan limits, and optimization techniques for function requests. Use profiling data to find bottlenecks and reduce execution time.'
 ---
 
+import {
+  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
+  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
+} from 'helpers/plan-timeouts'
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Link } from 'components/elements/Link'
 import {
@@ -53,7 +57,7 @@ The function parameter is available on both free and pro plans:
 
 |                   | Free plan                                      | Paid plan    |
 | ----------------- | ---------------------------------------------- | ------------ |
-| Timeout           | 15 seconds                                     | 60 seconds   |
+| Timeout           | {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds                                     | {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
 | Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |

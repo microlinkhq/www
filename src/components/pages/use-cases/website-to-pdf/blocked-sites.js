@@ -1,3 +1,4 @@
+import { PRO_PLAN_REQUEST_TIMEOUT_SECONDS } from '../../../../helpers/plan-timeouts'
 export const CONTENT = {
   slug: 'website-to-pdf/blocked-sites',
   head: {
@@ -78,7 +79,7 @@ const record = {
       {
         name: 'timeout',
         href: '/docs/api/parameters/timeout',
-        note: '60 seconds with an API key by default. Leave it there: the residential route is the slowest.'
+        note: `${PRO_PLAN_REQUEST_TIMEOUT_SECONDS} seconds with an API key by default. Leave it there: the residential route is the slowest.`
       },
       {
         name: 'proxy.location',
