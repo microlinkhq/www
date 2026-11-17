@@ -360,6 +360,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
         <Input
           label='Website URL'
           id='ws-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
