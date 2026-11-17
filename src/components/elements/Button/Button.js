@@ -104,6 +104,7 @@ const StyledButton = styled(Box).withConfig({
         boxShadow: OUTLINED_VARIANTS.includes(variant)
           ? `0 0 0 1px ${cx(color)}`
           : undefined,
+        cursor: 'pointer',
         _disabled: {
           opacity: 0.8,
           cursor: 'not-allowed',
