@@ -1,13 +1,11 @@
 import Caps from '../Caps'
 import Flex from '../Flex'
 import Text from '../Text'
-import Button from './Button'
-import React, { useState, createElement } from 'react'
+import { Button } from './Button'
+import React, { useState } from 'react'
 import { theme } from 'theme'
 
 import { Story } from 'story'
-
-const states = [null, 'hover', 'disabled', 'loading']
 
 const combinations = [
   { name: 'base' },
@@ -15,6 +13,17 @@ const combinations = [
   { name: 'outline', variant: 'outline' },
   { name: 'outline + shimmer', variant: 'outline', shimmer: true }
 ]
+
+const states = [
+  { name: 'default' },
+  { name: 'hover' },
+  { name: 'focus' },
+  { name: 'active' },
+  { name: 'disabled', disabled: true },
+  { name: 'loading', loading: true }
+]
+
+const forcedState = name => [`[data-state="${name}"]`]
 
 const text = 'BUY'
 
@@ -26,12 +35,7 @@ export default () => (
 )
 `
 
-const BuyButton = ({
-  children,
-  loading: initialLoading,
-  variant,
-  ...props
-}) => {
+const BuyButton = ({ children, loading: initialLoading, ...props }) => {
   const [isLoading, setIsLoading] = useState(initialLoading)
 
   const onClick = async () => {
@@ -43,23 +47,16 @@ const BuyButton = ({
   return (
     <Button
       loading={isLoading}
-      variant={variant}
       onClick={onClick}
       css={theme({ mx: 3 })}
       {...props}
     >
-      <Caps
-        css={theme({
-          fontSize: 1
-        })}
-      >
-        {children}
-      </Caps>
+      <Caps css={theme({ fontSize: 1 })}>{children}</Caps>
     </Button>
   )
 }
 
-const VariantName = ({ children }) => (
+const Label = ({ children }) => (
   <Text
     css={theme({
       fontFamily: 'mono',
@@ -76,11 +73,20 @@ const VariantName = ({ children }) => (
 const Labeled = ({ name, children }) => (
   <Flex css={theme({ flexDirection: 'column', alignItems: 'flex-start' })}>
     {children}
-    <VariantName>{name}</VariantName>
+    <Label>{name}</Label>
   </Flex>
 )
 
-export default { title: 'Elements/Button' }
+export default {
+  title: 'Elements/Button',
+  parameters: {
+    pseudo: {
+      hover: forcedState('hover'),
+      focusVisible: forcedState('focus'),
+      active: forcedState('active')
+    }
+  }
+}
 
 export const Default = () => (
   <Story name='Button' code={code}>
@@ -96,22 +102,15 @@ export const Default = () => (
         css={theme({ pt: index > 0 ? 4 : 0, flexDirection: 'column' })}
         key={name}
       >
-        <VariantName>{name}</VariantName>
+        <Label>{name}</Label>
         <Flex css={theme({ pt: 2 })}>
-          {states.map(state =>
-            createElement(
-              BuyButton,
-              {
-                key: state,
-                ...props,
-                state,
-                [`data-${state}`]: true,
-                disabled: state === 'disabled',
-                loading: state === 'loading'
-              },
-              'BUY'
-            )
-          )}
+          {states.map(({ name: state, ...stateProps }) => (
+            <Labeled key={state} name={state}>
+              <BuyButton data-state={state} {...props} {...stateProps}>
+                {text}
+              </BuyButton>
+            </Labeled>
+          ))}
         </Flex>
       </Flex>
     ))}
