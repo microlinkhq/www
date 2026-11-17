@@ -6,12 +6,7 @@ import { theme } from 'theme'
 
 import { Story } from 'story'
 
-const combinations = [
-  { name: 'link', variant: 'link' },
-  { name: 'link + shimmer', variant: 'link', shimmer: true },
-  { name: 'secondary', variant: 'secondary' },
-  { name: 'secondary + shimmer', variant: 'secondary', shimmer: true }
-]
+const variants = ['link', 'secondary']
 
 const states = [
   { name: 'default' },
@@ -90,22 +85,22 @@ export default {
 export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
-      {combinations.map(({ name, ...props }) => (
-        <Labeled key={name} name={name}>
-          <BuyButton {...props}>{text}</BuyButton>
+      {variants.map(variant => (
+        <Labeled key={variant} name={variant}>
+          <BuyButton variant={variant}>{text}</BuyButton>
         </Labeled>
       ))}
     </Flex>
-    {combinations.map(({ name, ...props }, index) => (
+    {variants.map((variant, index) => (
       <Flex
         css={theme({ pt: index > 0 ? 4 : 0, flexDirection: 'column' })}
-        key={name}
+        key={variant}
       >
-        <Label>{name}</Label>
+        <Label>{variant}</Label>
         <Flex css={theme({ pt: 2 })}>
           {states.map(({ name: state, ...stateProps }) => (
             <Labeled key={state} name={state}>
-              <BuyButton data-state={state} {...props} {...stateProps}>
+              <BuyButton data-state={state} variant={variant} {...stateProps}>
                 {text}
               </BuyButton>
             </Labeled>

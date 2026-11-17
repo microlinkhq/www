@@ -24,7 +24,7 @@ export const hoverStyle = ({ theme, variant }) => {
 }
 
 const StyledButton = styled(Box).withConfig({
-  shouldForwardProp: prop => !['variant', 'shimmer'].includes(prop)
+  shouldForwardProp: prop => !['variant'].includes(prop)
 })`
   transition: background-color ${transition.short}, color ${transition.short},
     box-shadow ${transition.short}, transform ${transition.short};
@@ -52,7 +52,7 @@ const StyledButton = styled(Box).withConfig({
     outline-offset: 2px;
   }
 
-  ${({ shimmer }) => shimmer && shimmerStyle}
+  ${({ variant }) => variant === 'secondary' && shimmerStyle}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
