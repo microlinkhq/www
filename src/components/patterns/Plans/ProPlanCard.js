@@ -20,7 +20,7 @@ import {
   planDisplay
 } from './shared'
 
-const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
+const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey, shimmer }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [currency] = useCurrencyContext()
   const { monthlyPrice, id: planId, reqsPerMonthTotal } = plan
@@ -76,6 +76,7 @@ const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
           planId={planId}
           canonicalUrl={canonicalUrl}
           stripeKey={stripeKey}
+          shimmer={shimmer}
           css={theme({ width: '100%' })}
         />
         <Text

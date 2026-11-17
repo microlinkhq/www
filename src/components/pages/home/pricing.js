@@ -41,6 +41,7 @@ const Pricing = () => {
         canonicalUrl={canonicalUrl}
         stripeKey={stripeKey}
         footer='compare'
+        shimmer
       />
     </>
   )
