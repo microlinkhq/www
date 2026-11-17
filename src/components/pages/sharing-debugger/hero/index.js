@@ -178,7 +178,7 @@ export const Hero = () => {
                       autoCorrect='off'
                       inputMode='url'
                       name='url'
-                      example='github.com/vercel/next.js'
+                      example='github.com/microlinkhq/browserless'
                       spellCheck={false}
                       type='text'
                       value={inputUrl}

@@ -567,7 +567,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           type='url'
           inputMode='url'
           autoComplete='url'
-          example='vercel.com'
+          example='unavatar.io'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {

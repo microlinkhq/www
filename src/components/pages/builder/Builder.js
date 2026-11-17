@@ -80,25 +80,26 @@ const BUILDER_DEFAULT_CONFIG = {
 
 // Default URL previewed in the builder, and the placeholder shown in the
 // omnibar — a recognizable, well-designed card to land on.
-const DEFAULT_URL = 'stripe.com'
+const DEFAULT_URL = 'unavatar.io'
 
 // Shown in the live preview by default, before the user fetches another URL.
 // Baked from the Microlink API so the default card renders instantly (no
 // fetch-on-load), then any real URL the user enters replaces it.
 const SAMPLE_DATA = {
-  url: 'https://stripe.com',
-  title: 'Stripe | Financial Infrastructure to Grow Your Revenue',
+  url: 'https://unavatar.io',
+  title:
+    'unavatar.io: The universal avatars API for username, email, and domain — plus logos, icons & artwork',
   description:
-    'Stripe is a financial services platform that helps all types of businesses accept payments, build flexible billing models, and manage money movement.',
-  publisher: 'stripe.com',
+    'Universal avatars API: resolve user avatars by username, email, or domain from GitHub, Gravatar, X, Google, Instagram, and 99+ providers.',
+  publisher: 'unavatar.io',
   author: null,
   date: null,
   image: {
-    url: 'https://images.stripeassets.com/fzn2n1nzq965/XtX984S1GJVsVOXFC7kMu/01988281e867728dfb09aa7793a6e3b9/Stripe.jpg?q=80',
-    palette: ['#ED87D8']
+    url: 'https://unavatar.io/api/og?v=qqo4dhib3',
+    palette: ['#FFFEFE']
   },
   logo: {
-    url: 'https://images.stripeassets.com/fzn2n1nzq965/4vVgZi0ZMoEzOhkcv7EVwK/8cce6fdcf2733b2ec8e99548908847ed/favicon.png?w=180&h=180'
+    url: 'https://unavatar.io/apple-touch-icon.png'
   }
 }
 
@@ -741,7 +742,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
     // An empty submit previews the placeholder URL rather than erroring.
     const next = prependHttp((url || '').trim() || DEFAULT_URL)
     if (!isUrl(next)) {
-      setError('Please enter a valid URL (e.g. stripe.com)')
+      setError('Please enter a valid URL (e.g. unavatar.io)')
       return
     }
     setError('')
