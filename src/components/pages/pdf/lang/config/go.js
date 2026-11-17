@@ -23,7 +23,7 @@ import (
     "time"
 )
 
-var client = &http.Client{Timeout: 60 * time.Second}
+var client = &http.Client{Timeout: 120 * time.Second}
 
 func pdfURL(ctx context.Context, target string) (string, error) {
     endpoint, err := url.Parse("https://api.microlink.io")

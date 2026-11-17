@@ -49,6 +49,7 @@ const PLAN_CUE =
 
 const FENCED_CODE = /^\s*(```|~~~)[\s\S]*?^\s*\1/gm
 const blankOut = block => block.replace(/[^\n]/g, '')
+const CUE_REACH = 80
 
 const trackedSources = () =>
   execFileSync('git', ['ls-files', '-z', '--', 'src'], { encoding: 'utf8' })
@@ -70,17 +71,24 @@ const SOURCES = trackedSources()
   .filter(file => !isUnder(COMPETITOR_PAGES)(file))
   .map(file => ({ file, source: readProse(file) }))
 
+const planTimeoutsOn = line =>
+  [...line.matchAll(TIMEOUT_LITERAL)].filter(match => {
+    const nearby = line.slice(
+      Math.max(0, match.index - CUE_REACH),
+      match.index + match[0].length + CUE_REACH
+    )
+    return PLAN_CUE.test(nearby)
+  })
+
 const hardcodedTimeouts = () =>
   SOURCES.flatMap(({ file, source }) =>
     source.split('\n').flatMap((line, index) =>
-      PLAN_CUE.test(line)
-        ? [...line.matchAll(TIMEOUT_LITERAL)].map(
-            ([literal]) =>
-              `${path.relative(process.cwd(), file)}:${
-                index + 1
-              } → hardcoded ${literal} plan timeout, import it from helpers/plan-timeouts`
-          )
-        : []
+      planTimeoutsOn(line).map(
+        ([literal]) =>
+          `${path.relative(process.cwd(), file)}:${
+            index + 1
+          } → hardcoded ${literal} plan timeout, import it from helpers/plan-timeouts`
+      )
     )
   )
 
@@ -118,8 +126,7 @@ describe('plan timeouts', () => {
   })
 
   test('the guard catches the ways a plan timeout has been written', () => {
-    const flagged = line =>
-      PLAN_CUE.test(line) && [...line.matchAll(TIMEOUT_LITERAL)].length > 0
+    const flagged = line => planTimeoutsOn(line).length > 0
     const hardcoded = [
       'The maximum is 30 seconds on the free endpoint and 60 seconds with an API key.',
       'The free endpoint has a 30-second timeout; any API key extends it to 60 seconds.',
@@ -129,13 +136,16 @@ describe('plan timeouts', () => {
       '| Timeout | 10 seconds | 60 seconds | on the free plan',
       'can exceed the 15 second free limit and return a TimeoutError',
       'On paid plans a function gets 60&nbsp;seconds',
-      'the request timeout is 90\\u00a0s with an API key'
+      'the request timeout is 90\\u00a0s with an API key',
+      '60s pro',
+      `pro${' '.repeat(77)}10 seconds`
     ]
     const notTimeouts = [
       'Browserbase documents that limit, along with a 60 second timeout',
       'https://microlink.io&timeout=10s with an API key',
       "mqlCode={{ url: 'https://microlink.io', timeout: '10s' }} on pro",
-      'the free plan gives 25 requests per day'
+      'the free plan gives 25 requests per day',
+      `pro${' '.repeat(78)}10 seconds`
     ]
     expect(hardcoded.filter(line => !flagged(line))).toEqual([])
     expect(notTimeouts.filter(flagged)).toEqual([])
@@ -143,5 +153,54 @@ describe('plan timeouts', () => {
 
   test('markdown that interpolates a timeout imports it at the top level', () => {
     expect(mdxImportsOutsideCode()).toEqual([])
+  })
+
+  test('the scan reads every tracked file that names a plan timeout', () => {
+    const scanned = new Set(SOURCES.map(({ file }) => file).concat(HELPER))
+    const missed = execFileSync('git', ['ls-files', '-z', '--', 'src'], {
+      encoding: 'utf8'
+    })
+      .split('\0')
+      .flatMap(file => {
+        if (file === '') return []
+        const full = path.join(process.cwd(), file)
+        if (
+          scanned.has(full) ||
+          isUnder(DATED_RECORDS)(full) ||
+          isUnder(COMPETITOR_PAGES)(full)
+        ) {
+          return []
+        }
+        const source = fs.readFileSync(full, 'utf8')
+        return CONSTANTS.some(name => source.includes(name)) ? [file] : []
+      })
+    expect(missed).toEqual([])
+  })
+
+  test('HTTP clients wait longer than the pro request', () => {
+    const responseWait =
+      /(?:(?<![\w.])Timeout:\s*(\d+)\s*\*\s*time\.Second|read_timeout:\s*(\d+)|CURLOPT_TIMEOUT,\s*(\d+))/g
+    const short = SOURCES.flatMap(({ file, source }) =>
+      [...source.matchAll(responseWait)].flatMap(match => {
+        const seconds = Number(match[1] || match[2] || match[3])
+        return seconds > PRO_PLAN_REQUEST_TIMEOUT_SECONDS
+          ? []
+          : [
+              `${path.relative(process.cwd(), file)} waits ${seconds}s, under the ${PRO_PLAN_REQUEST_TIMEOUT_SECONDS}s pro request`
+            ]
+      })
+    )
+    expect(short).toEqual([])
+  })
+
+  test('a timeout error example quotes the API message', () => {
+    const message = `Function exceeded the ${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS}s free plan timeout. Upgrade to pro for up to ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}s with retries.`
+    const stale = trackedSources().flatMap(file => {
+      const source = fs.readFileSync(file, 'utf8')
+      return source.includes('free plan timeout') && !source.includes(message)
+        ? [path.relative(process.cwd(), file)]
+        : []
+    })
+    expect(stale).toEqual([])
   })
 })

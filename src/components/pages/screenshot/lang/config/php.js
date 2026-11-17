@@ -193,7 +193,7 @@ $query = http_build_query([
 
 $ch = curl_init("https://api.microlink.io?$query");
 curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+curl_setopt($ch, CURLOPT_TIMEOUT, 120);
 $res = json_decode(curl_exec($ch), true);
 curl_close($ch);
 
