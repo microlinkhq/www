@@ -9,7 +9,6 @@ import {
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import { useLeadRef } from 'components/hook/use-lead-ref'
 
@@ -47,7 +46,7 @@ const ContactButton = ({
           window.open(leadMailto, '_blank', 'noopener noreferrer')
         }}
       >
-        <Caps css={theme({ fontSize: 0 })}>{label}</Caps>
+        {label}
       </Button>
       <Button
         as='a'
@@ -60,9 +59,7 @@ const ContactButton = ({
         data-event-name={BOOK_CALL_LABEL}
         onClick={() => trackBookCall(medium, leadRef)}
       >
-        <Caps as='span' css={theme({ fontSize: 0 })}>
-          {BOOK_CALL_LABEL}
-        </Caps>
+        {BOOK_CALL_LABEL}
       </Button>
     </Flex>
   )

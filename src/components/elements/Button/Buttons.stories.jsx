@@ -1,4 +1,3 @@
-import Caps from '../Caps'
 import Flex from '../Flex'
 import Text from '../Text'
 import { Button } from './Button'
@@ -53,7 +52,7 @@ const BuyButton = ({ children, loading: initialLoading, ...props }) => {
       css={theme({ mx: 3 })}
       {...props}
     >
-      <Caps css={theme({ fontSize: 1 })}>{children}</Caps>
+      {children}
     </Button>
   )
 }

@@ -1,7 +1,6 @@
 import { Button } from 'components/elements/Button/Button'
 import Input from 'components/elements/Input/Input'
 import Choose from 'components/elements/Choose'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import React, { useState, useCallback } from 'react'
 import { theme } from 'theme'
@@ -34,11 +33,11 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 onChange={e => setTempApiKey(e.target.value)}
               />
               <Button
-                css={theme({ ml: 2 })}
+                css={theme({ ml: 2, fontSize: '12px' })}
                 disabled={!tempApiKey.trim()}
                 onClick={handleSubmit}
               >
-                <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
+                use it
               </Button>
             </>
           )}
@@ -46,14 +45,14 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
         <Choose.Otherwise
           render={() => (
             <Button
-              css={theme({ ml: 2 })}
+              css={theme({ ml: 2, fontSize: '12px' })}
               onClick={() => {
                 setApiKey('')
                 setTempApiKey('')
               }}
               variant='outline'
             >
-              <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
+              clear it
             </Button>
           )}
         />

@@ -1,7 +1,6 @@
 import React from 'react'
 import { theme } from 'theme'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import {
@@ -51,7 +50,7 @@ const ErrorMessage = ({ error, onRetry, fallback, children }) => {
         >
           {showRetry && (
             <Button type='button' onClick={onRetry}>
-              <Caps css={theme({ fontSize: 0 })}>Try again</Caps>
+              Try again
             </Button>
           )}
           {children}

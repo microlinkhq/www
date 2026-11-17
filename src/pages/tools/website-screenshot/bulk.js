@@ -1758,7 +1758,7 @@ const BulkPreview = ({
               css={theme({ mt: 2 })}
               aria-label='Start a new batch of screenshots'
             >
-              <Caps css={theme({ fontSize: 0 })}>Take more screenshots</Caps>
+              Take more screenshots
             </Button>
           )}
         </Flex>

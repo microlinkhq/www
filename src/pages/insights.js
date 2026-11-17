@@ -358,7 +358,7 @@ const LiveDemo = React.memo(function LiveDemo ({
             css={theme({ mt: [3, 0, 0, 0], ml: [0, 2, 2, 2] })}
             loading={isLoading}
           >
-            <Caps css={theme({ fontSize: 1 })}>Analyze</Caps>
+            Analyze
           </Button>
         </Flex>
       </Flex>

@@ -2249,7 +2249,7 @@ const BulkPreview = ({
               css={theme({ mt: 2 })}
               aria-label='Start a new batch of PDFs'
             >
-              <Caps css={theme({ fontSize: 0 })}>Generate more PDFs</Caps>
+              Generate more PDFs
             </Button>
           )}
         </Flex>

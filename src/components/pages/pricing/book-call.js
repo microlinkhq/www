@@ -2,7 +2,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -118,9 +117,7 @@ const BookCall = () => (
         data-event-name={BOOK_CALL_LABEL}
         onClick={() => trackBookCall('pricing')}
       >
-        <Caps as='span' css={theme({ fontSize: 0 })}>
-          {BOOK_CALL_LABEL}
-        </Caps>
+        {BOOK_CALL_LABEL}
       </BookCallButton>
     </BookCallCard>
   </Container>

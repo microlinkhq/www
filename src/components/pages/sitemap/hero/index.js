@@ -9,7 +9,6 @@ import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
 import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
-import Caps from 'components/elements/Caps'
 import Caption from 'components/patterns/Caption/Caption'
 import { trackEvent } from 'helpers/gtag'
 import { Results } from 'components/pages/sitemap/results'
@@ -166,7 +165,7 @@ export const Hero = () => {
                   justifyContent: 'center'
                 })}
               >
-                <Caps css={theme({ fontSize: 1 })}>List URLs</Caps>
+                List URLs
                 <Box
                   as='span'
                   aria-hidden

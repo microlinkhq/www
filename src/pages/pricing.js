@@ -1626,9 +1626,7 @@ const Cta = () => {
             data-event-name='Final CTA · Get started free'
             onClick={() => trackEvent('pricing cta')}
           >
-            <Caps css={theme({ fontSize: [0, 0, 1, 1] })}>
-              Get your free API key
-            </Caps>
+            Get your free API key
           </SignupLink>
         </Flex>
         <Box css={theme({ pt: [3, 3, 4, 4] })}>

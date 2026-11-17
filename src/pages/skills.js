@@ -5,7 +5,6 @@ import React from 'react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
@@ -195,7 +194,7 @@ const RequestSkill = () => (
       target='_blank'
       rel='noopener noreferrer'
     >
-      <Caps>Request a Skill</Caps>
+      Request a Skill
     </Button>
   </Flex>
 )

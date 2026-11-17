@@ -22,7 +22,6 @@ import {
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Confetti from 'components/elements/Confetti'
 import Container from 'components/elements/Container'
 import DotSpinner from 'components/elements/DotSpinner'
@@ -129,7 +128,7 @@ const CheckoutForm = ({
         css={theme({ mt: 3, width: '100%' })}
         type='submit'
       >
-        <Caps css={theme({ fontSize: 1 })}>Update Card</Caps>
+        Update Card
       </Button>
     </form>
   )

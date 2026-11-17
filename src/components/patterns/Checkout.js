@@ -1,12 +1,11 @@
 /* global fetch */
 
-import Caps from 'components/elements/Caps'
 import { Button } from 'components/elements/Button/Button'
 import Spinner from 'components/elements/Spinner'
 import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState, useRef, useEffect } from 'react'
-import { colors, theme, variants } from 'theme'
+import { colors, variants } from 'theme'
 import { trackEvent } from 'helpers/gtag'
 
 const PRODUCT_LANDING_SLUGS = [
@@ -121,7 +120,7 @@ const Checkout = ({
           </Flex>
           )
         : (
-            children ?? <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+            children ?? 'Buy'
           )}
     </Button>
   )

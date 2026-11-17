@@ -485,7 +485,7 @@ const Footer = ({ ...props }) => {
                 data-event-name='Be Notified'
                 css={theme({ ml: 2 })}
               >
-                <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>
+                Be Notified
               </Button>
             </Flex>
             <Text
