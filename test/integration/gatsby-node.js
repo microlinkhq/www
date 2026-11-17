@@ -48,10 +48,14 @@ const resolveRequest = (plugins, request) => {
   return resource.request
 }
 
+const PAGE_SOURCE = /\.(js|jsx|mdx?)$/
+
+const isPageSource = file => PAGE_SOURCE.test(file)
+
 const PAGE_SOURCES = ['src/pages', 'src/templates'].flatMap(dir =>
   fs
     .readdirSync(path.join(process.cwd(), dir), { recursive: true })
-    .filter(file => /\.(js|jsx|mdx?)$/.test(file))
+    .filter(isPageSource)
     .map(file => path.join(dir, file))
 )
 
@@ -71,7 +75,9 @@ const exportsServerRenderedApi = source => {
   const specifierExport = /export\s*\{([^}]*)\}/g
   for (const match of source.matchAll(specifierExport)) {
     for (const specifier of match[1].split(',')) {
-      if (SERVER_RENDERED_APIS.includes(exportedSpecifier(specifier))) { return true }
+      if (SERVER_RENDERED_APIS.includes(exportedSpecifier(specifier))) {
+        return true
+      }
     }
   }
   return false
@@ -136,6 +142,13 @@ describe('dev HTML shell compiles without page components', () => {
     )
     expect(PAGE_SOURCES.length).toBeGreaterThan(0)
     expect(serverRendered).toEqual([])
+  })
+
+  test('page scan keeps every source extension it names', () => {
+    for (const file of ['page.js', 'page.jsx', 'page.md', 'page.mdx']) {
+      expect(isPageSource(file), file).toBe(true)
+    }
+    expect(isPageSource('page.js.bak')).toBe(false)
   })
 
   test('server-render scan matches every export Gatsby reads', () => {
