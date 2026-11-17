@@ -3,7 +3,6 @@ import {
   theme as themeProp,
   colors,
   cx,
-  space,
   gradient,
   touchTargets
 } from 'theme'
@@ -72,7 +71,6 @@ const StyledButton = styled(Box).withConfig({
     &&& {
       transition: filter ${transition.short}, transform ${transition.short};
       background: ${gradient};
-      padding: ${space[1]};
       @media (hover: hover) and (pointer: fine) {
         &:hover {
           box-shadow: none;

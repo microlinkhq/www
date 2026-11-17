@@ -80,21 +80,11 @@ export default { title: 'Elements/Button' }
 export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
-      <Labeled name='gradient'>
-        <BuyButton variant='gradient'>BUY NOW</BuyButton>
-      </Labeled>
-      <Labeled name='base'>
-        <BuyButton>BUY</BuyButton>
-      </Labeled>
-      <Labeled name='black'>
-        <BuyButton variant='black'>BUY NOW</BuyButton>
-      </Labeled>
-      <Labeled name='white'>
-        <BuyButton variant='white'>BUY NOW</BuyButton>
-      </Labeled>
-      <Labeled name='magic'>
-        <BuyButton variant='magic'>BUY NOW</BuyButton>
-      </Labeled>
+      {variants.map(variant => (
+        <Labeled key={variant} name={variant}>
+          <BuyButton variant={variant}>{text}</BuyButton>
+        </Labeled>
+      ))}
     </Flex>
     {variants.map((variant, index) => (
       <Flex
