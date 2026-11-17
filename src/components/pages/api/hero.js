@@ -5,6 +5,7 @@ import { SECTION_VERTICAL_SPACING, layout, theme, shadows } from 'theme'
 import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
+import ArrowLink from 'components/patterns/ArrowLink'
 import List from 'components/patterns/List/List'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { Eyebrow } from 'components/patterns/FeatureStory'
@@ -151,19 +152,23 @@ export const Hero = () => {
             <Flex
               css={theme({
                 pt: [4, 4, 4, 4],
-                width: '100%',
-                gap: 3,
-                flexDirection: ['column', 'column', 'row', 'row'],
-                alignItems: ['stretch', 'stretch', 'center', 'center'],
+                gap: [2, 2, 3, 3],
+                flexWrap: 'wrap',
+                alignItems: 'center',
                 justifyContent: 'center'
               })}
             >
               <SignupLink component={Button} as='a' cta={HERO.cta}>
                 {HERO.ctaLabel}
               </SignupLink>
-              <Button as='a' href={HERO.docsHref} variant='outline'>
+              <ArrowLink
+                href={HERO.docsHref}
+                css={theme({ fontSize: 1 })}
+                data-event-location='API Hero'
+                data-event-name={HERO.docsLabel}
+              >
                 {HERO.docsLabel}
-              </Button>
+              </ArrowLink>
             </Flex>
             <List
               css={theme({
