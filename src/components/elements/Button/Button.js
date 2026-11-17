@@ -4,7 +4,7 @@ import Box from '../Box'
 import React, { forwardRef } from 'react'
 import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
-import { shimmerStyle } from './shimmer'
+import { shimmerAccentHover, shimmerStyle } from './shimmer'
 
 const isOutline = variant => variant === 'outline'
 
@@ -56,6 +56,9 @@ const StyledButton = styled(Box).withConfig({
   }
 
   ${({ shimmer }) => shimmer && shimmerStyle}
+
+  ${({ shimmer, variant }) =>
+    shimmer && !isOutline(variant) && shimmerAccentHover}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
