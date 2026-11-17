@@ -317,6 +317,10 @@ export const variants = {
     white: {
       background: 'white',
       color: 'black'
+    },
+    magic: {
+      background: 'white',
+      color: 'black'
     }
   }
 }

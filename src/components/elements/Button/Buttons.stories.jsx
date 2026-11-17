@@ -8,7 +8,7 @@ import { Story } from 'story'
 
 const states = [null, 'hover', 'disabled', 'loading']
 
-const variants = ['base', 'black', 'white']
+const variants = ['base', 'black', 'white', 'magic']
 
 const text = 'BUY'
 
@@ -73,6 +73,7 @@ export const Default = () => (
       <BuyButton>BUY</BuyButton>
       <BuyButton variant='black'>BUY NOW</BuyButton>
       <BuyButton variant='white'>BUY NOW</BuyButton>
+      <BuyButton variant='magic'>BUY NOW</BuyButton>
     </Flex>
     {variants.map((variant, index) => (
       <Flex css={theme({ pt: index > 0 ? 4 : 0 })} key={variant}>

@@ -12,6 +12,10 @@ import Box from '../Box'
 import React, { forwardRef } from 'react'
 import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { magicStyle } from './magic'
+
+const OUTLINED_VARIANTS = ['white', 'magic']
+const SELF_HOVER_VARIANTS = ['gradient', 'magic']
 
 const getVariant = ({ theme, variant }) => {
   const { background = 'link', color = 'white' } =
@@ -60,6 +64,8 @@ const StyledButton = styled(Box).withConfig({
     outline-offset: 2px;
   }
 
+  ${({ variant }) => variant === 'magic' && magicStyle}
+
   ${({ variant }) =>
     variant === 'gradient' &&
     `
@@ -95,7 +101,9 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: variant === 'white' ? `0 0 0 1px ${cx(color)}` : undefined,
+        boxShadow: OUTLINED_VARIANTS.includes(variant)
+          ? `0 0 0 1px ${cx(color)}`
+          : undefined,
         _disabled: {
           opacity: 0.8,
           cursor: 'not-allowed',
@@ -107,7 +115,7 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${variant !== 'gradient' &&
+      ${!SELF_HOVER_VARIANTS.includes(variant) &&
       css`
         @media (hover: hover) and (pointer: fine) {
           &:hover:not(:disabled) {
