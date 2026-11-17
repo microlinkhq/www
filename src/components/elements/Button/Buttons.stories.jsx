@@ -6,7 +6,7 @@ import { theme } from 'theme'
 
 import { Story } from 'story'
 
-const variants = ['link', 'secondary']
+const variants = ['default', 'featured']
 
 const states = [
   { name: 'default' },

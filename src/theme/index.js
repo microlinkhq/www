@@ -307,11 +307,11 @@ export const variants = {
     gradient: textGradient
   },
   buttons: {
-    link: {
+    default: {
       background: 'link',
       color: 'white'
     },
-    secondary: {
+    featured: {
       background: 'secondary',
       color: 'white'
     }

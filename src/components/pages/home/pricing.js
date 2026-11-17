@@ -6,7 +6,7 @@ import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
-const PRO_CHECKOUT = { variant: 'secondary' }
+const PRO_CHECKOUT = { variant: 'featured' }
 
 const Pricing = () => {
   const { canonicalUrl, stripeKey } = useSiteMetadata()

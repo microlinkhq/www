@@ -35,7 +35,7 @@ function resolveBuyEventLocation () {
 }
 
 const loadingBackground = variant =>
-  colors[(variants.buttons[variant] || variants.buttons.link).background]
+  colors[(variants.buttons[variant] || variants.buttons.default).background]
 
 const loadingCss = variant => `
   &&&:disabled {

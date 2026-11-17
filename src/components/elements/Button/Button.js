@@ -6,7 +6,7 @@ import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { shimmerStyle } from './shimmer'
 
-const DEFAULT_VARIANT = 'link'
+const DEFAULT_VARIANT = 'default'
 
 const getVariant = ({ theme, variant = DEFAULT_VARIANT }) =>
   theme.variants.buttons[variant] || theme.variants.buttons[DEFAULT_VARIANT]
@@ -51,7 +51,7 @@ const StyledButton = styled(Box).withConfig({
     cursor: wait;
   }
 
-  ${({ variant }) => variant === 'secondary' && shimmerStyle}
+  ${({ variant }) => variant === 'featured' && shimmerStyle}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })

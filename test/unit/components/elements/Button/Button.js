@@ -27,9 +27,7 @@ const focusOutline = css =>
 describe('Button', () => {
   test('the focus ring takes the color of the variant', () => {
     expect(focusOutline(render({}))).toBe(colors.link)
-    expect(focusOutline(render({ variant: 'link' }))).toBe(colors.link)
-    expect(focusOutline(render({ variant: 'secondary' }))).toBe(
-      colors.secondary
-    )
+    expect(focusOutline(render({ variant: 'default' }))).toBe(colors.link)
+    expect(focusOutline(render({ variant: 'featured' }))).toBe(colors.secondary)
   })
 })
