@@ -186,7 +186,6 @@ const Hero = () => (
         <Button
           as='a'
           href={REPOSITORY_URL}
-          variant='outline'
           rel='noopener noreferrer'
           target='_blank'
           data-event-location='n8n Hero'

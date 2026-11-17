@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { ArrowUpRight, Clipboard, Download } from 'react-feather'
+import { ArrowUpRight } from 'react-feather'
 import styled from 'styled-components'
 import { theme, layout, touchTargets } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import { Link } from 'components/elements/Link'
 import { useClipboard } from 'components/hook/use-clipboard'
 
@@ -116,13 +115,7 @@ const downloadTxt = urls => {
   URL.revokeObjectURL(href)
 }
 
-const ActionButton = ({ children, ...props }) => (
-  <Button type='button' variant='outline' {...props}>
-    <Flex as='span' css={theme({ alignItems: 'center' })}>
-      {children}
-    </Flex>
-  </Button>
-)
+const ActionButton = props => <Button type='button' {...props} />
 
 export const Results = ({ urls }) => {
   const [ClipboardComponent, toClipboard] = useClipboard()
@@ -188,24 +181,10 @@ export const Results = ({ urls }) => {
               })
             }}
           >
-            <Box
-              as='span'
-              aria-hidden
-              css={theme({ display: 'inline-flex', mr: 2, lineHeight: 0 })}
-            >
-              <Clipboard size={14} />
-            </Box>
-            <Caps css={theme({ fontSize: 0 })}>Copy all</Caps>
+            Copy all
           </ActionButton>
           <ActionButton onClick={() => downloadTxt(urls)}>
-            <Box
-              as='span'
-              aria-hidden
-              css={theme({ display: 'inline-flex', mr: 2, lineHeight: 0 })}
-            >
-              <Download size={14} />
-            </Box>
-            <Caps css={theme({ fontSize: 0 })}>Download</Caps>
+            Download
           </ActionButton>
         </Flex>
       </Flex>

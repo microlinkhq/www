@@ -6,8 +6,6 @@ import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { shimmerStyle } from './shimmer'
 
-const isOutline = variant => variant === 'outline'
-
 const DEFAULT_VARIANT = 'link'
 
 const getVariant = ({ theme, variant = DEFAULT_VARIANT }) =>
@@ -73,7 +71,6 @@ const StyledButton = styled(Box).withConfig({
         borderRadius: 2,
         background,
         color,
-        boxShadow: isOutline(variant) ? `0 0 0 1px ${cx(color)}` : undefined,
         cursor: 'pointer',
         _disabled: {
           opacity: 0.8,

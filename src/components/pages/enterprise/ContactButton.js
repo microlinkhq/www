@@ -10,6 +10,7 @@ import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
+import ArrowLink from 'components/patterns/ArrowLink'
 import { useLeadRef } from 'components/hook/use-lead-ref'
 
 import { toLeadMailto } from './lead-mailto'
@@ -48,19 +49,16 @@ const ContactButton = ({
       >
         {label}
       </Button>
-      <Button
-        as='a'
+      <ArrowLink
         href={bookCallUrl(medium, leadRef)}
-        variant='outline'
         title={BOOK_CALL_TITLE}
-        rel='noopener noreferrer'
-        target='_blank'
+        css={theme({ fontSize: 1 })}
         data-event-location={medium}
         data-event-name={BOOK_CALL_LABEL}
         onClick={() => trackBookCall(medium, leadRef)}
       >
         {BOOK_CALL_LABEL}
-      </Button>
+      </ArrowLink>
     </Flex>
   )
 }

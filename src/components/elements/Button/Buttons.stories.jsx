@@ -10,9 +10,7 @@ const combinations = [
   { name: 'link', variant: 'link' },
   { name: 'link + shimmer', variant: 'link', shimmer: true },
   { name: 'secondary', variant: 'secondary' },
-  { name: 'secondary + shimmer', variant: 'secondary', shimmer: true },
-  { name: 'outline', variant: 'outline' },
-  { name: 'outline + shimmer', variant: 'outline', shimmer: true }
+  { name: 'secondary + shimmer', variant: 'secondary', shimmer: true }
 ]
 
 const states = [

@@ -314,10 +314,6 @@ export const variants = {
     secondary: {
       background: 'secondary',
       color: 'white'
-    },
-    outline: {
-      background: 'white',
-      color: 'black'
     }
   }
 }

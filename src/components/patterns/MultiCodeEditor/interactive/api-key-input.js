@@ -50,7 +50,6 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 setApiKey('')
                 setTempApiKey('')
               }}
-              variant='outline'
             >
               clear it
             </Button>
