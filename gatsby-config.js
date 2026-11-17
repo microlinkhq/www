@@ -80,7 +80,8 @@ module.exports = {
       resolve: 'gatsby-plugin-sass',
       options: {
         sassOptions: {
-          precision: 8
+          precision: 8,
+          silenceDeprecations: ['legacy-js-api']
         },
         postCssPlugins: require('./postcss.config').plugins
       }
