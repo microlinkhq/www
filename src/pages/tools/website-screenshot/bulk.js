@@ -37,6 +37,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
+import { useFocusOnMount } from 'components/hook/use-focus-on-mount'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Spinner from 'components/elements/Spinner'
@@ -739,6 +740,7 @@ const OptionsPanel = ({
   isLoading,
   bulkProgress
 }) => {
+  const focusOnMount = useFocusOnMount()
   const [urlError, setUrlError] = useState('')
   const [viewportError, setViewportError] = useState('')
 
@@ -875,8 +877,9 @@ const OptionsPanel = ({
         </Flex>
         <BulkTextarea
           id='ws-urls'
+          ref={focusOnMount}
           placeholder={
-            'https://example.com\nhttps://github.com\nhttps://google.com\n…'
+            'https://unavatar.io\nhttps://metascraper.js.org\nhttps://browserless.js.org\n…'
           }
           value={options.urlsText}
           onChange={handleUrlsChange}

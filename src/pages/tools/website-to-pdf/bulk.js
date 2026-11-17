@@ -43,6 +43,7 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
+import { useFocusOnMount } from 'components/hook/use-focus-on-mount'
 import { Link } from 'components/elements/Link'
 import Meta from 'components/elements/Meta/Meta'
 import Select from 'components/elements/Select/Select'
@@ -942,6 +943,7 @@ const OptionsPanel = ({
   isLoading,
   bulkProgress
 }) => {
+  const focusOnMount = useFocusOnMount()
   const [urlError, setUrlError] = useState('')
   const [showFormatOptions, setShowFormatOptions] = useState(false)
   const [showAdvanced, setShowAdvanced] = useState(false)
@@ -1053,8 +1055,9 @@ const OptionsPanel = ({
         </Flex>
         <BulkTextarea
           id='pdf-urls'
+          ref={focusOnMount}
           placeholder={
-            'https://example.com\nhttps://github.com\nhttps://google.com\n…'
+            'https://unavatar.io\nhttps://metascraper.js.org\nhttps://browserless.js.org\n…'
           }
           value={options.urlsText}
           onChange={handleUrlsChange}

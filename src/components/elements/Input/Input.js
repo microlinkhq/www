@@ -1,14 +1,8 @@
 import { transition, colors, theme } from 'theme'
 import { fieldChrome, fieldChromeTokens } from '../field-chrome'
 import { exampleHint, fillInput, shouldFillExample } from './example'
-import React, {
-  forwardRef,
-  useCallback,
-  useEffect,
-  useId,
-  useMemo,
-  useRef
-} from 'react'
+import { useFocusOnMount } from 'components/hook/use-focus-on-mount'
+import React, { forwardRef, useId, useMemo } from 'react'
 import styled from 'styled-components'
 
 import Text from '../Text'
@@ -182,25 +176,6 @@ const InputHint = styled(Text)(
 )
 
 const joinIds = (...ids) => ids.filter(Boolean).join(' ') || undefined
-
-const assignRef = (ref, node) => {
-  if (typeof ref === 'function') ref(node)
-  else if (ref) ref.current = node
-}
-
-const useFocusOnMount = (shouldFocus, innerRef) => {
-  const node = useRef(null)
-  useEffect(() => {
-    if (shouldFocus) node.current?.focus({ preventScroll: true })
-  }, [shouldFocus])
-  return useCallback(
-    element => {
-      node.current = element
-      assignRef(innerRef, element)
-    },
-    [innerRef]
-  )
-}
 
 const Input = ({
   innerRef,

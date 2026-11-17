@@ -71,6 +71,7 @@ const NewsletterPage = () => {
                     autoComplete='email'
                     inputMode='email'
                     label='Email address'
+                    autoFocus
                     css={theme({ width: ['10rem', null, '16rem'] })}
                     required
                   />

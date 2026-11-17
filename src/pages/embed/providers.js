@@ -1907,6 +1907,7 @@ const ProviderGrid = () => {
           type='search'
           label='Search providers'
           example='youtube'
+          autoFocus
           value={search}
           onChange={e => {
             setSearch(e.target.value)

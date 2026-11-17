@@ -940,6 +940,7 @@ const CapabilityTool = ({
           <Input
             label='URL'
             raised
+            autoFocus
             type='text'
             value={inputValue}
             onChange={handleInputChange}
