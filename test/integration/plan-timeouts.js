@@ -36,7 +36,7 @@ const GUARDED_TIMEOUTS = [
   ])
 ]
 
-const GAP = String.raw`(?:[ \t -]|&nbsp;|\\u00a0)?`
+const GAP = String.raw`(?:[ \t\u00a0-]|&nbsp;|\\u00a0)?`
 const TIMEOUT_LITERAL = new RegExp(
   String.raw`(?<![\d.,$=])(?<!timeout:\s?['"\`])\b(?:${GUARDED_TIMEOUTS.join(
     '|'
