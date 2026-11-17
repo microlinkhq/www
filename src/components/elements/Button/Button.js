@@ -47,9 +47,8 @@ const StyledButton = styled(Box).withConfig({
     }
   }
 
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
+  &[aria-busy='true'] {
+    cursor: wait;
   }
 
   ${({ variant }) => variant === 'secondary' && shimmerStyle}
@@ -58,6 +57,11 @@ const StyledButton = styled(Box).withConfig({
     const { background, color } = getVariant({ theme, variant })
     const hover = hoverStyle({ theme, variant })
     return css`
+      &:focus-visible {
+        outline: 2px solid ${cx(background)};
+        outline-offset: 2px;
+      }
+
       ${themeProp({
         fontFamily: 'sans',
         fontSize: 1,
@@ -101,17 +105,7 @@ const ButtonComponent = forwardRef((props, ref) => (
 
 ButtonComponent.displayName = 'Button'
 
-const Button = withAnalytics(
-  withSpinner(
-    ButtonComponent,
-    css`
-      &:hover {
-        background-color: ${props => props.theme.colors[props.bg]};
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-      }
-    `
-  )
-)
+const Button = withAnalytics(withSpinner(ButtonComponent))
 
 export { Button }
 export default ButtonComponent

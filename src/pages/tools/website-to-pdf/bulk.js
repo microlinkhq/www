@@ -1469,7 +1469,6 @@ const OptionsPanel = ({
           type='button'
           onClick={handleSubmit}
           disabled={isLoading}
-          loading={isLoading}
         >
           <Flex
             css={{
