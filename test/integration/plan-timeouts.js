@@ -39,7 +39,7 @@ const TIMEOUT_LITERAL = new RegExp(
   'g'
 )
 const PLAN_CUE =
-  /\b(?:free endpoint|free plan|on free|API key|paid plans?|pro\b|Pro\b|per call|per run|plan timeout|plan ceiling|request timeout|request ceiling|free limit)/i
+  /\b(?:free endpoint|free plan|on free|API key|paid plans?|pro\b|per call|per run|plan timeout|plan ceiling|request timeout|request ceiling|free limit)/i
 
 const FENCED_CODE = /^\s*(```|~~~)[\s\S]*?^\s*\1/gm
 const blankOut = block => block.replace(/[^\n]/g, '')
