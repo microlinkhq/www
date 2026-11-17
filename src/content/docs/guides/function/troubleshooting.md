@@ -48,7 +48,7 @@ Each error message is plan-aware:
   "isFulfilled": false,
   "value": {
     "name": "TimeoutError",
-    "message": "Function exceeded the 15s free plan timeout. Upgrade to pro for up to 60s."
+    "message": "Function exceeded the 10s free plan timeout. Upgrade to pro for up to 60s."
   }
 }
 ```
@@ -60,7 +60,7 @@ Each error message is plan-aware:
 
 ## Fixing resource limit errors
 
-**TimeoutError** — the function exceeded its plan timeout (15s free, 60s pro):
+**TimeoutError** — the function exceeded its plan timeout (10s free, 60s pro):
 
 1. Reduce the function to a trivial check such as `({ page }) => page.title()` to confirm the page itself loads in time.
 2. Drop anything else from the request — a function asked for on its own skips metadata, while adding `screenshot`, `pdf`, `insights`, `iframe`, `video`, `audio`, `palette` or a `data` rule brings it back.

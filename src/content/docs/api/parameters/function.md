@@ -176,7 +176,7 @@ The function parameter is available on both free and pro plans with different re
 
 |                   | Free plan                                      | Paid plan    |
 | ----------------- | ---------------------------------------------- | ------------ |
-| Timeout           | 15 seconds                                     | 60 seconds   |
+| Timeout           | 10 seconds                                     | 60 seconds   |
 | Memory            | 64 MB                                          | 128 MB       |
 | Code size         | {FREE_PLAN_FUNCTION_CODE_SIZE} bytes                                     | Unlimited    |
 | Concurrency       | {FREE_PLAN_CONCURRENT_REQUESTS} concurrent requests | Unlimited    |
@@ -191,7 +191,7 @@ When a limit is exceeded, the function returns `isFulfilled: false` with a descr
       "isFulfilled": false,
       "value": {
         "name": "TimeoutError",
-        "message": "Function exceeded the 15s free plan timeout. Upgrade to pro for up to 60s."
+        "message": "Function exceeded the 10s free plan timeout. Upgrade to pro for up to 60s."
       },
       "profiling": {},
       "logging": {}
