@@ -132,7 +132,7 @@ const Hero = () => (
           <Button
             as='a'
             href='/terminal'
-            variant='black'
+            variant='alternative'
             data-event-location='CLI Hero'
             data-event-name='Try now'
           >

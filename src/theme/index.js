@@ -310,11 +310,11 @@ export const variants = {
     gradient: {
       background: 'red'
     },
-    black: {
+    alternative: {
       background: 'black',
       color: 'white'
     },
-    white: {
+    outline: {
       background: 'white',
       color: 'black'
     },

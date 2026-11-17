@@ -13,7 +13,7 @@ import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import { magicStyle } from './magic'
 
-const OUTLINED_VARIANTS = ['white', 'magic']
+const OUTLINED_VARIANTS = ['outline', 'magic']
 const SELF_HOVER_VARIANTS = ['gradient', 'magic']
 
 const getVariant = ({ theme, variant }) => {

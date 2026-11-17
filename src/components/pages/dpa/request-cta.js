@@ -28,7 +28,7 @@ const RequestDpaButton = ({ location }) => (
   <Button
     as='a'
     href={REQUEST_DPA_HREF}
-    variant='black'
+    variant='alternative'
     onClick={() => trackEvent('dpa request', { location })}
   >
     <Caps css={theme({ fontSize: 0 })}>Request a signed DPA</Caps>

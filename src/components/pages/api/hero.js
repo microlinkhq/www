@@ -161,7 +161,7 @@ export const Hero = () => {
               <SignupLink component={Button} as='a' cta={HERO.cta}>
                 {HERO.ctaLabel}
               </SignupLink>
-              <Button as='a' href={HERO.docsHref} variant='white'>
+              <Button as='a' href={HERO.docsHref} variant='outline'>
                 {HERO.docsLabel}
               </Button>
             </Flex>

@@ -67,7 +67,7 @@ const Toolbar = React.memo(
           transition: 'opacity 0.2s',
           height: '2rem'
         }}
-        variant='black'
+        variant='alternative'
         onMouseEnter={e => {
           if (!isLoading) e.target.style.opacity = '0.8'
         }}

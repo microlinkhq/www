@@ -37,7 +37,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 css={theme({ ml: 2 })}
                 disabled={!tempApiKey.trim()}
                 onClick={handleSubmit}
-                variant='black'
+                variant='alternative'
               >
                 <Caps css={theme({ fontSize: '12px' })}>use it</Caps>
               </Button>
@@ -52,7 +52,7 @@ const ApiKeyInput = React.memo(({ apiKey, onApiKeySubmit, setApiKey }) => {
                 setApiKey('')
                 setTempApiKey('')
               }}
-              variant='white'
+              variant='outline'
             >
               <Caps css={theme({ fontSize: '12px' })}>clear it</Caps>
             </Button>

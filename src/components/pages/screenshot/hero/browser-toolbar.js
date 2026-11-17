@@ -16,7 +16,7 @@ import Flex from 'components/elements/Flex'
 import { stripProtocol } from './url'
 import { AddressBar, AddressInput, AddressPrompt } from './address-bar'
 
-const NerdButton = styled(Button).attrs({ variant: 'black' })`
+const NerdButton = styled(Button).attrs({ variant: 'alternative' })`
   &&& {
     ${theme({
       display: 'inline-flex',

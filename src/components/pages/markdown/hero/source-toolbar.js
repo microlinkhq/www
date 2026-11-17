@@ -19,7 +19,7 @@ import {
   stripProtocol
 } from '../shared'
 
-const NerdButton = styled(Button).attrs({ variant: 'black' })`
+const NerdButton = styled(Button).attrs({ variant: 'alternative' })`
   &&& {
     ${theme({
       display: 'inline-flex',
