@@ -758,7 +758,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
           autoFocus
           type='url'
           inputMode='url'
-          placeholder={DEFAULT_URL}
+          example={DEFAULT_URL}
           value={url}
           onChange={e => {
             setUrl(e.target.value)

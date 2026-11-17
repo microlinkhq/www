@@ -499,7 +499,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -794,7 +794,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    placeholder='First page'
+                    example='1'
                     value={options.pageFrom}
                     onChange={e =>
                       setOptions(prev => ({
@@ -810,7 +810,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                     inputMode='numeric'
                     min='1'
                     step='1'
-                    placeholder='Last page'
+                    example='3'
                     value={options.pageTo}
                     onChange={e =>
                       setOptions(prev => ({
@@ -828,7 +828,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-margin'
                   type='text'
-                  placeholder='e.g. 10px'
+                  example='10px'
                   value={options.margin}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, margin: e.target.value }))}
@@ -844,7 +844,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-width'
                   type='text'
-                  placeholder='e.g. 640px'
+                  example='640px'
                   value={options.width}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, width: e.target.value }))}
@@ -860,7 +860,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   hint='px, in, cm or mm'
                   id='pdf-height'
                   type='text'
-                  placeholder='e.g. 480px'
+                  example='480px'
                   value={options.height}
                   onChange={e =>
                     setOptions(prev => ({ ...prev, height: e.target.value }))}

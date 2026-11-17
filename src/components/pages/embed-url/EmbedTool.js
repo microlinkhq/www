@@ -1034,7 +1034,7 @@ const Omnibar = ({
   onSubmit,
   isLoading,
   exampleUrls = EXAMPLE_URLS,
-  placeholder: placeholderProp
+  example: exampleProp
 }) => {
   const [urlError, setUrlError] = useState('')
 
@@ -1071,7 +1071,7 @@ const Omnibar = ({
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder={placeholderProp || 'Paste a URL…'}
+          example={exampleProp || 'example.com'}
           value={url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -2296,7 +2296,7 @@ const EmbedTool = ({
           onSubmit={handleSubmit}
           isLoading={isLoading}
           exampleUrls={initialUrl ? [] : exampleUrls}
-          placeholder={initialUrl || undefined}
+          example={initialUrl || undefined}
         />
 
         <Box css={{ width: '100%' }}>

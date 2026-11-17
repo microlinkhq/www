@@ -432,7 +432,7 @@ const ColorPicker = ({ value, onChange, customHex, onCustomHexChange }) => {
         />
         <Input
           label='Hex color'
-          placeholder='#FF057C'
+          example='#FF057C'
           value={customHex}
           onChange={e => onCustomHexChange(e.target.value.trim())}
           spellCheck={false}
@@ -567,7 +567,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -620,7 +620,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1920'
+                  example='1920'
                   value={options.customWidth}
                   onChange={e => {
                     const nextWidth = Number(e.target.value)
@@ -657,7 +657,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   id='ws-height'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1080'
+                  example='1080'
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {

@@ -810,7 +810,7 @@ const SettingsPopover = ({
                 id='md-selector'
                 label='HTML Selector'
                 hint='Matches every element and joins their markdown.'
-                placeholder='article, main, .content…'
+                example='article'
                 value={options.customSelector}
                 onChange={e =>
                   setOptions(prev => ({
@@ -1524,7 +1524,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           inputMode='url'
           autoComplete='url'
           label='URL'
-          placeholder='Paste a URL…'
+          example='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {

@@ -138,7 +138,7 @@ export const Hero = () => {
                 autoCorrect='off'
                 inputMode='url'
                 name='url'
-                placeholder='https://example.com…'
+                example='example.com'
                 spellCheck={false}
                 type='text'
                 value={inputUrl}

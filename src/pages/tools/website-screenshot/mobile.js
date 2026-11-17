@@ -363,7 +363,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {

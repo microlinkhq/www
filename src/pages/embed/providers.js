@@ -1906,7 +1906,7 @@ const ProviderGrid = () => {
         <Input
           type='search'
           label='Search providers'
-          placeholder='Search providers…'
+          example='youtube'
           value={search}
           onChange={e => {
             setSearch(e.target.value)

@@ -940,7 +940,7 @@ const OptionsPanel = ({
                   id='ws-width'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1920'
+                  example='1920'
                   value={options.customWidth}
                   onChange={e => {
                     setOptions(prev => ({
@@ -968,7 +968,7 @@ const OptionsPanel = ({
                   id='ws-height'
                   type='number'
                   inputMode='numeric'
-                  placeholder='1080'
+                  example='1080'
                   disabled={options.fullPage}
                   value={options.customHeight}
                   onChange={e => {

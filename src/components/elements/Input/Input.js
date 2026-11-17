@@ -1,5 +1,6 @@
 import { transition, colors, theme } from 'theme'
 import { fieldChrome, fieldChromeTokens } from '../field-chrome'
+import { exampleHint, fillInput, shouldFillExample } from './example'
 import React, {
   forwardRef,
   useCallback,
@@ -212,6 +213,8 @@ const Input = ({
   raised = false,
   hint,
   placeholder,
+  example,
+  onKeyDown,
   autoFocus = false,
   ...props
 }) => {
@@ -219,6 +222,16 @@ const Input = ({
   const ref = useFocusOnMount(autoFocus, innerRef)
   const hintId = `${id}-hint`
   const labelId = `${id}-label`
+
+  const handleKeyDown = event => {
+    if (shouldFillExample(event, example)) {
+      event.preventDefault()
+      fillInput(event.currentTarget, example)
+    }
+    onKeyDown?.(event)
+  }
+
+  const shownPlaceholder = placeholder ?? (example && exampleHint(example))
 
   const list = useMemo(() => {
     if (!suggestions) return undefined
@@ -236,7 +249,10 @@ const Input = ({
       ref={ref}
       autoComplete={autoComplete}
       inputMode={inputMode}
-      placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}
+      placeholder={
+        label ? shownPlaceholder || EMPTY_PLACEHOLDER : shownPlaceholder
+      }
+      onKeyDown={handleKeyDown}
       $floating={Boolean(label)}
       aria-labelledby={label && !props['aria-label'] ? labelId : undefined}
       {...props}

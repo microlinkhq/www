@@ -150,6 +150,24 @@ describe('Input', () => {
     expect(raised).toMatch(/\.[\w-]+ \.[\w-]+>\.[\w-]+\{[^}]*scale\(0\.92\)/)
   })
 
+  test('an example becomes the placeholder, unless one is given', () => {
+    const hinted = inputTag(
+      render({ label: 'URL', example: 'example.com' }).markup
+    )
+    expect(attribute(hinted, 'placeholder')).toBe('e.g., example.com')
+    const explicit = inputTag(
+      render({ label: 'URL', example: 'example.com', placeholder: 'https://' })
+        .markup
+    )
+    expect(attribute(explicit, 'placeholder')).toBe('https://')
+  })
+
+  test('the example is not forwarded to the DOM', () => {
+    expect(
+      render({ label: 'URL', example: 'example.com' }).markup
+    ).not.toContain('example="')
+  })
+
   test('without a label there is no aria-labelledby', () => {
     expect(inputTag(render({}).markup)).not.toContain('aria-labelledby')
   })

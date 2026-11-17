@@ -291,7 +291,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
           type='url'
           inputMode='url'
           autoComplete='url'
-          placeholder='example.com'
+          example='example.com'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
@@ -360,7 +360,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
               min={MIN_DURATION_S}
               max={MAX_DURATION_S}
               step={1}
-              placeholder={String(DEFAULT_DURATION_S)}
+              example={String(DEFAULT_DURATION_S)}
               value={options.duration}
               onChange={e => {
                 const raw = e.target.value
