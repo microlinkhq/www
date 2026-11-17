@@ -6,7 +6,7 @@ import Spinner from 'components/elements/Spinner'
 import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState, useRef, useEffect } from 'react'
-import { colors, theme } from 'theme'
+import { colors, theme, variants } from 'theme'
 import { trackEvent } from 'helpers/gtag'
 
 const PRODUCT_LANDING_SLUGS = [
@@ -35,9 +35,12 @@ function resolveBuyEventLocation () {
   return first || 'other'
 }
 
-const loadingCss = `
+const loadingBackground = variant =>
+  colors[(variants.buttons[variant] || variants.buttons.link).background]
+
+const loadingCss = variant => `
   &&&:disabled {
-    background: ${colors.link};
+    background: ${loadingBackground(variant)};
     box-shadow: none;
     opacity: 0.8;
     .path { stroke: white; }
@@ -103,7 +106,7 @@ const Checkout = ({
       data-event-location='Checkout'
       data-event-name='Buy'
       style={isLoading ? { ...btnSize, cursor: 'wait' } : undefined}
-      css={isLoading ? loadingCss : undefined}
+      css={isLoading ? loadingCss(props.variant) : undefined}
       {...props}
     >
       {isLoading

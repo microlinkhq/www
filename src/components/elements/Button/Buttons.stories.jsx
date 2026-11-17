@@ -8,8 +8,10 @@ import { theme } from 'theme'
 import { Story } from 'story'
 
 const combinations = [
-  { name: 'base' },
-  { name: 'base + shimmer', shimmer: true },
+  { name: 'link', variant: 'link' },
+  { name: 'link + shimmer', variant: 'link', shimmer: true },
+  { name: 'secondary', variant: 'secondary' },
+  { name: 'secondary + shimmer', variant: 'secondary', shimmer: true },
   { name: 'outline', variant: 'outline' },
   { name: 'outline + shimmer', variant: 'outline', shimmer: true }
 ]

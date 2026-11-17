@@ -307,6 +307,14 @@ export const variants = {
     gradient: textGradient
   },
   buttons: {
+    link: {
+      background: 'link',
+      color: 'white'
+    },
+    secondary: {
+      background: 'secondary',
+      color: 'white'
+    },
     outline: {
       background: 'white',
       color: 'black'

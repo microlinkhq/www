@@ -1,5 +1,5 @@
 import { css, keyframes } from 'styled-components'
-import { colors, gradient, gradientStops, radii } from 'theme'
+import { gradientStops, radii } from 'theme'
 
 const BAND_COLORS = gradientStops.map(([, color]) => color)
 const BAND_OFFSET = 15
@@ -79,21 +79,6 @@ export const shimmerStyle = css`
       &::after {
         display: none;
       }
-    }
-  }
-`
-
-export const shimmerAccentHover = css`
-  @media (hover: hover) and (pointer: fine) {
-    &&&:hover:not(:disabled) {
-      background-color: transparent;
-      background-image: ${gradient},
-        linear-gradient(${colors.white}, ${colors.white});
-      background-clip: text, padding-box;
-      -webkit-background-clip: text, padding-box;
-      color: transparent;
-      -webkit-text-fill-color: transparent;
-      box-shadow: none;
     }
   }
 `
