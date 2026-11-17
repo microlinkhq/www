@@ -1071,7 +1071,7 @@ const Omnibar = ({
           type='url'
           inputMode='url'
           autoComplete='url'
-          example={exampleProp || 'example.com'}
+          example={exampleProp || 'youtube.com/watch?v=dQw4w9WgXcQ'}
           value={url}
           onChange={handleUrlChange}
           onKeyDown={e => {

@@ -345,7 +345,7 @@ const LiveDemo = React.memo(function LiveDemo ({
               iconComponent={<InputIcon query={iconQuery} />}
               id='pdf-demo-url'
               label='URL'
-              example='example.com'
+              example='vercel.com'
               suggestions={SUGGESTIONS}
               type='text'
               value={inputUrl}

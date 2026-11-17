@@ -1524,7 +1524,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           inputMode='url'
           autoComplete='url'
           label='URL'
-          example='example.com'
+          example='paulgraham.com/greatwork.html'
           value={options.url}
           onChange={handleUrlChange}
           onKeyDown={e => {
