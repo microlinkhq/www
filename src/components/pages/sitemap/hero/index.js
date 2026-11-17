@@ -113,6 +113,7 @@ export const Hero = () => {
             <Box css={theme({ width: ['100%', 'auto'] })}>
               <Input
                 id='sitemap-url'
+                autoFocus
                 labelCss={{
                   width: [
                     '100%',

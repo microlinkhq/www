@@ -1,6 +1,13 @@
 import { transition, colors, theme } from 'theme'
 import { fieldChrome, fieldChromeTokens } from '../field-chrome'
-import React, { useId, useMemo } from 'react'
+import React, {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef
+} from 'react'
 import styled from 'styled-components'
 
 import Text from '../Text'
@@ -51,7 +58,11 @@ const StyledInputBase = styled(Text)(
     }
 )
 
-const InputBase = props => <StyledInputBase as='input' type='text' {...props} />
+const InputBase = forwardRef((props, ref) => (
+  <StyledInputBase as='input' type='text' ref={ref} {...props} />
+))
+
+InputBase.displayName = 'InputBase'
 
 const InputWrapper = styled(Flex)(
   fieldChromeTokens,
@@ -171,6 +182,25 @@ const InputHint = styled(Text)(
 
 const joinIds = (...ids) => ids.filter(Boolean).join(' ') || undefined
 
+const assignRef = (ref, node) => {
+  if (typeof ref === 'function') ref(node)
+  else if (ref) ref.current = node
+}
+
+const useFocusOnMount = (shouldFocus, innerRef) => {
+  const node = useRef(null)
+  useEffect(() => {
+    if (shouldFocus) node.current?.focus({ preventScroll: true })
+  }, [shouldFocus])
+  return useCallback(
+    element => {
+      node.current = element
+      assignRef(innerRef, element)
+    },
+    [innerRef]
+  )
+}
+
 const Input = ({
   innerRef,
   iconComponent: Icon,
@@ -182,9 +212,11 @@ const Input = ({
   raised = false,
   hint,
   placeholder,
+  autoFocus = false,
   ...props
 }) => {
   const id = useId()
+  const ref = useFocusOnMount(autoFocus, innerRef)
   const hintId = `${id}-hint`
   const labelId = `${id}-label`
 
@@ -201,7 +233,7 @@ const Input = ({
   const input = (
     <InputBase
       list={list}
-      ref={innerRef}
+      ref={ref}
       autoComplete={autoComplete}
       inputMode={inputMode}
       placeholder={label ? placeholder || EMPTY_PLACEHOLDER : placeholder}

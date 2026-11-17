@@ -755,6 +755,7 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
         <Input
           label='URL'
           raised
+          autoFocus
           type='url'
           inputMode='url'
           placeholder={DEFAULT_URL}
@@ -784,7 +785,12 @@ const Omnibar = ({ url, setUrl, onSubmit, isLoading }) => {
       {error && (
         <Text
           role='alert'
-          css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+          css={theme({
+            color: 'fullscreen',
+            fontSize: 0,
+            pt: 1,
+            textAlign: 'center'
+          })}
         >
           {error}
         </Text>

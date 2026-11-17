@@ -1067,6 +1067,7 @@ const Omnibar = ({
         <Input
           label='URL'
           id='embed-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
@@ -1097,7 +1098,12 @@ const Omnibar = ({
           <Text
             id='embed-url-error'
             role='alert'
-            css={theme({ color: 'fullscreen', fontSize: 0, pt: 1, pl: 3 })}
+            css={theme({
+              color: 'fullscreen',
+              fontSize: 0,
+              pt: 1,
+              textAlign: 'center'
+            })}
           >
             {urlError}
           </Text>
@@ -1110,7 +1116,7 @@ const Omnibar = ({
                   color: 'black60',
                   fontSize: 0,
                   pt: 2,
-                  pl: 3
+                  textAlign: 'center'
                 })}
               >
                 <Box as='span' css={{ marginRight: 4 }}>

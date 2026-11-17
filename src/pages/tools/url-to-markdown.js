@@ -1519,6 +1519,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
       <Flex css={{ minWidth: 0 }}>
         <Input
           id='md-url'
+          autoFocus
           type='url'
           inputMode='url'
           autoComplete='url'
@@ -1551,11 +1552,11 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
             id='md-url-error'
             role='alert'
             css={theme({
-              gridColumn: 2,
+              gridColumn: '1 / -1',
               color: 'fullscreen',
               fontSize: 0,
               pt: 1,
-              pl: 3
+              textAlign: 'center'
             })}
           >
             {urlError}

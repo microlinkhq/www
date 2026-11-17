@@ -151,6 +151,7 @@ export const Hero = () => {
                   <Box>
                     <Input
                       id='sharing-debugger-url'
+                      autoFocus
                       css={theme({ fontSize: 2, width: '100%' })}
                       labelCss={{
                         width: [
