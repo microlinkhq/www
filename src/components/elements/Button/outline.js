@@ -1,31 +1,31 @@
 import { css, keyframes } from 'styled-components'
-import { radii } from 'theme'
+import { gradientStops, radii } from 'theme'
 
-const HIGHLIGHT = '#fbfafd'
-const PURPLE = '#a989f5'
-const PINK = '#ffb9c9'
-const ORANGE = '#fca326'
+const BAND_COLORS = gradientStops.map(([, color]) => color)
+const BAND_OFFSET = 15
+const BAND_WIDTH = 15
+const BAND_FADE = 6
+const BAND_PERIOD = 40
 const RING_THICKNESS = '1px'
 const GLOW_BLUR = '12px'
 const GLOW_OPACITY = 0.9
 const FADE = '0.2s cubic-bezier(0.22, 0.61, 0.36, 1)'
 const SWEEP_DURATION = '3s'
 
-const band = start => [
-  `transparent ${start}%`,
-  `${HIGHLIGHT} ${start + 15}%`,
-  `${PURPLE} ${start + 20}%`,
-  `${PINK} ${start + 25}%`,
-  `${ORANGE} ${start + 30}%`,
-  `transparent ${start + 36}%`
-]
+const band = start => {
+  const from = start + BAND_OFFSET
+  const step = BAND_WIDTH / (BAND_COLORS.length - 1)
+  return [
+    `transparent ${start}%`,
+    ...BAND_COLORS.map((color, index) => `${color} ${from + step * index}%`),
+    `transparent ${from + BAND_WIDTH + BAND_FADE}%`
+  ]
+}
 
 const SHIMMER = `linear-gradient(160deg, ${[
   ...band(0),
-  ...band(40),
-  'transparent 80%',
-  `${HIGHLIGHT} 95%`,
-  `${PURPLE} 100%`
+  ...band(BAND_PERIOD),
+  ...band(BAND_PERIOD * 2)
 ].join(', ')})`
 
 const sweep = keyframes`
