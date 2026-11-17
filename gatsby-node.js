@@ -119,7 +119,19 @@ exports.createSchemaCustomization = ({ actions }) => {
   `)
 }
 
-exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
+const DEV_SHELL_PAGE_COMPONENTS =
+  'data:text/javascript,export default{components:{},head:{}}'
+
+const withoutPageComponents = plugins =>
+  plugins.normalModuleReplacement(/\$virtual\/async-requires$/, resource => {
+    resource.request = DEV_SHELL_PAGE_COMPONENTS
+  })
+
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig, plugins }) => {
+  if (stage === 'develop-html' && !process.env.GATSBY_EXPERIMENTAL_DEV_SSR) {
+    actions.setWebpackConfig({ plugins: [withoutPageComponents(plugins)] })
+  }
+
   actions.setWebpackConfig({
     resolve: {
       modules: [path.resolve(__dirname, 'src'), 'node_modules'],
@@ -160,11 +172,7 @@ exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   if (stage === 'develop' || stage === 'develop-html') {
     const config = getConfig()
     config.devtool = 'eval'
-    if (config.cache && config.cache.type === 'filesystem') {
-      config.cache.maxMemoryGenerations = 1
-      config.cache.compression = 'gzip'
-      config.cache.allowCollectingMemory = true
-    }
+    config.cache = { type: 'memory' }
     actions.replaceWebpackConfig(config)
   }
 }
