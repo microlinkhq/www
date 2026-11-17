@@ -1,5 +1,5 @@
 import { css, keyframes } from 'styled-components'
-import { gradientStops, radii } from 'theme'
+import { gradientStops } from 'theme'
 
 const BAND_COLORS = gradientStops.map(([, color]) => color)
 const BAND_ANGLE = 160
@@ -75,7 +75,7 @@ export const shimmerStyle = css`
       &::after {
         inset: -${RING_THICKNESS};
         padding: ${RING_THICKNESS};
-        border-radius: calc(${radii[2]} + ${RING_THICKNESS});
+        border-radius: calc(var(--button-radius) + ${RING_THICKNESS});
         mask: linear-gradient(#000 0 0) content-box exclude,
           linear-gradient(#000 0 0);
       }

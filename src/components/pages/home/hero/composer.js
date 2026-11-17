@@ -11,6 +11,9 @@ import styled, { css } from 'styled-components'
 import { GlyphBadge, VertGlyph, reduceMotion } from './primitives'
 import { VerticalMenu } from './vertical-menu'
 
+const RUN_BUTTON_PADDING = '12px'
+const CONTROL_RADIUS = '10px'
+
 const composerFocus = css`
   ${theme({
     borderColor: rgba(colors.grape7, 0.45),
@@ -211,7 +214,7 @@ const VertChip = styled.button`
     flexShrink: 0,
     textAlign: 'left',
     bg: 'white',
-    borderRadius: '10px',
+    borderRadius: CONTROL_RADIUS,
     py: '5px',
     pr: '9px',
     pl: '6px'
@@ -222,8 +225,6 @@ const VertChip = styled.button`
   }
 `
 
-const RUN_BUTTON_PADDING = '12px'
-
 const RunButton = styled(Button).attrs({ variant: 'featured' })`
   ${theme({
     display: 'inline-flex',
@@ -232,6 +233,7 @@ const RunButton = styled(Button).attrs({ variant: 'featured' })`
     px: RUN_BUTTON_PADDING,
     flexShrink: 0
   })};
+  --button-radius: ${CONTROL_RADIUS};
 `
 
 export const HeroComposer = ({

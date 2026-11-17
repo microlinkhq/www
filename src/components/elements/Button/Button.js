@@ -1,4 +1,11 @@
-import { transition, theme as themeProp, colors, cx, touchTargets } from 'theme'
+import {
+  transition,
+  theme as themeProp,
+  colors,
+  cx,
+  radii,
+  touchTargets
+} from 'theme'
 import styled, { css } from 'styled-components'
 import Box from '../Box'
 import React, { forwardRef } from 'react'
@@ -28,6 +35,8 @@ const StyledButton = styled(Box).withConfig({
 })`
   transition: background-color ${transition.short}, color ${transition.short},
     box-shadow ${transition.short}, transform ${transition.short};
+  --button-radius: ${radii[2]};
+  border-radius: var(--button-radius);
   appearance: none;
   display: inline-block;
   text-align: center;
@@ -72,7 +81,6 @@ const StyledButton = styled(Box).withConfig({
         py: '12px',
         minHeight: touchTargets.minHeight,
         border: 0,
-        borderRadius: 2,
         background,
         color,
         cursor: 'pointer',
