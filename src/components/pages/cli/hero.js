@@ -6,7 +6,6 @@ import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import LineBreak from 'components/elements/LineBreak'
 import Heading from 'components/elements/Heading'
-import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 
@@ -31,21 +30,6 @@ const Section = ({ children, css: cssProp, ...props }) => (
   >
     {children}
   </Container>
-)
-
-const ButtonIcon = ({ children }) => (
-  <Flex
-    css={theme({
-      width: '16px',
-      height: '16px',
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center'
-    })}
-    aria-hidden='true'
-  >
-    {children}
-  </Flex>
 )
 
 const HERO_GRID_AREAS_MOBILE = `
@@ -135,20 +119,7 @@ const Hero = () => (
             data-event-location='CLI Hero'
             data-event-name='Try now'
           >
-            <Flex
-              as='span'
-              css={theme({
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 2,
-                whiteSpace: 'nowrap'
-              })}
-            >
-              <ButtonIcon>
-                <TerminalPromptIcon width={16} height={16} />
-              </ButtonIcon>
-              Try now
-            </Flex>
+            Try now
           </Button>
           <ArrowLink
             href='/docs/sdk/getting-started/cli'

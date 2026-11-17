@@ -64,6 +64,8 @@ const StyledButton = styled(Box).withConfig({
         fontFamily: 'sans',
         fontSize: 1,
         fontWeight: 'bold',
+        textTransform: 'uppercase',
+        letterSpacing: 2,
         px: 3,
         py: '12px',
         minHeight: touchTargets.minHeight,
