@@ -1,5 +1,6 @@
 import Caps from '../Caps'
 import Flex from '../Flex'
+import Text from '../Text'
 import Button from './Button'
 import React, { useState, createElement } from 'react'
 import { theme } from 'theme'
@@ -53,44 +54,81 @@ const BuyButton = ({
   )
 }
 
+const VariantName = ({ children }) => (
+  <Text
+    css={theme({
+      fontFamily: 'mono',
+      fontSize: 0,
+      color: 'black60',
+      mx: 3,
+      mt: 2
+    })}
+  >
+    {children}
+  </Text>
+)
+
+const Labeled = ({ name, children }) => (
+  <Flex css={theme({ flexDirection: 'column', alignItems: 'flex-start' })}>
+    {children}
+    <VariantName>{name}</VariantName>
+  </Flex>
+)
+
 export default { title: 'Elements/Button' }
 
 export const Default = () => (
   <Story name='Button' code={code}>
     <Flex css={theme({ pb: 4 })}>
-      <Button variant='gradient' css={theme({ mx: 3 })}>
-        <Caps
-          css={theme({
-            background: 'white',
-            px: 3,
-            py: 2,
-            color: 'black'
-          })}
-        >
-          Get in touch
-        </Caps>
-      </Button>
-      <BuyButton>BUY</BuyButton>
-      <BuyButton variant='black'>BUY NOW</BuyButton>
-      <BuyButton variant='white'>BUY NOW</BuyButton>
-      <BuyButton variant='magic'>BUY NOW</BuyButton>
+      <Labeled name='gradient'>
+        <Button variant='gradient' css={theme({ mx: 3 })}>
+          <Caps
+            css={theme({
+              background: 'white',
+              px: 3,
+              py: 2,
+              color: 'black'
+            })}
+          >
+            Get in touch
+          </Caps>
+        </Button>
+      </Labeled>
+      <Labeled name='base'>
+        <BuyButton>BUY</BuyButton>
+      </Labeled>
+      <Labeled name='black'>
+        <BuyButton variant='black'>BUY NOW</BuyButton>
+      </Labeled>
+      <Labeled name='white'>
+        <BuyButton variant='white'>BUY NOW</BuyButton>
+      </Labeled>
+      <Labeled name='magic'>
+        <BuyButton variant='magic'>BUY NOW</BuyButton>
+      </Labeled>
     </Flex>
     {variants.map((variant, index) => (
-      <Flex css={theme({ pt: index > 0 ? 4 : 0 })} key={variant}>
-        {states.map(state =>
-          createElement(
-            BuyButton,
-            {
-              key: state,
-              variant,
-              state,
-              [`data-${state}`]: true,
-              disabled: state === 'disabled',
-              loading: state === 'loading'
-            },
-            'BUY'
-          )
-        )}
+      <Flex
+        css={theme({ pt: index > 0 ? 4 : 0, flexDirection: 'column' })}
+        key={variant}
+      >
+        <VariantName>{variant}</VariantName>
+        <Flex css={theme({ pt: 2 })}>
+          {states.map(state =>
+            createElement(
+              BuyButton,
+              {
+                key: state,
+                variant,
+                state,
+                [`data-${state}`]: true,
+                disabled: state === 'disabled',
+                loading: state === 'loading'
+              },
+              'BUY'
+            )
+          )}
+        </Flex>
       </Flex>
     ))}
   </Story>
