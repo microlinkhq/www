@@ -7,11 +7,26 @@ const CLOUDFLARE_NETWORK_URL = 'https://www.cloudflare.com/network/'
 const FALLBACK_CDN_EDGES = 330
 const DIST = path.resolve(__dirname, '../../../data/analytics.json')
 
-const roundPretty = pretty => {
-  const match = String(pretty).match(/^([\d.]+)(\D+)$/)
-  if (match === null) throw new Error('ANALYTICS_PRETTY_UNEXPECTED')
-  const [, value, unit] = match
-  return `${Math.floor(Number(value) / 50) * 50}${unit}`
+const SIGNIFICANT_DIGITS = 2
+const UNITS = [
+  { value: 1e9, suffix: 'B' },
+  { value: 1e6, suffix: 'M' },
+  { value: 1e3, suffix: 'K' },
+  { value: 1, suffix: '' }
+]
+
+const floorToSignificantDigits = value => {
+  const step = 10 ** (Math.floor(Math.log10(value)) - SIGNIFICANT_DIGITS + 1)
+  return Math.floor(value / step) * step
+}
+
+const roundPretty = reqs => {
+  if (!Number.isFinite(reqs) || reqs < 1) {
+    throw new Error('ANALYTICS_REQS_UNEXPECTED')
+  }
+  const floored = floorToSignificantDigits(reqs)
+  const { value, suffix } = UNITS.find(({ value }) => floored >= value)
+  return `${Number((floored / value).toPrecision(SIGNIFICANT_DIGITS))}${suffix}`
 }
 
 const parseCdnEdges = html => {
@@ -36,24 +51,24 @@ const fetchCdnEdges = async () => {
   }
 }
 
+const collectAnalytics = async () => {
+  const [analytics, cdnEdges] = await Promise.all([
+    fetchAnalytics(),
+    fetchCdnEdges()
+  ])
+  return [
+    {
+      ...analytics,
+      reqs_pretty: roundPretty(analytics.reqs),
+      cdn_edges: cdnEdges
+    }
+  ]
+}
+
 module.exports = () =>
-  require('../create-provider').fromCode(
-    async () => {
-      const [analytics, cdnEdges] = await Promise.all([
-        fetchAnalytics(),
-        fetchCdnEdges()
-      ])
-      return [
-        {
-          ...analytics,
-          reqs_pretty: roundPretty(analytics.reqs_pretty),
-          cdn_edges: cdnEdges
-        }
-      ]
-    },
-    { dist: DIST }
-  )
+  require('../create-provider').fromCode(collectAnalytics, { dist: DIST })
 
 module.exports.dist = DIST
 module.exports.roundPretty = roundPretty
 module.exports.parseCdnEdges = parseCdnEdges
+module.exports.collectAnalytics = collectAnalytics

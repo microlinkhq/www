@@ -55,11 +55,18 @@ describe('toolbar grouped sections', () => {
     })
   })
 
-  test('Build holds the browser tools that write Microlink code', () => {
+  test('Build holds the browser tools that write and run code', () => {
     expect(labelsOf(groupOf('Tools', 'Build').items)).toEqual([
       'Editor',
-      'Component Builder'
+      'Component Builder',
+      'Nodebox'
     ])
+    expect(
+      groupOf('Tools', 'Build').items.find(({ label }) => label === 'Nodebox')
+    ).toMatchObject({
+      href: 'https://nodebox.microlink.io',
+      externalIcon: false
+    })
   })
 
   test('integrations are things you add to your own stack, by audience', () => {
@@ -87,7 +94,7 @@ describe('toolbar grouped sections', () => {
 
   test('tools footer names the latest tool, which exists in the menu', () => {
     const { footer, items } = sectionOf('Tools')
-    expect(footer.latest).toBe('Difftool')
+    expect(footer.latest).toBe('Nodebox')
     expect(labelsOf(items)).toContain(footer.latest)
   })
 

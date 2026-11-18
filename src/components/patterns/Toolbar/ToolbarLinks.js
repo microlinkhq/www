@@ -10,6 +10,7 @@ import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import {
   Layers,
   BarChart2,
+  Box as BoxIcon,
   Chrome as ChromeIcon,
   Code,
   Image,
@@ -322,7 +323,7 @@ export const NAVIGATION_SECTIONS = [
   {
     label: 'Tools',
     description: 'Browse and use tools built on top of the Microlink API.',
-    footer: { label: 'See all tools', href: '/tools', latest: 'Difftool' },
+    footer: { label: 'See all tools', href: '/tools', latest: 'Nodebox' },
     groups: [
       {
         label: 'Capture',
@@ -366,6 +367,13 @@ export const NAVIGATION_SECTIONS = [
             href: '/integrations/builder',
             description: 'Build link preview cards',
             icon: LayoutIcon
+          }),
+          createNavigationItem({
+            label: 'Nodebox',
+            href: 'https://nodebox.microlink.io',
+            externalIcon: false,
+            description: 'Embed a Node.js sandbox',
+            icon: BoxIcon
           })
         ]
       },

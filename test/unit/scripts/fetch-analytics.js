@@ -1,29 +1,83 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, vi } from 'vitest'
 
-import {
+import fetchAnalytics, {
   roundPretty,
-  parseCdnEdges
+  parseCdnEdges,
+  collectAnalytics
 } from '../../../scripts/fetch-data/providers/fetch-analytics'
 
 describe('roundPretty', () => {
-  it('rounds down to the nearest 50 keeping the unit', () => {
-    expect(roundPretty('778M')).toBe('750M')
-    expect(roundPretty('245M')).toBe('200M')
-    expect(roundPretty('750M')).toBe('750M')
-    expect(roundPretty('799M')).toBe('750M')
-    expect(roundPretty('800M')).toBe('800M')
+  it('rounds down to two significant figures keeping the unit', () => {
+    expect(roundPretty(145159956)).toBe('140M')
+    expect(roundPretty(778400000)).toBe('770M')
+    expect(roundPretty(245145473)).toBe('240M')
+    expect(roundPretty(82906227)).toBe('82M')
+    expect(roundPretty(800000000)).toBe('800M')
   })
 
-  it('handles decimal values', () => {
-    expect(roundPretty('778.4M')).toBe('750M')
-    expect(roundPretty('249.9M')).toBe('200M')
+  it('never rounds up past the real count', () => {
+    expect(roundPretty(149999999)).toBe('140M')
+    expect(roundPretty(9999999)).toBe('9.9M')
   })
 
-  it('throws on unexpected formats instead of writing garbage', () => {
-    expect(() => roundPretty('')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty('M778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty(undefined)).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty('778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+  it('switches unit across magnitudes', () => {
+    expect(roundPretty(1234567890)).toBe('1.2B')
+    expect(roundPretty(1000000000)).toBe('1B')
+    expect(roundPretty(999999999)).toBe('990M')
+    expect(roundPretty(1000000)).toBe('1M')
+    expect(roundPretty(999999)).toBe('990K')
+    expect(roundPretty(45678)).toBe('45K')
+    expect(roundPretty(1000)).toBe('1K')
+    expect(roundPretty(999)).toBe('990')
+    expect(roundPretty(7)).toBe('7')
+    expect(roundPretty(1)).toBe('1')
+  })
+
+  it('throws on unexpected input instead of writing garbage', () => {
+    expect(() => roundPretty(0)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(-5)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(NaN)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(undefined)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty('145M')).toThrow('ANALYTICS_REQS_UNEXPECTED')
+  })
+})
+
+describe('collectAnalytics', () => {
+  it('formats the raw request count, ignoring the api pretty string', async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation(async url => {
+        if (String(url).includes('cloudflare.com')) {
+          return { text: async () => '337 cities · 8 regions' }
+        }
+        return {
+          json: async () => ({
+            byMonth: {
+              current: { reqs: 1 },
+              previous: {
+                reqs: 145159956,
+                reqs_pretty: '999M',
+                bytes: 5
+              }
+            }
+          })
+        }
+      })
+    try {
+      const [row] = await collectAnalytics()
+      expect(row).toMatchObject({
+        reqs: 145159956,
+        reqs_pretty: '140M',
+        bytes: 5,
+        cdn_edges: 337
+      })
+    } finally {
+      fetchMock.mockRestore()
+    }
+  })
+
+  it('is the function the provider runs', () => {
+    expect(String(fetchAnalytics)).toContain('collectAnalytics')
   })
 })
 
