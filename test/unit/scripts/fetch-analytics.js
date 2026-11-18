@@ -6,24 +6,33 @@ import {
 } from '../../../scripts/fetch-data/providers/fetch-analytics'
 
 describe('roundPretty', () => {
-  it('rounds down to the nearest 50 keeping the unit', () => {
-    expect(roundPretty('778M')).toBe('750M')
-    expect(roundPretty('245M')).toBe('200M')
-    expect(roundPretty('750M')).toBe('750M')
-    expect(roundPretty('799M')).toBe('750M')
-    expect(roundPretty('800M')).toBe('800M')
+  it('rounds down to two significant figures keeping the unit', () => {
+    expect(roundPretty(145159956)).toBe('140M')
+    expect(roundPretty(778400000)).toBe('770M')
+    expect(roundPretty(245145473)).toBe('240M')
+    expect(roundPretty(82906227)).toBe('82M')
+    expect(roundPretty(800000000)).toBe('800M')
   })
 
-  it('handles decimal values', () => {
-    expect(roundPretty('778.4M')).toBe('750M')
-    expect(roundPretty('249.9M')).toBe('200M')
+  it('never rounds up past the real count', () => {
+    expect(roundPretty(149999999)).toBe('140M')
+    expect(roundPretty(9999999)).toBe('9.9M')
   })
 
-  it('throws on unexpected formats instead of writing garbage', () => {
-    expect(() => roundPretty('')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty('M778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty(undefined)).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
-    expect(() => roundPretty('778')).toThrow('ANALYTICS_PRETTY_UNEXPECTED')
+  it('switches unit across magnitudes', () => {
+    expect(roundPretty(1234567890)).toBe('1.2B')
+    expect(roundPretty(1000000000)).toBe('1B')
+    expect(roundPretty(999999999)).toBe('990M')
+    expect(roundPretty(45678)).toBe('45K')
+    expect(roundPretty(7)).toBe('7')
+  })
+
+  it('throws on unexpected input instead of writing garbage', () => {
+    expect(() => roundPretty(0)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(-5)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(NaN)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty(undefined)).toThrow('ANALYTICS_REQS_UNEXPECTED')
+    expect(() => roundPretty('145M')).toThrow('ANALYTICS_REQS_UNEXPECTED')
   })
 })
 
