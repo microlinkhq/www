@@ -31,6 +31,16 @@ export const tagEndAt = (src, from) => {
       }
       continue
     }
+    if (c === '/' && src[i + 1] === '/') {
+      const nl = src.indexOf('\n', i + 2)
+      i = nl === -1 ? src.length : nl
+      continue
+    }
+    if (c === '/' && src[i + 1] === '*') {
+      const end = src.indexOf('*/', i + 2)
+      i = end === -1 ? src.length : end + 1
+      continue
+    }
     if (c === "'" || c === '"' || c === '`') {
       quote = c
     } else if (c === '{' || c === '[' || c === '(') {

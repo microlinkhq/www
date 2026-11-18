@@ -7,9 +7,9 @@ const SKIP = /\.stories\.|[\\/]story\.jsx$/
 const VARIANTS = Object.keys(variants.buttons)
 const NOT_A_CTA = new Set(['ButtonToggle'])
 const ALWAYS_BUTTONS = ['Button', 'Checkout']
-const TYPOGRAPHY = /(fontSize|fontWeight|letterSpacing|textTransform)\s*[:=]/
-const NAMED_CONSTANT =
-  /(fontSize|fontWeight|letterSpacing|textTransform)\s*[:=]\s*\{?\s*[A-Z][A-Z0-9_]+\b/
+const TYPO_ASSIGN = () =>
+  /(fontSize|fontWeight|letterSpacing|textTransform)\s*[:=]\s*([^,}\n]+)/g
+const NAMED_VALUE = /^\s*\{?\s*[A-Z][A-Z0-9_]+\b/
 const VARIANT_PROP = () => /\bvariant\s*[:=]\s*\{?\s*['"]([^'"]+)['"]/g
 const STYLED_BUTTON = () =>
   /(?:export\s+)?const\s+([A-Z]\w*)\s*=\s*styled\(Button\)/g
@@ -115,9 +115,10 @@ const iconViolations = sourceMap =>
 
 const typeViolations = sourceMap =>
   elementsIn(sourceMap)
-    .filter(
-      ({ openingTag }) =>
-        TYPOGRAPHY.test(openingTag) && !NAMED_CONSTANT.test(openingTag)
+    .filter(({ openingTag }) =>
+      [...openingTag.matchAll(TYPO_ASSIGN())].some(
+        ([, , value]) => !NAMED_VALUE.test(value)
+      )
     )
     .map(({ where }) => where)
 
@@ -260,4 +261,37 @@ describe('button rules accept the real variants and reject the others', () => {
       ).toEqual([])
     }
   )
+
+  test('a named constant does not excuse another typography override', () => {
+    expect(
+      typeViolations(
+        fixture(
+          '<Button fontSize={COMPACT_BUTTON_FONT_SIZE} fontWeight={400}>Run</Button>'
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      typeViolations(
+        fixture(
+          '<Button fontSize={COMPACT_BUTTON_FONT_SIZE} fontWeight={ALSO_NAMED}>Run</Button>'
+        )
+      )
+    ).toEqual([])
+  })
+
+  test('a comment apostrophe does not hide a typography override', () => {
+    expect(
+      typeViolations(
+        fixture(
+          "<Button css={theme({ /* don't shrink */ px: 3 })} fontWeight={400}>Run</Button>"
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      typeViolations(
+        fixture(`<Button css={theme({ // don't shrink
+px: 3 })} fontWeight={400}>Run</Button>`)
+      )
+    ).toHaveLength(1)
+  })
 })
