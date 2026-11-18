@@ -44,7 +44,7 @@ const iconNamesOf = src => {
 const visibleLabel = body =>
   body
     .replace(/<[^>]*>/g, '')
-    .replace(/\{[^{}]*\?[\s():]*:[^{}]*\}/g, '')
+    .replace(/\{[^{}]*\?[\s():]*:[\s():]*\}/g, '')
     .replace(/\{[^{}]*&&[\s()]*\}/g, '')
     .trim()
 
@@ -298,6 +298,13 @@ describe('button rules accept the real variants and reject the others', () => {
       iconViolations(
         fixture(
           '<Button aria-label="Playback">{playing ? \'Pause\' : <svg />}</Button>'
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      iconViolations(
+        fixture(
+          '<Button aria-label="Playback">{playing ? <svg /> : \'Pause\'}</Button>'
         )
       )
     ).toHaveLength(1)
