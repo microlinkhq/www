@@ -23,8 +23,13 @@ describe('roundPretty', () => {
     expect(roundPretty(1234567890)).toBe('1.2B')
     expect(roundPretty(1000000000)).toBe('1B')
     expect(roundPretty(999999999)).toBe('990M')
+    expect(roundPretty(1000000)).toBe('1M')
+    expect(roundPretty(999999)).toBe('990K')
     expect(roundPretty(45678)).toBe('45K')
+    expect(roundPretty(1000)).toBe('1K')
+    expect(roundPretty(999)).toBe('990')
     expect(roundPretty(7)).toBe('7')
+    expect(roundPretty(1)).toBe('1')
   })
 
   it('throws on unexpected input instead of writing garbage', () => {
