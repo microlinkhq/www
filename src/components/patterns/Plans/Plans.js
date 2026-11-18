@@ -18,7 +18,7 @@ const PLAN_TABS = [
 
 const DEFAULT_PLAN_TAB = 'pro'
 
-const Plans = ({ canonicalUrl, stripeKey, footer = 'none', checkout }) => {
+const Plans = ({ canonicalUrl, stripeKey, footer = 'none' }) => {
   const [activePlan, setActivePlan] = useState(DEFAULT_PLAN_TAB)
 
   return (
@@ -63,7 +63,6 @@ const Plans = ({ canonicalUrl, stripeKey, footer = 'none', checkout }) => {
           activePlan={activePlan}
           canonicalUrl={canonicalUrl}
           stripeKey={stripeKey}
-          checkout={checkout}
         />
         <EnterprisePlanCard activePlan={activePlan} />
       </Flex>
