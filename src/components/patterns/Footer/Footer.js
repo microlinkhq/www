@@ -68,7 +68,8 @@ const FOOTER_COLUMNS = [
       { label: 'Open Source', href: '/open-source' },
       { label: 'Skills', href: '/skills' },
       { label: 'User Agents', href: '/user-agents' },
-      { label: 'Geolocation', href: 'https://geolocation.microlink.io' }
+      { label: 'Geolocation', href: 'https://geolocation.microlink.io' },
+      { label: 'Nodebox', href: 'https://nodebox.microlink.io' }
     ],
     sections: [
       {

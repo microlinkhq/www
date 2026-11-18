@@ -14,7 +14,7 @@ describe('toolbar tools panel', () => {
     )
 
     expect(html).toContain('New:')
-    expect(html).toContain('Difftool. Compare two URLs visually.')
+    expect(html).toContain('Nodebox. Embed a Node.js sandbox.')
     expect(html).toContain('See all tools')
   })
 
