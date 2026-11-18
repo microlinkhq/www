@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -10,23 +9,6 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'teal'
-export const ACCENT = colors.teal7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.teal9} 0%,
-  ${colors.teal9} 48%,
-  ${colors.teal8} 48%,
-  ${colors.teal8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.cyan7} 65%,
-  ${colors.cyan7} 79%,
-  ${colors.cyan6} 79%,
-  ${colors.cyan6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/scraperapi'
 
@@ -46,15 +28,10 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The ScraperAPI alternative that prices every URL the same',
-  description: (
-    <Text as='span'>
-      On ScraperAPI a page costs 1 credit, or 5, or 25, or 30, decided by the
-      domain in the URL and the flags on the request. Microlink counts one
-      request per API call: the same price rendered, the same price proxied, the
-      same price whatever the host.
-    </Text>
-  ),
+  competitor: 'ScraperAPI',
+  tagline: 'that prices every URL the same',
+  description:
+    'On ScraperAPI a page costs 1, 5, 25 or 30 credits, set by the domain and the request flags. Microlink counts one request per call, rendered or proxied, whatever the host.',
   cta: 'alternative-scraperapi:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/data-extraction',
@@ -180,7 +157,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '1 request',
       scraperapi: '1–75 credits',
-      highlight: true,
       note: 'ScraperAPI: 1 credit flat, 5 on Amazon, Walmart and eBay, 25 on Google and Bing, 30 on LinkedIn, 10 to render, 10 to bypass an anti-bot system, 75 for an ultra premium proxy with rendering. A Microlink request costs the same whatever it carries.'
     },
     {
@@ -188,7 +164,6 @@ export const COMPARISON = {
       href: '/docs/api/parameters/prerender',
       microlink: true,
       scraperapi: 'Opt-in, 10 credits',
-      highlight: true,
       note: 'Microlink runs Chrome by default, and prerender defaults to auto so a page that needs no browser takes the plain HTTP path. On ScraperAPI rendering is the render flag, priced above a flat fetch.'
     },
     {
@@ -196,7 +171,6 @@ export const COMPARISON = {
       href: '/features/ttl',
       microlink: '1 minute to 31 days',
       scraperapi: '10 minutes, ultra premium',
-      highlight: true,
       note: 'Microlink cache hits do not count against the quota. ScraperAPI caching applies only to requests carrying ultra_premium and serves values no older than 10 minutes.'
     },
     {
@@ -204,7 +178,6 @@ export const COMPARISON = {
       href: '/docs/api/parameters/proxy/location',
       microlink: '181 countries',
       scraperapi: 'US and EU until $299',
-      highlight: true,
       note: 'Microlink proxy.location takes any of 181 ISO country codes on any Pro plan. ScraperAPI limits Hobby and Startup to the US and EU regions, with individual country codes from the Business plan up.'
     },
     {
@@ -219,7 +192,6 @@ export const COMPARISON = {
       href: '/metadata',
       microlink: true,
       scraperapi: false,
-      highlight: true,
       note: 'Title, description, author, date, logo, image and publisher, normalized for any URL. ScraperAPI returns the HTML, or parsed JSON on the domains it supports.'
     },
     {
@@ -282,7 +254,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       scraperapi: '1,000/month',
-      highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and no expiry, and ${KEYLESS_REQUESTS_PER_DAY} a day need no key at all. ScraperAPI starts with a 7-day trial of 5,000 credits, then a free plan of 1,000 credits a month.`
     },
     {

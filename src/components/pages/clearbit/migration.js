@@ -14,7 +14,7 @@ import {
   HIGHLIGHT_BG,
   ProseTable,
   TableCard
-} from 'components/patterns/ProductStory/table'
+} from 'components/elements/Table/Table'
 
 import { MIGRATION } from './shared'
 

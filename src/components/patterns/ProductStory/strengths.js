@@ -7,12 +7,12 @@ import Text from 'components/elements/Text'
 import { Section, SectionHeader } from './section'
 import { StoryCard, StoryCardGrid } from './story-card'
 
-export const ProductStrengths = ({ id, accent, title, caption, items }) => (
+export const ProductStrengths = ({ id, title, caption, items }) => (
   <Section id={id} bg='gray0'>
     <SectionHeader title={title} caption={caption} />
     <StoryCardGrid $columns={2}>
       {items.map((item, index) => (
-        <StoryCard key={item.title} accent={accent} index={index} {...item} />
+        <StoryCard key={item.title} index={index} {...item} />
       ))}
     </StoryCardGrid>
   </Section>

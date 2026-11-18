@@ -17,7 +17,6 @@ import { Hero } from 'components/pages/serpapi/hero'
 import { Migration } from 'components/pages/serpapi/migration'
 import { Throughput } from 'components/pages/serpapi/throughput'
 import {
-  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
@@ -36,11 +35,7 @@ const SerpApiAlternativePage = () => (
     <Throughput />
     <ProductPricing title={PRICING_TITLE} caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='serpapi' />
-    <ProductStrengths
-      id='serpapi-strengths'
-      accent={ACCENT_NAME}
-      {...HONESTY}
-    />
+    <ProductStrengths id='serpapi-strengths' {...HONESTY} />
     <Migration />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />

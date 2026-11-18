@@ -5,7 +5,7 @@ import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { describe, expect, test } from 'vitest'
 
 import { Shapes } from '../../../../../src/components/pages/jina-reader/shapes'
-import { HIGHLIGHT_BG } from '../../../../../src/components/patterns/ProductStory/table'
+import { HIGHLIGHT_BG } from '../../../../../src/components/elements/Table/Table'
 import themeSpec from '../../../../../src/theme'
 
 const render = () => {

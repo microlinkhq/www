@@ -19,6 +19,13 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  FeatureTable,
+  HIGHLIGHT_BG,
+  TableCard,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -34,10 +41,6 @@ import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -115,93 +118,6 @@ const HeroCodeLink = styled('a')`
  * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'Screenshot capture', microlink: true, cloudflare: true },
   { feature: 'Full-page screenshots', microlink: true, cloudflare: true },
@@ -230,40 +146,34 @@ const COMPARISON_DATA = [
     feature: 'Cookie banner removal (on by default)',
     microlink: true,
     cloudflare: false,
-    highlight: true,
     note: 'Microlink ships adblock enabled by default, with automatic consent-banner handling.'
   },
   {
     feature: 'Ad & tracker blocking engine',
     microlink: true,
-    cloudflare: 'partial',
-    highlight: true,
-    note: 'Cloudflare exposes manual rejectRequestPattern / rejectResourceTypes filters — the blocklist is yours to maintain.'
+    cloudflare: 'Partial',
+    note: 'Cloudflare exposes manual rejectRequestPattern / rejectResourceTypes filters. The blocklist is yours to maintain.'
   },
   {
     feature: 'Built-in proxy (auto-rotating residential)',
     microlink: true,
-    cloudflare: false,
-    highlight: true
+    cloudflare: false
   },
   {
     feature: 'Antibot detection (30+ providers)',
     microlink: true,
     cloudflare: false,
-    highlight: true,
     note: "Detected providers include Cloudflare's own bot management."
   },
   {
     feature: 'Hosted capture URLs (CDN delivery)',
     microlink: true,
-    cloudflare: false,
-    highlight: true
+    cloudflare: false
   },
   {
     feature: 'Direct embed (no backend)',
     microlink: true,
-    cloudflare: false,
-    highlight: true
+    cloudflare: false
   },
   {
     feature: 'Free tier with proxy and every paid feature',
@@ -274,14 +184,12 @@ const COMPARISON_DATA = [
   {
     feature: 'Metadata extraction',
     microlink: true,
-    cloudflare: false,
-    highlight: true
+    cloudflare: false
   },
   {
     feature: 'Screenshot + PDF + metadata in one request',
     microlink: true,
     cloudflare: false,
-    highlight: true,
     note: 'Cloudflare Quick Actions are separate endpoint calls, each billed as browser time.'
   },
   {
@@ -309,7 +217,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Device emulation presets',
     microlink: true,
-    cloudflare: 'partial',
+    cloudflare: 'Partial',
     note: 'Cloudflare exposes manual viewport and userAgent values, no named device presets.'
   },
   {
@@ -321,7 +229,7 @@ const COMPARISON_DATA = [
   { feature: 'Open-source core', microlink: true, cloudflare: false },
   {
     feature: 'Full browser sessions (Puppeteer / Playwright / CDP)',
-    microlink: 'partial',
+    microlink: 'Partial',
     cloudflare: true,
     note: 'Microlink exposes Puppeteer through the function parameter; Cloudflare offers persistent sessions.'
   },
@@ -341,84 +249,6 @@ const COMPARISON_DATA = [
     cloudflare: true
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-  return <span>{value}</span>
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Cloudflare
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, cloudflare, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={cloudflare} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -452,7 +282,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — that is Microlink's default behavior. The{' '}
+          Yes, that is Microlink's default behavior. The{' '}
           <Link href='/docs/api/parameters/adblock'>adblock</Link> parameter
           ships enabled, so ads, trackers, and cookie consent banners are
           stripped before the capture is taken, with automatic consent handling
@@ -466,7 +296,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Yes — that is Microlink's default behavior. The adblock parameter ships enabled, so ads, trackers, and cookie consent banners are stripped before the capture is taken, with automatic consent handling for supported providers. Cloudflare's screenshot endpoint gives you the raw tools instead: rejectRequestPattern filters and addScriptTag injection. The blocklists and consent-dismissal scripts are yours to write and keep up to date."
+    text: "Yes, that is Microlink's default behavior. The adblock parameter ships enabled, so ads, trackers, and cookie consent banners are stripped before the capture is taken, with automatic consent handling for supported providers. Cloudflare's screenshot endpoint gives you the raw tools instead: rejectRequestPattern filters and addScriptTag injection. The blocklists and consent-dismissal scripts are yours to write and keep up to date."
   },
   {
     question:
@@ -474,7 +304,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Not directly. Cloudflare's endpoint is an authenticated POST — the
+          Not directly. Cloudflare's endpoint is an authenticated POST: the
           request carries your API token, so it can never run from a browser
           tag. Every capture has to route through your backend, and storing,
           caching, and serving the binary is your job.
@@ -488,7 +318,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Not directly. Cloudflare's endpoint is an authenticated POST — the request carries your API token, so it can never run from a browser tag. Every capture has to route through your backend, and storing, caching, and serving the binary is your job. Microlink screenshots are plain GET URLs that return a CDN-hosted image, so you can drop them into an image tag, a CSS background, or an Open Graph meta tag with no backend at all."
+    text: "Not directly. Cloudflare's endpoint is an authenticated POST: the request carries your API token, so it can never run from a browser tag. Every capture has to route through your backend, and storing, caching, and serving the binary is your job. Microlink screenshots are plain GET URLs that return a CDN-hosted image, so you can drop them into an image tag, a CSS background, or an Open Graph meta tag with no backend at all."
   },
   {
     question:
@@ -496,7 +326,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Cloudflare is the world's largest bot-protection vendor — the walls
+          Cloudflare is the world's largest bot-protection vendor. The walls
           that block screenshot requests are often Cloudflare's own product. Its
           Browser Rendering docs are explicit that the configurable user agent
           "does not bypass bot protection".
@@ -511,7 +341,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Cloudflare is the world's largest bot-protection vendor — the walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs with any API key, backed by antibot detection for 30+ providers."
+    text: "Cloudflare is the world's largest bot-protection vendor. The walls that block screenshot requests are often Cloudflare's own product. Its Browser Rendering docs are explicit that the configurable user agent does not bypass bot protection. Microlink ships the missing piece: when a target refuses datacenter traffic, the API signals EPROXYNEEDED, and proxy: true reroutes the same request through auto-rotating residential IPs with any API key, backed by antibot detection for 30+ providers."
   },
   {
     question:
@@ -519,25 +349,25 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          The models are different shapes — and the shape of your traffic moves
+          The models are different shapes, and the shape of your traffic moves
           the Cloudflare bill more than the volume does. Cloudflare bills
           browser time and concurrency on top of a $5/month Workers Paid plan:
           10 browser-hours included, then $0.09 per hour, plus $2.00 per
-          concurrent browser beyond 10 — measured on your daily peak, averaged
+          concurrent browser beyond 10, measured on your daily peak, averaged
           over the month.
         </div>
         <div>
           At ~5 seconds of browser time per capture, 46,000 captures spread
-          evenly is about 64 browser-hours — roughly $10/month. The same volume
+          evenly is about 64 browser-hours, roughly $10/month. The same volume
           as a daily batch at Cloudflare's 10 requests/second cap holds ~50
           browsers open at peak, and that concurrency pushes the bill to roughly
-          $90/month — before storage, caching, and delivery, which are separate
+          $90/month, before storage, caching, and delivery, which are separate
           work.
         </div>
         <div>
           Microlink bills finished screenshots at a flat rate: $49/month covers
           46,000 requests with adblock, proxy routing, CDN-hosted output, and
-          caching included — a TTL of up to 31 days (any API key) means cache
+          caching included. A TTL of up to 31 days (any API key) means cache
           hits don't spend your quota, and there is no concurrency limit or
           per-minute cap on legitimate usage. A single request can even bundle
           the screenshot with the PDF, metadata, logo, and markdown, where
@@ -545,7 +375,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "The models are different shapes — and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10 — measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours — roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month — before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing, CDN-hosted output, and caching included — a TTL of up to 31 days (any API key) means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
+    text: "The models are different shapes, and the shape of your traffic moves the Cloudflare bill more than the volume does. Cloudflare bills browser time and concurrency on top of a $5/month Workers Paid plan: 10 browser-hours included, then $0.09 per hour, plus $2.00 per concurrent browser beyond 10, measured on your daily peak, averaged over the month. At ~5 seconds of browser time per capture, 46,000 captures spread evenly is about 64 browser-hours, roughly $10/month. The same volume as a daily batch at Cloudflare's 10 requests/second cap holds ~50 browsers open at peak, and that concurrency pushes the bill to roughly $90/month, before storage, caching, and delivery, which are separate work. Microlink bills finished screenshots at a flat rate: $49/month covers 46,000 requests with adblock, proxy routing, CDN-hosted output, and caching included. A TTL of up to 31 days (any API key) means cache hits don't spend your quota, and there is no concurrency limit or per-minute cap on legitimate usage. A single request can even bundle the screenshot with the PDF, metadata, logo, and markdown, where Cloudflare bills each endpoint call as separate browser time."
   },
   {
     question:
@@ -584,12 +414,12 @@ const FAQ_ITEMS = [
         <div>
           Microlink's free API key gives you {FREE_PLAN_REQUESTS_PER_DAY}{' '}
           requests per day with every Pro feature, and paid plans have no
-          per-minute cap — you spend your monthly quota at whatever rate your
+          per-minute cap: you spend your monthly quota at whatever rate your
           workload needs.
         </div>
       </>
     ),
-    text: `On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free API key gives you ${FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature, and paid plans have no per-minute cap — you spend your monthly quota at whatever rate your workload needs.`
+    text: `On the Workers Free plan, Cloudflare allows 10 minutes of browser time per day and 1 Quick Actions request every 10 seconds, with a 60-second browser timeout. The paid plan raises that to 10 requests per second and 120 concurrent browsers per account. Microlink's free API key gives you ${FREE_PLAN_REQUESTS_PER_DAY} requests per day with every Pro feature, and paid plans have no per-minute cap: you spend your monthly quota at whatever rate your workload needs.`
   },
   {
     question: 'When is Cloudflare Browser Rendering the better choice?',
@@ -604,12 +434,12 @@ const FAQ_ITEMS = [
         <div>
           Its crawling and AI-extraction endpoints also go past what a
           screenshot API covers. If that is your workload, Browser Rendering is
-          a genuinely different product — this page is about the screenshot use
+          a genuinely different product. This page is about the screenshot use
           case.
         </div>
       </>
     ),
-    text: 'When you need browser infrastructure rather than finished screenshots. If your code already lives in Cloudflare Workers, bindings give you a headless browser with no extra auth hop, and persistent Puppeteer, Playwright, and CDP sessions cover automation well beyond captures. Its crawling and AI-extraction endpoints also go past what a screenshot API covers. If that is your workload, Browser Rendering is a genuinely different product — this page is about the screenshot use case.'
+    text: 'When you need browser infrastructure rather than finished screenshots. If your code already lives in Cloudflare Workers, bindings give you a headless browser with no extra auth hop, and persistent Puppeteer, Playwright, and CDP sessions cover automation well beyond captures. Its crawling and AI-extraction endpoints also go past what a screenshot API covers. If that is your workload, Browser Rendering is a genuinely different product. This page is about the screenshot use case.'
   },
   {
     question: 'Why is there no live benchmark against Cloudflare on this page?',
@@ -623,13 +453,13 @@ const FAQ_ITEMS = [
           own rate limits, so it has not been through that suite yet.
         </div>
         <div>
-          We only publish numbers we have measured — the comparison on this page
+          We only publish numbers we have measured. The comparison on this page
           sticks to documented capabilities, pricing, and limits from each
           product's own docs.
         </div>
       </>
     ),
-    text: "Microlink's open screenshot benchmark measures dedicated screenshot SaaS providers over identical cold-start runs. Cloudflare's endpoint is account-scoped infrastructure with its own rate limits, so it has not been through that suite yet. We only publish numbers we have measured — the comparison on this page sticks to documented capabilities, pricing, and limits from each product's own docs."
+    text: "Microlink's open screenshot benchmark measures dedicated screenshot SaaS providers over identical cold-start runs. Cloudflare's endpoint is account-scoped infrastructure with its own rate limits, so it has not been through that suite yet. We only publish numbers we have measured. The comparison on this page sticks to documented capabilities, pricing, and limits from each product's own docs."
   }
 ]
 
@@ -669,11 +499,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Cloudflare Browser Rendering</b> rents you a raw headless browser —
-        the pipeline around it is yours to build. <b>Microlink</b> returns a
-        finished capture: <b>cookie banners and ads removed by default</b>, a{' '}
-        <b>built-in residential proxy</b> for blocked pages, and a CDN-hosted
-        URL you can embed anywhere.
+        Cloudflare rents you a raw headless browser. Microlink returns the
+        finished capture, cookie banners removed, proxy included.
       </Caption>
 
       <Flex
@@ -684,7 +511,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -726,12 +554,12 @@ const Hero = () => (
             css={theme({
               pt: 2,
               fontSize: 0,
-              color: 'black50',
-              textAlign: 'center',
-              fontFamily: 'mono'
+              color: 'black60',
+              lineHeight: 2,
+              textAlign: 'center'
             })}
           >
-            Returns a CDN-hosted URL — cookie banners already gone.
+            Returns a CDN-hosted URL, cookie banners already gone.
           </Text>
         </Box>
         <Box css={theme({ width: '100%', minWidth: 0 })}>
@@ -753,12 +581,12 @@ const Hero = () => (
             css={theme({
               pt: 2,
               fontSize: 0,
-              color: 'black50',
-              textAlign: 'center',
-              fontFamily: 'mono'
+              color: 'black60',
+              lineHeight: 2,
+              textAlign: 'center'
             })}
           >
-            Returns raw binary — storing, caching, and serving it is on you.
+            Returns raw binary. Storing, caching, and serving it is on you.
           </Text>
         </Box>
       </Flex>
@@ -811,7 +639,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -823,15 +651,20 @@ const ComparisonSection = () => (
       >
         A screenshot API and browser infrastructure, side by side.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Cloudflare']}
+        rows={COMPARISON_DATA}
+        competitorKey='cloudflare'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: August&nbsp;2026. See each product's docs for the latest.
@@ -850,7 +683,7 @@ const WHY_SWITCH_ITEMS = [
     title: 'A screenshot URL, not a browser rental',
     description: (
       <>
-        Cloudflare's endpoint is an authenticated POST that returns raw binary —
+        Cloudflare's endpoint is an authenticated POST that returns raw binary:
         your API token can never touch a browser tag, so every capture routes
         through your backend, and <b>storing, caching, and serving</b> the image
         is your job. Microlink returns a <b>CDN-hosted URL</b> you can drop
@@ -866,7 +699,7 @@ const WHY_SWITCH_ITEMS = [
         Microlink ships <Link href='/docs/api/parameters/adblock'>adblock</Link>{' '}
         enabled by default: ads, trackers, and cookie consent banners are
         stripped <b>before the page renders</b>. On Cloudflare you get{' '}
-        <b>rejectRequestPattern</b> and <b>addScriptTag</b> — the blocklists and
+        <b>rejectRequestPattern</b> and <b>addScriptTag</b>. The blocklists and
         consent-dismissal scripts are yours to write and maintain.
       </>
     )
@@ -880,7 +713,7 @@ const WHY_SWITCH_ITEMS = [
         <b>EPROXYNEEDED</b> and <Link href='/features/proxy'>proxy: true</Link>{' '}
         reroutes the request through <b>auto-rotating residential IPs</b>, with{' '}
         <Link href='/features/antibot'>antibot detection</Link> for 30+
-        providers — Cloudflare included. Cloudflare sells the bot protection
+        providers, Cloudflare included. Cloudflare sells the bot protection
         those walls are made of; its own docs state the configurable user agent{' '}
         <b>"does not bypass bot protection"</b>.
       </>
@@ -892,7 +725,7 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         A single API call can return the <b>screenshot</b>, the <b>PDF</b>, the{' '}
-        <b>metadata</b> — title, description, logo, brand image — and even{' '}
+        <b>metadata</b> (title, description, logo, brand image) and even{' '}
         <b>markdown</b>, all at the same per-request price with no token
         juggling. On Cloudflare, each of those is a separate endpoint call,
         billed as separate browser time.
@@ -906,7 +739,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Browser chrome <b>overlays</b> with light/dark themes and custom
         backgrounds, <b>dark-mode capture</b>, named <b>device presets</b> like
-        iPhone 15 Pro Max, and <b>animated MP4/WebM</b> recordings — all
+        iPhone 15 Pro Max, and <b>animated MP4/WebM</b> recordings, all
         parameters, not projects. Cloudflare's endpoint exposes viewport numbers
         and PNG/JPEG.
       </>
@@ -931,7 +764,7 @@ const WHY_SWITCH_ITEMS = [
     title: 'Open-source core, fully auditable',
     description: (
       <>
-        Browserless, Metascraper, and MQL are <b>MIT licensed</b> — the engine
+        Browserless, Metascraper, and MQL are <b>MIT licensed</b>. The engine
         behind every capture is public code you can read, fork, or self-host.
         Browser Rendering is a closed managed service inside the Cloudflare
         platform.
@@ -992,7 +825,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1075,7 +908,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Crawling and AI extraction endpoints',
     description:
-      'The crawl endpoint handles multi-page jobs and the JSON endpoint extracts structured data from a natural-language prompt — both beyond what a screenshot API covers.'
+      'The crawl endpoint handles multi-page jobs and the JSON endpoint extracts structured data from a natural-language prompt, both beyond what a screenshot API covers.'
   },
   {
     title: 'Raw compute is cheap at light usage',
@@ -1085,83 +918,21 @@ const HONESTY_ITEMS = [
   {
     title: "It runs on Cloudflare's network",
     description:
-      'Captures render on the same global edge platform that fronts much of the web — Microlink would know, since its own CDN is served from Cloudflare edge nodes. For the screenshot use case, though, the network is the starting point, not the finished pipeline.'
+      'Captures render on the same global edge platform that fronts much of the web. Microlink would know, since its own CDN is served from Cloudflare edge nodes. For the screenshot use case, though, the network is the starting point, not the finished pipeline.'
   }
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='cloudflare-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Cloudflare</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1175,18 +946,18 @@ const HonestySection = () => (
  */
 const USAGE_TRAP_ROWS = [
   {
-    scenario: 'Cloudflare — traffic spread evenly',
+    scenario: 'Cloudflare: traffic spread evenly',
     detail: '46,000 captures × ~5s of browser time ≈ 64 browser-hours',
     bill: '≈ $10/mo'
   },
   {
-    scenario: 'Cloudflare — daily batch at 10 req/s',
+    scenario: 'Cloudflare: daily batch at 10 req/s',
     detail:
-      "Same volume at Cloudflare's own rate cap holds ~50 browsers open — 40 over the 10 included, at $2.00 each",
+      "Same volume at Cloudflare's own rate cap holds ~50 browsers open, 40 over the 10 included, at $2.00 each",
     bill: '≈ $90/mo'
   },
   {
-    scenario: 'Microlink — any traffic shape',
+    scenario: 'Microlink: any traffic shape',
     detail: '46,000 requests, no concurrency limit* and no per-minute cap',
     bill: '$49/mo',
     highlight: true
@@ -1212,7 +983,7 @@ const PricingSection = () => (
         })}
       >
         Microlink bills <b>finished screenshots</b>. Cloudflare bills{' '}
-        <b>browser-minutes and concurrency</b> — and the pipeline around them is
+        <b>browser-minutes and concurrency</b>, and the pipeline around them is
         yours to build.
       </Caption>
 
@@ -1247,12 +1018,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1285,7 +1056,7 @@ const PricingSection = () => (
                 'One request can return screenshot, PDF, metadata, logo, and markdown together',
                 'Adblock and cookie-banner removal on by default',
                 'Built-in residential proxy and antibot detection',
-                "TTL caching up to 31 days — cache hits don't spend your quota",
+                "TTL caching up to 31 days: cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
                 `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, no credit card, no expiry`,
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
@@ -1305,20 +1076,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-cloudflare:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-cloudflare:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
-                  Explore the Screenshot API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/screenshot'>Explore the Screenshot API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1412,19 +1184,11 @@ const PricingSection = () => (
             mx: 'auto'
           })}
         >
-          Cloudflare charges browser time plus concurrency — and concurrency is
+          Cloudflare charges browser time plus concurrency, and concurrency is
           billed on your <b>daily peak</b>, averaged over the month. The shape
           of your traffic moves the bill more than the volume does.
         </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white'
-          })}
-        >
+        <TableCard>
           <FeatureTable>
             <thead>
               <tr>
@@ -1437,11 +1201,7 @@ const PricingSection = () => (
               {USAGE_TRAP_ROWS.map(({ scenario, detail, bill, highlight }) => (
                 <tr
                   key={scenario}
-                  css={{
-                    background: highlight
-                      ? 'rgba(6, 125, 247, 0.03)'
-                      : 'transparent'
-                  }}
+                  css={highlight ? { background: HIGHLIGHT_BG } : undefined}
                 >
                   <td css={theme({ fontWeight: 'bold' })}>{scenario}</td>
                   <td>{detail}</td>
@@ -1450,7 +1210,7 @@ const PricingSection = () => (
               ))}
             </tbody>
           </FeatureTable>
-        </Box>
+        </TableCard>
       </Box>
 
       <Text
@@ -1468,7 +1228,7 @@ const PricingSection = () => (
         published rates. The exact number matters less than the shape of the
         curve: the bill moves with render time and traffic bursts, on top of
         building storage, caching, and delivery yourself. Microlink's price is
-        the finished capture at a flat per-request rate — and one request can
+        the finished capture at a flat per-request rate, and one request can
         bundle the screenshot with the PDF, metadata, logo, and markdown, while
         a TTL of up to 31 days (any API key) means cache hits don't spend your
         monthly quota at all.
@@ -1487,8 +1247,8 @@ const PricingSection = () => (
         })}
       >
         * Microlink never bills or caps concurrency on legitimate usage. We only
-        restrict usage that is fraudulent or illegal — for example, traffic
-        aimed at attacking other people's sites.
+        restrict usage that is fraudulent or illegal, for example traffic aimed
+        at attacking other people's sites.
       </Text>
     </SectionInner>
   </Section>
@@ -1544,14 +1304,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        </b>
+        : every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1559,14 +1320,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-cloudflare:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'cloudflare' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1592,7 +1355,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>cleaner</span> screenshots
+          Ship <GradientText>cleaner</GradientText> screenshots
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1639,7 +1402,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink

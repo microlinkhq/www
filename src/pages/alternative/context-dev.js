@@ -18,6 +18,13 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  FeatureTable,
+  HIGHLIGHT_BG,
+  TableCard,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -32,10 +39,6 @@ import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -103,93 +106,6 @@ const HeroCodeLink = styled('a')`
  * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'URL to LLM-ready markdown', microlink: true, contextdev: true },
   { feature: 'Metadata extraction', microlink: true, contextdev: true },
@@ -197,7 +113,6 @@ const COMPARISON_DATA = [
     feature: 'Logo & brand image extraction',
     microlink: true,
     contextdev: true,
-    highlight: true,
     note: 'Context.dev Retrieve Brand bills 10 credits; Microlink includes logo and brand image in the standard response.'
   },
   {
@@ -242,8 +157,8 @@ const COMPARISON_DATA = [
     feature: 'Official JavaScript SDK',
     note: (
       <>
-        <Link href='/integrations/sdk'>microlink.io</Link> — every product as
-        one method in Node.js, browsers, and Deno.
+        <Link href='/integrations/sdk'>microlink.io</Link>: every product as one
+        method in Node.js, browsers, and Deno.
       </>
     ),
     microlink: true,
@@ -253,14 +168,12 @@ const COMPARISON_DATA = [
     feature: 'Markdown + metadata + logo + screenshot in one request',
     microlink: true,
     contextdev: false,
-    highlight: true,
     note: 'On Context.dev that bundle is 1 + 10 + 5 = 16 credits across separate endpoint calls.'
   },
   {
     feature: 'Free tier that renews daily',
     microlink: true,
     contextdev: false,
-    highlight: true,
     note: 'Context.dev free credits are one-time: 500, or 250 with a consumer email.'
   },
 
@@ -273,8 +186,7 @@ const COMPARISON_DATA = [
   {
     feature: 'PDF generation (URL → PDF)',
     microlink: true,
-    contextdev: false,
-    highlight: true
+    contextdev: false
   },
   {
     feature: 'Document conversion (PDF/docx/xlsx/pptx → markdown)',
@@ -307,8 +219,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Open-source core (MIT)',
     microlink: true,
-    contextdev: false,
-    highlight: true
+    contextdev: false
   },
   { feature: 'Multi-page crawling', microlink: false, contextdev: true },
   {
@@ -332,84 +243,6 @@ const COMPARISON_DATA = [
     contextdev: true
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-  return <span>{value}</span>
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Context.dev
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, contextdev, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={contextdev} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -443,7 +276,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — that is how Microlink has always worked. The standard response
+          Yes, that is how Microlink has always worked. The standard response
           for any URL already includes normalized{' '}
           <Link href='/metadata'>metadata</Link>: title, description, publisher,{' '}
           <Link href='/logo'>logo</Link>, brand image, and color palette. No
@@ -456,7 +289,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes — that is how Microlink has always worked. The standard response for any URL already includes normalized metadata: title, description, publisher, logo, brand image, and color palette. No dedicated brand endpoint, no 10-credit surcharge. Add markdown or a screenshot to the same request and it still costs one request. On Context.dev, that bundle is three endpoint calls billed at 1 + 10 + 5 = 16 credits per URL.'
+    text: 'Yes, that is how Microlink has always worked. The standard response for any URL already includes normalized metadata: title, description, publisher, logo, brand image, and color palette. No dedicated brand endpoint, no 10-credit surcharge. Add markdown or a screenshot to the same request and it still costs one request. On Context.dev, that bundle is three endpoint calls billed at 1 + 10 + 5 = 16 credits per URL.'
   },
   {
     question: 'How does Microlink pricing compare to Context.dev credits?',
@@ -465,7 +298,7 @@ const FAQ_ITEMS = [
         <div>
           Context.dev prices a menu: markdown is 1 credit, a screenshot is 5,
           structured extraction is 10, Retrieve Brand is 10, fonts 5, styleguide
-          10, people enrichment 20 — on plans from $25/month for 10,000 credits
+          10, people enrichment 20, on plans from $25/month for 10,000 credits
           to $499/month for 1M, with 30–700 API calls/minute rate caps.
         </div>
         <div>
@@ -475,14 +308,14 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Context.dev prices a menu: markdown is 1 credit, a screenshot is 5, structured extraction is 10, Retrieve Brand is 10, fonts 5, styleguide 10, people enrichment 20 — on plans from $25/month for 10,000 credits to $499/month for 1M, with 30–700 API calls/minute rate caps. Microlink prices requests: $49/month covers 46,000 of them, whatever each one returns, with no per-minute cap and cache hits free. The more endpoints you would touch per URL over there, the bigger the gap gets.'
+    text: 'Context.dev prices a menu: markdown is 1 credit, a screenshot is 5, structured extraction is 10, Retrieve Brand is 10, fonts 5, styleguide 10, people enrichment 20, on plans from $25/month for 10,000 credits to $499/month for 1M, with 30–700 API calls/minute rate caps. Microlink prices requests: $49/month covers 46,000 of them, whatever each one returns, with no per-minute cap and cache hits free. The more endpoints you would touch per URL over there, the bigger the gap gets.'
   },
   {
     question: 'Can Microlink extract logos and brand assets like Context.dev?',
     answer: (
       <>
         <div>
-          Yes — brand data is Microlink's home turf. The metadata engine,{' '}
+          Yes, brand data is Microlink's home turf. The metadata engine,{' '}
           <Link href='https://github.com/microlinkhq/metascraper'>
             Metascraper
           </Link>
@@ -492,19 +325,19 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Need a hotlinkable asset? <b>embed=logo.url</b> turns the API URL into
-          the logo itself — the response mimics the original resource's headers
+          the logo itself. The response mimics the original resource's headers
           and body, so it drops straight into an image tag.
         </div>
       </>
     ),
-    text: "Yes — brand data is Microlink's home turf. The metadata engine, Metascraper, has been extracting logos, brand images, and publisher data in the open for years, and the logo API adds detection with color palettes and sizing information. Need a hotlinkable asset? embed=logo.url turns the API URL into the logo itself — the response mimics the original resource's headers and body, so it drops straight into an image tag."
+    text: "Yes, brand data is Microlink's home turf. The metadata engine, Metascraper, has been extracting logos, brand images, and publisher data in the open for years, and the logo API adds detection with color palettes and sizing information. Need a hotlinkable asset? embed=logo.url turns the API URL into the logo itself. The response mimics the original resource's headers and body, so it drops straight into an image tag."
   },
   {
     question: 'Does Microlink return LLM-ready markdown like Context.dev?',
     answer: (
       <>
         <div>
-          Yes. Any URL — a web page, a PDF, or a docx, xlsx, or pptx document —
+          Yes. Any URL (a web page, a PDF, or a docx, xlsx, or pptx document)
           converts to clean markdown with about 80% fewer tokens than raw HTML.
           See the{' '}
           <Link href='/docs/guides/content-conversion/url-to-markdown'>
@@ -520,7 +353,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes. Any URL — a web page, a PDF, or a docx, xlsx, or pptx document — converts to clean markdown with about 80% fewer tokens than raw HTML, via the API or the one-line shortcut endpoint markdown.microlink.io/{url}. Adblock ships enabled by default, so ads, trackers, and cookie banners are stripped before conversion.'
+    text: 'Yes. Any URL (a web page, a PDF, or a docx, xlsx, or pptx document) converts to clean markdown with about 80% fewer tokens than raw HTML, via the API or the one-line shortcut endpoint markdown.microlink.io/{url}. Adblock ships enabled by default, so ads, trackers, and cookie banners are stripped before conversion.'
   },
   {
     question: 'Which Context.dev features does Microlink not cover?',
@@ -530,8 +363,7 @@ const FAQ_ITEMS = [
           The company-data layer: NAICS and SIC classification, ticker and ISIN
           resolution, transaction and merchant-descriptor identification,
           email-to-company lookup, and people enrichment. Microlink extracts
-          what a URL contains — it does not resolve corporate entities behind
-          it.
+          what a URL contains. It does not resolve corporate entities behind it.
         </div>
         <div>
           Multi-page crawling, page monitors, and 25,000-URL batch jobs are also
@@ -540,7 +372,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'The company-data layer: NAICS and SIC classification, ticker and ISIN resolution, transaction and merchant-descriptor identification, email-to-company lookup, and people enrichment. Microlink extracts what a URL contains — it does not resolve corporate entities behind it. Multi-page crawling, page monitors, and 25,000-URL batch jobs are also Context.dev territory. If those are the core of your workload, it is a genuinely different product.'
+    text: 'The company-data layer: NAICS and SIC classification, ticker and ISIN resolution, transaction and merchant-descriptor identification, email-to-company lookup, and people enrichment. Microlink extracts what a URL contains. It does not resolve corporate entities behind it. Multi-page crawling, page monitors, and 25,000-URL batch jobs are also Context.dev territory. If those are the core of your workload, it is a genuinely different product.'
   },
   {
     question: 'Do free credits expire on Context.dev and Microlink?',
@@ -548,17 +380,17 @@ const FAQ_ITEMS = [
       <>
         <div>
           Context.dev's free tier is one-time: 500 credits with a work email,
-          250 with a consumer one — once spent, evaluation is over. Microlink's
+          250 with a consumer one. Once spent, evaluation is over. Microlink's
           free API key renews: {FREE_PLAN_REQUESTS_PER_DAY} requests every day,
           forever, with every Pro feature and no credit card.
         </div>
         <div>
-          That is 1,200 free requests a year, proxy included — enough to keep a
+          That is 1,200 free requests a year, proxy included, enough to keep a
           side project running on the free API key alone.
         </div>
       </>
     ),
-    text: `Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one — once spent, evaluation is over. Microlink's free API key renews: ${FREE_PLAN_REQUESTS_PER_DAY} requests every day, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included — enough to keep a side project running on the free API key alone.`
+    text: `Context.dev's free tier is one-time: 500 credits with a work email, 250 with a consumer one. Once spent, evaluation is over. Microlink's free API key renews: ${FREE_PLAN_REQUESTS_PER_DAY} requests every day, forever, with every Pro feature and no credit card. That is 1,200 free requests a year, proxy included, enough to keep a side project running on the free API key alone.`
   },
   {
     question: 'How do I migrate from Context.dev to Microlink?',
@@ -569,7 +401,7 @@ const FAQ_ITEMS = [
           Bearer header for x-api-key, swap
           <b>/web/scrape/markdown?url=</b> for <b>?url=</b> plus{' '}
           <b>data.markdown.attr=markdown</b>, and delete the separate brand and
-          screenshot calls — metadata comes standard and <b>screenshot</b> is a
+          screenshot calls. Metadata comes standard and <b>screenshot</b> is a
           parameter on the same request.
         </div>
         <div>
@@ -581,14 +413,14 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Both are GET APIs, so migration is mostly URL rewriting: swap the Bearer header for x-api-key, swap /web/scrape/markdown?url= for ?url= plus data.markdown.attr=markdown, and delete the separate brand and screenshot calls — metadata comes standard and screenshot is a parameter on the same request.'
+    text: 'Both are GET APIs, so migration is mostly URL rewriting: swap the Bearer header for x-api-key, swap /web/scrape/markdown?url= for ?url= plus data.markdown.attr=markdown, and delete the separate brand and screenshot calls. Metadata comes standard and screenshot is a parameter on the same request.'
   },
   {
     question: 'Can I audit how Microlink extracts brand data?',
     answer: (
       <>
         <div>
-          Yes — the extraction rules are public code. Metascraper (the metadata
+          Yes, the extraction rules are public code. Metascraper (the metadata
           and brand engine), MQL, and Browserless are MIT licensed and developed
           in the open, used by thousands of projects beyond Microlink itself.
         </div>
@@ -598,7 +430,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes — the extraction rules are public code. Metascraper (the metadata and brand engine), MQL, and Browserless are MIT licensed and developed in the open, used by thousands of projects beyond Microlink itself. Context.dev is a proprietary platform: its entity-resolution logic is a black box you can only observe from outside.'
+    text: 'Yes, the extraction rules are public code. Metascraper (the metadata and brand engine), MQL, and Browserless are MIT licensed and developed in the open, used by thousands of projects beyond Microlink itself. Context.dev is a proprietary platform: its entity-resolution logic is a black box you can only observe from outside.'
   }
 ]
 
@@ -638,11 +470,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Context.dev</b> prices every answer on a credit menu: markdown is 1,
-        a screenshot is <b>5</b>, brand data is <b>10</b>. <b>Microlink</b>{' '}
-        returns <b>metadata, logo, brand image, markdown, and screenshots</b>{' '}
-        from a single flat-priced request — with a free tier that renews every
-        day.
+        Context.dev charges 5 credits per screenshot and 10 for brand data.
+        Microlink returns all of it in one flat-priced request.
       </Caption>
 
       <Flex
@@ -653,7 +482,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -733,12 +563,12 @@ const Hero = () => (
             <Text
               css={theme({
                 fontSize: 1,
-                color: 'green7',
+                color: 'secondary',
                 fontWeight: 'bold',
                 pt: 3
               })}
             >
-              ✓ Everything included — free API key
+              ✓ Everything included, free API key
             </Text>
           </PriceCard>
         </Box>
@@ -776,7 +606,7 @@ const Hero = () => (
             Per URL, across three endpoint calls
           </Text>
           <Text css={theme({ fontSize: 1, color: 'black50', pt: 3 })}>
-            Free credits are one-time — 500, or 250 with a consumer email
+            Free credits are one-time: 500, or 250 with a consumer email
           </Text>
         </PriceCard>
       </Flex>
@@ -830,7 +660,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -842,15 +672,20 @@ const ComparisonSection = () => (
       >
         One bundled request against a credit-metered endpoint menu.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Context.dev']}
+        rows={COMPARISON_DATA}
+        competitorKey='contextdev'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: August&nbsp;2026. See each product's docs for the latest.
@@ -875,8 +710,8 @@ const WHY_SWITCH_ITEMS = [
         <b>
           metadata, logo, brand image, markdown, and a screenshot from the same
           request
-        </b>{' '}
-        — one flat price, however much it carries.
+        </b>
+        : one flat price, however much it carries.
       </>
     )
   },
@@ -889,8 +724,8 @@ const WHY_SWITCH_ITEMS = [
         <b>
           Metascraper, has been extracting logos, brand images, and publisher
           data in the open for years
-        </b>{' '}
-        — and the <Link href='/logo'>logo API</Link> adds detection with color
+        </b>
+        , and the <Link href='/logo'>logo API</Link> adds detection with color
         palettes and sizing. Normalized brand fields are the default response,
         not a premium endpoint.
       </>
@@ -901,8 +736,8 @@ const WHY_SWITCH_ITEMS = [
     title: 'A free tier that refills every day',
     description: (
       <>
-        Context.dev hands you <b>500 one-time credits</b> — 250 if you sign up
-        with a consumer email — and evaluation ends when they do. Microlink
+        Context.dev hands you <b>500 one-time credits</b> (250 if you sign up
+        with a consumer email) and evaluation ends when they do. Microlink
         resets{' '}
         <b>{FREE_PLAN_REQUESTS_PER_DAY} free requests every day, forever</b>:
         every Pro feature, no credit card, one free API key.
@@ -931,7 +766,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Context.dev meters <b>30 to 700 API calls per minute</b> depending on
         the plan you pay for. Microlink paid plans have{' '}
-        <b>no per-minute cap and no concurrency limit*</b> — your monthly quota
+        <b>no per-minute cap and no concurrency limit*</b>: your monthly quota
         spends at whatever rate your pipeline needs.
       </>
     )
@@ -942,9 +777,9 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         Context.dev's entity resolution is proprietary. Microlink's extraction
-        stack — <b>Metascraper, MQL, Browserless</b> — is <b>MIT licensed</b>{' '}
-        and developed in public: read the rules that produce your brand data,
-        fork them, or run them yourself.
+        stack (<b>Metascraper, MQL, Browserless</b>) is <b>MIT licensed</b> and
+        developed in public: read the rules that produce your brand data, fork
+        them, or run them yourself.
       </>
     )
   }
@@ -1002,7 +837,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1074,7 +909,7 @@ const HONESTY_ITEMS = [
   {
     title: 'You need company enrichment, not just page data',
     description:
-      'NAICS and SIC classification, ticker and ISIN resolution, transaction and merchant-descriptor identification, email-to-company lookup, and people enrichment make Context.dev a real company-data platform. Microlink extracts what a URL contains — it does not resolve corporate entities.'
+      'NAICS and SIC classification, ticker and ISIN resolution, transaction and merchant-descriptor identification, email-to-company lookup, and people enrichment make Context.dev a real company-data platform. Microlink extracts what a URL contains. It does not resolve corporate entities.'
   },
   {
     title: 'Resolved brand entities across the web',
@@ -1084,7 +919,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Crawling, monitors, and batch jobs',
     description:
-      'Multi-page crawls, page and sitemap monitors with signed webhooks, and batch jobs up to 25,000 URLs cover pipeline shapes Microlink does not — Microlink converts one URL per call and leaves the queue to you.'
+      'Multi-page crawls, page and sitemap monitors with signed webhooks, and batch jobs up to 25,000 URLs cover pipeline shapes Microlink does not. Microlink converts one URL per call and leaves the queue to you.'
   },
   {
     title: 'Cheaper per plain page at high volume',
@@ -1094,78 +929,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='context-dev-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Context.dev</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1178,17 +951,17 @@ const HonestySection = () => (
  */
 const CREDIT_MENU_ROWS = [
   {
-    scenario: 'Context.dev — markdown only',
-    detail: '46,000 pages × 1 credit — needs the Pro plan (200K credits)',
+    scenario: 'Context.dev: markdown only',
+    detail: '46,000 pages × 1 credit, needs the Pro plan (200K credits)',
     bill: '$149/mo'
   },
   {
-    scenario: 'Context.dev — markdown + screenshot + brand per URL',
-    detail: '46,000 × (1 + 5 + 10) = 736,000 credits — into the Scale tier',
+    scenario: 'Context.dev: markdown + screenshot + brand per URL',
+    detail: '46,000 × (1 + 5 + 10) = 736,000 credits, into the Scale tier',
     bill: '≈ $499/mo'
   },
   {
-    scenario: 'Microlink — all three in one request',
+    scenario: 'Microlink: all three in one request',
     detail: '46,000 requests, flat price, no menu*',
     bill: '$49/mo',
     highlight: true
@@ -1209,7 +982,7 @@ const PricingSection = () => (
           color: 'black60'
         })}
       >
-        On Context.dev the question isn't how many URLs — it's{' '}
+        On Context.dev the question isn't how many URLs. It's{' '}
         <b>how many endpoints you touch per URL</b>. On Microlink, one request
         carries everything.
       </Caption>
@@ -1245,12 +1018,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1281,9 +1054,9 @@ const PricingSection = () => (
             <Box as='ul' css={theme({ pl: 3, m: 0 })}>
               {[
                 'One request can return markdown, metadata, logo, and screenshot together',
-                'Brand fields — logo, image, palette — in the standard response',
+                'Brand fields (logo, image, palette) in the standard response',
                 'Residential proxy and antibot detection included with every API key',
-                "TTL caching up to 31 days — cache hits don't spend your quota",
+                "TTL caching up to 31 days: cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
                 `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, renews forever, no credit card`,
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
@@ -1303,20 +1076,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-context-dev:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-context-dev:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/metadata' css={theme({ fontSize: 0 })}>
-                  Explore the Metadata API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/metadata'>Explore the Metadata API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1414,15 +1188,7 @@ const PricingSection = () => (
           Context.dev bills <b>16 credits across three endpoint calls</b>.
           Microlink answers all three in one.
         </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white'
-          })}
-        >
+        <TableCard>
           <FeatureTable>
             <thead>
               <tr>
@@ -1435,11 +1201,7 @@ const PricingSection = () => (
               {CREDIT_MENU_ROWS.map(({ scenario, detail, bill, highlight }) => (
                 <tr
                   key={scenario}
-                  css={{
-                    background: highlight
-                      ? 'rgba(6, 125, 247, 0.03)'
-                      : 'transparent'
-                  }}
+                  css={highlight ? { background: HIGHLIGHT_BG } : undefined}
                 >
                   <td css={theme({ fontWeight: 'bold' })}>{scenario}</td>
                   <td>{detail}</td>
@@ -1448,7 +1210,7 @@ const PricingSection = () => (
               ))}
             </tbody>
           </FeatureTable>
-        </Box>
+        </TableCard>
       </Box>
 
       <Text
@@ -1463,9 +1225,9 @@ const PricingSection = () => (
         })}
       >
         Estimates use Context.dev's published credit rates. Light,
-        single-endpoint workloads fit its $25 Developer plan well — the gap
-        opens when each URL needs more than one answer, since Microlink bundles
-        them into the same flat-priced request.
+        single-endpoint workloads fit its $25 Developer plan well. The gap opens
+        when each URL needs more than one answer, since Microlink bundles them
+        into the same flat-priced request.
       </Text>
 
       <Text
@@ -1481,8 +1243,8 @@ const PricingSection = () => (
         })}
       >
         * Microlink never bills or caps concurrency on legitimate usage. We only
-        restrict usage that is fraudulent or illegal — for example, traffic
-        aimed at attacking other people's sites.
+        restrict usage that is fraudulent or illegal, for example traffic aimed
+        at attacking other people's sites.
       </Text>
     </SectionInner>
   </Section>
@@ -1538,14 +1300,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        </b>
+        : every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1553,14 +1316,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-context-dev:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'context-dev' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1586,7 +1351,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship the <span css='color: #fa5252;'>whole</span> answer
+          Ship the <GradientText>whole</GradientText> answer
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1633,7 +1398,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink
@@ -1672,14 +1439,14 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Context.dev Alternative: Brand & Web Data in One Request'
-    description='Context.dev bills a credit menu — 10 for brand data, 5 for screenshots, 10 for extraction. Microlink returns metadata, logo, palette, markdown, and screenshots in one flat-priced request, with a free tier that renews daily.'
+    description='Context.dev bills a credit menu: 10 for brand data, 5 for screenshots, 10 for extraction. Microlink returns metadata, logo, palette, markdown, and screenshots in one flat-priced request, with a free tier that renews daily.'
     schemaType='WebPage'
     structured={[
       {
         '@context': 'https://schema.org',
         '@type': 'WebPage',
         name: 'Context.dev Alternative: Brand & Web Data in One Request',
-        description: `Compare Microlink and Context.dev for brand and web data. Microlink returns metadata, logo, brand image, color palette, markdown, and screenshots from a single flat-priced request — no credit menu, a free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, and an MIT-licensed extraction engine.`,
+        description: `Compare Microlink and Context.dev for brand and web data. Microlink returns metadata, logo, brand image, color palette, markdown, and screenshots from a single flat-priced request: no credit menu, a free API key with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day, and an MIT-licensed extraction engine.`,
         url: 'https://microlink.io/alternative/context-dev',
         mainEntity: {
           '@type': 'SoftwareApplication',

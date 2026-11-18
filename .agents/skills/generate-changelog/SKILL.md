@@ -74,7 +74,8 @@ cd <repo-path> && git log --format="%h %ad %s" --date=format:"%Y-%m-%d" --after=
 ### 4. Filter for user-facing changes
 
 **Include** commits that match:
-- `feat:` or `feat(...):`  — new features
+
+- `feat:` or `feat(...):` — new features
 - New pages, landings, tools in `www`
 - New providers or integrations
 - New presets (cards)
@@ -84,6 +85,7 @@ cd <repo-path> && git log --format="%h %ad %s" --date=format:"%Y-%m-%d" --after=
 - `perf:` commits with user-visible impact (e.g., Puppeteer upgrade)
 
 **Exclude** commits that are purely internal:
+
 - `chore: update dependencies` / `build(deps):` — dependency bumps
 - `chore(release):` — release tags (use them to identify versions, not as entries)
 - `ci:` / `build:` — CI and build config

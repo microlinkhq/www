@@ -6,7 +6,7 @@ import Layout from 'components/patterns/Layout'
 import {
   ProductComparison,
   ProductFaq,
-  ProductHero,
+  AlternativeHero,
   ProductPricing,
   ProductStrengths,
   ProductTimings,
@@ -17,8 +17,6 @@ import { CallToAction } from 'components/patterns/CallToAction'
 
 import { Shapes } from 'components/pages/jina-reader/shapes'
 import {
-  ACCENT,
-  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
@@ -29,22 +27,17 @@ import {
   PRICING_CAPTION,
   STRUCTURED,
   TIMINGS,
-  TIMINGS_ACCENT,
   TRADEMARKS
 } from 'components/pages/jina-reader/shared'
 
 const JinaReaderAlternativePage = () => (
   <Layout>
-    <ProductHero {...HERO} accent={ACCENT} />
+    <AlternativeHero {...HERO} />
     <Shapes />
-    <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
+    <ProductTimings {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='jina' />
-    <ProductStrengths
-      id='jina-reader-strengths'
-      accent={ACCENT_NAME}
-      {...HONESTY}
-    />
+    <ProductStrengths id='jina-reader-strengths' {...HONESTY} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
     <ProductTrademarks>{TRADEMARKS}</ProductTrademarks>

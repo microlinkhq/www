@@ -2,7 +2,7 @@ import React from 'react'
 import { describe, expect, test, vi } from 'vitest'
 
 import { Ownership } from '../../../../../src/components/pages/puppeteer/ownership'
-import { HIGHLIGHT_BG } from '../../../../../src/components/patterns/ProductStory/table'
+import { HIGHLIGHT_BG } from '../../../../../src/components/elements/Table/Table'
 import {
   renderWithStyles,
   rowBackground

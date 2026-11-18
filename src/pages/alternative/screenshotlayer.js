@@ -13,6 +13,10 @@ import {
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
+import {
+  ComparisonTable,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 import Faq from 'components/patterns/Faq/Faq'
 import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
@@ -55,10 +59,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -197,7 +197,7 @@ const BENCHMARK_DATA = {
 
 const SERVICE_COLORS = {
   microlink: colors.red6,
-  screenshotlayer: colors.indigo6
+  screenshotlayer: colors.gray5
 }
 
 const SCREENSHOTLAYER_PRO_PRICE = 59.99
@@ -214,12 +214,6 @@ const VOLUME_ADVANTAGE_PCT = Math.floor(
 )
 const PRICE_REDUCTION_PCT = Math.floor(
   ((SCREENSHOTLAYER_PRO_PRICE - MICROLINK_PRICE) / SCREENSHOTLAYER_PRO_PRICE) *
-    100
-)
-const AVERAGE_LATENCY_LOWER_PCT = Math.floor(
-  ((BENCHMARK_DATA.results.screenshotlayer.summary.avgColdDuration -
-    BENCHMARK_DATA.results.microlink.summary.avgColdDuration) /
-    BENCHMARK_DATA.results.screenshotlayer.summary.avgColdDuration) *
     100
 )
 
@@ -426,93 +420,6 @@ const GradientText = styled('span')`
  * Comparison Table
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   {
     feature: 'Screenshot capture',
@@ -532,7 +439,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Device emulation presets',
     microlink: true,
-    screenshotlayer: 'partial',
+    screenshotlayer: 'Partial',
     note: 'Screenshotlayer documents custom viewport sizes and common device dimensions rather than named device presets.'
   },
   {
@@ -553,21 +460,18 @@ const COMPARISON_DATA = [
   {
     feature: 'No per-minute cap on paid plans',
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'PDF generation',
     microlink: true,
     screenshotlayer: false,
-    highlight: true,
     note: 'Screenshotlayer documents PNG, JPG, GIF, and WebP output, not PDF generation.'
   },
   {
     feature: 'Metadata extraction',
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'Link previews',
@@ -578,41 +482,38 @@ const COMPARISON_DATA = [
       </>
     ),
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'Arbitrary custom HTTP headers',
     microlink: true,
-    screenshotlayer: 'partial',
+    screenshotlayer: 'Partial',
     note: 'Screenshotlayer documents User-Agent and Accept-Language overrides, not arbitrary request headers.'
   },
   {
     feature: 'Custom cookies',
     microlink: true,
-    screenshotlayer: 'not documented'
+    screenshotlayer: 'Not documented'
   },
   {
     feature: 'Click/scroll interactions',
     microlink: true,
-    screenshotlayer: 'not documented'
+    screenshotlayer: 'Not documented'
   },
   {
     feature: 'Wait for selector',
     microlink: true,
-    screenshotlayer: 'not documented'
+    screenshotlayer: 'Not documented'
   },
   {
     feature: 'Built-in proxy (auto-rotating residential)',
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'Antibot detection (30+ providers)',
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'Browser chrome overlay',
@@ -622,8 +523,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Open-source core',
     microlink: true,
-    screenshotlayer: false,
-    highlight: true
+    screenshotlayer: false
   },
   {
     feature: 'Remote JS execution (return values)',
@@ -642,87 +542,6 @@ const COMPARISON_DATA = [
     note: 'Screenshotlayer documents direct export to AWS S3 or FTP on Professional and Enterprise.'
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-
-  return (
-    <span css={theme({ display: 'block', textAlign: 'center' })}>{value}</span>
-  )
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Screenshotlayer
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, screenshotlayer, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={screenshotlayer} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -785,13 +604,9 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Screenshotlayer</b> is easy to start with, but its public plans still
-        revolve around tight request caps, dedicated-worker math, and pricey
-        overages. If your screenshot traffic comes in bursts, <b>Microlink</b>{' '}
-        gives you <b>{VOLUME_ADVANTAGE_PCT}% more monthly volume</b> for{' '}
-        <b>{PRICE_REDUCTION_PCT}% less</b>, no per-minute cap on paid plans, and{' '}
-        <b>{AVERAGE_LATENCY_LOWER_PCT}% lower average cold-start latency</b> on
-        the 6 shared benchmark URLs.
+        Microlink gives you {VOLUME_ADVANTAGE_PCT}% more monthly volume than
+        Screenshotlayer for {PRICE_REDUCTION_PCT}% less, with no per-minute cap
+        on paid plans.
       </Caption>
 
       <Flex
@@ -802,7 +617,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -853,7 +669,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -865,15 +681,20 @@ const ComparisonSection = () => (
       >
         An honest look at what each API offers.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Screenshotlayer']}
+        rows={COMPARISON_DATA}
+        competitorKey='screenshotlayer'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: April&nbsp;2026. Cells marked "not documented" mean we
@@ -918,7 +739,7 @@ const SpeedSection = () => (
         <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
           benchmark repo
         </Link>{' '}
-        is open — run it yourself and see.
+        is open. Run it yourself and see.
       </>
     }
   />
@@ -1061,7 +882,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1154,79 +975,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='screenshotlayer-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Screenshotlayer</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1288,12 +1046,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1344,20 +1102,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-screenshotlayer:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                pt: 3,
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-screenshotlayer:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
-                  Explore the Screenshot API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/screenshot'>Explore the Screenshot API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1492,7 +1251,8 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Start with{' '}
@@ -1505,16 +1265,18 @@ const CTASection = () => (
       <Flex
         css={theme({
           gap: 3,
+          fontSize: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-screenshotlayer:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotlayer' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1541,7 +1303,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>harder</span> screenshots
+          Ship <GradientText>harder</GradientText> screenshots
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1588,7 +1350,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink

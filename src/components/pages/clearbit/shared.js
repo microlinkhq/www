@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -10,23 +9,6 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'orange'
-export const ACCENT = colors.orange7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.orange9} 0%,
-  ${colors.orange9} 48%,
-  ${colors.orange8} 48%,
-  ${colors.orange8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.yellow7} 65%,
-  ${colors.yellow7} 79%,
-  ${colors.yellow6} 79%,
-  ${colors.yellow6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/clearbit'
 
@@ -58,8 +40,9 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The Clearbit Logo API alternative for any URL',
-  description: `logo.clearbit.com stopped answering on ${CLEARBIT_SHUTDOWN_DATE}. Microlink reads the logo from the site itself and returns it with its brand colors, dimensions and page metadata in one call. Point an image tag at it to test, then resolve logos on your server or behind a key proxy in production.`,
+  competitor: 'Clearbit',
+  tagline: 'for logos from any URL',
+  description: `logo.clearbit.com stopped answering on ${CLEARBIT_SHUTDOWN_DATE}. Microlink reads the logo from the site itself and returns it with brand colors and metadata in one call.`,
   cta: 'alternative-clearbit:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/embed',
@@ -230,7 +213,6 @@ export const COMPARISON = {
       href: '/logo',
       microlink: 'Any URL',
       logodev: 'Domain, name, ticker, crypto, ISIN',
-      highlight: true,
       note: 'Microlink renders the URL you pass, so a product page, a subdomain or a personal site resolves to the logo it publishes. Logo.dev looks brands up by domain or by identifier.'
     },
     {
@@ -251,7 +233,6 @@ export const COMPARISON = {
       href: '/docs/api/parameters/palette',
       microlink: 'palette=true, same call',
       logodev: 'Brand API, secret key',
-      highlight: true,
       note: 'Microlink adds palette, background_color, color and alternative_color to the logo it returns. Logo.dev lists colors in its brand profile at api.logo.dev/v2/brands, which needs a secret key.'
     },
     {
@@ -290,7 +271,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       logodev: '500,000 images a month',
-      highlight: true,
       note: `The free Microlink API key covers ${FREE_PLAN_REQUESTS_PER_DAY} requests every day, ${FREE_PLAN_CONCURRENT_REQUESTS} at a time, with no card. Logo.dev Community covers 500,000 logo CDN requests a month and needs a link back to Logo.dev on commercial projects.`
     },
     {

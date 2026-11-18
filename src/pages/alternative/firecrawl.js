@@ -18,6 +18,13 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  FeatureTable,
+  HIGHLIGHT_BG,
+  TableCard,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -32,10 +39,6 @@ import Text from 'components/elements/Text'
 import MultiCodeEditorInteractive from 'components/patterns/MultiCodeEditor/MultiCodeEditorInteractive'
 import { useBreakpoint } from 'components/hook/use-breakpoint'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -102,93 +105,6 @@ const HeroCodeLink = styled('a')`
  * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'URL to LLM-ready markdown', microlink: true, firecrawl: true },
   { feature: 'Metadata extraction', microlink: true, firecrawl: true },
@@ -222,7 +138,6 @@ const COMPARISON_DATA = [
     feature: 'Residential / stealth proxy',
     microlink: true,
     firecrawl: true,
-    highlight: true,
     note: 'Firecrawl enhanced proxy bills 5 credits per request; Microlink Pro includes it at the flat request price.'
   },
   { feature: 'MCP server', microlink: true, firecrawl: true },
@@ -237,14 +152,12 @@ const COMPARISON_DATA = [
     feature: 'Flat pricing (no credit multipliers)',
     microlink: true,
     firecrawl: false,
-    highlight: true,
     note: 'Firecrawl: search 2 credits per 10 results, browser interaction 2 per minute, enhanced proxy 5 per request.'
   },
   {
     feature: 'Free tier that renews daily',
     microlink: true,
     firecrawl: false,
-    highlight: true,
     note: `Firecrawl free plan is 1,000 one-time credits; Microlink resets ${FREE_PLAN_REQUESTS_PER_DAY} free requests every day.`
   },
   {
@@ -256,8 +169,7 @@ const COMPARISON_DATA = [
   {
     feature: 'PDF generation (URL → PDF)',
     microlink: true,
-    firecrawl: false,
-    highlight: true
+    firecrawl: false
   },
   {
     feature: 'Link previews',
@@ -284,7 +196,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Self-hostable platform',
-    microlink: 'partial',
+    microlink: 'Partial',
     firecrawl: true,
     note: 'The MIT components (Browserless, Metascraper, MQL) can be self-hosted; the hosted API is managed.'
   },
@@ -313,84 +225,6 @@ const COMPARISON_DATA = [
   },
   { feature: 'Async jobs + webhooks', microlink: false, firecrawl: true }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-  return <span>{value}</span>
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Firecrawl
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, firecrawl, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={firecrawl} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -423,7 +257,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — Microlink charges one flat price per request, whatever the
+          Yes, Microlink charges one flat price per request, whatever the
           request does. Firecrawl bills in credits that multiply: a basic scrape
           is 1 credit, the enhanced (stealth) proxy is 5, search costs 2 per 10
           results, and browser interaction costs 2 per minute.
@@ -436,7 +270,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes — Microlink charges one flat price per request, whatever the request does. Firecrawl bills in credits that multiply: a basic scrape is 1 credit, the enhanced (stealth) proxy is 5, search costs 2 per 10 results, and browser interaction costs 2 per minute. On Microlink, routing through the residential proxy, extracting metadata, or returning markdown never changes what a request costs. Cache hits are free on top.'
+    text: 'Yes, Microlink charges one flat price per request, whatever the request does. Firecrawl bills in credits that multiply: a basic scrape is 1 credit, the enhanced (stealth) proxy is 5, search costs 2 per 10 results, and browser interaction costs 2 per minute. On Microlink, routing through the residential proxy, extracting metadata, or returning markdown never changes what a request costs. Cache hits are free on top.'
   },
   {
     question: "How much does Firecrawl's stealth proxy actually cost at scale?",
@@ -444,9 +278,9 @@ const FAQ_ITEMS = [
       <>
         <div>
           Five credits per request instead of one, per Firecrawl's own proxy
-          docs — and <b>auto</b> mode escalates to it whenever the basic attempt
+          docs, and <b>auto</b> mode escalates to it whenever the basic attempt
           fails. If 30% of 46,000 monthly pages sit behind bot walls, that is
-          32,200 + (13,800 × 5) = 101,200 credits — past the 100,000-credit
+          32,200 + (13,800 × 5) = 101,200 credits, past the 100,000-credit
           Standard plan and into the $333 Growth tier.
         </div>
         <div>
@@ -456,14 +290,14 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Five credits per request instead of one, per Firecrawl's own proxy docs — and auto mode escalates to it whenever the basic attempt fails. If 30% of 46,000 monthly pages sit behind bot walls, that is 32,200 + (13,800 × 5) = 101,200 credits — past the 100,000-credit Standard plan and into the $333 Growth tier. Microlink Pro includes residential proxy routing and antibot detection at the flat request price, so the protected-page ratio never changes your bill."
+    text: "Five credits per request instead of one, per Firecrawl's own proxy docs, and auto mode escalates to it whenever the basic attempt fails. If 30% of 46,000 monthly pages sit behind bot walls, that is 32,200 + (13,800 × 5) = 101,200 credits, past the 100,000-credit Standard plan and into the $333 Growth tier. Microlink Pro includes residential proxy routing and antibot detection at the flat request price, so the protected-page ratio never changes your bill."
   },
   {
     question: 'Does Microlink return LLM-ready markdown like Firecrawl?',
     answer: (
       <>
         <div>
-          Yes. One GET request returns any URL as clean markdown — see the{' '}
+          Yes. One GET request returns any URL as clean markdown. See the{' '}
           <Link href='/docs/guides/content-conversion/url-to-markdown'>
             URL to markdown guide
           </Link>
@@ -474,12 +308,12 @@ const FAQ_ITEMS = [
         </div>
         <div>
           The token math matters for LLM workloads: a typical page that costs
-          20,000 HTML tokens becomes about 4,000 markdown tokens — roughly 80%
+          20,000 HTML tokens becomes about 4,000 markdown tokens, roughly 80%
           fewer tokens per page.
         </div>
       </>
     ),
-    text: 'Yes. One GET request returns any URL as clean markdown. Because adblock ships enabled by default, ads, trackers, and cookie banners are stripped before conversion, so the markdown arrives free of consent noise. The token math matters for LLM workloads: a typical page that costs 20,000 HTML tokens becomes about 4,000 markdown tokens — roughly 80% fewer tokens per page.'
+    text: 'Yes. One GET request returns any URL as clean markdown. Because adblock ships enabled by default, ads, trackers, and cookie banners are stripped before conversion, so the markdown arrives free of consent noise. The token math matters for LLM workloads: a typical page that costs 20,000 HTML tokens becomes about 4,000 markdown tokens, roughly 80% fewer tokens per page.'
   },
   {
     question: 'Can Microlink convert PDFs and office documents like Firecrawl?',
@@ -487,19 +321,19 @@ const FAQ_ITEMS = [
       <>
         <div>
           Yes. Point the same request at a web page, a PDF, or a docx, xlsx, or
-          pptx file — Microlink converts the document to an HTML DOM at fetch
+          pptx file. Microlink converts the document to an HTML DOM at fetch
           time, so the identical markdown request works across all of them. A
           YouTube URL even returns the video's caption transcript as the
           markdown body.
         </div>
         <div>
           Firecrawl parses web-hosted and local PDFs too; the difference is that
-          on Microlink the document case needs no separate endpoint or parameter
-          — it is the same GET request.
+          on Microlink the document case needs no separate endpoint or
+          parameter: it is the same GET request.
         </div>
       </>
     ),
-    text: "Yes. Point the same request at a web page, a PDF, or a docx, xlsx, or pptx file — Microlink converts the document to an HTML DOM at fetch time, so the identical markdown request works across all of them. A YouTube URL even returns the video's caption transcript as the markdown body. Firecrawl parses web-hosted and local PDFs too; the difference is that on Microlink the document case needs no separate endpoint or parameter — it is the same GET request."
+    text: "Yes. Point the same request at a web page, a PDF, or a docx, xlsx, or pptx file. Microlink converts the document to an HTML DOM at fetch time, so the identical markdown request works across all of them. A YouTube URL even returns the video's caption transcript as the markdown body. Firecrawl parses web-hosted and local PDFs too; the difference is that on Microlink the document case needs no separate endpoint or parameter: it is the same GET request."
   },
   {
     question: 'What about crawling, search, and monitoring?',
@@ -507,7 +341,7 @@ const FAQ_ITEMS = [
       <>
         <div>
           Crawling and monitoring are genuinely Firecrawl's territory: Microlink
-          converts one URL per call and does not watch pages for changes — you
+          converts one URL per call and does not watch pages for changes. You
           own the queue and the diffing.
         </div>
         <div>
@@ -519,7 +353,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Crawling and monitoring are genuinely Firecrawl's territory: Microlink converts one URL per call and does not watch pages for changes — you own the queue and the diffing. Search is covered: Microlink Search returns normalized JSON for AI agents across 10 surfaces, where every result exposes a lazy .markdown() helper to expand top matches into LLM-ready content. It is a paid workflow from the first request, since public-result collection runs on managed proxy capacity."
+    text: "Crawling and monitoring are genuinely Firecrawl's territory: Microlink converts one URL per call and does not watch pages for changes. You own the queue and the diffing. Search is covered: Microlink Search returns normalized JSON for AI agents across 10 surfaces, where every result exposes a lazy .markdown() helper to expand top matches into LLM-ready content. It is a paid workflow from the first request, since public-result collection runs on managed proxy capacity."
   },
   {
     question: 'How do the open-source licenses compare (MIT vs AGPL)?',
@@ -527,17 +361,17 @@ const FAQ_ITEMS = [
       <>
         <div>
           Both companies develop in the open, with different licenses.
-          Firecrawl's core is AGPL-3.0 — a copyleft license that requires
+          Firecrawl's core is AGPL-3.0, a copyleft license that requires
           publishing your modifications if you serve the software to users.
         </div>
         <div>
-          Microlink's core libraries — Browserless, Metascraper, and MQL — are
-          MIT licensed: read, fork, embed, or self-host them with no copyleft
+          Microlink's core libraries (Browserless, Metascraper, and MQL) are MIT
+          licensed: read, fork, embed, or self-host them with no copyleft
           obligations.
         </div>
       </>
     ),
-    text: "Both companies develop in the open, with different licenses. Firecrawl's core is AGPL-3.0 — a copyleft license that requires publishing your modifications if you serve the software to users. Microlink's core libraries — Browserless, Metascraper, and MQL — are MIT licensed: read, fork, embed, or self-host them with no copyleft obligations."
+    text: "Both companies develop in the open, with different licenses. Firecrawl's core is AGPL-3.0, a copyleft license that requires publishing your modifications if you serve the software to users. Microlink's core libraries (Browserless, Metascraper, and MQL) are MIT licensed: read, fork, embed, or self-host them with no copyleft obligations."
   },
   {
     question: "How do I migrate from Firecrawl's scrape endpoint to Microlink?",
@@ -553,7 +387,7 @@ const FAQ_ITEMS = [
         </div>
         <div>
           Screenshots, headers, and browser automation map to query parameters
-          too — start from the{' '}
+          too. Start from the{' '}
           <Link href='/docs/guides/content-conversion/url-to-markdown'>
             markdown guide
           </Link>{' '}
@@ -569,7 +403,7 @@ const FAQ_ITEMS = [
       <>
         <div>
           Firecrawl's free plan is 1,000 one-time credits with 2 concurrent
-          requests — once spent, it is gone. Microlink gives you{' '}
+          requests. Once spent, it is gone. Microlink gives you{' '}
           {FREE_PLAN_REQUESTS_PER_DAY} free requests every day with every Pro
           feature, no credit card and no expiry, for evaluating in real
           conditions.
@@ -580,7 +414,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: `Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests — once spent, it is gone. Microlink gives you ${FREE_PLAN_REQUESTS_PER_DAY} free requests every day with every Pro feature, no credit card and no expiry, for evaluating in real conditions. The free API key takes a minute to get and the residential proxy is included, so blocked pages work from the first request.`
+    text: `Firecrawl's free plan is 1,000 one-time credits with 2 concurrent requests. Once spent, it is gone. Microlink gives you ${FREE_PLAN_REQUESTS_PER_DAY} free requests every day with every Pro feature, no credit card and no expiry, for evaluating in real conditions. The free API key takes a minute to get and the residential proxy is included, so blocked pages work from the first request.`
   }
 ]
 
@@ -620,11 +454,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Firecrawl</b> bills in credits that multiply — <b>5×</b> for the
-        stealth proxy, spent even when the target page errors, gone if unused.{' '}
-        <b>Microlink</b> turns URLs into{' '}
-        <b>LLM-ready markdown, metadata, and screenshots</b> at one flat request
-        price, <b>residential proxy included</b>.
+        Firecrawl multiplies credits 5× for its stealth proxy. Microlink returns
+        markdown and screenshots at one flat price, proxy included.
       </Caption>
 
       <Flex
@@ -635,7 +466,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -715,12 +547,12 @@ const Hero = () => (
             <Text
               css={theme({
                 fontSize: 1,
-                color: 'green7',
+                color: 'secondary',
                 fontWeight: 'bold',
                 pt: 3
               })}
             >
-              ✓ Flat — always the same price
+              ✓ Flat, always the same price
             </Text>
           </PriceCard>
         </Box>
@@ -758,7 +590,7 @@ const Hero = () => (
             +2 credits per browser-minute of interaction
           </Text>
           <Text css={theme({ fontSize: 1, color: 'black50', pt: 3 })}>
-            Depends on the page — unused credits expire monthly
+            Depends on the page. Unused credits expire monthly
           </Text>
         </PriceCard>
       </Flex>
@@ -812,7 +644,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -825,15 +657,20 @@ const ComparisonSection = () => (
         A flat-priced data API and a credit-billed scraping platform, side by
         side.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Firecrawl']}
+        rows={COMPARISON_DATA}
+        competitorKey='firecrawl'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: August&nbsp;2026. See each product's docs for the latest.
@@ -853,7 +690,7 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         Firecrawl's credit menu multiplies: <b>5 credits</b> for the stealth
-        proxy, 2 per 10 search results, 2 per browser-minute — and a successful
+        proxy, 2 per 10 search results, 2 per browser-minute, and a successful
         fetch bills <b>even when the page itself errors</b>, while unused
         credits expire monthly. On Microlink, a request is a request: one flat
         price, whatever it returns.
@@ -868,7 +705,7 @@ const WHY_SWITCH_ITEMS = [
         When a target blocks datacenter traffic, Microlink Pro reroutes through{' '}
         <Link href='/features/proxy'>auto-rotating residential IPs</Link> with{' '}
         <Link href='/features/antibot'>antibot detection</Link> for 30+
-        providers — at the same flat request price. The share of protected pages
+        providers, at the same flat request price. The share of protected pages
         in your workload never changes your bill.
       </>
     )
@@ -878,7 +715,7 @@ const WHY_SWITCH_ITEMS = [
     title: 'A free tier that refills every day',
     description: (
       <>
-        Firecrawl's free plan is <b>1,000 one-time credits</b> — spend them and
+        Firecrawl's free plan is <b>1,000 one-time credits</b>. Spend them and
         it's over. Microlink resets{' '}
         <b>{FREE_PLAN_REQUESTS_PER_DAY} free requests every day, forever</b>:
         every Pro feature, no credit card, one free API key.
@@ -891,8 +728,8 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         The same GET request converts a web page, a <b>PDF</b>, or a{' '}
-        <b>docx, xlsx, or pptx</b> document into clean markdown — about{' '}
-        <b>80% fewer tokens</b> than raw HTML — with{' '}
+        <b>docx, xlsx, or pptx</b> document into clean markdown (about{' '}
+        <b>80% fewer tokens</b> than raw HTML) with{' '}
         <Link href='/docs/api/parameters/adblock'>adblock</Link> stripping ads,
         trackers, and cookie banners before conversion by default.
       </>
@@ -905,7 +742,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Microlink caches responses with a <b>TTL of up to 31 days</b> on paid
         plans, and <b>cache hits don't spend your quota</b>. Firecrawl credits
-        work the other way around: they don't roll over — capacity you paid for
+        work the other way around: they don't roll over. Capacity you paid for
         disappears at the end of the month.
       </>
     )
@@ -915,9 +752,9 @@ const WHY_SWITCH_ITEMS = [
     title: 'MIT-licensed core, no copyleft strings',
     description: (
       <>
-        Firecrawl's core is <b>AGPL-3.0</b> — copyleft that requires publishing
-        your modifications if you serve it to users. Microlink's engine —
-        Browserless, Metascraper, MQL — is <b>MIT licensed</b>: embed it, fork
+        Firecrawl's core is <b>AGPL-3.0</b>, copyleft that requires publishing
+        your modifications if you serve it to users. Microlink's engine
+        (Browserless, Metascraper, MQL) is <b>MIT licensed</b>: embed it, fork
         it, or self-host it with no obligations.
       </>
     )
@@ -976,7 +813,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1049,17 +886,17 @@ const HONESTY_ITEMS = [
   {
     title: 'You need discovery, not just extraction',
     description:
-      'Firecrawl bundles search-and-scrape in one call, crawls whole sites, and maps URL structures. Microlink assumes you already know which URLs you need — if discovery is part of the job, Firecrawl covers it natively.'
+      'Firecrawl bundles search-and-scrape in one call, crawls whole sites, and maps URL structures. Microlink assumes you already know which URLs you need. If discovery is part of the job, Firecrawl covers it natively.'
   },
   {
     title: 'Change monitoring with alerts',
     description:
-      'The monitor endpoint watches pages for changes with webhook and email alerts, plus AI-powered goal filtering. Microlink has no monitoring capability — you would schedule and diff captures yourself.'
+      'The monitor endpoint watches pages for changes with webhook and email alerts, plus AI-powered goal filtering. Microlink has no monitoring capability. You would schedule and diff captures yourself.'
   },
   {
     title: 'Natural-language extraction',
     description:
-      'Firecrawl extracts structured data from a plain-English prompt or a JSON Schema. Microlink MQL is CSS-selector based — precise and deterministic, but you write the selectors.'
+      'Firecrawl extracts structured data from a plain-English prompt or a JSON Schema. Microlink MQL is CSS-selector based: precise and deterministic, but you write the selectors.'
   },
   {
     title: 'Self-hosting the whole platform',
@@ -1074,78 +911,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='firecrawl-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Firecrawl</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1159,18 +934,18 @@ const HonestySection = () => (
  */
 const CREDIT_MATH_ROWS = [
   {
-    scenario: 'Firecrawl — every page is easy',
+    scenario: 'Firecrawl: every page is easy',
     detail: '46,000 pages × 1 credit fits the 100,000-credit Standard plan',
     bill: '$83/mo'
   },
   {
-    scenario: 'Firecrawl — 30% behind bot walls',
+    scenario: 'Firecrawl: 30% behind bot walls',
     detail:
-      '32,200 × 1 + 13,800 × 5 = 101,200 credits — past Standard, into the Growth tier',
+      '32,200 × 1 + 13,800 × 5 = 101,200 credits, past Standard, into the Growth tier',
     bill: '≈ $333/mo'
   },
   {
-    scenario: 'Microlink — any mix',
+    scenario: 'Microlink: any mix',
     detail: '46,000 requests with the residential proxy included*',
     bill: '$49/mo',
     highlight: true
@@ -1191,8 +966,8 @@ const PricingSection = () => (
           color: 'black60'
         })}
       >
-        Microlink bills <b>requests</b>. Firecrawl bills <b>credits</b> — and
-        the multipliers decide what a credit is worth.
+        Microlink bills <b>requests</b>. Firecrawl bills <b>credits</b>, and the
+        multipliers decide what a credit is worth.
       </Caption>
 
       <Flex
@@ -1226,12 +1001,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1263,8 +1038,8 @@ const PricingSection = () => (
               {[
                 'One request can return markdown, metadata, logo, and screenshot together',
                 'Adblock and cookie-banner removal on by default',
-                'Residential proxy and antibot detection included — no 5× multiplier',
-                "TTL caching up to 31 days — cache hits don't spend your quota",
+                'Residential proxy and antibot detection included, no 5× multiplier',
+                "TTL caching up to 31 days: cache hits don't spend your quota",
                 'No concurrency limit* and no per-minute cap',
                 `Free: ${FREE_PLAN_REQUESTS_PER_DAY} requests/day, renews forever, no credit card`,
                 `${CDN_EDGES} edge nodes, 99.9% SLA`,
@@ -1284,20 +1059,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-firecrawl:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-firecrawl:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/markdown' css={theme({ fontSize: 0 })}>
-                  Explore the Markdown API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/markdown'>Explore the Markdown API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1392,18 +1168,10 @@ const PricingSection = () => (
           })}
         >
           Firecrawl's default <b>auto</b> proxy escalates to enhanced when the
-          basic attempt fails — and enhanced bills <b>5 credits</b>. The mix of
+          basic attempt fails, and enhanced bills <b>5 credits</b>. The mix of
           protected pages, not your volume, decides the bill.
         </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white'
-          })}
-        >
+        <TableCard>
           <FeatureTable>
             <thead>
               <tr>
@@ -1416,11 +1184,7 @@ const PricingSection = () => (
               {CREDIT_MATH_ROWS.map(({ scenario, detail, bill, highlight }) => (
                 <tr
                   key={scenario}
-                  css={{
-                    background: highlight
-                      ? 'rgba(6, 125, 247, 0.03)'
-                      : 'transparent'
-                  }}
+                  css={highlight ? { background: HIGHLIGHT_BG } : undefined}
                 >
                   <td css={theme({ fontWeight: 'bold' })}>{scenario}</td>
                   <td>{detail}</td>
@@ -1429,7 +1193,7 @@ const PricingSection = () => (
               ))}
             </tbody>
           </FeatureTable>
-        </Box>
+        </TableCard>
       </Box>
 
       <Text
@@ -1444,9 +1208,9 @@ const PricingSection = () => (
         })}
       >
         Estimates use Firecrawl's published credit rates. Light, unprotected
-        workloads fit Firecrawl's cheaper tiers well — the gap opens when
-        stealth pages, search calls, and browser minutes start multiplying, or
-        when unused credits expire while Microlink cache hits stay free.
+        workloads fit Firecrawl's cheaper tiers well. The gap opens when stealth
+        pages, search calls, and browser minutes start multiplying, or when
+        unused credits expire while Microlink cache hits stay free.
       </Text>
 
       <Text
@@ -1462,8 +1226,8 @@ const PricingSection = () => (
         })}
       >
         * Microlink never bills or caps concurrency on legitimate usage. We only
-        restrict usage that is fraudulent or illegal — for example, traffic
-        aimed at attacking other people's sites.
+        restrict usage that is fraudulent or illegal, for example traffic aimed
+        at attacking other people's sites.
       </Text>
     </SectionInner>
   </Section>
@@ -1519,14 +1283,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        </b>
+        : every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1534,14 +1299,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-firecrawl:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'firecrawl' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1567,7 +1334,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>lighter</span> markdown
+          Ship <GradientText>lighter</GradientText> markdown
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1619,7 +1386,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink
@@ -1660,7 +1429,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Firecrawl Alternative: LLM-Ready Markdown, No Credit Math'
-    description='Firecrawl credits multiply — 5× for the stealth proxy, spent even on error pages, gone monthly. Microlink converts URLs, PDFs, and docs into markdown, metadata, and screenshots at a flat per-request price, proxy included.'
+    description='Firecrawl credits multiply: 5× for the stealth proxy, spent even on error pages, gone monthly. Microlink converts URLs, PDFs, and docs into markdown, metadata, and screenshots at a flat per-request price, proxy included.'
     schemaType='WebPage'
     structured={[
       {

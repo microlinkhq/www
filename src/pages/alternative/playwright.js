@@ -6,7 +6,7 @@ import Layout from 'components/patterns/Layout'
 import {
   ProductComparison,
   ProductFaq,
-  ProductHero,
+  AlternativeHero,
   ProductPricing,
   ProductStrengths,
   ProductTimings,
@@ -18,8 +18,6 @@ import { CallToAction } from 'components/patterns/CallToAction'
 import { Mapping } from 'components/pages/playwright/mapping'
 import { Operations } from 'components/pages/playwright/operations'
 import {
-  ACCENT,
-  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
@@ -30,23 +28,18 @@ import {
   PRICING_CAPTION,
   STRUCTURED,
   TIMINGS,
-  TIMINGS_ACCENT,
   TRADEMARKS
 } from 'components/pages/playwright/shared'
 
 const PlaywrightAlternativePage = () => (
   <Layout>
-    <ProductHero {...HERO} accent={ACCENT} />
+    <AlternativeHero {...HERO} />
     <Operations />
     <Mapping />
-    <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
+    <ProductTimings {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='playwright' />
-    <ProductStrengths
-      id='playwright-strengths'
-      accent={ACCENT_NAME}
-      {...HONESTY}
-    />
+    <ProductStrengths id='playwright-strengths' {...HONESTY} />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />
     <ProductTrademarks>{TRADEMARKS}</ProductTrademarks>

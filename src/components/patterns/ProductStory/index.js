@@ -8,11 +8,12 @@ export {
   CENTERED_TO_START
 } from './shared'
 export { ProductHero } from './hero'
+export { AlternativeHero } from './alternative-hero'
 export { ProductTimings } from './timings'
 export { ProductCapabilities } from './capabilities'
 export { ProductPricing } from './pricing'
 export { ProductFaq } from './faq'
-export { ProductComparison } from './comparison'
+export { ComparisonTable, ProductComparison } from './comparison'
 export { ProductStrengths, ProductTrademarks } from './strengths'
 export { productStructured, toFaqQuestions } from './structured'
 export { Section, SectionHeader, SectionNote, GradientText } from './section'
@@ -25,5 +26,5 @@ export {
   Check,
   Cross,
   HIGHLIGHT_BG
-} from './table'
+} from 'components/elements/Table/Table'
 export { StoryCard, StoryCardGrid } from './story-card'

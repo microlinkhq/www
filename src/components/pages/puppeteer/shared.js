@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -15,23 +14,6 @@ import {
   FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
   PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
 } from 'helpers/plan-timeouts'
-
-export const ACCENT_NAME = 'green'
-export const ACCENT = colors.green7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.green9} 0%,
-  ${colors.green9} 48%,
-  ${colors.green8} 48%,
-  ${colors.green8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.teal7} 65%,
-  ${colors.teal7} 79%,
-  ${colors.teal6} 79%,
-  ${colors.teal6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/puppeteer'
 
@@ -60,9 +42,10 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The Puppeteer alternative with no Chrome to run',
+  competitor: 'Puppeteer',
+  tagline: 'with no Chrome to run',
   description:
-    'Keep the Puppeteer code and drop the browser fleet. Send a function that receives a Puppeteer page, or ask for a screenshot or PDF by parameter, and Microlink runs it in a fresh Chrome on its side.',
+    'Keep your Puppeteer code and drop the browser fleet. Send a function, or ask for a screenshot or PDF, and Microlink runs it in a fresh Chrome.',
   cta: 'alternative-puppeteer:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/parameters/function',
@@ -232,7 +215,6 @@ export const COMPARISON = {
       href: '/function',
       microlink: true,
       puppeteer: true,
-      highlight: true,
       note: `function receives page, a full Puppeteer Page already navigated to the URL, plus response and headers. Paid plans allow ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds and 128 MB per run.`
     },
     {
@@ -240,14 +222,12 @@ export const COMPARISON = {
       href: '/blog/why-we-still-run-chrome',
       microlink: 'Managed',
       puppeteer: 'You pin and upgrade',
-      highlight: true,
       note: 'Puppeteer pairs each release with one Chrome for Testing build, and Chrome ships a major version every two weeks.'
     },
     {
       feature: 'Install footprint',
       microlink: '0 MB',
       puppeteer: '~282 MB on Linux',
-      highlight: true,
       note: 'Lambda caps a zip deployment at 250 MB unzipped, layers included, and a container image at 10 GB.'
     },
     {

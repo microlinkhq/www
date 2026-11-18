@@ -18,6 +18,10 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -31,10 +35,6 @@ import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 import { DEFAULT_PLAN } from 'helpers/pro-plans'
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -106,8 +106,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Remote JS execution',
     microlink: true,
-    iframely: false,
-    highlight: true
+    iframely: false
   },
   { feature: 'Wait for selector', microlink: true, iframely: false },
   { feature: 'Cookie banner blocking', microlink: true, iframely: false },
@@ -116,35 +115,30 @@ const COMPARISON_DATA = [
     feature: 'Rotating residential proxy (Pro)',
     microlink: true,
     iframely: false,
-    highlight: true,
     note: 'Microlink Pro routes each request through a fresh residential IP with automatic retry on block or throttle.'
   },
   {
     feature: 'Antibot detection & bypass (Pro)',
     microlink: true,
     iframely: false,
-    highlight: true,
     note: 'Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security.'
   },
   {
     feature: 'CAPTCHA handling (Pro)',
     microlink: true,
     iframely: false,
-    highlight: true,
-    note: 'reCAPTCHA v2/v3, hCaptcha, FunCaptcha, GeeTest, Cloudflare Turnstile — handled inside the API.'
+    note: 'reCAPTCHA v2/v3, hCaptcha, FunCaptcha, GeeTest, Cloudflare Turnstile: handled inside the API.'
   },
   {
     feature: 'Screenshot capture',
     microlink: true,
-    iframely: false,
-    highlight: true
+    iframely: false
   },
   { feature: 'Full-page screenshots', microlink: true, iframely: false },
   {
     feature: 'PDF generation',
     microlink: true,
-    iframely: false,
-    highlight: true
+    iframely: false
   },
   { feature: 'HTML rendering', microlink: true, iframely: false },
   { feature: 'Animated GIF / video output', microlink: true, iframely: false },
@@ -155,14 +149,12 @@ const COMPARISON_DATA = [
   {
     feature: 'MQL (structured data extraction)',
     microlink: true,
-    iframely: false,
-    highlight: true
+    iframely: false
   },
   {
     feature: 'Open-source core (MIT)',
     microlink: true,
-    iframely: false,
-    highlight: true
+    iframely: false
   },
   {
     feature: `${CDN_EDGES} CDN edge nodes`,
@@ -179,7 +171,6 @@ const COMPARISON_DATA = [
     feature: 'Free plan',
     microlink: '100/mo, no expiry',
     iframely: '2,000/mo pilot only',
-    highlight: true,
     note: 'Iframely Starter is single-domain and explicitly pilot-only; Microlink free plan has no expiry and is production-ready.'
   },
   {
@@ -245,46 +236,6 @@ const GradientText = styled('span')`
   `}
 `
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
 const PriceCard = styled(Flex)`
   ${theme({
     flexDirection: 'column',
@@ -305,53 +256,6 @@ const PriceAmount = styled(Text)`
   })}
   font-variant-numeric: tabular-nums;
 `
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
 
 const WhySwitchTimeline = styled(Flex)`
   position: relative;
@@ -451,9 +355,9 @@ const WHY_SWITCH_ITEMS = [
         Iframely fetches cooperative publisher endpoints. The moment a target
         sits behind <b>Cloudflare</b>, <b>DataDome</b>, <b>Akamai</b>, or any of
         the 9 antibot providers Microlink covers, Iframely has nothing to offer.
-        Microlink Pro folds three normally-separate stacks — a{' '}
+        Microlink Pro folds three normally-separate stacks (a{' '}
         <b>rotating residential proxy</b>, <b>antibot detection</b>, and{' '}
-        <b>CAPTCHA handling</b> — into the same $49 plan.
+        <b>CAPTCHA handling</b>) into the same $49 plan.
         <br />
         <br />
         <Link href='/features/proxy'>See how the proxy works</Link>.
@@ -471,8 +375,8 @@ const WHY_SWITCH_ITEMS = [
           {FREE_PLAN_REQUESTS_PER_DAY} requests/day with every Pro feature, no
           expiry, no credit card
         </b>
-        , and the same edge network as paid plans — usable in production from
-        day one for low-volume integrations.
+        , and the same edge network as paid plans, usable in production from day
+        one for low-volume integrations.
       </>
     )
   },
@@ -481,10 +385,10 @@ const WHY_SWITCH_ITEMS = [
     title: 'Open-source core, no black box',
     description: (
       <>
-        The components behind Microlink — <b>Metascraper</b>, <b>Browserless</b>
-        , and <b>MQL</b> — are <b>MIT licensed</b>. You can read the code, fork
-        it, or self-host. Iframely's pipeline is fully proprietary, which is
-        fine for many teams but harder to audit.
+        The components behind Microlink (<b>Metascraper</b>, <b>Browserless</b>,
+        and <b>MQL</b>) are <b>MIT licensed</b>. You can read the code, fork it,
+        or self-host. Iframely's pipeline is fully proprietary, which is fine
+        for many teams but harder to audit.
       </>
     )
   }
@@ -494,7 +398,7 @@ const HONESTY_ITEMS = [
   {
     title: 'Deeper publisher catalog',
     description:
-      'Iframely advertises 1,900+ supported publishers with proprietary rich-media discovery on top of oEmbed. If your product depends on long-tail publisher coverage — niche video hosts, regional media, less common social networks — Iframely has been investing in that catalog since 2012 and serves billions of requests per month.'
+      'Iframely advertises 1,900+ supported publishers with proprietary rich-media discovery on top of oEmbed. If your product depends on long-tail publisher coverage (niche video hosts, regional media, less common social networks), Iframely has been investing in that catalog since 2012 and serves billions of requests per month.'
   },
   {
     title: 'Editorial / CMS integrations',
@@ -507,87 +411,6 @@ const HONESTY_ITEMS = [
       'Iframely Enterprise lists white-label CDN delivery and Content IDs for batch refresh, which can matter for media platforms that want embeds served from their own domain. Microlink does not currently offer either capability.'
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-
-  return (
-    <span css={theme({ display: 'block', textAlign: 'center' })}>{value}</span>
-  )
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Iframely
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, iframely, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={iframely} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * FAQ items (rendered + schema)
@@ -641,8 +464,8 @@ const FAQ_ITEMS = [
         <div>
           Yes. Iframely's API license documents a 50 req/s ceiling across all
           standard plans, with higher throughput available only on custom
-          arrangements. For most apps that is plenty; for spiky workloads —
-          email blast triggers, viral threads, bulk re-indexing — it forces a
+          arrangements. For most apps that is plenty; for spiky workloads (email
+          blast triggers, viral threads, bulk re-indexing) it forces a
           conversation with sales.
         </div>
         <div>
@@ -662,7 +485,7 @@ const FAQ_ITEMS = [
           For oEmbed providers, yes. Pass the URL to{' '}
           <Link href='/embed'>Microlink's embed API</Link> and the response
           includes the provider's iframe HTML along with the normalized title,
-          description, image, logo, and color palette — ready to paste or render
+          description, image, logo, and color palette, ready to paste or render
           through the SDK.
         </div>
         <div>
@@ -682,12 +505,12 @@ const FAQ_ITEMS = [
         <div>
           Two reasons. First, Microlink gives you the same embed flow plus
           screenshots, PDFs, Lighthouse audits, MQL extraction, and remote JS
-          from one API — you do not pay a second vendor when the workflow widens
+          from one API. You do not pay a second vendor when the workflow widens
           beyond cards.
         </div>
         <div>
           Second, Microlink ships with antibot detection across 9 providers, a
-          built-in rotating residential proxy, and CAPTCHA handling — all
+          built-in rotating residential proxy, and CAPTCHA handling, all
           included on the Pro plan. Iframely's pipeline is optimized for
           cooperative publisher endpoints; Microlink is optimized for arbitrary
           URLs, including ones that fight back.
@@ -702,7 +525,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — on the Pro plan. Microlink auto-detects when a target site is
+          Yes, on the Pro plan. Microlink auto-detects when a target site is
           blocking the request, routes the call through a rotating residential
           IP pool, and adapts to the specific antibot or CAPTCHA provider in the
           way. That replaces three usual line items on your bill: a residential
@@ -714,16 +537,16 @@ const FAQ_ITEMS = [
           <Link href='https://github.com/microlinkhq/is-antibot'>
             is-antibot
           </Link>{' '}
-          and the supported list — Cloudflare, DataDome, Akamai, PerimeterX,
-          Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security — plus
-          the CAPTCHA coverage are documented on the{' '}
+          and the supported list (Cloudflare, DataDome, Akamai, PerimeterX,
+          Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security) plus the
+          CAPTCHA coverage are documented on the{' '}
           <Link href='/features/proxy'>proxy feature page</Link>. Every proxied
           response carries <b>x-fetch-mode: fetch-proxy</b> so you can audit
           usage server-side.
         </div>
       </>
     ),
-    text: 'Yes — on the Pro plan. Microlink auto-detects when a target site is blocking the request, routes the call through a rotating residential IP pool, and adapts to the specific antibot or CAPTCHA provider. That replaces a residential proxy contract, an antibot detection tool, and a CAPTCHA solver subscription. Detection logic is open source as is-antibot. Supported antibot providers: Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security. Every proxied response carries x-fetch-mode: fetch-proxy for auditing.'
+    text: 'Yes, on the Pro plan. Microlink auto-detects when a target site is blocking the request, routes the call through a rotating residential IP pool, and adapts to the specific antibot or CAPTCHA provider. That replaces a residential proxy contract, an antibot detection tool, and a CAPTCHA solver subscription. Detection logic is open source as is-antibot. Supported antibot providers: Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security. Every proxied response carries x-fetch-mode: fetch-proxy for auditing.'
   },
   {
     question: 'How hard is it to migrate from Iframely to Microlink?',
@@ -751,8 +574,8 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          When your buying profile is editorial CMS work — WordPress, CKEditor,
-          AMP, Shadow DOM widgets — Iframely's out-of-the-box integrations
+          When your buying profile is editorial CMS work (WordPress, CKEditor,
+          AMP, Shadow DOM widgets), Iframely's out-of-the-box integrations
           remove real work. Microlink does not ship those integrations as
           first-class plugins.
         </div>
@@ -764,7 +587,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "When your buying profile is editorial CMS work — WordPress, CKEditor, AMP, Shadow DOM widgets — Iframely's out-of-the-box integrations remove real work. When you depend on a specific long-tail publisher that Iframely curates and Microlink does not cover, that catalog gap is a real reason to stay. When four-nines uptime is contractually required, Iframely's 99.99% number is one tick above Microlink's 99.9% SLA."
+    text: "When your buying profile is editorial CMS work (WordPress, CKEditor, AMP, Shadow DOM widgets), Iframely's out-of-the-box integrations remove real work. When you depend on a specific long-tail publisher that Iframely curates and Microlink does not cover, that catalog gap is a real reason to stay. When four-nines uptime is contractually required, Iframely's 99.99% number is one tick above Microlink's 99.9% SLA."
   },
   {
     question: 'Is Microlink open source?',
@@ -823,11 +646,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Iframely</b> bills in hits, caps every plan at 50 req/s, and stays
-        focused on rich-media embeds. For the same <b>$49</b>, <b>Microlink</b>{' '}
-        gives you <b>46,000 requests</b> versus Iframely's <b>25,000 hits</b>,
-        transparent per-request pricing, no per-minute cap, plus screenshots,
-        PDF, and metadata in the same API.
+        For the same $49, Microlink gives you 46,000 requests versus Iframely’s
+        25,000 hits, with no per-minute cap.
       </Caption>
 
       <Flex
@@ -838,7 +658,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -875,7 +696,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -992,12 +813,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1049,20 +870,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-iframely:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-iframely:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/embed' css={theme({ fontSize: 0 })}>
-                  Explore the Embed API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/embed'>Explore the Embed API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1198,14 +1020,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Start with{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
-        </b>{' '}
-        — every Pro feature, no credit card, same edge network as paid plans.
+        </b>
+        : every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex
@@ -1213,14 +1036,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-iframely:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'iframely' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1248,7 +1073,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -1260,15 +1085,20 @@ const ComparisonSection = () => (
       >
         Based on Iframely's public docs, plans page, and API limits page.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Iframely']}
+        rows={COMPARISON_DATA}
+        competitorKey='iframely'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: May&nbsp;2026. Cells marked false mean we did not find
@@ -1283,78 +1113,16 @@ const ComparisonSection = () => (
  * --------------------------------------------------------------------------- */
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='iframely-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Iframely</GradientText>
-        <br /> Might Still Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might still be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1369,7 +1137,7 @@ const TryItSection = () => (
           textAlign: 'center'
         })}
       >
-        One URL, <span css='color: #fa5252;'>one</span> API call
+        One URL, <GradientText>one</GradientText> API call
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -1387,7 +1155,9 @@ const TryItSection = () => (
           pt: [3, 3, 4, 4],
           gap: [3, 3, 4, 4],
           flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center'
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink

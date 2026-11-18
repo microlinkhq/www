@@ -12,6 +12,10 @@ import {
 } from 'theme'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
+import {
+  ComparisonTable,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 import Faq from 'components/patterns/Faq/Faq'
 import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
@@ -54,10 +58,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -154,7 +154,7 @@ const BENCHMARK_DATA = {
 
 const SERVICE_COLORS = {
   microlink: colors.red6,
-  urlbox: colors.teal6
+  urlbox: colors.gray5
 }
 
 /* ---------------------------------------------------------------------------
@@ -199,93 +199,6 @@ const GradientText = styled('span')`
  * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'Screenshot capture', microlink: true, urlbox: true },
   { feature: 'Full-page screenshots', microlink: true, urlbox: true },
@@ -322,14 +235,12 @@ const COMPARISON_DATA = [
   {
     feature: 'Built-in proxy (auto-rotating residential)',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Antibot detection (30+ providers)',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Link previews',
@@ -340,55 +251,47 @@ const COMPARISON_DATA = [
       </>
     ),
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Browser chrome overlay',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Open-source core',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Remote JS execution (return values)',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
-  { feature: 'MCP server', microlink: true, urlbox: false, highlight: true },
+  { feature: 'MCP server', microlink: true, urlbox: false },
   {
     feature: 'Lighthouse audits',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Technology detection',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'Color palette extraction',
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: `Free tier (${FREE_PLAN_REQUESTS_PER_DAY} req/day, no expiry)`,
     microlink: true,
-    urlbox: false,
-    highlight: true
+    urlbox: false
   },
   {
     feature: 'GPU rendering',
-    microlink: 'on demand',
+    microlink: 'On demand',
     urlbox: true
   },
   {
@@ -425,7 +328,7 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'No-code integrations (Zapier, Airtable\u2026)',
-    microlink: 'partial',
+    microlink: 'Partial',
     urlbox: true
   },
   {
@@ -434,84 +337,6 @@ const COMPARISON_DATA = [
     urlbox: true
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-  return <span>{value}</span>
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Urlbox
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, urlbox, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={urlbox} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -663,7 +488,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Paid plans have no requests-per-minute cap — burst as high as your
+          Paid plans have no requests-per-minute cap. Burst as high as your
           concurrency allows. The only limit is your monthly request quota.
         </div>
         <div>
@@ -673,7 +498,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Paid plans have no requests-per-minute cap — burst as high as your concurrency allows. The only limit is your monthly request quota. Urlbox does not publish explicit per-minute rate limits, but its pricing tiers are based on successful renders, and higher throughput requires higher-tier plans.'
+    text: 'Paid plans have no requests-per-minute cap. Burst as high as your concurrency allows. The only limit is your monthly request quota. Urlbox does not publish explicit per-minute rate limits, but its pricing tiers are based on successful renders, and higher throughput requires higher-tier plans.'
   },
   {
     question: 'How does Microlink handle sites with cookie banners or ads?',
@@ -747,11 +572,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Urlbox</b> is a respected screenshot service with 10+&nbsp;years of
-        experience. If you care about cost per render and broader browser
-        workflows under one key, <b>Microlink</b> gives you, for the same $49,
-        46,000&nbsp;requests versus 5,000 on Urlbox Hi-Fi, while still
-        benchmarking <b>44% faster on average</b>.
+        For the same $49, Microlink gives you 46,000&nbsp;requests versus 5,000
+        on Urlbox Hi-Fi, and benchmarks 44% faster on average.
       </Caption>
 
       <Flex
@@ -762,7 +584,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -813,7 +636,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -825,15 +648,20 @@ const ComparisonSection = () => (
       >
         An honest look at what each API offers.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Urlbox']}
+        rows={COMPARISON_DATA}
+        competitorKey='urlbox'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: April&nbsp;2026. See each product's docs for the latest.
@@ -858,7 +686,7 @@ const SpeedSection = () => (
     description={
       <>
         We ran identical screenshot requests against both APIs from a New York
-        server and measured cold-start latency &mdash; no cache, no warm-up. The
+        server and measured cold-start latency: no cache, no warm-up. The
         numbers below are averages from 10&nbsp;independent benchmark runs at
         different hours.
       </>
@@ -877,7 +705,7 @@ const SpeedSection = () => (
         <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
           benchmark repo
         </Link>{' '}
-        is open — run it yourself and see. Last run: March&nbsp;2026.
+        is open. Run it yourself and see. Last run: March&nbsp;2026.
       </>
     }
   />
@@ -906,8 +734,8 @@ const WHY_SWITCH_ITEMS = [
       <>
         At 100k screenshots/month, saving ~3.2{'\u2009'}s per request recovers
         over <b>88&nbsp;hours of pipeline time</b>. Microlink is{' '}
-        <b>44% faster on average</b> — and up to <b>2.4× faster</b> on heavy
-        DOMs like vercel.com.
+        <b>44% faster on average</b>, and up to <b>2.4× faster</b> on heavy DOMs
+        like vercel.com.
       </>
     )
   },
@@ -929,7 +757,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Microlink gives you <b>{FREE_PLAN_REQUESTS_PER_DAY} requests/day</b>{' '}
         with every Pro feature, no credit card and no time limit. Urlbox only
-        offers a <b>7-day trial</b> — after that, you
+        offers a <b>7-day trial</b>. After that, you
         {'\u2019'}re on a paid plan or locked out.
       </>
     )
@@ -953,7 +781,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Metascraper, MQL, and Browserless are <b>MIT-licensed</b>. Inspect the
         core engine, fork it, or self-host.{' '}
-        <b>No black boxes, no vendor lock-in</b> — just code you can&nbsp;read.
+        <b>No black boxes, no vendor lock-in</b>, just code you can&nbsp;read.
       </>
     )
   }
@@ -1011,7 +839,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1088,7 +916,7 @@ const HONESTY_ITEMS = [
   {
     title: 'LLM-powered screenshot analysis',
     description:
-      'Urlbox integrates with OpenAI, Anthropic, Google AI, and more — analyze a screenshot with an LLM prompt in a single API call. Microlink does not have built-in LLM\u00a0integration.'
+      'Urlbox integrates with OpenAI, Anthropic, Google AI, and more. Analyze a screenshot with an LLM prompt in a single API call. Microlink does not have built-in LLM\u00a0integration.'
   },
   {
     title: 'Screenshots sent to your own bucket',
@@ -1113,78 +941,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='urlbox-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Urlbox</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1242,12 +1008,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1298,20 +1064,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-urlbox:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                pt: 3,
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-urlbox:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
-                  Explore the Screenshot API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/screenshot'>Explore the Screenshot API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1384,7 +1151,8 @@ const PricingSection = () => (
           textAlign: 'center',
           maxWidth: layout.small,
           mx: 'auto',
-          lineHeight: 2
+          lineHeight: 2,
+          textWrap: 'balance'
         })}
       >
         We can keep prices this low because our{' '}
@@ -1445,31 +1213,34 @@ const CTASection = () => (
       <Caption
         css={theme({
           color: 'white80',
+          pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
-        <br />
         Your first{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        </b>
+        : every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
         css={theme({
           gap: 3,
+          fontSize: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-urlbox:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'urlbox' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1495,7 +1266,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>faster</span> screenshots
+          Ship <GradientText>faster</GradientText> screenshots
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1542,7 +1313,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink

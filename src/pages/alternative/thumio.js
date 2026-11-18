@@ -13,6 +13,12 @@ import {
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
+import {
+  ComparisonTable,
+  FeatureTable,
+  TableCard,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 import Faq from 'components/patterns/Faq/Faq'
 import { SignupLink } from 'components/patterns/SignupLink'
 import RaceContainer from 'components/patterns/RaceContainer/RaceContainer'
@@ -54,10 +60,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -282,7 +284,7 @@ const BENCHMARK_DATA = {
 
 const SERVICE_COLORS = {
   microlink: colors.red6,
-  thumio: colors.cyan6
+  thumio: colors.gray5
 }
 
 const formatMb = bytes => `${(bytes / 1000000).toFixed(2)} MB`
@@ -350,93 +352,6 @@ const GradientText = styled('span')`
  * Comparison Table
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'Screenshot capture', microlink: true, thumio: true },
   {
@@ -466,29 +381,25 @@ const COMPARISON_DATA = [
   {
     feature: 'Element-level capture (CSS selector)',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   {
     feature: 'PDF generation',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   { feature: 'HTML rendering', microlink: true, thumio: false },
   {
     feature: 'Custom JS/CSS injection',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   { feature: 'Custom HTTP headers', microlink: true, thumio: false },
   { feature: 'Custom cookies', microlink: true, thumio: false },
   {
     feature: 'Hide/remove elements (CSS selectors)',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   { feature: 'Click/scroll interactions', microlink: true, thumio: false },
   { feature: 'Wait for selector', microlink: true, thumio: false },
@@ -497,20 +408,17 @@ const COMPARISON_DATA = [
   {
     feature: 'Built-in proxy',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   {
     feature: 'Antibot detection (30+ providers)',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   {
     feature: 'Metadata extraction',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   {
     feature: 'Link previews',
@@ -526,8 +434,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Open-source core',
     microlink: true,
-    thumio: false,
-    highlight: true
+    thumio: false
   },
   { feature: 'Remote JS execution', microlink: true, thumio: false },
   { feature: 'MCP server', microlink: true, thumio: false },
@@ -546,87 +453,6 @@ const COMPARISON_DATA = [
   { feature: 'Image resizing API', microlink: false, thumio: true },
   { feature: 'PDF-to-image conversion', microlink: false, thumio: true }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-
-  return (
-    <span css={theme({ display: 'block', textAlign: 'center' })}>{value}</span>
-  )
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '200px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Thum.io
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, thumio, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={thumio} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -689,11 +515,9 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Thum.io</b> is clever for ultra-cheap streamed website thumbnails.
-        When you need final screenshots, selectors, PDFs, metadata, and fewer
-        workarounds around modern pages, <b>Microlink</b> gives you a broader
-        API and{' '}
-        <b>{AVERAGE_MULTIPLIER}&times; lower average cold-start latency</b>.
+        Thum.io streams cheap thumbnails. Microlink returns final screenshots,
+        PDFs, and metadata with {AVERAGE_MULTIPLIER}&times; lower average
+        cold-start latency.
       </Caption>
 
       <Flex
@@ -704,7 +528,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -755,7 +580,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -767,15 +592,20 @@ const ComparisonSection = () => (
       >
         An honest look at what each API offers.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Thum.io']}
+        rows={COMPARISON_DATA}
+        competitorKey='thumio'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: April&nbsp;2026. See each product's docs for the latest.
@@ -822,16 +652,8 @@ const SpeedSection = () => (
         >
           Average image size
         </Text>
-        <Box
-          css={theme({
-            overflowX: 'auto',
-            WebkitOverflowScrolling: 'touch',
-            borderRadius: 4,
-            border: `${borders[1]} ${colors.black10}`,
-            bg: 'white'
-          })}
-        >
-          <FeatureTable>
+        <TableCard>
+          <FeatureTable css={theme({ minWidth: 'auto' })}>
             <thead>
               <tr>
                 <th>Provider</th>
@@ -853,7 +675,7 @@ const SpeedSection = () => (
                       <span
                         css={theme({
                           fontWeight: isMicrolink ? 'bold' : 'normal',
-                          color: isMicrolink ? colors.green7 : 'black'
+                          color: isMicrolink ? colors.secondary : 'black'
                         })}
                       >
                         {svc.name}
@@ -863,7 +685,7 @@ const SpeedSection = () => (
                       css={theme({
                         textAlign: 'right',
                         fontWeight: isMicrolink ? 'bold' : 'normal',
-                        color: isMicrolink ? colors.green7 : undefined
+                        color: isMicrolink ? colors.secondary : undefined
                       })}
                     >
                       {formatMb(row.avgImageSize)}
@@ -873,7 +695,7 @@ const SpeedSection = () => (
               })}
             </tbody>
           </FeatureTable>
-        </Box>
+        </TableCard>
       </>
     }
   >
@@ -1031,7 +853,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -1133,78 +955,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='thumio-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Thum.io</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1266,12 +1026,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1322,20 +1082,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-thumio:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                pt: 3,
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-thumio:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
-                  Explore the Screenshot API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/screenshot'>Explore the Screenshot API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1471,7 +1232,8 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Start with{' '}
@@ -1485,16 +1247,18 @@ const CTASection = () => (
       <Flex
         css={theme({
           gap: 3,
+          fontSize: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-thumio:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'thumio' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1521,7 +1285,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>final</span> screenshots faster
+          Ship <GradientText>final</GradientText> screenshots faster
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1568,7 +1332,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink

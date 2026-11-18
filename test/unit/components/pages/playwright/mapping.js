@@ -2,7 +2,7 @@ import React from 'react'
 import { describe, expect, test, vi } from 'vitest'
 
 import { Mapping } from '../../../../../src/components/pages/playwright/mapping'
-import { HIGHLIGHT_BG } from '../../../../../src/components/patterns/ProductStory/table'
+import { HIGHLIGHT_BG } from '../../../../../src/components/elements/Table/Table'
 import {
   renderWithStyles,
   rowBackground

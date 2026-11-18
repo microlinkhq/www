@@ -20,6 +20,10 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -54,10 +58,6 @@ const RaceHero = styled(Box)`
     }
   }
 `
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -154,7 +154,7 @@ const BENCHMARK_DATA = {
 
 const SERVICE_COLORS = {
   microlink: colors.red6,
-  screenshotapi: colors.grape7
+  screenshotapi: colors.gray5
 }
 
 /* ---------------------------------------------------------------------------
@@ -199,93 +199,6 @@ const GradientText = styled('span')`
  * Comparison Table (benchmark-style)
  * --------------------------------------------------------------------------- */
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
-
 const COMPARISON_DATA = [
   { feature: 'Screenshot capture', microlink: true, screenshotapi: true },
   { feature: 'Full-page screenshots', microlink: true, screenshotapi: true },
@@ -297,8 +210,7 @@ const COMPARISON_DATA = [
   {
     feature: 'PDF generation',
     microlink: true,
-    screenshotapi: true,
-    highlight: true
+    screenshotapi: true
   },
   { feature: 'HTML rendering', microlink: true, screenshotapi: true },
   { feature: 'Dark/light mode capture', microlink: true, screenshotapi: true },
@@ -328,20 +240,17 @@ const COMPARISON_DATA = [
   {
     feature: 'Built-in proxy',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Antibot detection (30+ providers)',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Metadata extraction',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Link previews',
@@ -352,26 +261,22 @@ const COMPARISON_DATA = [
       </>
     ),
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Browser chrome overlay',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Direct embed (no backend)',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Open-source core',
     microlink: true,
-    screenshotapi: false,
-    highlight: true
+    screenshotapi: false
   },
   {
     feature: 'Remote JS execution (return values)',
@@ -447,93 +352,15 @@ const COMPARISON_DATA = [
   },
   {
     feature: 'Granular resource blocking (15+ toggles)',
-    microlink: 'partial',
+    microlink: 'Partial',
     screenshotapi: true
   },
   {
     feature: 'No-code integrations (Zapier, Make, n8n\u2026)',
-    microlink: 'partial',
+    microlink: 'Partial',
     screenshotapi: true
   }
 ]
-
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-  return <span>{value}</span>
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '200px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            ScreenshotAPI
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, screenshotapi, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={screenshotapi} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
 
 /* ---------------------------------------------------------------------------
  * Pricing Comparison
@@ -596,10 +423,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>ScreenshotAPI</b> already covers screenshots, PDFs, bulk capture, and
-        scraping workflows. When you need metadata, link previews, and a broader
-        browser API from the same key, <b>Microlink</b> covers all of that and
-        is <b>33% faster than ScreenshotAPI on average</b>.
+        Microlink is 33% faster than ScreenshotAPI on average, and adds
+        metadata, link previews, and a broader browser API under the same key.
       </Caption>
 
       <Flex
@@ -610,7 +435,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -661,7 +487,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -673,15 +499,20 @@ const ComparisonSection = () => (
       >
         An honest look at what each API offers.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'ScreenshotAPI']}
+        rows={COMPARISON_DATA}
+        competitorKey='screenshotapi'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: April&nbsp;2026. See each product's docs for the latest.
@@ -727,7 +558,7 @@ const SpeedSection = () => (
         <Link href='https://github.com/microlinkhq/screenshot-benchmark'>
           benchmark repo
         </Link>{' '}
-        is open — run it yourself and see. Last run: March&nbsp;2026.
+        is open. Run it yourself and see. Last run: March&nbsp;2026.
       </>
     }
   />
@@ -788,7 +619,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Microlink <b>auto-rotates residential proxies</b> and detects{' '}
         <b>30+&nbsp;antibot providers</b> (Cloudflare, DataDome, Akamai
-        {'\u2026'}) on every request. No middleware, no extra parameter — make a
+        {'\u2026'}) on every request. No middleware, no extra parameter. Make a
         query and it just&nbsp;works.
       </>
     )
@@ -859,7 +690,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -961,78 +792,16 @@ const HONESTY_ITEMS = [
 ]
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='screenshotapi-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>ScreenshotAPI</GradientText>
-        <br /> Might Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1090,12 +859,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1130,7 +899,7 @@ const PricingSection = () => (
                 'No rate limit on any paid plan',
                 `${CDN_EDGES} edge nodes, 99.9%\u00a0SLA`,
                 'Open-source core (MIT licensed)',
-                '~$0.00107/request \u2014 8\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
+                '~$0.00107/request, 8\u00d7 cheaper than ScreenshotAPI\u00a0Essentials'
               ].map(item => (
                 <Text
                   as='li'
@@ -1146,20 +915,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-screenshotapi:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-screenshotapi:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/screenshot' css={theme({ fontSize: 0 })}>
-                  Explore the Screenshot API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/screenshot'>Explore the Screenshot API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1232,7 +1002,8 @@ const PricingSection = () => (
           textAlign: 'center',
           maxWidth: layout.small,
           mx: 'auto',
-          lineHeight: 2
+          lineHeight: 2,
+          textWrap: 'balance'
         })}
       >
         We can keep prices this low because our{' '}
@@ -1294,14 +1065,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Your first{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day are free
-        </b>{' '}
-        — every Pro feature, no credit card, no commitment.
+        </b>
+        : every Pro feature, no credit card, no commitment.
       </Caption>
 
       <Flex
@@ -1309,14 +1081,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-screenshotapi:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'screenshotapi' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1342,7 +1116,7 @@ const TryItSection = () => {
             textAlign: 'center'
           })}
         >
-          Ship <span css='color: #fa5252;'>faster</span> screenshots
+          Ship <GradientText>faster</GradientText> screenshots
         </Subhead>
         <Caption
           forwardedAs='div'
@@ -1389,7 +1163,9 @@ const TryItSection = () => {
             pt: [3, 3, 4, 4],
             gap: [3, 3, 4, 4],
             flexDirection: ['column', 'column', 'row', 'row'],
-            alignItems: 'center'
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            whiteSpace: 'nowrap'
           })}
         >
           <SignupLink
@@ -1619,7 +1395,7 @@ export const Head = () => (
             name: 'How does Microlink compare to ScreenshotAPI for screenshot quality?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: `Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 33% faster on average — up to 4× faster on full-page captures — due to its ${CDN_EDGES} edge node infrastructure.`
+              text: `Both services produce high-quality screenshots using Chromium. Microlink serves maximum quality with optimal compression by default and is 33% faster on average (up to 4× faster on full-page captures) due to its ${CDN_EDGES} edge node infrastructure.`
             }
           },
           {
@@ -1675,7 +1451,7 @@ export const Head = () => (
             name: 'What output formats does Microlink support?',
             acceptedAnswer: {
               '@type': 'Answer',
-              text: 'PNG, JPEG, and WebP for still screenshots, animated GIF and MP4 video for motion captures, and PDF generation — all from the same API endpoint.'
+              text: 'PNG, JPEG, and WebP for still screenshots, animated GIF and MP4 video for motion captures, and PDF generation, all from the same API endpoint.'
             }
           },
           {

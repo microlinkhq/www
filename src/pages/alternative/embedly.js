@@ -18,6 +18,10 @@ import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePri
 import { trackEvent } from 'helpers/gtag'
 import styled, { css } from 'styled-components'
 import React from 'react'
+import {
+  ComparisonTable,
+  ProductStrengths
+} from 'components/patterns/ProductStory'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
@@ -31,10 +35,6 @@ import Text from 'components/elements/Text'
 import { InteractiveExample } from 'components/pages/embed'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 import { DEFAULT_PLAN } from 'helpers/pro-plans'
-
-const BREAKPOINT_SMALL_MAX = breakpoints[0]
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const CTA_LINK_FONT_SIZE = [
   `calc(${fontSizes[2]} + ${space[1]})`,
@@ -112,8 +112,7 @@ const COMPARISON_DATA = [
   {
     feature: 'Remote JS execution',
     microlink: true,
-    embedly: false,
-    highlight: true
+    embedly: false
   },
   { feature: 'Wait for selector', microlink: true, embedly: false },
   { feature: 'Cookie banner blocking', microlink: true, embedly: false },
@@ -122,35 +121,30 @@ const COMPARISON_DATA = [
     feature: 'Rotating residential proxy (Pro)',
     microlink: true,
     embedly: false,
-    highlight: true,
     note: 'Microlink Pro routes each request through a fresh residential IP with automatic retry on block or throttle.'
   },
   {
     feature: 'Antibot detection & bypass (Pro)',
     microlink: true,
     embedly: false,
-    highlight: true,
     note: 'Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security.'
   },
   {
     feature: 'CAPTCHA handling (Pro)',
     microlink: true,
     embedly: false,
-    highlight: true,
-    note: 'reCAPTCHA v2/v3, hCaptcha, FunCaptcha, GeeTest, Cloudflare Turnstile — handled inside the API.'
+    note: 'reCAPTCHA v2/v3, hCaptcha, FunCaptcha, GeeTest, Cloudflare Turnstile: handled inside the API.'
   },
   {
     feature: 'Screenshot capture',
     microlink: true,
-    embedly: false,
-    highlight: true
+    embedly: false
   },
   { feature: 'Full-page screenshots', microlink: true, embedly: false },
   {
     feature: 'PDF generation',
     microlink: true,
-    embedly: false,
-    highlight: true
+    embedly: false
   },
   { feature: 'HTML rendering', microlink: true, embedly: false },
   { feature: 'Animated GIF / video output', microlink: true, embedly: false },
@@ -161,14 +155,12 @@ const COMPARISON_DATA = [
   {
     feature: 'MQL (structured data extraction)',
     microlink: true,
-    embedly: false,
-    highlight: true
+    embedly: false
   },
   {
     feature: 'Open-source core (MIT)',
     microlink: true,
-    embedly: false,
-    highlight: true
+    embedly: false
   },
   {
     feature: `${CDN_EDGES} CDN edge nodes`,
@@ -185,14 +177,12 @@ const COMPARISON_DATA = [
     feature: 'Free plan',
     microlink: '100/mo, no expiry',
     embedly: '30-day trial only',
-    highlight: true,
     note: 'Embedly offers a 30-day free trial on the API plan; Microlink keeps the free tier indefinitely.'
   },
   {
     feature: 'Per-request cost (entry API tier)',
     microlink: `$${MICROLINK_PRICE_PER_1000}/1,000 requests`,
-    embedly: `$${EMBEDLY_API_PRICE_PER_1000}/1,000 URLs`,
-    highlight: true
+    embedly: `$${EMBEDLY_API_PRICE_PER_1000}/1,000 URLs`
   },
   {
     feature: 'Publisher catalog size',
@@ -252,46 +242,6 @@ const GradientText = styled('span')`
   `}
 `
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
 const PriceCard = styled(Flex)`
   ${theme({
     flexDirection: 'column',
@@ -312,53 +262,6 @@ const PriceAmount = styled(Text)`
   })}
   font-variant-numeric: tabular-nums;
 `
-
-const Check = () => (
-  <span
-    css={theme({
-      color: 'green7',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center'
-    })}
-    aria-label='Yes'
-    role='img'
-  >
-    ✓
-  </span>
-)
-
-const Cross = () => (
-  <span
-    css={theme({
-      color: 'red5',
-      fontFamily: 'mono',
-      fontSize: 1,
-      display: 'block',
-      textAlign: 'center',
-      opacity: 0.7
-    })}
-    aria-label='No'
-    role='img'
-  >
-    ✕
-  </span>
-)
-
-const Partial = ({ children }) => (
-  <span
-    css={theme({
-      color: 'yellow7',
-      fontFamily: 'mono',
-      fontSize: 0,
-      display: 'block',
-      textAlign: 'center'
-    })}
-  >
-    {children || '~'}
-  </span>
-)
 
 const WhySwitchTimeline = styled(Flex)`
   position: relative;
@@ -420,7 +323,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly's API plan starts at <b>$119/month for 10,000 Embed URLs</b> and
         a separate 10,000 Extract URLs on top. Microlink is{' '}
-        <b>$49/month for 46,000 requests</b> across every endpoint — about{' '}
+        <b>$49/month for 46,000 requests</b> across every endpoint, about{' '}
         <b>${MICROLINK_PRICE_PER_1000}/1,000</b> vs Embedly's{' '}
         <b>${EMBEDLY_API_PRICE_PER_1000}/1,000</b>. The gap widens the second
         you outgrow the entry tier.
@@ -433,7 +336,7 @@ const WHY_SWITCH_ITEMS = [
     description: (
       <>
         Embedly meters <b>Embed</b>, <b>Extract</b>, and <b>Display</b> as three
-        separate quotas — each with its own monthly cap and overage rate.
+        separate quotas, each with its own monthly cap and overage rate.
         Microlink uses <b>one shared request budget</b>, so swapping between a
         card render, a metadata pull, and an iframe response does not require
         capacity planning per endpoint.
@@ -447,8 +350,8 @@ const WHY_SWITCH_ITEMS = [
       <>
         Embedly caps all paid tiers at <b>50 URLs per second</b>. Microlink has{' '}
         <b>no per-second or per-minute throttle on paid plans</b>, so spiky
-        traffic — link-preview rendering during an email blast, batch
-        re-indexing — does not require a custom contract.
+        traffic (link-preview rendering during an email blast, batch
+        re-indexing) does not require a custom contract.
       </>
     )
   },
@@ -460,9 +363,9 @@ const WHY_SWITCH_ITEMS = [
         Embedly fetches cooperative publisher endpoints. The moment a target
         sits behind <b>Cloudflare</b>, <b>DataDome</b>, <b>Akamai</b>, or any of
         the 9 antibot providers Microlink covers, Embedly has nothing to offer.
-        Microlink Pro folds three normally-separate stacks — a{' '}
+        Microlink Pro folds three normally-separate stacks (a{' '}
         <b>rotating residential proxy</b>, <b>antibot detection</b>, and{' '}
-        <b>CAPTCHA handling</b> — into the same $49 plan.
+        <b>CAPTCHA handling</b>) into the same $49 plan.
         <br />
         <br />
         <Link href='/features/proxy'>See how the proxy works</Link>.
@@ -477,7 +380,7 @@ const WHY_SWITCH_ITEMS = [
         Embedly's API plan offers a <b>30-day free trial</b> at base usage
         levels, then bills. Microlink's free tier is{' '}
         <b>{FREE_PLAN_REQUESTS_PER_DAY} requests/day forever</b>, with every Pro
-        feature, no credit card, on the same edge network as paid plans — usable
+        feature, no credit card, on the same edge network as paid plans, usable
         in production for low-volume integrations without a renewal clock.
       </>
     )
@@ -487,10 +390,10 @@ const WHY_SWITCH_ITEMS = [
     title: 'Open-source core, no black box',
     description: (
       <>
-        The components behind Microlink — <b>Metascraper</b>, <b>Browserless</b>
-        , and <b>MQL</b> — are <b>MIT licensed</b>. You can read the code, fork
-        it, or self-host. Embedly's pipeline is fully proprietary, which is fine
-        for many teams but harder to audit.
+        The components behind Microlink (<b>Metascraper</b>, <b>Browserless</b>,
+        and <b>MQL</b>) are <b>MIT licensed</b>. You can read the code, fork it,
+        or self-host. Embedly's pipeline is fully proprietary, which is fine for
+        many teams but harder to audit.
       </>
     )
   }
@@ -514,87 +417,6 @@ const HONESTY_ITEMS = [
   }
 ]
 
-const CellValue = ({ value }) => {
-  if (value === true) return <Check />
-  if (value === false) return <Cross />
-  if (value === 'partial' || value === 'on demand') {
-    const capitalized = value.charAt(0).toUpperCase() + value.slice(1)
-    return <Partial>{capitalized}</Partial>
-  }
-
-  return (
-    <span css={theme({ display: 'block', textAlign: 'center' })}>{value}</span>
-  )
-}
-
-const ComparisonTable = () => (
-  <Box
-    css={theme({
-      overflowX: 'auto',
-      WebkitOverflowScrolling: 'touch',
-      borderRadius: 4,
-      border: `${borders[1]} ${colors.black10}`,
-      bg: 'white'
-    })}
-  >
-    <FeatureTable>
-      <thead>
-        <tr>
-          <th css={{ minWidth: '220px' }}>Feature</th>
-          <th css={[theme({ textAlign: 'center' }), { minWidth: '120px' }]}>
-            <span css={textGradient}>Microlink</span>
-          </th>
-          <th
-            css={[
-              theme({ textAlign: 'center', color: 'black60' }),
-              { minWidth: '120px' }
-            ]}
-          >
-            Embedly
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        {COMPARISON_DATA.map(
-          ({ feature, microlink, embedly, highlight, note }) => (
-            <tr
-              key={feature}
-              css={{
-                background: highlight
-                  ? 'rgba(6, 125, 247, 0.03)'
-                  : 'transparent'
-              }}
-            >
-              <td css={theme({ fontWeight: 'regular' })}>
-                {feature}
-                {note && (
-                  <Text
-                    css={theme({
-                      fontSize: '11px',
-                      color: 'black40',
-                      pt: 1,
-                      lineHeight: 1
-                    })}
-                    as='div'
-                  >
-                    {note}
-                  </Text>
-                )}
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={microlink} />
-              </td>
-              <td css={theme({ textAlign: 'center' })}>
-                <CellValue value={embedly} />
-              </td>
-            </tr>
-          )
-        )}
-      </tbody>
-    </FeatureTable>
-  </Box>
-)
-
 /* ---------------------------------------------------------------------------
  * FAQ items (rendered + schema)
  * --------------------------------------------------------------------------- */
@@ -613,13 +435,13 @@ const FAQ_ITEMS = [
         </div>
         <div>
           The gap is not just about the headline rate. Embedly bills Embed,
-          Extract, and Display as three separate buckets — if your workload uses
+          Extract, and Display as three separate buckets. If your workload uses
           two of them, your effective price per useful URL is higher again.
           Microlink uses one shared bucket across every endpoint.
         </div>
       </>
     ),
-    text: `Embedly's API plan starts at $119/month for 10,000 Embed URLs, which works out to about $${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is $49/month for 46,000 requests, or roughly $${MICROLINK_PRICE_PER_1000}/1,000. On a per-URL basis Microlink is roughly ${PER_URL_MULTIPLIER}× cheaper at the entry tier. The gap is not just the headline rate — Embedly bills Embed, Extract, and Display as three separate buckets; Microlink uses one shared bucket.`
+    text: `Embedly's API plan starts at $119/month for 10,000 Embed URLs, which works out to about $${EMBEDLY_API_PRICE_PER_1000}/1,000. Microlink is $49/month for 46,000 requests, or roughly $${MICROLINK_PRICE_PER_1000}/1,000. On a per-URL basis Microlink is roughly ${PER_URL_MULTIPLIER}× cheaper at the entry tier. The gap is not just the headline rate. Embedly bills Embed, Extract, and Display as three separate buckets; Microlink uses one shared bucket.`
   },
   {
     question: 'What is the difference between Embedly Cards and the API plan?',
@@ -663,16 +485,16 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Embed and Extract — yes. Microlink's metadata endpoint returns the
-          same normalized fields Extract does (title, description, image,
-          author, publisher, oEmbed-style media) and the same iframe HTML
-          payload Embed returns for supported providers. Pass any URL to{' '}
+          Embed and Extract: yes. Microlink's metadata endpoint returns the same
+          normalized fields Extract does (title, description, image, author,
+          publisher, oEmbed-style media) and the same iframe HTML payload Embed
+          returns for supported providers. Pass any URL to{' '}
           <Link href='/embed'>the embed API</Link> and the response covers both
           jobs.
         </div>
         <div>
-          Display — partial. Embedly Display is an on-the-fly image transform
-          API (resize, crop, format conversion). Microlink does not provide
+          Display: partial. Embedly Display is an on-the-fly image transform API
+          (resize, crop, format conversion). Microlink does not provide
           equivalent image-transform capabilities. If image optimization is a
           load-bearing part of your stack, pair Microlink with a dedicated image
           CDN (Cloudinary, Imgix, ImageKit) rather than expecting Microlink to
@@ -680,7 +502,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: "Embed and Extract — yes. Microlink's metadata endpoint returns the same normalized fields Extract does and the same iframe HTML payload Embed returns for supported providers. Display — partial. Embedly Display is an on-the-fly image transform API. Microlink does not provide equivalent image-transform capabilities. Pair Microlink with a dedicated image CDN if you need image optimization."
+    text: "Embed and Extract: yes. Microlink's metadata endpoint returns the same normalized fields Extract does and the same iframe HTML payload Embed returns for supported providers. Display: partial. Embedly Display is an on-the-fly image transform API. Microlink does not provide equivalent image-transform capabilities. Pair Microlink with a dedicated image CDN if you need image optimization."
   },
   {
     question:
@@ -688,7 +510,7 @@ const FAQ_ITEMS = [
     answer: (
       <>
         <div>
-          Yes — on the Pro plan. Microlink auto-detects when a target site is
+          Yes, on the Pro plan. Microlink auto-detects when a target site is
           blocking the request, routes the call through a rotating residential
           IP pool, and adapts to the specific antibot or CAPTCHA provider in the
           way. That replaces three usual line items on your bill: a residential
@@ -708,7 +530,7 @@ const FAQ_ITEMS = [
         </div>
       </>
     ),
-    text: 'Yes — on the Pro plan. Microlink auto-detects when a target site is blocking the request, routes the call through a rotating residential IP pool, and adapts to the specific antibot or CAPTCHA provider. That replaces a residential proxy contract, an antibot detection tool, and a CAPTCHA solver subscription. Detection logic is open source as is-antibot. Supported antibot providers: Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security. Embedly does not advertise any equivalent capability.'
+    text: 'Yes, on the Pro plan. Microlink auto-detects when a target site is blocking the request, routes the call through a rotating residential IP pool, and adapts to the specific antibot or CAPTCHA provider. That replaces a residential proxy contract, an antibot detection tool, and a CAPTCHA solver subscription. Detection logic is open source as is-antibot. Supported antibot providers: Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security. Embedly does not advertise any equivalent capability.'
   },
   {
     question: 'How do I migrate from Embedly to Microlink?',
@@ -742,15 +564,15 @@ const FAQ_ITEMS = [
           stay. Embedly has been curating their provider list since 2009.
         </div>
         <div>
-          When image transformation is in your critical path — resizing,
-          cropping, or format converting — Embedly Display ships that as a
+          When image transformation is in your critical path (resizing,
+          cropping, or format converting), Embedly Display ships that as a
           first-class API while Microlink does not. And if you only need the
           drop-in Cards widget for a publisher site with no server-side API
           usage, the $14 Cards plan is genuinely the lower-priced entry.
         </div>
       </>
     ),
-    text: "When you depend on a long-tail publisher in Embedly's 1,000+ catalog that Microlink does not yet cover, the catalog gap is a real reason to stay. When image transformation is in your critical path — resizing, cropping, or format converting — Embedly Display ships that as a first-class API while Microlink does not. And if you only need the drop-in Cards widget for a publisher site with no server-side API usage, the $14 Cards plan is the lower-priced entry."
+    text: "When you depend on a long-tail publisher in Embedly's 1,000+ catalog that Microlink does not yet cover, the catalog gap is a real reason to stay. When image transformation is in your critical path (resizing, cropping, or format converting), Embedly Display ships that as a first-class API while Microlink does not. And if you only need the drop-in Cards widget for a publisher site with no server-side API usage, the $14 Cards plan is the lower-priced entry."
   },
   {
     question: 'Is Microlink open source?',
@@ -809,12 +631,8 @@ const Hero = () => (
           color: 'black80'
         })}
       >
-        <b>Embedly</b> charges <b>$119/month for 10,000 URLs</b> on its API
-        plan, splits Embed and Extract into separate quotas, and caps every paid
-        tier at <b>50 URLs/sec</b>. <b>Microlink</b> gives you{' '}
-        <b>46,000 requests for $49</b> across every endpoint — about{' '}
-        <b>{PER_URL_MULTIPLIER}× cheaper per URL</b>, no rate-limit ceiling,
-        plus a built-in residential proxy on the same plan.
+        Embedly charges $119/month for 10,000 URLs. Microlink gives you 46,000
+        requests for $49, about {PER_URL_MULTIPLIER}× cheaper per URL.
       </Caption>
 
       <Flex
@@ -825,7 +643,8 @@ const Hero = () => (
           gap: '16px',
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -862,7 +681,7 @@ const WhySwitchSection = () => (
   <Section as='section' id='why-switch' css={theme({ bg: 'pinky' })}>
     <SectionInner>
       <Subhead css={theme({ color: 'black', pb: [1, 2, 2, 2] })}>
-        Why <GradientText>Developers</GradientText> Switch
+        Why <GradientText>developers</GradientText> switch
       </Subhead>
       <Caption
         css={theme({
@@ -979,12 +798,12 @@ const PricingSection = () => (
             }}
           >
             <Badge
-              css={{
-                background: colors.blue0,
-                color: colors.blue8,
+              css={theme({
+                bg: 'pink0',
+                color: 'secondary',
                 alignSelf: 'flex-start',
-                marginBottom: '12px'
-              }}
+                mb: '12px'
+              })}
             >
               Microlink
             </Badge>
@@ -1036,20 +855,21 @@ const PricingSection = () => (
                 </Text>
               ))}
             </Box>
-            <Box css={theme({ pt: 3 })}>
-              <SignupLink
-                component={Link}
-                cta='alternative-embedly:pricing'
-                css={theme({ fontSize: 1, width: '100%', textAlign: 'center' })}
-              >
-                <Caps>Get your free API key</Caps>
+            <Flex
+              css={theme({
+                flexDirection: 'column',
+                alignItems: 'flex-start',
+                gap: 2,
+                pt: 3,
+                fontSize: 1,
+                whiteSpace: 'nowrap'
+              })}
+            >
+              <SignupLink cta='alternative-embedly:pricing'>
+                Get your free API key
               </SignupLink>
-              <Box css={theme({ pt: 2, textAlign: 'center' })}>
-                <Link href='/embed' css={theme({ fontSize: 0 })}>
-                  Explore the Embed API
-                </Link>
-              </Box>
-            </Box>
+              <Link href='/embed'>Explore the Embed API</Link>
+            </Flex>
           </PriceCard>
         </Box>
 
@@ -1094,7 +914,7 @@ const PricingSection = () => (
               '+10,000 Extract URLs, +25,000 Display images',
               `${PRICING.embedly.overage} (Embed / Extract) overage`,
               '50 URLs/sec rate limit across all paid plans',
-              '30-day free trial only — no permanent free tier',
+              '30-day free trial only, no permanent free tier',
               `$${EMBEDLY_API_PRICE_PER_1000} per 1,000 URLs at base`
             ].map(item => (
               <Text
@@ -1129,7 +949,7 @@ const PricingSection = () => (
         Honest caveat: Embedly's <b>$14 Cards</b> plan is cheaper than
         Microlink's $49 tier if your usage is purely client-side card widgets on
         a small publisher site. The comparison above is the API plan vs API plan
-        match-up — that's where the {VOLUME_MULTIPLIER}× volume gap and the{' '}
+        match-up. That's where the {VOLUME_MULTIPLIER}× volume gap and the{' '}
         {PER_URL_MULTIPLIER}× per-URL gap actually show up.
       </Text>
     </SectionInner>
@@ -1186,14 +1006,15 @@ const CTASection = () => (
           color: 'white80',
           pt: 3,
           pb: [3, 3, 4, 4],
-          maxWidth: layout.large
+          maxWidth: layout.large,
+          textWrap: 'balance'
         })}
       >
         Start with{' '}
         <b css={theme({ color: 'white' })}>
           {FREE_PLAN_REQUESTS_PER_DAY}&nbsp;requests/day free
-        </b>{' '}
-        — every Pro feature, no credit card, same edge network as paid plans.
+        </b>
+        : every Pro feature, no credit card, same edge network as paid plans.
       </Caption>
 
       <Flex
@@ -1201,14 +1022,16 @@ const CTASection = () => (
           gap: 3,
           flexWrap: 'wrap',
           alignItems: 'center',
-          justifyContent: 'center'
+          justifyContent: 'center',
+          fontSize: 3,
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
           cta='alternative-embedly:footer-cta'
           onClick={() =>
             trackEvent('alternative cta', { competitor: 'embedly' })}
-          css={theme({ fontSize: 3, px: 5, py: 3, color: 'white' })}
+          css={theme({ px: 5, py: 3, color: 'white' })}
         >
           Get your free API key
         </SignupLink>
@@ -1236,7 +1059,7 @@ const ComparisonSection = () => (
   >
     <SectionInner>
       <Subhead css={theme({ pb: [2, 2, 3, 3], pt: 4 })}>
-        <GradientText>Feature-by-Feature</GradientText> Comparison
+        <GradientText>Feature-by-feature</GradientText> comparison
       </Subhead>
       <Caption
         css={theme({
@@ -1248,15 +1071,20 @@ const ComparisonSection = () => (
       >
         Based on Embedly's public docs, plans page, and API documentation.
       </Caption>
-      <ComparisonTable />
+      <ComparisonTable
+        columns={['Microlink', 'Embedly']}
+        rows={COMPARISON_DATA}
+        competitorKey='embedly'
+        featureLabel='Feature'
+      />
       <Text
         css={theme({
           pt: 4,
           pb: 4,
-          fontSize: '12px',
-          color: 'black40',
-          textAlign: 'center',
-          fontFamily: 'mono'
+          fontSize: 0,
+          color: 'black60',
+          lineHeight: 2,
+          textAlign: 'center'
         })}
       >
         Last verified: May&nbsp;2026. Cells marked false mean we did not find
@@ -1271,78 +1099,16 @@ const ComparisonSection = () => (
  * --------------------------------------------------------------------------- */
 
 const HonestySection = () => (
-  <Section
-    as='section'
+  <ProductStrengths
     id='embedly-strengths'
-    css={theme({ bg: 'gray0', px: 5, pt: 5, pb: 6 })}
-  >
-    <SectionInner>
-      <Subhead css={theme({ pb: [4, 4, 5, 5], pt: 3 })}>
+    title={
+      <>
         Where <GradientText>Embedly</GradientText>
-        <br /> Might Still Be the Right Choice
-      </Subhead>
-
-      <Box
-        css={theme({
-          maxWidth: layout.normal,
-          width: '100%',
-          mx: 'auto'
-        })}
-      >
-        {HONESTY_ITEMS.map(({ title, description }, index) => {
-          const isLast = index === HONESTY_ITEMS.length - 1
-          return (
-            <Flex
-              key={title}
-              css={theme({
-                flexDirection: 'row',
-                alignItems: 'baseline',
-                py: [3, 3, 3, 3],
-                borderBottom: isLast ? 0 : 1,
-                borderBottomColor: 'black05'
-              })}
-            >
-              <Text
-                css={theme({
-                  fontFamily: 'mono',
-                  fontSize: 0,
-                  color: 'black20',
-                  flexShrink: 0,
-                  mr: [3, 3, 4, 4],
-                  minWidth: '24px'
-                })}
-                aria-hidden='true'
-              >
-                {String(index + 1).padStart(2, '0')}
-              </Text>
-              <Box css={theme({ flex: 1, minWidth: 0 })}>
-                <Text
-                  css={theme({
-                    fontWeight: 'bold',
-                    fontSize: [1, 1, 2, 2],
-                    color: 'black',
-                    pb: 1
-                  })}
-                >
-                  {title}
-                </Text>
-                <Text
-                  css={theme({
-                    fontSize: [0, 0, 1, 1],
-                    color: 'black50',
-                    lineHeight: 2,
-                    maxWidth: '40em'
-                  })}
-                >
-                  {description}
-                </Text>
-              </Box>
-            </Flex>
-          )
-        })}
-      </Box>
-    </SectionInner>
-  </Section>
+        <br /> might still be the right choice
+      </>
+    }
+    items={HONESTY_ITEMS}
+  />
 )
 
 /* ---------------------------------------------------------------------------
@@ -1357,7 +1123,7 @@ const TryItSection = () => (
           textAlign: 'center'
         })}
       >
-        One URL, <span css='color: #fa5252;'>one</span> API call
+        One URL, <GradientText>one</GradientText> API call
       </Subhead>
       <Caption
         forwardedAs='div'
@@ -1375,7 +1141,9 @@ const TryItSection = () => (
           pt: [3, 3, 4, 4],
           gap: [3, 3, 4, 4],
           flexDirection: ['column', 'column', 'row', 'row'],
-          alignItems: 'center'
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          whiteSpace: 'nowrap'
         })}
       >
         <SignupLink
@@ -1414,7 +1182,7 @@ const FAQSection = () => (
 export const Head = () => (
   <Meta
     title='Embedly Alternative with Lower Per-URL Pricing'
-    description="Microlink gives you 46,000 requests for $49 versus Embedly's 10,000 URLs for $119 — roughly 11x cheaper per request, no 50 URLs/sec cap, plus a built-in residential proxy on the same plan."
+    description="Microlink gives you 46,000 requests for $49 versus Embedly's 10,000 URLs for $119: roughly 11x cheaper per request, no 50 URLs/sec cap, plus a built-in residential proxy on the same plan."
     schemaType='WebPage'
     structured={[
       {

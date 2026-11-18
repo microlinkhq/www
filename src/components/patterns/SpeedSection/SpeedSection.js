@@ -17,6 +17,7 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
+import { Cross, FeatureTable, TableCard } from 'components/elements/Table/Table'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
@@ -44,73 +45,17 @@ const SectionInner = styled(Container)`
   })}
 `
 
-const FeatureTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
+const PerUrlTable = styled(FeatureTable)`
+  min-width: 0;
 
   th,
   td {
-    padding: ${SPACE_10} ${SPACE_14};
-    ${theme({ textAlign: 'left', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-
-    @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-      padding: ${space[2]} ${SPACE_10};
-      white-space: normal;
-      word-break: break-word;
-    }
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
-  }
-
-  td {
-    ${theme({ color: 'black' })};
-  }
-
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
-`
-
-const PerUrlTable = styled('table')`
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  font-variant-numeric: tabular-nums;
-  table-layout: auto;
-
-  th,
-  td {
-    padding: ${space[2]} ${SPACE_12};
-    ${theme({ textAlign: 'right', fontSize: 0, fontFamily: 'mono' })};
-    border-bottom: ${borders[1]} ${colors.black05};
-    white-space: nowrap;
-  }
-
-  th {
-    font-weight: 600;
-    text-transform: uppercase;
-    ${theme({ color: 'black', fontSize: 0 })};
-    border-bottom: ${borders[1]} ${colors.black10};
+    ${theme({ textAlign: 'right', whiteSpace: 'nowrap' })}
   }
 
   th:first-child,
   td:first-child {
-    text-align: left;
-    font-weight: 500;
-    ${theme({ color: 'black' })};
+    ${theme({ textAlign: 'left', color: 'black' })}
   }
 
   th:last-child,
@@ -119,26 +64,27 @@ const PerUrlTable = styled('table')`
       display: none;
     }
   }
+`
 
-  tbody tr:last-child td {
-    border-bottom: 0;
-  }
-
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
+const AverageFeatureTable = styled(FeatureTable)`
+  min-width: 0;
 `
 
 const CellHighlight = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'green7' })};
+  ${theme({ fontWeight: 'bold', color: 'secondary' })};
 `
 
 const CellLoser = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'red8' })};
+  ${theme({ color: 'black50' })};
 `
 
 const MobileCards = styled('div')`
-  ${theme({ display: 'none', flexDirection: 'column', width: '100%' })};
+  ${theme({
+    display: 'none',
+    flexDirection: 'column',
+    width: '100%',
+    fontFamily: 'sans'
+  })};
   gap: ${SPACE_12};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
@@ -147,15 +93,14 @@ const MobileCards = styled('div')`
 `
 
 const MobileCard = styled('div')`
-  ${theme({ borderRadius: 4, bg: 'white' })};
+  ${theme({ borderRadius: 3, bg: 'white' })};
   border: ${borders[1]} ${colors.black10};
   overflow: hidden;
 `
 
 const MobileCardHeader = styled('div')`
   ${theme({
-    fontFamily: 'mono',
-    fontSize: 0,
+    fontSize: 1,
     fontWeight: 'bold',
     bg: 'black05'
   })};
@@ -169,8 +114,7 @@ const MobileCardRow = styled('div')`
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    fontFamily: 'mono',
-    fontSize: 0
+    fontSize: 1
   })};
   padding: ${space[2]} ${SPACE_14};
   font-variant-numeric: tabular-nums;
@@ -189,7 +133,7 @@ const MobileCardName = styled('span')`
 const MobileCardTime = styled('span')`
   font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
   color: ${({ $isMin, $isMax }) =>
-    $isMin ? colors.green7 : $isMax ? colors.red8 : colors.black};
+    $isMin ? colors.secondary : $isMax ? colors.black50 : colors.black};
 `
 
 const urlTimes = (benchmark, services, url) =>
@@ -207,7 +151,7 @@ const ColdStartTable = ({ benchmark, services }) => (
           <th
             key={key}
             css={theme({
-              color: key === 'microlink' ? colors.green7 : colors.black
+              color: key === 'microlink' ? colors.secondary : colors.black
             })}
           >
             {benchmark.results[key].name}
@@ -270,9 +214,9 @@ const ColdStartTable = ({ benchmark, services }) => (
                     fontWeight: 'bold',
                     borderTop: `${borders[1]} ${colors.black10}`,
                     color: isMin
-                      ? colors.green7
+                      ? colors.secondary
                       : isMax
-                        ? colors.red8
+                        ? colors.black50
                         : colors.black
                   })}
                 >
@@ -323,7 +267,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
   const microAvg = benchmark.results.microlink.summary.avgColdDuration
 
   return (
-    <FeatureTable>
+    <AverageFeatureTable>
       <thead>
         <tr>
           <th>Provider</th>
@@ -350,7 +294,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
                 <span
                   css={theme({
                     fontWeight: isMicrolink ? 'bold' : 'normal',
-                    color: isMicrolink ? colors.green7 : 'black'
+                    color: isMicrolink ? colors.secondary : 'black'
                   })}
                 >
                   {svc.name}
@@ -360,7 +304,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
                 css={theme({
                   textAlign: 'right',
                   fontWeight: isMicrolink ? 'bold' : 'normal',
-                  color: isMicrolink ? colors.green7 : undefined
+                  color: isMicrolink ? colors.secondary : undefined
                 })}
               >
                 {formatMsDecimal(avg)}&thinsp;ms
@@ -368,16 +312,16 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
               <td
                 css={theme({
                   textAlign: 'right',
-                  color: isMicrolink ? colors.green7 : 'black'
+                  color: isMicrolink ? colors.secondary : 'black'
                 })}
               >
-                {isMicrolink ? '—' : `+${pctSlower}% slower`}
+                {isMicrolink ? <Cross /> : `+${pctSlower}% slower`}
               </td>
             </tr>
           )
         })}
       </tbody>
-    </FeatureTable>
+    </AverageFeatureTable>
   )
 }
 
@@ -386,8 +330,7 @@ const Footnote = ({ children }) => (
     css={theme({
       pt: 4,
       fontSize: 0,
-      color: 'black40',
-      fontFamily: 'mono',
+      color: 'black60',
       lineHeight: 2
     })}
   >
@@ -471,39 +414,22 @@ const SpeedSection = ({
         >
           <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <TableTitle>Cold-start latency by&nbsp;URL</TableTitle>
-            <Box
-              css={theme({
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                borderRadius: 4,
-                border: `${borders[1]} ${colors.black10}`,
-                bg: 'white',
-                display: ['none', 'block']
-              })}
-            >
+            <TableCard css={theme({ display: ['none', 'block'] })}>
               <ColdStartTable benchmark={benchmark} services={services} />
-            </Box>
+            </TableCard>
 
             <ColdStartCards benchmark={benchmark} services={services} />
           </Box>
 
           <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <TableTitle>Average cold-start latency</TableTitle>
-            <Box
-              css={theme({
-                overflowX: 'auto',
-                WebkitOverflowScrolling: 'touch',
-                borderRadius: 4,
-                border: `${borders[1]} ${colors.black10}`,
-                bg: 'white'
-              })}
-            >
+            <TableCard>
               <AverageTable
                 benchmark={benchmark}
                 services={services}
                 floorPctSlower={floorPctSlower}
               />
-            </Box>
+            </TableCard>
             {note && (
               <Box
                 css={theme({
