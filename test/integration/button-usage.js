@@ -41,7 +41,12 @@ const iconNamesOf = src => {
   return [...named, ...defaults, 'FeatherIcon', 'ButtonIcon']
 }
 
-const visibleLabel = body => body.replace(/<[^>]*>/g, '').trim()
+const visibleLabel = body =>
+  body
+    .replace(/<[^>]*>/g, '')
+    .replace(/\{[^{}]*\?[\s():]*:[^{}]*\}/g, '')
+    .replace(/\{[^{}]*&&[\s()]*\}/g, '')
+    .trim()
 
 const keepsIcon = (openingTag, body) =>
   /aria-label=/.test(openingTag) && visibleLabel(body) === ''
@@ -79,6 +84,38 @@ const elementsIn = sourceMap => {
   })
 }
 
+const balancedBlock = (src, openAt) => {
+  let depth = 0
+  for (let i = openAt; i < src.length; i++) {
+    const c = src[i]
+    if (c === '/' && src[i + 1] === '/') {
+      const nl = src.indexOf('\n', i + 2)
+      i = nl === -1 ? src.length : nl
+      continue
+    }
+    if (c === '/' && src[i + 1] === '*') {
+      const end = src.indexOf('*/', i + 2)
+      i = end === -1 ? src.length : end + 1
+      continue
+    }
+    if (c === "'" || c === '"' || c === '`') {
+      const q = c
+      i++
+      while (i < src.length && src[i] !== q) {
+        if (src[i] === '\\') i++
+        i++
+      }
+      continue
+    }
+    if (c === '{') depth++
+    else if (c === '}') {
+      depth--
+      if (depth === 0) return src.slice(openAt + 1, i)
+    }
+  }
+  return ''
+}
+
 const variantViolations = sourceMap => {
   const fromCallSites = elementsIn(sourceMap).flatMap(({ openingTag, where }) =>
     [...openingTag.matchAll(VARIANT_PROP())].map(([, value]) => ({
@@ -87,16 +124,19 @@ const variantViolations = sourceMap => {
     }))
   )
   const fromStyledAttrs = [...sourceMap].flatMap(([file, src]) =>
-    [...src.matchAll(/styled\(Button\)\.attrs\(\{([^}]*)\}\)/g)].flatMap(
-      match =>
-        [...match[1].matchAll(VARIANT_PROP())].map(([, value]) => ({
+    [...src.matchAll(/styled\(Button\)\.attrs\(/g)].flatMap(match => {
+      const brace = src.indexOf('{', match.index + match[0].length)
+      if (brace === -1) return []
+      return [...balancedBlock(src, brace).matchAll(VARIANT_PROP())].map(
+        ([, value]) => ({
           value,
           where: `${relative(file)}:${lineAt(
             src,
             match.index
           )} styled(Button).attrs`
-        }))
-    )
+        })
+      )
+    })
   )
   return [...fromCallSites, ...fromStyledAttrs]
     .filter(({ value }) => !VARIANTS.includes(value))
@@ -242,6 +282,62 @@ describe('button rules accept the real variants and reject the others', () => {
     expect(
       iconViolations(fixture('<Button aria-label="Run"><svg /></Button>'))
     ).toEqual([])
+    expect(
+      iconViolations(
+        fixture(
+          '<Button aria-label="Playback">{playing ? <svg /> : <svg />}</Button>'
+        )
+      )
+    ).toEqual([])
+    expect(
+      iconViolations(
+        fixture('<Button aria-label="Playback">{playing && <svg />}</Button>')
+      )
+    ).toEqual([])
+    expect(
+      iconViolations(
+        fixture(
+          '<Button aria-label="Playback">{playing ? \'Pause\' : <svg />}</Button>'
+        )
+      )
+    ).toHaveLength(1)
+  })
+
+  test('a variant after a nested attrs object is still checked', () => {
+    expect(
+      variantViolations(
+        fixture(
+          "const X = styled(Button).attrs({ style: { width: '100%' }, variant: 'black' })``"
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      variantViolations(
+        fixture(
+          "const X = styled(Button).attrs({ style: { width: '100%' }, variant: 'featured' })``"
+        )
+      )
+    ).toEqual([])
+    expect(
+      variantViolations(
+        fixture(
+          "const X = styled(Button).attrs({ label: '}', variant: 'black' })``"
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      variantViolations(
+        fixture(
+          "const X = styled(Button).attrs({ /* } */ variant: 'black' })``"
+        )
+      )
+    ).toHaveLength(1)
+    expect(
+      variantViolations(
+        fixture(`const X = styled(Button).attrs({ // }
+variant: 'black' })\`\``)
+      )
+    ).toHaveLength(1)
   })
 
   test.each(['fontSize', 'fontWeight', 'letterSpacing', 'textTransform'])(
