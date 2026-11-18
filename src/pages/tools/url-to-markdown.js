@@ -1543,7 +1543,7 @@ const Omnibar = ({ options, setOptions, onSubmit, isLoading }) => {
           loading={isLoading}
           css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <Caps css={theme({ fontSize: 0 })}>Convert</Caps>
+          Convert
         </Button>
       </Flex>
       {urlError

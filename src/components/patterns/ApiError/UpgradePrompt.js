@@ -61,7 +61,6 @@ const EntryPlanCheckout = ({ cta }) => {
         mt: 4,
         px: 4,
         py: 3,
-        fontSize: 1,
         borderRadius: 3,
         boxShadow: 2,
         whiteSpace: 'normal'

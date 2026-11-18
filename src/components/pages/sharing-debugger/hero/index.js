@@ -10,7 +10,6 @@ import { Button } from 'components/elements/Button/Button'
 import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
 import { Metatags } from 'components/pages/sharing-debugger/metatags'
-import Caps from 'components/elements/Caps'
 import FetchProvider from 'components/patterns/FetchProvider'
 import Caption from 'components/patterns/Caption/Caption'
 import { isDevelopment } from 'helpers/is-development'
@@ -193,7 +192,7 @@ export const Hero = () => {
                     css={theme({ mt: [3, 3, 0, 0], ml: [0, 2, 2, 2] })}
                     loading={isLoading}
                   >
-                    <Caps css={theme({ fontSize: 1 })}>Preview</Caps>
+                    Preview
                   </Button>
                 </Flex>
               </Flex>

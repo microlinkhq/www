@@ -45,7 +45,7 @@ function styledComponentsPlugin () {
 
 export default {
   stories: ['../src/**/*.stories.jsx'],
-  addons: ['@storybook/addon-a11y'],
+  addons: ['@storybook/addon-a11y', 'storybook-addon-pseudo-states'],
   framework: '@storybook/react-vite',
   core: {
     disableTelemetry: true

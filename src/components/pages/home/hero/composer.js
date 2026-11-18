@@ -1,6 +1,6 @@
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
-import Spinner from 'components/elements/Spinner'
 import { blink } from 'components/keyframes'
 import { escText } from 'helpers/link-card'
 import { transition, theme, colors } from 'theme'
@@ -8,8 +8,11 @@ import { rgba } from 'polished'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import { GRADIENT, GlyphBadge, VertGlyph, reduceMotion } from './primitives'
+import { GlyphBadge, VertGlyph, reduceMotion } from './primitives'
 import { VerticalMenu } from './vertical-menu'
+
+const RUN_BUTTON_PADDING = '12px'
+const CONTROL_RADIUS = '10px'
 
 const composerFocus = css`
   ${theme({
@@ -45,7 +48,11 @@ const Composer = styled.div`
 `
 
 const ComposerEditor = styled.div`
-  outline: none;
+  &,
+  &:focus-visible {
+    outline: none;
+  }
+
   cursor: text;
   scrollbar-width: none;
   ${theme({
@@ -207,7 +214,7 @@ const VertChip = styled.button`
     flexShrink: 0,
     textAlign: 'left',
     bg: 'white',
-    borderRadius: '10px',
+    borderRadius: CONTROL_RADIUS,
     py: '5px',
     pr: '9px',
     pl: '6px'
@@ -218,38 +225,15 @@ const VertChip = styled.button`
   }
 `
 
-const RunButton = styled.button`
-  cursor: pointer;
-  background: ${GRADIENT};
-  transition: transform ${transition.short}, filter ${transition.short};
+const RunButton = styled(Button).attrs({ variant: 'featured' })`
   ${theme({
-    border: 0,
-    width: '42px',
-    height: '42px',
-    borderRadius: '12px',
-    display: 'flex',
+    display: 'inline-flex',
     alignItems: 'center',
     justifyContent: 'center',
+    px: RUN_BUTTON_PADDING,
     flexShrink: 0
   })};
-
-  @media (hover: hover) and (pointer: fine) {
-    &:hover {
-      transform: translateY(-1px);
-      filter: brightness(1.06);
-    }
-  }
-
-  &:active {
-    transform: scale(0.97);
-  }
-
-  &:disabled {
-    opacity: 0.45;
-    cursor: default;
-    transform: none;
-    filter: none;
-  }
+  --button-radius: ${CONTROL_RADIUS};
 `
 
 export const HeroComposer = ({
@@ -386,33 +370,23 @@ export const HeroComposer = ({
       <RunButton
         type='button'
         aria-label='Run'
-        aria-busy={req.status === 'loading'}
+        loading={req.status === 'loading'}
         onClick={handleRun}
         disabled={!canRun}
       >
-        {req.status === 'loading'
-          ? (
-            <Spinner
-              color='white'
-              width='20px'
-              height='20px'
-              style={{ padding: 0 }}
-            />
-            )
-          : (
-            <svg
-              width='20'
-              height='20'
-              viewBox='0 0 24 24'
-              fill='none'
-              stroke='#fff'
-              strokeWidth='2.4'
-              strokeLinecap='round'
-              strokeLinejoin='round'
-            >
-              <path d='M5 12h14M13 6l6 6-6 6' />
-            </svg>
-            )}
+        <svg
+          width='20'
+          height='20'
+          viewBox='0 0 24 24'
+          fill='none'
+          stroke='currentColor'
+          strokeWidth='2.4'
+          strokeLinecap='round'
+          strokeLinejoin='round'
+          aria-hidden='true'
+        >
+          <path d='M5 12h14M13 6l6 6-6 6' />
+        </svg>
       </RunButton>
     </Flex>
   </Composer>

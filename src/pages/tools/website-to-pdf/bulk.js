@@ -1469,7 +1469,6 @@ const OptionsPanel = ({
           type='button'
           onClick={handleSubmit}
           disabled={isLoading}
-          loading={isLoading}
         >
           <Flex
             css={{
@@ -1485,14 +1484,13 @@ const OptionsPanel = ({
                   Generating {bulkProgress.current} of {bulkProgress.total}…
                 </>
                 )
-              : (
-                <>
-                  <FileText size={16} />
-                  {detectedUrls.length > 1
-                    ? `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
-                    : 'Generate PDF'}
-                </>
-                )}
+              : detectedUrls.length > 1
+                ? (
+              `Generate ${Math.min(detectedUrls.length, MAX_URLS)} PDFs`
+                  )
+                : (
+                    'Generate PDF'
+                  )}
           </Flex>
         </GenerateButton>
       </StickyGenerateWrapper>
@@ -2250,7 +2248,7 @@ const BulkPreview = ({
               css={theme({ mt: 2 })}
               aria-label='Start a new batch of PDFs'
             >
-              <Caps css={theme({ fontSize: 0 })}>Generate more PDFs</Caps>
+              Generate more PDFs
             </Button>
           )}
         </Flex>

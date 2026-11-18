@@ -1,8 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, test } from 'vitest'
+import { SRC, tagEndAt, walk } from '../utils/jsx-source'
 
-const SRC = path.join(process.cwd(), 'src')
 const COMPONENTS = ['Heading', 'Subhead', 'Caption']
 const PROP = /(fontSize|lineHeight|letterSpacing)\s*[:=]/
 const SANCTIONED = [
@@ -12,53 +12,8 @@ const SANCTIONED = [
 ]
 const SKIP = /\.stories\.|[\\/]story\.jsx$|[\\/]Legend[\\/]/
 
-const walk = dir =>
-  fs.readdirSync(dir, { withFileTypes: true }).flatMap(entry => {
-    const full = path.join(dir, entry.name)
-    if (entry.isDirectory()) {
-      return entry.name === 'node_modules' ? [] : walk(full)
-    }
-    return /\.[jt]sx?$/.test(entry.name) ? [full] : []
-  })
-
 const isSanctioned = openingTag =>
   SANCTIONED.some(rule => rule.test(openingTag))
-
-const tagEndAt = (src, from) => {
-  let depth = 0
-  let quote = null
-  const tmpl = []
-  for (let i = from; i < src.length; i++) {
-    const c = src[i]
-    if (quote) {
-      if (c === '\\') {
-        i++
-      } else if (quote === '`' && c === '$' && src[i + 1] === '{') {
-        tmpl.push(depth)
-        depth++
-        quote = null
-        i++
-      } else if (c === quote) {
-        quote = null
-      }
-      continue
-    }
-    if (c === "'" || c === '"' || c === '`') {
-      quote = c
-    } else if (c === '{' || c === '[' || c === '(') {
-      depth++
-    } else if (c === '}' || c === ']' || c === ')') {
-      depth--
-      if (tmpl.length && depth === tmpl[tmpl.length - 1]) {
-        tmpl.pop()
-        quote = '`'
-      }
-    } else if (c === '>' && depth === 0) {
-      return i
-    }
-  }
-  return -1
-}
 
 const findOverrides = file => {
   const open = new RegExp(`<(${COMPONENTS.join('|')})(Base)?\\b`, 'g')

@@ -3,8 +3,7 @@ import {
   theme as themeProp,
   colors,
   cx,
-  space,
-  gradient,
+  radii,
   touchTargets
 } from 'theme'
 import styled, { css } from 'styled-components'
@@ -12,12 +11,12 @@ import Box from '../Box'
 import React, { forwardRef } from 'react'
 import { withSpinner } from 'helpers/hoc/with-spinner'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
+import { shimmerStyle } from './shimmer'
 
-const getVariant = ({ theme, variant }) => {
-  const { background = 'link', color = 'white' } =
-    theme.variants.buttons[variant] || {}
-  return { background, color }
-}
+const DEFAULT_VARIANT = 'default'
+
+const getVariant = ({ theme, variant }) =>
+  theme.variants.buttons[variant] || theme.variants.buttons[DEFAULT_VARIANT]
 
 export const hoverStyle = ({ theme, variant }) => {
   const { background, color } = getVariant({ theme, variant })
@@ -27,7 +26,7 @@ export const hoverStyle = ({ theme, variant }) => {
     cursor: 'pointer',
     background: hoverBackground,
     color: hoverColor,
-    boxShadow: `0 0 0 1px ${hoverColor}`
+    boxShadow: `0 0 1px 1px ${hoverColor}`
   }
 }
 
@@ -36,6 +35,8 @@ const StyledButton = styled(Box).withConfig({
 })`
   transition: background-color ${transition.short}, color ${transition.short},
     box-shadow ${transition.short}, transform ${transition.short};
+  --button-radius: ${radii[2]};
+  border-radius: var(--button-radius);
   appearance: none;
   display: inline-block;
   text-align: center;
@@ -55,47 +56,30 @@ const StyledButton = styled(Box).withConfig({
     }
   }
 
-  &:focus-visible {
-    outline: 2px solid ${colors.link};
-    outline-offset: 2px;
-  }
-
-  ${({ variant }) =>
-    variant === 'gradient' &&
-    `
-    &&& {
-      transition: filter ${transition.short}, transform ${transition.short};
-      background: ${gradient};
-      padding: ${space[1]};
-      @media (hover: hover) and (pointer: fine) {
-        &:hover {
-          box-shadow: none;
-          color: ${colors.white};
-          filter: hue-rotate(40deg);
-        }
-      }
-      @media (prefers-reduced-motion: reduce) {
-        transition: none;
-      }
-    }
-  `}
+  ${({ variant }) => variant === 'featured' && shimmerStyle}
 
   ${({ theme, variant }) => {
     const { background, color } = getVariant({ theme, variant })
     const hover = hoverStyle({ theme, variant })
     return css`
+      &:focus-visible {
+        outline: 2px solid ${cx(background)};
+        outline-offset: 2px;
+      }
+
       ${themeProp({
         fontFamily: 'sans',
         fontSize: 1,
         fontWeight: 'bold',
+        textTransform: 'uppercase',
+        letterSpacing: 2,
         px: 3,
         py: '12px',
         minHeight: touchTargets.minHeight,
         border: 0,
-        borderRadius: 2,
         background,
         color,
-        boxShadow: variant === 'white' ? `0 0 0 1px ${cx(color)}` : undefined,
+        cursor: 'pointer',
         _disabled: {
           opacity: 0.8,
           cursor: 'not-allowed',
@@ -107,17 +91,18 @@ const StyledButton = styled(Box).withConfig({
           }
         }
       })}
-      ${variant !== 'gradient' &&
-      css`
-        @media (hover: hover) and (pointer: fine) {
-          &:hover:not(:disabled) {
-            cursor: ${hover.cursor};
-            background: ${hover.background};
-            color: ${hover.color};
-            box-shadow: ${hover.boxShadow};
-          }
+      @media (hover: hover) and (pointer: fine) {
+        &:hover:not(:disabled) {
+          cursor: ${hover.cursor};
+          background: ${hover.background};
+          color: ${hover.color};
+          box-shadow: ${hover.boxShadow};
         }
-      `}
+      }
+
+      &[aria-busy='true'] {
+        cursor: wait;
+      }
     `
   }}
 `
@@ -128,17 +113,7 @@ const ButtonComponent = forwardRef((props, ref) => (
 
 ButtonComponent.displayName = 'Button'
 
-const Button = withAnalytics(
-  withSpinner(
-    ButtonComponent,
-    css`
-      &:hover {
-        background-color: ${props => props.theme.colors[props.bg]};
-        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-      }
-    `
-  )
-)
+const Button = withAnalytics(withSpinner(ButtonComponent))
 
 export { Button }
 export default ButtonComponent

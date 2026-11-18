@@ -1,13 +1,10 @@
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import Layout from 'components/patterns/Layout'
 import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
-import { Sparkles } from 'components/icons/Sparkles'
-import FeatherIcon from 'components/icons/Feather'
 import React from 'react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Meta from 'components/elements/Meta/Meta'
@@ -197,12 +194,7 @@ const RequestSkill = () => (
       target='_blank'
       rel='noopener noreferrer'
     >
-      <Flex
-        css={theme({ alignItems: 'center', justifyContent: 'center', gap: 2 })}
-      >
-        <FeatherIcon icon={Sparkles} size={0} aria-hidden='true' />
-        <Caps>Request a Skill</Caps>
-      </Flex>
+      Request a Skill
     </Button>
   </Flex>
 )

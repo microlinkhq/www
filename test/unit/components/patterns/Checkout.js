@@ -1,6 +1,10 @@
 import React from 'react'
 import { describe, expect, test, vi } from 'vitest'
-import Checkout from '../../../../src/components/patterns/Checkout'
+import { colors } from '../../../../src/theme'
+import Checkout, {
+  checkoutButtonCss,
+  loadingCss
+} from '../../../../src/components/patterns/Checkout'
 import { renderMarkup } from '../../../utils/render-markup'
 
 vi.mock('components/hook/use-site-meta', () => ({
@@ -26,5 +30,20 @@ describe('Checkout', () => {
     )
     expect(markup).toContain('Get Pro for $49/month')
     expect(markup).not.toMatch(/>Buy</)
+  })
+
+  test('an unknown or omitted variant keeps the default background', () => {
+    expect(loadingCss('featured')).toContain(colors.secondary)
+    expect(loadingCss('default')).toContain(colors.link)
+    expect(loadingCss('nope')).toContain(colors.link)
+    expect(loadingCss()).toContain(colors.link)
+  })
+
+  test('loading styles follow the caller styles so the variant background wins', () => {
+    const caller = 'width:100%'
+    expect(checkoutButtonCss(caller, 'featured', false)).toBe(caller)
+    const loading = checkoutButtonCss(caller, 'featured', true)
+    expect(loading[0]).toBe(caller)
+    expect(loading.at(-1)).toContain(colors.secondary)
   })
 })

@@ -1,5 +1,4 @@
 import React from 'react'
-import { ArrowRight } from 'react-feather'
 import { theme } from 'theme'
 import prependHttp from 'prepend-http'
 import Box from 'components/elements/Box'
@@ -9,7 +8,6 @@ import Text from 'components/elements/Text'
 import { Button } from 'components/elements/Button/Button'
 import Input, { URL_FIELD_WIDTH } from 'components/elements/Input/Input'
 import InputIcon from 'components/elements/Input/InputIcon'
-import Caps from 'components/elements/Caps'
 import Caption from 'components/patterns/Caption/Caption'
 import { trackEvent } from 'helpers/gtag'
 import { Results } from 'components/pages/sitemap/results'
@@ -159,26 +157,7 @@ export const Hero = () => {
               })}
               loading={isLoading}
             >
-              <Flex
-                as='span'
-                css={theme({
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                })}
-              >
-                <Caps css={theme({ fontSize: 1 })}>List URLs</Caps>
-                <Box
-                  as='span'
-                  aria-hidden
-                  css={theme({
-                    display: 'inline-flex',
-                    ml: 2,
-                    lineHeight: 0
-                  })}
-                >
-                  <ArrowRight size={16} />
-                </Box>
-              </Flex>
+              List URLs
             </Button>
           </Flex>
         </Flex>

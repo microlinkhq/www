@@ -1,12 +1,11 @@
 /* global fetch */
 
-import Caps from 'components/elements/Caps'
 import { Button } from 'components/elements/Button/Button'
 import Spinner from 'components/elements/Spinner'
 import Flex from 'components/elements/Flex'
 import { useSiteMetadata } from 'components/hook/use-site-meta'
 import React, { useState, useRef, useEffect } from 'react'
-import { gradient, theme } from 'theme'
+import { colors, variants } from 'theme'
 import { trackEvent } from 'helpers/gtag'
 
 const PRODUCT_LANDING_SLUGS = [
@@ -35,14 +34,20 @@ function resolveBuyEventLocation () {
   return first || 'other'
 }
 
-const loadingCss = `
+const loadingBackground = variant =>
+  colors[(variants.buttons[variant] || variants.buttons.default).background]
+
+export const loadingCss = variant => `
   &&&:disabled {
-    background: ${gradient};
+    background: ${loadingBackground(variant)};
     box-shadow: none;
     opacity: 0.8;
     .path { stroke: white; }
   }
 `
+
+export const checkoutButtonCss = (cssProp, variant, isLoading) =>
+  isLoading ? [cssProp, loadingCss(variant)].filter(Boolean) : cssProp
 
 const Checkout = ({
   canonicalUrl,
@@ -50,6 +55,8 @@ const Checkout = ({
   stripeKey,
   cta,
   children,
+  css: cssProp,
+  variant,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -96,15 +103,16 @@ const Checkout = ({
 
   return (
     <Button
+      {...props}
       ref={ref}
+      variant={variant}
       onClick={isLoading ? undefined : handleCheckout}
       disabled={isLoading}
       aria-busy={isLoading || undefined}
       data-event-location='Checkout'
       data-event-name='Buy'
-      style={isLoading ? { ...btnSize, cursor: 'wait' } : undefined}
-      css={isLoading ? loadingCss : undefined}
-      {...props}
+      style={isLoading ? { ...btnSize, cursor: 'wait' } : props.style}
+      css={checkoutButtonCss(cssProp, variant, isLoading)}
     >
       {isLoading
         ? (
@@ -118,7 +126,7 @@ const Checkout = ({
           </Flex>
           )
         : (
-            children ?? <Caps css={theme({ fontSize: [0, 0, 2, 2] })}>Buy</Caps>
+            children ?? 'Buy'
           )}
     </Button>
   )

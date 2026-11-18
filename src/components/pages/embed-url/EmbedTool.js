@@ -1090,7 +1090,7 @@ const Omnibar = ({
           loading={isLoading}
           css={theme({ ml: 2, flexShrink: 0 })}
         >
-          <Caps css={theme({ fontSize: 0 })}>Preview</Caps>
+          Preview
         </Button>
       </Flex>
       {urlError

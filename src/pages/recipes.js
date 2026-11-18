@@ -14,7 +14,6 @@ import { Logo } from 'components/pages/recipes'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Card from 'components/elements/Card/Card'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
@@ -178,7 +177,7 @@ const RecipesPage = () => {
                 onClick={() =>
                   window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
               >
-                <Caps>Request an Integration</Caps>
+                Request an Integration
               </Button>
             </Box>
           </Flex>

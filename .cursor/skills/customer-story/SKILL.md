@@ -100,6 +100,7 @@ enough; **you do not edit `index.js` per customer.** The cards link to
 
 ## Hard rules
 
+- Buttons follow `AGENTS.md` › Buttons, using the default variant only: `featured` is the pink accent this skill reserves for feature pages. Plain uppercase labels, no `Caps`, no icon; `test/integration/button-usage.js` enforces it.
 - Never invent customer claims, metrics, or features. If the website doesn't say it, ask.
 - Never use `pink`/`secondary`/`pinky`/`pinkest` accent — reserved for feature pages.
 - External links to customer sites: use `<Text as='a' target='_blank' rel='noopener'>`, NOT the repo `Link` component (which adds `noreferrer`, killing SEO backlink value).

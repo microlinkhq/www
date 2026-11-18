@@ -11,7 +11,6 @@ import LineBreak from 'components/elements/LineBreak'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
-import { GitHub as GitHubIcon } from 'components/icons/GitHub'
 import Caption from 'components/patterns/Caption/Caption'
 
 import {
@@ -113,21 +112,6 @@ const HeroFeature = ({ icon, title, description }) => (
   </Flex>
 )
 
-const ButtonIcon = ({ children }) => (
-  <Flex
-    css={theme({
-      width: '16px',
-      height: '16px',
-      flexShrink: 0,
-      alignItems: 'center',
-      justifyContent: 'center'
-    })}
-    aria-hidden='true'
-  >
-    {children}
-  </Flex>
-)
-
 const HeroQuickStart = () => (
   <Box
     id='install'
@@ -214,26 +198,12 @@ const Hero = () => (
         <Button
           as='a'
           href={REPOSITORY_URL}
-          variant='white'
           rel='noopener noreferrer'
           target='_blank'
           data-event-location='SDK Hero'
           data-event-name='View on GitHub'
         >
-          <Flex
-            as='span'
-            css={theme({
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 2,
-              whiteSpace: 'nowrap'
-            })}
-          >
-            <ButtonIcon>
-              <GitHubIcon width={16} height={16} />
-            </ButtonIcon>
-            View on GitHub
-          </Flex>
+          View on GitHub
         </Button>
       </Box>
       <HeroQuickStart />

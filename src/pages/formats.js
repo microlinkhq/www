@@ -10,7 +10,6 @@ import { issueUrl } from 'helpers/issue-url'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
@@ -264,7 +263,7 @@ const FormatsPage = () => (
               onClick={() =>
                 window.open(issueUrl.bug(), '_blank', 'noopener noreferrer')}
             >
-              <Caps>Request a format</Caps>
+              Request a format
             </Button>
           </Box>
         </Flex>

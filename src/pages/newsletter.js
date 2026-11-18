@@ -4,7 +4,6 @@ import { layout, theme } from 'theme'
 import React from 'react'
 
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
@@ -83,7 +82,7 @@ const NewsletterPage = () => {
                     data-event-name='Be Notified'
                     css={theme({ ml: 2 })}
                   >
-                    <Caps css={theme({ fontSize: 0 })}>Be Notified</Caps>
+                    Be Notified
                   </Button>
                 </Flex>
                 <Text

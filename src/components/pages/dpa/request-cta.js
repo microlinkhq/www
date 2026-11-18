@@ -4,7 +4,6 @@ import React from 'react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
-import Caps from 'components/elements/Caps'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
@@ -28,10 +27,9 @@ const RequestDpaButton = ({ location }) => (
   <Button
     as='a'
     href={REQUEST_DPA_HREF}
-    variant='black'
     onClick={() => trackEvent('dpa request', { location })}
   >
-    <Caps css={theme({ fontSize: 0 })}>Request a signed DPA</Caps>
+    Request a signed DPA
   </Button>
 )
 
