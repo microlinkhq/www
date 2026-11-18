@@ -179,7 +179,7 @@ describe('buttons follow the design system', () => {
     const src = sources.get(
       files.find(file => file.endsWith('/ProPlanCard.js'))
     )
-    expect(src).toContain("variant: 'featured'")
+    expect(src).toMatch(/checkout\s*=\s*\{\s*variant:\s*'featured'\s*\}/)
   })
 })
 

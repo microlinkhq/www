@@ -11,7 +11,7 @@ describe('elementsOf', () => {
     expect(outer.body).toBe('<Button>In</Button>Out')
   })
 
-  test('a nested tag without a closing angle bracket does not loop', () => {
-    expect(elementsOf('<Button><Button', 'Button')).toHaveLength(1)
+  test('a nested tag that never closes does not loop', () => {
+    expect(elementsOf('<Button><Button foo', 'Button')).toHaveLength(1)
   }, 1000)
 })
