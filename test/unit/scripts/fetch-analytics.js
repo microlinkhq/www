@@ -2,7 +2,8 @@ import { expect, describe, it } from 'vitest'
 
 import {
   roundPretty,
-  parseCdnEdges
+  parseCdnEdges,
+  toAnalyticsRecord
 } from '../../../scripts/fetch-data/providers/fetch-analytics'
 
 describe('roundPretty', () => {
@@ -30,6 +31,12 @@ describe('roundPretty', () => {
     expect(roundPretty(999)).toBe('990')
     expect(roundPretty(7)).toBe('7')
     expect(roundPretty(1)).toBe('1')
+  })
+
+  it('formats the raw request count, ignoring the api pretty string', () => {
+    expect(
+      toAnalyticsRecord({ reqs: 145159956, reqs_pretty: '999M' }, 348)
+    ).toMatchObject({ reqs_pretty: '140M', cdn_edges: 348 })
   })
 
   it('throws on unexpected input instead of writing garbage', () => {

@@ -29,6 +29,12 @@ const roundPretty = reqs => {
   return `${Number((floored / value).toPrecision(SIGNIFICANT_DIGITS))}${suffix}`
 }
 
+const toAnalyticsRecord = (analytics, cdnEdges) => ({
+  ...analytics,
+  reqs_pretty: roundPretty(analytics.reqs),
+  cdn_edges: cdnEdges
+})
+
 const parseCdnEdges = html => {
   const match = html.match(/(\d[\d,]*)\s*cities\b[^\d]{0,20}?(\d+)\s*regions/i)
   if (match === null) throw new Error('CDN_EDGES_NOT_FOUND')
@@ -58,13 +64,7 @@ module.exports = () =>
         fetchAnalytics(),
         fetchCdnEdges()
       ])
-      return [
-        {
-          ...analytics,
-          reqs_pretty: roundPretty(analytics.reqs),
-          cdn_edges: cdnEdges
-        }
-      ]
+      return [toAnalyticsRecord(analytics, cdnEdges)]
     },
     { dist: DIST }
   )
@@ -72,3 +72,4 @@ module.exports = () =>
 module.exports.dist = DIST
 module.exports.roundPretty = roundPretty
 module.exports.parseCdnEdges = parseCdnEdges
+module.exports.toAnalyticsRecord = toAnalyticsRecord
