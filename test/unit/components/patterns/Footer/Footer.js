@@ -1,8 +1,12 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 import React from 'react'
 
 import { renderMarkup } from '../../../../utils/render-markup'
 import Footer from '../../../../../src/components/patterns/Footer/Footer'
+
+vi.mock('helpers/template', () => ({
+  template: value => value
+}))
 
 describe('footer', () => {
   test('links Nodebox next to the other hosted tools', () => {
