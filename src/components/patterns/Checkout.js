@@ -37,7 +37,7 @@ function resolveBuyEventLocation () {
 const loadingBackground = variant =>
   colors[(variants.buttons[variant] || variants.buttons.default).background]
 
-const loadingCss = variant => `
+export const loadingCss = variant => `
   &&&:disabled {
     background: ${loadingBackground(variant)};
     box-shadow: none;
@@ -46,12 +46,17 @@ const loadingCss = variant => `
   }
 `
 
+export const checkoutButtonCss = (cssProp, variant, isLoading) =>
+  isLoading ? [cssProp, loadingCss(variant)].filter(Boolean) : cssProp
+
 const Checkout = ({
   canonicalUrl,
   planId,
   stripeKey,
   cta,
   children,
+  css: cssProp,
+  variant,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(false)
@@ -98,15 +103,16 @@ const Checkout = ({
 
   return (
     <Button
+      {...props}
       ref={ref}
+      variant={variant}
       onClick={isLoading ? undefined : handleCheckout}
       disabled={isLoading}
       aria-busy={isLoading || undefined}
       data-event-location='Checkout'
       data-event-name='Buy'
-      style={isLoading ? { ...btnSize, cursor: 'wait' } : undefined}
-      css={isLoading ? loadingCss(props.variant) : undefined}
-      {...props}
+      style={isLoading ? { ...btnSize, cursor: 'wait' } : props.style}
+      css={checkoutButtonCss(cssProp, variant, isLoading)}
     >
       {isLoading
         ? (

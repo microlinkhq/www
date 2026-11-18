@@ -79,6 +79,7 @@ const bodyOf = (src, name, from) => {
       if (depth === 0) return src.slice(from, match.index)
     } else {
       const end = tagEndAt(src, tag.lastIndex)
+      if (end === -1) return src.slice(from)
       if (!src.slice(match.index, end + 1).endsWith('/>')) depth++
       tag.lastIndex = end + 1
     }

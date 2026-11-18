@@ -29,5 +29,23 @@ describe('Button', () => {
     expect(focusOutline(render({}))).toBe(colors.link)
     expect(focusOutline(render({ variant: 'default' }))).toBe(colors.link)
     expect(focusOutline(render({ variant: 'featured' }))).toBe(colors.secondary)
+    expect(focusOutline(render({ variant: 'nope' }))).toBe(colors.link)
+  })
+
+  test('only the featured variant shimmers', () => {
+    expect(render({ variant: 'featured' })).toContain(
+      'repeating-linear-gradient'
+    )
+    expect(render({})).not.toContain('repeating-linear-gradient')
+    expect(render({ variant: 'default' })).not.toContain(
+      'repeating-linear-gradient'
+    )
+  })
+
+  test('a loading button keeps the wait cursor over the disabled cursor', () => {
+    const css = render({ loading: true })
+    expect(css.lastIndexOf('cursor:wait')).toBeGreaterThan(
+      css.lastIndexOf('cursor:not-allowed')
+    )
   })
 })

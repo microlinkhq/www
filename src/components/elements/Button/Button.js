@@ -15,7 +15,7 @@ import { shimmerStyle } from './shimmer'
 
 const DEFAULT_VARIANT = 'default'
 
-const getVariant = ({ theme, variant = DEFAULT_VARIANT }) =>
+const getVariant = ({ theme, variant }) =>
   theme.variants.buttons[variant] || theme.variants.buttons[DEFAULT_VARIANT]
 
 export const hoverStyle = ({ theme, variant }) => {
@@ -54,10 +54,6 @@ const StyledButton = styled(Box).withConfig({
     &:active:not(:disabled) {
       transform: scale(0.97);
     }
-  }
-
-  &[aria-busy='true'] {
-    cursor: wait;
   }
 
   ${({ variant }) => variant === 'featured' && shimmerStyle}
@@ -102,6 +98,10 @@ const StyledButton = styled(Box).withConfig({
           color: ${hover.color};
           box-shadow: ${hover.boxShadow};
         }
+      }
+
+      &[aria-busy='true'] {
+        cursor: wait;
       }
     `
   }}
