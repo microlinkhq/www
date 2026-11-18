@@ -1,9 +1,9 @@
-import { expect, describe, it } from 'vitest'
+import { expect, describe, it, vi } from 'vitest'
 
-import {
+import fetchAnalytics, {
   roundPretty,
   parseCdnEdges,
-  toAnalyticsRecord
+  collectAnalytics
 } from '../../../scripts/fetch-data/providers/fetch-analytics'
 
 describe('roundPretty', () => {
@@ -33,18 +33,51 @@ describe('roundPretty', () => {
     expect(roundPretty(1)).toBe('1')
   })
 
-  it('formats the raw request count, ignoring the api pretty string', () => {
-    expect(
-      toAnalyticsRecord({ reqs: 145159956, reqs_pretty: '999M' }, 348)
-    ).toMatchObject({ reqs_pretty: '140M', cdn_edges: 348 })
-  })
-
   it('throws on unexpected input instead of writing garbage', () => {
     expect(() => roundPretty(0)).toThrow('ANALYTICS_REQS_UNEXPECTED')
     expect(() => roundPretty(-5)).toThrow('ANALYTICS_REQS_UNEXPECTED')
     expect(() => roundPretty(NaN)).toThrow('ANALYTICS_REQS_UNEXPECTED')
     expect(() => roundPretty(undefined)).toThrow('ANALYTICS_REQS_UNEXPECTED')
     expect(() => roundPretty('145M')).toThrow('ANALYTICS_REQS_UNEXPECTED')
+  })
+})
+
+describe('collectAnalytics', () => {
+  it('formats the raw request count, ignoring the api pretty string', async () => {
+    const fetchMock = vi
+      .spyOn(globalThis, 'fetch')
+      .mockImplementation(async url => {
+        if (String(url).includes('cloudflare.com')) {
+          return { text: async () => '337 cities · 8 regions' }
+        }
+        return {
+          json: async () => ({
+            byMonth: {
+              current: { reqs: 1 },
+              previous: {
+                reqs: 145159956,
+                reqs_pretty: '999M',
+                bytes: 5
+              }
+            }
+          })
+        }
+      })
+    try {
+      const [row] = await collectAnalytics()
+      expect(row).toMatchObject({
+        reqs: 145159956,
+        reqs_pretty: '140M',
+        bytes: 5,
+        cdn_edges: 337
+      })
+    } finally {
+      fetchMock.mockRestore()
+    }
+  })
+
+  it('is the function the provider runs', () => {
+    expect(String(fetchAnalytics)).toContain('collectAnalytics')
   })
 })
 
