@@ -6,12 +6,7 @@ import Text from 'components/elements/Text'
 import { ComparisonTable } from 'components/patterns/ProductStory/comparison'
 import { Story } from 'story'
 
-import {
-  CellNote,
-  CellValue,
-  FeatureTable,
-  TableScroll
-} from './Table'
+import { CellNote, CellValue, FeatureTable, TableScroll } from './Table'
 
 const COMPARISON_ROWS = [
   { feature: 'Screenshot capture', microlink: true, acme: true },
@@ -22,7 +17,11 @@ const COMPARISON_ROWS = [
     microlink: true,
     acme: false
   },
-  { feature: 'Response caching', microlink: '1 minute to 31 days', acme: 'Your code' },
+  {
+    feature: 'Response caching',
+    microlink: '1 minute to 31 days',
+    acme: 'Your code'
+  },
   { feature: 'Ad blocking', microlink: 'Blocked by default', acme: 'Partial' },
   {
     feature: 'Firefox',
@@ -35,7 +34,8 @@ const COMPARISON_ROWS = [
 const PROSE_ROWS = [
   {
     job: 'The browser binary',
-    self: 'Chrome downloads on install: about 170 MB on macOS, 282 MB on Linux.',
+    self:
+      'Chrome downloads on install: about 170 MB on macOS, 282 MB on Linux.',
     microlink: 'Nothing to download. Your code makes an HTTP call.'
   },
   {
@@ -51,9 +51,21 @@ const PROSE_ROWS = [
 ]
 
 const DATA_ROWS = [
-  { request: 'Standard domain, no flags', credits: '1 credit', pages: '100,000 pages' },
-  { request: 'JavaScript rendering', credits: '10 credits', pages: '10,000 pages' },
-  { request: 'Microlink, any of the above', credits: '1 request', pages: '46,000 pages' }
+  {
+    request: 'Standard domain, no flags',
+    credits: '1 credit',
+    pages: '100,000 pages'
+  },
+  {
+    request: 'JavaScript rendering',
+    credits: '10 credits',
+    pages: '10,000 pages'
+  },
+  {
+    request: 'Microlink, any of the above',
+    credits: '1 request',
+    pages: '46,000 pages'
+  }
 ]
 
 const VALUES = [
@@ -64,7 +76,9 @@ const VALUES = [
 ]
 
 const Label = ({ children }) => (
-  <Text css={theme({ pb: 2, fontFamily: 'mono', fontSize: 0, color: 'black60' })}>
+  <Text
+    css={theme({ pb: 2, fontFamily: 'mono', fontSize: 0, color: 'black60' })}
+  >
     {children}
   </Text>
 )
@@ -185,6 +199,56 @@ export const Data = () => (
     <Frame>
       <TableScroll>
         <FeatureTable>
+          <thead>
+            <tr>
+              <th scope='col'>Request</th>
+              <th scope='col'>Credits</th>
+              <th scope='col'>Pages for $49</th>
+            </tr>
+          </thead>
+          <tbody>
+            {DATA_ROWS.map(({ request, credits, pages }) => (
+              <tr key={request}>
+                <th scope='row'>{request}</th>
+                <td>{credits}</td>
+                <td>{pages}</td>
+              </tr>
+            ))}
+          </tbody>
+        </FeatureTable>
+      </TableScroll>
+    </Frame>
+  </Story>
+)
+
+const interactiveCode = `
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
+
+export default () => (
+  <TableScroll>
+    <FeatureTable interactive>
+      <thead>
+        <tr>
+          <th scope='col'>Request</th>
+          <th scope='col'>Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>Standard domain, no flags</th>
+          <td>1 credit</td>
+        </tr>
+      </tbody>
+    </FeatureTable>
+  </TableScroll>
+)
+`
+
+export const Interactive = () => (
+  <Story name='Interactive' code={interactiveCode}>
+    <Frame>
+      <TableScroll>
+        <FeatureTable interactive>
           <thead>
             <tr>
               <th scope='col'>Request</th>

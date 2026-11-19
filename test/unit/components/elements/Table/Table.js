@@ -55,6 +55,43 @@ describe('Table', () => {
     )
   })
 
+  test('interactive highlights the hovered row with an inset rounded fill', () => {
+    const table = (
+      <FeatureTable interactive>
+        <tbody>
+          <tr>
+            <th>Row</th>
+            <td>Value</td>
+          </tr>
+        </tbody>
+      </FeatureTable>
+    )
+    const { html, css } = render(table)
+    expect(html).not.toMatch(/interactive/)
+    expect(css).toMatch(
+      /@media \(hover: ?hover\) and \(pointer: ?fine\)\{[^@]*tbody tr:hover>\*\{background-color:rgba\(0,0,0,0\.05\)/
+    )
+    expect(css).toMatch(/border-collapse:separate/)
+    expect(css).toMatch(
+      /:where\(th:first-child, ?td:first-child\)\{padding-left:16px/
+    )
+    expect(css).toMatch(/tbody tr>:first-child\{border-top-left-radius:8px/)
+  })
+
+  test('without interactive, rows never react to hover', () => {
+    const { css } = render(
+      <FeatureTable>
+        <tbody>
+          <tr>
+            <td>Value</td>
+          </tr>
+        </tbody>
+      </FeatureTable>
+    )
+    expect(css).not.toMatch(/:hover/)
+    expect(css).not.toMatch(/border-collapse:separate/)
+  })
+
   test('base cell rules yield to call-site alignment and weight', () => {
     const { css } = render(
       <FeatureTable>
