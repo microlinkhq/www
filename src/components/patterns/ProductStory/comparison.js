@@ -3,6 +3,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Link } from 'components/elements/Link'
+import MicrolinkLogo from 'components/logos/Microlink'
 import Text from 'components/elements/Text'
 
 import { Section, SectionHeader, SectionNote } from './section'
@@ -73,6 +74,29 @@ const ValueHeader = ({ children }) => (
   </th>
 )
 
+const MicrolinkLabel = ({ children }) => (
+  <Text
+    as='span'
+    css={theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 2,
+      color: 'inherit',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+      lineHeight: 'inherit'
+    })}
+  >
+    <MicrolinkLogo
+      alt=''
+      aria-hidden='true'
+      loading='eager'
+      css={theme({ width: '1em', height: '1em' })}
+    />
+    {children}
+  </Text>
+)
+
 export const ComparisonTable = ({
   columns,
   rows,
@@ -86,7 +110,9 @@ export const ComparisonTable = ({
           <th scope='col' css={{ minWidth: FEATURE_MIN_WIDTH }}>
             {featureLabel}
           </th>
-          <ValueHeader>{columns[0]}</ValueHeader>
+          <ValueHeader>
+            <MicrolinkLabel>{columns[0]}</MicrolinkLabel>
+          </ValueHeader>
           <ValueHeader>{columns[1]}</ValueHeader>
         </tr>
       </thead>

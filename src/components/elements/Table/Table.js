@@ -286,7 +286,7 @@ export const Cross = () => (
       lineHeight: 'inherit'
     })}
   >
-    —
+    -
   </Text>
 )
 

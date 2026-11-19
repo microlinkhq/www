@@ -1,5 +1,5 @@
 import React from 'react'
-import { textGradient, theme } from 'theme'
+import { theme } from 'theme'
 
 import Text from 'components/elements/Text'
 
@@ -35,7 +35,7 @@ export const Paths = () => (
               {PATHS.columns.browserbase}
             </Text>
             <Text as='th' scope='col' css={{ minWidth: PATH_MIN_WIDTH }}>
-              <span css={textGradient}>{PATHS.columns.microlink}</span>
+              {PATHS.columns.microlink}
             </Text>
           </tr>
         </thead>

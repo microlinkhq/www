@@ -120,6 +120,12 @@ describe('CellValue', () => {
     )
   })
 
+  test('draws false as a plain hyphen, never an em dash', () => {
+    const { html } = render(<CellValue value={false} />)
+    expect(html).toMatch(/aria-label="No"[^>]*>-</)
+    expect(html).not.toContain('—')
+  })
+
   test('renders any other value as text', () => {
     expect(render(<CellValue value='One parameter' />).html).toContain(
       'One parameter'

@@ -39,12 +39,23 @@ const render = () => {
 describe('ComparisonTable', () => {
   test('labels the header with the feature label and both columns', () => {
     const { html } = render()
-    const headers = [...html.matchAll(/<th scope="col"[^>]*>([^<]*)<\/th>/g)]
-    expect(headers.map(([, label]) => label)).toEqual([
+    const headers = [...html.matchAll(/<th scope="col"[^>]*>(.*?)<\/th>/g)]
+    expect(headers.map(([, label]) => label.replace(/<[^>]+>/g, ''))).toEqual([
       'Feature',
       'Microlink',
       'Acme'
     ])
+  })
+
+  test('shows the Microlink logo beside the Microlink column name', () => {
+    const { html } = render()
+    const [, microlink] = html.match(/<th scope="col"[^>]*>(.*?)<\/th>/g)
+    expect(microlink).toMatch(
+      /<img[^>]*src="https:\/\/cdn\.microlink\.io\/logo\/logo\.svg"/
+    )
+    expect(microlink).toMatch(/<img[^>]*alt=""/)
+    expect(microlink).toMatch(/<img[^>]*aria-hidden="true"/)
+    expect(microlink.replace(/<[^>]+>/g, '')).toBe('Microlink')
   })
 
   test('renders booleans as accessible yes/no marks and strings as text', () => {
