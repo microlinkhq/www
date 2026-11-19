@@ -14,6 +14,11 @@ export const displayedTotal = runs =>
 export const percentSlower = (competitorMs, microlinkMs) =>
   Math.round(((competitorMs - microlinkMs) / microlinkMs) * PERCENT)
 
+export const percentDifference = (ms, baselineMs) => {
+  const percent = Math.round(((ms - baselineMs) / baselineMs) * PERCENT)
+  return percent > 0 ? `+${percent}%` : `${percent}%`
+}
+
 export const speedRatio = (competitorMs, microlinkMs) =>
   (competitorMs / microlinkMs).toFixed(1)
 

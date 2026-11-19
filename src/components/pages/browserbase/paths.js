@@ -1,5 +1,4 @@
 import React from 'react'
-import { theme } from 'theme'
 
 import Text from 'components/elements/Text'
 
@@ -27,11 +26,7 @@ export const Paths = () => (
             <Text as='th' scope='col' css={{ minWidth: OUTPUT_MIN_WIDTH }}>
               {PATHS.columns.output}
             </Text>
-            <Text
-              as='th'
-              scope='col'
-              css={[theme({ color: 'black60' }), { minWidth: PATH_MIN_WIDTH }]}
-            >
+            <Text as='th' scope='col' css={{ minWidth: PATH_MIN_WIDTH }}>
               {PATHS.columns.browserbase}
             </Text>
             <Text as='th' scope='col' css={{ minWidth: PATH_MIN_WIDTH }}>
@@ -46,9 +41,7 @@ export const Paths = () => (
                 {output}
               </Text>
               <td>{browserbase}</td>
-              <Text as='td' css={theme({ color: 'black' })}>
-                {microlink}
-              </Text>
+              <td>{microlink}</td>
             </tr>
           ))}
         </tbody>

@@ -6,7 +6,8 @@ import {
   formatDuration,
   percentSlower,
   relativeSpeed,
-  speedRatio
+  speedRatio,
+  percentDifference
 } from '../../../../../src/components/patterns/SpeedSection/claims'
 
 const BENCHMARK = {
@@ -130,5 +131,13 @@ describe('breakableName', () => {
   test('lets a column header wrap between the words of a provider name', () => {
     expect(breakableName('Screenshot\u00a0Machine')).toBe('Screenshot Machine')
     expect(breakableName('Screenshotlayer')).toBe('Screenshotlayer')
+  })
+})
+
+describe('percentDifference', () => {
+  test('signs the change against the baseline, rounded', () => {
+    expect(percentDifference(6361, 14233)).toBe('-55%')
+    expect(percentDifference(3435, 1968)).toBe('+75%')
+    expect(percentDifference(1000, 1000)).toBe('0%')
   })
 })

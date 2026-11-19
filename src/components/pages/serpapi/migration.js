@@ -1,4 +1,3 @@
-import { theme } from 'theme'
 import React from 'react'
 
 import Text from 'components/elements/Text'
@@ -31,9 +30,7 @@ export const Migration = () => (
         <tbody>
           {MIGRATION.rows.map(({ id, serpapi, microlink }) => (
             <tr key={id}>
-              <Text as='td' css={theme({ color: 'black60' })}>
-                {serpapi}
-              </Text>
+              <td>{serpapi}</td>
               <td>{microlink}</td>
             </tr>
           ))}

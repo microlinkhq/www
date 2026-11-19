@@ -26,13 +26,23 @@ import {
   breakableName,
   displayedTotal,
   formatDuration,
+  percentDifference,
   relativeSpeed
 } from './claims'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
 
+const MICROLINK = 'microlink'
+
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
+
+const microlinkDelta = (times, services) => {
+  const index = services.indexOf(MICROLINK)
+  const others = times.filter((_, i) => i !== index)
+  if (index === -1 || others.length === 0) return null
+  return percentDifference(times[index], Math.min(...others))
+}
 
 const Section = styled(Box)`
   ${theme({
@@ -69,6 +79,10 @@ const PerUrlTable = styled(FeatureTable)`
     text-wrap: balance;
   }
 
+  td {
+    ${theme({ whiteSpace: 'normal' })}
+  }
+
   th:first-child,
   td:first-child {
     ${theme({ pl: 0, textAlign: 'left', color: 'black' })}
@@ -97,13 +111,12 @@ const AverageFeatureTable = styled(FeatureTable)`
   }
 `
 
-const CellHighlight = styled('span')`
-  ${theme({ color: 'secondary' })};
-`
-
-const CellLoser = styled('span')`
-  ${theme({ color: 'black50' })};
-`
+const TimeWithDelta = ({ children, delta }) => (
+  <>
+    {children}
+    {delta && ` (${delta})`}
+  </>
+)
 
 const MobileCards = styled('div')`
   ${theme({
@@ -158,14 +171,13 @@ const MobileCardSuffix = styled('span')`
   ${theme({
     display: 'block',
     fontWeight: 'normal',
-    color: 'black60',
+    color: 'black',
     textAlign: 'right'
   })};
 `
 
 const MobileCardTime = styled('span')`
-  color: ${({ $isMin, $isMax }) =>
-    $isMin ? colors.secondary : $isMax ? colors.black50 : colors.black};
+  ${theme({ color: 'black', textAlign: 'right' })};
 `
 
 const urlTimes = (benchmark, services, url) =>
@@ -180,41 +192,25 @@ const ColdStartTable = ({ benchmark, services }) => (
       <tr>
         <th css={theme({ textAlign: 'left' })}>URL</th>
         {services.map(key => (
-          <th
-            key={key}
-            css={theme({
-              color: key === 'microlink' ? colors.secondary : colors.black
-            })}
-          >
-            {breakableName(benchmark.results[key].name)}
-          </th>
+          <th key={key}>{breakableName(benchmark.results[key].name)}</th>
         ))}
       </tr>
     </thead>
     <tbody>
       {benchmark.testUrls.map(({ url }) => {
         const times = urlTimes(benchmark, services, url)
-        const minTime = Math.min(...times)
-        const maxTime = Math.max(...times)
+        const delta = microlinkDelta(times, services)
 
         return (
           <tr key={url}>
             <td>{extractDomain(url)}</td>
-            {services.map((key, i) => {
-              const isMin = times[i] === minTime
-              const isMax = times[i] === maxTime
-              let cellContent = formatMs(times[i])
-
-              if (isMin) {
-                cellContent = (
-                  <CellHighlight>{formatMs(times[i])}</CellHighlight>
-                )
-              } else if (isMax) {
-                cellContent = <CellLoser>{formatMs(times[i])}</CellLoser>
-              }
-
-              return <td key={key}>{cellContent}</td>
-            })}
+            {services.map((key, i) => (
+              <td key={key}>
+                <TimeWithDelta delta={key === MICROLINK && delta}>
+                  {formatMs(times[i])}
+                </TimeWithDelta>
+              </td>
+            ))}
           </tr>
         )
       })}
@@ -222,8 +218,7 @@ const ColdStartTable = ({ benchmark, services }) => (
         const totals = services.map(key =>
           displayedTotal(benchmark.results[key].perUrl)
         )
-        const minTotal = Math.min(...totals)
-        const maxTotal = Math.max(...totals)
+        const delta = microlinkDelta(totals, services)
 
         return (
           <tr>
@@ -235,25 +230,16 @@ const ColdStartTable = ({ benchmark, services }) => (
             >
               Total
             </td>
-            {services.map((key, i) => {
-              const isMin = totals[i] === minTotal
-              const isMax = totals[i] === maxTotal
-              return (
-                <td
-                  key={key}
-                  css={theme({
-                    borderTop: `${borders[1]} ${colors.black10}`,
-                    color: isMin
-                      ? colors.secondary
-                      : isMax
-                        ? colors.black50
-                        : colors.black
-                  })}
-                >
-                  {formatDuration(totals[i])}
-                </td>
-              )
-            })}
+            {services.map((key, i) => (
+              <td
+                key={key}
+                css={theme({ borderTop: `${borders[1]} ${colors.black10}` })}
+              >
+                <TimeWithDelta delta={key === MICROLINK && delta}>
+                  {formatMs(totals[i])}
+                </TimeWithDelta>
+              </td>
+            ))}
           </tr>
         )
       })()}
@@ -261,27 +247,29 @@ const ColdStartTable = ({ benchmark, services }) => (
   </PerUrlTable>
 )
 
-const TimingCard = ({ title, rows }) => {
-  const times = rows.map(({ ms }) => ms)
-  const minTime = Math.min(...times)
-  const maxTime = Math.max(...times)
+const TimingCard = ({ title, rows, showDelta = false }) => {
+  const keys = rows.map(({ key }) => key)
+  const delta =
+    showDelta &&
+    microlinkDelta(
+      rows.map(({ ms }) => ms),
+      keys
+    )
 
   return (
     <MobileCard>
       <MobileCardHeader>{title}</MobileCardHeader>
-      {rows.map(({ key, name, ms, suffix }) => {
-        const isMin = ms === minTime
-        const isMax = ms === maxTime
-        return (
-          <MobileCardRow key={key}>
-            <MobileCardName>{name}</MobileCardName>
-            <MobileCardTime $isMin={isMin} $isMax={isMax}>
+      {rows.map(({ key, name, ms, suffix }) => (
+        <MobileCardRow key={key}>
+          <MobileCardName>{name}</MobileCardName>
+          <MobileCardTime>
+            <TimeWithDelta delta={key === MICROLINK && delta}>
               {formatDuration(ms)}
-              {suffix && <MobileCardSuffix>{suffix}</MobileCardSuffix>}
-            </MobileCardTime>
-          </MobileCardRow>
-        )
-      })}
+            </TimeWithDelta>
+            {suffix && <MobileCardSuffix>{suffix}</MobileCardSuffix>}
+          </MobileCardTime>
+        </MobileCardRow>
+      ))}
     </MobileCard>
   )
 }
@@ -293,6 +281,7 @@ const ColdStartCards = ({ benchmark, services }) => (
       return (
         <TimingCard
           key={url}
+          showDelta
           title={extractDomain(url)}
           rows={services.map((key, i) => ({
             key,
@@ -303,6 +292,7 @@ const ColdStartCards = ({ benchmark, services }) => (
       )
     })}
     <TimingCard
+      showDelta
       title='Total'
       rows={services.map(key => ({
         key,
@@ -325,7 +315,7 @@ const AverageCards = ({ benchmark, services }) => {
             key,
             name: benchmark.results[key].name,
             ms: avg,
-            suffix: key === 'microlink' ? null : relativeSpeed(avg, microAvg)
+            suffix: key === MICROLINK ? null : relativeSpeed(avg, microAvg)
           }
         })}
       />
@@ -349,33 +339,13 @@ const AverageTable = ({ benchmark, services }) => {
         {services.map(key => {
           const svc = benchmark.results[key]
           const avg = svc.summary.avgColdDuration
-          const isMicrolink = key === 'microlink'
+          const isMicrolink = key === MICROLINK
 
           return (
             <tr key={key}>
-              <td>
-                <span
-                  css={theme({
-                    color: isMicrolink ? colors.secondary : 'black'
-                  })}
-                >
-                  {svc.name}
-                </span>
-              </td>
-              <td
-                css={theme({
-                  textAlign: 'right',
-                  color: isMicrolink ? colors.secondary : undefined
-                })}
-              >
-                {formatDuration(avg)}
-              </td>
-              <td
-                css={theme({
-                  textAlign: 'right',
-                  color: isMicrolink ? colors.secondary : 'black'
-                })}
-              >
+              <td>{svc.name}</td>
+              <td css={theme({ textAlign: 'right' })}>{formatDuration(avg)}</td>
+              <td css={theme({ textAlign: 'right' })}>
                 {isMicrolink ? <Cross /> : relativeSpeed(avg, microAvg)}
               </td>
             </tr>

@@ -30,7 +30,7 @@ const tableBase = css`
       fontSize: [1, 1, 2, 2],
       fontWeight: 'normal',
       lineHeight: 3,
-      color: 'black80'
+      color: 'black'
     })}
   }
 
@@ -43,11 +43,21 @@ const tableBase = css`
   }
 
   :where(thead th) {
-    ${theme({ color: 'black', fontWeight: 'bold' })}
+    ${theme({ fontWeight: 'bold' })}
   }
 
   thead th {
     ${theme({ borderBottom: 1, borderBottomColor: 'black10' })}
+  }
+
+  th,
+  td {
+    ${theme({ color: 'black' })}
+  }
+
+  th :not(a),
+  td :not(a) {
+    ${theme({ color: 'inherit' })}
   }
 
   tbody th,
@@ -99,13 +109,13 @@ const tableBase = css`
     }
 
     tbody tr > :first-child {
-      ${theme({ color: 'black', fontWeight: 'bold' })}
+      ${theme({ fontWeight: 'bold' })}
     }
 
     td:not(:first-child)::before {
       content: attr(data-label);
       display: block;
-      ${theme({ fontSize: 0, fontWeight: 'bold', color: 'black60' })}
+      ${theme({ fontSize: 0, fontWeight: 'bold', color: 'black' })}
     }
   }
 `
@@ -264,7 +274,7 @@ export const CellNote = ({ children }) => (
       pt: 1,
       fontSize: 0,
       fontWeight: 'normal',
-      color: 'black60',
+      color: 'black',
       lineHeight: 1,
       whiteSpace: 'normal',
       textTransform: 'none'
@@ -280,7 +290,7 @@ export const Check = () => (
     size='16px'
     role='img'
     aria-label='Yes'
-    css={theme({ mx: 'auto', color: 'secondary' })}
+    css={theme({ mx: 'auto' })}
   />
 )
 
@@ -290,7 +300,6 @@ export const Cross = () => (
     role='img'
     aria-label='No'
     css={theme({
-      color: 'black30',
       fontSize: 'inherit',
       lineHeight: 'inherit'
     })}

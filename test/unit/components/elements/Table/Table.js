@@ -108,6 +108,23 @@ describe('Table', () => {
     expect(css).toMatch(/tbody th \*,\.[\w-]+ tbody td \*\{font-weight:inherit/)
   })
 
+  test('every cell renders black, whatever color a page or icon sets', () => {
+    const { css } = render(
+      <FeatureTable>
+        <tbody>
+          <tr>
+            <Text as='td' css={{ color: 'pink' }}>
+              <CellValue value />
+            </Text>
+          </tr>
+        </tbody>
+      </FeatureTable>
+    )
+    expect(css).toMatch(/\.[\w-]+ th,\.[\w-]+ td\{color:#000/)
+    expect(css).toMatch(/th :not\(a\),\.[\w-]+ td :not\(a\)\{color:inherit/)
+    expect(css).not.toMatch(/#d92d6e|rgba\(0,0,0,0\.(6|8|3)\)/i)
+  })
+
   test('base cell rules yield to call-site alignment and weight', () => {
     const { css } = render(
       <FeatureTable>

@@ -38,22 +38,13 @@ export const Credits = () => (
               <th scope='row'>{config}</th>
               <Text
                 as='td'
-                css={[
-                  theme({ textAlign: 'right', color: 'black60' }),
-                  { whiteSpace: 'nowrap' }
-                ]}
+                css={[theme({ textAlign: 'right' }), { whiteSpace: 'nowrap' }]}
               >
                 {credits}
               </Text>
               <Text
                 as='td'
-                css={[
-                  theme({
-                    textAlign: 'right',
-                    color: 'black'
-                  }),
-                  { whiteSpace: 'nowrap' }
-                ]}
+                css={[theme({ textAlign: 'right' }), { whiteSpace: 'nowrap' }]}
               >
                 {pages}
               </Text>

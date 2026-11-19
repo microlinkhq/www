@@ -67,13 +67,11 @@ describe('ComparisonTable', () => {
     expect(html).toContain('Rotating pool.')
   })
 
-  test('uses the minimal site table, with the Microlink header in brand color', () => {
+  test('uses the minimal site table in neutral black, no brand color', () => {
     const { css } = render()
     expect(css).not.toMatch(/text-transform:uppercase/)
     expect(css).not.toMatch(/font-family:[^;]*Operator Mono[^;]*;[^}]*th/)
     expect(css).not.toContain(colors.pink0)
-    expect(css).toMatch(
-      new RegExp(`thead th:nth-child\\(2\\)\\{color:${colors.secondary}`)
-    )
+    expect(css).not.toContain(colors.secondary)
   })
 })

@@ -32,9 +32,7 @@ export const Ownership = () => (
           {OWNERSHIP.rows.map(({ job, self, microlink }) => (
             <tr key={job}>
               <th scope='row'>{job}</th>
-              <Text as='td' css={theme({ color: 'black60' })}>
-                {self}
-              </Text>
+              <td>{self}</td>
               <td>{microlink}</td>
             </tr>
           ))}

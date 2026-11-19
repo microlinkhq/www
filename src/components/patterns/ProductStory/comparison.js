@@ -17,18 +17,8 @@ import {
 const FEATURE_MIN_WIDTH = '280px'
 const VALUE_WIDTH = '22%'
 const VALUE_MIN_WIDTH = '144px'
-const MICROLINK_COLUMN = 2
 
 const StyledComparisonTable = styled(FeatureTable)`
-  th:nth-child(${MICROLINK_COLUMN}),
-  td:nth-child(${MICROLINK_COLUMN}) {
-    ${theme({ color: 'black' })}
-  }
-
-  thead th:nth-child(${MICROLINK_COLUMN}) {
-    ${theme({ color: 'secondary' })}
-  }
-
   @media (max-width: ${breakpoints[0]}) {
     tr {
       display: grid;
@@ -54,10 +44,6 @@ const StyledComparisonTable = styled(FeatureTable)`
         py: 3,
         overflowWrap: 'break-word'
       })}
-    }
-
-    td:nth-child(${MICROLINK_COLUMN})::before {
-      ${theme({ color: 'secondary' })}
     }
   }
 `

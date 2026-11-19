@@ -46,17 +46,7 @@ export const Throughput = () => (
                 <Text
                   key={THROUGHPUT.columns[index + 1]}
                   as='td'
-                  css={[
-                    theme(
-                      index === 1
-                        ? {
-                            textAlign: 'right',
-                            color: 'black'
-                          }
-                        : { textAlign: 'right', color: 'black60' }
-                    ),
-                    NUMERIC_CELL
-                  ]}
+                  css={[theme({ textAlign: 'right' }), NUMERIC_CELL]}
                 >
                   {cell}
                 </Text>
