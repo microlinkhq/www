@@ -136,7 +136,7 @@ const TableCardBox = styled(Box)`
   background-attachment: local, local, scroll, scroll;
 `
 
-const labelCellsFromHeader = table => {
+export const labelCellsFromHeader = table => {
   const headers = [...table.querySelectorAll('thead th')].map(header =>
     header.textContent.trim()
   )

@@ -32,6 +32,12 @@ describe('formatCaptureTags', () => {
     ])
   })
 
+  test('a capture without a format omits that tag', () => {
+    expect(
+      formatCaptureTags({ width: 1280, height: 800, fullPage: false })
+    ).toEqual(['Desktop screenshot', '1280×800'])
+  })
+
   test('an unknown URL has no tags', () => {
     expect(formatCaptureTags(undefined)).toEqual([])
   })

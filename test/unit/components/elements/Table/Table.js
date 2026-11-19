@@ -6,7 +6,8 @@ import { describe, expect, test } from 'vitest'
 import {
   CellValue,
   FeatureTable,
-  ProseTable
+  ProseTable,
+  labelCellsFromHeader
 } from '../../../../../src/components/elements/Table/Table'
 import themeSpec from '../../../../../src/theme'
 
@@ -63,5 +64,51 @@ describe('CellValue', () => {
     const { css } = render(<CellValue value />)
     expect(css).toMatch(/align-items:center/)
     expect(css).toMatch(/min-height:1lh/)
+  })
+})
+
+describe('labelCellsFromHeader', () => {
+  test('labels a body cell from the header in its column', () => {
+    const value = { tagName: 'TD', dataset: {} }
+    labelCellsFromHeader({
+      querySelectorAll: selector =>
+        selector === 'thead th'
+          ? [{ textContent: ' Feature ' }, { textContent: ' Credits ' }]
+          : [{ children: [{ tagName: 'TH', dataset: {} }, value] }]
+    })
+    expect(value.dataset.label).toBe('Credits')
+  })
+
+  test('leaves a row header unlabeled', () => {
+    const rowHeader = { tagName: 'TH', dataset: {} }
+    labelCellsFromHeader({
+      querySelectorAll: selector =>
+        selector === 'thead th'
+          ? [{ textContent: 'Feature' }]
+          : [{ children: [rowHeader] }]
+    })
+    expect(rowHeader.dataset.label).toBeUndefined()
+  })
+
+  test('keeps a label the cell already has', () => {
+    const value = { tagName: 'TD', dataset: { label: 'Kept' } }
+    labelCellsFromHeader({
+      querySelectorAll: selector =>
+        selector === 'thead th'
+          ? [{ textContent: 'Other' }]
+          : [{ children: [value] }]
+    })
+    expect(value.dataset.label).toBe('Kept')
+  })
+
+  test('skips a column whose header is blank', () => {
+    const value = { tagName: 'TD', dataset: {} }
+    labelCellsFromHeader({
+      querySelectorAll: selector =>
+        selector === 'thead th'
+          ? [{ textContent: '   ' }]
+          : [{ children: [value] }]
+    })
+    expect(value.dataset.label).toBeUndefined()
   })
 })

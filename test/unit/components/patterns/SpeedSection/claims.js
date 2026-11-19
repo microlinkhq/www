@@ -16,13 +16,13 @@ const BENCHMARK = {
       summary: { avgColdDuration: 4111.84 },
       perUrl: [
         { url: 'https://www.vercel.com', coldDuration: 5000 },
-        { url: 'https://example.com', coldDuration: 1000 }
+        { url: 'https://www.example.com', coldDuration: 1000 }
       ]
     },
     rival: {
       summary: { avgColdDuration: 7334.22 },
       perUrl: [
-        { url: 'https://example.com', coldDuration: 2700 },
+        { url: 'https://www.example.com', coldDuration: 2700 },
         { url: 'https://www.vercel.com', coldDuration: 6000 }
       ]
     }
