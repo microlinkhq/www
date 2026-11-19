@@ -102,6 +102,38 @@ describe('AlternativeHero', () => {
     expect(html).not.toMatch(/<button/)
     expect(html).toMatch(/<a[^>]*href="\/docs"[^>]*>[\s\S]*?Read the docs/)
   })
+
+  test('omits the secondary link when it has no href', () => {
+    const html = renderMarkup(
+      <AlternativeHero
+        competitor='Acme'
+        tagline='with no servers'
+        description='Lead copy.'
+        cta='alternative-acme:hero'
+        secondaryLabel='Read the docs'
+      />
+    )
+
+    expect(html).not.toContain('Read the docs')
+  })
+
+  test('shows the code for the first example', () => {
+    const html = renderMarkup(
+      <AlternativeHero
+        competitor='Acme'
+        tagline='with no servers'
+        description='Lead copy.'
+        cta='alternative-acme:hero'
+        examples={[
+          { mqlCode: { url: 'https://picked.example' } },
+          { mqlCode: { url: 'https://other.example' } }
+        ]}
+      />
+    )
+
+    expect(html).toContain('picked.example')
+    expect(html).not.toContain('other.example')
+  })
 })
 
 describe('HeroActions', () => {
@@ -126,5 +158,42 @@ describe('HeroActions', () => {
     } finally {
       sheet.seal()
     }
+  })
+
+  test('omits the secondary link when it has no href', () => {
+    const html = renderToStaticMarkup(
+      <ServerLocation url='/'>
+        <HeroActions
+          ctaHref='/pricing'
+          secondaryLabel='Read the docs'
+          justifyContent='center'
+        />
+      </ServerLocation>
+    )
+
+    expect(html).not.toContain('Read the docs')
+  })
+
+  test('links to signup when a cta id is set', () => {
+    const html = renderToStaticMarkup(
+      <ServerLocation url='/'>
+        <HeroActions cta='alternative-acme:hero' />
+      </ServerLocation>
+    )
+
+    expect(html).toContain('alternative-acme:hero')
+    expect(html).toMatch(/signup/)
+  })
+
+  test('links to the href when there is no cta id', () => {
+    const html = renderToStaticMarkup(
+      <ServerLocation url='/'>
+        <HeroActions ctaHref='/pricing' ctaLabel='See pricing' />
+      </ServerLocation>
+    )
+
+    expect(html).toContain('href="/pricing"')
+    expect(html).toContain('See pricing')
+    expect(html).not.toMatch(/signup/)
   })
 })

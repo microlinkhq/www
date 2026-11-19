@@ -10,6 +10,8 @@ import {
   formatCheckedAt,
   formatPerThousand,
   formatPrice,
+  iconColor,
+  itemColor,
   microlinkFacts,
   microlinkPlan,
   missing
@@ -140,6 +142,17 @@ describe('formatCheckedAt', () => {
   })
 })
 
+describe('plan item colors', () => {
+  test('a limitation is quieter than a feature, and the featured plan is stronger', () => {
+    expect(itemColor({ absent: true, featured: false })).toBe('black50')
+    expect(itemColor({ absent: false, featured: false })).toBe('black70')
+    expect(itemColor({ absent: false, featured: true })).toBe('black80')
+    expect(iconColor({ absent: true, featured: true })).toBe('black30')
+    expect(iconColor({ absent: false, featured: false })).toBe('black40')
+    expect(iconColor({ absent: false, featured: true })).toBe('secondary')
+  })
+})
+
 describe('ProductPriceComparison', () => {
   test('puts the featured Microlink plan first and the competitor second', () => {
     const { html } = render(<ProductPriceComparison {...PROPS} />)
@@ -166,6 +179,21 @@ describe('ProductPriceComparison', () => {
     expect(html).toMatch(/>acme\.com</)
     expect(html).toContain('dateTime="2026-05-12"')
     expect(html).toMatch(/<time[^>]*>May 2026<\/time>/)
+  })
+
+  test('omits the product link when the Microlink plan has no href for it', () => {
+    const { html } = render(
+      <ProductPriceComparison
+        {...PROPS}
+        microlink={{
+          ...PROPS.microlink,
+          secondaryHref: undefined,
+          secondaryLabel: 'Explore the Screenshot API'
+        }}
+      />
+    )
+    expect(html).toContain('Get your free API key')
+    expect(html).not.toContain('Explore the Screenshot API')
   })
 
   test('offers the signup and the product link on the Microlink plan', () => {

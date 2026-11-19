@@ -148,12 +148,12 @@ export const missing = text => ({ missing: true, text })
 
 export const isMissing = item => item?.missing === true
 
-const itemColor = ({ featured, absent }) => {
+export const itemColor = ({ featured, absent }) => {
   if (absent) return 'black50'
   return featured ? 'black80' : 'black70'
 }
 
-const iconColor = ({ featured, absent }) => {
+export const iconColor = ({ featured, absent }) => {
   if (absent) return 'black30'
   return featured ? 'secondary' : 'black40'
 }
