@@ -6,10 +6,9 @@ import Text from 'components/elements/Text'
 
 import {
   FeatureTable,
-  HIGHLIGHT_BG,
   Section,
   SectionHeader,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 import { BILLING } from './shared'
 
@@ -17,7 +16,7 @@ export const Billing = () => (
   <Section id='billing' bg='pinky'>
     <SectionHeader title={BILLING.title} caption={BILLING.caption} />
 
-    <TableCard>
+    <TableScroll>
       <FeatureTable>
         <thead>
           <tr>
@@ -35,10 +34,7 @@ export const Billing = () => (
         </thead>
         <tbody>
           {BILLING.rows.map(({ config, credits, pages, highlight }) => (
-            <tr
-              key={config}
-              css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
-            >
+            <tr key={config}>
               <Text
                 as='th'
                 scope='row'
@@ -72,7 +68,7 @@ export const Billing = () => (
           ))}
         </tbody>
       </FeatureTable>
-    </TableCard>
+    </TableScroll>
 
     <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>
       <Text css={theme({ fontSize: 0, color: 'black60', lineHeight: 2 })}>

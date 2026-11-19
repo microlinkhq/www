@@ -8,7 +8,7 @@ import {
   Section,
   SectionHeader,
   SectionNote,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 
 import { MIGRATION } from './shared'
@@ -17,7 +17,7 @@ export const Migration = () => (
   <Section id='migration' bordered>
     <SectionHeader title={MIGRATION.title} caption={MIGRATION.caption} />
 
-    <TableCard>
+    <TableScroll>
       <FeatureTable>
         <thead>
           <tr>
@@ -39,7 +39,7 @@ export const Migration = () => (
           ))}
         </tbody>
       </FeatureTable>
-    </TableCard>
+    </TableScroll>
 
     <SectionNote>{MIGRATION.note}</SectionNote>
   </Section>

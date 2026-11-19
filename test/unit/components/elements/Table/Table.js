@@ -7,8 +7,7 @@ import Text from '../../../../../src/components/elements/Text'
 import {
   CellValue,
   FeatureTable,
-  ProseTable,
-  TableCard,
+  TableScroll,
   labelCellsFromHeader
 } from '../../../../../src/components/elements/Table/Table'
 import themeSpec from '../../../../../src/theme'
@@ -28,23 +27,49 @@ const render = element => {
 }
 
 describe('Table', () => {
-  test.each([
-    ['FeatureTable', FeatureTable],
-    ['ProseTable', ProseTable]
-  ])('%s uses sans body type with a tinted header', (_, Component) => {
+  test('FeatureTable matches the minimal blog table', () => {
     const { css } = render(
-      <Component>
+      <FeatureTable>
         <thead>
           <tr>
             <th>Head</th>
           </tr>
         </thead>
-      </Component>
+      </FeatureTable>
     )
     expect(css).not.toMatch(/text-transform:uppercase/)
     expect(css).toMatch(/font-family:'Inter',\s?sans-serif/)
     expect(css).not.toMatch(/tabular-nums/)
     expect(css).toMatch(/min-width:640px/)
+    expect(css).toMatch(/border-collapse:collapse/)
+    expect(css).not.toMatch(/background(-color)?:rgba\(0,0,0,0\.05\)/)
+    expect(css).toMatch(/thead th\{[^}]*border-bottom-color:rgba\(0,0,0,0\.1\)/)
+    expect(css).toMatch(
+      /tbody tr\{[^}]*border-bottom-color:rgba\(0,0,0,0\.05\)/
+    )
+    expect(css).toMatch(
+      /:where\(th:first-child, ?td:first-child\)\{padding-left:0/
+    )
+    expect(css).toMatch(
+      /:where\(th:last-child, ?td:last-child\)\{padding-right:0/
+    )
+  })
+
+  test('base cell rules yield to call-site alignment and weight', () => {
+    const { css } = render(
+      <FeatureTable>
+        <tbody>
+          <tr>
+            <th>Row</th>
+            <td>Cell</td>
+          </tr>
+        </tbody>
+      </FeatureTable>
+    )
+    expect(css).toMatch(/:where\(th, ?td\)\{[^}]*text-align:left/)
+    expect(css).toMatch(/:where\(th\)\{[^}]*font-weight:700/)
+    expect(css).not.toMatch(/\.[\w-]+ th,\.[\w-]+ td\{[^}]*text-align/)
+    expect(css).not.toMatch(/\.[\w-]+ th\{[^}]*font-weight/)
   })
 })
 
@@ -106,8 +131,8 @@ describe('labelCellsFromHeader', () => {
   test('labels body cells during render from a Text header and a custom row', () => {
     const Row = ({ children }) => <tr>{children}</tr>
     const { html } = render(
-      <TableCard>
-        <ProseTable>
+      <TableScroll>
+        <FeatureTable>
           <thead>
             <tr>
               <Text as='th'>Job</Text>
@@ -120,8 +145,8 @@ describe('labelCellsFromHeader', () => {
               <td>None</td>
             </Row>
           </tbody>
-        </ProseTable>
-      </TableCard>
+        </FeatureTable>
+      </TableScroll>
     )
     expect(html).toContain('data-label="Microlink"')
     expect(html).not.toContain('data-label="Job"')
@@ -130,8 +155,8 @@ describe('labelCellsFromHeader', () => {
 
   test('keeps a markup label and leaves a blank header unlabeled', () => {
     const { html } = render(
-      <TableCard>
-        <ProseTable>
+      <TableScroll>
+        <FeatureTable>
           <thead>
             <tr>
               <th> </th>
@@ -144,8 +169,8 @@ describe('labelCellsFromHeader', () => {
               <td data-label='Kept'>Value</td>
             </tr>
           </tbody>
-        </ProseTable>
-      </TableCard>
+        </FeatureTable>
+      </TableScroll>
     )
     expect(html).toContain('<td>Blank</td>')
     expect(html).toContain('data-label="Kept"')

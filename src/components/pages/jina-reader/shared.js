@@ -86,8 +86,7 @@ export const SHAPES = {
       id: 'pdf',
       need: 'A PDF of the page',
       jina: 'Not a documented output',
-      microlink: 'pdf=true, same response',
-      highlight: true
+      microlink: 'pdf=true, same response'
     },
     {
       id: 'metadata',

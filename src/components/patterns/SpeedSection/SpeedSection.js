@@ -8,7 +8,6 @@ import {
   SECTION_VERTICAL_SPACING,
   theme,
   space,
-  radii,
   breakpoints
 } from 'theme'
 
@@ -18,7 +17,11 @@ import Flex from 'components/elements/Flex'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
-import { Cross, FeatureTable, TableCard } from 'components/elements/Table/Table'
+import {
+  Cross,
+  FeatureTable,
+  TableScroll
+} from 'components/elements/Table/Table'
 import {
   breakableName,
   displayedTotal,
@@ -28,9 +31,6 @@ import {
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
-const SPACE_10 = `calc(${space[2]} + ${radii[1]})`
-const SPACE_12 = `calc(${space[3]} - ${space[1]})`
-const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
 
@@ -57,6 +57,7 @@ const PerUrlTable = styled(FeatureTable)`
   td {
     ${theme({
       px: 2,
+      fontSize: 1,
       textAlign: 'right',
       whiteSpace: 'nowrap',
       fontVariantNumeric: 'tabular-nums'
@@ -70,16 +71,13 @@ const PerUrlTable = styled(FeatureTable)`
 
   th:first-child,
   td:first-child {
-    ${theme({ pl: 3, textAlign: 'left', color: 'black' })}
+    ${theme({ pl: 0, textAlign: 'left', color: 'black' })}
   }
 
   th:last-child,
   td:last-child {
-    ${theme({ pr: 3 })}
-  }
+    ${theme({ pr: 0 })}
 
-  th:last-child,
-  td:last-child {
     @media (max-width: ${BREAKPOINT_COMPACT_MAX}) {
       display: none;
     }
@@ -88,6 +86,11 @@ const PerUrlTable = styled(FeatureTable)`
 
 const AverageFeatureTable = styled(FeatureTable)`
   min-width: 0;
+
+  th,
+  td {
+    ${theme({ fontSize: 1 })}
+  }
 
   td {
     ${theme({ fontVariantNumeric: 'tabular-nums' })}
@@ -109,28 +112,24 @@ const MobileCards = styled('div')`
     width: '100%',
     fontFamily: 'sans'
   })};
-  gap: ${SPACE_12};
+  gap: ${space[4]};
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ display: 'flex' })};
   }
 `
 
-const MobileCard = styled('div')`
-  ${theme({ borderRadius: 3, bg: 'white' })};
-  border: ${borders[1]} ${colors.black10};
-  overflow: hidden;
-`
+const MobileCard = styled('div')``
 
 const MobileCardHeader = styled('div')`
   ${theme({
     fontSize: 1,
     fontWeight: 'bold',
-    bg: 'black05'
+    color: 'black',
+    py: 2,
+    borderBottom: 1,
+    borderBottomColor: 'black10'
   })};
-  color: ${colors.black} !important;
-  padding: ${SPACE_10} ${SPACE_14};
-  border-bottom: ${borders[1]} ${colors.black10};
 `
 
 const MobileCardRow = styled('div')`
@@ -138,11 +137,12 @@ const MobileCardRow = styled('div')`
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    fontSize: 1
+    fontSize: 1,
+    py: 2,
+    borderBottom: 1,
+    borderBottomColor: 'black05'
   })};
-  padding: ${space[2]} ${SPACE_14};
   font-variant-numeric: tabular-nums;
-  border-bottom: ${borders[1]} ${colors.black05};
 
   &:last-child {
     border-bottom: 0;
@@ -479,18 +479,18 @@ const SpeedSection = ({
         >
           <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <TableTitle>Cold-start latency by&nbsp;URL</TableTitle>
-            <TableCard css={theme({ display: ['none', 'block'] })}>
+            <TableScroll css={theme({ display: ['none', 'block'] })}>
               <ColdStartTable benchmark={benchmark} services={services} />
-            </TableCard>
+            </TableScroll>
 
             <ColdStartCards benchmark={benchmark} services={services} />
           </Box>
 
           <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <TableTitle>Average cold-start latency</TableTitle>
-            <TableCard css={theme({ display: ['none', 'block'] })}>
+            <TableScroll css={theme({ display: ['none', 'block'] })}>
               <AverageTable benchmark={benchmark} services={services} />
-            </TableCard>
+            </TableScroll>
 
             <AverageCards benchmark={benchmark} services={services} />
             {note && (

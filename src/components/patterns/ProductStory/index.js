@@ -31,12 +31,10 @@ export {
 export { Section, SectionHeader, SectionNote, GradientText } from './section'
 export {
   FeatureTable,
-  ProseTable,
-  TableCard,
+  TableScroll,
   CellNote,
   CellValue,
   Check,
-  Cross,
-  HIGHLIGHT_BG
+  Cross
 } from 'components/elements/Table/Table'
 export { StoryCard, StoryCardGrid } from './story-card'

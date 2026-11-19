@@ -103,11 +103,10 @@ describe('scraperapi comparison numbers', () => {
 describe('scraperapi credit table', () => {
   const source = read('src/components/pages/scraperapi/credits.js')
 
-  test('keeps the first column left and highlights the Microlink row', () => {
+  test('keeps the first column left and bolds the Microlink row', () => {
     expect(source).toContain(
       "index === 0 ? null : theme({ textAlign: 'right' })"
     )
-    expect(source).toContain("highlight ? HIGHLIGHT_BG : 'transparent'")
     expect(source).toContain("fontWeight: highlight ? 'bold' : 'regular'")
   })
 })

@@ -4,11 +4,11 @@ import { textGradient, theme } from 'theme'
 import Text from 'components/elements/Text'
 
 import {
-  ProseTable,
+  FeatureTable,
   Section,
   SectionHeader,
   SectionNote,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 
 import { PATHS } from './shared'
@@ -20,8 +20,8 @@ export const Paths = () => (
   <Section id='paths' bg='gray0'>
     <SectionHeader title={PATHS.title} caption={PATHS.caption} />
 
-    <TableCard>
-      <ProseTable>
+    <TableScroll>
+      <FeatureTable>
         <thead>
           <tr>
             <Text as='th' scope='col' css={{ minWidth: OUTPUT_MIN_WIDTH }}>
@@ -52,8 +52,8 @@ export const Paths = () => (
             </tr>
           ))}
         </tbody>
-      </ProseTable>
-    </TableCard>
+      </FeatureTable>
+    </TableScroll>
 
     <SectionNote>{PATHS.footnote}</SectionNote>
   </Section>

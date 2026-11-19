@@ -10,7 +10,7 @@ import {
   CellNote,
   CellValue,
   FeatureTable,
-  TableCard
+  TableScroll
 } from 'components/elements/Table/Table'
 
 const FEATURE_MIN_WIDTH = '280px'
@@ -21,7 +21,7 @@ const MICROLINK_COLUMN = 2
 const StyledComparisonTable = styled(FeatureTable)`
   th:nth-child(${MICROLINK_COLUMN}),
   td:nth-child(${MICROLINK_COLUMN}) {
-    ${theme({ bg: 'pink0', color: 'black' })}
+    ${theme({ color: 'black' })}
   }
 
   thead th:nth-child(${MICROLINK_COLUMN}) {
@@ -79,7 +79,7 @@ export const ComparisonTable = ({
   competitorKey,
   featureLabel = 'Capability'
 }) => (
-  <TableCard>
+  <TableScroll>
     <StyledComparisonTable>
       <thead>
         <tr>
@@ -107,7 +107,7 @@ export const ComparisonTable = ({
         ))}
       </tbody>
     </StyledComparisonTable>
-  </TableCard>
+  </TableScroll>
 )
 
 export const ProductComparison = ({
