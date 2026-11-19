@@ -6,7 +6,7 @@ import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
 import {
   ProductComparison,
   ProductFaq,
-  ProductHero,
+  AlternativeHero,
   ProductPricing,
   ProductStrengths,
   productStructured,
@@ -18,8 +18,6 @@ import { CallToAction } from 'components/patterns/CallToAction'
 import { Capabilities } from 'components/pages/browserbase/capabilities'
 import { Paths } from 'components/pages/browserbase/paths'
 import {
-  ACCENT,
-  ACCENT_NAME,
   COMPARISON,
   CTA,
   FAQ_CAPTION,
@@ -28,8 +26,7 @@ import {
   HONESTY,
   META,
   PRICING_CAPTION,
-  TIMINGS,
-  TIMINGS_ACCENT
+  TIMINGS
 } from 'components/pages/browserbase/shared'
 
 const REPOS = ['browserless', 'mcp', 'microlink']
@@ -53,17 +50,17 @@ export const Head = () => (
 
 const BrowserbaseAlternativePage = () => (
   <Layout>
-    <ProductHero {...HERO} accent={ACCENT} />
+    <AlternativeHero {...HERO} />
     <Capabilities />
     <Paths />
-    <ProductTimings accent={TIMINGS_ACCENT} {...TIMINGS} />
+    <ProductTimings {...TIMINGS} />
     <ProductPricing caption={PRICING_CAPTION} />
     <ProductComparison {...COMPARISON} competitorKey='browserbase' />
-    <ProductStrengths id='when-browserbase' accent={ACCENT_NAME} {...HONESTY} />
+    <ProductStrengths id='when-browserbase' {...HONESTY} />
     <OpenSource
       repos={REPOS}
-      accent={ACCENT}
-      caption='Microlink runs on open source. The rendering engine, the MCP server, and the function runtime are public — read the code, contribute, or self-host instead of renting a browser.'
+      accent='gradient'
+      caption='Microlink runs on open source. The rendering engine, the MCP server, and the function runtime are public. Read the code, contribute, or self-host instead of renting a browser.'
     />
     <ProductFaq caption={FAQ_CAPTION} questions={toFaqQuestions(FAQ_ITEMS)} />
     <CallToAction id='cta' {...CTA} />

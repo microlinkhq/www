@@ -6,6 +6,7 @@ node_modules
 public/
 .DS_Store
 yarn-error.log
+*.log
 .env
 .envrc
 static/data/

@@ -22,7 +22,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
-import { ProseTable, TableCard } from 'components/patterns/ProductStory/table'
+import { ProseTable, TableCard } from 'components/elements/Table/Table'
 import { UNAVATAR_FALLBACK, UNAVATAR_TOKEN } from 'helpers/unavatar'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 

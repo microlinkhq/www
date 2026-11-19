@@ -12,6 +12,7 @@ import {
 } from 'theme'
 
 export const BREAKPOINT_SMALL_MAX = breakpoints[0]
+const TOTAL_COLUMN_WIDTH_SMALL = '80px'
 
 const barGrow = keyframes`
   from { transform: scaleX(0); }
@@ -144,6 +145,7 @@ export const UrlMeta = styled('div')`
   margin-top: 13px;
   margin-bottom: 12px;
   text-align: center;
+  text-wrap: balance;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
     ${theme({ fontSize: 0 })};
@@ -172,6 +174,9 @@ export const AnnounceMeta = styled('div')`
     ${theme({ fontSize: 0 })};
     gap: ${radii[3]};
     margin-top: ${radii[3]};
+    white-space: normal;
+    text-align: center;
+    text-wrap: balance;
   }
 `
 
@@ -204,7 +209,7 @@ export const DomainAnnounce = styled('div')`
   }
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ fontSize: 3 })};
+    ${theme({ fontSize: 3, width: '100%' })};
     animation: ${props =>
       css`
         ${domainShrinkMobile(props)} 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards
@@ -372,9 +377,10 @@ export const LaneTime = styled('span')`
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '68px', fontSize: 0 })};
+    ${theme({ width: TOTAL_COLUMN_WIDTH_SMALL, fontSize: 0 })};
   }
 `
 
@@ -406,10 +412,11 @@ export const CumulativeTime = styled('span')`
   flex-shrink: 0;
   text-align: right;
   font-variant-numeric: tabular-nums;
+  white-space: nowrap;
   transition: color 0.3s ease;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '68px', fontSize: 0 })};
+    ${theme({ width: TOTAL_COLUMN_WIDTH_SMALL, fontSize: 0 })};
   }
 `
 
@@ -457,7 +464,7 @@ export const LaneHeaderLabel = styled('span')`
   text-align: right;
 
   @media (max-width: ${BREAKPOINT_SMALL_MAX}) {
-    ${theme({ width: '68px', fontSize: 0 })};
+    ${theme({ width: TOTAL_COLUMN_WIDTH_SMALL, fontSize: 0 })};
   }
 `
 

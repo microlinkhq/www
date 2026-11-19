@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -7,9 +6,6 @@ import Text from 'components/elements/Text'
 import { GradientText } from 'components/patterns/ProductStory'
 import { sdkExample } from 'components/patterns/ExamplesSwitcher/sdk-example'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'grape'
-export const ACCENT = colors.grape7
 
 const PAGE_URL = 'https://microlink.io/alternative/serpapi'
 
@@ -28,16 +24,10 @@ const FAIR_USE_NOTE =
   'No hourly limit applies to legitimate use. Traffic that is fraudulent, illegal or aimed at attacking third parties is restricted.'
 
 export const HERO = {
-  title: 'The SerpApi alternative without an hourly ceiling',
-  description: (
-    <Text as='span'>
-      Microlink Search turns a Google query into JSON across ten surfaces: web,
-      news, images, videos, places, maps, shopping, scholar, patents and
-      autocomplete. Call it from the SDK, the CLI or MCP. Each search is one
-      request against a monthly quota, with no hourly throughput tier to size a
-      worker pool against.
-    </Text>
-  ),
+  competitor: 'SerpApi',
+  tagline: 'without an hourly ceiling',
+  description:
+    'Microlink Search turns a Google query into JSON across ten surfaces, from web to patents. Each search is one request against a monthly quota, with no hourly tier.',
   cta: 'alternative-serpapi:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/search',
@@ -146,7 +136,6 @@ export const COMPARISON = {
       href: '/docs/api/basics/rate-limit',
       microlink: 'None',
       serpapi: '20% of plan',
-      highlight: true,
       note: 'SerpApi sets the hourly limit at 20% of monthly volume below a million searches: 50 an hour on Free, 6,000 on Big Data. Microlink applies no throttling to legitimate use; the monthly quota is the only bound.'
     },
     {
@@ -154,7 +143,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '$1.07',
       serpapi: '$1.96 to $25',
-      highlight: true,
       note: 'Arithmetic on published monthly plans. Microlink is $1.07 on every self-serve plan, from $49 for 46,000 to $450 for 420,000. SerpApi falls with volume: $15.00 on Developer, $9.17 on Big Data, $3.75 at a million a month, $1.96 at 54 million.'
     },
     {
@@ -169,7 +157,6 @@ export const COMPARISON = {
       href: '/docs/guides/search/content-expansion',
       microlink: true,
       serpapi: false,
-      highlight: true,
       note: 'result.markdown() and result.html() fetch the linked page itself, at one request per result. SerpApi returns the results page; its Markdown Output renders that page as Markdown rather than reading the links.'
     },
     {
@@ -177,7 +164,6 @@ export const COMPARISON = {
       href: '/api',
       microlink: true,
       serpapi: false,
-      highlight: true,
       note: 'The same key, SDK and quota also capture a page, print it to PDF, or return normalized metadata. SerpApi is a search product.'
     },
     {

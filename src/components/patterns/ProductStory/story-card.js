@@ -15,6 +15,8 @@ import {
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
+const ACCENT = 'pink'
+
 export const StoryCardGrid = styled(Box).attrs({ as: 'ul' })`
   ${theme({
     display: 'grid',
@@ -42,22 +44,20 @@ export const StoryCardGrid = styled(Box).attrs({ as: 'ul' })`
 `
 
 const CardBox = styled(Box).attrs({ as: 'li' })`
-  ${({ $accent }) =>
-    theme({
-      bg: 'white',
-      border: 1,
-      borderColor: accentBorder($accent),
-      borderRadius: 3,
-      boxShadow: 1,
-      p: [3, 3, 4, 4]
-    })}
+  ${theme({
+    bg: 'white',
+    border: 1,
+    borderColor: accentBorder(ACCENT),
+    borderRadius: 3,
+    boxShadow: 1,
+    p: [3, 3, 4, 4]
+  })}
 
   transition: box-shadow ${transition.short}, border-color ${transition.short};
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
-      ${({ $accent }) =>
-        theme({ boxShadow: 3, borderColor: accentBorderHover($accent) })}
+      ${theme({ boxShadow: 3, borderColor: accentBorderHover(ACCENT) })}
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -77,16 +77,15 @@ const Badge = styled(Text)`
   justify-content: center;
   width: 28px;
   height: 28px;
-  ${({ $accent }) =>
-    theme({
-      bg: accentTile($accent),
-      color: accentText($accent),
-      borderRadius: 5,
-      fontFamily: 'mono',
-      fontSize: 0,
-      fontWeight: 'bold',
-      lineHeight: 0
-    })}
+  ${theme({
+    bg: accentTile(ACCENT),
+    color: accentText(ACCENT),
+    borderRadius: 5,
+    fontFamily: 'mono',
+    fontSize: 0,
+    fontWeight: 'bold',
+    lineHeight: 0
+  })}
 `
 
 const Tile = styled(Box)`
@@ -95,25 +94,17 @@ const Tile = styled(Box)`
   justify-content: center;
   width: 40px;
   height: 40px;
-  ${({ $accent }) => theme({ bg: accentTile($accent), borderRadius: 3 })}
-  color: ${({ $accent }) => colors[accentIcon($accent)]};
+  ${theme({ bg: accentTile(ACCENT), borderRadius: 3 })}
+  color: ${colors[accentIcon(ACCENT)]};
 `
 
-export const StoryCard = ({
-  accent,
-  index,
-  icon: Icon,
-  title,
-  description
-}) => (
-  <CardBox $accent={accent}>
+export const StoryCard = ({ index, icon: Icon, title, description }) => (
+  <CardBox>
     {index !== undefined && (
-      <Badge $accent={accent} aria-hidden='true'>
-        {String(index + 1).padStart(2, '0')}
-      </Badge>
+      <Badge aria-hidden='true'>{String(index + 1).padStart(2, '0')}</Badge>
     )}
     {Icon && (
-      <Tile $accent={accent} aria-hidden='true'>
+      <Tile aria-hidden='true'>
         <Icon size={20} />
       </Tile>
     )}
@@ -125,12 +116,22 @@ export const StoryCard = ({
         fontFamily: 'sans',
         fontSize: 2,
         fontWeight: 'bold',
-        color: 'black'
+        lineHeight: 1,
+        color: 'black',
+        textWrap: 'balance'
       })}
     >
       {title}
     </Text>
-    <Text css={theme({ pt: 2, fontSize: 1, lineHeight: 2, color: 'black70' })}>
+    <Text
+      css={theme({
+        pt: 2,
+        fontSize: 1,
+        lineHeight: 2,
+        color: 'black70',
+        textWrap: 'pretty'
+      })}
+    >
       {description}
     </Text>
   </CardBox>

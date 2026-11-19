@@ -7,7 +7,7 @@ import {
   StoryCardGrid
 } from 'components/patterns/ProductStory'
 
-import { ACCENT_NAME, OPERATIONS } from './shared'
+import { OPERATIONS } from './shared'
 
 export const Operations = () => (
   <Section id='playwright-in-production'>
@@ -16,7 +16,6 @@ export const Operations = () => (
       {OPERATIONS.items.map((item, index) => (
         <StoryCard
           key={item.title}
-          accent={ACCENT_NAME}
           index={index}
           title={item.title}
           description={item.body}

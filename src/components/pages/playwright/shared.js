@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -10,23 +9,6 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'violet'
-export const ACCENT = colors.violet7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.violet9} 0%,
-  ${colors.violet9} 48%,
-  ${colors.violet8} 48%,
-  ${colors.violet8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.pink7} 65%,
-  ${colors.pink7} 79%,
-  ${colors.pink6} 79%,
-  ${colors.pink6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/playwright'
 
@@ -47,9 +29,10 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The Playwright alternative for production screenshots and PDFs',
+  competitor: 'Playwright',
+  tagline: 'for screenshots and PDFs',
   description:
-    'Playwright was built to test your own app across three browsers. Reused as a screenshot, PDF or scraping service, it brings browser builds per release, a Docker image to pin, workers to size and proxies to buy. Microlink runs that browser for you: one request, one URL, the file or the data back.',
+    'Playwright was built to test your own app. As a screenshot service it brings browser builds, Docker images, workers and proxies. Microlink runs that browser for you.',
   cta: 'alternative-playwright:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/screenshot',
@@ -171,7 +154,6 @@ export const COMPARISON = {
       href: '/docs/guides/common/production-patterns',
       microlink: 'None, one HTTPS call',
       playwright: 'Browsers, image, workers',
-      highlight: true,
       note: 'Playwright needs browser binaries matched to its version, and the official Docker image must match the Playwright version in the project.'
     },
     {
@@ -179,7 +161,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '1 request',
       playwright: 'Your servers',
-      highlight: true,
       note: 'Microlink is $1.07 per 1,000 requests on every self-serve Pro plan, from $49 for 46,000 to $450 for 420,000. Playwright is free and open source; the cost is the compute, memory and time to keep it running.'
     },
     {
@@ -255,7 +236,6 @@ export const COMPARISON = {
       feature: 'Firefox and WebKit',
       microlink: false,
       playwright: true,
-      highlight: true,
       note: 'Playwright drives Chromium, Firefox and WebKit with one API. Microlink runs Chrome only.'
     },
     {

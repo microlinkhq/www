@@ -163,6 +163,7 @@ export const wrapLinesWithHighlight = (highlightedHtml, highlightLines) => {
 
 const TerminalTextWrapper = styled('div')`
   ${wordBreak};
+  hyphens: none;
   width: 100%;
   font-size: 14px;
   white-space: ${props => (props.$wrap ? 'pre-wrap' : 'pre')};

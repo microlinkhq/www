@@ -1,1 +1,1 @@
-export { default } from './Timings'
+export { default, BRAND_BAND } from './Timings'

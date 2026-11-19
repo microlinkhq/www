@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -10,23 +9,6 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'teal'
-export const ACCENT = colors.teal7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.teal9} 0%,
-  ${colors.teal9} 48%,
-  ${colors.teal8} 48%,
-  ${colors.teal8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.cyan7} 65%,
-  ${colors.cyan7} 79%,
-  ${colors.cyan6} 79%,
-  ${colors.cyan6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/jina-reader'
 
@@ -40,9 +22,10 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The Jina Reader alternative that bills per request',
+  competitor: 'Jina Reader',
+  tagline: 'that bills per request',
   description:
-    'Jina Reader meters the tokens it hands back, so a long page costs more than a short one. Microlink counts one request per call at the same price on every plan, and that single response carries the markdown, the screenshot, the PDF and the page metadata together.',
+    'Jina Reader meters the tokens it returns, so a long page costs more. Microlink counts one request per call, and that response carries markdown, screenshot, PDF and metadata.',
   cta: 'alternative-jina-reader:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides/content-conversion/url-to-markdown',
@@ -160,7 +143,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '1 request',
       jina: 'Output tokens',
-      highlight: true,
       note: 'Microlink is $1.07 per 1,000 requests on every self-serve Pro plan, from $49 for 46,000 to $450 for 420,000. Reader charges for the tokens in the response, so the same page costs more when it is longer, and its jina-ocr-v1 option costs 40× more tokens.'
     },
     {
@@ -168,7 +150,6 @@ export const COMPARISON = {
       href: '/formats',
       microlink: 'Markdown, HTML, screenshot, PDF, metadata',
       jina: 'Combined formats, no PDF',
-      highlight: true,
       note: 'X-Respond-With accepts a combination such as markdown+html+screenshot when Accept is application/json. Microlink takes each format as its own parameter, including pdf, and returns them as fields of one JSON response.'
     },
     {
@@ -176,7 +157,6 @@ export const COMPARISON = {
       href: '/features/ttl',
       microlink: '1 minute to 31 days',
       jina: '1 hour',
-      highlight: true,
       note: 'Microlink cache hits are free and fast, and ttl is settable with any API key. Reader caches a fetched page for 1 hour (3600 seconds). X-No-Cache bypasses it, and X-Cache-Tolerance sets how stale a cached page may be.'
     },
     {
@@ -184,7 +164,6 @@ export const COMPARISON = {
       href: '/docs/api/basics/rate-limit',
       microlink: 'No throttling on Pro',
       jina: '20 to 5,000',
-      highlight: true,
       note: `Microlink Pro runs as many parallel requests as the monthly quota allows; the free API key runs ${FREE_PLAN_CONCURRENT_REQUESTS} at a time. Reader publishes 20 RPM without a key and 5,000 RPM on its premium key.`
     },
     {
@@ -260,7 +239,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       jina: '10M tokens, 20 RPM keyless',
-      highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and every Pro feature, and ${KEYLESS_REQUESTS_PER_DAY} a day need no key at all. Every new Reader key comes with 10M free tokens once, and Reader answers without a key at 20 RPM.`
     },
     {

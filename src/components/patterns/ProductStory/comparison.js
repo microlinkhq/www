@@ -1,5 +1,6 @@
-import { textGradient, theme } from 'theme'
+import { breakpoints, theme } from 'theme'
 import React from 'react'
+import styled from 'styled-components'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -9,27 +10,104 @@ import {
   CellNote,
   CellValue,
   FeatureTable,
-  HIGHLIGHT_BG,
   TableCard
-} from './table'
+} from 'components/elements/Table/Table'
 
-const FEATURE_MIN_WIDTH = '240px'
-const VALUE_MIN_WIDTH = '112px'
+const FEATURE_MIN_WIDTH = '280px'
+const VALUE_WIDTH = '22%'
+const VALUE_MIN_WIDTH = '144px'
+const MICROLINK_COLUMN = 2
 
-const ValueHeader = ({ children, gradient }) => (
-  <Text
-    as='th'
+const StyledComparisonTable = styled(FeatureTable)`
+  th:nth-child(${MICROLINK_COLUMN}),
+  td:nth-child(${MICROLINK_COLUMN}) {
+    ${theme({ bg: 'pink0', color: 'black' })}
+  }
+
+  thead th:nth-child(${MICROLINK_COLUMN}) {
+    ${theme({ color: 'secondary' })}
+  }
+
+  @media (max-width: ${breakpoints[0]}) {
+    tr {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-rows: auto auto auto;
+      ${theme({ py: 0 })}
+    }
+
+    tbody th {
+      grid-column: 1 / -1;
+      ${theme({ pt: 3, pb: 2 })}
+    }
+
+    td {
+      display: grid;
+      grid-row: 2 / span 2;
+      grid-template-rows: subgrid;
+      ${theme({
+        justifyItems: 'center',
+        alignItems: 'start',
+        textAlign: 'center',
+        rowGap: 1,
+        py: 3,
+        overflowWrap: 'break-word'
+      })}
+    }
+
+    td:nth-child(${MICROLINK_COLUMN})::before {
+      ${theme({ color: 'secondary' })}
+    }
+  }
+`
+
+const ValueHeader = ({ children }) => (
+  <th
     scope='col'
     css={[
-      theme({
-        textAlign: 'center',
-        ...(gradient ? null : { color: 'black60' })
-      }),
-      { minWidth: VALUE_MIN_WIDTH }
+      theme({ textAlign: 'center' }),
+      { width: VALUE_WIDTH, minWidth: VALUE_MIN_WIDTH }
     ]}
   >
-    {gradient ? <span css={textGradient}>{children}</span> : children}
-  </Text>
+    {children}
+  </th>
+)
+
+export const ComparisonTable = ({
+  columns,
+  rows,
+  competitorKey,
+  featureLabel = 'Capability'
+}) => (
+  <TableCard>
+    <StyledComparisonTable>
+      <thead>
+        <tr>
+          <th scope='col' css={{ minWidth: FEATURE_MIN_WIDTH }}>
+            {featureLabel}
+          </th>
+          <ValueHeader>{columns[0]}</ValueHeader>
+          <ValueHeader>{columns[1]}</ValueHeader>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(({ feature, href, note, ...row }) => (
+          <tr key={feature}>
+            <Text as='th' scope='row'>
+              {href ? <Link href={href}>{feature}</Link> : feature}
+              {note && <CellNote>{note}</CellNote>}
+            </Text>
+            <td data-label={columns[0]}>
+              <CellValue value={row.microlink} />
+            </td>
+            <td data-label={columns[1]}>
+              <CellValue value={row[competitorKey]} />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </StyledComparisonTable>
+  </TableCard>
 )
 
 export const ProductComparison = ({
@@ -43,47 +121,11 @@ export const ProductComparison = ({
   <Section id='comparison' bordered>
     <SectionHeader title={title} caption={caption} />
 
-    <TableCard>
-      <FeatureTable>
-        <thead>
-          <tr>
-            <Text as='th' scope='col' css={{ minWidth: FEATURE_MIN_WIDTH }}>
-              Capability
-            </Text>
-            <ValueHeader gradient>{columns[0]}</ValueHeader>
-            <ValueHeader>{columns[1]}</ValueHeader>
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(
-            ({
-              feature,
-              href,
-              microlink,
-              note: rowNote,
-              highlight,
-              ...row
-            }) => (
-              <tr
-                key={feature}
-                css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
-              >
-                <Text as='th' scope='row' css={theme({ fontWeight: 'bold' })}>
-                  {href ? <Link href={href}>{feature}</Link> : feature}
-                  {rowNote && <CellNote>{rowNote}</CellNote>}
-                </Text>
-                <td>
-                  <CellValue value={microlink} />
-                </td>
-                <td>
-                  <CellValue value={row[competitorKey]} />
-                </td>
-              </tr>
-            )
-          )}
-        </tbody>
-      </FeatureTable>
-    </TableCard>
+    <ComparisonTable
+      columns={columns}
+      rows={rows}
+      competitorKey={competitorKey}
+    />
 
     <SectionNote>{note}</SectionNote>
   </Section>

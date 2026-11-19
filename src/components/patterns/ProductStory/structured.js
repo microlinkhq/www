@@ -30,6 +30,22 @@ export const toFaqQuestions = items =>
     answer: answer || text
   }))
 
+const toPlainText = value =>
+  value.replace(/\u00a0/g, ' ').replace(/\u2011/g, '-')
+
+const faqEntities = items =>
+  items.map(({ question, text }) => ({
+    '@type': 'Question',
+    name: toPlainText(question),
+    acceptedAnswer: { '@type': 'Answer', text: toPlainText(text) }
+  }))
+
+export const faqPageStructured = items => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqEntities(items)
+})
+
 export const productStructured = ({
   path,
   name,
@@ -97,11 +113,7 @@ export const productStructured = ({
       '@type': 'FAQPage',
       '@id': `${url}#faq`,
       url,
-      mainEntity: faqItems.map(({ question, text }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text }
-      }))
+      mainEntity: faqEntities(faqItems)
     })
   }
 

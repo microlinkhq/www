@@ -19,6 +19,13 @@ export const GradientText = styled('span')`
   `}
 `
 
+const INLINE_CODE = {
+  fontFamily: 'mono',
+  fontSize: '0.9em',
+  letterSpacing: 0,
+  wordBreak: 'break-word'
+}
+
 export const Section = ({ id, bg, bordered, children }) => (
   <Box
     as='section'
@@ -36,7 +43,8 @@ export const Section = ({ id, bg, bordered, children }) => (
       width: '100%',
       px: [3, 3, 4, 4],
       py: SECTION_VERTICAL_SPACING,
-      scrollMarginTop: space[5]
+      scrollMarginTop: space[5],
+      ':not(pre) > code': INLINE_CODE
     })}
   >
     <Box css={theme({ width: '100%', maxWidth: layout.large, mx: 'auto' })}>
@@ -54,7 +62,8 @@ export const SectionHeader = ({ title, caption }) => (
           pt: [3, 3, 4, 4],
           mx: 'auto',
           maxWidth: layout.normal,
-          color: 'black60'
+          color: 'black60',
+          textWrap: 'balance'
         })}
       >
         {caption}
@@ -69,11 +78,11 @@ export const SectionNote = ({ children }) => (
       pt: [3, 3, 4, 4],
       mx: 'auto',
       maxWidth: layout.normal,
-      fontFamily: 'mono',
       fontSize: 0,
-      color: 'black40',
+      color: 'black60',
       lineHeight: 2,
-      textAlign: 'center'
+      textAlign: 'center',
+      textWrap: 'balance'
     })}
   >
     {children}

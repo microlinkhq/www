@@ -4,7 +4,21 @@ import { theme, borders, colors, SECTION_VERTICAL_SPACING } from 'theme'
 
 import Block from 'components/patterns/Block/Block'
 
-const Timings = ({ accent, title, stats, ...props }) => (
+export const BRAND_BAND = `radial-gradient(
+  circle at center right,
+  #850ba7 0%,
+  #850ba7 48%,
+  #a31b91 48%,
+  #a31b91 52%,
+  #c12a78 52%,
+  #c12a78 65%,
+  #df3a61 65%,
+  #df3a61 79%,
+  #fd494a 79%,
+  #fd494a 100%
+)`
+
+const Timings = ({ accent = BRAND_BAND, title, stats, ...props }) => (
   <Block
     forwardedAs='section'
     id='timings'

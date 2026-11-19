@@ -30,15 +30,28 @@ const NAV_PRODUCT_ROUTES = [
 
 const OTHER_PRODUCT_PAGES = [
   'pages/ai.js',
+  'pages/alternative/apiflash.js',
   'pages/alternative/browserbase.js',
   'pages/alternative/clearbit.js',
+  'pages/alternative/cloudflare.js',
+  'pages/alternative/context-dev.js',
+  'pages/alternative/embedly.js',
+  'pages/alternative/firecrawl.js',
+  'pages/alternative/iframely.js',
   'pages/alternative/index.js',
   'pages/alternative/jina-reader.js',
   'pages/alternative/playwright.js',
   'pages/alternative/puppeteer.js',
   'pages/alternative/scraperapi.js',
   'pages/alternative/scrapingbee.js',
-  'pages/alternative/serpapi.js'
+  'pages/alternative/screenshotapi.js',
+  'pages/alternative/screenshotlayer.js',
+  'pages/alternative/screenshotmachine.js',
+  'pages/alternative/screenshotone.js',
+  'pages/alternative/serpapi.js',
+  'pages/alternative/thumio.js',
+  'pages/alternative/url2png.js',
+  'pages/alternative/urlbox.js'
 ]
 
 const PRODUCT_PAGES = [
@@ -46,7 +59,7 @@ const PRODUCT_PAGES = [
   ...OTHER_PRODUCT_PAGES
 ]
 
-const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z-]+\/cta)'/
+const PAGE_CTA_IMPORT = /from '(components\/pages\/[a-z0-9-]+\/cta)'/
 
 const rendersSharedPattern = source =>
   source.includes(PATTERN_IMPORT) || PAGE_CTA_IMPORT.test(source)
@@ -61,7 +74,7 @@ const langNavBlocks = source =>
   [...source.matchAll(/<LangLandingsNav\b[\s\S]*?\/>/g)].map(m => m[0])
 
 const SHARED_CTA_IMPORT =
-  /import \{[^}]*\bCTA\b[^}]*\} from '(components\/pages\/[a-z-]+\/[a-z-]+)'/
+  /import \{[^}]*\bCTA\b[^}]*\} from '(components\/pages\/[a-z0-9-]+\/[a-z-]+)'/
 const SHARED_CTA_BLOCK = /export const CTA = \{[\s\S]*?\n\}/
 const CTA_JSX_BLOCK = /<(?:FreeKeyCallToAction|CallToAction)\b[^>]*>/
 const LINKS_CONST = /links=\{([A-Z_]+)\}/
@@ -199,7 +212,7 @@ describe('call to action pattern', () => {
     const configs = [...new Set(signupCallers.map(ctaConfigFor))]
     const ids = configs.map(config => config.match(CTA_ID)[1])
     expect(new Set(ids).size).toBe(configs.length)
-    for (const id of ids) expect(id).toMatch(/^[a-z-]+:footer-cta$/)
+    for (const id of ids) expect(id).toMatch(/^[a-z0-9-]+:footer-cta$/)
   })
 
   test('next steps declared in a constant are read from it', () => {

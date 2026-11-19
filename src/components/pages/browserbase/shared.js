@@ -1,5 +1,4 @@
 import React from 'react'
-import { colors } from 'theme'
 import {
   Code as CodeIcon,
   Clock as ClockIcon,
@@ -15,23 +14,6 @@ import Text from 'components/elements/Text'
 import { GradientText } from 'components/patterns/ProductStory'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
-export const ACCENT_NAME = 'indigo'
-export const ACCENT = colors.indigo8
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.indigo9} 0%,
-  ${colors.indigo9} 48%,
-  ${colors.indigo8} 48%,
-  ${colors.indigo8} 52%,
-  ${colors.blue7} 52%,
-  ${colors.blue7} 65%,
-  ${colors.blue6} 65%,
-  ${colors.blue6} 79%,
-  ${colors.cyan6} 79%,
-  ${colors.cyan6} 100%
-)`
-
 export const BROWSERBASE_URL = 'https://www.browserbase.com'
 export const BROWSERBASE_PRICING_URL = 'https://www.browserbase.com/pricing'
 export const BROWSERBASE_DOCS_URL = 'https://docs.browserbase.com/introduction'
@@ -41,16 +23,10 @@ export const BROWSERBASE_SECURITY_DOCS_URL =
   'https://docs.browserbase.com/account/enterprise/security'
 
 export const HERO = {
-  title: 'The Browserbase alternative that renders in one call',
-  description: (
-    <Text as='span'>
-      Browserbase has a one-call path — the Fetch API — but it never executes
-      JavaScript, and it cannot return a screenshot or a PDF. Anything rendered
-      means opening a browser session and paying by the browser-hour. Microlink
-      renders every request in a real browser and returns the finished artifact
-      from a single call.
-    </Text>
-  ),
+  competitor: 'Browserbase',
+  tagline: 'that renders in one call',
+  description:
+    'The Browserbase Fetch API runs no JavaScript and returns no screenshot or PDF, so rendering means a session billed by the browser-hour. Microlink renders every call.',
   cta: 'alternative-browserbase:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/api/getting-started/overview',
@@ -97,7 +73,7 @@ export const CAPABILITIES = {
           , a <Link href='/screenshot'>screenshot</Link>, a{' '}
           <Link href='/pdf'>PDF</Link>, or a custom{' '}
           <Link href='/docs/api/parameters/data'>data</Link> shape with CSS
-          selectors — several of them in the same request.
+          selectors (several of them in the same request).
         </>
       )
     },
@@ -108,7 +84,7 @@ export const CAPABILITIES = {
         <>
           <Link href='/function'>Browser Functions</Link> execute your
           JavaScript against a live Puppeteer page and <code>require()</code>{' '}
-          any npm package — page-level control without operating a session.
+          any npm package: page-level control without operating a session.
         </>
       )
     },
@@ -130,8 +106,8 @@ export const CAPABILITIES = {
       description: (
         <>
           The <Link href='/integrations/mcp'>Microlink MCP</Link> server gives
-          an agent 20 web tools in natural language — screenshot, PDF, Markdown,
-          extract, and more — that return results instead of browser state.
+          an agent 20 web tools in natural language (screenshot, PDF, Markdown,
+          extract, and more) that return results instead of browser state.
         </>
       )
     },
@@ -157,7 +133,7 @@ export const PATHS = {
     </>
   ),
   caption:
-    'Browserbase splits the work across a fetcher, a browser session, and a search index, each metered separately. On Microlink every row below is the same endpoint and the same unit — one request.',
+    'Browserbase splits the work across a fetcher, a browser session, and a search index, each metered separately. On Microlink every row below is the same endpoint and the same unit: one request.',
   columns: {
     output: 'What you want',
     browserbase: 'On Browserbase',
@@ -166,25 +142,25 @@ export const PATHS = {
   rows: [
     {
       output: 'Raw HTML of a static page',
-      browserbase: 'Fetch API — from $0.50 per 1,000 calls, no JavaScript run',
+      browserbase: 'Fetch API: from $0.50 per 1,000 calls, no JavaScript run',
       microlink: (
         <>
-          <Link href='/html'>html</Link> — rendered, one request
+          <Link href='/html'>html</Link>: rendered, one request
         </>
       )
     },
     {
       output: 'Markdown of a static page',
-      browserbase: 'Fetch Extract — $4 per 1,000 calls',
+      browserbase: 'Fetch Extract: $4 per 1,000 calls',
       microlink: (
         <>
-          <Link href='/markdown'>markdown</Link> — one request
+          <Link href='/markdown'>markdown</Link>: one request
         </>
       )
     },
     {
       output: 'Markdown of a client-rendered app',
-      browserbase: 'Out of scope for Fetch — open a session, pay browser-hours',
+      browserbase: 'Out of scope for Fetch: open a session, pay browser-hours',
       microlink: 'The same one request'
     },
     {
@@ -192,16 +168,16 @@ export const PATHS = {
       browserbase: 'A session you drive: connect Playwright or CDP and capture',
       microlink: (
         <>
-          <Link href='/screenshot'>screenshot</Link> — a parameter on the call
+          <Link href='/screenshot'>screenshot</Link>: a parameter on the call
         </>
       )
     },
     {
       output: 'A PDF',
-      browserbase: 'A session you drive — Fetch cannot produce or convert PDFs',
+      browserbase: 'A session you drive. Fetch cannot produce or convert PDFs',
       microlink: (
         <>
-          <Link href='/pdf'>pdf</Link> — a parameter on the call
+          <Link href='/pdf'>pdf</Link>: a parameter on the call
         </>
       )
     },
@@ -217,10 +193,10 @@ export const PATHS = {
     },
     {
       output: 'Google results as JSON',
-      browserbase: 'Search API — $7 per 1,000 calls past the included quota',
+      browserbase: 'Search API: $7 per 1,000 calls past the included quota',
       microlink: (
         <>
-          <Link href='/search'>search</Link> — a request like any other, on paid
+          <Link href='/search'>search</Link>: a request like any other, on paid
           plans
         </>
       )
@@ -229,8 +205,8 @@ export const PATHS = {
   footnote: (
     <>
       Fetch limits and pricing are Browserbase&#39;s own, published in the{' '}
-      <Link href={BROWSERBASE_FETCH_DOCS_URL}>Fetch overview</Link> — “Fetch
-      doesn&#39;t execute JavaScript and has a 5 MB content limit” — and on{' '}
+      <Link href={BROWSERBASE_FETCH_DOCS_URL}>Fetch overview</Link> (“Fetch
+      doesn&#39;t execute JavaScript and has a 5 MB content limit”) and on{' '}
       <Link href={BROWSERBASE_PRICING_URL}>browserbase.com/pricing</Link>, read
       August 2026. Per-call rates shown are Startup-plan overages; the Developer
       plan is $1 per 1,000 Fetch calls.
@@ -262,7 +238,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '1 request',
       browserbase: '6 meters',
-      highlight: true,
       note: 'Browserbase meters browser-hours, concurrency tier, proxy GB, Fetch calls, Search calls and agent runs. A Microlink request costs the same whatever it returns.'
     },
     {
@@ -270,7 +245,6 @@ export const COMPARISON = {
       href: '/markdown',
       microlink: true,
       browserbase: false,
-      highlight: true,
       note: 'Browserbase Fetch “doesn’t execute JavaScript and has a 5 MB content limit”. Rendering means opening a session. Every Microlink request renders.'
     },
     {
@@ -278,7 +252,6 @@ export const COMPARISON = {
       href: '/screenshot',
       microlink: true,
       browserbase: false,
-      highlight: true,
       note: 'A parameter on the Microlink request. On Browserbase you connect Playwright or CDP to a session and capture it yourself.'
     },
     {
@@ -286,7 +259,6 @@ export const COMPARISON = {
       href: '/pdf',
       microlink: true,
       browserbase: false,
-      highlight: true,
       note: 'pdf: true on any Microlink request. Fetch cannot produce or convert PDFs; a session can, through your own code.'
     },
     {
@@ -294,7 +266,6 @@ export const COMPARISON = {
       href: '/features/ttl',
       microlink: true,
       browserbase: false,
-      highlight: true,
       note: 'ttl from 1 minute to 31 days, served from the edge without booting a browser. No response cache is documented for Browserbase.'
     },
     {
@@ -302,7 +273,6 @@ export const COMPARISON = {
       href: '/metadata',
       microlink: true,
       browserbase: 'Schema',
-      highlight: true,
       note: 'Title, description, author, date, logo, image and publisher, normalized. Browserbase reaches the same fields through a Fetch Extract schema you define.'
     },
     {
@@ -310,7 +280,6 @@ export const COMPARISON = {
       href: '/features/antibot',
       microlink: true,
       browserbase: false,
-      highlight: true,
       note: 'Microlink reports which of 30+ providers refused the request, on every plan. Browserbase offers proxies but documents no blocker attribution.'
     },
     {
@@ -360,7 +329,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       browserbase: '1 hour',
-      highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with every Pro feature and no card. Browserbase gives 1 browser hour, 3 concurrent browsers and 15-minute sessions, plus 1,000 Fetch and 1,000 Search calls.`
     },
     {
@@ -397,12 +365,12 @@ export const HONESTY = {
     </>
   ),
   caption:
-    'Microlink returns results, not a browser you hold open and script step by step. Several jobs really are about the browser — and a few are about the paperwork around it.',
+    'Microlink returns results, not a browser you hold open and script step by step. Several jobs really are about the browser, and a few are about the paperwork around it.',
   items: [
     {
       title: 'You drive the browser yourself',
       description:
-        'When the work is Playwright, Puppeteer, Selenium, or Stagehand code against a live page — arbitrary clicks, multi-step flows, assertions you own — a managed session is the right shape, and Browserbase documents all four frameworks.'
+        'When the work is Playwright, Puppeteer, Selenium, or Stagehand code against a live page (arbitrary clicks, multi-step flows, assertions you own), a managed session is the right shape, and Browserbase documents all four frameworks.'
     },
     {
       title: 'Long-lived, stateful sessions',
@@ -456,16 +424,16 @@ export const FAQ_CAPTION =
 export const FAQ_ITEMS = [
   {
     question: 'Does Microlink replace Browserbase, or sit next to it?',
-    text: 'Not exactly. Browserbase gives you a cloud browser you drive with Playwright, Puppeteer, Selenium, or Stagehand. Microlink is an API that returns finished output — a screenshot, PDF, Markdown, HTML, or structured JSON — from a single call. If you reach for a browser only to produce one of those results, Microlink replaces the whole session. If you need to script the browser yourself, keep Browserbase.',
+    text: 'Not exactly. Browserbase gives you a cloud browser you drive with Playwright, Puppeteer, Selenium, or Stagehand. Microlink is an API that returns finished output (a screenshot, PDF, Markdown, HTML, or structured JSON) from a single call. If you reach for a browser only to produce one of those results, Microlink replaces the whole session. If you need to script the browser yourself, keep Browserbase.',
     answer: (
       <>
         <div>
           Not exactly. Browserbase gives you a cloud browser you drive with
           Playwright, Puppeteer, Selenium, or Stagehand. Microlink is an API
-          that returns finished output — a{' '}
+          that returns finished output (a{' '}
           <Link href='/screenshot'>screenshot</Link>,{' '}
           <Link href='/pdf'>PDF</Link>, <Link href='/markdown'>Markdown</Link>,
-          HTML, or structured JSON — from a single call.
+          HTML, or structured JSON) from a single call.
         </div>
         <div>
           If you reach for a browser only to produce one of those results,
@@ -499,7 +467,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Can I still run custom browser code on Microlink?',
-    text: 'Yes. Browser Functions execute your JavaScript against a live Puppeteer page, and the runtime installs any npm package you require() automatically, caching it for later runs. You get page-level control without opening and managing a session — but not a persistent, interactive browser you drive end to end.',
+    text: 'Yes. Browser Functions execute your JavaScript against a live Puppeteer page, and the runtime installs any npm package you require() automatically, caching it for later runs. You get page-level control without opening and managing a session, but not a persistent, interactive browser you drive end to end.',
     answer: (
       <>
         <div>
@@ -509,20 +477,20 @@ export const FAQ_ITEMS = [
           later runs.
         </div>
         <div>
-          You get page-level control without opening and managing a session —
-          but not a persistent, interactive browser you drive end to end.
+          You get page-level control without opening and managing a session, but
+          not a persistent, interactive browser you drive end to end.
         </div>
       </>
     )
   },
   {
     question: 'What replaces browser-hours and concurrency tiers?',
-    text: 'Browserbase meters browser-hours, the concurrency tier you sit on, proxy GB, Fetch calls, Search calls, and agent runs — six units to forecast. Microlink charges one request per API call regardless of what comes back, which works out under €1 per 1,000 requests on the entry Pro plan. Set a ttl and a repeat request is served from the edge without booting a browser.',
+    text: 'Browserbase meters browser-hours, the concurrency tier you sit on, proxy GB, Fetch calls, Search calls, and agent runs: six units to forecast. Microlink charges one request per API call regardless of what comes back, which works out under €1 per 1,000 requests on the entry Pro plan. Set a ttl and a repeat request is served from the edge without booting a browser.',
     answer: (
       <>
         <div>
           Browserbase meters browser-hours, the concurrency tier you sit on,
-          proxy GB, Fetch calls, Search calls, and agent runs — six units to
+          proxy GB, Fetch calls, Search calls, and agent runs: six units to
           forecast. Microlink charges{' '}
           <Link href='/pricing'>one request per API call</Link> regardless of
           what comes back, which works out under €1 per 1,000 requests on the
@@ -537,12 +505,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Both ship an MCP server. What is the difference?',
-    text: `The Browserbase MCP server exposes six tools that operate a session — start, end, navigate, act, observe, and extract — so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`,
+    text: `The Browserbase MCP server exposes six tools that operate a session (start, end, navigate, act, observe, and extract), so the agent is still driving a browser, one step at a time. Microlink MCP exposes 20 tools that each return a finished artifact: screenshot, PDF, Markdown, metadata, media, Lighthouse insights, and Google search. A free API key covers every tool, Search included, with ${FREE_PLAN_REQUESTS_PER_DAY} requests a day.`,
     answer: (
       <>
         <div>
-          The Browserbase MCP server exposes six tools that operate a session —
-          start, end, navigate, act, observe, and extract — so the agent is
+          The Browserbase MCP server exposes six tools that operate a session
+          (start, end, navigate, act, observe, and extract), so the agent is
           still driving a browser, one step at a time.
         </div>
         <div>
@@ -610,8 +578,8 @@ export const FAQ_ITEMS = [
           Microlink runs{' '}
           <Link href='/features/isolation'>one ephemeral browser per call</Link>{' '}
           on every plan and refuses private, loopback, and link-local addresses
-          before navigation — the SSRF case you hit when the URL comes from a
-          user. If you need the audited compliance paperwork, Browserbase
+          before navigation, which is the SSRF case you hit when the URL comes
+          from a user. If you need the audited compliance paperwork, Browserbase
           publishes it and Microlink does not.
         </div>
       </>
@@ -625,7 +593,7 @@ export const META = {
     'Browserbase alternative for teams tired of choosing between a fetcher that skips JavaScript and a browser billed by the hour. Microlink renders every request and returns Markdown, JSON, a screenshot or a PDF from one call.',
   structuredName: 'Microlink vs Browserbase',
   structuredDescription:
-    'A comparison of Microlink and Browserbase for rendering web pages into screenshots, PDFs, Markdown, HTML and structured data, and for giving AI agents web access — a single rendered API call versus a cloud browser platform metered by browser-hour, Fetch call and proxy GB.',
+    'A comparison of Microlink and Browserbase for rendering web pages into screenshots, PDFs, Markdown, HTML and structured data, and for giving AI agents web access: a single rendered API call versus a cloud browser platform metered by browser-hour, Fetch call and proxy GB.',
   keywords: [
     'browserbase alternative',
     'browserbase vs microlink',

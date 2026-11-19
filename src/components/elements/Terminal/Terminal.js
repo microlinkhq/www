@@ -242,6 +242,7 @@ export const TerminalText = styled('div')`
 
 const TerminalTextWrapper = styled('div')`
   ${wordBreak};
+  hyphens: none;
   overflow: auto;
   width: 100%;
   white-space: ${props => (props.$wrap ? 'pre-wrap' : 'pre')};

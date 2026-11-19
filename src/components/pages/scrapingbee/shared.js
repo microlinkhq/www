@@ -1,28 +1,10 @@
 import React from 'react'
-import { colors } from 'theme'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
 
 import { GradientText } from 'components/patterns/ProductStory'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
-
-export const ACCENT_NAME = 'cyan'
-export const ACCENT = colors.cyan7
-
-export const TIMINGS_ACCENT = `radial-gradient(
-  circle at center right,
-  ${colors.cyan9} 0%,
-  ${colors.cyan9} 48%,
-  ${colors.cyan8} 48%,
-  ${colors.cyan8} 52%,
-  ${ACCENT} 52%,
-  ${ACCENT} 65%,
-  ${colors.teal7} 65%,
-  ${colors.teal7} 79%,
-  ${colors.teal6} 79%,
-  ${colors.teal6} 100%
-)`
 
 const PAGE_URL = 'https://microlink.io/alternative/scrapingbee'
 
@@ -33,15 +15,10 @@ export const META = {
 }
 
 export const HERO = {
-  title: 'The ScrapingBee alternative you can forecast',
-  description: (
-    <Text as='span'>
-      On ScrapingBee, 250,000 credits buys 250,000 pages or 3,333 — the flags on
-      each request decide which. Microlink counts one request per API call, so
-      the number on the plan is the number of pages, and that call still returns
-      the screenshot, the markdown and the metadata together.
-    </Text>
-  ),
+  competitor: 'ScrapingBee',
+  tagline: 'you can forecast',
+  description:
+    'On ScrapingBee, 250,000 credits buys 250,000 pages or 3,333, depending on the flags. Microlink counts one request per call, so the number on the plan is the page count.',
   cta: 'alternative-scrapingbee:hero',
   ctaLabel: 'Get your free API key',
   secondaryHref: '/docs/guides',
@@ -94,7 +71,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: '1 request',
       scrapingbee: '1–75 credits',
-      highlight: true,
       note: 'ScrapingBee: 1 credit static, 5 rendered, 10–25 premium proxy, 75 stealth. A Microlink request costs the same whatever it carries.'
     },
     {
@@ -102,7 +78,6 @@ export const COMPARISON = {
       href: '/features/ttl',
       microlink: true,
       scrapingbee: false,
-      highlight: true,
       note: 'TTL from 1 minute to 31 days and cache hits are free. ScrapingBee states it does not cache requests at all.'
     },
     {
@@ -110,7 +85,6 @@ export const COMPARISON = {
       href: '/features/adblock',
       microlink: true,
       scrapingbee: 'Opt-in',
-      highlight: true,
       note: 'adblock defaults to true on Microlink; block_ads defaults to false on ScrapingBee.'
     },
     {
@@ -118,8 +92,7 @@ export const COMPARISON = {
       href: '/metadata',
       microlink: true,
       scrapingbee: false,
-      highlight: true,
-      note: 'Title, description, author, date, logo, image and publisher, normalized. ScrapingBee has no metadata product — reach the meta tags with extract_rules.'
+      note: 'Title, description, author, date, logo, image and publisher, normalized. ScrapingBee has no metadata product. Reach the meta tags with extract_rules.'
     },
     {
       feature: 'PDF of the page',
@@ -193,7 +166,6 @@ export const COMPARISON = {
       href: '/pricing',
       microlink: `${FREE_PLAN_REQUESTS_PER_DAY}/day`,
       scrapingbee: '1,000 once',
-      highlight: true,
       note: `The free Microlink API key renews ${FREE_PLAN_REQUESTS_PER_DAY} requests every day with no card and no expiry; ScrapingBee gives a one-time trial allowance.`
     },
     {
@@ -219,7 +191,7 @@ export const BILLING = {
     </>
   ),
   caption:
-    'ScrapingBee publishes a multiplier per option, so the entry Freelance plan is worth anywhere from 250,000 pages to 3,333 — decided by flags set per request, not by the plan you bought.',
+    'ScrapingBee publishes a multiplier per option, so the entry Freelance plan is worth anywhere from 250,000 pages to 3,333 (decided by flags set per request, not by the plan you bought).',
   columns: ['Configuration', 'Cost each', 'What 250,000 buys'],
   rows: [
     {
@@ -244,7 +216,7 @@ export const BILLING = {
       pages: '3,333 pages'
     },
     {
-      config: 'Microlink — any of the above',
+      config: 'Microlink (any of the above)',
       credits: '1 request',
       pages: '250,000 pages',
       highlight: true
@@ -296,7 +268,7 @@ export const HONESTY = {
     {
       title: 'Extraction described in prose',
       description:
-        'ai_query and ai_extract_rules let you ask for a field in plain language. Microlink extraction is declarative CSS and regex rules — precise and repeatable, but you write the selector.'
+        'ai_query and ai_extract_rules let you ask for a field in plain language. Microlink extraction is declarative CSS and regex rules: precise and repeatable, but you write the selector.'
     },
     {
       title: 'Very high scraping volume',
@@ -309,7 +281,7 @@ export const HONESTY = {
 export const PRICING_CAPTION = (
   <Text>
     One request counted whether the call renders or proxies, and a{' '}
-    <Link href='/features/ttl'>cache hit</Link> not counted at all — there is no
+    <Link href='/features/ttl'>cache hit</Link> not counted at all. There is no
     multiplier to budget around. Start on the free API key and move to a paid
     plan when the daily ceiling gets in the way.
   </Text>
@@ -328,10 +300,10 @@ export const FAQ_CAPTION =
 export const FAQ_ITEMS = [
   {
     question: 'Is Microlink a drop-in replacement for ScrapingBee?',
-    text: 'No — the request shape is different. ScrapingBee takes url plus flags such as render_js and premium_proxy; Microlink takes url plus the products you want back, such as screenshot, pdf or a data block. Most migrations are a single call site: the target URL stays the same, render_js becomes the default behaviour, premium_proxy becomes proxy, and js_scenario becomes click, scroll and waitForSelector.',
+    text: 'No. The request shape is different. ScrapingBee takes url plus flags such as render_js and premium_proxy; Microlink takes url plus the products you want back, such as screenshot, pdf or a data block. Most migrations are a single call site: the target URL stays the same, render_js becomes the default behaviour, premium_proxy becomes proxy, and js_scenario becomes click, scroll and waitForSelector.',
     answer: (
       <div>
-        No — the request shape is different. ScrapingBee takes a url plus flags
+        No. The request shape is different. ScrapingBee takes a url plus flags
         such as <code>render_js</code> and <code>premium_proxy</code>; Microlink
         takes a <Link href='/docs/api/parameters/url'>url</Link> plus the
         products you want back, such as{' '}
@@ -352,19 +324,19 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'How do credits compare to requests?',
-    text: 'ScrapingBee charges 1 credit for a static fetch with rendering off, 5 for a rendered page, 10 or 25 for a premium proxy depending on whether the page renders, and 75 for a stealth proxy. Microlink charges one request per API call regardless of what the call does, so the number on your plan is the number of pages you can fetch. Compare plans by pages, not by the headline credit figure — and note that a ScrapingBee plan is cheaper per page than Microlink when your targets are static and rendering stays off.'
+    text: 'ScrapingBee charges 1 credit for a static fetch with rendering off, 5 for a rendered page, 10 or 25 for a premium proxy depending on whether the page renders, and 75 for a stealth proxy. Microlink charges one request per API call regardless of what the call does, so the number on your plan is the number of pages you can fetch. Compare plans by pages, not by the headline credit figure, and note that a ScrapingBee plan is cheaper per page than Microlink when your targets are static and rendering stays off.'
   },
   {
     question: 'Does Microlink render JavaScript?',
-    text: 'Yes. Requests run in a real browser, so single-page apps return the content a visitor would see. The prerender parameter defaults to auto, which decides per URL whether a browser is needed or a plain HTTP fetch already returns the content — the fast path when the page does not need a browser.',
+    text: 'Yes. Requests run in a real browser, so single-page apps return the content a visitor would see. The prerender parameter defaults to auto, which decides per URL whether a browser is needed or a plain HTTP fetch already returns the content (the fast path when the page does not need a browser).',
     answer: (
       <div>
         Yes. Requests run in a real browser, so single-page apps return the
         content a visitor would see. The{' '}
         <Link href='/docs/api/parameters/prerender'>prerender</Link> parameter
         defaults to <code>auto</code>, which decides per URL whether a browser
-        is needed or a plain HTTP fetch already returns the content — the fast
-        path when the page does not need a browser.
+        is needed or a plain HTTP fetch already returns the content (the fast
+        path when the page does not need a browser).
       </div>
     )
   },
@@ -387,12 +359,12 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Do cached responses still cost a request?',
-    text: 'No. A response served from cache inside its ttl window does not count against your usage — no browser boots and the stored response returns from the edge in milliseconds. Set the ttl parameter anywhere from 1 minute to 31 days to decide how often a URL is fetched again. ScrapingBee states that it does not cache requests at all, so the same URL scraped twice is billed twice.',
+    text: 'No. A response served from cache inside its ttl window does not count against your usage: no browser boots, and the stored response returns from the edge in milliseconds. Set the ttl parameter anywhere from 1 minute to 31 days to decide how often a URL is fetched again. ScrapingBee states that it does not cache requests at all, so the same URL scraped twice is billed twice.',
     answer: (
       <div>
         No. A response served from cache inside its{' '}
         <Link href='/docs/api/parameters/ttl'>ttl</Link> window does not count
-        against your usage — no browser boots, and the stored response returns
+        against your usage: no browser boots, and the stored response returns
         from the edge in milliseconds. Set <code>ttl</code> anywhere from 1
         minute to 31 days to decide how often a URL is fetched again.
         ScrapingBee states that it does not cache requests at all, so the same
@@ -418,7 +390,7 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Is there a concurrency limit to plan around?',
-    text: 'The two APIs answer this differently. ScrapingBee sells concurrency as a plan attribute, from 50 parallel requests on Freelance to 400 on Business+, so a queue of workers is sized against that figure. Microlink does not apply a per-minute rate limit on paid plans and does not sell parallelism as a tier, so throughput is not something you buy up — but there is also no contractual number to design a worker pool against.'
+    text: 'The two APIs answer this differently. ScrapingBee sells concurrency as a plan attribute, from 50 parallel requests on Freelance to 400 on Business+, so a queue of workers is sized against that figure. Microlink does not apply a per-minute rate limit on paid plans and does not sell parallelism as a tier, so throughput is not something you buy up, but there is also no contractual number to design a worker pool against.'
   }
 ]
 

@@ -19,3 +19,16 @@ export const extractDomain = url => {
 }
 
 export const getVisualIndex = (key, order) => order.indexOf(key)
+
+const formatDimensions = ({ width, height, fullPage }) =>
+  height && !fullPage ? `${width}×${height}` : `${width}w`
+
+export const formatCaptureTags = config =>
+  config
+    ? [
+      `${getDeviceType(config.width)} screenshot`,
+      formatDimensions(config),
+      config.fullPage && 'Full‑page',
+      config.format?.toUpperCase()
+      ].filter(Boolean)
+    : []

@@ -30,7 +30,6 @@ describe('ProductStrengths', () => {
     const html = renderMarkup(
       <ProductStrengths
         id='sample'
-        accent='blue'
         title='When the other tool wins'
         caption='The cases named on the page.'
         items={[{ title: 'Alpha', description: 'Visible description' }]}
