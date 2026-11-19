@@ -2,7 +2,12 @@ import React from 'react'
 import { colors } from 'theme'
 
 import { AnimatedCounter } from './animated-counter'
-import { formatMs, getDeviceType, extractDomain, getVisualIndex } from './utils'
+import {
+  formatMs,
+  formatCaptureTags,
+  extractDomain,
+  getVisualIndex
+} from './utils'
 import {
   AnnounceBackdrop,
   AnnounceMeta,
@@ -24,6 +29,7 @@ import {
 const ROW_HEIGHT = 38
 const ROW_GAP = 8
 const ROW_SLOT = ROW_HEIGHT + ROW_GAP
+const META_SEPARATOR = '\u00a0· '
 
 export const RaceLanes = ({
   benchmarkData,
@@ -48,48 +54,28 @@ export const RaceLanes = ({
     {isAnnouncing &&
       announcingUrl &&
       (() => {
-        const cfg = getTestUrlConfig(announcingUrl)
-        const device = cfg ? getDeviceType(cfg.width) : null
-        const dims = cfg
-          ? cfg.height
-            ? `${cfg.width}\u00d7${cfg.height}`
-            : `${cfg.width}w`
-          : null
-        const tags = [
-          device && `${device} screenshot`,
-          dims,
-          cfg?.fullPage && 'Full\u2011page',
-          cfg?.format?.toUpperCase()
-        ].filter(Boolean)
+        const tags = formatCaptureTags(getTestUrlConfig(announcingUrl))
         return (
           <DomainAnnounce key={`announce-${announcingUrl}`} $flat={flat}>
             {extractDomain(announcingUrl)}
-            {tags.length > 0 && <AnnounceMeta>{tags.join(' · ')}</AnnounceMeta>}
+            {tags.length > 0 && (
+              <AnnounceMeta>{tags.join(META_SEPARATOR)}</AnnounceMeta>
+            )}
           </DomainAnnounce>
         )
       })()}
     {(() => {
       const activeUrl = announcingUrl || currentUrl || ''
-      const cfg = getTestUrlConfig(activeUrl)
-      const device = cfg ? getDeviceType(cfg.width) : null
-      const dims = cfg
-        ? cfg.height
-          ? `${cfg.width}\u00d7${cfg.height}`
-          : `${cfg.width}w`
-        : null
-      const metaTags = [
-        device && `${device} screenshot`,
-        dims,
-        cfg?.fullPage && 'Full\u2011page',
-        cfg?.format?.toUpperCase()
-      ].filter(Boolean)
+      const metaTags = formatCaptureTags(getTestUrlConfig(activeUrl))
       const vis = isAnnouncing ? 'hidden' : 'visible'
       return (
         <>
           <UrlLabel style={{ visibility: vis }}>
             {extractDomain(activeUrl)}
           </UrlLabel>
-          <UrlMeta style={{ visibility: vis }}>{metaTags.join(' · ')}</UrlMeta>
+          <UrlMeta style={{ visibility: vis }}>
+            {metaTags.join(META_SEPARATOR)}
+          </UrlMeta>
         </>
       )
     })()}

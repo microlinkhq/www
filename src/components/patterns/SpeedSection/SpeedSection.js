@@ -5,6 +5,7 @@ import {
   borders,
   colors,
   layout,
+  SECTION_VERTICAL_SPACING,
   theme,
   space,
   radii,
@@ -18,6 +19,12 @@ import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import Caption from 'components/patterns/Caption/Caption'
 import { Cross, FeatureTable, TableCard } from 'components/elements/Table/Table'
+import {
+  breakableName,
+  displayedTotal,
+  formatDuration,
+  relativeSpeed
+} from './claims'
 
 const BREAKPOINT_SMALL_MAX = breakpoints[0]
 const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4]} - ${space[3]} - ${space[2]})`
@@ -27,12 +34,9 @@ const SPACE_14 = `calc(${space[3]} - ${radii[1]})`
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
 
-const formatMsDecimal = ms =>
-  ms.toLocaleString('en-US', { maximumFractionDigits: 2 })
-
 const Section = styled(Box)`
   ${theme({
-    py: [5, 5, 6, 6],
+    py: SECTION_VERTICAL_SPACING,
     px: [3, 3, 4, 4]
   })}
 `
@@ -41,7 +45,8 @@ const SectionInner = styled(Container)`
   ${theme({
     maxWidth: [layout.normal, layout.normal, layout.large, layout.large],
     alignItems: 'center',
-    pt: 0
+    pt: 0,
+    px: 0
   })}
 `
 
@@ -50,12 +55,27 @@ const PerUrlTable = styled(FeatureTable)`
 
   th,
   td {
-    ${theme({ textAlign: 'right', whiteSpace: 'nowrap' })}
+    ${theme({
+      px: 2,
+      textAlign: 'right',
+      whiteSpace: 'nowrap',
+      fontVariantNumeric: 'tabular-nums'
+    })}
+  }
+
+  th {
+    ${theme({ whiteSpace: 'normal', verticalAlign: 'bottom' })}
+    text-wrap: balance;
   }
 
   th:first-child,
   td:first-child {
-    ${theme({ textAlign: 'left', color: 'black' })}
+    ${theme({ pl: 3, textAlign: 'left', color: 'black' })}
+  }
+
+  th:last-child,
+  td:last-child {
+    ${theme({ pr: 3 })}
   }
 
   th:last-child,
@@ -68,6 +88,10 @@ const PerUrlTable = styled(FeatureTable)`
 
 const AverageFeatureTable = styled(FeatureTable)`
   min-width: 0;
+
+  td {
+    ${theme({ fontVariantNumeric: 'tabular-nums' })}
+  }
 `
 
 const CellHighlight = styled('span')`
@@ -130,6 +154,15 @@ const MobileCardName = styled('span')`
   font-weight: 500;
 `
 
+const MobileCardSuffix = styled('span')`
+  ${theme({
+    display: 'block',
+    fontWeight: 'normal',
+    color: 'black60',
+    textAlign: 'right'
+  })};
+`
+
 const MobileCardTime = styled('span')`
   font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
   color: ${({ $isMin, $isMax }) =>
@@ -154,7 +187,7 @@ const ColdStartTable = ({ benchmark, services }) => (
               color: key === 'microlink' ? colors.secondary : colors.black
             })}
           >
-            {benchmark.results[key].name}
+            {breakableName(benchmark.results[key].name)}
           </th>
         ))}
       </tr>
@@ -187,8 +220,8 @@ const ColdStartTable = ({ benchmark, services }) => (
         )
       })}
       {(() => {
-        const totals = services.map(
-          key => benchmark.results[key].summary.totalColdDuration
+        const totals = services.map(key =>
+          displayedTotal(benchmark.results[key].perUrl)
         )
         const minTotal = Math.min(...totals)
         const maxTotal = Math.max(...totals)
@@ -220,7 +253,7 @@ const ColdStartTable = ({ benchmark, services }) => (
                         : colors.black
                   })}
                 >
-                  {(totals[i] / 1000).toFixed(1)}&thinsp;s
+                  {formatDuration(totals[i])}
                 </td>
               )
             })}
@@ -231,39 +264,83 @@ const ColdStartTable = ({ benchmark, services }) => (
   </PerUrlTable>
 )
 
+const TimingCard = ({ title, rows }) => {
+  const times = rows.map(({ ms }) => ms)
+  const minTime = Math.min(...times)
+  const maxTime = Math.max(...times)
+
+  return (
+    <MobileCard>
+      <MobileCardHeader>{title}</MobileCardHeader>
+      {rows.map(({ key, name, ms, suffix }) => {
+        const isMin = ms === minTime
+        const isMax = ms === maxTime
+        return (
+          <MobileCardRow key={key}>
+            <MobileCardName>{name}</MobileCardName>
+            <MobileCardTime
+              $highlight={isMin || isMax}
+              $isMin={isMin}
+              $isMax={isMax}
+            >
+              {formatDuration(ms)}
+              {suffix && <MobileCardSuffix>{suffix}</MobileCardSuffix>}
+            </MobileCardTime>
+          </MobileCardRow>
+        )
+      })}
+    </MobileCard>
+  )
+}
+
 const ColdStartCards = ({ benchmark, services }) => (
   <MobileCards>
     {benchmark.testUrls.map(({ url }) => {
       const times = urlTimes(benchmark, services, url)
-      const minTime = Math.min(...times)
-      const maxTime = Math.max(...times)
-
       return (
-        <MobileCard key={url}>
-          <MobileCardHeader>{extractDomain(url)}</MobileCardHeader>
-          {services.map((key, i) => {
-            const isMin = times[i] === minTime
-            const isMax = times[i] === maxTime
-            return (
-              <MobileCardRow key={key}>
-                <MobileCardName>{benchmark.results[key].name}</MobileCardName>
-                <MobileCardTime
-                  $highlight={isMin || isMax}
-                  $isMin={isMin}
-                  $isMax={isMax}
-                >
-                  {formatMs(times[i])}&thinsp;ms
-                </MobileCardTime>
-              </MobileCardRow>
-            )
-          })}
-        </MobileCard>
+        <TimingCard
+          key={url}
+          title={extractDomain(url)}
+          rows={services.map((key, i) => ({
+            key,
+            name: benchmark.results[key].name,
+            ms: times[i]
+          }))}
+        />
       )
     })}
+    <TimingCard
+      title='Total'
+      rows={services.map(key => ({
+        key,
+        name: benchmark.results[key].name,
+        ms: displayedTotal(benchmark.results[key].perUrl)
+      }))}
+    />
   </MobileCards>
 )
 
-const AverageTable = ({ benchmark, services, floorPctSlower }) => {
+const AverageCards = ({ benchmark, services }) => {
+  const microAvg = benchmark.results.microlink.summary.avgColdDuration
+  return (
+    <MobileCards>
+      <TimingCard
+        title='Average per URL'
+        rows={services.map(key => {
+          const avg = benchmark.results[key].summary.avgColdDuration
+          return {
+            key,
+            name: benchmark.results[key].name,
+            ms: avg,
+            suffix: key === 'microlink' ? null : relativeSpeed(avg, microAvg)
+          }
+        })}
+      />
+    </MobileCards>
+  )
+}
+
+const AverageTable = ({ benchmark, services }) => {
   const microAvg = benchmark.results.microlink.summary.avgColdDuration
 
   return (
@@ -271,7 +348,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
       <thead>
         <tr>
           <th>Provider</th>
-          <th css={theme({ textAlign: 'right' })}>Avg Cold Duration</th>
+          <th css={theme({ textAlign: 'right' })}>Avg Cold&nbsp;Duration</th>
           <th css={theme({ textAlign: 'right' })}>vs.&nbsp;Microlink</th>
         </tr>
       </thead>
@@ -279,13 +356,6 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
         {services.map(key => {
           const svc = benchmark.results[key]
           const avg = svc.summary.avgColdDuration
-          const delta = avg - microAvg
-          const pctSlower =
-            microAvg > 0
-              ? floorPctSlower
-                ? Math.floor((delta / microAvg) * 100)
-                : ((delta / microAvg) * 100).toFixed(0)
-              : 0
           const isMicrolink = key === 'microlink'
 
           return (
@@ -307,7 +377,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
                   color: isMicrolink ? colors.secondary : undefined
                 })}
               >
-                {formatMsDecimal(avg)}&thinsp;ms
+                {formatDuration(avg)}
               </td>
               <td
                 css={theme({
@@ -315,7 +385,7 @@ const AverageTable = ({ benchmark, services, floorPctSlower }) => {
                   color: isMicrolink ? colors.secondary : 'black'
                 })}
               >
-                {isMicrolink ? <Cross /> : `+${pctSlower}% slower`}
+                {isMicrolink ? <Cross /> : relativeSpeed(avg, microAvg)}
               </td>
             </tr>
           )
@@ -357,7 +427,6 @@ const SpeedSection = ({
   subtitle,
   description,
   benchmark,
-  floorPctSlower = false,
   note,
   footnote,
   footnoteInsideNote = false,
@@ -371,11 +440,7 @@ const SpeedSection = ({
   )
 
   return (
-    <Section
-      as='section'
-      id='speed'
-      css={theme({ bg: 'white', pt: [3, 3, 4, 4] })}
-    >
+    <Section as='section' id='speed' css={theme({ bg: 'white' })}>
       <SectionInner>
         <Subhead css={theme({ pb: [2, 2, 3, 3] })}>{title}</Subhead>
 
@@ -406,7 +471,7 @@ const SpeedSection = ({
         <Flex
           css={theme({
             pt: [3, 3, 4, 4],
-            flexDirection: ['column', 'column', 'row', 'row'],
+            flexDirection: ['column', 'column', 'column', 'row'],
             gap: [3, 3, 4, 4],
             alignItems: 'flex-start',
             width: '100%'
@@ -423,13 +488,11 @@ const SpeedSection = ({
 
           <Box css={theme({ flex: 1, minWidth: 0, width: '100%' })}>
             <TableTitle>Average cold-start latency</TableTitle>
-            <TableCard>
-              <AverageTable
-                benchmark={benchmark}
-                services={services}
-                floorPctSlower={floorPctSlower}
-              />
+            <TableCard css={theme({ display: ['none', 'block'] })}>
+              <AverageTable benchmark={benchmark} services={services} />
             </TableCard>
+
+            <AverageCards benchmark={benchmark} services={services} />
             {note && (
               <Box
                 css={theme({

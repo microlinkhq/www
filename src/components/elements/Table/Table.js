@@ -29,7 +29,6 @@ const tableBase = css`
       fontSize: [0, 1, 1, 1],
       lineHeight: 2,
       color: 'black80',
-      fontVariantNumeric: 'tabular-nums',
       borderBottom: 1,
       borderBottomColor: 'black10'
     })}

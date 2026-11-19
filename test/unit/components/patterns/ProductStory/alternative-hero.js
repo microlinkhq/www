@@ -83,6 +83,25 @@ describe('AlternativeHero', () => {
     expect(html).toContain('Read the docs')
     expect(html).toContain('<div>demo</div>')
   })
+
+  test('primary action is a signup button that navigates, secondary is a link', () => {
+    const html = renderMarkup(
+      <AlternativeHero
+        competitor='Acme'
+        tagline='with no servers'
+        description='Lead copy.'
+        cta='alternative-acme:hero'
+        secondaryHref='/docs'
+        secondaryLabel='Read the docs'
+      />
+    )
+
+    expect(html).toMatch(
+      /<a[^>]*href="[^"]*signup[^"]*cta=alternative-acme:hero[^"]*"[^>]*>[\s\S]*?Get your free API key[\s\S]*?<\/a>/
+    )
+    expect(html).not.toMatch(/<button/)
+    expect(html).toMatch(/<a[^>]*href="\/docs"[^>]*>[\s\S]*?Read the docs/)
+  })
 })
 
 describe('HeroActions', () => {

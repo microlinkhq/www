@@ -28,6 +28,7 @@ const PermalinkIcon = props => (
 )
 
 const Permalink = styled.span`
+  position: absolute;
   visibility: hidden;
   g {
     fill: ${colors.gray};

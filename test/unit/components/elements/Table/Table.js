@@ -40,7 +40,7 @@ describe('Table', () => {
     )
     expect(css).not.toMatch(/text-transform:uppercase/)
     expect(css).toMatch(/font-family:'Inter',\s?sans-serif/)
-    expect(css).toMatch(/tabular-nums/)
+    expect(css).not.toMatch(/tabular-nums/)
     expect(css).toMatch(/min-width:640px/)
   })
 })

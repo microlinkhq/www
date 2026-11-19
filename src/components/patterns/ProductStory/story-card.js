@@ -116,12 +116,22 @@ export const StoryCard = ({ index, icon: Icon, title, description }) => (
         fontFamily: 'sans',
         fontSize: 2,
         fontWeight: 'bold',
-        color: 'black'
+        lineHeight: 1,
+        color: 'black',
+        textWrap: 'balance'
       })}
     >
       {title}
     </Text>
-    <Text css={theme({ pt: 2, fontSize: 1, lineHeight: 2, color: 'black70' })}>
+    <Text
+      css={theme({
+        pt: 2,
+        fontSize: 1,
+        lineHeight: 2,
+        color: 'black70',
+        textWrap: 'pretty'
+      })}
+    >
       {description}
     </Text>
   </CardBox>

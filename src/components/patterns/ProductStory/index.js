@@ -9,13 +9,25 @@ export {
 } from './shared'
 export { ProductHero } from './hero'
 export { AlternativeHero } from './alternative-hero'
+export { AlternativeWhySwitch } from './alternative-why-switch'
+export { AlternativeComparison } from './alternative-comparison'
 export { ProductTimings } from './timings'
 export { ProductCapabilities } from './capabilities'
 export { ProductPricing } from './pricing'
+export {
+  ProductPriceComparison,
+  MICROLINK_PLAN,
+  formatCheckedAt,
+  microlinkFacts
+} from './price-comparison'
 export { ProductFaq } from './faq'
 export { ComparisonTable, ProductComparison } from './comparison'
 export { ProductStrengths, ProductTrademarks } from './strengths'
-export { productStructured, toFaqQuestions } from './structured'
+export {
+  faqPageStructured,
+  productStructured,
+  toFaqQuestions
+} from './structured'
 export { Section, SectionHeader, SectionNote, GradientText } from './section'
 export {
   FeatureTable,

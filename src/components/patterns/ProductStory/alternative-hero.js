@@ -4,7 +4,8 @@ import { layout, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 
-import { EDITOR_FRAME, HeroActions, HeroEditor } from './hero-parts'
+import { AlternativeHeroActions } from './alternative-hero-actions'
+import { EDITOR_FRAME, HeroEditor } from './hero-parts'
 import { GradientText } from './section'
 import { Caption, Heading } from './shared'
 
@@ -12,6 +13,10 @@ export const AlternativeHero = ({
   competitor,
   tagline,
   description,
+  cta,
+  ctaLabel,
+  secondaryHref,
+  secondaryLabel,
   children,
   ...props
 }) => (
@@ -39,7 +44,12 @@ export const AlternativeHero = ({
       >
         {description}
       </Caption>
-      <HeroActions {...props} justifyContent='center' />
+      <AlternativeHeroActions
+        cta={cta}
+        ctaLabel={ctaLabel}
+        secondaryHref={secondaryHref}
+        secondaryLabel={secondaryLabel}
+      />
       <Flex
         css={[
           theme({
