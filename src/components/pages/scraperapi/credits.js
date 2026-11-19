@@ -50,7 +50,6 @@ export const Credits = () => (
                 css={[
                   theme({
                     textAlign: 'right',
-                    fontWeight: 'bold',
                     color: 'black'
                   }),
                   { whiteSpace: 'nowrap' }

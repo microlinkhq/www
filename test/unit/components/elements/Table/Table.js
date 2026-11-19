@@ -92,6 +92,22 @@ describe('Table', () => {
     expect(css).not.toMatch(/border-collapse:separate/)
   })
 
+  test('only the header is bold: body cells override any call-site weight', () => {
+    const { css } = render(
+      <FeatureTable>
+        <tbody>
+          <tr>
+            <Text as='td' css={{ fontWeight: 700 }}>
+              <strong>Value</strong>
+            </Text>
+          </tr>
+        </tbody>
+      </FeatureTable>
+    )
+    expect(css).toMatch(/tbody th,\.[\w-]+ tbody td\{font-weight:400/)
+    expect(css).toMatch(/tbody th \*,\.[\w-]+ tbody td \*\{font-weight:inherit/)
+  })
+
   test('base cell rules yield to call-site alignment and weight', () => {
     const { css } = render(
       <FeatureTable>

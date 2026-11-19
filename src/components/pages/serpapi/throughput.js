@@ -51,7 +51,6 @@ export const Throughput = () => (
                       index === 1
                         ? {
                             textAlign: 'right',
-                            fontWeight: 'bold',
                             color: 'black'
                           }
                         : { textAlign: 'right', color: 'black60' }

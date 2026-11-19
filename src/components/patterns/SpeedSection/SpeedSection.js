@@ -98,7 +98,7 @@ const AverageFeatureTable = styled(FeatureTable)`
 `
 
 const CellHighlight = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'secondary' })};
+  ${theme({ color: 'secondary' })};
 `
 
 const CellLoser = styled('span')`
@@ -164,7 +164,6 @@ const MobileCardSuffix = styled('span')`
 `
 
 const MobileCardTime = styled('span')`
-  font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
   color: ${({ $isMin, $isMax }) =>
     $isMin ? colors.secondary : $isMax ? colors.black50 : colors.black};
 `
@@ -230,7 +229,6 @@ const ColdStartTable = ({ benchmark, services }) => (
           <tr>
             <td
               css={theme({
-                fontWeight: 'bold',
                 color: 'black',
                 borderTop: `${borders[1]} ${colors.black10}`
               })}
@@ -244,7 +242,6 @@ const ColdStartTable = ({ benchmark, services }) => (
                 <td
                   key={key}
                   css={theme({
-                    fontWeight: 'bold',
                     borderTop: `${borders[1]} ${colors.black10}`,
                     color: isMin
                       ? colors.secondary
@@ -278,11 +275,7 @@ const TimingCard = ({ title, rows }) => {
         return (
           <MobileCardRow key={key}>
             <MobileCardName>{name}</MobileCardName>
-            <MobileCardTime
-              $highlight={isMin || isMax}
-              $isMin={isMin}
-              $isMax={isMax}
-            >
+            <MobileCardTime $isMin={isMin} $isMax={isMax}>
               {formatDuration(ms)}
               {suffix && <MobileCardSuffix>{suffix}</MobileCardSuffix>}
             </MobileCardTime>
@@ -363,7 +356,6 @@ const AverageTable = ({ benchmark, services }) => {
               <td>
                 <span
                   css={theme({
-                    fontWeight: isMicrolink ? 'bold' : 'normal',
                     color: isMicrolink ? colors.secondary : 'black'
                   })}
                 >
@@ -373,7 +365,6 @@ const AverageTable = ({ benchmark, services }) => {
               <td
                 css={theme({
                   textAlign: 'right',
-                  fontWeight: isMicrolink ? 'bold' : 'normal',
                   color: isMicrolink ? colors.secondary : undefined
                 })}
               >

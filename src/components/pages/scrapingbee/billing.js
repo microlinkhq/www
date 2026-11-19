@@ -50,7 +50,6 @@ export const Billing = () => (
                 css={[
                   theme({
                     textAlign: 'right',
-                    fontWeight: 'bold',
                     color: 'black'
                   }),
                   { whiteSpace: 'nowrap' }

@@ -50,6 +50,16 @@ const tableBase = css`
     ${theme({ borderBottom: 1, borderBottomColor: 'black10' })}
   }
 
+  tbody th,
+  tbody td {
+    ${theme({ fontWeight: 'normal' })}
+  }
+
+  tbody th *,
+  tbody td * {
+    ${theme({ fontWeight: 'inherit' })}
+  }
+
   tbody tr {
     ${theme({ borderBottom: 1, borderBottomColor: 'black05' })}
   }
@@ -88,7 +98,7 @@ const tableBase = css`
       ${theme({ px: 0, py: 1, overflowWrap: 'anywhere' })}
     }
 
-    tr > :first-child {
+    tbody tr > :first-child {
       ${theme({ color: 'black', fontWeight: 'bold' })}
     }
 
@@ -281,7 +291,6 @@ export const Cross = () => (
     aria-label='No'
     css={theme({
       color: 'black30',
-      fontWeight: 'bold',
       fontSize: 'inherit',
       lineHeight: 'inherit'
     })}
