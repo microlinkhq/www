@@ -84,6 +84,28 @@ describe('benchmark claims', () => {
     expect(claims.widestGap.ratio).toBe('1.2')
   })
 
+  test('reports no gap when no url matches', () => {
+    const claims = benchmarkClaims(
+      {
+        ...BENCHMARK,
+        results: {
+          ...BENCHMARK.results,
+          rival: {
+            ...BENCHMARK.results.rival,
+            perUrl: [{ url: 'https://other.example', coldDuration: 9000 }]
+          }
+        }
+      },
+      'rival'
+    )
+    expect(claims.widestGap).toEqual({
+      host: '',
+      microlink: '',
+      competitor: '',
+      ratio: '0.0'
+    })
+  })
+
   test('reads full ISO timestamps as the same month', () => {
     const claims = benchmarkClaims(
       { ...BENCHMARK, timestamp: '2026-04-30T23:00:00Z' },

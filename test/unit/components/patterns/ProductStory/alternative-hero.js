@@ -115,6 +115,10 @@ describe('AlternativeHero', () => {
     )
 
     expect(html).not.toContain('Read the docs')
+    expect(html).not.toContain('id="product-hero-editor"')
+    expect(html).not.toContain('role="tabpanel"')
+    expect(html).not.toContain('aria-labelledby="product-hero-tab-0"')
+    expect(html).not.toContain('role="tablist"')
   })
 
   test('shows the code for the first example', () => {
@@ -133,6 +137,10 @@ describe('AlternativeHero', () => {
 
     expect(html).toContain('picked.example')
     expect(html).not.toContain('other.example')
+    expect(html).toContain('id="product-hero-editor"')
+    expect(html).toContain('role="tabpanel"')
+    expect(html).toContain('aria-labelledby="product-hero-tab-0"')
+    expect(html).toContain('role="tablist"')
   })
 })
 

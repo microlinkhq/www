@@ -221,7 +221,7 @@ export const TableCard = ({ children, ...props }) => {
   const ref = useRef(null)
 
   useEffect(() => {
-    ref.current?.querySelectorAll('table').forEach(labelCellsFromHeader)
+    ref.current.querySelectorAll('table').forEach(labelCellsFromHeader)
   })
 
   return (

@@ -2,6 +2,7 @@ import React from 'react'
 import { describe, expect, test } from 'vitest'
 
 import { AlternativeSpeed } from '../../../../../src/components/patterns/ProductStory/alternative-speed'
+import SpeedSection from '../../../../../src/components/patterns/SpeedSection'
 import { renderMarkup } from '../../../../utils/render-markup'
 
 const benchmark = (timestamp, urls) => ({
@@ -46,7 +47,54 @@ const note = (timestamp, urls) =>
 
 describe('AlternativeSpeed', () => {
   test('points at the benchmark page when the run is that page', () => {
-    expect(note('2026-03', 7)).toContain('See the full benchmark')
+    const html = note('2026-03', 7)
+    expect(html).toContain('See the full benchmark')
+    expect(html.match(/screenshot-benchmark/g)).toHaveLength(1)
+  })
+
+  test('puts the footnote in the note only when asked', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={benchmark('2026-03', 2)}
+        note='See the full benchmark'
+        footnote={
+          <a href='https://github.com/microlinkhq/screenshot-benchmark'>repo</a>
+        }
+        footnoteInsideNote
+      />
+    )
+    expect(html.match(/screenshot-benchmark/g)).toHaveLength(1)
+  })
+
+  test('omits the footnote when none is passed', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={benchmark('2026-03', 2)}
+        note='See the full benchmark'
+      />
+    )
+    expect(html).not.toContain('screenshot-benchmark')
+    expect(html).not.toMatch(/See the full benchmark<\/div><\/div><div/)
+  })
+
+  test('omits an inside footnote when none is passed', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={benchmark('2026-03', 2)}
+        note='See the full benchmark'
+        footnoteInsideNote
+      />
+    )
+    expect(html).not.toMatch(/See the full benchmark<\/div><div/)
   })
 
   test('says the run is separate when the month differs', () => {

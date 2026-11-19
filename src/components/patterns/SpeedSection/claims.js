@@ -31,8 +31,8 @@ const MONTH_YEAR = new Intl.DateTimeFormat('en-US', {
 const benchmarkMonth = timestamp =>
   MONTH_YEAR.format(new Date(`${timestamp.slice(0, 7)}-01`))
 
-const widestGap = (microlinkRuns, competitorRuns) =>
-  microlinkRuns
+const widestGap = (microlinkRuns, competitorRuns) => {
+  const gaps = microlinkRuns
     .map(({ url, coldDuration }) => {
       const competitor = competitorRuns.find(run => run.url === url)
       if (!competitor) return null
@@ -46,7 +46,11 @@ const widestGap = (microlinkRuns, competitorRuns) =>
       }
     })
     .filter(Boolean)
-    .reduce((widest, run) => (run.value > widest.value ? run : widest))
+  if (gaps.length === 0) {
+    return { host: '', microlink: '', competitor: '', value: 0, ratio: '0.0' }
+  }
+  return gaps.reduce((widest, run) => (run.value > widest.value ? run : widest))
+}
 
 export const benchmarkClaims = (benchmark, competitorKey) => {
   const microlink = benchmark.results.microlink
