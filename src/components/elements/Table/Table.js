@@ -1,4 +1,10 @@
-import React, { useEffect, useRef } from 'react'
+import React, {
+  Children,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useRef
+} from 'react'
 import styled, { css } from 'styled-components'
 import { breakpoints, colors, theme } from 'theme'
 import { Check as CheckIcon } from 'react-feather'
@@ -149,14 +155,80 @@ export const labelCellsFromHeader = table => {
   )
 }
 
-export const TableCard = props => {
+const elementTag = element =>
+  typeof element.type === 'string' ? element.type : element.props?.as
+
+const textContent = node => {
+  if (node == null || typeof node === 'boolean') return ''
+  if (typeof node === 'string' || typeof node === 'number') return String(node)
+  if (Array.isArray(node)) return node.map(textContent).join('')
+  if (isValidElement(node)) return textContent(node.props?.children)
+  return ''
+}
+
+const headersIn = element => {
+  const headers = []
+  const walk = (node, inHead) => {
+    if (!isValidElement(node)) return
+    const tag = elementTag(node)
+    const head = inHead || tag === 'thead'
+    if (head && tag === 'th') headers.push(textContent(node).trim())
+    Children.forEach(node.props?.children, child => walk(child, head))
+  }
+  walk(element, false)
+  return headers
+}
+
+const labelRows = (node, headers) => {
+  if (!isValidElement(node)) return node
+  if (elementTag(node) === 'thead') return node
+
+  const cells = Children.toArray(node.props?.children).filter(isValidElement)
+  const isRow = cells.some(cell => {
+    const tag = elementTag(cell)
+    return tag === 'td' || tag === 'th'
+  })
+
+  if (isRow) {
+    let index = 0
+    const children = Children.map(node.props.children, child => {
+      if (!isValidElement(child)) return child
+      const tag = elementTag(child)
+      const column = index
+      if (tag === 'td' || tag === 'th') index += 1
+      if (tag === 'td' && !child.props['data-label'] && headers[column]) {
+        return cloneElement(child, { 'data-label': headers[column] })
+      }
+      return child
+    })
+    return cloneElement(node, {}, children)
+  }
+
+  const children = Children.map(node.props?.children, child =>
+    labelRows(child, headers)
+  )
+  return cloneElement(node, {}, children)
+}
+
+const labelTables = children =>
+  Children.map(children, child => {
+    if (!isValidElement(child)) return child
+    const headers = headersIn(child)
+    return headers.length === 0 ? child : labelRows(child, headers)
+  })
+
+export const TableCard = ({ children, ...props }) => {
   const ref = useRef(null)
 
   useEffect(() => {
-    ref.current.querySelectorAll('table').forEach(labelCellsFromHeader)
+    ref.current?.querySelectorAll('table').forEach(labelCellsFromHeader)
   })
 
-  return <TableCardBox ref={ref} {...props} />
+  return (
+    <TableCardBox ref={ref} {...props}>
+      {labelTables(children)}
+    </TableCardBox>
+  )
 }
 
 export const CellNote = ({ children }) => (

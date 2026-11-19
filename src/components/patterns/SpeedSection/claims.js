@@ -22,19 +22,21 @@ export const relativeSpeed = (competitorMs, microlinkMs) =>
     ? `${speedRatio(competitorMs, microlinkMs)}×${NBSP}slower`
     : `${speedRatio(microlinkMs, competitorMs)}×${NBSP}faster`
 
+const MONTH_YEAR = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+})
+
 const benchmarkMonth = timestamp =>
-  new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC'
-  }).format(new Date(`${timestamp.slice(0, 7)}-01`))
+  MONTH_YEAR.format(new Date(`${timestamp.slice(0, 7)}-01`))
 
 const widestGap = (microlinkRuns, competitorRuns) =>
   microlinkRuns
     .map(({ url, coldDuration }) => {
-      const competitorMs = competitorRuns.find(
-        run => run.url === url
-      ).coldDuration
+      const competitor = competitorRuns.find(run => run.url === url)
+      if (!competitor) return null
+      const competitorMs = competitor.coldDuration
       return {
         host: hostnameOf(url),
         microlink: formatDuration(coldDuration),
@@ -43,6 +45,7 @@ const widestGap = (microlinkRuns, competitorRuns) =>
         ratio: speedRatio(competitorMs, coldDuration)
       }
     })
+    .filter(Boolean)
     .reduce((widest, run) => (run.value > widest.value ? run : widest))
 
 export const benchmarkClaims = (benchmark, competitorKey) => {

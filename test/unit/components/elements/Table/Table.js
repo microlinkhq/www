@@ -3,10 +3,12 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { describe, expect, test } from 'vitest'
 
+import Text from '../../../../../src/components/elements/Text'
 import {
   CellValue,
   FeatureTable,
   ProseTable,
+  TableCard,
   labelCellsFromHeader
 } from '../../../../../src/components/elements/Table/Table'
 import themeSpec from '../../../../../src/theme'
@@ -99,6 +101,55 @@ describe('labelCellsFromHeader', () => {
           : [{ children: [value] }]
     })
     expect(value.dataset.label).toBe('Kept')
+  })
+
+  test('labels body cells during render from a Text header and a custom row', () => {
+    const Row = ({ children }) => <tr>{children}</tr>
+    const { html } = render(
+      <TableCard>
+        <ProseTable>
+          <thead>
+            <tr>
+              <Text as='th'>Job</Text>
+              <Text as='th'>Microlink</Text>
+            </tr>
+          </thead>
+          <tbody>
+            <Row>
+              <Text as='th'>Packaging</Text>
+              <td>None</td>
+            </Row>
+          </tbody>
+        </ProseTable>
+      </TableCard>
+    )
+    expect(html).toContain('data-label="Microlink"')
+    expect(html).not.toContain('data-label="Job"')
+    expect(html).not.toContain('data-label="Packaging"')
+  })
+
+  test('keeps a markup label and leaves a blank header unlabeled', () => {
+    const { html } = render(
+      <TableCard>
+        <ProseTable>
+          <thead>
+            <tr>
+              <th> </th>
+              <th>Credits</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Blank</td>
+              <td data-label='Kept'>Value</td>
+            </tr>
+          </tbody>
+        </ProseTable>
+      </TableCard>
+    )
+    expect(html).toContain('<td>Blank</td>')
+    expect(html).toContain('data-label="Kept"')
+    expect(html).not.toContain('data-label="Credits"')
   })
 
   test('skips a column whose header is blank', () => {

@@ -66,6 +66,24 @@ describe('benchmark claims', () => {
     })
   })
 
+  test('skips a url the competitor did not run', () => {
+    const claims = benchmarkClaims(
+      {
+        ...BENCHMARK,
+        results: {
+          ...BENCHMARK.results,
+          rival: {
+            ...BENCHMARK.results.rival,
+            perUrl: [{ url: 'https://www.vercel.com', coldDuration: 6000 }]
+          }
+        }
+      },
+      'rival'
+    )
+    expect(claims.widestGap.host).toBe('vercel.com')
+    expect(claims.widestGap.ratio).toBe('1.2')
+  })
+
   test('reads full ISO timestamps as the same month', () => {
     const claims = benchmarkClaims(
       { ...BENCHMARK, timestamp: '2026-04-30T23:00:00Z' },

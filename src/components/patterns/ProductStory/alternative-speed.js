@@ -11,12 +11,14 @@ const BENCHMARK_PAGE = {
   urls: 7
 }
 
+const MONTH_YEAR = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+})
+
 const runMonth = timestamp =>
-  new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC'
-  }).format(new Date(`${timestamp.slice(0, 7)}-01`))
+  MONTH_YEAR.format(new Date(`${timestamp.slice(0, 7)}-01`))
 
 const BENCHMARK_PAGE_RUN = runMonth(BENCHMARK_PAGE.timestamp)
 
@@ -30,14 +32,14 @@ const BenchmarkPageLink = () => (
   </Link>
 )
 
-const SameRunNote = speed => (
+const SameRunNote = ({ speed }) => (
   <>
     See the full benchmark with all {BENCHMARK_PAGE.providers}&nbsp;providers
     and {speed.urls}&nbsp;URLs on the <BenchmarkPageLink /> page.
   </>
 )
 
-const SeparateRunNote = speed => (
+const SeparateRunNote = ({ speed }) => (
   <>
     This comparison is a separate {speed.run} run with {speed.urls}
     &nbsp;URLs. The <BenchmarkPageLink /> page has the full {
@@ -63,8 +65,12 @@ export const AlternativeSpeed = ({ benchmark, speed }) => (
     description='We sent identical screenshot requests to each API from one server and measured cold starts: no cache.'
     note={
       isBenchmarkPageRun(benchmark, speed)
-        ? SameRunNote(speed)
-        : SeparateRunNote(speed)
+        ? (
+          <SameRunNote speed={speed} />
+          )
+        : (
+          <SeparateRunNote speed={speed} />
+          )
     }
     footnote={
       <>

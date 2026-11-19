@@ -32,17 +32,27 @@ export const MICROLINK_PLAN = microlinkPlan()
 
 const hasCents = amount => !Number.isInteger(amount)
 
-export const formatPrice = (
-  amount,
-  currency = DEFAULT_CURRENCY,
-  { cents = hasCents(amount) } = {}
-) =>
-  new Intl.NumberFormat('en-US', {
+const priceFormatters = new Map()
+
+const currencyFormat = (currency, cents) => {
+  const key = `${currency}:${cents ? 2 : 0}`
+  const cached = priceFormatters.get(key)
+  if (cached) return cached
+  const format = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency,
     minimumFractionDigits: cents ? 2 : 0,
     maximumFractionDigits: 2
-  }).format(amount)
+  })
+  priceFormatters.set(key, format)
+  return format
+}
+
+export const formatPrice = (
+  amount,
+  currency = DEFAULT_CURRENCY,
+  { cents = hasCents(amount) } = {}
+) => currencyFormat(currency, cents).format(amount)
 
 const THOUSAND = 1000
 const CENTS = 100
@@ -74,12 +84,13 @@ const competitorVolume = ({ quota, unit, volume }) =>
 const competitorItems = ({ price, quota, unit, items = [] }, currency) =>
   quota ? [formatPerThousand(price, quota, unit, currency), ...items] : items
 
-export const formatCheckedAt = date =>
-  new Intl.DateTimeFormat('en-US', {
-    month: 'long',
-    year: 'numeric',
-    timeZone: 'UTC'
-  }).format(new Date(date))
+const MONTH_YEAR = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC'
+})
+
+export const formatCheckedAt = date => MONTH_YEAR.format(new Date(date))
 
 const microlinkItems = (currency, pageItems = []) => {
   const { pricePerThousand, ...facts } = microlinkFacts(currency)
