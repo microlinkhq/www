@@ -37,16 +37,9 @@ export const Throughput = () => (
           </tr>
         </thead>
         <tbody>
-          {THROUGHPUT.rows.map(({ plan, cells, highlight }) => (
+          {THROUGHPUT.rows.map(({ plan, cells }) => (
             <tr key={plan}>
-              <Text
-                as='th'
-                scope='row'
-                css={[
-                  theme({ fontWeight: highlight ? 'bold' : 'regular' }),
-                  PLAN_CELL
-                ]}
-              >
+              <Text as='th' scope='row' css={PLAN_CELL}>
                 {plan}
               </Text>
               {cells.map((cell, index) => (

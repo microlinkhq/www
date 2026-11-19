@@ -28,6 +28,7 @@ const tableBase = css`
       verticalAlign: 'top',
       fontFamily: 'sans',
       fontSize: [1, 1, 2, 2],
+      fontWeight: 'normal',
       lineHeight: 3,
       color: 'black80'
     })}
@@ -41,7 +42,7 @@ const tableBase = css`
     ${theme({ pr: 0 })}
   }
 
-  :where(th) {
+  :where(thead th) {
     ${theme({ color: 'black', fontWeight: 'bold' })}
   }
 

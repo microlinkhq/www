@@ -33,15 +33,9 @@ export const Billing = () => (
           </tr>
         </thead>
         <tbody>
-          {BILLING.rows.map(({ config, credits, pages, highlight }) => (
+          {BILLING.rows.map(({ config, credits, pages }) => (
             <tr key={config}>
-              <Text
-                as='th'
-                scope='row'
-                css={theme({ fontWeight: highlight ? 'bold' : 'regular' })}
-              >
-                {config}
-              </Text>
+              <th scope='row'>{config}</th>
               <Text
                 as='td'
                 css={[

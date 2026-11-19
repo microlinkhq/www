@@ -31,9 +31,7 @@ export const Ownership = () => (
         <tbody>
           {OWNERSHIP.rows.map(({ job, self, microlink }) => (
             <tr key={job}>
-              <Text as='th' scope='row' css={theme({ fontWeight: 'bold' })}>
-                {job}
-              </Text>
+              <th scope='row'>{job}</th>
               <Text as='td' css={theme({ color: 'black60' })}>
                 {self}
               </Text>

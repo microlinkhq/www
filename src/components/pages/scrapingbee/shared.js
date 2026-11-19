@@ -218,8 +218,7 @@ export const BILLING = {
     {
       config: 'Microlink (any of the above)',
       credits: '1 request',
-      pages: '250,000 pages',
-      highlight: true
+      pages: '250,000 pages'
     }
   ],
   footnote: (

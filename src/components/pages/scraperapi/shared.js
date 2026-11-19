@@ -110,8 +110,7 @@ export const CREDITS = {
     {
       config: 'Microlink, any of the above',
       credits: '1 request',
-      pages: '46,000 pages',
-      highlight: true
+      pages: '46,000 pages'
     }
   ],
   footnote: (

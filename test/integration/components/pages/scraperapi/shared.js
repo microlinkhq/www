@@ -32,13 +32,10 @@ const creditRows = source =>
       source,
       'export const CREDITS',
       'export const COMPARISON'
-    ).matchAll(
-      /credits: '([^']+)',\s*pages: '([^']+)'(?:,\s*highlight: true)?/g
-    )
+    ).matchAll(/credits: '([^']+)',\s*pages: '([^']+)'/g)
   ].map(match => ({
     credits: match[1],
-    pages: pagesOf(match[2]),
-    highlight: match[0].includes('highlight: true')
+    pages: pagesOf(match[2])
   }))
 
 describe('scraperapi comparison numbers', () => {
@@ -72,7 +69,7 @@ describe('scraperapi comparison numbers', () => {
     for (const row of priced) {
       expect(row.pages).toBe(Math.floor(hobbyCredits / creditsOf(row.credits)))
     }
-    const microlink = rows.find(row => row.highlight)
+    const microlink = rows.find(row => row.credits === '1 request')
     expect(microlink.credits).toBe('1 request')
     expect(microlink.pages).toBe(requests)
   })
@@ -103,10 +100,11 @@ describe('scraperapi comparison numbers', () => {
 describe('scraperapi credit table', () => {
   const source = read('src/components/pages/scraperapi/credits.js')
 
-  test('keeps the first column left and bolds the Microlink row', () => {
+  test('keeps the first column left and every row label regular weight', () => {
     expect(source).toContain(
       "index === 0 ? null : theme({ textAlign: 'right' })"
     )
-    expect(source).toContain("fontWeight: highlight ? 'bold' : 'regular'")
+    expect(source).not.toMatch(/fontWeight: highlight/)
+    expect(source).toContain("<th scope='row'>{config}</th>")
   })
 })

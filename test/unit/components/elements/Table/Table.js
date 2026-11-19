@@ -104,7 +104,9 @@ describe('Table', () => {
       </FeatureTable>
     )
     expect(css).toMatch(/:where\(th, ?td\)\{[^}]*text-align:left/)
-    expect(css).toMatch(/:where\(th\)\{[^}]*font-weight:700/)
+    expect(css).toMatch(/:where\(thead th\)\{[^}]*font-weight:700/)
+    expect(css).not.toMatch(/:where\(th\)\{/)
+    expect(css).toMatch(/:where\(th, ?td\)\{[^}]*font-weight:400/)
     expect(css).not.toMatch(/\.[\w-]+ th,\.[\w-]+ td\{[^}]*text-align/)
     expect(css).not.toMatch(/\.[\w-]+ th\{[^}]*font-weight/)
   })
