@@ -34,7 +34,7 @@ export const AlternativeHero = ({
         variant={null}
         css={theme({ maxWidth: layout.large, color: 'black' })}
       >
-        The <GradientText>{competitor}</GradientText> alternative
+        The {competitor} <GradientText>alternative</GradientText>
         <br />
         {tagline}
       </Heading>

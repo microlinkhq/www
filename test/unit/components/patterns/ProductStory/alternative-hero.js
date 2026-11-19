@@ -60,7 +60,7 @@ describe('alternative hero copy', () => {
 })
 
 describe('AlternativeHero', () => {
-  test('renders "The <competitor> alternative" then the tagline', () => {
+  test('renders "The <competitor> alternative" with the gradient on alternative, then the tagline', () => {
     const html = renderMarkup(
       <AlternativeHero
         competitor='Acme'
@@ -78,7 +78,8 @@ describe('AlternativeHero', () => {
     expect(heading.replace(/<[^>]+>/g, '')).toBe(
       'The Acme alternativewith no servers'
     )
-    expect(heading).toMatch(/<span[^>]*>Acme<\/span> alternative<br\/>/)
+    expect(heading).toMatch(/The Acme <span[^>]*>alternative<\/span><br\/>/)
+    expect(heading).not.toMatch(/<span[^>]*>Acme<\/span>/)
     expect(html).toContain('Lead copy.')
     expect(html).toContain('Read the docs')
     expect(html).toContain('<div>demo</div>')

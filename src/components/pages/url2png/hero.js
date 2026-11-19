@@ -56,7 +56,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>URL2PNG</GradientText> alternative{' '}
+        The URL2PNG <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

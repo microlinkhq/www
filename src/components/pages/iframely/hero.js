@@ -35,7 +35,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Iframely</GradientText> alternative{' '}
+        The Iframely <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

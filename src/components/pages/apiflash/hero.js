@@ -51,7 +51,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>ApiFlash</GradientText> alternative{' '}
+        The ApiFlash <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

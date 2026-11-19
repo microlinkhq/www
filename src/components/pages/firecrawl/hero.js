@@ -159,7 +159,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Firecrawl</GradientText> alternative{' '}
+        The Firecrawl <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

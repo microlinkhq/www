@@ -163,7 +163,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Context.dev</GradientText> alternative
+        The Context.dev <GradientText>alternative</GradientText>
         <Box
           as='span'
           css={theme({ display: ['inline', 'inline', 'inline', 'none'] })}

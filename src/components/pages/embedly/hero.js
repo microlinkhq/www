@@ -36,7 +36,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Embedly</GradientText> alternative{' '}
+        The Embedly <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

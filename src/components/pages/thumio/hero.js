@@ -51,7 +51,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Thum.io</GradientText> alternative{' '}
+        The Thum.io <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}

@@ -55,7 +55,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Cloudflare</GradientText> alternative
+        The Cloudflare <GradientText>alternative</GradientText>
         <Box
           as='span'
           css={theme({ display: ['inline', 'inline', 'inline', 'none'] })}

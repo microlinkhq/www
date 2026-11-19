@@ -51,7 +51,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Screenshot Machine</GradientText> alternative
+        The Screenshot Machine <GradientText>alternative</GradientText>
         <Box
           as='span'
           css={theme({ display: ['inline', 'inline', 'inline', 'none'] })}
