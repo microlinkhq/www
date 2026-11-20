@@ -4,6 +4,7 @@ import { Check as CheckIcon, Minus as MinusIcon } from 'react-feather'
 import { breakpoints, colors, gradient, layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -267,12 +268,23 @@ const Plan = ({
 )
 
 const MicrolinkActions = ({ cta, secondaryHref, secondaryLabel }) => (
-  <>
-    <SignupLink cta={cta}>Get your free API key</SignupLink>
+  <Flex
+    css={theme({
+      width: '100%',
+      flexDirection: 'column',
+      alignItems: 'stretch',
+      gap: 3
+    })}
+  >
+    <SignupLink component={Button} as='a' variant='featured' cta={cta}>
+      Get your free API key
+    </SignupLink>
     {secondaryHref && (
-      <ArrowLink href={secondaryHref}>{secondaryLabel}</ArrowLink>
+      <Box>
+        <ArrowLink href={secondaryHref}>{secondaryLabel}</ArrowLink>
+      </Box>
     )}
-  </>
+  </Flex>
 )
 
 const NoWrap = ({ children }) => (
