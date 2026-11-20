@@ -228,7 +228,7 @@ const ColdStartTable = ({ benchmark, services }) => (
                 css={theme({ borderTop: `${borders[1]} ${colors.black10}` })}
               >
                 <TimeWithDelta delta={key === MICROLINK && delta}>
-                  {formatMs(totals[i])}
+                  {timeLabel(totals[i], formatMs)}
                 </TimeWithDelta>
               </td>
             ))}
@@ -336,7 +336,9 @@ const AverageTable = ({ benchmark, services }) => {
           return (
             <tr key={key}>
               <td>{svc.name}</td>
-              <td css={theme({ textAlign: 'right' })}>{formatDuration(avg)}</td>
+              <td css={theme({ textAlign: 'right' })}>
+                {timeLabel(avg, formatDuration)}
+              </td>
               <td css={theme({ textAlign: 'right' })}>
                 {isMicrolink ? <Cross /> : relativeSpeed(avg, microAvg)}
               </td>

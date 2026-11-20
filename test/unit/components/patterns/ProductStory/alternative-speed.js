@@ -120,3 +120,30 @@ describe('AlternativeSpeed', () => {
     expect(note('2026-03', 6)).toContain('This comparison is a separate')
   })
 })
+
+describe('SpeedSection with a provider that has no runs', () => {
+  const unmeasured = () => {
+    const data = benchmark('2026-03', 2)
+    data.results.acme.perUrl = []
+    data.results.acme.summary.avgColdDuration = 0
+    return data
+  }
+
+  test('shows "-" for its times and total, never 0, and no Microlink percentage', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={unmeasured()}
+      />
+    )
+    const cells = [...html.matchAll(/<td[^>]*>([^<]*)<\/td>/g)].map(
+      ([, text]) => text
+    )
+    expect(cells).not.toContain('0')
+    expect(cells).not.toContain('0 ms')
+    expect(cells.filter(text => text === '-').length).toBeGreaterThanOrEqual(3)
+    expect(html).not.toMatch(/\(-100%\)/)
+  })
+})
