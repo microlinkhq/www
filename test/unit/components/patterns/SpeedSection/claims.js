@@ -4,10 +4,11 @@ import {
   breakableName,
   displayedTotal,
   formatDuration,
+  microlinkDelta,
+  percentDifference,
   percentSlower,
   relativeSpeed,
-  speedRatio,
-  percentDifference
+  speedRatio
 } from '../../../../../src/components/patterns/SpeedSection/claims'
 
 const BENCHMARK = {
@@ -139,5 +140,22 @@ describe('percentDifference', () => {
     expect(percentDifference(6361, 14233)).toBe('-55%')
     expect(percentDifference(3435, 1968)).toBe('+75%')
     expect(percentDifference(1000, 1000)).toBe('0%')
+  })
+
+  test('stays empty when the baseline cannot divide', () => {
+    expect(percentDifference(1000, 0)).toBeNull()
+  })
+})
+
+describe('microlinkDelta', () => {
+  test('compares Microlink with the fastest other service', () => {
+    expect(microlinkDelta([5000, 8000, 4000], ['microlink', 'a', 'b'])).toBe(
+      '+25%'
+    )
+  })
+
+  test('stays empty when Microlink is absent or the only service', () => {
+    expect(microlinkDelta([1000, 2000], ['a', 'b'])).toBeNull()
+    expect(microlinkDelta([1000], ['microlink'])).toBeNull()
   })
 })

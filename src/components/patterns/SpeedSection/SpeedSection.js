@@ -26,7 +26,7 @@ import {
   breakableName,
   displayedTotal,
   formatDuration,
-  percentDifference,
+  microlinkDelta,
   relativeSpeed
 } from './claims'
 
@@ -36,13 +36,6 @@ const BREAKPOINT_COMPACT_MAX = `calc(${breakpoints[0]} - ${space[5]} - ${space[4
 const MICROLINK = 'microlink'
 
 const formatMs = ms => ms.toLocaleString('en-US', { maximumFractionDigits: 0 })
-
-const microlinkDelta = (times, services) => {
-  const index = services.indexOf(MICROLINK)
-  const others = times.filter((_, i) => i !== index)
-  if (index === -1 || others.length === 0) return null
-  return percentDifference(times[index], Math.min(...others))
-}
 
 const Section = styled(Box)`
   ${theme({

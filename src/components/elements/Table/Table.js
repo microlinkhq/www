@@ -125,40 +125,40 @@ const ROW_RADIUS = 4
 
 const interactiveRows = css`
   @media (min-width: calc(${breakpoints[0]} + 1px)) {
-    border-collapse: separate;
-    border-spacing: 0;
-
-    tbody tr {
-      ${theme({ borderBottom: 0 })}
-    }
-
-    :where(th:first-child, td:first-child) {
-      ${theme({ pl: ROW_INSET })}
-    }
-
-    :where(th:last-child, td:last-child) {
-      ${theme({ pr: ROW_INSET })}
-    }
-
-    tbody tr > * {
-      transition: background-color 150ms ease;
-    }
-
-    tbody tr > :first-child {
-      ${theme({
-        borderTopLeftRadius: ROW_RADIUS,
-        borderBottomLeftRadius: ROW_RADIUS
-      })}
-    }
-
-    tbody tr > :last-child {
-      ${theme({
-        borderTopRightRadius: ROW_RADIUS,
-        borderBottomRightRadius: ROW_RADIUS
-      })}
-    }
-
     @media (hover: hover) and (pointer: fine) {
+      border-collapse: separate;
+      border-spacing: 0;
+
+      tbody tr {
+        ${theme({ borderBottom: 0 })}
+      }
+
+      :where(th:first-child, td:first-child) {
+        ${theme({ pl: ROW_INSET })}
+      }
+
+      :where(th:last-child, td:last-child) {
+        ${theme({ pr: ROW_INSET })}
+      }
+
+      tbody tr > * {
+        transition: background-color 150ms ease;
+      }
+
+      tbody tr > :first-child {
+        ${theme({
+          borderTopLeftRadius: ROW_RADIUS,
+          borderBottomLeftRadius: ROW_RADIUS
+        })}
+      }
+
+      tbody tr > :last-child {
+        ${theme({
+          borderTopRightRadius: ROW_RADIUS,
+          borderBottomRightRadius: ROW_RADIUS
+        })}
+      }
+
       tbody tr:hover > * {
         ${theme({ backgroundColor: 'black05' })}
       }

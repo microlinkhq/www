@@ -281,17 +281,16 @@ Ordering:
 2. Microlink-only capabilities
 3. competitor-only capabilities
 
-Highlighting:
+Rows:
 
-- set `highlight: true` only when Microlink clearly has the advantage
-- do not highlight every differentiator just because it exists
+- do not set `highlight`. Tables do not paint a row; every cell is black
 
 Notes:
 
 - add a short `note` only when nuance materially helps interpretation
 - do not use the table to smuggle in unverified claims
 
-**Embed pages**: always include three Pro-bundle rows with `highlight: true` — `Rotating residential proxy (Pro)`, `Antibot detection & bypass (Pro)`, `CAPTCHA handling (Pro)`. The provider lists go in the `note` field. See `references/embed-template.md` → "Comparison table — Pro proxy rows" for the canonical wording and provider names. Flip the competitor column to `true` only if their docs explicitly document the same capabilities — verify on their site before doing so.
+**Embed pages**: always include three Pro-bundle rows — `Rotating residential proxy (Pro)`, `Antibot detection & bypass (Pro)`, `CAPTCHA handling (Pro)`. The provider lists go in the `note` field. See `references/embed-template.md` → "Comparison table — Pro proxy rows" for the canonical wording and provider names. Flip the competitor column to `true` only if their docs explicitly document the same capabilities — verify on their site before doing so.
 
 ### Pricing comparison
 

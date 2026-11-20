@@ -217,9 +217,6 @@ const FeatureTable = styled('table')`
   tbody tr:last-child td {
     border-bottom: 0;
   }
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
 `
 ```
 
@@ -260,22 +257,12 @@ const PerUrlTable = styled('table')`
   tbody tr:last-child td {
     border-bottom: 0;
   }
-  tbody tr:hover {
-    ${theme({ bg: 'black05' })};
-  }
 `
 ```
 
-### Cell helpers
+### Speed cells
 
-```js
-const CellHighlight = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'green7' })};
-`
-const CellLoser = styled('span')`
-  ${theme({ fontWeight: 'bold', color: 'red8' })};
-`
-```
+Speed numbers are black. The Microlink time appends its change against the fastest other provider, from `percentDifference`, for example `6,361 (-50%)`. Do not color a winner or a loser.
 
 ### Mobile benchmark cards
 
@@ -323,9 +310,7 @@ const MobileCardName = styled('span')`
   font-weight: 500;
 `
 const MobileCardTime = styled('span')`
-  font-weight: ${({ $highlight }) => ($highlight ? 700 : 400)};
-  color: ${({ $isMin, $isMax }) =>
-    $isMin ? colors.green7 : $isMax ? colors.red8 : colors.black};
+  ${theme({ color: 'black', textAlign: 'right' })};
 `
 ```
 

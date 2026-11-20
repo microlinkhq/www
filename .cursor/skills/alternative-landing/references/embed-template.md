@@ -146,28 +146,25 @@ Always include the `trackEvent('alternative cta', { competitor: '[slug]' })` cal
 
 ## Comparison table — Pro proxy rows
 
-Embed alternatives compete in a category where Microlink Pro is materially differentiated by the residential proxy bundle. Always include these three rows in `COMPARISON_DATA`, with `highlight: true`:
+Embed alternatives compete in a category where Microlink Pro is materially differentiated by the residential proxy bundle. Always include these three rows in `COMPARISON_DATA`:
 
 ```js
 {
   feature: 'Rotating residential proxy (Pro)',
   microlink: true,
   [competitorKey]: false,
-  highlight: true,
   note: 'Microlink Pro routes each request through a fresh residential IP with automatic retry on block or throttle.'
 },
 {
   feature: 'Antibot detection & bypass (Pro)',
   microlink: true,
   [competitorKey]: false,
-  highlight: true,
   note: 'Cloudflare, DataDome, Akamai, PerimeterX, Kasada, Imperva, AWS WAF, Vercel Attack Mode, Shape Security.'
 },
 {
   feature: 'CAPTCHA handling (Pro)',
   microlink: true,
   [competitorKey]: false,
-  highlight: true,
   note: 'reCAPTCHA v2/v3, hCaptcha, FunCaptcha, GeeTest, Cloudflare Turnstile — handled inside the API.'
 },
 ```

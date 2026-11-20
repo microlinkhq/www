@@ -71,7 +71,9 @@ describe('Table', () => {
     expect(css).toMatch(
       /@media \(hover: ?hover\) and \(pointer: ?fine\)\{[^@]*tbody tr:hover>\*\{background-color:rgba\(0,0,0,0\.05\)/
     )
-    expect(css).toMatch(/border-collapse:separate/)
+    const hoverAt = css.search(/@media \(hover: ?hover\)/)
+    expect(css.slice(0, hoverAt)).not.toMatch(/border-collapse:separate/)
+    expect(css.slice(hoverAt)).toMatch(/border-collapse:separate/)
     expect(css).toMatch(
       /:where\(th:first-child, ?td:first-child\)\{padding-left:16px/
     )

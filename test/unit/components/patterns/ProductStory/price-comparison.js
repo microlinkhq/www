@@ -15,7 +15,7 @@ import {
   missing
 } from '../../../../../src/components/patterns/ProductStory/price-comparison'
 import { DEFAULT_PLAN } from '../../../../../src/helpers/pro-plans'
-import themeSpec from '../../../../../src/theme'
+import themeSpec, { colors } from '../../../../../src/theme'
 
 vi.mock('helpers/template', () => ({ template: value => value }))
 
@@ -184,11 +184,12 @@ describe('ProductPriceComparison', () => {
   })
 
   test('the Microlink card holds only the signup button, the product link sits under the caption', () => {
-    const { html } = render(<ProductPriceComparison {...PROPS} />)
+    const { html, css } = render(<ProductPriceComparison {...PROPS} />)
     expect(html).toMatch(
       /<a[^>]*href="[^"]*signup[^"]*cta=alternative-acme:pricing[^"]*"[^>]*>Get your free API key<\/a>/
     )
     expect(html).not.toMatch(/<button/)
+    expect(css).toContain(colors.secondary)
     const [beforeCards, cards] = html.split(/<article/, 2)
     expect(beforeCards).toContain('Explore the Screenshot API')
     expect(cards).not.toContain('Explore the Screenshot API')

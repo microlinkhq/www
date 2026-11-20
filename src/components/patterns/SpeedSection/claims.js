@@ -15,8 +15,16 @@ export const percentSlower = (competitorMs, microlinkMs) =>
   Math.round(((competitorMs - microlinkMs) / microlinkMs) * PERCENT)
 
 export const percentDifference = (ms, baselineMs) => {
+  if (!(baselineMs > 0)) return null
   const percent = Math.round(((ms - baselineMs) / baselineMs) * PERCENT)
   return percent > 0 ? `+${percent}%` : `${percent}%`
+}
+
+export const microlinkDelta = (times, services) => {
+  const index = services.indexOf('microlink')
+  const others = times.filter((_, i) => i !== index)
+  if (index === -1 || others.length === 0) return null
+  return percentDifference(times[index], Math.min(...others))
 }
 
 export const speedRatio = (competitorMs, microlinkMs) =>
