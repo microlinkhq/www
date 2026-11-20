@@ -178,6 +178,9 @@ const NOT_MEASURED = '-'
 
 const timeLabel = (ms, format) => (isMeasured(ms) ? format(ms) : NOT_MEASURED)
 
+const averageComparison = (avg, microAvg) =>
+  isMeasured(avg) && isMeasured(microAvg) ? relativeSpeed(avg, microAvg) : null
+
 const ColdStartTable = ({ benchmark, services }) => (
   <PerUrlTable>
     <thead>
@@ -307,7 +310,7 @@ const AverageCards = ({ benchmark, services }) => {
             key,
             name: benchmark.results[key].name,
             ms: avg,
-            suffix: key === MICROLINK ? null : relativeSpeed(avg, microAvg)
+            suffix: key === MICROLINK ? null : averageComparison(avg, microAvg)
           }
         })}
       />
@@ -340,7 +343,13 @@ const AverageTable = ({ benchmark, services }) => {
                 {timeLabel(avg, formatDuration)}
               </td>
               <td css={theme({ textAlign: 'right' })}>
-                {isMicrolink ? <Cross /> : relativeSpeed(avg, microAvg)}
+                {isMicrolink
+                  ? (
+                    <Cross />
+                    )
+                  : (
+                      averageComparison(avg, microAvg) || NOT_MEASURED
+                    )}
               </td>
             </tr>
           )

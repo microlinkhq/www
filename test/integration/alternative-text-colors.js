@@ -36,7 +36,37 @@ const pageSources = page => {
 const SOURCES = [...ALTERNATIVE_PAGES.flatMap(pageSources), ...SHARED_SOURCES]
 
 const COLOR_PROP = /(?:^|[^-\w])color\s*:/
-const COLOR_VALUE = /(?:^|[^-\w])color\s*:\s*([^,}\n]*)/g
+const COLOR_KEY = /(?:^|[^-\w])color\s*:/g
+const OPENERS = '[({'
+const CLOSERS = '])}'
+
+const valueFrom = (text, start) => {
+  let depth = 0
+  let quote = null
+  for (let i = start; i < text.length; i += 1) {
+    const char = text[i]
+    if (quote) {
+      if (char === quote) quote = null
+    } else if (char === "'" || char === '"' || char === '`') {
+      quote = char
+    } else if (OPENERS.includes(char)) {
+      depth += 1
+    } else if (CLOSERS.includes(char)) {
+      if (depth === 0) return text.slice(start, i)
+      depth -= 1
+    } else if (depth === 0 && (char === ',' || char === '\n')) {
+      return text.slice(start, i)
+    }
+  }
+  return text.slice(start)
+}
+
+const colorValues = (lines, index) => {
+  const rest = lines.slice(index).join('\n')
+  return [...lines[index].matchAll(COLOR_KEY)].map(match =>
+    valueFrom(rest, match.index + match[0].length)
+  )
+}
 const COLOR_TOKEN = /'(black[1-9]0|secondary|pink\d?)'/g
 const NOTE_GRAY = 'black60'
 const NOTE_SIZE = /fontSize:\s*0\b/
@@ -80,8 +110,8 @@ const textColorViolations = source => {
   return lines.flatMap((line, index) => {
     if (!COLOR_PROP.test(line)) return []
     const isNote = NOTE_SIZE.test(objectOwning(lines, index))
-    return [...line.matchAll(COLOR_VALUE)]
-      .flatMap(([, value]) => [...value.matchAll(COLOR_TOKEN)])
+    return colorValues(lines, index)
+      .flatMap(value => [...value.matchAll(COLOR_TOKEN)])
       .map(([, token]) => token)
       .filter(token => !(token === NOTE_GRAY && isNote))
       .map(token => ({ line: index + 1, token }))
@@ -155,6 +185,19 @@ describe('alternative pages text color', () => {
     expect(
       textColorViolations("theme({ backgroundColor: 'pink', color: 'pink' })")
     ).toEqual([{ line: 1, token: 'pink' }])
+    expect(textColorViolations("theme({ color: ['black', 'pink'] })")).toEqual([
+      { line: 1, token: 'pink' }
+    ])
+    expect(
+      textColorViolations(
+        "theme({\n  color: [\n    'black',\n    'black70'\n  ]\n})"
+      )
+    ).toEqual([{ line: 2, token: 'black70' }])
+    expect(
+      textColorViolations(
+        "theme({ color: ['black', 'black'], backgroundColor: 'pink' })"
+      )
+    ).toEqual([])
   })
 
   test('flags every non-black text color, on one line or split across lines', () => {

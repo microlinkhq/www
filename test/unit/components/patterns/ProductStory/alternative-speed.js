@@ -145,5 +145,6 @@ describe('SpeedSection with a provider that has no runs', () => {
     expect(cells).not.toContain('0 ms')
     expect(cells.filter(text => text === '-').length).toBeGreaterThanOrEqual(3)
     expect(html).not.toMatch(/\(-100%\)/)
+    expect(html).not.toMatch(/Infinity|NaN/)
   })
 })

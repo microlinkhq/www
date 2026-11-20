@@ -117,10 +117,10 @@ Pick a primary and a secondary angle that nobody else leads with. If the best an
 Follow `references/page-anatomy.md`:
 
 1. Copy the reference page for the shape: `src/pages/alternative/<ref>.js`, `src/components/pages/<ref>/shared.js` and `hero.js` if it has one.
-2. Replace every competitor constant at the top of `shared.js` with researched values, and set `CHECKED_AT` to the day you read the pricing page. Rewrite every caption, note and FAQ answer that states a derived number so it computes from the constants.
+2. Replace every competitor constant at the top of `shared.js` with researched values, and date the pricing: on shapes A and B set `CHECKED_AT` (`YYYY-MM-DD`) to the day you read the pricing page; on shape C update the written "Month Year" the page displays. Rewrite every caption, note and FAQ answer that states a derived number so it computes from the constants.
 3. Write the copy for your angle: hero tagline and description, `WHY_SWITCH` (3–6 items), `COMPARISON.rows` (shared, then Microlink-only, then competitor-only), `HONESTY` (3–6 real competitor strengths), `FAQ_ITEMS` (7–9 questions with `{ question, answer, text }`), `CTA`.
 4. `META` gets a unique title and description. `STRUCTURED` includes `faqPageStructured(FAQ_ITEMS)`, and `text` must match the visible answer.
-5. Register the page (`src/helpers/alternatives.js`, `FOOTER_LABELS` in `test/integration/alternatives-catalog.js`, `src/helpers/dashboard-url.js`).
+5. Register the page (`src/helpers/alternatives.js`, `FOOTER_LABELS` in `test/integration/alternatives-catalog.js`, `src/helpers/dashboard-url.js`), and raise the counts in `test/integration/alternative-pages-inventory.js`: the total, plus the count for the page's family (`price-card` for shapes A and B, `reference` for shape C). Run `.agents/skills/alternative-pages/inventory.sh` to confirm the new row.
 
 Add a competitor-specific section (shape C) only when research strongly supports it, it makes the page materially more useful, and it does not collide with another page. If unsure, propose it to the user first.
 
@@ -132,9 +132,9 @@ Run the guards listed in `.agents/skills/alternative-pages/SKILL.md` › Guards,
 
 1. Identify its shape from the page file's section list (`page-anatomy.md`).
 2. Re-research the competitor: homepage, docs, features, pricing.
-3. Check for stale pricing (`CHECKED_AT`), stale feature claims, stale FAQ answers and stale strengths. For screenshot pages, compare `BENCHMARK_DATA` against the benchmark page.
+3. Check for stale pricing (`CHECKED_AT` on shapes A and B, the written "Month Year" on shape C), stale feature claims, stale FAQ answers and stale strengths. For screenshot pages, compare `BENCHMARK_DATA` against the benchmark page.
 4. Re-run the anti-cannibalization pass.
-5. Fix inaccuracies first, then positioning, then SEO uniqueness. Bump `CHECKED_AT` only if you re-read the pricing page.
+5. Fix inaccuracies first, then positioning, then SEO uniqueness. Update the pricing date (`CHECKED_AT`, or the written "Month Year" on shape C) only if you re-read the pricing page.
 
 ### 7. Report back
 
