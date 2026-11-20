@@ -20,6 +20,7 @@ const SHARED_SOURCES = [
   `${PRODUCT_STORY}/price-comparison.js`,
   `${PRODUCT_STORY}/comparison.js`,
   `${PRODUCT_STORY}/strengths.js`,
+  `${PRODUCT_STORY}/story-card.js`,
   'src/components/patterns/SpeedSection/SpeedSection.js'
 ]
 
@@ -68,6 +69,15 @@ const textColorViolations = source => {
 describe('alternative pages text color', () => {
   test('finds every alternative page', () => {
     expect(ALTERNATIVE_PAGES).toHaveLength(21)
+  })
+
+  test('story card title and description are both black', () => {
+    const source = fs.readFileSync(
+      path.join(ROOT, `${PRODUCT_STORY}/story-card.js`),
+      'utf8'
+    )
+    expect(source.match(/color:\s*'black'/g)).toHaveLength(2)
+    expect(source).not.toMatch(/black70/)
   })
 
   test('the rule flags gray body copy and pink, and allows the small gray note', () => {

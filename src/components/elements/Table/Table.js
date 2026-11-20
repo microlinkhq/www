@@ -166,9 +166,7 @@ const interactiveRows = css`
   }
 `
 
-export const FeatureTable = styled('table').withConfig({
-  shouldForwardProp: prop => prop !== 'interactive'
-})`
+export const FeatureTable = styled('table')`
   ${tableBase}
   ${({ interactive }) => interactive && interactiveRows}
 `
