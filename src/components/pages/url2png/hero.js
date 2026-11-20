@@ -69,7 +69,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Microlink gives you {MICROLINK_OFFER} against URL2PNG’s{' '}
@@ -129,7 +129,7 @@ export const Hero = () => (
         <Text
           css={theme({
             fontSize: [1, 1, 2, 2],
-            color: 'black70',
+            color: 'black',
             lineHeight: 2,
             textAlign: 'center',
             maxWidth: '42em',
@@ -147,7 +147,7 @@ export const Hero = () => (
           css={theme({
             pt: [3, 3, 4, 4],
             fontSize: 1,
-            color: 'black60',
+            color: 'black',
             textAlign: 'center'
           })}
         >

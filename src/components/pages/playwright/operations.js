@@ -19,6 +19,7 @@ export const Operations = () => (
           index={index}
           title={item.title}
           description={item.body}
+          descriptionColor='black'
         />
       ))}
     </StoryCardGrid>

@@ -64,7 +64,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Microlink is {SPEED.averageRatio}&times; faster on average than ApiFlash

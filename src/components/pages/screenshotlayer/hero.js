@@ -75,7 +75,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Microlink gives you {VOLUME_ADVANTAGE_PCT}% more monthly volume than

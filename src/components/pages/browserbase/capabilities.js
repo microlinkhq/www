@@ -14,7 +14,7 @@ export const Capabilities = () => (
     <SectionHeader title={CAPABILITIES.title} caption={CAPABILITIES.caption} />
     <StoryCardGrid $columns={3}>
       {CAPABILITIES.items.map(item => (
-        <StoryCard key={item.title} {...item} />
+        <StoryCard key={item.title} descriptionColor='black' {...item} />
       ))}
     </StoryCardGrid>
   </Section>

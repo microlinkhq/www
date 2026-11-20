@@ -49,7 +49,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Embedly charges ${COMPETITOR_PRICE}/month for {EMBEDLY_VOLUME} Embed

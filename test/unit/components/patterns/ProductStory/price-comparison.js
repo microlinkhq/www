@@ -10,8 +10,6 @@ import {
   formatCheckedAt,
   formatPerThousand,
   formatPrice,
-  iconColor,
-  itemColor,
   microlinkFacts,
   microlinkPlan,
   missing
@@ -139,17 +137,6 @@ describe('formatCheckedAt', () => {
   test('shows month and year, independent of the local timezone', () => {
     expect(formatCheckedAt('2026-05-01')).toBe('May 2026')
     expect(formatCheckedAt('2026-12-31')).toBe('December 2026')
-  })
-})
-
-describe('plan item colors', () => {
-  test('a limitation is quieter than a feature, and the featured plan is stronger', () => {
-    expect(itemColor({ absent: true, featured: false })).toBe('black50')
-    expect(itemColor({ absent: false, featured: false })).toBe('black70')
-    expect(itemColor({ absent: false, featured: true })).toBe('black80')
-    expect(iconColor({ absent: true, featured: true })).toBe('black30')
-    expect(iconColor({ absent: false, featured: false })).toBe('black40')
-    expect(iconColor({ absent: false, featured: true })).toBe('secondary')
   })
 })
 

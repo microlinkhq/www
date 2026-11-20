@@ -409,7 +409,7 @@ const SpeedSection = ({
           css={theme({
             pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            color: 'black80'
+            color: 'black'
           })}
         >
           {subtitle}
@@ -419,7 +419,7 @@ const SpeedSection = ({
           css={theme({
             pb: [3, 3, 4, 4],
             maxWidth: layout.normal,
-            color: 'black60',
+            color: 'black',
             fontSize: 2,
             lineHeight: 2,
             textAlign: 'center',
@@ -466,7 +466,7 @@ const SpeedSection = ({
                 <Text
                   css={theme({
                     fontSize: [1, 1, 2, 2],
-                    color: 'black90',
+                    color: 'black',
                     lineHeight: 2
                   })}
                 >

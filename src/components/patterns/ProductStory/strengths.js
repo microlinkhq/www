@@ -12,7 +12,12 @@ export const ProductStrengths = ({ id, title, caption, items }) => (
     <SectionHeader title={title} caption={caption} />
     <StoryCardGrid $columns={2}>
       {items.map((item, index) => (
-        <StoryCard key={item.title} index={index} {...item} />
+        <StoryCard
+          key={item.title}
+          index={index}
+          descriptionColor='black'
+          {...item}
+        />
       ))}
     </StoryCardGrid>
   </Section>
@@ -32,7 +37,7 @@ export const ProductTrademarks = ({ children }) => (
       css={theme({
         m: 0,
         color: 'black60',
-        fontSize: [0, 0, 1, 1],
+        fontSize: 0,
         lineHeight: 2,
         textAlign: 'center'
       })}

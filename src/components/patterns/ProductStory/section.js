@@ -62,7 +62,7 @@ export const SectionHeader = ({ title, caption }) => (
           pt: [3, 3, 4, 4],
           mx: 'auto',
           maxWidth: layout.normal,
-          color: 'black60',
+          color: 'black',
           textWrap: 'balance'
         })}
       >

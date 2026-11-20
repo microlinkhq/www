@@ -98,7 +98,13 @@ const Tile = styled(Box)`
   color: ${colors[accentIcon(ACCENT)]};
 `
 
-export const StoryCard = ({ index, icon: Icon, title, description }) => (
+export const StoryCard = ({
+  index,
+  icon: Icon,
+  title,
+  description,
+  descriptionColor = 'black70'
+}) => (
   <CardBox>
     {index !== undefined && (
       <Badge aria-hidden='true'>{String(index + 1).padStart(2, '0')}</Badge>
@@ -128,7 +134,7 @@ export const StoryCard = ({ index, icon: Icon, title, description }) => (
         pt: 2,
         fontSize: 1,
         lineHeight: 2,
-        color: 'black70',
+        color: descriptionColor,
         textWrap: 'pretty'
       })}
     >
