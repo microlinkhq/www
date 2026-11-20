@@ -46,19 +46,37 @@ const BODY_COLORS = [
   ...Array.from({ length: 10 }, (_, index) => `pink${index}`)
 ]
 
-const enclosingThemeBlock = (lines, index) => {
-  let start = index
-  while (start > 0 && !lines[start].includes('theme(')) start -= 1
-  let end = index
-  while (end < lines.length - 1 && !lines[end].includes('})')) end += 1
-  return lines.slice(start, end + 1).join('\n')
+const objectOwning = (lines, index) => {
+  const text = lines.join('\n')
+  const lineStart =
+    index === 0 ? 0 : lines.slice(0, index).join('\n').length + 1
+  const colorAt = lines[index].search(COLOR_PROP)
+  const offset = lineStart + (colorAt === -1 ? 0 : colorAt)
+  let openAt = -1
+  for (let i = 0; i <= offset && i < text.length; i += 1) {
+    if (text[i] === '{') openAt = i
+  }
+  if (openAt === -1) return lines[index]
+  let depth = 0
+  let own = ''
+  for (let i = openAt; i < text.length; i += 1) {
+    const char = text[i]
+    if (char === '{') {
+      depth += 1
+      if (depth === 1) own += char
+    } else if (char === '}') {
+      if (depth === 1) return own + char
+      depth -= 1
+    } else if (depth === 1) own += char
+  }
+  return own
 }
 
 const textColorViolations = source => {
   const lines = source.split('\n')
   return lines.flatMap((line, index) => {
     if (!COLOR_PROP.test(line)) return []
-    const isNote = NOTE_SIZE.test(enclosingThemeBlock(lines, index))
+    const isNote = NOTE_SIZE.test(objectOwning(lines, index))
     return [...line.matchAll(COLOR_TOKEN)]
       .map(([, token]) => token)
       .filter(token => !(token === NOTE_GRAY && isNote))
@@ -107,6 +125,16 @@ describe('alternative pages text color', () => {
     expect(
       textColorViolations("theme({ fontSize: 1, color: 'black60' })")
     ).toEqual([{ line: 1, token: 'black60' }])
+    expect(
+      textColorViolations(
+        "theme({\n  fontSize: 1,\n  color: 'black60',\n  '& small': { fontSize: 0 }\n})"
+      )
+    ).toEqual([{ line: 3, token: 'black60' }])
+    expect(
+      textColorViolations(
+        "theme({\n  '& small': { fontSize: 0, color: 'black60' }\n})"
+      )
+    ).toEqual([])
     expect(
       textColorViolations(
         "theme({ backgroundColor: 'black10', borderBottomColor: 'black20' })"

@@ -3,7 +3,6 @@ import React from 'react'
 import styled from 'styled-components'
 
 import { Link } from 'components/elements/Link'
-import MicrolinkLogo from 'components/logos/Microlink'
 import Text from 'components/elements/Text'
 
 import { Section, SectionHeader, SectionNote } from './section'
@@ -14,6 +13,7 @@ import {
   TableScroll
 } from 'components/elements/Table/Table'
 
+const MICROLINK_LOGO = 'https://cdn.microlink.io/logo/logo.svg'
 const FEATURE_MIN_WIDTH = '280px'
 const VALUE_WIDTH = '22%'
 const VALUE_MIN_WIDTH = '144px'
@@ -60,6 +60,10 @@ const ValueHeader = ({ children }) => (
   </th>
 )
 
+const MicrolinkMark = styled('img')`
+  ${theme({ display: 'block', width: '1em', height: '1em' })}
+`
+
 const MicrolinkLabel = ({ children }) => (
   <Text
     as='span'
@@ -73,12 +77,7 @@ const MicrolinkLabel = ({ children }) => (
       lineHeight: 'inherit'
     })}
   >
-    <MicrolinkLogo
-      alt=''
-      aria-hidden='true'
-      loading='eager'
-      css={theme({ width: '1em', height: '1em' })}
-    />
+    <MicrolinkMark alt='' aria-hidden='true' src={MICROLINK_LOGO} />
     {children}
   </Text>
 )
