@@ -19,7 +19,7 @@ describe('ToolError', () => {
     const markup = render({ error: { code: 'EPROXYNEEDED' } })
     expect(markup).toContain('This site blocks bots')
     expect(markup).toContain('Get Pro for')
-    expect(markup).not.toContain('signup')
+    expect(markup).toContain('redirect=/plans/create')
     expect(markup).not.toContain('Antibot detected')
     expect(markup).not.toMatch(/>Try again</)
   })

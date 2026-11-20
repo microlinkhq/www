@@ -56,11 +56,12 @@ describe('UpgradePrompt', () => {
     expect(ENTRY_PLAN.id).toBe('pro-1_625k-v4')
   })
 
-  test('antibot prompt sends the visitor to checkout, not signup', () => {
+  test('antibot prompt sends the visitor to the dashboard buy dialog', () => {
     const markup = render('EPROXYNEEDED')
     expect(markup).toContain('This site blocks bots')
-    expect(markup).toMatch(/<button[^>]*>Get Pro for \$49\/month<\/button>/)
-    expect(markup).not.toContain('signup')
+    expect(markup).toMatch(/<a[^>]*>Get Pro for \$49\/month<\/a>/)
+    expect(markup).toContain('redirect=/plans/create')
+    expect(markup).toContain('cta=embed-url:antibot')
     expect(markup).not.toContain('free API key')
     expect(markup).not.toContain('No credit card')
   })

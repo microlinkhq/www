@@ -1,25 +1,46 @@
 import { readFileSync } from 'node:fs'
+import { execFileSync } from 'node:child_process'
 import { describe, expect, test } from 'vitest'
 
-const read = path =>
-  readFileSync(new URL(`../../../${path}`, import.meta.url), 'utf8')
+const ROOT = new URL('../../../', import.meta.url)
+
+const read = path => readFileSync(new URL(path, ROOT), 'utf8')
+
+const grep = pattern => {
+  try {
+    return execFileSync('git', ['grep', '-l', '-E', pattern, '--', 'src'], {
+      cwd: ROOT,
+      encoding: 'utf8'
+    })
+      .split('\n')
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
 
 describe('checkout buy event', () => {
-  test('the prompt checks out the entry plan and tags the buy event', () => {
+  test('the prompt tags the buy event with its source', () => {
     const prompt = read('src/components/patterns/ApiError/UpgradePrompt.js')
-    expect(prompt).toContain('planId={ENTRY_PLAN.id}')
     expect(prompt).toContain('cta={`' + '$' + '{source}:' + '$' + '{slug}`}')
   })
 
-  test('a buy event includes cta only when the caller passed one', () => {
+  test('buy goes through dashboard signup into the buy dialog', () => {
     const checkout = read('src/components/patterns/Checkout.js')
-    expect(checkout).toContain(
-      "trackEvent('buy', cta ? { location, cta } : { location })"
+    expect(checkout).toContain("BUY_REDIRECT = '/plans/create'")
+    expect(checkout).toContain('redirect={BUY_REDIRECT}')
+    expect(checkout).toContain('<SignupLink')
+    expect(checkout).not.toContain('payment/session')
+  })
+
+  test('the buy event survives the navigation', () => {
+    const checkout = read('src/components/patterns/Checkout.js')
+    expect(checkout).toMatch(
+      /trackEvent\('buy',[\s\S]*transport_type: 'beacon'/
     )
   })
 
-  test('the payment session is opened for the plan prop', () => {
-    const checkout = read('src/components/patterns/Checkout.js')
-    expect(checkout).toMatch(/JSON\.stringify\(\{\s*planId,/)
+  test('no caller still threads Stripe checkout props', () => {
+    expect(grep('stripeKey=\\{|planId=\\{')).toEqual([])
   })
 })

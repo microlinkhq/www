@@ -5,7 +5,6 @@ import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
 import { CurrencyProvider } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import { Subhead, Caption, NARROW_MAX_WIDTH } from './shared'
 
@@ -14,8 +13,6 @@ export const ProductPricing = ({
   caption,
   bg = 'pinky'
 }) => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
-
   return (
     <CurrencyProvider>
       <Box
@@ -39,11 +36,7 @@ export const ProductPricing = ({
             {caption}
           </Caption>
         </Container>
-        <Plans
-          canonicalUrl={canonicalUrl}
-          stripeKey={stripeKey}
-          footer='compare'
-        />
+        <Plans footer='compare' />
       </Box>
     </CurrencyProvider>
   )

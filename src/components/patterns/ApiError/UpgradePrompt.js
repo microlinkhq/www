@@ -10,7 +10,6 @@ import {
   CurrencyProvider,
   useCurrencyContext
 } from 'components/hook/use-currency'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { isRateLimited } from 'helpers/api-error'
 import { KEYLESS_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
@@ -47,15 +46,12 @@ export const upgradeCodeFor = error => {
 }
 
 const EntryPlanCheckout = ({ cta }) => {
-  const { canonicalUrl } = useSiteMetadata()
   const [currency] = useCurrencyContext()
   const price = formatPrice(ENTRY_PLAN.monthlyPrice, currency)
   const { symbol } = CURRENCIES[currency]
 
   return (
     <Checkout
-      planId={ENTRY_PLAN.id}
-      canonicalUrl={canonicalUrl}
       cta={cta}
       css={theme({
         mt: 4,

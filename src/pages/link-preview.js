@@ -54,7 +54,6 @@ import { CurrencyProvider } from 'components/hook/use-currency'
 import Plans from 'components/patterns/Plans/Plans'
 
 import { useHealthcheck } from 'components/hook/use-healthcheck'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import analyticsData from '../../data/analytics.json'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
@@ -1759,7 +1758,6 @@ const CustomerStories = () => {
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 
 const Pricing = () => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <CurrencyProvider>
       <Box
@@ -1787,11 +1785,7 @@ const Pricing = () => {
             traffic kicks in.
           </Caption>
         </Container>
-        <Plans
-          canonicalUrl={canonicalUrl}
-          stripeKey={stripeKey}
-          footer='compare'
-        />
+        <Plans footer='compare' />
       </Box>
     </CurrencyProvider>
   )
