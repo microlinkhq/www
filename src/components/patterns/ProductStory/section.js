@@ -53,7 +53,7 @@ export const Section = ({ id, bg, bordered, children }) => (
   </Box>
 )
 
-export const SectionHeader = ({ title, caption }) => (
+export const SectionHeader = ({ title, caption, children }) => (
   <Box css={theme({ pb: [4, 4, 5, 5], textAlign: 'center' })}>
     <Subhead>{title}</Subhead>
     {caption && (
@@ -68,6 +68,17 @@ export const SectionHeader = ({ title, caption }) => (
       >
         {caption}
       </Text>
+    )}
+    {children && (
+      <Box
+        css={theme({
+          pt: [3, 3, 4, 4],
+          display: 'flex',
+          justifyContent: 'center'
+        })}
+      >
+        {children}
+      </Box>
     )}
   </Box>
 )

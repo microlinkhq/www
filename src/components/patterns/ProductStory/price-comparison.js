@@ -267,23 +267,11 @@ const Plan = ({
   </PlanCard>
 )
 
-const MicrolinkActions = ({ cta, secondaryHref, secondaryLabel }) => (
-  <Flex
-    css={theme({
-      width: '100%',
-      flexDirection: 'column',
-      alignItems: 'stretch',
-      gap: 3
-    })}
-  >
+const MicrolinkAction = ({ cta }) => (
+  <Flex css={theme({ width: '100%', flexDirection: 'column' })}>
     <SignupLink component={Button} as='a' variant='featured' cta={cta}>
       Get your free API key
     </SignupLink>
-    {secondaryHref && (
-      <Box>
-        <ArrowLink href={secondaryHref}>{secondaryLabel}</ArrowLink>
-      </Box>
-    )}
   </Flex>
 )
 
@@ -321,14 +309,23 @@ export const ProductPriceComparison = ({
   note
 }) => (
   <Section id='pricing' bg='pinky'>
-    <SectionHeader title={title} caption={caption} />
+    <SectionHeader title={title} caption={caption}>
+      {microlink.secondaryHref && (
+        <ArrowLink
+          href={microlink.secondaryHref}
+          css={theme({ fontSize: [1, 1, 2, 2] })}
+        >
+          {microlink.secondaryLabel}
+        </ArrowLink>
+      )}
+    </SectionHeader>
     <PlanGrid>
       <Plan
         {...microlinkPlan(currency)}
         currency={currency}
         items={microlinkItems(currency, microlink.items)}
         featured
-        footer={<MicrolinkActions {...microlink} />}
+        footer={<MicrolinkAction cta={microlink.cta} />}
       />
       <Plan
         {...competitor}

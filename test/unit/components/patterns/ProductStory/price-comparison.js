@@ -183,13 +183,15 @@ describe('ProductPriceComparison', () => {
     expect(html).not.toContain('Explore the Screenshot API')
   })
 
-  test('offers the signup as a button and the product as a link, like the home pricing', () => {
+  test('the Microlink card holds only the signup button, the product link sits under the caption', () => {
     const { html } = render(<ProductPriceComparison {...PROPS} />)
     expect(html).toMatch(
       /<a[^>]*href="[^"]*signup[^"]*cta=alternative-acme:pricing[^"]*"[^>]*>Get your free API key<\/a>/
     )
     expect(html).not.toMatch(/<button/)
-    expect(html).toContain('Explore the Screenshot API')
+    const [beforeCards, cards] = html.split(/<article/, 2)
+    expect(beforeCards).toContain('Explore the Screenshot API')
+    expect(cards).not.toContain('Explore the Screenshot API')
     expect(html).toContain('Prices in USD.')
   })
 
