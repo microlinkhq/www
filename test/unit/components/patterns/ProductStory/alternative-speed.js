@@ -83,6 +83,19 @@ describe('AlternativeSpeed', () => {
     expect(html).not.toMatch(/See the full benchmark<\/div><\/div><div/)
   })
 
+  test('shows the speed change only on the Microlink time', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={benchmark('2026-03', 1)}
+      />
+    )
+    expect(html.match(/\(-50%\)/g)).toHaveLength(4)
+    expect(html).not.toMatch(/2,000 \(-50%\)/)
+  })
+
   test('omits an inside footnote when none is passed', () => {
     const html = renderMarkup(
       <SpeedSection
