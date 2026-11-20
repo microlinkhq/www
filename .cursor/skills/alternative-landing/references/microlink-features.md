@@ -1,10 +1,10 @@
 # Microlink Features & Pricing
 
-Source of truth for the `microlink` column in `COMPARISON_DATA` and for pricing claims. Only use features and facts listed here. Do not invent capabilities.
+Source of truth for the `microlink` column in `COMPARISON.rows` and for feature claims. Only use features and facts listed here. Do not invent capabilities.
 
 ## Features (microlink: true)
 
-These are the confirmed Microlink capabilities. Use the exact feature name strings from this list when building `COMPARISON_DATA`. The feature name may be phrased slightly differently per page for variety, but the capability must match.
+These are the confirmed Microlink capabilities. Use these capabilities when building `COMPARISON.rows`. The feature name may be phrased slightly differently per page for variety, but the capability must match.
 
 ### Core capture
 
@@ -35,7 +35,8 @@ These are the confirmed Microlink capabilities. Use the exact feature name strin
 - Signed request URLs
 - Built-in response cache
 - Custom proxy support
-- Built-in proxy (auto-rotating residential)
+- Built-in proxy (auto-rotating residential, on by default)
+- Proxy geolocation: pick the exit country (181 countries; pages keep it as a `PROXY_COUNTRIES` constant)
 - Antibot detection (30+ providers: Cloudflare, DataDome, Akamai, etc.)
 
 ### Data extraction & enrichment
@@ -46,6 +47,8 @@ These are the confirmed Microlink capabilities. Use the exact feature name strin
 - Technology detection
 - Color palette extraction
 - Markdown rendering / Markdown conversion
+- HTML and text extraction (`/html`, `/text`)
+- File conversion (PDF, docx, xlsx, pptx to markdown)
 
 ### Developer experience
 
@@ -55,14 +58,13 @@ These are the confirmed Microlink capabilities. Use the exact feature name strin
 - Direct embed (no backend needed)
 - MCP server
 - Open-source core (MIT: Metascraper, MQL, Browserless)
-- 240+ CDN edge nodes
+- CDN edge nodes: `CDN_EDGES` from `src/helpers/cdn-edges.js` (never type the count)
 
 ### Partial / conditional
 
-These should use `microlink: 'partial'` or `microlink: 'on demand'`:
+These use a short string instead of a boolean:
 
-- GPU rendering → `'on demand'`
-- No-code integrations (Zapier, Make, n8n) → `'partial'`
+- No-code integrations (Zapier, Make, n8n) → `'Partial'`
 
 ### Not supported (microlink: false)
 
@@ -71,95 +73,32 @@ These are capabilities Microlink does NOT have. Use `microlink: false`:
 - Async + webhooks
 - S3 / cloud storage direct upload
 - Bulk screenshots (batch processing)
-- Geolocation targeting
 - OpenAI Vision integration
 - Team organizations / roles
 - Scheduled screenshots (cron)
 - Scrolling video capture (WebM/MP4/GIF of page scroll)
 - BYOB storage (S3/Wasabi/GCS)
-- Text/HTML extraction (as a standalone feature; Microlink extracts metadata but not raw page text)
+- GPU rendering
 
-## Pricing
+## Pricing and plan facts
 
-Microlink pricing varies by which competitor is being compared. Use the tier that creates the most meaningful apples-to-apples comparison.
+Never type a Microlink number. Import it:
 
-### Tier used in screenshotone comparison
+| Fact | Source |
+| --- | --- |
+| Pro plans, monthly price, requests per month | `src/helpers/pro-plans.js` (`PLANS`, `DEFAULT_PLAN`) |
+| Price per 1,000 requests | `pricePerThousand` in `src/helpers/pro-plans.js` |
+| The Microlink pricing card (name, price, base facts) | `MICROLINK_PLAN`, `microlinkPlan`, `microlinkFacts` in `components/patterns/ProductStory/price-comparison.js` |
+| Free plan quota and concurrency | `src/helpers/free-tier.js` (`FREE_PLAN_REQUESTS_PER_DAY`, `FREE_PLAN_CONCURRENT_REQUESTS`) |
+| Edge nodes | `CDN_EDGES` in `src/helpers/cdn-edges.js` |
 
-- **Price**: $45/mo
-- **Requests**: 46,000/month
-- **Per-request cost**: ~$0.00098
-- **Key points**:
-  - Screenshots + PDF + metadata + previews + remote JS (all included)
-  - Free tier: 25 requests/day, no credit card
-  - No requests-per-minute cap
-  - 240+ edge nodes, 99.9% SLA
-  - Open-source core (MIT)
+Every comparison page uses `DEFAULT_PLAN` (46,000 requests per month) as the Microlink side. Pick the competitor plan closest to it in volume or intent. If no competitor plan is a fair match, say so in the caption or ask before forcing one.
 
-### Tier used in screenshotapi comparison
+Wording that stays identical on every page:
 
-- **Price**: $45/mo
-- **Requests**: 46,000/month
-- **Per-request cost**: ~$0.00098
-- **Key points**:
-  - Screenshots, PDF, metadata, link previews, remote JS
-  - Free: 25 requests/day, no credit card, no expiry
-  - No rate limit on any paid plan
-  - 240+ edge nodes, 99.9% SLA
-  - Open-source core (MIT licensed)
-  - ~9× cheaper per request than ScreenshotAPI Essentials
+- "No rate limit on paid plans"
+- Free plan: "<FREE_PLAN_REQUESTS_PER_DAY> requests/day, renews daily, no credit card"
+- A built-in rotating proxy, on by default
+- 99.9% SLA, open-source core (MIT: Metascraper, MQL, Browserless)
 
-### Tier used in urlbox comparison
-
-- **Price**: $45/mo
-- **Requests**: 46,000/month
-- **Per-request cost**: $0.98 per 1,000 requests
-- **Key points**:
-  - Screenshots + PDF + metadata + previews + remote JS
-  - Free tier: 25 requests/day, no credit card
-  - No requests-per-minute cap
-  - 240+ edge nodes, 99.9% SLA
-  - Open-source core (MIT)
-
-### Tier used in screenshotmachine comparison
-
-- **Price**: €39/mo
-- **Requests**: 46,000/month
-- **Per-request cost**: ~€0.00085
-- **Key points**:
-  - Screenshots, PDF, metadata, link previews, remote JS
-  - Free: 25 requests/day, no credit card, no expiry
-  - No per-minute cap on paid plans
-  - 240+ edge nodes, 99.9% SLA
-  - Open-source core (MIT licensed)
-
-### Tier used in apiflash comparison
-
-- **Price**: $45/mo
-- **Requests**: 46,000/month
-- **Per-request cost**: ~$0.00098
-- **Key points**:
-  - Screenshots, PDF, metadata, link previews, remote JS
-  - Free: 25 requests/day, no credit card, no expiry
-  - No per-minute cap on paid plans
-  - 240+ edge nodes, 99.9% SLA
-  - Open-source core (MIT licensed)
-
-### Free tier (always the same)
-
-- 25 requests/day
-- No credit card required
-- No expiry / no time limit
-- Same API, same quality, same edge network as paid plans
-
-### Infrastructure facts
-
-- 240+ Cloudflare edge nodes worldwide
-- 99.9% uptime SLA (formal)
-- No per-minute rate limit on paid plans
-- Open-source core: Metascraper (metadata), MQL (query language), Browserless (headless browser) — all MIT licensed
-
-## Choosing the comparison price
-
-When creating a new landing page, pick the Microlink tier that makes the most direct comparison to the competitor's most popular or recommended plan. The goal is an honest apples-to-apples comparison. Document the competitor pricing source URL in a code comment.
-
-If neither €39 nor $45 creates a clean comparison, ask the user which Microlink tier to use. The available tiers can be found at `https://microlink.io/#pricing`.
+Never claim volume discounts (only 10% off annual billing) and never publish an enterprise price.

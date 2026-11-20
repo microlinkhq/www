@@ -7,6 +7,8 @@ description: Audit or change all 21 /alternative/* competitor pages together in 
 
 The 21 pages under `/alternative/*` share one structure and one set of rules. Touch them as a set: the inventory, the guards and the visual check below cover all 21, not just the page you started from.
 
+To create a new page or rework one page's angle, use `.cursor/skills/alternative-landing/SKILL.md` (research, anti-cannibalization, `references/page-anatomy.md`). This skill owns the rules every page shares; that one points back here for them.
+
 ## Map
 
 | What | Where |
