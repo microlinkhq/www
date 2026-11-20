@@ -52,10 +52,12 @@ const objectOwning = (lines, index) => {
     index === 0 ? 0 : lines.slice(0, index).join('\n').length + 1
   const colorAt = lines[index].search(COLOR_PROP)
   const offset = lineStart + (colorAt === -1 ? 0 : colorAt)
-  let openAt = -1
+  const open = []
   for (let i = 0; i <= offset && i < text.length; i += 1) {
-    if (text[i] === '{') openAt = i
+    if (text[i] === '{') open.push(i)
+    else if (text[i] === '}') open.pop()
   }
+  const openAt = open.length === 0 ? -1 : open[open.length - 1]
   if (openAt === -1) return lines[index]
   let depth = 0
   let own = ''
@@ -128,6 +130,11 @@ describe('alternative pages text color', () => {
     expect(
       textColorViolations(
         "theme({\n  fontSize: 1,\n  color: 'black60',\n  '& small': { fontSize: 0 }\n})"
+      )
+    ).toEqual([{ line: 3, token: 'black60' }])
+    expect(
+      textColorViolations(
+        "theme({\n  '& small': { fontSize: 0 },\n  color: 'black60'\n})"
       )
     ).toEqual([{ line: 3, token: 'black60' }])
     expect(
