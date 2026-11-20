@@ -92,7 +92,7 @@ Never type a Microlink number. Import it:
 | Free plan quota and concurrency | `src/helpers/free-tier.js` (`FREE_PLAN_REQUESTS_PER_DAY`, `FREE_PLAN_CONCURRENT_REQUESTS`) |
 | Edge nodes | `CDN_EDGES` in `src/helpers/cdn-edges.js` |
 
-Every comparison page uses `DEFAULT_PLAN` (46,000 requests per month) as the Microlink side. Pick the competitor plan closest to it in volume or intent. If no competitor plan is a fair match, say so in the caption or ask before forcing one.
+Every comparison page uses `DEFAULT_PLAN` as the Microlink side; read its volume and price from the helper, never from this file. Pick the competitor plan closest to it in volume or intent. If no competitor plan is a fair match, say so in the caption or ask before forcing one.
 
 Wording that stays identical on every page:
 

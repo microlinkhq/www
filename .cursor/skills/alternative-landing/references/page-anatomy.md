@@ -47,7 +47,7 @@ The competitor is better compared through one specific mechanism (a credit table
 ```jsx
 <AlternativeHero {...HERO} />               // or a hero.js when the visual is custom (serpapi)
 <CompetitorSpecificSection />               // billing, credits, ownership, paths…
-<ProductTimings {...TIMINGS} />
+<ProductTimings {...TIMINGS} />            // optional: serpapi has no timings band
 <ProductPricing caption={PRICING_CAPTION} />
 <ProductComparison {...COMPARISON} competitorKey='<slug>' />
 <ProductStrengths id='<slug>-strengths' {...HONESTY} />
@@ -55,6 +55,8 @@ The competitor is better compared through one specific mechanism (a credit table
 <CallToAction id='cta' {...CTA} />
 <ProductTrademarks>{TRADEMARKS}</ProductTrademarks>   // when naming third-party marks
 ```
+
+Shape C pages vary: copy the reference whose argument is closest, not this sample. SerpApi, for example, has no timings band and places its Migration section after Strengths.
 
 Competitor-specific tables use `FeatureTable` and `TableScroll` from `components/patterns/ProductStory`.
 
