@@ -1,49 +1,50 @@
 import React from 'react'
-import { describe, expect, test, vi } from 'vitest'
-import { colors } from '../../../../src/theme'
+import { describe, expect, test } from 'vitest'
 import Checkout, {
-  checkoutButtonCss,
-  loadingCss
+  BUY_REDIRECT,
+  buyCta
 } from '../../../../src/components/patterns/Checkout'
 import { renderMarkup } from '../../../utils/render-markup'
 
-vi.mock('components/hook/use-site-meta', () => ({
-  useSiteMetadata: () => ({
-    canonicalUrl: 'https://microlink.io',
-    paymentApiKey: 'key',
-    paymentEndpoint: 'https://api.microlink.io'
-  })
-}))
-
-const plan = { planId: 'pro-1_625k-v4', canonicalUrl: 'https://microlink.io' }
+const hrefOf = markup => {
+  const [, href] = markup.match(/href="([^"]+)"/)
+  return new URL(href.replaceAll('&amp;', '&'))
+}
 
 describe('Checkout', () => {
   test('renders Buy when no label is passed', () => {
-    const markup = renderMarkup(<Checkout {...plan} />)
+    const markup = renderMarkup(<Checkout />)
     expect(markup).toMatch(/>Buy</)
     expect(markup).not.toContain('Get Pro')
   })
 
   test('renders the caller label instead of Buy', () => {
-    const markup = renderMarkup(
-      <Checkout {...plan}>Get Pro for $49/month</Checkout>
-    )
+    const markup = renderMarkup(<Checkout>Get Pro for $49/month</Checkout>)
     expect(markup).toContain('Get Pro for $49/month')
     expect(markup).not.toMatch(/>Buy</)
   })
 
-  test('an unknown or omitted variant keeps the default background', () => {
-    expect(loadingCss('featured')).toContain(colors.secondary)
-    expect(loadingCss('default')).toContain(colors.link)
-    expect(loadingCss('nope')).toContain(colors.link)
-    expect(loadingCss()).toContain(colors.link)
+  test('links to dashboard signup, then the buy dialog', () => {
+    const url = hrefOf(renderMarkup(<Checkout />, { url: '/pricing' }))
+    expect(url.origin).toBe('https://dashboard.microlink.io')
+    expect(url.pathname).toBe('/signup')
+    expect(url.searchParams.get('redirect')).toBe(BUY_REDIRECT)
+    expect(BUY_REDIRECT).toBe('/plans/create')
   })
 
-  test('loading styles follow the caller styles so the variant background wins', () => {
-    const caller = 'width:100%'
-    expect(checkoutButtonCss(caller, 'featured', false)).toBe(caller)
-    const loading = checkoutButtonCss(caller, 'featured', true)
-    expect(loading[0]).toBe(caller)
-    expect(loading.at(-1)).toContain(colors.secondary)
+  test('defaults the cta to the page buy slot', () => {
+    const url = hrefOf(renderMarkup(<Checkout />, { url: '/pricing' }))
+    expect(url.searchParams.get('cta')).toBe('pricing:buy')
+    expect(buyCta('/')).toBe('home:buy')
+    expect(buyCta('/screenshot')).toBe('screenshot:buy')
+  })
+
+  test('keeps a caller cta', () => {
+    const url = hrefOf(
+      renderMarkup(<Checkout cta='embed-url:antibot' />, {
+        url: '/tools/embed-url'
+      })
+    )
+    expect(url.searchParams.get('cta')).toBe('embed-url:antibot')
   })
 })

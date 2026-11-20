@@ -16,7 +16,6 @@ import Heading from 'components/elements/Heading'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 import FeatherIcon from 'components/icons/Feather'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
@@ -1641,18 +1640,13 @@ const Cta = () => {
 }
 
 const PricingPage = () => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <CurrencyProvider>
       <Layout css={theme({ position: 'relative' })}>
         <DashedGridOverlay aria-hidden='true' />
         <Box css={theme({ position: 'relative', zIndex: 1 })}>
           <Hero />
-          <Plans
-            canonicalUrl={canonicalUrl}
-            stripeKey={stripeKey}
-            footer='stats'
-          />
+          <Plans footer='stats' />
           <BookCall />
           <Comparison />
           <Testimonials />
