@@ -36,6 +36,7 @@ const pageSources = page => {
 const SOURCES = [...ALTERNATIVE_PAGES.flatMap(pageSources), ...SHARED_SOURCES]
 
 const COLOR_PROP = /(?:^|[^-\w])color\s*:/
+const COLOR_VALUE = /(?:^|[^-\w])color\s*:\s*([^,}\n]*)/g
 const COLOR_TOKEN = /'(black[1-9]0|secondary|pink\d?)'/g
 const NOTE_GRAY = 'black60'
 const NOTE_SIZE = /fontSize:\s*0\b/
@@ -79,7 +80,8 @@ const textColorViolations = source => {
   return lines.flatMap((line, index) => {
     if (!COLOR_PROP.test(line)) return []
     const isNote = NOTE_SIZE.test(objectOwning(lines, index))
-    return [...line.matchAll(COLOR_TOKEN)]
+    return [...line.matchAll(COLOR_VALUE)]
+      .flatMap(([, value]) => [...value.matchAll(COLOR_TOKEN)])
       .map(([, token]) => token)
       .filter(token => !(token === NOTE_GRAY && isNote))
       .map(token => ({ line: index + 1, token }))
@@ -147,6 +149,12 @@ describe('alternative pages text color', () => {
         "theme({ backgroundColor: 'black10', borderBottomColor: 'black20' })"
       )
     ).toEqual([])
+    expect(
+      textColorViolations("theme({ color: 'black', backgroundColor: 'pink' })")
+    ).toEqual([])
+    expect(
+      textColorViolations("theme({ backgroundColor: 'pink', color: 'pink' })")
+    ).toEqual([{ line: 1, token: 'pink' }])
   })
 
   test('flags every non-black text color, on one line or split across lines', () => {

@@ -20,10 +20,13 @@ export const percentDifference = (ms, baselineMs) => {
   return percent > 0 ? `+${percent}%` : `${percent}%`
 }
 
+export const isMeasured = ms => Number.isFinite(ms) && ms > 0
+
 export const microlinkDelta = (times, services) => {
   const index = services.indexOf('microlink')
-  const others = times.filter((_, i) => i !== index)
-  if (index === -1 || others.length === 0) return null
+  if (index === -1 || !isMeasured(times[index])) return null
+  const others = times.filter((ms, i) => i !== index && isMeasured(ms))
+  if (others.length === 0) return null
   return percentDifference(times[index], Math.min(...others))
 }
 

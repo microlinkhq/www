@@ -154,6 +154,15 @@ describe('microlinkDelta', () => {
     )
   })
 
+  test('a missing measurement is never shown as a reduction', () => {
+    expect(microlinkDelta([null, 8000], ['microlink', 'a'])).toBeNull()
+    expect(microlinkDelta([0, 8000], ['microlink', 'a'])).toBeNull()
+    expect(microlinkDelta([5000, null, 4000], ['microlink', 'a', 'b'])).toBe(
+      '+25%'
+    )
+    expect(microlinkDelta([5000, null], ['microlink', 'a'])).toBeNull()
+  })
+
   test('stays empty when Microlink is absent or the only service', () => {
     expect(microlinkDelta([1000, 2000], ['a', 'b'])).toBeNull()
     expect(microlinkDelta([1000], ['microlink'])).toBeNull()

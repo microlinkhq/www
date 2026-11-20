@@ -26,6 +26,7 @@ import {
   breakableName,
   displayedTotal,
   formatDuration,
+  isMeasured,
   microlinkDelta,
   relativeSpeed
 } from './claims'
@@ -169,8 +170,13 @@ const MobileCardTime = styled('span')`
 const urlTimes = (benchmark, services, url) =>
   services.map(
     key =>
-      benchmark.results[key].perUrl.find(p => p.url === url)?.coldDuration || 0
+      benchmark.results[key].perUrl.find(p => p.url === url)?.coldDuration ??
+      null
   )
+
+const NOT_MEASURED = '-'
+
+const timeLabel = (ms, format) => (isMeasured(ms) ? format(ms) : NOT_MEASURED)
 
 const ColdStartTable = ({ benchmark, services }) => (
   <PerUrlTable>
@@ -193,7 +199,7 @@ const ColdStartTable = ({ benchmark, services }) => (
             {services.map((key, i) => (
               <td key={key}>
                 <TimeWithDelta delta={key === MICROLINK && delta}>
-                  {formatMs(times[i])}
+                  {timeLabel(times[i], formatMs)}
                 </TimeWithDelta>
               </td>
             ))}
@@ -250,7 +256,7 @@ const TimingCard = ({ title, rows, showDelta = false }) => {
           <MobileCardName>{name}</MobileCardName>
           <MobileCardTime>
             <TimeWithDelta delta={key === MICROLINK && delta}>
-              {formatDuration(ms)}
+              {timeLabel(ms, formatDuration)}
             </TimeWithDelta>
             {suffix && <MobileCardSuffix>{suffix}</MobileCardSuffix>}
           </MobileCardTime>
