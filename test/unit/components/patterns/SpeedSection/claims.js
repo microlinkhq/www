@@ -4,6 +4,8 @@ import {
   breakableName,
   displayedTotal,
   formatDuration,
+  microlinkDelta,
+  percentDifference,
   percentSlower,
   relativeSpeed,
   speedRatio
@@ -130,5 +132,39 @@ describe('breakableName', () => {
   test('lets a column header wrap between the words of a provider name', () => {
     expect(breakableName('Screenshot\u00a0Machine')).toBe('Screenshot Machine')
     expect(breakableName('Screenshotlayer')).toBe('Screenshotlayer')
+  })
+})
+
+describe('percentDifference', () => {
+  test('signs the change against the baseline, rounded', () => {
+    expect(percentDifference(6361, 14233)).toBe('-55%')
+    expect(percentDifference(3435, 1968)).toBe('+75%')
+    expect(percentDifference(1000, 1000)).toBe('0%')
+  })
+
+  test('stays empty when the baseline cannot divide', () => {
+    expect(percentDifference(1000, 0)).toBeNull()
+  })
+})
+
+describe('microlinkDelta', () => {
+  test('compares Microlink with the fastest other service', () => {
+    expect(microlinkDelta([5000, 8000, 4000], ['microlink', 'a', 'b'])).toBe(
+      '+25%'
+    )
+  })
+
+  test('a missing measurement is never shown as a reduction', () => {
+    expect(microlinkDelta([null, 8000], ['microlink', 'a'])).toBeNull()
+    expect(microlinkDelta([0, 8000], ['microlink', 'a'])).toBeNull()
+    expect(microlinkDelta([5000, null, 4000], ['microlink', 'a', 'b'])).toBe(
+      '+25%'
+    )
+    expect(microlinkDelta([5000, null], ['microlink', 'a'])).toBeNull()
+  })
+
+  test('stays empty when Microlink is absent or the only service', () => {
+    expect(microlinkDelta([1000, 2000], ['a', 'b'])).toBeNull()
+    expect(microlinkDelta([1000], ['microlink'])).toBeNull()
   })
 })

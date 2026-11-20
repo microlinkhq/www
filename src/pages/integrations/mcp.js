@@ -22,7 +22,7 @@ import Faq from 'components/patterns/Faq/Faq'
 import Features from 'components/patterns/Features/Features'
 import Layout from 'components/patterns/Layout'
 import { HeroEditorTabs } from 'components/patterns/MultiCodeEditor/hero-editor-tabs'
-import { ProseTable, TableCard } from 'components/elements/Table/Table'
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
 import { UNAVATAR_FALLBACK, UNAVATAR_TOKEN } from 'helpers/unavatar'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
 
@@ -580,8 +580,8 @@ const FAQ_ITEMS = [
           <code>microlink_screenshot</code>, and <code>@microlink/mcp</code>{' '}
           hits the API.
         </div>
-        <TableCard>
-          <ProseTable>
+        <TableScroll>
+          <FeatureTable>
             <thead>
               <tr>
                 <Text as='th' scope='col'>
@@ -621,8 +621,8 @@ const FAQ_ITEMS = [
                 <td>MCP</td>
               </tr>
             </tbody>
-          </ProseTable>
-        </TableCard>
+          </FeatureTable>
+        </TableScroll>
         <div>
           They compose. A coding agent with the skill generates SDK code. An
           assistant with MCP executes products without writing code. Install

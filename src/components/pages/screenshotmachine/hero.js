@@ -51,7 +51,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Screenshot Machine</GradientText> alternative
+        The Screenshot Machine <GradientText>alternative</GradientText>
         <Box
           as='span'
           css={theme({ display: ['inline', 'inline', 'inline', 'none'] })}
@@ -70,7 +70,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Microlink is {SPEED.averageRatio}&times; faster on average than

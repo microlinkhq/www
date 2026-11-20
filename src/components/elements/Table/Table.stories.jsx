@@ -6,14 +6,7 @@ import Text from 'components/elements/Text'
 import { ComparisonTable } from 'components/patterns/ProductStory/comparison'
 import { Story } from 'story'
 
-import {
-  CellNote,
-  CellValue,
-  FeatureTable,
-  HIGHLIGHT_BG,
-  ProseTable,
-  TableCard
-} from './Table'
+import { CellNote, CellValue, FeatureTable, TableScroll } from './Table'
 
 const COMPARISON_ROWS = [
   { feature: 'Screenshot capture', microlink: true, acme: true },
@@ -22,10 +15,13 @@ const COMPARISON_ROWS = [
     href: '/docs/api/parameters/proxy',
     note: 'Residential pool, rotated per request.',
     microlink: true,
-    acme: false,
-    highlight: true
+    acme: false
   },
-  { feature: 'Response caching', microlink: '1 minute to 31 days', acme: 'Your code' },
+  {
+    feature: 'Response caching',
+    microlink: '1 minute to 31 days',
+    acme: 'Your code'
+  },
   { feature: 'Ad blocking', microlink: 'Blocked by default', acme: 'Partial' },
   {
     feature: 'Firefox',
@@ -38,14 +34,14 @@ const COMPARISON_ROWS = [
 const PROSE_ROWS = [
   {
     job: 'The browser binary',
-    self: 'Chrome downloads on install: about 170 MB on macOS, 282 MB on Linux.',
+    self:
+      'Chrome downloads on install: about 170 MB on macOS, 282 MB on Linux.',
     microlink: 'Nothing to download. Your code makes an HTTP call.'
   },
   {
     job: 'Serverless packaging',
     self: 'Lambda caps a zip deployment at 250 MB unzipped, layers included.',
-    microlink: 'No layer, no package budget to fit.',
-    highlight: true
+    microlink: 'No layer, no package budget to fit.'
   },
   {
     job: 'Zombie processes',
@@ -55,9 +51,21 @@ const PROSE_ROWS = [
 ]
 
 const DATA_ROWS = [
-  { request: 'Standard domain, no flags', credits: '1 credit', pages: '100,000 pages' },
-  { request: 'JavaScript rendering', credits: '10 credits', pages: '10,000 pages' },
-  { request: 'Microlink, any of the above', credits: '1 request', pages: '46,000 pages', highlight: true }
+  {
+    request: 'Standard domain, no flags',
+    credits: '1 credit',
+    pages: '100,000 pages'
+  },
+  {
+    request: 'JavaScript rendering',
+    credits: '10 credits',
+    pages: '10,000 pages'
+  },
+  {
+    request: 'Microlink, any of the above',
+    credits: '1 request',
+    pages: '46,000 pages'
+  }
 ]
 
 const VALUES = [
@@ -68,7 +76,9 @@ const VALUES = [
 ]
 
 const Label = ({ children }) => (
-  <Text css={theme({ pb: 2, fontFamily: 'mono', fontSize: 0, color: 'black60' })}>
+  <Text
+    css={theme({ pb: 2, fontFamily: 'mono', fontSize: 0, color: 'black60' })}
+  >
     {children}
   </Text>
 )
@@ -76,9 +86,6 @@ const Label = ({ children }) => (
 const Frame = ({ children }) => (
   <Box css={theme({ width: '100%', maxWidth: '960px' })}>{children}</Box>
 )
-
-const rowStyle = highlight =>
-  highlight ? { background: HIGHLIGHT_BG } : undefined
 
 const comparisonCode = `
 import { ComparisonTable } from 'components/patterns/ProductStory'
@@ -89,7 +96,7 @@ export default () => (
     competitorKey='acme'
     rows={[
       { feature: 'Screenshot capture', microlink: true, acme: true },
-      { feature: 'Built-in proxy', note: 'Residential pool.', microlink: true, acme: false, highlight: true },
+      { feature: 'Built-in proxy', note: 'Residential pool.', microlink: true, acme: false },
       { feature: 'Response caching', microlink: '1 minute to 31 days', acme: 'Your code' }
     ]}
   />
@@ -97,11 +104,11 @@ export default () => (
 `
 
 const proseCode = `
-import { ProseTable, TableCard, HIGHLIGHT_BG } from 'components/elements/Table/Table'
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
 
 export default () => (
-  <TableCard>
-    <ProseTable>
+  <TableScroll>
+    <FeatureTable>
       <thead>
         <tr>
           <th scope='col'>The job</th>
@@ -110,22 +117,22 @@ export default () => (
         </tr>
       </thead>
       <tbody>
-        <tr css={{ background: HIGHLIGHT_BG }}>
+        <tr>
           <th scope='row'>Serverless packaging</th>
           <td>Lambda caps a zip deployment at 250 MB.</td>
           <td>No layer, no package budget to fit.</td>
         </tr>
       </tbody>
-    </ProseTable>
-  </TableCard>
+    </FeatureTable>
+  </TableScroll>
 )
 `
 
 const dataCode = `
-import { FeatureTable, TableCard } from 'components/elements/Table/Table'
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
 
 export default () => (
-  <TableCard>
+  <TableScroll>
     <FeatureTable>
       <thead>
         <tr>
@@ -140,7 +147,7 @@ export default () => (
         </tr>
       </tbody>
     </FeatureTable>
-  </TableCard>
+  </TableScroll>
 )
 `
 
@@ -161,10 +168,10 @@ export const Comparison = () => (
 )
 
 export const Prose = () => (
-  <Story name='ProseTable' code={proseCode}>
+  <Story name='Prose' code={proseCode}>
     <Frame>
-      <TableCard>
-        <ProseTable>
+      <TableScroll>
+        <FeatureTable>
           <thead>
             <tr>
               <th scope='col'>The job</th>
@@ -173,24 +180,24 @@ export const Prose = () => (
             </tr>
           </thead>
           <tbody>
-            {PROSE_ROWS.map(({ job, self, microlink, highlight }) => (
-              <tr key={job} css={rowStyle(highlight)}>
+            {PROSE_ROWS.map(({ job, self, microlink }) => (
+              <tr key={job}>
                 <th scope='row'>{job}</th>
                 <td>{self}</td>
                 <td>{microlink}</td>
               </tr>
             ))}
           </tbody>
-        </ProseTable>
-      </TableCard>
+        </FeatureTable>
+      </TableScroll>
     </Frame>
   </Story>
 )
 
 export const Data = () => (
-  <Story name='FeatureTable' code={dataCode}>
+  <Story name='Data' code={dataCode}>
     <Frame>
-      <TableCard>
+      <TableScroll>
         <FeatureTable>
           <thead>
             <tr>
@@ -200,8 +207,8 @@ export const Data = () => (
             </tr>
           </thead>
           <tbody>
-            {DATA_ROWS.map(({ request, credits, pages, highlight }) => (
-              <tr key={request} css={rowStyle(highlight)}>
+            {DATA_ROWS.map(({ request, credits, pages }) => (
+              <tr key={request}>
                 <th scope='row'>{request}</th>
                 <td>{credits}</td>
                 <td>{pages}</td>
@@ -209,7 +216,57 @@ export const Data = () => (
             ))}
           </tbody>
         </FeatureTable>
-      </TableCard>
+      </TableScroll>
+    </Frame>
+  </Story>
+)
+
+const interactiveCode = `
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
+
+export default () => (
+  <TableScroll>
+    <FeatureTable interactive>
+      <thead>
+        <tr>
+          <th scope='col'>Request</th>
+          <th scope='col'>Credits</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <th scope='row'>Standard domain, no flags</th>
+          <td>1 credit</td>
+        </tr>
+      </tbody>
+    </FeatureTable>
+  </TableScroll>
+)
+`
+
+export const Interactive = () => (
+  <Story name='Interactive' code={interactiveCode}>
+    <Frame>
+      <TableScroll>
+        <FeatureTable interactive>
+          <thead>
+            <tr>
+              <th scope='col'>Request</th>
+              <th scope='col'>Credits</th>
+              <th scope='col'>Pages for $49</th>
+            </tr>
+          </thead>
+          <tbody>
+            {DATA_ROWS.map(({ request, credits, pages }) => (
+              <tr key={request}>
+                <th scope='row'>{request}</th>
+                <td>{credits}</td>
+                <td>{pages}</td>
+              </tr>
+            ))}
+          </tbody>
+        </FeatureTable>
+      </TableScroll>
     </Frame>
   </Story>
 )
@@ -217,7 +274,7 @@ export const Data = () => (
 export const Values = () => (
   <Story name='CellValue'>
     <Frame>
-      <TableCard>
+      <TableScroll>
         <FeatureTable>
           <thead>
             <tr>
@@ -239,7 +296,7 @@ export const Values = () => (
             ))}
           </tbody>
         </FeatureTable>
-      </TableCard>
+      </TableScroll>
       <Box css={theme({ pt: 3 })}>
         <Label>
           true renders a check, false a dash, anything else as centered text.

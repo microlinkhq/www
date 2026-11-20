@@ -108,8 +108,7 @@ export const OWNERSHIP = {
     {
       job: 'Serverless packaging',
       self: 'Lambda caps a zip deployment at 250 MB unzipped, layers included, and the Linux browser alone is larger. Either ship a container image (10 GB cap) and pay a larger cold start, or swap in the 130.62 MiB @sparticuz/chromium build.',
-      microlink: 'No layer, no package budget to fit.',
-      highlight: true
+      microlink: 'No layer, no package budget to fit.'
     },
     {
       job: 'System libraries and fonts',
@@ -120,8 +119,7 @@ export const OWNERSHIP = {
       job: 'Zombie processes',
       self: 'Puppeteer’s own troubleshooting guide points to dumb-init or docker --init to reap Chrome processes left behind.',
       microlink:
-        'A fresh browser per call, destroyed when the response is sent.',
-      highlight: true
+        'A fresh browser per call, destroyed when the response is sent.'
     },
     {
       job: 'Concurrency and queueing',

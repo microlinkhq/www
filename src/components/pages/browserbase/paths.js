@@ -1,14 +1,13 @@
 import React from 'react'
-import { textGradient, theme } from 'theme'
 
 import Text from 'components/elements/Text'
 
 import {
-  ProseTable,
+  FeatureTable,
   Section,
   SectionHeader,
   SectionNote,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 
 import { PATHS } from './shared'
@@ -20,22 +19,18 @@ export const Paths = () => (
   <Section id='paths' bg='gray0'>
     <SectionHeader title={PATHS.title} caption={PATHS.caption} />
 
-    <TableCard>
-      <ProseTable>
+    <TableScroll>
+      <FeatureTable>
         <thead>
           <tr>
             <Text as='th' scope='col' css={{ minWidth: OUTPUT_MIN_WIDTH }}>
               {PATHS.columns.output}
             </Text>
-            <Text
-              as='th'
-              scope='col'
-              css={[theme({ color: 'black60' }), { minWidth: PATH_MIN_WIDTH }]}
-            >
+            <Text as='th' scope='col' css={{ minWidth: PATH_MIN_WIDTH }}>
               {PATHS.columns.browserbase}
             </Text>
             <Text as='th' scope='col' css={{ minWidth: PATH_MIN_WIDTH }}>
-              <span css={textGradient}>{PATHS.columns.microlink}</span>
+              {PATHS.columns.microlink}
             </Text>
           </tr>
         </thead>
@@ -46,14 +41,12 @@ export const Paths = () => (
                 {output}
               </Text>
               <td>{browserbase}</td>
-              <Text as='td' css={theme({ color: 'black' })}>
-                {microlink}
-              </Text>
+              <td>{microlink}</td>
             </tr>
           ))}
         </tbody>
-      </ProseTable>
-    </TableCard>
+      </FeatureTable>
+    </TableScroll>
 
     <SectionNote>{PATHS.footnote}</SectionNote>
   </Section>

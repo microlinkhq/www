@@ -70,7 +70,7 @@ export const AlternativeWhySwitch = ({ caption, items }) => (
       </Subhead>
       <Caption
         css={theme({
-          color: 'black60',
+          color: 'black',
           pb: [4, 4, 5, 5],
           maxWidth: layout.normal
         })}
@@ -114,7 +114,7 @@ export const AlternativeWhySwitch = ({ caption, items }) => (
                 <Text
                   css={theme({
                     fontSize: [1, 1, 2, 2],
-                    color: 'black90',
+                    color: 'black',
                     lineHeight: 2,
                     maxWidth: '40em'
                   })}

@@ -1,4 +1,3 @@
-import { theme } from 'theme'
 import React from 'react'
 
 import Text from 'components/elements/Text'
@@ -8,7 +7,7 @@ import {
   Section,
   SectionHeader,
   SectionNote,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 
 import { MIGRATION } from './shared'
@@ -17,7 +16,7 @@ export const Migration = () => (
   <Section id='migration' bordered>
     <SectionHeader title={MIGRATION.title} caption={MIGRATION.caption} />
 
-    <TableCard>
+    <TableScroll>
       <FeatureTable>
         <thead>
           <tr>
@@ -31,15 +30,13 @@ export const Migration = () => (
         <tbody>
           {MIGRATION.rows.map(({ id, serpapi, microlink }) => (
             <tr key={id}>
-              <Text as='td' css={theme({ color: 'black60' })}>
-                {serpapi}
-              </Text>
+              <td>{serpapi}</td>
               <td>{microlink}</td>
             </tr>
           ))}
         </tbody>
       </FeatureTable>
-    </TableCard>
+    </TableScroll>
 
     <SectionNote>{MIGRATION.note}</SectionNote>
   </Section>

@@ -10,14 +10,12 @@ import {
   formatCheckedAt,
   formatPerThousand,
   formatPrice,
-  iconColor,
-  itemColor,
   microlinkFacts,
   microlinkPlan,
   missing
 } from '../../../../../src/components/patterns/ProductStory/price-comparison'
 import { DEFAULT_PLAN } from '../../../../../src/helpers/pro-plans'
-import themeSpec from '../../../../../src/theme'
+import themeSpec, { colors } from '../../../../../src/theme'
 
 vi.mock('helpers/template', () => ({ template: value => value }))
 
@@ -142,17 +140,6 @@ describe('formatCheckedAt', () => {
   })
 })
 
-describe('plan item colors', () => {
-  test('a limitation is quieter than a feature, and the featured plan is stronger', () => {
-    expect(itemColor({ absent: true, featured: false })).toBe('black50')
-    expect(itemColor({ absent: false, featured: false })).toBe('black70')
-    expect(itemColor({ absent: false, featured: true })).toBe('black80')
-    expect(iconColor({ absent: true, featured: true })).toBe('black30')
-    expect(iconColor({ absent: false, featured: false })).toBe('black40')
-    expect(iconColor({ absent: false, featured: true })).toBe('secondary')
-  })
-})
-
 describe('ProductPriceComparison', () => {
   test('puts the featured Microlink plan first and the competitor second', () => {
     const { html } = render(<ProductPriceComparison {...PROPS} />)
@@ -196,10 +183,16 @@ describe('ProductPriceComparison', () => {
     expect(html).not.toContain('Explore the Screenshot API')
   })
 
-  test('offers the signup and the product link on the Microlink plan', () => {
-    const { html } = render(<ProductPriceComparison {...PROPS} />)
-    expect(html).toContain('Get your free API key')
-    expect(html).toContain('Explore the Screenshot API')
+  test('the Microlink card holds only the signup button, the product link sits under the caption', () => {
+    const { html, css } = render(<ProductPriceComparison {...PROPS} />)
+    expect(html).toMatch(
+      /<a[^>]*href="[^"]*signup[^"]*cta=alternative-acme:pricing[^"]*"[^>]*>Get your free API key<\/a>/
+    )
+    expect(html).not.toMatch(/<button/)
+    expect(css).toContain(colors.secondary)
+    const [beforeCards, cards] = html.split(/<article/, 2)
+    expect(beforeCards).toContain('Explore the Screenshot API')
+    expect(cards).not.toContain('Explore the Screenshot API')
     expect(html).toContain('Prices in USD.')
   })
 

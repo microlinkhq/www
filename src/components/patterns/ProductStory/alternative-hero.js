@@ -1,4 +1,5 @@
 import React from 'react'
+import styled from 'styled-components'
 import { layout, theme } from 'theme'
 
 import Flex from 'components/elements/Flex'
@@ -8,6 +9,16 @@ import { AlternativeHeroActions } from './alternative-hero-actions'
 import { EDITOR_FRAME, HeroEditor } from './hero-parts'
 import { GradientText } from './section'
 import { Caption, Heading } from './shared'
+
+const EditorSlot = styled(Flex)`
+  ${theme({
+    width: '100%',
+    maxWidth: layout.large,
+    justifyContent: 'center',
+    pt: [4, 4, 5, 5]
+  })}
+  ${({ $framed }) => $framed && EDITOR_FRAME}
+`
 
 export const AlternativeHero = ({
   competitor,
@@ -34,7 +45,7 @@ export const AlternativeHero = ({
         variant={null}
         css={theme({ maxWidth: layout.large, color: 'black' })}
       >
-        The <GradientText>{competitor}</GradientText> alternative
+        The {competitor} <GradientText>alternative</GradientText>
         <br />
         {tagline}
       </Heading>
@@ -50,19 +61,9 @@ export const AlternativeHero = ({
         secondaryHref={secondaryHref}
         secondaryLabel={secondaryLabel}
       />
-      <Flex
-        css={[
-          theme({
-            width: '100%',
-            maxWidth: layout.large,
-            justifyContent: 'center',
-            pt: [4, 4, 5, 5]
-          }),
-          EDITOR_FRAME
-        ]}
-      >
+      <EditorSlot $framed={!children}>
         {children || <HeroEditor {...props} />}
-      </Flex>
+      </EditorSlot>
     </Flex>
   </BluePrintBackground>
 )

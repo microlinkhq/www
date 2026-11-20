@@ -32,7 +32,7 @@ export const ProductTrademarks = ({ children }) => (
       css={theme({
         m: 0,
         color: 'black60',
-        fontSize: [0, 0, 1, 1],
+        fontSize: 0,
         lineHeight: 2,
         textAlign: 'center'
       })}

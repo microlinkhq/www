@@ -58,7 +58,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Urlbox</GradientText> alternative{' '}
+        The Urlbox <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}
@@ -71,7 +71,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         For the same ${COMPETITOR_PRICE}, Microlink gives you{' '}

@@ -83,6 +83,19 @@ describe('AlternativeSpeed', () => {
     expect(html).not.toMatch(/See the full benchmark<\/div><\/div><div/)
   })
 
+  test('shows the speed change only on the Microlink time', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={benchmark('2026-03', 1)}
+      />
+    )
+    expect(html.match(/\(-50%\)/g)).toHaveLength(4)
+    expect(html).not.toMatch(/2,000 \(-50%\)/)
+  })
+
   test('omits an inside footnote when none is passed', () => {
     const html = renderMarkup(
       <SpeedSection
@@ -105,5 +118,33 @@ describe('AlternativeSpeed', () => {
 
   test('says the run is separate when the URL count differs', () => {
     expect(note('2026-03', 6)).toContain('This comparison is a separate')
+  })
+})
+
+describe('SpeedSection with a provider that has no runs', () => {
+  const unmeasured = () => {
+    const data = benchmark('2026-03', 2)
+    data.results.acme.perUrl = []
+    data.results.acme.summary.avgColdDuration = 0
+    return data
+  }
+
+  test('shows "-" for its times and total, never 0, and no Microlink percentage', () => {
+    const html = renderMarkup(
+      <SpeedSection
+        title='Faster'
+        subtitle='Same request.'
+        description='Cold starts.'
+        benchmark={unmeasured()}
+      />
+    )
+    const cells = [...html.matchAll(/<td[^>]*>([^<]*)<\/td>/g)].map(
+      ([, text]) => text
+    )
+    expect(cells).not.toContain('0')
+    expect(cells).not.toContain('0 ms')
+    expect(cells.filter(text => text === '-').length).toBeGreaterThanOrEqual(3)
+    expect(html).not.toMatch(/\(-100%\)/)
+    expect(html).not.toMatch(/Infinity|NaN/)
   })
 })
