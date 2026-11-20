@@ -14,8 +14,9 @@ const grep = pattern => {
     })
       .split('\n')
       .filter(Boolean)
-  } catch {
-    return []
+  } catch (error) {
+    if (error.status === 1) return []
+    throw error
   }
 }
 
