@@ -62,18 +62,13 @@ const PerUrlTable = styled(FeatureTable)`
       px: 2,
       fontSize: 1,
       textAlign: 'right',
-      whiteSpace: 'nowrap',
       fontVariantNumeric: 'tabular-nums'
     })}
   }
 
   th {
-    ${theme({ whiteSpace: 'normal', verticalAlign: 'bottom' })}
+    ${theme({ verticalAlign: 'bottom' })}
     text-wrap: balance;
-  }
-
-  td {
-    ${theme({ whiteSpace: 'normal' })}
   }
 
   th:first-child,
@@ -124,8 +119,6 @@ const MobileCards = styled('div')`
     ${theme({ display: 'flex' })};
   }
 `
-
-const MobileCard = styled('div')``
 
 const MobileCardHeader = styled('div')`
   ${theme({
@@ -250,7 +243,7 @@ const TimingCard = ({ title, rows, showDelta = false }) => {
     )
 
   return (
-    <MobileCard>
+    <div>
       <MobileCardHeader>{title}</MobileCardHeader>
       {rows.map(({ key, name, ms, suffix }) => (
         <MobileCardRow key={key}>
@@ -263,7 +256,7 @@ const TimingCard = ({ title, rows, showDelta = false }) => {
           </MobileCardTime>
         </MobileCardRow>
       ))}
-    </MobileCard>
+    </div>
   )
 }
 
