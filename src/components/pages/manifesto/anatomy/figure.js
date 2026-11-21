@@ -26,6 +26,22 @@ const useFigureSource = (ref, load) => {
   return source
 }
 
+export const FigureView = ({ source, figure, hostRef }) =>
+  source
+    ? (
+      <Box
+        ref={hostRef}
+        className='iso manifesto-figure'
+        data-theme='light'
+        dangerouslySetInnerHTML={{ __html: source.html }}
+      />
+      )
+    : (
+      <Box ref={hostRef} className='iso manifesto-figure' data-theme='light'>
+        <PlateShell figure={figure} />
+      </Box>
+      )
+
 export const AnatomyFigure = ({ figure }) => {
   const ref = useRef(null)
   const source = useFigureSource(ref, figure.load)
@@ -34,18 +50,5 @@ export const AnatomyFigure = ({ figure }) => {
     restShare: figure.restShare,
     createPose: figure.createPose
   })
-  return source
-    ? (
-      <Box
-        ref={ref}
-        className='iso manifesto-figure'
-        data-theme='light'
-        dangerouslySetInnerHTML={{ __html: source.html }}
-      />
-      )
-    : (
-      <Box ref={ref} className='iso manifesto-figure' data-theme='light'>
-        <PlateShell figure={figure} />
-      </Box>
-      )
+  return <FigureView source={source} figure={figure} hostRef={ref} />
 }

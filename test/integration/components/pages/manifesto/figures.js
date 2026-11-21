@@ -72,6 +72,44 @@ describe('generated figures', () => {
     }
   )
 
+  test('--only builds that figure and does not rewrite the manifest', () => {
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'manifesto-only-'))
+    execFileSync(
+      process.execPath,
+      [BUILD_SCRIPT, '--out', out, '--only=zero-person-work'],
+      { stdio: 'ignore' }
+    )
+    expect(fs.existsSync(path.join(out, 'zero-person-work.json'))).toBe(true)
+    expect(fs.existsSync(path.join(out, 'iso-css.json'))).toBe(true)
+    expect(fs.existsSync(path.join(out, 'everyone-ships.json'))).toBe(false)
+    expect(fs.existsSync(path.join(out, 'manifest.json'))).toBe(false)
+  })
+
+  test('--preview writes a standalone page for the figure', () => {
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'manifesto-preview-'))
+    const preview = fs.mkdtempSync(
+      path.join(os.tmpdir(), 'manifesto-preview-html-')
+    )
+    execFileSync(
+      process.execPath,
+      [
+        BUILD_SCRIPT,
+        '--out',
+        out,
+        '--only=zero-person-work',
+        '--preview',
+        preview
+      ],
+      { stdio: 'ignore' }
+    )
+    const html = fs.readFileSync(
+      path.join(preview, 'zero-person-work.html'),
+      'utf8'
+    )
+    expect(html).toContain('<!doctype html>')
+    expect(html).toContain('Stamping jig')
+  })
+
   test('figures are numbered in page order', () => {
     expect(FIGURE_IDS.map(id => manifest[id].fig)).toEqual([
       'Fig 01',
