@@ -305,13 +305,21 @@ export const Nest = ({
   )
 }
 
-export const Diagram = ({ id, viewBox, title, description, children }) => {
+export const Diagram = ({
+  id,
+  viewBox,
+  title,
+  description,
+  minWidth,
+  children
+}) => {
   const value = useMemo(() => ({ id, tokens: TOKENS }), [id])
   return (
     <DiagramContext.Provider value={value}>
       <Frame>
         <Canvas
           viewBox={viewBox}
+          css={minWidth ? theme({ minWidth }) : undefined}
           role='img'
           aria-labelledby={`${id}-title ${id}-desc`}
         >
