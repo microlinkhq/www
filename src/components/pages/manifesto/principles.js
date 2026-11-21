@@ -9,14 +9,16 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { Eyebrow } from 'components/patterns/FeatureStory'
 
+import { AnatomyFigure } from './anatomy/figure'
+import { IsoStyle } from './anatomy/iso-style'
 import { CLOSING_LINKS, PRINCIPLES } from './shared'
-import { MIN_WIDTH } from './visuals/canvas'
 
 const FLUID_COLUMN = 'minmax(0, 1fr)'
+const FIGURE_COLUMN = '480px'
 
 const ordinal = index => String(index + 1).padStart(2, '0')
 
-const Principle = ({ id, index, name, tagline, body, Visual }) => (
+const Principle = ({ id, index, name, tagline, body, figure }) => (
   <Box
     as='li'
     id={id}
@@ -27,7 +29,7 @@ const Principle = ({ id, index, name, tagline, body, Visual }) => (
         FLUID_COLUMN,
         FLUID_COLUMN,
         FLUID_COLUMN,
-        `${FLUID_COLUMN} ${MIN_WIDTH}`
+        `${FLUID_COLUMN} ${FIGURE_COLUMN}`
       ],
       gap: [3, 3, 4, 4],
       alignItems: 'start',
@@ -58,7 +60,7 @@ const Principle = ({ id, index, name, tagline, body, Visual }) => (
       </Text>
     </Box>
     <Box css={theme({ width: '100%', maxWidth: layout.small })}>
-      <Visual />
+      <AnatomyFigure figure={figure} />
     </Box>
   </Box>
 )
@@ -70,6 +72,7 @@ export const Principles = () => (
     aria-label='Principles'
     css={theme({ pb: SECTION_VERTICAL_SPACING })}
   >
+    <IsoStyle />
     <Box as='ol' css={theme({ listStyle: 'none', p: 0, m: 0 })}>
       {PRINCIPLES.map((principle, index) => (
         <Principle key={principle.id} index={index} {...principle} />

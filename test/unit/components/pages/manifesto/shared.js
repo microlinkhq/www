@@ -1,6 +1,4 @@
 import { describe, expect, test } from 'vitest'
-import React from 'react'
-import { renderToStaticMarkup } from 'react-dom/server'
 
 import {
   CLOSING_LINKS,
@@ -53,17 +51,16 @@ describe('manifesto principles', () => {
     })
   })
 
-  test('every principle renders one accessible diagram with a unique id', () => {
-    const diagramIds = PRINCIPLES.map(({ Visual }) => {
-      const markup = renderToStaticMarkup(<Visual />)
-      expect(markup.match(/<svg/g)).toHaveLength(1)
-      expect(markup).toContain('role="img"')
-      const [, diagramId] = markup.match(/aria-labelledby="([^"]+)-title /)
-      expect(markup).toContain(`<title id="${diagramId}-title">`)
-      expect(markup).toContain(`<desc id="${diagramId}-desc">`)
-      return diagramId
+  test('every principle carries a lazily loaded anatomy figure', () => {
+    PRINCIPLES.forEach(({ id, figure }, index) => {
+      expect(figure.fig, id).toBe(`Fig ${String(index + 1).padStart(2, '0')}`)
+      expect(figure.label.length, id).toBeGreaterThan(40)
+      expect(figure.readout, id).toBeTruthy()
+      expect(typeof figure.load, id).toBe('function')
+      expect(typeof figure.createPose, id).toBe('function')
+      expect(figure.restShare, id).toBeGreaterThanOrEqual(0)
+      expect(figure.restShare, id).toBeLessThan(1)
     })
-    expect(new Set(diagramIds).size).toBe(PRINCIPLES.length)
   })
 
   test('closes with a link back to /about', () => {
