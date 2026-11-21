@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Box from 'components/elements/Box'
 
 import { useFigureTimeline } from './use-figure-timeline'
-
-const LOAD_MARGIN = '600px 0px'
+import { watchFigure } from './watch-figure'
 
 const PlateShell = ({ figure }) => (
   <figure className='iso-figure'>
@@ -23,26 +22,7 @@ const PlateShell = ({ figure }) => (
 
 const useFigureSource = (ref, load) => {
   const [source, setSource] = useState(null)
-  useEffect(() => {
-    const node = ref.current
-    if (!node) return undefined
-    let cancelled = false
-    const observer = new window.IntersectionObserver(
-      entries => {
-        if (!entries.some(entry => entry.isIntersecting)) return
-        observer.disconnect()
-        load().then(module => {
-          if (!cancelled) setSource(module.default ?? module)
-        })
-      },
-      { rootMargin: LOAD_MARGIN }
-    )
-    observer.observe(node)
-    return () => {
-      cancelled = true
-      observer.disconnect()
-    }
-  }, [ref, load])
+  useEffect(() => watchFigure(ref.current, load, setSource), [ref, load])
   return source
 }
 

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url'
 
 import * as k from './kit/iso-kit.mjs'
 import { HEIGHT, WIDTH } from './scene.mjs'
+import { stageOf } from './stage.mjs'
 import FIGURES from './figures/index.mjs'
 
 const HERE = dirname(fileURLToPath(import.meta.url))
@@ -12,9 +13,6 @@ const OUT = outAt > -1 ? process.argv[outAt + 1] : join(HERE, '../../src/compone
 const previewAt = process.argv.indexOf('--preview')
 const previewDir = previewAt > -1 ? process.argv[previewAt + 1] : null
 const only = process.argv.find(arg => arg.startsWith('--only='))?.slice(7)
-
-const stageOf = (figure, svg) =>
-  `<div class="iso-stage" tabindex="0" role="group" aria-label="${figure.title}: ${figure.hint.toLowerCase()}">${svg}</div>`
 
 const plateOf = (figure, svg, readout) =>
   k.plateHtml({

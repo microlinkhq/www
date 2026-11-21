@@ -34,6 +34,8 @@ Today, Kiko leads as CTO and Joseba as CPO. Both are here for the same reason �
 
 ## What we pursue
 
+How we build it, day to day, is in our [manifesto](/manifesto).
+
 ### Open source first
 
 Microlink was born from open source — and we still build in public. Our libraries like metascraper, browserless, and MQL are all open, because shared knowledge drives better technology.
@@ -49,8 +51,6 @@ Every capability should be accessible through a clear, predictable API. It’s h
 ### Documentation is the product
 
 A great API is only as good as its documentation. We treat docs as part of the product, not an afterthought — they should be readable, discoverable, and always in sync with the experience you get when you build with Microlink.
-
-These shape what we build. How we build it, day to day, is in our [manifesto](/manifesto).
 
 ## Get started
 
