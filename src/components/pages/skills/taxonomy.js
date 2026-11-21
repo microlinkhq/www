@@ -52,5 +52,6 @@ export const SKILL_CATEGORY = {
   'create-local-skill': 'agent',
   'run-skill': 'agent',
   'loop-review': 'agent',
-  'seo-link-building': 'agent'
+  'seo-link-building': 'agent',
+  'weekly-summary': 'agent'
 }
