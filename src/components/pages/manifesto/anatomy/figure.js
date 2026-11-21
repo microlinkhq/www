@@ -9,20 +9,6 @@ const LOAD_MARGIN = '600px 0px'
 const PlateShell = ({ figure }) => (
   <figure className='iso-figure'>
     <div className='iso-plate'>
-      <div className='iso-plate-corners' aria-hidden='true'>
-        <span className='iso-plate-corner' data-corner='fig'>
-          {figure.fig}
-        </span>
-        <span className='iso-plate-corner' data-corner='title'>
-          {figure.title}
-        </span>
-        <span className='iso-plate-corner' data-corner='hint'>
-          {figure.hint}
-        </span>
-        <span className='iso-plate-corner' data-corner='readout'>
-          {figure.readout}
-        </span>
-      </div>
       <div className='iso-stage'>
         <svg
           className='iso-svg'

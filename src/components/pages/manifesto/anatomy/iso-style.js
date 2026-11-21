@@ -1,5 +1,5 @@
 import { createGlobalStyle } from 'styled-components'
-import { colors, fonts, shadows } from 'theme'
+import { colors, fonts } from 'theme'
 
 import isoCss from '../figures/iso-css.json'
 
@@ -16,14 +16,12 @@ export const IsoStyle = createGlobalStyle`
   }
 
   .manifesto-figure .iso-plate {
-    padding: 44px 8px;
-    box-shadow: ${shadows[0]};
+    padding: 0;
+    box-shadow: none;
   }
 
-  @media (max-width: 560px) {
-    .manifesto-figure .iso-plate {
-      padding: 40px 0 64px;
-    }
+  .manifesto-figure .iso-plate-corners {
+    display: none;
   }
 
   .manifesto-figure .iso-stage {
