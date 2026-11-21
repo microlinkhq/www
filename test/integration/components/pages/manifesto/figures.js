@@ -10,6 +10,7 @@ import { createLaunchPadPose } from '../../../../../src/components/pages/manifes
 import { createMarbleRunPose } from '../../../../../src/components/pages/manifesto/anatomy/motion/make-fast-faster'
 import { createTypewriterPose } from '../../../../../src/components/pages/manifesto/anatomy/motion/no-meetings'
 import { createTorqueWrenchPose } from '../../../../../src/components/pages/manifesto/anatomy/motion/own-outcomes'
+import { translate } from '../../../../../src/components/pages/manifesto/anatomy/motion/timing'
 import { createStampingJigPose } from '../../../../../src/components/pages/manifesto/anatomy/motion/zero-person-work'
 
 const FIGURES_DIR = path.join(
@@ -138,11 +139,27 @@ describe('figure motion tells the truth', () => {
     )
     at(0.05)
     const marks = root.querySelectorAll('[data-mark]')
+    const cards = root.querySelectorAll('[data-card]')
     motion.cards.forEach((x, index) => {
       expect(marks[index].attributes.opacity, `card at ${x}`).toBe(
         x > 0 ? '1' : '0'
       )
+      const faded = Math.abs(x) > motion.fadeFrom
+      expect(cards[index].attributes.opacity, `card at ${x}`).toBe(
+        faded ? '0.000' : '1.000'
+      )
     })
+    const ramAt = phase => {
+      at(phase)
+      return root.querySelector('[data-part="ram"]').attributes.transform
+    }
+    const pressed = translate(motion.z, -motion.travel)
+    expect(ramAt(0.18)).toBe(pressed)
+    expect(ramAt(0.2)).toBe(pressed)
+    expect(ramAt(0.05)).not.toBe(pressed)
+    at(0.99)
+    const leaving = root.querySelectorAll('[data-card]')
+    expect(leaving[motion.cards.length - 1].attributes.opacity).toBe('0.000')
   })
 
   test('launch pad: counts down, then counts a launch the moment the rocket lifts', () => {
@@ -220,6 +237,14 @@ describe('figure motion tells the truth', () => {
       'make-fast-faster',
       createMarbleRunPose
     )
+    const ballAt = phase => {
+      at(phase)
+      return root.querySelector('[data-part="ball-gated"]').attributes.transform
+    }
+    expect(ballAt(0)).toBe('translate(0.00 0.00)')
+    const falling = ballAt(0.08)
+    expect(falling).not.toBe('translate(0.00 0.00)')
+    expect(ballAt(0.15)).not.toBe(falling)
     at(0.9)
     const gated = Number(
       root.querySelector('[data-part="time-gated"]').textContent
