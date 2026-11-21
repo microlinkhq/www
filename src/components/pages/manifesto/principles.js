@@ -8,6 +8,7 @@ import Text from 'components/elements/Text'
 import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { Eyebrow } from 'components/patterns/FeatureStory'
+import { inline } from 'components/patterns/UseCaseStory/landing/inline-links'
 
 import { AnatomyFigure } from './anatomy/figure'
 import { IsoStyle } from './anatomy/iso-style'
@@ -56,7 +57,7 @@ const Principle = ({ id, index, name, tagline, body, figure }) => (
         {tagline}
       </Caption>
       <Text css={theme({ pt: [3, 3, 4, 4], color: 'black80', lineHeight: 2 })}>
-        {body}
+        {inline(body)}
       </Text>
     </Box>
     <Box css={theme({ width: '100%', maxWidth: layout.small })}>

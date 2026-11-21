@@ -67,3 +67,16 @@ describe('manifesto principles', () => {
     expect(CLOSING_LINKS.map(({ href }) => href)).toContain('/about')
   })
 })
+
+describe('manifesto internal links', () => {
+  const LINK = /\[([^\]]+)\]\((\/[^)\s]*)\)/g
+  const linksOf = body => [...body.matchAll(LINK)].map(([, , href]) => href)
+
+  test('every principle body links once to a related page on the site', () => {
+    PRINCIPLES.forEach(({ id, body }) => {
+      const links = linksOf(body)
+      expect(links, id).toHaveLength(1)
+      expect(links[0], id).not.toMatch(/^\/manifesto/)
+    })
+  })
+})

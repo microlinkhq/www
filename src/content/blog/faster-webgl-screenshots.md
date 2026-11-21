@@ -24,7 +24,7 @@ Until this change, those pages were the slowest thing you could ask the API to c
 
 ## A 3D seat map took 24 seconds to screenshot
 
-A customer running 3D seat maps reported that their thumbnails were painfully slow, around **24 seconds** each, and that some never finished at all and came back as errors.
+A customer running 3D seat maps reported that their thumbnails were painfully slow, around **24 seconds** each, and that some never finished at all and came back as errors. A problem a customer reports is [ours until it is fixed](/manifesto#own-outcomes).
 
 When we pulled the traces, nearly all of that time was spent inside the browser, waiting for the 3D scene to paint. The 2D pages next to them rendered in 2–3 seconds. Only the WebGL ones were slow, and the slowest of them hit our render timeout and failed outright.
 
