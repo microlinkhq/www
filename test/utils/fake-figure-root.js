@@ -30,17 +30,26 @@ export const createFakeFigureRoot = html => {
     return nodes.get(key)
   }
 
+  const parsed = selector => {
+    const match = selector.match(SINGLE)
+    return { name: match[1], value: match[2] }
+  }
+
   return {
     querySelector (selector) {
-      const [, name, value = ''] = selector.match(SINGLE)
-      return valuesOf(name).includes(value) ? nodeFor(name, value) : null
+      const { name, value } = parsed(selector)
+      const values = valuesOf(name)
+      if (value === undefined) { return values.length ? nodeFor(name, values[0]) : null }
+      return values.includes(value) ? nodeFor(name, value) : null
     },
     querySelectorAll (selector) {
       if (!lists.has(selector)) {
-        const [, name] = selector.match(SINGLE)
+        const { name, value } = parsed(selector)
         lists.set(
           selector,
-          valuesOf(name).map(value => nodeFor(name, value))
+          valuesOf(name)
+            .filter(item => value === undefined || item === value)
+            .map(item => nodeFor(name, item))
         )
       }
       return lists.get(selector)

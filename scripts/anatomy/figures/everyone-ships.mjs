@@ -29,7 +29,7 @@ const FIN_FROM = 6
 const FIN_TO = 24
 const FIN_REACH = 9
 
-const TOWER = { x: -46, y: -6, w: 12, d: 12 }
+const TOWER = { x: -46, y: -6, w: 12, d: 12, r: 1 }
 const TOWER_TOP = 136
 const LEVELS = [24, 48, 72, 96, 120]
 const ARM_Z = 80
