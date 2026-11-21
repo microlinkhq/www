@@ -170,8 +170,11 @@ describe('figure motion tells the truth', () => {
     expect(display(at(0.14))).toBe('T-3')
     expect(display(at(0.2))).toBe('T-2')
     expect(display(at(0.26))).toBe('T-1')
+    expect(display(at(0.4))).toBe('LIFT')
+    expect(display(at(0.7))).toBe('NEXT')
     expect(readoutOf(at(0.29))).toBe('shipped 0 · countdown')
     expect(readoutOf(at(0.31))).toBe('shipped 1 · climbing')
+    expect(readoutOf(at(0.7))).toBe('shipped 1 · loading the next')
     expect(readoutOf(at(1.31))).toBe('shipped 2 · climbing')
   })
 
@@ -195,6 +198,13 @@ describe('figure motion tells the truth', () => {
       )
     at(0.01)
     const empty = lift()
+    expect(root.querySelector('[data-part="drop"]').attributes.opacity).toBe(
+      '0'
+    )
+    at(0.04)
+    expect(root.querySelector('[data-part="drop"]').attributes.opacity).toBe(
+      '1'
+    )
     at(0.8)
     const full = lift()
     expect(full).toBeGreaterThan(empty)
@@ -202,6 +212,13 @@ describe('figure motion tells the truth', () => {
 
   test('torque wrench: reaches the target torque only at the end of the last stroke', () => {
     const { motion, root, at } = poseFor('own-outcomes', createTorqueWrenchPose)
+    const wrenchAt = phase => {
+      at(phase)
+      return root.querySelector('[data-part="wrench"]').attributes.transform
+    }
+    expect(wrenchAt(0.5)).toMatch(/^translate\(0\.00 /)
+    expect(wrenchAt(0.05)).not.toMatch(/^translate\(0\.00 /)
+    expect(wrenchAt(0.8)).not.toMatch(/^translate\(0\.00 /)
     expect(readoutOf(at(0.05))).toBe('bolt 1 · loose')
     const middle = readoutOf(at(0.4)).match(/turning · (\d+) of (\d+) Nm/)
     expect(Number(middle[1])).toBeLessThan(motion.target)
@@ -220,7 +237,23 @@ describe('figure motion tells the truth', () => {
     expect(readoutOf(at(0.8))).toBe(
       `line ${motion.lines} of ${motion.lines} · meetings 0`
     )
+    const down = () =>
+      [...root.querySelectorAll('[data-key]')].filter(
+        key => key.attributes.transform
+      )
+    at(0)
+    const held = down()
+    expect(held).toHaveLength(1)
+    let rewrites = 0
+    const setAttribute = held[0].setAttribute
+    held[0].setAttribute = (...args) => {
+      rewrites += 1
+      setAttribute.apply(held[0], args)
+    }
+    at(0)
+    expect(rewrites).toBe(0)
     expect(readoutOf(at(0.83))).toBe('page shipped · meetings 0')
+    expect(down()).toHaveLength(0)
     const full = (motion.margin + motion.chars * motion.step).toFixed(2)
     root
       .querySelectorAll('[data-line]')

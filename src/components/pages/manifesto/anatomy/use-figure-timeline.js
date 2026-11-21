@@ -102,12 +102,8 @@ export const bindFigureTimeline = (root, { source, restShare, createPose }) => {
     }
   }
 
-  if (still.matches) {
-    time = restTime
-    target = restTime
-    touring = false
-  }
-  pose(time)
+  if (still.matches) showRest()
+  else pose(time)
   observer.observe(stage)
   stage.addEventListener('pointermove', onPointerMove)
   stage.addEventListener('keydown', onKeyDown)
