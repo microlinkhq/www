@@ -3,6 +3,7 @@ import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 
 import {
+  CLOSING_LINKS,
   HERO,
   META,
   PRINCIPLES
@@ -63,5 +64,9 @@ describe('manifesto principles', () => {
       return diagramId
     })
     expect(new Set(diagramIds).size).toBe(PRINCIPLES.length)
+  })
+
+  test('closes with a link back to /about', () => {
+    expect(CLOSING_LINKS.map(({ href }) => href)).toContain('/about')
   })
 })

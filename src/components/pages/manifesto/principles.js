@@ -9,7 +9,7 @@ import ArrowLink from 'components/patterns/ArrowLink'
 import Caption from 'components/patterns/Caption/Caption'
 import { Eyebrow } from 'components/patterns/FeatureStory'
 
-import { CLOSING, PRINCIPLES } from './shared'
+import { CLOSING_LINKS, PRINCIPLES } from './shared'
 import { MIN_WIDTH } from './visuals/canvas'
 
 const FLUID_COLUMN = 'minmax(0, 1fr)'
@@ -80,10 +80,17 @@ export const Principles = () => (
         pt: [4, 4, 5, 5],
         borderTop: 1,
         borderTopColor: 'black10',
+        display: 'flex',
+        flexWrap: 'wrap',
+        gap: [3, 3, 4, 4],
         fontSize: [1, 1, 2, 2]
       })}
     >
-      <ArrowLink href={CLOSING.href}>{CLOSING.label}</ArrowLink>
+      {CLOSING_LINKS.map(({ label, href }) => (
+        <ArrowLink key={href} href={href}>
+          {label}
+        </ArrowLink>
+      ))}
     </Box>
   </Box>
 )

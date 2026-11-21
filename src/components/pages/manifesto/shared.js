@@ -18,10 +18,10 @@ export const HERO = {
     'Six principles. Every project, page and decision at Microlink answers to them.'
 }
 
-export const CLOSING = {
-  label: 'See what we shipped',
-  href: '/changelog'
-}
+export const CLOSING_LINKS = [
+  { label: 'Read our history', href: '/about' },
+  { label: 'See what we shipped', href: '/changelog' }
+]
 
 export const PRINCIPLES = [
   {
