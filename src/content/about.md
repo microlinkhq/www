@@ -34,6 +34,8 @@ Today, Kiko leads as CTO and Joseba as CPO. Both are here for the same reason â€
 
 ## What we pursue
 
+How we build it, day to day, is in our [manifesto](/manifesto).
+
 ### Open source first
 
 Microlink was born from open source â€” and we still build in public. Our libraries like metascraper, browserless, and MQL are all open, because shared knowledge drives better technology.

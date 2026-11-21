@@ -13,7 +13,7 @@ import { ColdStartDiagram, ColdStartStepsDiagram, LayerCopyDiagram, PullTimeDiag
 
 <Figcaption>A pod on a new node, from pending to Ready. The node wait shrank a little; the image pull went from 111s to 25s.</Figcaption>
 
-The [Microlink API](/docs/api/getting-started/overview) runs on Kubernetes, and the cluster grows with traffic in two steps. First it adds pods: a pod on a node that already has our image is Ready in about 4s. When the nodes are full, it adds a node, and the new pod waits for the node (about 1m50s) and for the image pull (a median 111s). A burst waited about 4 min for capacity, so we set out to shorten it.
+The [Microlink API](/docs/api/getting-started/overview) runs on Kubernetes, and the cluster grows with traffic in two steps. First it adds pods: a pod on a node that already has our image is Ready in about 4s. When the nodes are full, it adds a node, and the new pod waits for the node (about 1m50s) and for the image pull (a median 111s). A burst waited about 4 min for capacity, so we set out to shorten it, because [making fast things faster](/manifesto#make-fast-faster) is how we work.
 
 **TL;DR**
 
