@@ -14,7 +14,7 @@ import { IsoStyle } from './anatomy/iso-style'
 import { CLOSING_LINKS, PRINCIPLES } from './shared'
 
 const FLUID_COLUMN = 'minmax(0, 1fr)'
-const FIGURE_COLUMN = '480px'
+const FIGURE_COLUMN = '400px'
 
 const ordinal = index => String(index + 1).padStart(2, '0')
 
