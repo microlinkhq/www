@@ -73,6 +73,7 @@ import {
   normalizeApiError,
   upgradeErrorFor
 } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import { trackEvent } from 'helpers/gtag'
 import {
@@ -1815,6 +1816,7 @@ const BulkPreview = ({
     hasRateLimit &&
     failedResults.every(r => isRateLimited(r.error?.code)) &&
     successCount === 0
+  const collapseRateLimit = allRateLimited && upgradeError?.code === 'ERATE'
 
   if (previewPdf) {
     return (
@@ -2126,7 +2128,7 @@ const BulkPreview = ({
               )
             : (
               <>
-                {!allRateLimited && (
+                {!collapseRateLimit && (
                   <Box
                     css={theme({
                       width: '56px',
@@ -2144,7 +2146,7 @@ const BulkPreview = ({
                     <AlertTriangle size={28} color={colors.yellow7} />
                   </Box>
                 )}
-                {!allRateLimited && (
+                {!collapseRateLimit && (
                   <Text
                     css={theme({
                       fontSize: 3,
@@ -2156,7 +2158,7 @@ const BulkPreview = ({
                     {successCount} of {bulkResults.length} PDFs ready
                   </Text>
                 )}
-                {!allRateLimited && successCount > 0 && (
+                {!collapseRateLimit && successCount > 0 && (
                   <DownloadZipButton onClick={onDownloadZip} disabled={isZipping}>
                     {isZipping
                       ? (
@@ -2174,7 +2176,7 @@ const BulkPreview = ({
                         )}
                   </DownloadZipButton>
                 )}
-                {!allRateLimited && (
+                {!collapseRateLimit && (
                   <Box
                     css={theme({
                       width: '100%',
@@ -2223,7 +2225,7 @@ const BulkPreview = ({
                     />
                   </Box>
                 )}
-                {!allRateLimited && (bulkTotalMs != null || bulkTotalBytes > 0) && (
+                {!collapseRateLimit && (bulkTotalMs != null || bulkTotalBytes > 0) && (
                   <Text
                     css={theme({
                       fontSize: 0,
@@ -2430,7 +2432,7 @@ const PdfBatchTool = () => {
           }
 
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey: storedApiKey(localStorageData),
             meta: false,
             pdf: pdfOpts,
             screenshot: true,
