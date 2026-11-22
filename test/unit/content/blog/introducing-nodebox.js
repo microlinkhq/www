@@ -7,10 +7,6 @@ import {
   FREE_PLAN_REQUESTS_PER_DAY,
   KEYLESS_REQUESTS_PER_DAY
 } from '../../../../src/helpers/free-tier'
-import {
-  FREE_PLAN_FUNCTION_TIMEOUT_SECONDS,
-  PRO_PLAN_FUNCTION_TIMEOUT_SECONDS
-} from '../../../../src/helpers/plan-timeouts'
 import { DEFAULT_PLAN } from '../../../../src/helpers/pro-plans'
 
 const post = readFileSync(
@@ -34,9 +30,21 @@ describe('introducing nodebox', () => {
     )
   })
 
-  test('states the free plan function limits the live API enforces', () => {
+  test('opens with the Nodebox social card', () => {
+    const body = post
+      .split('\n')
+      .filter(line => line && !/^(import |---|[a-z]+:| {2}- )/.test(line))
+    expect(body[0]).toMatch(
+      /^!\[Nodebox: [^\]]+\]\(\/images\/nodebox-og\.png\)$/
+    )
+  })
+
+  test('reads the function timeouts from helpers/plan-timeouts', () => {
+    expect(post).toMatch(
+      /^import \{ FREE_PLAN_FUNCTION_TIMEOUT_SECONDS, PRO_PLAN_FUNCTION_TIMEOUT_SECONDS \} from 'helpers\/plan-timeouts'$/m
+    )
     expect(post).toContain(
-      `${FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64 MB of memory and ${
+      `{FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64 MB of memory and ${
         FREE_PLAN_FUNCTION_CODE_SIZE / BYTES_PER_KB
       } KB of code per run.`
     )
@@ -47,7 +55,7 @@ describe('introducing nodebox', () => {
       `${FREE_PLAN_REQUESTS_PER_DAY} runs per day on the free key`
     )
     expect(post).toContain(
-      `from $${DEFAULT_PLAN.monthlyPrice.USD} per month, ${DEFAULT_PLAN.reqsPerMonth} runs per month, ${PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second runs`
+      `from $${DEFAULT_PLAN.monthlyPrice.USD} per month, ${DEFAULT_PLAN.reqsPerMonth} runs per month, {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second runs`
     )
   })
 

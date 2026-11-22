@@ -9,6 +9,10 @@ date: '2026-11-23'
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Iframe } from 'components/markdown/Iframe'
+import { RunDiagram, WhereCodeRunsDiagram } from 'components/pages/blog/introducing-nodebox'
+import { FREE_PLAN_FUNCTION_TIMEOUT_SECONDS, PRO_PLAN_FUNCTION_TIMEOUT_SECONDS } from 'helpers/plan-timeouts'
+
+![Nodebox: Embed Node.js anywhere. Drop an isolated, ephemeral Node.js sandbox into any website.](/images/nodebox-og.png)
 
 Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbox you embed in any website with one iframe. Readers edit the code, press run, and see the result. The code below is a live Nodebox. Run it.
 
@@ -38,6 +42,10 @@ A code sample in documentation is a promise: copy this and it works. Most of the
 Interactive samples fix that, at a price. Either you host a sandbox yourself, with its servers, its isolation and its bill, or you ship a runtime that emulates Node.js inside the browser. The second option downloads that runtime before the first run, and modules like `fs` and `net` become browser stand-ins. It looks like Node.js until a package needs the real thing.
 
 Nodebox takes neither path. The code runs on a real Node.js 24 runtime, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
+
+<WhereCodeRunsDiagram />
+
+<Figcaption>Where the code runs in each approach. Nodebox keeps the real runtime and drops the servers.</Figcaption>
 
 ## Any npm package, installed on the fly
 
@@ -99,9 +107,9 @@ The playground writes all of it for you. A playground URL is also a share link: 
 
 ## How a run works
 
-```
-your page ──iframe──▶ nodebox.microlink.io/e ──HTTPS──▶ Microlink Functions ──▶ isolated Node.js sandbox
-```
+<RunDiagram />
+
+<Figcaption>One run, from the embed to a fresh sandbox and back.</Figcaption>
 
 1. The reader presses run. The embed compresses the code and sends it to the [Microlink API `function` parameter](/docs/api/parameters/function), straight from the frame.
 2. Microlink starts a fresh sandbox, installs the packages the code imports, runs it, and returns the value, the console output and a timing profile.
@@ -146,12 +154,12 @@ The wrapper exists for JavaScript, the CLI, cURL, Python, Ruby, PHP and Go. Next
 Embeds are free for you and your readers, and they always run on the Microlink free plan:
 
 - 5 runs per day per IP address, up to 2 at a time. Readers on one office network share them.
-- 10 seconds, 64 MB of memory and 5 KB of code per run.
+- {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64 MB of memory and 5 KB of code per run.
 - No requests to other websites from an embed.
 
 Loading a page costs nothing. A run counts only when a reader presses run, so on a page with many snippets, make the key examples runnable and show the rest as plain code.
 
-Sign in to your [Microlink account](https://dashboard.microlink.io/login) and the playground runs on your own keys: 25 runs per day on the free key, and on a [paid plan](/pricing) from $49 per month, 46,000 runs per month, 60-second runs and network access to any website. There is no key to paste, and an embed on someone else’s site can never spend yours.
+Sign in to your [Microlink account](https://dashboard.microlink.io/login) and the playground runs on your own keys: 25 runs per day on the free key, and on a [paid plan](/pricing) from $49 per month, 46,000 runs per month, {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second runs and network access to any website. There is no key to paste, and an embed on someone else’s site can never spend yours.
 
 Treat the code as public. It travels in the embed URL and in the API request, so keep tokens and passwords out of snippets.
 
