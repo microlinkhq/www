@@ -117,7 +117,7 @@ const { isFulfilled, value } = await microlink.function(
     {
       question: 'Which npm packages can I require in a remote function?',
       answer:
-        'Any package on npm, as long as it does not need restricted system capabilities. Spawning child processes and writing to the filesystem outside the sandbox are blocked, and a package that tries returns an ERR_ACCESS_DENIED error.'
+        'Any package on npm, as long as it does not need restricted system capabilities. Spawning child processes and writing to the filesystem outside the sandbox are blocked, and a package that tries returns an ERR_ACCESS_DENIED error. To check a package before you write the request, [try it from a web page with Nodebox](/blog/introducing-nodebox).'
     },
     {
       question: 'Why is the first run of my remote JavaScript function slower?',

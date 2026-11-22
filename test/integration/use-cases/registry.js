@@ -86,8 +86,21 @@ const pageFileFor = href => {
   ].some(exists)
 }
 
-const resolvesInternally = href =>
-  href.startsWith('/docs/') ? docsFileFor(href) : pageFileFor(href)
+const BLOG_DIR = path.join(ROOT, 'src', 'content', 'blog')
+
+const blogFileFor = href =>
+  exists(
+    path.join(
+      BLOG_DIR,
+      `${href.replace(/^\/blog\//, '').replace(/[#?].*$/, '')}.md`
+    )
+  )
+
+const resolvesInternally = href => {
+  if (href.startsWith('/docs/')) return docsFileFor(href)
+  if (href.startsWith('/blog/')) return blogFileFor(href)
+  return pageFileFor(href)
+}
 
 const inlineLinksOf = content =>
   [...JSON.stringify(content).matchAll(INLINE_LINK)].map(([, href]) => href)
@@ -280,6 +293,12 @@ describe('use case content', () => {
         expect(Array.isArray(value), key).toBe(false)
       }
     }
+  })
+
+  test('inline links to blog posts resolve only when the post exists', () => {
+    expect(resolvesInternally('/blog/introducing-nodebox')).toBe(true)
+    expect(resolvesInternally('/blog/introducing-nodebox#why')).toBe(true)
+    expect(resolvesInternally('/blog/no-such-post')).toBe(false)
   })
 
   test.each(landings)(

@@ -470,7 +470,19 @@ export const FAQ_ITEMS = [
   },
   {
     question: 'Can I require() npm packages?',
-    text: "Yes. Any require() call is detected, installed on the fly into the sandbox, and cached for later runs. Pin a version with require('cheerio@1.0.0'). Operations such as spawning child processes or writing outside the sandbox are not permitted."
+    text: "Yes. Any require() call is detected, installed on the fly into the sandbox, and cached for later runs. Pin a version with require('cheerio@1.0.0'). Operations such as spawning child processes or writing outside the sandbox are not permitted. Nodebox, an embeddable Node.js sandbox, runs on this same runtime.",
+    answer: (
+      <div>
+        Yes. Any <code>require()</code> call is detected, installed on the fly
+        into the sandbox, and cached for later runs. Pin a version with{' '}
+        <code>require('cheerio@1.0.0')</code>. Operations such as spawning child
+        processes or writing outside the sandbox are not permitted.{' '}
+        <Link href='/blog/introducing-nodebox'>
+          Nodebox, an embeddable Node.js sandbox
+        </Link>
+        , runs on this same runtime.
+      </div>
+    )
   },
   {
     question: 'What happens if my function throws?',
