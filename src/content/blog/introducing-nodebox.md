@@ -43,6 +43,8 @@ Interactive samples fix that, at a price. Either you host a sandbox yourself, wi
 
 Nodebox takes neither path. The code runs on the current Node.js LTS, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
 
+Nodebox is inspired by [RunKit](https://runkit.com), and I’m a big fan of the service. Requiring any npm package and running it on real Node.js, right inside a web page, is the idea that stuck with me. Nodebox is our take on it.
+
 ## Any npm package, installed on the fly
 
 Nodebox reads the packages your code requires or imports and installs them before the run. There is no `package.json` and no install step:
