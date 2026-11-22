@@ -10,10 +10,16 @@ import {
 } from '../../../../../src/components/pages/blog/introducing-nodebox/RunDiagram'
 import {
   CUBE_FRAMES,
-  CUBE_QUARTER_TURN_MS
+  CUBE_LIT_COLOR,
+  CUBE_QUARTER_TURN_MS,
+  CUBE_SHADE_COLOR
 } from '../../../../../src/components/pages/blog/introducing-nodebox/cube-frames'
 import { SpinningCube } from '../../../../../src/components/pages/blog/introducing-nodebox/SpinningCube'
-import { bindCubeMotion } from '../../../../../src/components/pages/blog/introducing-nodebox/use-cube-motion'
+import {
+  REDUCED_MOTION_QUERY,
+  bindCubeMotion,
+  watchViewport
+} from '../../../../../src/components/pages/blog/introducing-nodebox/use-cube-motion'
 import themeSpec from '../../../../../src/theme'
 
 const CANVAS_WIDTH = 960
@@ -78,6 +84,9 @@ describe('SpinningCube', () => {
     const html = render(SpinningCube)
     expect(html).toContain('role="img"')
     expect(html).toContain('aria-label="The Nodebox logo, a pink cube turning"')
+    expect(html).toContain('fill="#ea6195"')
+    expect(html).toContain('fill="#e11d68"')
+    expect(html).toContain('fill="#b41753"')
     const sideCount = CUBE_FRAMES[0].sides.length
     expect(html.match(/<path /g)).toHaveLength(sideCount + 1)
     expect(
@@ -94,8 +103,58 @@ describe('SpinningCube', () => {
         .map(side => side.d)
         .sort()
     expect(visibleShape(last)).toEqual(visibleShape(first))
+    expect(samePolygon(last.top, first.top)).toBe(true)
+    expect(first.top).toBe('M12 2L21 7L12 12L3 7Z')
+  })
+
+  test('shows the two faces turned toward the reader and collapses the two facing away', () => {
+    const [resting] = CUBE_FRAMES
+    const visible = resting.sides.filter(side => side.visible)
+    const hidden = resting.sides.filter(side => !side.visible)
+    expect(visible.map(side => side.d).sort()).toEqual([
+      'M12 12L21 7L21 17L12 22Z',
+      'M3 7L12 12L12 22L3 17Z'
+    ])
+    expect(hidden).toHaveLength(2)
+    hidden.forEach(side => expect(spanOf(side.d)).toBe(0))
+  })
+
+  test('keeps every side color between the lit face and the shaded face', () => {
+    for (const frame of CUBE_FRAMES) {
+      for (const side of frame.sides) {
+        for (const index of [0, 1, 2]) {
+          const value = channel(side.fill, index)
+          const lit = channel(CUBE_LIT_COLOR, index)
+          const shade = channel(CUBE_SHADE_COLOR, index)
+          const low = Math.min(lit, shade)
+          const high = Math.max(lit, shade)
+          expect(value).toBeGreaterThanOrEqual(low)
+          expect(value).toBeLessThanOrEqual(high)
+        }
+      }
+    }
   })
 })
+
+const numbersOf = d =>
+  [...d.matchAll(/-?\d+(?:\.\d+)?/g)].map(match => Number(match[0]))
+
+const spanOf = d => {
+  const xs = numbersOf(d).filter((_, index) => index % 2 === 0)
+  return Math.max(...xs) - Math.min(...xs)
+}
+
+const samePolygon = (a, b) => {
+  const left = a.slice(1, -1).split('L')
+  const right = b.slice(1, -1).split('L')
+  return (
+    left.length === right.length &&
+    left.concat(left).join('|').includes(right.join('|'))
+  )
+}
+
+const channel = (hex, index) =>
+  parseInt(hex.slice(1 + index * 2, 3 + index * 2), 16)
 
 const fakeSvg = () => ({
   calls: [],
@@ -169,5 +228,45 @@ describe('bindCubeMotion', () => {
     expect(() =>
       bindCubeMotion(null, fakeMedia(false), () => {})()
     ).not.toThrow()
+  })
+
+  test('asks the browser to honor reduced motion', () => {
+    expect(REDUCED_MOTION_QUERY).toBe('(prefers-reduced-motion: reduce)')
+  })
+})
+
+describe('watchViewport', () => {
+  test('passes through whether the svg is on screen, and disconnects', () => {
+    const seen = []
+    let observer
+    const IntersectionObserver = class {
+      constructor (callback) {
+        observer = this
+        this.callback = callback
+      }
+
+      observe (element) {
+        this.element = element
+      }
+
+      disconnect () {
+        this.disconnected = true
+      }
+    }
+    const previous = globalThis.IntersectionObserver
+    globalThis.IntersectionObserver = IntersectionObserver
+    try {
+      const svg = { id: 'cube' }
+      const disconnect = watchViewport(svg, visible => seen.push(visible))
+      expect(observer.element).toBe(svg)
+      observer.callback([{ isIntersecting: false }])
+      observer.callback([{ isIntersecting: true }])
+      disconnect()
+      expect(seen).toEqual([false, true])
+      expect(observer.disconnected).toBe(true)
+    } finally {
+      if (previous === undefined) delete globalThis.IntersectionObserver
+      else globalThis.IntersectionObserver = previous
+    }
   })
 })

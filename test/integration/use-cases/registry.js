@@ -298,6 +298,7 @@ describe('use case content', () => {
   test('inline links to blog posts resolve only when the post exists', () => {
     expect(resolvesInternally('/blog/introducing-nodebox')).toBe(true)
     expect(resolvesInternally('/blog/introducing-nodebox#why')).toBe(true)
+    expect(resolvesInternally('/blog/introducing-nodebox?preview=1')).toBe(true)
     expect(resolvesInternally('/blog/no-such-post')).toBe(false)
   })
 

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const REDUCED_MOTION = '(prefers-reduced-motion: reduce)'
+export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 export const bindCubeMotion = (svg, reducedMotion, watch) => {
   if (!svg) return () => {}
@@ -22,8 +22,8 @@ export const bindCubeMotion = (svg, reducedMotion, watch) => {
   }
 }
 
-const watchViewport = (svg, onScreen) => {
-  const observer = new window.IntersectionObserver(([entry]) =>
+export const watchViewport = (svg, onScreen) => {
+  const observer = new globalThis.IntersectionObserver(([entry]) =>
     onScreen(entry.isIntersecting)
   )
   observer.observe(svg)
@@ -35,7 +35,7 @@ export const useCubeMotion = ref =>
     () =>
       bindCubeMotion(
         ref.current,
-        window.matchMedia(REDUCED_MOTION),
+        window.matchMedia(REDUCED_MOTION_QUERY),
         watchViewport
       ),
     [ref]
