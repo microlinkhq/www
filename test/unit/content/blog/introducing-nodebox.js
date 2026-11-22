@@ -35,13 +35,11 @@ describe('introducing nodebox', () => {
     expect(post).not.toMatch(/Node\.js v?\d+/)
   })
 
-  test('opens with the Nodebox social card', () => {
+  test('opens with the spinning Nodebox cube', () => {
     const body = post
       .split('\n')
       .filter(line => line && !/^(import |---|[a-z]+:| {2}- )/.test(line))
-    expect(body[0]).toMatch(
-      /^!\[Nodebox: [^\]]+\]\(\/images\/nodebox-og\.png\)$/
-    )
+    expect(body[0]).toBe('<SpinningCube />')
   })
 
   test('reads the function timeouts from helpers/plan-timeouts', () => {

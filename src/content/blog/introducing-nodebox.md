@@ -9,10 +9,10 @@ date: '2026-11-23'
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Iframe } from 'components/markdown/Iframe'
-import { RunDiagram } from 'components/pages/blog/introducing-nodebox'
+import { RunDiagram, SpinningCube } from 'components/pages/blog/introducing-nodebox'
 import { FREE_PLAN_FUNCTION_TIMEOUT_SECONDS, PRO_PLAN_FUNCTION_TIMEOUT_SECONDS } from 'helpers/plan-timeouts'
 
-![Nodebox: Embed Node.js anywhere. Drop an isolated, ephemeral Node.js sandbox into any website.](/images/nodebox-og.png)
+<SpinningCube />
 
 Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbox you embed in any website with one iframe. Readers edit the code, press run, and see the result. The code below is a live Nodebox. Run it.
 
@@ -69,7 +69,7 @@ What the reader sees follows the Node.js REPL. Whatever the code returns is the 
 | A function, a class, a `Map` | Printed the way Node.js prints it: `[Function: curryN]`. |
 | An undeclared variable | The `ReferenceError` Node.js throws: `ms is not defined`. |
 
-## One iframe
+## Add it to any page
 
 Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
 
@@ -85,7 +85,7 @@ Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nod
 ></iframe>
 ```
 
-It works in plain HTML, React, or any docs platform that accepts an iframe. If your site sets a Content-Security-Policy, add `https://nodebox.microlink.io` to `frame-src`.
+It works in plain HTML, React, or any docs platform that accepts an iframe.
 
 Six themes, any color, any Google Fonts monospace family. The playground writes every choice into the iframe URL, so an embed is a link. That link also works for sharing: give it a title and a description and it gets its own page title and social card.
 
