@@ -155,4 +155,4 @@ The names collide, the products do not. CodeSandbox’s Nodebox, the runtime beh
 
 Open [nodebox.microlink.io](https://nodebox.microlink.io), pick an example and press run. When you have a snippet worth sharing, copy the embed into your docs, your tutorial or your blog post. Found a bug? The Feedback button in the playground attaches the snippet and the last run’s request ID, so we can replay exactly what you saw.
 
-Nodebox is inspired by [RunKit](https://runkit.com), and I’m a big fan of the service. Requiring any npm package and running it on real Node.js, right inside a web page, is the idea that stuck with me. Nodebox is our take on it.
+Nodebox is inspired by [RunKit](https://runkit.com), and I’m a big fan of the service. Requiring any npm package and running it on real Node.js, right inside a web page, is the idea that stuck with me. [almostnode](https://almostnode.dev) inspired us too, with how light and instant a Node.js playground on a web page can feel. Nodebox is our take on both.
