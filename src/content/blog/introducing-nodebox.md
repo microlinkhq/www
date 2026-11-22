@@ -67,7 +67,7 @@ What the reader sees follows the Node.js REPL. Whatever the code returns is the 
 
 ## One iframe
 
-Open the [playground](https://nodebox.microlink.io/p), write your code, pick a theme and copy the snippet:
+Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
 
 ```html
 <iframe
