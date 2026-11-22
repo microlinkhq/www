@@ -101,7 +101,7 @@ Identical code is answered from the [Microlink cache](/docs/api/basics/cache), w
 
 This is the same engine behind every [Microlink Function](/function). We wrote about [how we made it faster](/blog/optimizing-microlink-functions) last month.
 
-## Not just for your AI agent: embed it anywhere
+## Embed it anywhere
 
 The call your agent makes also powers an embed. Paste one iframe and your docs, tutorial or blog post become runnable: readers edit the code, press run and see the result, on the same disposable infrastructure.
 
