@@ -82,26 +82,7 @@ What comes back follows the Node.js REPL. Whatever the code returns is the resul
 2. Microlink starts a fresh sandbox, installs the packages the code imports, runs it, and returns the value, the console output and a timing profile.
 3. The sandbox is discarded.
 
-The sandbox cannot read host files, write to disk or spawn child processes, so it is safe to run code nobody reviewed. Each run starts from scratch:
-
-<Iframe
-  src='https://nodebox.microlink.io/e?template=sandbox&theme=microlink'
-  title='Stay inside the sandbox'
-  width='100%'
-  height='427px'
-  loading='lazy'
-  allow='clipboard-write'
-/>
-
-<Figcaption>Reading a host file and writing to disk both fail, and a global set by an earlier run is gone.</Figcaption>
-
-Identical code is answered from the [Microlink cache](/docs/api/basics/cache), which keeps repeated runs fast. When the agent needs a fresh run every time, set [force](/docs/api/parameters/force).
-
-This is the same engine behind every [Microlink Function](/function). We wrote about [how we made it faster](/blog/optimizing-microlink-functions) last month.
-
-## One API call
-
-Your docs, your backend and your agent all call the same Microlink API. Turn on the API call panel and the embed shows the code inside the call that runs it:
+The sandbox cannot read host files, write to disk or spawn child processes, so it is safe to run code nobody reviewed. Here is code an agent might write to check untrusted input, shown inside the Microlink API call that runs it:
 
 <Iframe
   src='https://nodebox.microlink.io/e?template=zod&wrap=javascript&theme=microlink'
@@ -112,13 +93,19 @@ Your docs, your backend and your agent all call the same Microlink API. Turn on 
   allow='clipboard-write'
 />
 
-<Figcaption>The Zod example wrapped in a JavaScript call to the Microlink API.</Figcaption>
+<Figcaption>A Zod schema check, wrapped in the JavaScript call to the Microlink API.</Figcaption>
 
-The wrapper exists for JavaScript, the CLI, cURL, Python, Ruby, PHP and Go. Next to every result, “Copy Microlink API request” gives you the exact request that just ran, ready to hand to your agent as a tool.
+The same call exists for the CLI, cURL, Python, Ruby, PHP and Go. Next to every result, “Copy Microlink API request” gives you the exact request that just ran, ready to hand to your agent as a tool.
 
-## Bonus for humans: runnable docs
+Identical code is answered from the [Microlink cache](/docs/api/basics/cache), which keeps repeated runs fast. When the agent needs a fresh run every time, set [force](/docs/api/parameters/force).
 
-Paste one iframe and your docs become runnable. Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
+This is the same engine behind every [Microlink Function](/function). We wrote about [how we made it faster](/blog/optimizing-microlink-functions) last month.
+
+## Not just for your AI agent: embed it anywhere
+
+The call your agent makes also powers an embed. Paste one iframe and your docs, tutorial or blog post become runnable: readers edit the code, press run and see the result, on the same disposable infrastructure.
+
+Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
 
 ```html
 <iframe
@@ -132,9 +119,7 @@ Paste one iframe and your docs become runnable. Open the [playground](https://no
 ></iframe>
 ```
 
-It works in plain HTML, React, or any docs platform that accepts an iframe. Six themes, any color, any Google Fonts monospace family. The playground writes every choice into the iframe URL, so an embed is a link, and a shared link with a title and a description gets its own page title and social card.
-
-Free to embed: no account, no API key.
+It works in plain HTML, React, or any docs platform that accepts an iframe. Six themes, any color, any Google Fonts monospace family. Free to embed: no account, no API key.
 
 ## Limits
 
