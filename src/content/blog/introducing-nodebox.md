@@ -43,6 +43,8 @@ Interactive samples fix that, at a price. Either you host a sandbox yourself, wi
 
 Nodebox takes neither path. The code runs on the current Node.js LTS, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
 
+AI agents get the same deal. An agent that writes Node.js needs somewhere safe to run it. Every Nodebox run happens in an isolated sandbox that is thrown away afterwards, and the code behind every embed is [one Microlink API call](#the-same-code-from-your-backend), so an agent can run what it writes without touching your machine.
+
 ## Any npm package, installed on the fly
 
 Nodebox reads the packages your code requires or imports and installs them before the run. There is no `package.json` and no install step:
