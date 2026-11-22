@@ -30,7 +30,7 @@ const TOP_CORNERS = [
   { x: -1, y: 1, z: 1 }
 ]
 
-const round = value => Math.round(value * PRECISION) / PRECISION + 0
+const round = value => Math.round(value * PRECISION) / PRECISION
 
 const project = ({ x, y, z }, yaw) => {
   const across = x * Math.cos(yaw) - z * Math.sin(yaw)
