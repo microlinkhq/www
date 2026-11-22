@@ -91,19 +91,7 @@ Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nod
 
 It works in plain HTML, React, or any docs platform that accepts an iframe. If your site sets a Content-Security-Policy, add `https://nodebox.microlink.io` to `frame-src`.
 
-Everything lives in the query string, so an embed is a URL:
-
-| Parameter | Value |
-| --- | --- |
-| `q` | The code to run, URL-encoded. |
-| `template` | A built-in example: `hello`, `lodash`, `esm`, `zod`, `cheerio`, `streams`, `sandbox` and nine more. |
-| `theme` | `microlink`, `vercel`, `tailwind`, `openai`, `spacex` or `cloudflare`. |
-| `background`, `color`, `accent` | A hex color without `#`, overriding the theme. Every syntax token has its own parameter too. |
-| `font` | A built-in monospace font, or any Google Fonts family name. |
-| `wrap` | Show the code as a Microlink API call: `javascript`, `cli`, `curl`, `python`, `ruby`, `php` or `go`. |
-| `lines`, `border` | `0` hides line numbers or the frame border. |
-
-The playground writes all of it for you. A playground URL is also a share link: add a `title` and a `description` and it gets its own page title and social card.
+Six themes, any color, any Google Fonts monospace family. The playground writes every choice into the iframe URL, so an embed is a link. That link also works for sharing: give it a title and a description and it gets its own page title and social card.
 
 ## How a run works
 
@@ -134,7 +122,7 @@ This is the same engine behind every [Microlink Function](/function). We wrote a
 
 ## The same code, from your backend
 
-A snippet that works in the docs should work in production without a rewrite. Set `wrap` and the embed shows the code inside the Microlink API call that runs it:
+A snippet that works in the docs should work in production without a rewrite. Turn on the API call panel and the embed shows the code inside the Microlink API call that runs it:
 
 <Iframe
   src='https://nodebox.microlink.io/e?template=zod&wrap=javascript&theme=microlink'
