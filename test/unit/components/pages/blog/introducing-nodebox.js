@@ -83,7 +83,7 @@ describe('SpinningCube', () => {
   test('draws every face from the resting frame and turns it every quarter turn', () => {
     const html = render(SpinningCube)
     expect(html).toContain('aria-label="Play the Nodebox cube"')
-    expect(html).toContain('aria-pressed="false"')
+    expect(html).not.toContain('aria-pressed')
     expect(html).toContain('begin="indefinite"')
     expect(html).toContain('fill="#ea6195"')
     expect(html).toContain('fill="#e11d68"')

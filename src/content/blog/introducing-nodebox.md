@@ -119,7 +119,7 @@ Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nod
 ></iframe>
 ```
 
-It works in plain HTML, React, or any docs platform that accepts an iframe. Six themes, any color, any Google Fonts monospace family. Free to embed: no account, no API key.
+It works in plain HTML or any docs platform that accepts an iframe. In React, pass `style` as an object: `style={{ border: 0, background: 'transparent' }}`. Six themes, any color, any Google Fonts monospace family. Free to embed: no account, no API key.
 
 ## Limits
 

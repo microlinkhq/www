@@ -39,7 +39,6 @@ export const SpinningCube = () => {
       <Box
         as='button'
         type='button'
-        aria-pressed={playing}
         aria-label={
           playing ? 'Pause the Nodebox cube' : 'Play the Nodebox cube'
         }
