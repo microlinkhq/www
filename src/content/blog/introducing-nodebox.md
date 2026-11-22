@@ -147,12 +147,12 @@ Sign in to your [Microlink account](https://dashboard.microlink.io/login) and th
 
 Treat the code as public. It travels in the embed URL and in the API request, so keep tokens and passwords out of snippets.
 
-## Not CodeSandbox’s Nodebox
+## Prior art
 
-The names collide, the products do not. CodeSandbox’s Nodebox, the runtime behind Sandpack, runs inside the browser, like StackBlitz WebContainers. This Nodebox runs your code on a real Node.js runtime on Microlink’s servers.
+Nodebox is inspired by [RunKit](https://runkit.com), and I’m a big fan of the service. Requiring any npm package and running it on real Node.js, right inside a web page, is the idea that stuck with me. [almostnode](https://almostnode.dev) inspired us too, with how light and instant a Node.js playground on a web page can feel. Nodebox is our take on both.
+
+The name collides with CodeSandbox’s Nodebox, but the products do not. Theirs is the runtime behind Sandpack, and it runs inside the browser, like StackBlitz WebContainers. This Nodebox runs your code on a real Node.js runtime on Microlink’s servers.
 
 ## Try it
 
 Open [nodebox.microlink.io](https://nodebox.microlink.io), pick an example and press run. When you have a snippet worth sharing, copy the embed into your docs, your tutorial or your blog post. Found a bug? The Feedback button in the playground attaches the snippet and the last run’s request ID, so we can replay exactly what you saw.
-
-Nodebox is inspired by [RunKit](https://runkit.com), and I’m a big fan of the service. Requiring any npm package and running it on real Node.js, right inside a web page, is the idea that stuck with me. [almostnode](https://almostnode.dev) inspired us too, with how light and instant a Node.js playground on a web page can feel. Nodebox is our take on both.
