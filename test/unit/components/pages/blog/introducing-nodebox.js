@@ -293,8 +293,9 @@ describe('watchViewport', () => {
       expect(observer.element).toBe(svg)
       observer.callback([{ isIntersecting: false }])
       observer.callback([{ isIntersecting: true }])
+      observer.callback([{ isIntersecting: true }, { isIntersecting: false }])
       disconnect()
-      expect(seen).toEqual([false, true])
+      expect(seen).toEqual([false, true, false])
       expect(observer.disconnected).toBe(true)
     } finally {
       if (previous === undefined) delete globalThis.IntersectionObserver

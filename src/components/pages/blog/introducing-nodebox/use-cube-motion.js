@@ -48,9 +48,10 @@ export const bindCubeMotion = (
 }
 
 export const watchViewport = (svg, onScreen) => {
-  const observer = new globalThis.IntersectionObserver(([entry]) =>
+  const observer = new globalThis.IntersectionObserver(entries => {
+    const entry = entries[entries.length - 1]
     onScreen(entry.isIntersecting)
-  )
+  })
   observer.observe(svg)
   return () => observer.disconnect()
 }
