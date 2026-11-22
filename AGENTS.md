@@ -166,6 +166,7 @@ The typography components own their size. Compose pages from them; do not restyl
 - SHOULD: Animate only to clarify cause/effect or add deliberate delight
 - SHOULD: Choose easing to match the change (size/distance/trigger)
 - MUST: Animations interruptible and input-driven (no autoplay)
+  - Sanctioned exception: a looping brand mark (e.g. the Nodebox cube in `components/pages/blog/introducing-nodebox`) may autoplay when it pauses off screen, holds still under `prefers-reduced-motion`, and is a button that pauses and resumes it. Do not convert it back to click-to-play.
 - MUST: Correct `transform-origin` (motion starts where it "physically" should)
 - MUST: SVG transforms on `<g>` wrapper with `transform-box: fill-box`
 

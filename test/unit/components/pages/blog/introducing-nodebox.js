@@ -18,6 +18,7 @@ import { SpinningCube } from '../../../../../src/components/pages/blog/introduci
 import {
   REDUCED_MOTION_QUERY,
   bindCubeMotion,
+  followReducedMotion,
   watchViewport
 } from '../../../../../src/components/pages/blog/introducing-nodebox/use-cube-motion'
 import themeSpec from '../../../../../src/theme'
@@ -188,25 +189,24 @@ const fakeMedia = matches => {
 }
 
 describe('bindCubeMotion', () => {
-  const bind = (svg, media) => {
+  const bind = (svg, { playing = true } = {}) => {
     let report
     let disconnected = false
-    const playing = { current: false }
+    const state = { playing }
     const stop = bindCubeMotion(
       svg,
-      media,
       (_, onScreen) => {
         report = onScreen
         return () => {
           disconnected = true
         }
       },
-      () => playing.current
+      () => state.playing
     )
     return {
       stop,
-      play () {
-        playing.current = true
+      set (next) {
+        state.playing = next
         stop.update()
       },
       scroll: visible => report(visible),
@@ -214,52 +214,65 @@ describe('bindCubeMotion', () => {
     }
   }
 
-  test('stays on the resting frame until the reader plays, then pauses off screen', () => {
+  test('starts spinning on mount, and pauses only while off screen', () => {
     const svg = fakeSvg()
-    const { play, scroll } = bind(svg, fakeMedia(false))
-    play()
+    const { scroll } = bind(svg)
     scroll(false)
     scroll(true)
-    expect(svg.calls).toEqual([
-      'pause',
-      'time:0',
-      'begin',
-      'play',
-      'pause',
-      'play'
-    ])
+    expect(svg.calls).toEqual(['begin', 'play', 'pause', 'play'])
   })
 
-  test('holds the resting frame under reduced motion until the reader has started it', () => {
+  test('holds the resting frame until it should play, then begins once', () => {
     const svg = fakeSvg()
-    const media = fakeMedia(true)
-    const { play } = bind(svg, media)
-    play()
-    media.change(false)
-    expect(svg.calls).toEqual([
-      'pause',
-      'time:0',
-      'pause',
-      'time:0',
-      'begin',
-      'play'
-    ])
+    const { set } = bind(svg, { playing: false })
+    set(true)
+    set(false)
+    set(true)
+    expect(svg.calls).toEqual(['pause', 'begin', 'play', 'pause', 'play'])
+  })
+
+  test('a pause freezes the cube where it is instead of snapping back', () => {
+    const svg = fakeSvg()
+    bind(svg).set(false)
+    expect(svg.calls.some(call => call.startsWith('time:'))).toBe(false)
   })
 
   test('stops watching on unmount', () => {
-    const media = fakeMedia(false)
-    const { stop, isDisconnected } = bind(fakeSvg(), media)
+    const { stop, isDisconnected } = bind(fakeSvg())
     stop()
     expect(isDisconnected()).toBe(true)
-    expect(media.listeners.size).toBe(0)
   })
 
   test('does nothing before the svg mounts', () => {
-    const stop = bindCubeMotion(null, fakeMedia(false), () => {})
+    const stop = bindCubeMotion(
+      null,
+      () => {},
+      () => true
+    )
     expect(() => {
       stop()
       stop.update()
     }).not.toThrow()
+  })
+})
+
+describe('followReducedMotion', () => {
+  test('plays by default and holds still when the reader asks for reduced motion', () => {
+    const seen = []
+    followReducedMotion(fakeMedia(false), next => seen.push(next))
+    followReducedMotion(fakeMedia(true), next => seen.push(next))
+    expect(seen).toEqual([true, false])
+  })
+
+  test('follows the setting when it changes, until unsubscribed', () => {
+    const seen = []
+    const media = fakeMedia(false)
+    const unfollow = followReducedMotion(media, next => seen.push(next))
+    media.change(true)
+    unfollow()
+    media.change(false)
+    expect(seen).toEqual([true, false])
+    expect(media.listeners.size).toBe(0)
   })
 
   test('asks the browser to honor reduced motion', () => {

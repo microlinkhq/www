@@ -4,47 +4,31 @@ export const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)'
 
 const noop = () => {}
 
-export const bindCubeMotion = (
-  svg,
-  reducedMotion,
-  watch,
-  isPlaying = () => false
-) => {
+export const bindCubeMotion = (svg, watch, isPlaying) => {
   if (!svg) return Object.assign(noop, { update: noop })
   let onScreen = true
   let started = false
   const update = () => {
-    const playing = isPlaying() && !reducedMotion.matches
-    if (playing && onScreen) {
-      if (!started) {
-        started = true
-        const animates =
-          typeof svg.querySelectorAll === 'function'
-            ? svg.querySelectorAll('animate')
-            : []
-        animates.forEach(animate => animate.beginElement())
-      }
-      return svg.unpauseAnimations()
+    if (!isPlaying() || !onScreen) return svg.pauseAnimations()
+    if (!started) {
+      started = true
+      svg.querySelectorAll('animate').forEach(animate => animate.beginElement())
     }
-    svg.pauseAnimations()
-    if (!playing) {
-      started = false
-      svg.setCurrentTime(0)
-    }
+    svg.unpauseAnimations()
   }
   const disconnect = watch(svg, visible => {
     onScreen = visible
     update()
   })
-  reducedMotion.addEventListener('change', update)
   update()
-  return Object.assign(
-    () => {
-      disconnect()
-      reducedMotion.removeEventListener('change', update)
-    },
-    { update }
-  )
+  return Object.assign(disconnect, { update })
+}
+
+export const followReducedMotion = (media, setPlaying) => {
+  const sync = () => setPlaying(!media.matches)
+  sync()
+  media.addEventListener('change', sync)
+  return () => media.removeEventListener('change', sync)
 }
 
 export const watchViewport = (svg, onScreen) => {
@@ -61,14 +45,26 @@ export const useCubeMotion = ref => {
   const playingRef = useRef(false)
   const updateRef = useRef(noop)
   useEffect(() => {
-    const stop = bindCubeMotion(
-      ref.current,
+    const play = next => {
+      playingRef.current = next
+      setPlaying(next)
+      updateRef.current()
+    }
+    const unfollow = followReducedMotion(
       window.matchMedia(REDUCED_MOTION_QUERY),
+      play
+    )
+    const unbind = bindCubeMotion(
+      ref.current,
       watchViewport,
       () => playingRef.current
     )
-    updateRef.current = stop.update
-    return stop
+    updateRef.current = unbind.update
+    return () => {
+      unfollow()
+      unbind()
+      updateRef.current = noop
+    }
   }, [ref])
   const toggle = () => {
     playingRef.current = !playingRef.current
