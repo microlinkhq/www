@@ -14,9 +14,9 @@ export const STAGES = [
   {
     x: 40,
     width: 240,
-    label: 'YOUR PAGE',
+    label: 'CALLER',
     tone: 'outer',
-    node: { name: 'Nodebox embed', note: 'editor + result', tone: 'focal' }
+    node: { name: 'Your agent', note: 'or an embed on a page', tone: 'focal' }
   },
   {
     x: 360,
@@ -55,8 +55,8 @@ export const RunDiagram = () => (
   <Diagram
     id='nodebox-run'
     viewBox='0 0 960 280'
-    title='What happens when a reader presses run'
-    description='The Nodebox embed on your page sends the code to the Microlink API function parameter. Microlink answers identical code from its cache, or installs the packages the code imports and runs it in a fresh sandbox with no access to host files or disk. The sandbox returns the value and the console output, Microlink sends the result back to the embed, and the sandbox is thrown away.'
+    title='What happens when your agent runs code'
+    description='Your agent, or a Nodebox embed on a page, sends the code to the Microlink API function parameter. Microlink answers identical code from its cache, or installs the packages the code imports and runs it in a fresh sandbox with no access to host files or disk. The sandbox returns the value and the console output, Microlink sends the result back to the caller, and the sandbox is thrown away.'
   >
     {STAGES.map(stage => (
       <Nest

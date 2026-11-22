@@ -1,7 +1,7 @@
 ---
 title: 'Introducing Nodebox'
-subtitle: 'Embed Node.js anywhere'
-description: 'Nodebox is a Node.js sandbox you embed in any website with one iframe. Every run happens on the current Node.js LTS with npm packages, in an isolated sandbox that is thrown away afterwards. Nothing runs on your servers or in the reader’s browser.'
+subtitle: 'Ephemeral Node.js for your AI agents'
+description: 'Nodebox runs the code your AI agent writes in a fresh Node.js sandbox and throws the sandbox away. Any npm package, installed on the fly. One stateless API call on disposable infrastructure, with no server and no deploy.'
 authors:
   - kiko
 date: '2026-11-23'
@@ -14,7 +14,9 @@ import { FREE_PLAN_FUNCTION_TIMEOUT_SECONDS, PRO_PLAN_FUNCTION_TIMEOUT_SECONDS }
 
 <SpinningCube />
 
-Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbox you embed in any website with one iframe. Readers edit the code, press run, and see the result. The code below is a live Nodebox. Run it.
+Today we are releasing [Nodebox](https://nodebox.microlink.io): ephemeral Node.js for your AI agents. The agent writes code, Nodebox runs it in a fresh sandbox and throws the sandbox away. No server, no deploy.
+
+It runs on the Microlink API, the same AI-ready infrastructure behind everything we ship. The code below is a live Nodebox. Run it.
 
 <Iframe
   src='https://nodebox.microlink.io/e?template=showcase&theme=microlink'
@@ -29,25 +31,24 @@ Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbo
 
 **TL;DR**
 
-- **Real Node.js.** The current LTS, with the standard library, `require`, ES modules and top-level await.
-- **Any npm package.** Import it and it installs on the first run. Pin a version with `require('cheerio@1.0.0')`.
-- **Ephemeral.** Every run starts a fresh sandbox, returns the result and throws the sandbox away.
-- **No infrastructure.** It is an iframe. Execution, scaling and isolation run on [Microlink Functions](/function).
-- **Free for you and your readers.** No account and no API key to embed it.
+- **Real Node.js, running remotely.** The current Node.js LTS on Microlink’s servers, not an emulation in the browser.
+- **ESM and CommonJS.** `import`, `require` and top-level await.
+- **Any npm package.** Installed on the fly. Pin a version with `require('cheerio@1.0.0')`.
+- **Ephemeral.** A fresh sandbox on every run, thrown away afterwards.
+- **REPL-style output.** The last line is the result.
+- **Embeddable anywhere.** One iframe makes a code sample runnable. Free, with no account and no API key.
 
 ## Why
 
-A code sample in documentation is a promise: copy this and it works. Most of the time the reader has to leave the page to check, open a terminal, create a project and install the dependencies, before they know whether the promise holds.
+Your agent needs to parse a CSV, test a regex or crunch some JSON. Writing that code is the easy part. Running it is not: today it means a server, a container or your own laptop, with whatever the agent wrote running next to your files.
 
-Interactive samples fix that, at a price. Either you host a sandbox yourself, with its servers, its isolation and its bill, or you ship a runtime that emulates Node.js inside the browser. The second option downloads that runtime before the first run, and modules like `fs` and `net` become browser stand-ins. It looks like Node.js until a package needs the real thing.
+With Nodebox it is one stateless API call on disposable infrastructure. The code runs, the result comes back, the sandbox is gone. There is nothing to provision, nothing to clean up, and nothing left behind for the next run.
 
-Nodebox takes neither path. The code runs on the current Node.js LTS, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
-
-AI agents get the same deal. An agent that writes Node.js needs somewhere safe to run it. Every Nodebox run happens in an isolated sandbox that is thrown away afterwards, and the code behind every embed is [one Microlink API call](#the-same-code-from-your-backend), so an agent can run what it writes without touching your machine.
+Running it in the browser instead does not get you real Node.js. Runtimes that emulate it there turn modules like `fs` and `net` into stand-ins, and it looks like Node.js until a package needs the real thing. Nodebox runs the current Node.js LTS, on Microlink’s servers.
 
 ## Any npm package, installed on the fly
 
-Nodebox reads the packages your code requires or imports and installs them before the run. There is no `package.json` and no install step:
+Nodebox reads the packages the code requires or imports and installs them before the run. There is no `package.json` and no install step, so the agent writes the code and nothing else:
 
 <Iframe
   src='https://nodebox.microlink.io/e?template=lodash&theme=microlink'
@@ -62,18 +63,62 @@ Nodebox reads the packages your code requires or imports and installs them befor
 
 Any public package written in JavaScript works, scoped ones included. Packages that load native binaries, such as `bcrypt` or `sharp`, are blocked by the sandbox, so reach for a pure JavaScript alternative like `bcryptjs`.
 
-What the reader sees follows the Node.js REPL. Whatever the code returns is the result, and `console.log` output is shown above it. You rarely need the `return`:
+What comes back follows the Node.js REPL. Whatever the code returns is the result, and `console.log` output is kept apart from it. You rarely need the `return`:
 
-| Last line | What the reader sees |
+| Last line | What comes back |
 | --- | --- |
 | An expression, `ms('2 days')` | Its value: `172800000`. |
 | A declaration, `const res = await fetch(url)` | The declared variables, printed as `console.log(res)` would. |
 | A function, a class, a `Map` | Printed the way Node.js prints it: `[Function: curryN]`. |
 | An undeclared variable | The `ReferenceError` Node.js throws: `ms is not defined`. |
 
-## Add it to any page
+## How a run works
 
-Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
+<RunDiagram />
+
+<Figcaption>One run, from the caller to a fresh sandbox and back.</Figcaption>
+
+1. Your agent, or a reader pressing run in an embed, sends the code to the [Microlink API function parameter](/docs/api/parameters/function).
+2. Microlink starts a fresh sandbox, installs the packages the code imports, runs it, and returns the value, the console output and a timing profile.
+3. The sandbox is discarded.
+
+The sandbox cannot read host files, write to disk or spawn child processes, so it is safe to run code nobody reviewed. Each run starts from scratch:
+
+<Iframe
+  src='https://nodebox.microlink.io/e?template=sandbox&theme=microlink'
+  title='Stay inside the sandbox'
+  width='100%'
+  height='427px'
+  loading='lazy'
+  allow='clipboard-write'
+/>
+
+<Figcaption>Reading a host file and writing to disk both fail, and a global set by an earlier run is gone.</Figcaption>
+
+Identical code is answered from the [Microlink cache](/docs/api/basics/cache), which keeps repeated runs fast. When the agent needs a fresh run every time, set [force](/docs/api/parameters/force).
+
+This is the same engine behind every [Microlink Function](/function). We wrote about [how we made it faster](/blog/optimizing-microlink-functions) last month.
+
+## One API call
+
+Your docs, your backend and your agent all call the same Microlink API. Turn on the API call panel and the embed shows the code inside the call that runs it:
+
+<Iframe
+  src='https://nodebox.microlink.io/e?template=zod&wrap=javascript&theme=microlink'
+  title='Validate data'
+  width='100%'
+  height='427px'
+  loading='lazy'
+  allow='clipboard-write'
+/>
+
+<Figcaption>The Zod example wrapped in a JavaScript call to the Microlink API.</Figcaption>
+
+The wrapper exists for JavaScript, the CLI, cURL, Python, Ruby, PHP and Go. Next to every result, “Copy Microlink API request” gives you the exact request that just ran, ready to hand to your agent as a tool.
+
+## Bonus for humans: runnable docs
+
+Paste one iframe and your docs become runnable. Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nodebox+demo&description=An+ESM-only+npm+package%2C+Node+built-ins+and+parallel+top-level+await%2C+in+real+Node.js.), write your code, pick a theme and copy the snippet:
 
 ```html
 <iframe
@@ -87,67 +132,23 @@ Open the [playground](https://nodebox.microlink.io/p?template=showcase&title=Nod
 ></iframe>
 ```
 
-It works in plain HTML, React, or any docs platform that accepts an iframe.
+It works in plain HTML, React, or any docs platform that accepts an iframe. Six themes, any color, any Google Fonts monospace family. The playground writes every choice into the iframe URL, so an embed is a link, and a shared link with a title and a description gets its own page title and social card.
 
-Six themes, any color, any Google Fonts monospace family. The playground writes every choice into the iframe URL, so an embed is a link. That link also works for sharing: give it a title and a description and it gets its own page title and social card.
-
-## How a run works
-
-<RunDiagram />
-
-<Figcaption>One run, from the embed to a fresh sandbox and back.</Figcaption>
-
-1. The reader presses run. The embed compresses the code and sends it to the [Microlink API function parameter](/docs/api/parameters/function), straight from the frame.
-2. Microlink starts a fresh sandbox, installs the packages the code imports, runs it, and returns the value, the console output and a timing profile.
-3. The sandbox is discarded.
-
-The sandbox cannot read host files, write to disk or spawn child processes, so it is safe to let readers edit the code. Each run starts from scratch:
-
-<Iframe
-  src='https://nodebox.microlink.io/e?template=sandbox&theme=microlink'
-  title='Stay inside the sandbox'
-  width='100%'
-  height='427px'
-  loading='lazy'
-  allow='clipboard-write'
-/>
-
-<Figcaption>Reading a host file and writing to disk both fail, and a global set by an earlier run is gone.</Figcaption>
-
-Identical code is answered from the [Microlink cache](/docs/api/basics/cache), which every visitor shares. That keeps repeated runs fast, and it means a `Math.random()` snippet shows the same number until its code changes. In the playground, “Skip the cache on every run” runs it fresh each time.
-
-This is the same engine behind every [Microlink Function](/function). We wrote about [how we made it faster](/blog/optimizing-microlink-functions) last month.
-
-## The same code, from your backend
-
-A snippet that works in the docs should work in production without a rewrite. Turn on the API call panel and the embed shows the code inside the Microlink API call that runs it:
-
-<Iframe
-  src='https://nodebox.microlink.io/e?template=zod&wrap=javascript&theme=microlink'
-  title='Validate data'
-  width='100%'
-  height='427px'
-  loading='lazy'
-  allow='clipboard-write'
-/>
-
-<Figcaption>The Zod example wrapped in a JavaScript call to the Microlink API.</Figcaption>
-
-The wrapper exists for JavaScript, the CLI, cURL, Python, Ruby, PHP and Go. Next to every result, “Copy Microlink API request” gives you the exact request the embed just made, ready for your backend or an AI agent.
+Free to embed: no account, no API key.
 
 ## Limits
 
-Embeds are free for you and your readers, and they always run on the Microlink free plan:
+Every run is a Microlink API call, so the [function plan limits](/docs/api/parameters/function#plan-limits) apply. Embeds always run on the free plan:
 
 - 5 runs per day per IP address, up to 2 at a time. Readers on one office network share them.
 - {FREE_PLAN_FUNCTION_TIMEOUT_SECONDS} seconds, 64 MB of memory and 5 KB of code per run.
-- No requests to other websites from an embed.
+- No requests to other websites.
 
 Loading a page costs nothing. A run counts only when a reader presses run, so on a page with many snippets, make the key examples runnable and show the rest as plain code.
 
-Sign in to your [Microlink account](https://dashboard.microlink.io/login) and the playground runs on your own keys: 25 runs per day on the free key, and on a [paid plan](/pricing) from $49 per month, 46,000 runs per month, {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second runs and network access to any website. There is no key to paste, and an embed on someone else’s site can never spend yours.
+For your agent, use a Microlink API key: 25 runs per day on the free key, and on a [paid plan](/pricing) from $49 per month, 46,000 runs per month, {PRO_PLAN_FUNCTION_TIMEOUT_SECONDS}-second runs and network access to any website. Signed in to your [Microlink account](https://dashboard.microlink.io/login), the playground runs on those same keys. There is no key to paste, and an embed on someone else’s site can never spend yours.
 
-Treat the code as public. It travels in the embed URL and in the API request, so keep tokens and passwords out of snippets.
+Treat the code as public. It travels in the request URL, so keep tokens and passwords out of it.
 
 ## Prior art
 
@@ -157,4 +158,4 @@ The name collides with CodeSandbox’s Nodebox, but the products do not. Theirs 
 
 ## Try it
 
-Open [nodebox.microlink.io](https://nodebox.microlink.io), pick an example and press run. When you have a snippet worth sharing, copy the embed into your docs, your tutorial or your blog post. Found a bug? The Feedback button in the playground attaches the snippet and the last run’s request ID, so we can replay exactly what you saw.
+Open [nodebox.microlink.io](https://nodebox.microlink.io), pick an example and press run. To give it to your agent, copy the API request next to any result. To make your docs runnable, copy the embed. Found a bug? The Feedback button in the playground attaches the snippet and the last run’s request ID, so we can replay exactly what you saw.
