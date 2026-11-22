@@ -35,7 +35,7 @@ Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbo
 - **No infrastructure.** It is an iframe. Execution, scaling and isolation run on [Microlink Functions](/function).
 - **Free for you and your readers.** No account and no API key to embed it.
 
-## Code samples that run
+## Why
 
 A code sample in documentation is a promise: copy this and it works. Most of the time the reader has to leave the page to check, open a terminal, create a project and install the dependencies, before they know whether the promise holds.
 
