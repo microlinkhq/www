@@ -82,8 +82,9 @@ describe('RunDiagram', () => {
 describe('SpinningCube', () => {
   test('draws every face from the resting frame and turns it every quarter turn', () => {
     const html = render(SpinningCube)
-    expect(html).toContain('role="img"')
-    expect(html).toContain('aria-label="The Nodebox logo, a pink cube turning"')
+    expect(html).toContain('aria-label="Play the Nodebox cube"')
+    expect(html).toContain('aria-pressed="false"')
+    expect(html).toContain('begin="indefinite"')
     expect(html).toContain('fill="#ea6195"')
     expect(html).toContain('fill="#e11d68"')
     expect(html).toContain('fill="#b41753"')
@@ -166,6 +167,9 @@ const fakeSvg = () => ({
   },
   setCurrentTime (time) {
     this.calls.push(`time:${time}`)
+  },
+  querySelectorAll () {
+    return [{ beginElement: () => this.calls.push('begin') }]
   }
 })
 
@@ -187,47 +191,75 @@ describe('bindCubeMotion', () => {
   const bind = (svg, media) => {
     let report
     let disconnected = false
-    const unbind = bindCubeMotion(svg, media, (_, onScreen) => {
-      report = onScreen
-      return () => {
-        disconnected = true
-      }
-    })
+    const playing = { current: false }
+    const stop = bindCubeMotion(
+      svg,
+      media,
+      (_, onScreen) => {
+        report = onScreen
+        return () => {
+          disconnected = true
+        }
+      },
+      () => playing.current
+    )
     return {
-      unbind,
+      stop,
+      play () {
+        playing.current = true
+        stop.update()
+      },
       scroll: visible => report(visible),
       isDisconnected: () => disconnected
     }
   }
 
-  test('plays on screen and pauses off screen', () => {
+  test('stays on the resting frame until the reader plays, then pauses off screen', () => {
     const svg = fakeSvg()
-    const { scroll } = bind(svg, fakeMedia(false))
+    const { play, scroll } = bind(svg, fakeMedia(false))
+    play()
     scroll(false)
     scroll(true)
-    expect(svg.calls).toEqual(['play', 'pause', 'play'])
+    expect(svg.calls).toEqual([
+      'pause',
+      'time:0',
+      'begin',
+      'play',
+      'pause',
+      'play'
+    ])
   })
 
-  test('holds the resting frame under reduced motion, and resumes when it is lifted', () => {
+  test('holds the resting frame under reduced motion until the reader has started it', () => {
     const svg = fakeSvg()
     const media = fakeMedia(true)
-    bind(svg, media)
+    const { play } = bind(svg, media)
+    play()
     media.change(false)
-    expect(svg.calls).toEqual(['pause', 'time:0', 'play'])
+    expect(svg.calls).toEqual([
+      'pause',
+      'time:0',
+      'pause',
+      'time:0',
+      'begin',
+      'play'
+    ])
   })
 
   test('stops watching on unmount', () => {
     const media = fakeMedia(false)
-    const { unbind, isDisconnected } = bind(fakeSvg(), media)
-    unbind()
+    const { stop, isDisconnected } = bind(fakeSvg(), media)
+    stop()
     expect(isDisconnected()).toBe(true)
     expect(media.listeners.size).toBe(0)
   })
 
   test('does nothing before the svg mounts', () => {
-    expect(() =>
-      bindCubeMotion(null, fakeMedia(false), () => {})()
-    ).not.toThrow()
+    const stop = bindCubeMotion(null, fakeMedia(false), () => {})
+    expect(() => {
+      stop()
+      stop.update()
+    }).not.toThrow()
   })
 
   test('asks the browser to honor reduced motion', () => {

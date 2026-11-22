@@ -17,6 +17,7 @@ const [RESTING] = CUBE_FRAMES
 const Turn = ({ attribute, values }) => (
   <animate
     attributeName={attribute}
+    begin='indefinite'
     values={values}
     dur={TURN_DURATION}
     repeatCount='indefinite'
@@ -25,7 +26,7 @@ const Turn = ({ attribute, values }) => (
 
 export const SpinningCube = () => {
   const ref = useRef(null)
-  useCubeMotion(ref)
+  const { playing, toggle } = useCubeMotion(ref)
 
   return (
     <Box
@@ -36,22 +37,41 @@ export const SpinningCube = () => {
       })}
     >
       <Box
-        as='svg'
-        ref={ref}
-        viewBox='0 0 24 24'
-        role='img'
-        aria-label='The Nodebox logo, a pink cube turning'
-        css={theme({ width: ['128px', '160px', '192px', '192px'] })}
+        as='button'
+        type='button'
+        aria-pressed={playing}
+        aria-label={
+          playing ? 'Pause the Nodebox cube' : 'Play the Nodebox cube'
+        }
+        onClick={toggle}
+        css={theme({
+          display: 'flex',
+          p: 0,
+          border: 0,
+          bg: 'transparent',
+          cursor: 'pointer'
+        })}
       >
-        {RESTING.sides.map((side, index) => (
-          <path key={index} d={side.d} fill={side.fill}>
-            <Turn attribute='d' values={CUBE_ANIMATION.sides[index].d} />
-            <Turn attribute='fill' values={CUBE_ANIMATION.sides[index].fill} />
+        <Box
+          as='svg'
+          ref={ref}
+          viewBox='0 0 24 24'
+          aria-hidden='true'
+          css={theme({ width: ['128px', '160px', '192px', '192px'] })}
+        >
+          {RESTING.sides.map((side, index) => (
+            <path key={index} d={side.d} fill={side.fill}>
+              <Turn attribute='d' values={CUBE_ANIMATION.sides[index].d} />
+              <Turn
+                attribute='fill'
+                values={CUBE_ANIMATION.sides[index].fill}
+              />
+            </path>
+          ))}
+          <path d={RESTING.top} fill={CUBE_TOP_COLOR}>
+            <Turn attribute='d' values={CUBE_ANIMATION.top} />
           </path>
-        ))}
-        <path d={RESTING.top} fill={CUBE_TOP_COLOR}>
-          <Turn attribute='d' values={CUBE_ANIMATION.top} />
-        </path>
+        </Box>
       </Box>
     </Box>
   )

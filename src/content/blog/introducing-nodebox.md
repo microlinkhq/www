@@ -97,7 +97,7 @@ Six themes, any color, any Google Fonts monospace family. The playground writes 
 
 <Figcaption>One run, from the embed to a fresh sandbox and back.</Figcaption>
 
-1. The reader presses run. The embed compresses the code and sends it to the [Microlink API `function` parameter](/docs/api/parameters/function), straight from the frame.
+1. The reader presses run. The embed compresses the code and sends it to the [Microlink API function parameter](/docs/api/parameters/function), straight from the frame.
 2. Microlink starts a fresh sandbox, installs the packages the code imports, runs it, and returns the value, the console output and a timing profile.
 3. The sandbox is discarded.
 

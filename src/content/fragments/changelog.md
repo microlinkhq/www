@@ -1,6 +1,6 @@
 ### November 2026
 
-- [Microlink Tools](/tools): Launched [Nodebox](/blog/introducing-nodebox), a Node.js sandbox you embed in any website with one iframe.
+- [Microlink Blog](/blog): Published [Introducing Nodebox](/blog/introducing-nodebox).
 - [Microlink API](/docs/api/parameters/timeout): [timeout](/docs/api/parameters/timeout) takes a percentage of the plan budget, such as `timeout=80%25` in a URL.
 - [Microlink API](/docs/api/parameters/timeout): [timeout](/docs/api/parameters/timeout) is now 90s on pro (30s on the free plan); function code runs up to 60s on pro and 10s on the free plan.
 - [Microlink](https://dashboard.microlink.io): Paid invoices go to the billing emails set in Settings.
