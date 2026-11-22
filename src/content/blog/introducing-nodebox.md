@@ -1,7 +1,7 @@
 ---
 title: 'Introducing Nodebox'
 subtitle: 'Embed Node.js anywhere'
-description: 'Nodebox is a Node.js sandbox you embed in any website with one iframe. Every run happens on a real Node.js 24 runtime with npm packages, in an isolated sandbox that is thrown away afterwards. Nothing runs on your servers or in the reader’s browser.'
+description: 'Nodebox is a Node.js sandbox you embed in any website with one iframe. Every run happens on the current Node.js LTS with npm packages, in an isolated sandbox that is thrown away afterwards. Nothing runs on your servers or in the reader’s browser.'
 authors:
   - kiko
 date: '2026-11-23'
@@ -25,11 +25,11 @@ Today we are releasing [Nodebox](https://nodebox.microlink.io): a Node.js sandbo
   allow='clipboard-write'
 />
 
-<Figcaption>An ESM-only npm package, the Node.js standard library and top-level await, run on Node.js 24.</Figcaption>
+<Figcaption>An ESM-only npm package, the Node.js standard library and top-level await, run on the current Node.js LTS.</Figcaption>
 
 **TL;DR**
 
-- **Real Node.js.** Node.js 24, with the standard library, `require`, ES modules and top-level await.
+- **Real Node.js.** The current LTS, with the standard library, `require`, ES modules and top-level await.
 - **Any npm package.** Import it and it installs on the first run. Pin a version with `require('cheerio@1.0.0')`.
 - **Ephemeral.** Every run starts a fresh sandbox, returns the result and throws the sandbox away.
 - **No infrastructure.** It is an iframe. Execution, scaling and isolation run on [Microlink Functions](/function).
@@ -41,7 +41,7 @@ A code sample in documentation is a promise: copy this and it works. Most of the
 
 Interactive samples fix that, at a price. Either you host a sandbox yourself, with its servers, its isolation and its bill, or you ship a runtime that emulates Node.js inside the browser. The second option downloads that runtime before the first run, and modules like `fs` and `net` become browser stand-ins. It looks like Node.js until a package needs the real thing.
 
-Nodebox takes neither path. The code runs on a real Node.js 24 runtime, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
+Nodebox takes neither path. The code runs on the current Node.js LTS, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
 
 <WhereCodeRunsDiagram />
 

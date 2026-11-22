@@ -30,6 +30,11 @@ describe('introducing nodebox', () => {
     )
   })
 
+  test('names the runtime as the current LTS, never a pinned major', () => {
+    expect(post).toContain('the current Node.js LTS')
+    expect(post).not.toMatch(/Node\.js v?\d+/)
+  })
+
   test('opens with the Nodebox social card', () => {
     const body = post
       .split('\n')
