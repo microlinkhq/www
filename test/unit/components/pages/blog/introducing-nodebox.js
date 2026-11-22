@@ -8,11 +8,6 @@ import {
   RunDiagram,
   STAGES
 } from '../../../../../src/components/pages/blog/introducing-nodebox/RunDiagram'
-import {
-  APPROACHES,
-  VIEWBOX_HEIGHT,
-  WhereCodeRunsDiagram
-} from '../../../../../src/components/pages/blog/introducing-nodebox/WhereCodeRunsDiagram'
 import themeSpec from '../../../../../src/theme'
 
 const CANVAS_WIDTH = 960
@@ -53,29 +48,6 @@ const expectInsideCanvas = html => {
     expect(bottom).toBeLessThanOrEqual(height)
   })
 }
-
-describe('WhereCodeRunsDiagram', () => {
-  test('names every approach and where its code runs', () => {
-    const html = render(WhereCodeRunsDiagram)
-    APPROACHES.forEach(({ approach, editor, remote }) => {
-      expect(html).toContain(approach)
-      expect(html).toContain(editor.name)
-      if (remote) expect(html).toContain(remote.label)
-    })
-  })
-
-  test('sends code to a server only for the approaches that have one', () => {
-    const html = render(WhereCodeRunsDiagram)
-    const remotes = APPROACHES.filter(({ remote }) => remote).length
-    expect(html.match(/>CODE</g)).toHaveLength(remotes)
-  })
-
-  test('sizes the canvas to its rows and keeps every shape inside it', () => {
-    const html = render(WhereCodeRunsDiagram)
-    expect(viewBoxHeight(html)).toBe(VIEWBOX_HEIGHT)
-    expectInsideCanvas(html)
-  })
-})
 
 describe('RunDiagram', () => {
   test('labels every stage and both directions of every hop', () => {

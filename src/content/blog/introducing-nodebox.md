@@ -9,7 +9,7 @@ date: '2026-11-23'
 
 import { Figcaption } from 'components/markdown/Figcaption'
 import { Iframe } from 'components/markdown/Iframe'
-import { RunDiagram, WhereCodeRunsDiagram } from 'components/pages/blog/introducing-nodebox'
+import { RunDiagram } from 'components/pages/blog/introducing-nodebox'
 import { FREE_PLAN_FUNCTION_TIMEOUT_SECONDS, PRO_PLAN_FUNCTION_TIMEOUT_SECONDS } from 'helpers/plan-timeouts'
 
 ![Nodebox: Embed Node.js anywhere. Drop an isolated, ephemeral Node.js sandbox into any website.](/images/nodebox-og.png)
@@ -42,10 +42,6 @@ A code sample in documentation is a promise: copy this and it works. Most of the
 Interactive samples fix that, at a price. Either you host a sandbox yourself, with its servers, its isolation and its bill, or you ship a runtime that emulates Node.js inside the browser. The second option downloads that runtime before the first run, and modules like `fs` and `net` become browser stand-ins. It looks like Node.js until a package needs the real thing.
 
 Nodebox takes neither path. The code runs on the current Node.js LTS, on Microlink’s servers. Your site serves an iframe. The reader’s browser renders the editor and the result. That is the whole footprint.
-
-<WhereCodeRunsDiagram />
-
-<Figcaption>Where the code runs in each approach. Nodebox keeps the real runtime and drops the servers.</Figcaption>
 
 ## Any npm package, installed on the fly
 
