@@ -114,6 +114,8 @@ export const productFromPath = pathname => {
 
 const isProduct = value => PRODUCTS.includes(value)
 
+const isRequestVolume = value => Number.isInteger(value) && value > 0
+
 const isInternalRedirect = value =>
   typeof value === 'string' && value.startsWith('/') && !value.startsWith('//')
 
@@ -129,6 +131,7 @@ export const dashboardParams = ({
   cta,
   product,
   redirect,
+  requests,
   pathname,
   attribution,
   search
@@ -150,7 +153,8 @@ export const dashboardParams = ({
     ['product', resolvedProduct],
     ...UTM_KEYS.map(key => [key, utms[key]]),
     ['cta', cta],
-    ['redirect', isInternalRedirect(redirect) ? redirect : undefined]
+    ['redirect', isInternalRedirect(redirect) ? redirect : undefined],
+    ['requests', isRequestVolume(requests) ? String(requests) : undefined]
   ]
 
   return params

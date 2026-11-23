@@ -87,7 +87,6 @@ import {
 } from 'simple-icons'
 
 import { useMounted } from 'components/hook/use-mounted'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 
 import analyticsData from '../../../data/analytics.json'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'
@@ -1348,7 +1347,6 @@ const Clients = () => (
 )
 
 const Pricing = () => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <CurrencyProvider>
       <Box
@@ -1376,11 +1374,7 @@ const Pricing = () => {
             production traffic kicks in.
           </Caption>
         </Container>
-        <Plans
-          canonicalUrl={canonicalUrl}
-          stripeKey={stripeKey}
-          footer='compare'
-        />
+        <Plans footer='compare' />
       </Box>
     </CurrencyProvider>
   )

@@ -20,10 +20,10 @@ import {
   planDisplay
 } from './shared'
 
-const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
+const ProPlanCard = ({ activePlan }) => {
   const [plan, setPlan] = useState(DEFAULT_PLAN)
   const [currency] = useCurrencyContext()
-  const { monthlyPrice, id: planId, reqsPerMonthTotal } = plan
+  const { monthlyPrice, reqsPerMonthTotal } = plan
   const pricePer1k = (
     monthlyPrice[currency] /
     (reqsPerMonthTotal / 1000)
@@ -74,9 +74,7 @@ const ProPlanCard = ({ activePlan, canonicalUrl, stripeKey }) => {
       <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
         <Checkout
           variant='featured'
-          planId={planId}
-          canonicalUrl={canonicalUrl}
-          stripeKey={stripeKey}
+          requests={plan === DEFAULT_PLAN ? undefined : reqsPerMonthTotal}
           css={theme({ width: '100%' })}
         />
         <Text

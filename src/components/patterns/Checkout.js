@@ -1,134 +1,43 @@
-/* global fetch */
+import React from 'react'
+import { useLocation } from '@gatsbyjs/reach-router'
 
 import { Button } from 'components/elements/Button/Button'
-import Spinner from 'components/elements/Spinner'
-import Flex from 'components/elements/Flex'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
-import React, { useState, useRef, useEffect } from 'react'
-import { colors, variants } from 'theme'
+import { SignupLink } from 'components/patterns/SignupLink'
+import { eventLocation } from 'helpers/dashboard-url'
 import { trackEvent } from 'helpers/gtag'
 
-const PRODUCT_LANDING_SLUGS = [
-  'metadata',
-  'screenshot',
-  'pdf',
-  'markdown',
-  'logo',
-  'sdk',
-  'insights',
-  'link-preview',
-  'embed'
-]
+export const BUY_REDIRECT = '/plans/create'
 
-function resolveBuyEventLocation () {
-  const raw = window.location.pathname
-  const pathname = raw.endsWith('/') && raw.length > 1 ? raw.slice(0, -1) : raw
-  if (pathname === '/' || pathname === '') return 'home'
-  if (pathname === '/pricing') return 'pricing'
-  for (const slug of PRODUCT_LANDING_SLUGS) {
-    if (pathname === `/${slug}` || pathname.startsWith(`/${slug}/`)) {
-      return slug
-    }
-  }
-  const [first] = pathname.slice(1).split('/')
-  return first || 'other'
-}
+export const buyCta = pathname => `${eventLocation(pathname)}:buy`
 
-const loadingBackground = variant =>
-  colors[(variants.buttons[variant] || variants.buttons.default).background]
+const Checkout = ({ cta, requests, onClick, children, ...props }) => {
+  const { pathname } = useLocation()
+  const resolvedCta = cta ?? buyCta(pathname)
 
-export const loadingCss = variant => `
-  &&&:disabled {
-    background: ${loadingBackground(variant)};
-    box-shadow: none;
-    opacity: 0.8;
-    .path { stroke: white; }
-  }
-`
-
-export const checkoutButtonCss = (cssProp, variant, isLoading) =>
-  isLoading ? [cssProp, loadingCss(variant)].filter(Boolean) : cssProp
-
-const Checkout = ({
-  canonicalUrl,
-  planId,
-  stripeKey,
-  cta,
-  children,
-  css: cssProp,
-  variant,
-  ...props
-}) => {
-  const [isLoading, setIsLoading] = useState(false)
-  const [btnSize, setBtnSize] = useState({})
-  const ref = useRef(null)
-
-  const { paymentApiKey: apiKey, paymentEndpoint: apiEndpoint } =
-    useSiteMetadata()
-
-  useEffect(() => {
-    if (ref.current) {
-      const computed = window.getComputedStyle(ref.current)
-      setBtnSize({
-        minWidth: parseFloat(computed.getPropertyValue('width')),
-        minHeight: parseFloat(computed.getPropertyValue('height'))
-      })
-    }
-  }, [])
-
-  const handleCheckout = async () => {
-    setIsLoading(true)
-    const location = resolveBuyEventLocation()
-    trackEvent('buy', cta ? { location, cta } : { location })
-
-    try {
-      const { data } = await fetch(`${apiEndpoint}/payment/session`, {
-        headers: { 'Content-Type': 'application/json', 'x-api-key': apiKey },
-        method: 'POST',
-        body: JSON.stringify({
-          planId,
-          successUrl: `${canonicalUrl}/payment?status=success`,
-          cancelUrl: `${canonicalUrl}/payment?status=failed`
-        })
-      }).then(res => {
-        if (!res.ok) throw new Error(res.statusText)
-        return res.json()
-      })
-
-      window.location.href = data.url
-    } catch (_) {
-      setIsLoading(false)
-    }
+  const handleClick = event => {
+    trackEvent('buy', {
+      location: eventLocation(pathname),
+      cta: resolvedCta,
+      requests,
+      transport_type: 'beacon'
+    })
+    if (onClick) onClick(event)
   }
 
   return (
-    <Button
-      {...props}
-      ref={ref}
-      variant={variant}
-      onClick={isLoading ? undefined : handleCheckout}
-      disabled={isLoading}
-      aria-busy={isLoading || undefined}
+    <SignupLink
+      component={Button}
+      as='a'
+      cta={resolvedCta}
+      redirect={BUY_REDIRECT}
+      requests={requests}
+      onClick={handleClick}
       data-event-location='Checkout'
       data-event-name='Buy'
-      style={isLoading ? { ...btnSize, cursor: 'wait' } : props.style}
-      css={checkoutButtonCss(cssProp, variant, isLoading)}
+      {...props}
     >
-      {isLoading
-        ? (
-          <Flex css={{ justifyContent: 'center', alignItems: 'center' }}>
-            <Spinner
-              color='white'
-              width='26px'
-              height='26px'
-              style={{ padding: 0 }}
-            />
-          </Flex>
-          )
-        : (
-            children ?? 'Buy'
-          )}
-    </Button>
+      {children ?? 'Buy'}
+    </SignupLink>
   )
 }
 

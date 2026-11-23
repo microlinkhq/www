@@ -2,12 +2,10 @@ import Container from 'components/elements/Container'
 import Subhead from 'components/elements/Subhead'
 import Caption from 'components/patterns/Caption/Caption'
 import Plans from 'components/patterns/Plans/Plans'
-import { useSiteMetadata } from 'components/hook/use-site-meta'
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
 
 const Pricing = () => {
-  const { canonicalUrl, stripeKey } = useSiteMetadata()
   return (
     <>
       <Container
@@ -37,11 +35,7 @@ const Pricing = () => {
           that fits your traffic. Priced by requests, not seats.
         </Caption>
       </Container>
-      <Plans
-        canonicalUrl={canonicalUrl}
-        stripeKey={stripeKey}
-        footer='compare'
-      />
+      <Plans footer='compare' />
     </>
   )
 }

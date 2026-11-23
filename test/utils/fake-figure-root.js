@@ -39,7 +39,9 @@ export const createFakeFigureRoot = html => {
     querySelector (selector) {
       const { name, value } = parsed(selector)
       const values = valuesOf(name)
-      if (value === undefined) { return values.length ? nodeFor(name, values[0]) : null }
+      if (value === undefined) {
+        return values.length ? nodeFor(name, values[0]) : null
+      }
       return values.includes(value) ? nodeFor(name, value) : null
     },
     querySelectorAll (selector) {
