@@ -10,7 +10,7 @@ export const BUY_REDIRECT = '/plans/create'
 
 export const buyCta = pathname => `${eventLocation(pathname)}:buy`
 
-const Checkout = ({ cta, onClick, children, ...props }) => {
+const Checkout = ({ cta, requests, onClick, children, ...props }) => {
   const { pathname } = useLocation()
   const resolvedCta = cta ?? buyCta(pathname)
 
@@ -18,6 +18,7 @@ const Checkout = ({ cta, onClick, children, ...props }) => {
     trackEvent('buy', {
       location: eventLocation(pathname),
       cta: resolvedCta,
+      requests,
       transport_type: 'beacon'
     })
     if (onClick) onClick(event)
@@ -29,6 +30,7 @@ const Checkout = ({ cta, onClick, children, ...props }) => {
       as='a'
       cta={resolvedCta}
       redirect={BUY_REDIRECT}
+      requests={requests}
       onClick={handleClick}
       data-event-location='Checkout'
       data-event-name='Buy'

@@ -72,7 +72,11 @@ const ProPlanCard = ({ activePlan }) => {
         <PlanCheck>Priority email support</PlanCheck>
       </PlanCheckList>
       <Box css={theme({ pt: [4, 4, 5, 5], mt: 'auto' })}>
-        <Checkout variant='featured' css={theme({ width: '100%' })} />
+        <Checkout
+          variant='featured'
+          requests={plan === DEFAULT_PLAN ? undefined : reqsPerMonthTotal}
+          css={theme({ width: '100%' })}
+        />
         <Text
           css={theme({
             pt: 2,

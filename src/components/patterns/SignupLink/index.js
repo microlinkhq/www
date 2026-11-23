@@ -17,11 +17,12 @@ export const useDashboardHref = ({
   dashboardPath = SIGNUP_PATH,
   cta,
   product,
-  redirect
+  redirect,
+  requests
 } = {}) => {
   const { pathname } = useLocation()
   const [href, setHref] = useState(() =>
-    dashboardUrl(dashboardPath, { cta, product, redirect, pathname })
+    dashboardUrl(dashboardPath, { cta, product, redirect, requests, pathname })
   )
 
   useEffect(() => {
@@ -30,12 +31,13 @@ export const useDashboardHref = ({
         cta,
         product,
         redirect,
+        requests,
         pathname,
         attribution: getAttribution(),
         search: window.location.search
       })
     )
-  }, [dashboardPath, cta, product, redirect, pathname])
+  }, [dashboardPath, cta, product, redirect, requests, pathname])
 
   return href
 }
@@ -61,13 +63,14 @@ export const SignupLink = ({
   cta,
   product,
   redirect,
+  requests,
   onClick,
   component: Component = ArrowLink,
   children,
   ...props
 }) => {
   const { pathname } = useLocation()
-  const href = useSignupHref({ cta, product, redirect })
+  const href = useSignupHref({ cta, product, redirect, requests })
 
   const handleClick = event => {
     trackSignupClick({ cta, pathname })

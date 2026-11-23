@@ -32,6 +32,25 @@ describe('Checkout', () => {
     expect(BUY_REDIRECT).toBe('/plans/create')
   })
 
+  test('carries the chosen volume into the buy dialog', () => {
+    const url = hrefOf(
+      renderMarkup(<Checkout requests={140000} />, { url: '/pricing' })
+    )
+    expect(url.search).toContain('redirect=/plans/create&requests=140000')
+    expect(url.searchParams.get('redirect')).toBe(BUY_REDIRECT)
+    expect(url.searchParams.get('requests')).toBe('140000')
+  })
+
+  test('drops the volume when it is not a positive integer', () => {
+    ;[undefined, 0, -1, 1.5, '140000', NaN].forEach(requests => {
+      const url = hrefOf(
+        renderMarkup(<Checkout requests={requests} />, { url: '/pricing' })
+      )
+      expect(url.searchParams.has('requests')).toBe(false)
+      expect(url.searchParams.get('redirect')).toBe(BUY_REDIRECT)
+    })
+  })
+
   test('defaults the cta to the page buy slot', () => {
     const url = hrefOf(renderMarkup(<Checkout />, { url: '/pricing' }))
     expect(url.searchParams.get('cta')).toBe('pricing:buy')

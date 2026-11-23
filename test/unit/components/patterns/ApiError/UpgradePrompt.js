@@ -61,6 +61,7 @@ describe('UpgradePrompt', () => {
     expect(markup).toContain('This site blocks bots')
     expect(markup).toMatch(/<a[^>]*>Get Pro for \$49\/month<\/a>/)
     expect(markup).toContain('redirect=/plans/create')
+    expect(markup).not.toContain('requests=')
     expect(markup).toContain('cta=embed-url:antibot')
     expect(markup).not.toContain('free API key')
     expect(markup).not.toContain('No credit card')
