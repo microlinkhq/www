@@ -33,7 +33,7 @@ import {
   getMenuItemMediaStyles
 } from './ToolbarStyles'
 import ToolbarMenuItemMedia from './ToolbarMenuItemMedia'
-import ToolbarAccountLink from './ToolbarAccountLink'
+import ToolbarMobileAccount from './ToolbarMobileAccount'
 
 const MOBILE_MENU_ITEM_STYLES = {
   py: 1,
@@ -543,17 +543,12 @@ const ToolbarMobile = ({ animated }) => {
                 </MobileDirectNavLink>
               )
             )}
-            <ToolbarAccountLink
-              ctaLocation='toolbar-mobile'
-              onClick={closeMenu}
-              css={theme({
-                display: 'flex',
-                width: '100%',
-                height: '44px',
-                mt: 3,
-                listStyle: 'none'
-              })}
-            />
+            <Box as='li' css={theme({ listStyle: 'none' })}>
+              <ToolbarMobileAccount
+                ctaLocation='toolbar-mobile'
+                onNavigate={closeMenu}
+              />
+            </Box>
           </Box>
         </MobileMenuPanel>
       )}

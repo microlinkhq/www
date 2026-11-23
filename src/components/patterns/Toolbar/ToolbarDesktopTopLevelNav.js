@@ -6,7 +6,7 @@ import React from 'react'
 import { theme } from 'theme'
 
 import { DIRECT_NAV_ITEMS, NAVIGATION_SECTIONS } from './ToolbarLinks'
-import ToolbarAccountLink from './ToolbarAccountLink'
+import ToolbarDesktopAccount from './ToolbarDesktopAccount'
 import {
   TOOLBAR_CHEVRON_ICON_SIZE,
   TOOLBAR_LIST_RESET_STYLES,
@@ -24,21 +24,11 @@ import {
   toSectionDomId
 } from './ToolbarDesktopStyles'
 
-const ACCOUNT_ACTION_STYLES = theme({
-  display: ['none', 'none', 'inline-flex', 'inline-flex'],
+const ACCOUNT_SLOT_STYLES = theme({
+  display: ['none', 'none', 'inline-grid', 'inline-grid'],
   alignSelf: 'center',
-  height: '36px',
   ml: 2
 })
-
-const AccountActionLink = ({ onClosePanel }) => (
-  <ToolbarAccountLink
-    ctaLocation='toolbar'
-    onClick={onClosePanel}
-    onMouseEnter={onClosePanel}
-    css={ACCOUNT_ACTION_STYLES}
-  />
-)
 
 const ToolbarDesktopTopLevelNav = ({
   openSection,
@@ -153,7 +143,11 @@ const ToolbarDesktopTopLevelNav = ({
         </Caps>
       </TopLevelDirectLink>
     ))}
-    <AccountActionLink onClosePanel={onClosePanel} />
+    <ToolbarDesktopAccount
+      ctaLocation='toolbar'
+      onClosePanel={onClosePanel}
+      css={ACCOUNT_SLOT_STYLES}
+    />
   </Flex>
 )
 

@@ -133,18 +133,6 @@ export const DOCUMENTATION_NAV_ITEM = createNavigationItem({
   actively: docsMatcher
 })
 
-export const SIGN_IN_NAV_ITEM = createNavigationItem({
-  label: 'Sign In',
-  title: 'Sign in to the Microlink dashboard',
-  externalIcon: false
-})
-
-export const DASHBOARD_NAV_ITEM = createNavigationItem({
-  label: 'Dashboard',
-  title: 'Open the Microlink dashboard',
-  externalIcon: false
-})
-
 export const DIRECT_NAV_ITEMS = [DOCUMENTATION_NAV_ITEM, PRICING_NAV_ITEM]
 
 const TOOLS_INTEGRATIONS_ITEMS = [
