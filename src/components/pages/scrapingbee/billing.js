@@ -6,10 +6,9 @@ import Text from 'components/elements/Text'
 
 import {
   FeatureTable,
-  HIGHLIGHT_BG,
   Section,
   SectionHeader,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 import { BILLING } from './shared'
 
@@ -17,7 +16,7 @@ export const Billing = () => (
   <Section id='billing' bg='pinky'>
     <SectionHeader title={BILLING.title} caption={BILLING.caption} />
 
-    <TableCard>
+    <TableScroll>
       <FeatureTable>
         <thead>
           <tr>
@@ -34,37 +33,18 @@ export const Billing = () => (
           </tr>
         </thead>
         <tbody>
-          {BILLING.rows.map(({ config, credits, pages, highlight }) => (
-            <tr
-              key={config}
-              css={{ background: highlight ? HIGHLIGHT_BG : 'transparent' }}
-            >
-              <Text
-                as='th'
-                scope='row'
-                css={theme({ fontWeight: highlight ? 'bold' : 'regular' })}
-              >
-                {config}
-              </Text>
+          {BILLING.rows.map(({ config, credits, pages }) => (
+            <tr key={config}>
+              <th scope='row'>{config}</th>
               <Text
                 as='td'
-                css={[
-                  theme({ textAlign: 'right', color: 'black60' }),
-                  { whiteSpace: 'nowrap' }
-                ]}
+                css={[theme({ textAlign: 'right' }), { whiteSpace: 'nowrap' }]}
               >
                 {credits}
               </Text>
               <Text
                 as='td'
-                css={[
-                  theme({
-                    textAlign: 'right',
-                    fontWeight: 'bold',
-                    color: 'black'
-                  }),
-                  { whiteSpace: 'nowrap' }
-                ]}
+                css={[theme({ textAlign: 'right' }), { whiteSpace: 'nowrap' }]}
               >
                 {pages}
               </Text>
@@ -72,7 +52,7 @@ export const Billing = () => (
           ))}
         </tbody>
       </FeatureTable>
-    </TableCard>
+    </TableScroll>
 
     <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>
       <Text css={theme({ fontSize: 0, color: 'black60', lineHeight: 2 })}>

@@ -238,6 +238,7 @@
     "build": "NODE_ENV=production gatsby build",
     "build:data": "DEBUG=data:providers* node scripts/fetch-data",
     "build:feature-icons": "node scripts/build-feature-icons",
+    "build:figures": "node scripts/anatomy/build.mjs",
     "build:storybook": "NODE_ENV=production storybook build",
     "build:timestamps": "node scripts/git-timestamps.js",
     "clean": "npm run clean:build && npm run clean:data && rm -rf node_modules",
@@ -298,6 +299,7 @@
   },
   "standard": {
     "ignore": [
+      "scripts/anatomy/kit/**",
       "scripts/build-feature-icons/teardown/**",
       "src/components/pages/editor/monaco-dts.js"
     ]

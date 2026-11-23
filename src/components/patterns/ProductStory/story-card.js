@@ -128,7 +128,7 @@ export const StoryCard = ({ index, icon: Icon, title, description }) => (
         pt: 2,
         fontSize: 1,
         lineHeight: 2,
-        color: 'black70',
+        color: 'black',
         textWrap: 'pretty'
       })}
     >

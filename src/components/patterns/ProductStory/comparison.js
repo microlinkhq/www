@@ -10,24 +10,15 @@ import {
   CellNote,
   CellValue,
   FeatureTable,
-  TableCard
+  TableScroll
 } from 'components/elements/Table/Table'
 
+const MICROLINK_LOGO = 'https://cdn.microlink.io/logo/logo.svg'
 const FEATURE_MIN_WIDTH = '280px'
 const VALUE_WIDTH = '22%'
 const VALUE_MIN_WIDTH = '144px'
-const MICROLINK_COLUMN = 2
 
 const StyledComparisonTable = styled(FeatureTable)`
-  th:nth-child(${MICROLINK_COLUMN}),
-  td:nth-child(${MICROLINK_COLUMN}) {
-    ${theme({ bg: 'pink0', color: 'black' })}
-  }
-
-  thead th:nth-child(${MICROLINK_COLUMN}) {
-    ${theme({ color: 'secondary' })}
-  }
-
   @media (max-width: ${breakpoints[0]}) {
     tr {
       display: grid;
@@ -54,10 +45,6 @@ const StyledComparisonTable = styled(FeatureTable)`
         overflowWrap: 'break-word'
       })}
     }
-
-    td:nth-child(${MICROLINK_COLUMN})::before {
-      ${theme({ color: 'secondary' })}
-    }
   }
 `
 
@@ -73,20 +60,44 @@ const ValueHeader = ({ children }) => (
   </th>
 )
 
+const MicrolinkMark = styled('img')`
+  ${theme({ display: 'block', width: '1em', height: '1em' })}
+`
+
+const MicrolinkLabel = ({ children }) => (
+  <Text
+    as='span'
+    css={theme({
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 2,
+      color: 'inherit',
+      fontSize: 'inherit',
+      fontWeight: 'inherit',
+      lineHeight: 'inherit'
+    })}
+  >
+    <MicrolinkMark alt='' aria-hidden='true' src={MICROLINK_LOGO} />
+    {children}
+  </Text>
+)
+
 export const ComparisonTable = ({
   columns,
   rows,
   competitorKey,
   featureLabel = 'Capability'
 }) => (
-  <TableCard>
+  <TableScroll>
     <StyledComparisonTable>
       <thead>
         <tr>
           <th scope='col' css={{ minWidth: FEATURE_MIN_WIDTH }}>
             {featureLabel}
           </th>
-          <ValueHeader>{columns[0]}</ValueHeader>
+          <ValueHeader>
+            <MicrolinkLabel>{columns[0]}</MicrolinkLabel>
+          </ValueHeader>
           <ValueHeader>{columns[1]}</ValueHeader>
         </tr>
       </thead>
@@ -107,7 +118,7 @@ export const ComparisonTable = ({
         ))}
       </tbody>
     </StyledComparisonTable>
-  </TableCard>
+  </TableScroll>
 )
 
 export const ProductComparison = ({

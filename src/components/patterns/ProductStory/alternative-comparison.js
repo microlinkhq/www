@@ -45,7 +45,7 @@ export const AlternativeComparison = ({
           pt: 2,
           pb: [3, 3, 4, 4],
           maxWidth: layout.normal,
-          color: 'black60'
+          color: 'black'
         })}
       >
         {caption}

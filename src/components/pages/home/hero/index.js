@@ -1,6 +1,4 @@
 import Container from 'components/elements/Container'
-import Heading from 'components/elements/Heading'
-import LineBreak from 'components/elements/LineBreak'
 import Caption from 'components/patterns/Caption/Caption'
 import Overlay from 'components/pages/home/overlay'
 import heroDemoRequests from 'components/pages/home/hero-demo-requests'
@@ -34,6 +32,7 @@ import {
 import { CopyPromptAction } from './copy-prompt'
 import { ExampleChips } from './example-chips'
 import { HeroGradientDefs } from './gradient-defs'
+import { HeroHeadline } from './headline'
 import { fadeIn, reduceMotion } from './primitives'
 import { riseIn } from 'helpers/rise-in'
 import {
@@ -322,19 +321,7 @@ const Hero = () => {
       <Content>
         <HeroBadge />
 
-        <Heading variant={null}>
-          The web, <LineBreak breakpoints={[0]} />
-          <Heading
-            forwardedAs='span'
-            css={theme({
-              fontSize: 'inherit',
-              fontStyle: 'italic',
-              whiteSpace: 'nowrap'
-            })}
-          >
-            ready for AI
-          </Heading>
-        </Heading>
+        <HeroHeadline />
 
         <Caption
           forwardedAs='p'

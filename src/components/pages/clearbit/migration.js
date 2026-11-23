@@ -1,6 +1,5 @@
 import { layout, theme } from 'theme'
 import React from 'react'
-import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
@@ -10,18 +9,9 @@ import {
   Section,
   SectionHeader
 } from 'components/patterns/ProductStory/section'
-import {
-  HIGHLIGHT_BG,
-  ProseTable,
-  TableCard
-} from 'components/elements/Table/Table'
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
 
 import { MIGRATION } from './shared'
-
-const MigrationRow = styled.tr`
-  background: ${({ $highlight }) =>
-    $highlight ? HIGHLIGHT_BG : 'transparent'};
-`
 
 const Snippet = ({ title, language, code }) => (
   <CodeEditor title={title} language={language} css={theme({ width: '100%' })}>
@@ -48,8 +38,8 @@ const SnippetStack = () => (
 )
 
 const MigrationTable = () => (
-  <TableCard>
-    <ProseTable>
+  <TableScroll>
+    <FeatureTable>
       <thead>
         <tr>
           {MIGRATION.columns.map(column => (
@@ -60,18 +50,18 @@ const MigrationTable = () => (
         </tr>
       </thead>
       <tbody>
-        {MIGRATION.rows.map(({ id, need, clearbit, microlink, highlight }) => (
-          <MigrationRow key={id} $highlight={highlight}>
+        {MIGRATION.rows.map(({ id, need, clearbit, microlink }) => (
+          <tr key={id}>
             <Text as='th' scope='row'>
               {need}
             </Text>
             <td>{clearbit}</td>
             <td>{microlink}</td>
-          </MigrationRow>
+          </tr>
         ))}
       </tbody>
-    </ProseTable>
-  </TableCard>
+    </FeatureTable>
+  </TableScroll>
 )
 
 export const Migration = () => (

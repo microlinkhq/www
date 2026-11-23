@@ -63,12 +63,8 @@ const PlanBadge = styled(Text).attrs({ as: 'span' })`
     fontWeight: 'bold',
     lineHeight: 2,
     bg: 'black05',
-    color: 'black70'
+    color: 'black'
   })}
-
-  [data-featured='true'] > & {
-    ${theme({ bg: 'pink0', color: 'secondary' })}
-  }
 `
 
 const HeroCodeLink = styled('a')`
@@ -99,7 +95,7 @@ const HeroFact = ({ featured, children }) => (
       css={theme({
         flexShrink: 0,
         mt: '6px',
-        color: featured ? 'secondary' : 'black40'
+        color: 'black'
       })}
     />
     <Text
@@ -107,7 +103,7 @@ const HeroFact = ({ featured, children }) => (
       css={theme({
         fontSize: 1,
         lineHeight: 2,
-        color: featured ? 'black80' : 'black70',
+        color: 'black',
         textWrap: 'pretty'
       })}
     >
@@ -132,7 +128,7 @@ const HeroCardFootnote = ({ children }) => (
       mt: 'auto',
       pt: 2,
       fontSize: 1,
-      color: 'black50',
+      color: 'black',
       lineHeight: 2
     })}
   >
@@ -159,7 +155,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Firecrawl</GradientText> alternative{' '}
+        The Firecrawl <GradientText>alternative</GradientText>{' '}
         <Box
           as='br'
           css={theme({ display: ['none', 'none', 'block', 'block'] })}
@@ -172,7 +168,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Firecrawl credits multiply with the output: LLM formats add 4 per page,
@@ -206,7 +202,7 @@ export const Hero = () => (
               as='span'
               css={theme({
                 fontSize: 2,
-                color: 'black50',
+                color: 'black',
                 fontWeight: 'normal'
               })}
             >
@@ -225,7 +221,7 @@ export const Hero = () => (
               as='span'
               css={theme({
                 fontSize: 2,
-                color: 'black50',
+                color: 'black',
                 fontWeight: 'normal'
               })}
             >
@@ -241,7 +237,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           fontSize: 1,
-          color: 'black60',
+          color: 'black',
           textAlign: 'center'
         })}
       >

@@ -4,6 +4,7 @@ import { Check as CheckIcon, Minus as MinusIcon } from 'react-feather'
 import { breakpoints, colors, gradient, layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
+import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
@@ -143,12 +144,8 @@ const PlanName = styled(Text).attrs({ as: 'h3' })`
     fontWeight: 'bold',
     lineHeight: 2,
     bg: 'black05',
-    color: 'black70'
+    color: 'black'
   })}
-
-  [data-featured='true'] > & {
-    ${theme({ bg: 'pink0', color: 'secondary' })}
-  }
 `
 
 const PlanItems = styled(Box).attrs({ as: 'ul' })`
@@ -159,17 +156,7 @@ export const missing = text => ({ missing: true, text })
 
 export const isMissing = item => item?.missing === true
 
-export const itemColor = ({ featured, absent }) => {
-  if (absent) return 'black50'
-  return featured ? 'black80' : 'black70'
-}
-
-export const iconColor = ({ featured, absent }) => {
-  if (absent) return 'black30'
-  return featured ? 'secondary' : 'black40'
-}
-
-const PlanItem = ({ featured, absent, children }) => (
+const PlanItem = ({ absent, children }) => (
   <Flex as='li' css={theme({ alignItems: 'flex-start', gap: 2, pb: 2 })}>
     <FeatherIcon
       aria-hidden='true'
@@ -178,7 +165,7 @@ const PlanItem = ({ featured, absent, children }) => (
       css={theme({
         flexShrink: 0,
         mt: '6px',
-        color: iconColor({ featured, absent })
+        color: 'black'
       })}
     />
     <Text
@@ -186,7 +173,7 @@ const PlanItem = ({ featured, absent, children }) => (
       css={theme({
         fontSize: 1,
         lineHeight: 2,
-        color: itemColor({ featured, absent }),
+        color: 'black',
         textWrap: 'pretty'
       })}
     >
@@ -226,7 +213,7 @@ const PlanPrice = ({ price, currency, period }) => (
         pl: 1,
         fontSize: 1,
         fontWeight: 'normal',
-        color: 'black60'
+        color: 'black'
       })}
     >
       {period}
@@ -253,7 +240,7 @@ const Plan = ({
         fontSize: 2,
         fontWeight: 'bold',
         lineHeight: 1,
-        color: 'black80',
+        color: 'black',
         textWrap: 'balance'
       })}
     >
@@ -264,15 +251,12 @@ const Plan = ({
         {items.map(item =>
           isMissing(item)
             ? (
-              <PlanItem key={item.text} featured={featured} absent>
+              <PlanItem key={item.text} absent>
                 {item.text}
               </PlanItem>
               )
             : (
-              <PlanItem
-                key={typeof item === 'string' ? item : item.key}
-                featured={featured}
-              >
+              <PlanItem key={typeof item === 'string' ? item : item.key}>
                 {item}
               </PlanItem>
               )
@@ -283,13 +267,12 @@ const Plan = ({
   </PlanCard>
 )
 
-const MicrolinkActions = ({ cta, secondaryHref, secondaryLabel }) => (
-  <>
-    <SignupLink cta={cta}>Get your free API key</SignupLink>
-    {secondaryHref && (
-      <ArrowLink href={secondaryHref}>{secondaryLabel}</ArrowLink>
-    )}
-  </>
+const MicrolinkAction = ({ cta }) => (
+  <Flex css={theme({ width: '100%', flexDirection: 'column' })}>
+    <SignupLink component={Button} as='a' variant='featured' cta={cta}>
+      Get your free API key
+    </SignupLink>
+  </Flex>
 )
 
 const NoWrap = ({ children }) => (
@@ -326,14 +309,23 @@ export const ProductPriceComparison = ({
   note
 }) => (
   <Section id='pricing' bg='pinky'>
-    <SectionHeader title={title} caption={caption} />
+    <SectionHeader title={title} caption={caption}>
+      {microlink.secondaryHref && (
+        <ArrowLink
+          href={microlink.secondaryHref}
+          css={theme({ fontSize: [1, 1, 2, 2] })}
+        >
+          {microlink.secondaryLabel}
+        </ArrowLink>
+      )}
+    </SectionHeader>
     <PlanGrid>
       <Plan
         {...microlinkPlan(currency)}
         currency={currency}
         items={microlinkItems(currency, microlink.items)}
         featured
-        footer={<MicrolinkActions {...microlink} />}
+        footer={<MicrolinkAction cta={microlink.cta} />}
       />
       <Plan
         {...competitor}

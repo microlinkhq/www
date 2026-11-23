@@ -138,8 +138,7 @@ await writeFile(
       id: 'palette',
       need: 'Brand colors',
       clearbit: 'Not offered',
-      microlink: 'palette=true, same call',
-      highlight: true
+      microlink: 'palette=true, same call'
     },
     {
       id: 'details',
@@ -167,7 +166,6 @@ await writeFile(
     },
     {
       id: 'access',
-      highlight: true,
       need: 'Access',
       clearbit: 'No key',
       microlink: `${KEYLESS_REQUESTS_PER_DAY} requests a day without a key, then a key in the x-api-key header`

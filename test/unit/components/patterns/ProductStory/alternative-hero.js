@@ -1,7 +1,7 @@
 import React from 'react'
 import { renderToStaticMarkup } from 'react-dom/server'
 import { ServerLocation } from '@gatsbyjs/reach-router'
-import { ServerStyleSheet } from 'styled-components'
+import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { describe, expect, test, vi } from 'vitest'
 
 import * as browserbase from '../../../../../src/components/pages/browserbase/shared'
@@ -15,6 +15,7 @@ import * as serpapi from '../../../../../src/components/pages/serpapi/shared'
 import { AlternativeHero } from '../../../../../src/components/patterns/ProductStory/alternative-hero'
 import { HeroActions } from '../../../../../src/components/patterns/ProductStory/hero-parts'
 import { renderMarkup } from '../../../../utils/render-markup'
+import themeSpec from '../../../../../src/theme'
 
 vi.mock('helpers/template', () => ({ template: value => value }))
 
@@ -60,7 +61,7 @@ describe('alternative hero copy', () => {
 })
 
 describe('AlternativeHero', () => {
-  test('renders "The <competitor> alternative" then the tagline', () => {
+  test('renders "The <competitor> alternative" with the gradient on alternative, then the tagline', () => {
     const html = renderMarkup(
       <AlternativeHero
         competitor='Acme'
@@ -78,10 +79,44 @@ describe('AlternativeHero', () => {
     expect(heading.replace(/<[^>]+>/g, '')).toBe(
       'The Acme alternativewith no servers'
     )
-    expect(heading).toMatch(/<span[^>]*>Acme<\/span> alternative<br\/>/)
+    expect(heading).toMatch(/The Acme <span[^>]*>alternative<\/span><br\/>/)
+    expect(heading).not.toMatch(/<span[^>]*>Acme<\/span>/)
     expect(html).toContain('Lead copy.')
     expect(html).toContain('Read the docs')
     expect(html).toContain('<div>demo</div>')
+  })
+
+  test('custom hero content keeps its own frame, without the editor shadow', () => {
+    const shadowRule = />\s?div\s?>\s?div:first-child\{box-shadow/
+    const stylesOf = element => {
+      const sheet = new ServerStyleSheet()
+      try {
+        renderToStaticMarkup(
+          sheet.collectStyles(
+            <ServerLocation url='/'>
+              <ThemeProvider theme={themeSpec}>{element}</ThemeProvider>
+            </ServerLocation>
+          )
+        )
+        return sheet.getStyleTags()
+      } finally {
+        sheet.seal()
+      }
+    }
+    expect(
+      stylesOf(
+        <AlternativeHero competitor='Acme' tagline='fast' description='Lead.' />
+      )
+    ).toMatch(shadowRule)
+    expect(
+      stylesOf(
+        <AlternativeHero competitor='Acme' tagline='fast' description='Lead.'>
+          <div>
+            <div>header</div>
+          </div>
+        </AlternativeHero>
+      )
+    ).not.toMatch(shadowRule)
   })
 
   test('primary action is a signup button that navigates, secondary is a link', () => {

@@ -55,7 +55,7 @@ export const Hero = () => (
           color: 'black'
         })}
       >
-        The <GradientText>Cloudflare</GradientText> alternative
+        The Cloudflare <GradientText>alternative</GradientText>
         <Box
           as='span'
           css={theme({ display: ['inline', 'inline', 'inline', 'none'] })}
@@ -74,7 +74,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           maxWidth: layout.large,
-          color: 'black80'
+          color: 'black'
         })}
       >
         Cloudflare rents you a raw headless browser. Microlink returns the
@@ -158,7 +158,7 @@ export const Hero = () => (
         css={theme({
           pt: [3, 3, 4, 4],
           fontSize: 1,
-          color: 'black60',
+          color: 'black',
           textAlign: 'center'
         })}
       >

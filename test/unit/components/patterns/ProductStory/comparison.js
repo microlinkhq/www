@@ -39,12 +39,23 @@ const render = () => {
 describe('ComparisonTable', () => {
   test('labels the header with the feature label and both columns', () => {
     const { html } = render()
-    const headers = [...html.matchAll(/<th scope="col"[^>]*>([^<]*)<\/th>/g)]
-    expect(headers.map(([, label]) => label)).toEqual([
+    const headers = [...html.matchAll(/<th scope="col"[^>]*>(.*?)<\/th>/g)]
+    expect(headers.map(([, label]) => label.replace(/<[^>]+>/g, ''))).toEqual([
       'Feature',
       'Microlink',
       'Acme'
     ])
+  })
+
+  test('shows the Microlink logo beside the Microlink column name', () => {
+    const { html } = render()
+    const [, microlink] = html.match(/<th scope="col"[^>]*>(.*?)<\/th>/g)
+    expect(microlink).toMatch(
+      /<img[^>]*src="https:\/\/cdn\.microlink\.io\/logo\/logo\.svg"/
+    )
+    expect(microlink).toMatch(/<img[^>]*alt=""/)
+    expect(microlink).toMatch(/<img[^>]*aria-hidden="true"/)
+    expect(microlink.replace(/<[^>]+>/g, '')).toBe('Microlink')
   })
 
   test('renders booleans as accessible yes/no marks and strings as text', () => {
@@ -56,10 +67,11 @@ describe('ComparisonTable', () => {
     expect(html).toContain('Rotating pool.')
   })
 
-  test('uses the site table type, not the mono uppercase style', () => {
+  test('uses the minimal site table in neutral black, no brand color', () => {
     const { css } = render()
     expect(css).not.toMatch(/text-transform:uppercase/)
     expect(css).not.toMatch(/font-family:[^;]*Operator Mono[^;]*;[^}]*th/)
-    expect(css).toContain(colors.pink0)
+    expect(css).not.toContain(colors.pink0)
+    expect(css).not.toContain(colors.secondary)
   })
 })

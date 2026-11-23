@@ -6,7 +6,7 @@ import React, {
   useRef
 } from 'react'
 import styled, { css } from 'styled-components'
-import { breakpoints, colors, theme } from 'theme'
+import { breakpoints, theme } from 'theme'
 import { Check as CheckIcon } from 'react-feather'
 
 import FeatherIcon from 'components/icons/Feather'
@@ -14,47 +14,67 @@ import FeatherIcon from 'components/icons/Feather'
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 
-export const HIGHLIGHT_BG = colors.gray0
-
 const TABLE_MIN_WIDTH = '640px'
 
 const tableBase = css`
   width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
+  border-collapse: collapse;
   table-layout: auto;
 
-  th,
-  td {
+  :where(th, td) {
     ${theme({
-      px: [2, 3, 3, 3],
-      py: 3,
+      p: 2,
       textAlign: 'left',
       verticalAlign: 'top',
       fontFamily: 'sans',
-      fontSize: [0, 1, 1, 1],
-      lineHeight: 2,
-      color: 'black80',
-      borderBottom: 1,
-      borderBottomColor: 'black10'
+      fontSize: [1, 1, 2, 2],
+      fontWeight: 'normal',
+      lineHeight: 3,
+      color: 'black'
     })}
+  }
+
+  :where(th:first-child, td:first-child) {
+    ${theme({ pl: 0 })}
+  }
+
+  :where(th:last-child, td:last-child) {
+    ${theme({ pr: 0 })}
+  }
+
+  :where(thead th) {
+    ${theme({ fontWeight: 'bold' })}
   }
 
   thead th {
-    ${theme({
-      bg: 'black05',
-      color: 'black',
-      fontWeight: 'bold',
-      verticalAlign: 'middle'
-    })}
+    ${theme({ borderBottom: 1, borderBottomColor: 'black10' })}
   }
 
-  tbody th {
-    ${theme({ color: 'black', fontWeight: 'bold' })}
+  th,
+  td {
+    ${theme({ color: 'black' })}
   }
 
-  tbody tr:last-child th,
-  tbody tr:last-child td {
+  th :not(a),
+  td :not(a) {
+    ${theme({ color: 'inherit' })}
+  }
+
+  tbody th,
+  tbody td {
+    ${theme({ fontWeight: 'normal' })}
+  }
+
+  tbody th *,
+  tbody td * {
+    ${theme({ fontWeight: 'inherit' })}
+  }
+
+  tbody tr {
+    ${theme({ borderBottom: 1, borderBottomColor: 'black05' })}
+  }
+
+  tbody tr:last-child {
     ${theme({ borderBottom: 0 })}
   }
 
@@ -80,66 +100,80 @@ const tableBase = css`
     }
 
     tr {
-      ${theme({ py: 2, borderBottom: 1, borderBottomColor: 'black10' })}
-    }
-
-    tbody tr:last-child {
-      ${theme({ borderBottom: 0 })}
+      ${theme({ py: 2 })}
     }
 
     th,
     td {
-      ${theme({ py: 1, borderBottom: 0, overflowWrap: 'anywhere' })}
+      ${theme({ px: 0, py: 1, overflowWrap: 'anywhere' })}
     }
 
-    tr > :first-child {
-      ${theme({ color: 'black', fontWeight: 'bold' })}
+    tbody tr > :first-child {
+      ${theme({ fontWeight: 'bold' })}
     }
 
     td:not(:first-child)::before {
       content: attr(data-label);
       display: block;
-      ${theme({ fontSize: 0, fontWeight: 'bold', color: 'black60' })}
+      ${theme({ fontSize: 0, fontWeight: 'bold', color: 'black' })}
+    }
+  }
+`
+
+const ROW_INSET = 3
+const ROW_RADIUS = 4
+
+const interactiveRows = css`
+  @media (min-width: calc(${breakpoints[0]} + 1px)) {
+    @media (hover: hover) and (pointer: fine) {
+      border-collapse: separate;
+      border-spacing: 0;
+
+      tbody tr {
+        ${theme({ borderBottom: 0 })}
+      }
+
+      :where(th:first-child, td:first-child) {
+        ${theme({ pl: ROW_INSET })}
+      }
+
+      :where(th:last-child, td:last-child) {
+        ${theme({ pr: ROW_INSET })}
+      }
+
+      tbody tr > * {
+        transition: background-color 150ms ease;
+      }
+
+      tbody tr > :first-child {
+        ${theme({
+          borderTopLeftRadius: ROW_RADIUS,
+          borderBottomLeftRadius: ROW_RADIUS
+        })}
+      }
+
+      tbody tr > :last-child {
+        ${theme({
+          borderTopRightRadius: ROW_RADIUS,
+          borderBottomRightRadius: ROW_RADIUS
+        })}
+      }
+
+      tbody tr:hover > * {
+        ${theme({ backgroundColor: 'black05' })}
+      }
     }
   }
 `
 
 export const FeatureTable = styled('table')`
   ${tableBase}
+  ${({ interactive }) => interactive && interactiveRows}
 `
 
-export const ProseTable = styled('table')`
-  ${tableBase}
-
-  tbody td {
-    ${theme({ color: 'black70' })}
-  }
-`
-
-const SCROLL_SHADOW = 'rgba(16, 24, 40, 0.12)'
-const SCROLL_SHADOW_WIDTH = '16px'
-const SCROLL_COVER_WIDTH = '48px'
-
-const TableCardBox = styled(Box)`
-  ${theme({
-    width: '100%',
-    overflowX: 'auto',
-    borderRadius: 3,
-    border: 1,
-    borderColor: 'black10',
-    boxShadow: 1
-  })}
+const TableScrollBox = styled(Box)`
+  ${theme({ width: '100%', overflowX: 'auto' })}
   -webkit-overflow-scrolling: touch;
-  background-color: ${colors.white};
-  background-image: linear-gradient(to right, ${colors.white}, transparent),
-    linear-gradient(to left, ${colors.white}, transparent),
-    radial-gradient(farthest-side at 0 50%, ${SCROLL_SHADOW}, transparent),
-    radial-gradient(farthest-side at 100% 50%, ${SCROLL_SHADOW}, transparent);
-  background-position: left center, right center, left center, right center;
-  background-repeat: no-repeat;
-  background-size: ${SCROLL_COVER_WIDTH} 100%, ${SCROLL_COVER_WIDTH} 100%,
-    ${SCROLL_SHADOW_WIDTH} 100%, ${SCROLL_SHADOW_WIDTH} 100%;
-  background-attachment: local, local, scroll, scroll;
 `
 
 export const labelCellsFromHeader = table => {
@@ -217,7 +251,7 @@ const labelTables = children =>
     return headers.length === 0 ? child : labelRows(child, headers)
   })
 
-export const TableCard = ({ children, ...props }) => {
+export const TableScroll = ({ children, ...props }) => {
   const ref = useRef(null)
 
   useEffect(() => {
@@ -225,9 +259,9 @@ export const TableCard = ({ children, ...props }) => {
   })
 
   return (
-    <TableCardBox ref={ref} {...props}>
+    <TableScrollBox ref={ref} {...props}>
       {labelTables(children)}
-    </TableCardBox>
+    </TableScrollBox>
   )
 }
 
@@ -238,7 +272,7 @@ export const CellNote = ({ children }) => (
       pt: 1,
       fontSize: 0,
       fontWeight: 'normal',
-      color: 'black60',
+      color: 'black',
       lineHeight: 1,
       whiteSpace: 'normal',
       textTransform: 'none'
@@ -254,7 +288,7 @@ export const Check = () => (
     size='16px'
     role='img'
     aria-label='Yes'
-    css={theme({ mx: 'auto', color: 'secondary' })}
+    css={theme({ mx: 'auto' })}
   />
 )
 
@@ -264,13 +298,11 @@ export const Cross = () => (
     role='img'
     aria-label='No'
     css={theme({
-      color: 'black30',
-      fontWeight: 'bold',
       fontSize: 'inherit',
       lineHeight: 'inherit'
     })}
   >
-    —
+    -
   </Text>
 )
 

@@ -1,6 +1,5 @@
 import { layout, theme } from 'theme'
 import React from 'react'
-import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -9,25 +8,16 @@ import {
   Section,
   SectionHeader
 } from 'components/patterns/ProductStory/section'
-import {
-  HIGHLIGHT_BG,
-  ProseTable,
-  TableCard
-} from 'components/elements/Table/Table'
+import { FeatureTable, TableScroll } from 'components/elements/Table/Table'
 
 import { SHAPES } from './shared'
-
-const ShapeRow = styled.tr`
-  background: ${({ $highlight }) =>
-    $highlight ? HIGHLIGHT_BG : 'transparent'};
-`
 
 export const Shapes = () => (
   <Section id='shapes' bg='pinky'>
     <SectionHeader title={SHAPES.title} caption={SHAPES.caption} />
 
-    <TableCard>
-      <ProseTable>
+    <TableScroll>
+      <FeatureTable>
         <thead>
           <tr>
             {SHAPES.columns.map(column => (
@@ -38,18 +28,18 @@ export const Shapes = () => (
           </tr>
         </thead>
         <tbody>
-          {SHAPES.rows.map(({ id, need, jina, microlink, highlight }) => (
-            <ShapeRow key={id} $highlight={highlight}>
+          {SHAPES.rows.map(({ id, need, jina, microlink }) => (
+            <tr key={id}>
               <Text as='th' scope='row'>
                 {need}
               </Text>
               <td>{jina}</td>
               <td>{microlink}</td>
-            </ShapeRow>
+            </tr>
           ))}
         </tbody>
-      </ProseTable>
-    </TableCard>
+      </FeatureTable>
+    </TableScroll>
 
     <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>
       <Text css={theme({ fontSize: 0, color: 'black60', lineHeight: 2 })}>

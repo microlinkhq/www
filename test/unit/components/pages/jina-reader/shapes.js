@@ -5,7 +5,6 @@ import { ServerStyleSheet, ThemeProvider } from 'styled-components'
 import { describe, expect, test } from 'vitest'
 
 import { Shapes } from '../../../../../src/components/pages/jina-reader/shapes'
-import { HIGHLIGHT_BG } from '../../../../../src/components/elements/Table/Table'
 import themeSpec from '../../../../../src/theme'
 
 const render = () => {
@@ -26,36 +25,7 @@ const render = () => {
   }
 }
 
-const rowClass = (html, label) => {
-  const row = html
-    .split('<tr')
-    .slice(1)
-    .find(part => part.includes(label))
-  const attrs = row.slice(0, row.indexOf('>'))
-  return attrs
-    .match(/class="([^"]+)"/)[1]
-    .split(' ')
-    .pop()
-}
-
-const backgroundRule = (css, className) => {
-  const rule = css.match(
-    new RegExp(`\\.${className}[^{]*\\{[^}]*background:[^}]*\\}`)
-  )
-  return rule[0]
-}
-
 describe('Jina Reader shapes', () => {
-  test('highlights only the row that names the PDF gap', () => {
-    const { html, css } = render()
-    const pdf = backgroundRule(css, rowClass(html, 'A PDF of the page'))
-    const markdown = backgroundRule(css, rowClass(html, 'Markdown of the page'))
-
-    expect(pdf).toContain(HIGHLIGHT_BG)
-    expect(markdown).toContain('transparent')
-    expect(markdown).not.toContain(HIGHLIGHT_BG)
-  })
-
   test('names the HTML parameter and the combined Reader header', () => {
     const { html } = render()
 

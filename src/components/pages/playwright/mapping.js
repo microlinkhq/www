@@ -1,6 +1,5 @@
 import { layout, theme } from 'theme'
 import React from 'react'
-import styled from 'styled-components'
 
 import Box from 'components/elements/Box'
 import { Link } from 'components/elements/Link'
@@ -8,19 +7,13 @@ import Text from 'components/elements/Text'
 
 import {
   GradientText,
-  HIGHLIGHT_BG,
-  ProseTable,
+  FeatureTable,
   Section,
   SectionHeader,
-  TableCard
+  TableScroll
 } from 'components/patterns/ProductStory'
 
 import { PLAYWRIGHT_PAGE_API } from './shared'
-
-const MappingRow = styled.tr`
-  background: ${({ $highlight }) =>
-    $highlight ? HIGHLIGHT_BG : 'transparent'};
-`
 
 const code = value => <code>{value}</code>
 
@@ -47,8 +40,7 @@ const MAPPING = {
       need: 'Full-page screenshot',
       playwright: code('page.screenshot({ fullPage: true })'),
       microlink: 'screenshot.fullPage',
-      href: '/docs/api/parameters/screenshot/fullPage',
-      highlight: true
+      href: '/docs/api/parameters/screenshot/fullPage'
     },
     {
       id: 'element',
@@ -77,8 +69,7 @@ const MAPPING = {
       need: 'PDF in a paper size',
       playwright: code("page.pdf({ format: 'A4' })"),
       microlink: 'pdf.format',
-      href: '/docs/api/parameters/pdf/format',
-      highlight: true
+      href: '/docs/api/parameters/pdf/format'
     },
     {
       id: 'pdf-layout',
@@ -99,8 +90,7 @@ const MAPPING = {
       need: 'Emulate a phone',
       playwright: code("newContext(devices['iPhone 15 Pro'])"),
       microlink: "device: 'iPhone 15 Pro'",
-      href: '/docs/api/parameters/device',
-      highlight: true
+      href: '/docs/api/parameters/device'
     },
     {
       id: 'viewport',
@@ -142,8 +132,7 @@ const MAPPING = {
       need: 'Block ads, trackers, cookie banners',
       playwright: code('page.route() + route.abort()'),
       microlink: 'adblock (on by default)',
-      href: '/docs/api/parameters/adblock',
-      highlight: true
+      href: '/docs/api/parameters/adblock'
     },
     {
       id: 'interaction',
@@ -208,8 +197,8 @@ export const Mapping = () => (
   <Section id='call-mapping' bg='pinky'>
     <SectionHeader title={MAPPING.title} caption={MAPPING.caption} />
 
-    <TableCard>
-      <ProseTable>
+    <TableScroll>
+      <FeatureTable>
         <thead>
           <tr>
             {MAPPING.columns.map(column => (
@@ -220,22 +209,20 @@ export const Mapping = () => (
           </tr>
         </thead>
         <tbody>
-          {MAPPING.rows.map(
-            ({ id, need, playwright, microlink, href, highlight }) => (
-              <MappingRow key={id} $highlight={highlight}>
-                <Text as='th' scope='row'>
-                  {need}
-                </Text>
-                <td>{playwright}</td>
-                <td>
-                  <Link href={href}>{microlink}</Link>
-                </td>
-              </MappingRow>
-            )
-          )}
+          {MAPPING.rows.map(({ id, need, playwright, microlink, href }) => (
+            <tr key={id}>
+              <Text as='th' scope='row'>
+                {need}
+              </Text>
+              <td>{playwright}</td>
+              <td>
+                <Link href={href}>{microlink}</Link>
+              </td>
+            </tr>
+          ))}
         </tbody>
-      </ProseTable>
-    </TableCard>
+      </FeatureTable>
+    </TableScroll>
 
     <Box css={theme({ pt: [3, 3, 4, 4], mx: 'auto', maxWidth: layout.normal })}>
       <Text css={theme({ fontSize: 0, color: 'black60', lineHeight: 2 })}>

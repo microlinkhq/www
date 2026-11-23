@@ -78,18 +78,15 @@ export const THROUGHPUT = {
     },
     {
       plan: 'Microlink Pro, $49',
-      cells: ['46,000 requests', 'No limit*', '$1.07'],
-      highlight: true
+      cells: ['46,000 requests', 'No limit*', '$1.07']
     },
     {
       plan: 'Microlink Pro, $150',
-      cells: ['140,000 requests', 'No limit*', '$1.07'],
-      highlight: true
+      cells: ['140,000 requests', 'No limit*', '$1.07']
     },
     {
       plan: 'Microlink Pro, $450',
-      cells: ['420,000 requests', 'No limit*', '$1.07'],
-      highlight: true
+      cells: ['420,000 requests', 'No limit*', '$1.07']
     }
   ],
   footnote: (
