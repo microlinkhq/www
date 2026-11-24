@@ -41,11 +41,13 @@ describe('menu keys', () => {
     expect(openMenuTarget('Enter')).toBe('first')
     expect(openMenuTarget(' ')).toBe('first')
     expect(openMenuTarget('ArrowUp')).toBe('last')
+    expect(openMenuTarget('Escape')).toBe(null)
   })
 
   test('escape and tab close the menu', () => {
     expect(closesMenu('Escape')).toBe(true)
     expect(closesMenu('Tab')).toBe(true)
+    expect(closesMenu('ArrowDown')).toBe(false)
   })
 
   test('space activates a menu link and leaves buttons and enter alone', () => {
