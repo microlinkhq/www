@@ -20,6 +20,13 @@ const OPEN_KEYS = {
 
 const CLOSE_KEYS = ['Escape', 'Tab']
 
+export const openMenuTarget = key => OPEN_KEYS[key] ?? null
+
+export const closesMenu = key => CLOSE_KEYS.includes(key)
+
+export const linkActivatedBySpace = (key, tagName) =>
+  key === ' ' && tagName === 'A'
+
 const menuItems = menu =>
   menu ? Array.from(menu.querySelectorAll(MENU_ITEM_SELECTOR)) : []
 
@@ -88,16 +95,22 @@ export const useAccountMenu = ({ offset }) => {
   const onTriggerClick = () => (isOpen ? close() : open('first'))
 
   const onTriggerKeyDown = event => {
-    const target = OPEN_KEYS[event.key]
-    if (!target) return
+    const target = openMenuTarget(event.key)
+    if (target === null) return
     event.preventDefault()
     open(target)
   }
 
   const onMenuKeyDown = event => {
-    if (CLOSE_KEYS.includes(event.key)) {
+    if (closesMenu(event.key)) {
       event.preventDefault()
       close({ restoreFocus: true })
+      return
+    }
+    const active = document.activeElement
+    if (linkActivatedBySpace(event.key, active?.tagName)) {
+      event.preventDefault()
+      active.click()
       return
     }
     const items = menuItems(menuRef.current)

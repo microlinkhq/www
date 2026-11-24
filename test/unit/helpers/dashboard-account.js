@@ -225,6 +225,14 @@ describe('fetchAccount', () => {
 })
 
 describe('accountLoad', () => {
+  test('a single key is kept for the ttl', async () => {
+    const { calls, fetcher } = signedIn(() => json({ apiKeys: ['dev'] }))
+    const first = await accountFor('150', fetcher, 0)
+    await settle()
+    expect(await accountFor('150', fetcher, 1000)).toBe(first)
+    expect(calls).toHaveLength(3)
+  })
+
   test('one sign-in loads once, a new sign-in loads again, signed out loads nothing', async () => {
     const { calls, fetcher } = signedIn()
     const first = await accountFor('100', fetcher, 0)

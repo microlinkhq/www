@@ -113,6 +113,49 @@ describe('watchAccount', () => {
     expect(states.at(-1)).toEqual({ signedIn: true, account: null })
   })
 
+  test('a known empty key list is not replaced while the next load is still fetching keys', async () => {
+    const { gate, release } = deferred()
+    stubClerk({ keys: gate })
+    const states = []
+    watchAccount(documentOf('__client_uat=2011'), state => states.push(state), {
+      signedIn: true,
+      account: {
+        sessionId: 'sess_1',
+        profile: { name: 'Ada' },
+        apiKeys: []
+      }
+    })
+    await settle()
+    expect(states.some(({ account }) => account?.apiKeys === null)).toBe(false)
+    release()
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual(['dev'])
+  })
+
+  test('a new session replaces the account already shown before its keys arrive', async () => {
+    const { gate, release } = deferred()
+    stubClerk({ keys: gate })
+    const states = []
+    watchAccount(documentOf('__client_uat=2012'), state => states.push(state), {
+      signedIn: true,
+      account: {
+        sessionId: 'sess_old',
+        profile: { name: 'Old' },
+        apiKeys: ['paid']
+      }
+    })
+    await settle()
+    expect(
+      states.some(
+        ({ account }) =>
+          account?.sessionId === 'sess_1' && account.apiKeys === null
+      )
+    ).toBe(true)
+    release()
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual(['dev'])
+  })
+
   test('a remount starts from the account already shown, so nothing flashes', async () => {
     stubClerk()
     const shown = {

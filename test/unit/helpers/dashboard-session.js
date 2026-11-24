@@ -47,4 +47,10 @@ describe('signedInMarker', () => {
       signedInMarker('__client_uat=1760960000')
     )
   })
+
+  test('uses the first signed-in client_uat when another one follows', () => {
+    expect(signedInMarker('__client_uat=111; __client_uat_Y2xlcmsu=222')).toBe(
+      '111'
+    )
+  })
 })
