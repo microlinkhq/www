@@ -24,6 +24,8 @@ export const openMenuTarget = key => OPEN_KEYS[key] ?? null
 
 export const closesMenu = key => CLOSE_KEYS.includes(key)
 
+export const preventsCloseDefault = key => key === 'Escape'
+
 export const linkActivatedBySpace = (key, tagName) =>
   key === ' ' && tagName === 'A'
 
@@ -103,7 +105,7 @@ export const useAccountMenu = ({ offset }) => {
 
   const onMenuKeyDown = event => {
     if (closesMenu(event.key)) {
-      event.preventDefault()
+      if (preventsCloseDefault(event.key)) event.preventDefault()
       close({ restoreFocus: true })
       return
     }

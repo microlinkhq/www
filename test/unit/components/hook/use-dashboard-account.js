@@ -51,13 +51,17 @@ const SESSION = {
 
 const NO_SESSION = { response: { last_active_session_id: null, sessions: [] } }
 
-const stubClerk = ({ client = SESSION, keys = Promise.resolve() } = {}) => {
+const stubClerk = ({
+  client = SESSION,
+  keys = Promise.resolve(),
+  apiKeys = ['dev']
+} = {}) => {
   const calls = []
   const routes = {
     [`${CLERK_FRONTEND_API}/client`]: () => json(client),
     [`${CLERK_FRONTEND_API}/client/sessions/sess_1/tokens`]: () =>
       json({ jwt: 'jwt_1' }),
-    [SESSION_KEYS_URL]: () => keys.then(() => json({ apiKeys: ['dev'] }))
+    [SESSION_KEYS_URL]: () => keys.then(() => json({ apiKeys }))
   }
   vi.stubGlobal('fetch', async url => {
     calls.push(url)
@@ -184,6 +188,48 @@ describe('watchAccount', () => {
     expect(
       states.slice(loaded).every(({ account }) => account.apiKeys !== null)
     ).toBe(true)
+  })
+
+  test('a failed refresh keeps keys already shown', async () => {
+    stubClerk()
+    const document = documentOf('__client_uat=2013')
+    const states = []
+    watchAccount(document, state => states.push(state))
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual(['dev'])
+    forgetAccount()
+    stubClerk({ keys: Promise.reject(new TypeError('Failed to fetch')) })
+    document.show()
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual(['dev'])
+  })
+
+  test('a refresh that returns keys replaces the list already shown', async () => {
+    stubClerk()
+    const document = documentOf('__client_uat=2015')
+    const states = []
+    watchAccount(document, state => states.push(state))
+    await settle()
+    forgetAccount()
+    stubClerk({ apiKeys: ['dev', 'paid'] })
+    document.show()
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual(['dev', 'paid'])
+  })
+
+  test('a failed refresh keeps a known empty key list', async () => {
+    stubClerk({ keys: Promise.reject(new TypeError('Failed to fetch')) })
+    const states = []
+    watchAccount(documentOf('__client_uat=2014'), state => states.push(state), {
+      signedIn: true,
+      account: {
+        sessionId: 'sess_1',
+        profile: { name: 'Ada' },
+        apiKeys: []
+      }
+    })
+    await settle()
+    expect(states.at(-1).account.apiKeys).toEqual([])
   })
 
   test('a hidden tab does not reload on visibilitychange', async () => {

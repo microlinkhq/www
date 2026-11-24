@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest'
 import {
   closesMenu,
   linkActivatedBySpace,
+  preventsCloseDefault,
   nextMenuIndex,
   openMenuTarget,
   popupPosition
@@ -48,6 +49,8 @@ describe('menu keys', () => {
     expect(closesMenu('Escape')).toBe(true)
     expect(closesMenu('Tab')).toBe(true)
     expect(closesMenu('ArrowDown')).toBe(false)
+    expect(preventsCloseDefault('Escape')).toBe(true)
+    expect(preventsCloseDefault('Tab')).toBe(false)
   })
 
   test('space activates a menu link and leaves buttons and enter alone', () => {

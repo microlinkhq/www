@@ -41,7 +41,9 @@ export const watchAccount = (document, update, initial) => {
       }
     })
     account.then(next => {
-      if (request === current) show({ signedIn: true, account: next })
+      if (request !== current) return
+      if (next?.apiKeys === null && hasKeysFor(shown, next)) return
+      show({ signedIn: true, account: next })
     })
   }
   const forget = () => {
