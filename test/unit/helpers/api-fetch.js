@@ -85,18 +85,18 @@ describe('fetchApi', () => {
     expect(fetcher.mock.calls.map(sentKey)).toEqual(['stale', 'dev'])
   })
 
-  test('every key spent falls back to one keyless run', async () => {
-    const fetcher = vi.fn(async (url, init) =>
-      sentKey([url, init]) ? json(RATE_LIMITED, 429) : json(SUCCESS)
-    )
-    const { json: body } = await fetchApi(QUERY, {
+  test('a signed-in visitor never falls back to the free endpoint', async () => {
+    const fetcher = vi.fn(async () => json(RATE_LIMITED, 429))
+    const { res } = await fetchApi(QUERY, {
       fetcher,
       withAccount: true,
       loadKeys: keysOf(['dev', 'paid'])
     })
-    expect(body).toEqual(SUCCESS)
-    expect(fetcher.mock.calls.map(sentKey)).toEqual(['dev', 'paid', undefined])
-    expect(fetcher.mock.calls.at(-1)[0].startsWith(FREE_API_URL)).toBe(true)
+    expect(res.status).toBe(429)
+    expect(fetcher.mock.calls.map(sentKey)).toEqual(['dev', 'paid'])
+    expect(
+      fetcher.mock.calls.every(([url]) => url.startsWith(PRO_API_URL))
+    ).toBe(true)
   })
 
   test('when everything is rate limited the caller still gets a response to render', async () => {

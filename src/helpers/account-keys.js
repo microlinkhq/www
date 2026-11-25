@@ -54,19 +54,19 @@ const unwrap = outcome => {
 
 const movesOn = outcome => Boolean(outcome.failure || outcome.planLimited)
 
+const runKeyless = async (attempt, bodyOf) =>
+  unwrap(await settle(attempt, undefined, bodyOf))
+
 export const runWithKeys = async (keys, attempt, bodyOf = result => result) => {
+  if (keys.length === 0) return runKeyless(attempt, bodyOf)
   let last
   let rateLimited
-  let planLimited
   for (const key of keys) {
     last = await settle(attempt, key, bodyOf)
     if (isRateLimited(last.failure)) rateLimited = last
-    if (last.planLimited) planLimited = last
     if (!movesOn(last)) return last.result
   }
-  if (planLimited) return unwrap(rateLimited ?? last)
-  const keyless = await settle(attempt, undefined, bodyOf)
-  return unwrap(last && movesOn(keyless) ? last : keyless)
+  return unwrap(rateLimited ?? last)
 }
 
 class SpentKeyResponse extends Error {

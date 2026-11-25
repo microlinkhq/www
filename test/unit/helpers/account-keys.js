@@ -112,26 +112,6 @@ describe('runWithKeys', () => {
     await expect(runWithKeys(['dev', 'paid'], attempt)).rejects.toBe(fatal)
     expect(attempt).toHaveBeenCalledTimes(1)
   })
-
-  test('after every key is spent, one keyless run rescues the request', async () => {
-    const attempt = vi.fn(async key => {
-      if (key) throw rateLimited()
-      return 'keyless'
-    })
-    expect(await runWithKeys(['dev', 'paid'], attempt)).toBe('keyless')
-    expect(attempt.mock.calls.at(-1)).toEqual([undefined])
-  })
-
-  test('when the keyless run fails too, the reader sees the last key failure', async () => {
-    const paidFailure = rateLimited()
-    const attempt = vi.fn(async key => {
-      if (key === 'paid') throw paidFailure
-      throw rateLimited()
-    })
-    await expect(runWithKeys(['dev', 'paid'], attempt)).rejects.toBe(
-      paidFailure
-    )
-  })
 })
 
 const rejectedBy = name => ({
@@ -155,6 +135,32 @@ describe('hitsPlanLimit', () => {
 })
 
 describe('runWithKeys on the free development key', () => {
+  test('a signed-in visitor never runs keyless, even with every key spent', async () => {
+    const devLimit = rateLimited()
+    const paidLimit = rateLimited()
+    const attempt = vi.fn(async key => {
+      throw key === 'dev' ? devLimit : paidLimit
+    })
+    await expect(runWithKeys(['dev', 'paid'], attempt)).rejects.toBe(paidLimit)
+    expect(attempt.mock.calls).toEqual([['dev'], ['paid']])
+  })
+
+  test('code over the free plan on the only key returns that rejection, with no keyless run', async () => {
+    const attempt = vi.fn(async () => rejectedBy('OutgoingRequestError'))
+    expect(await runWithKeys(['dev'], attempt)).toEqual(
+      rejectedBy('OutgoingRequestError')
+    )
+    expect(attempt.mock.calls).toEqual([['dev']])
+  })
+
+  test('a refused paid key after a rate-limited one shows the rate limit', async () => {
+    const devLimit = rateLimited()
+    const attempt = vi.fn(async key => {
+      throw key === 'dev' ? devLimit : rejectedKey()
+    })
+    await expect(runWithKeys(['dev', 'paid'], attempt)).rejects.toBe(devLimit)
+  })
+
   test('a plan rejection on the development key hands over to the paid key', async () => {
     const attempt = vi.fn(async key =>
       key === 'dev' ? rejectedBy('CodeSizeError') : { data: { ok: key } }
@@ -162,14 +168,6 @@ describe('runWithKeys on the free development key', () => {
     expect(await runWithKeys(['dev', 'paid'], attempt)).toEqual({
       data: { ok: 'paid' }
     })
-  })
-
-  test('once a key found the code over the free plan, no keyless run is made', async () => {
-    const attempt = vi.fn(async () => rejectedBy('OutgoingRequestError'))
-    expect(await runWithKeys(['dev'], attempt)).toEqual(
-      rejectedBy('OutgoingRequestError')
-    )
-    expect(attempt.mock.calls).toEqual([['dev']])
   })
 
   test('a paid key out of runs wins over the development key plan rejection', async () => {
@@ -180,15 +178,6 @@ describe('runWithKeys on the free development key', () => {
     })
     await expect(runWithKeys(['dev', 'paid'], attempt)).rejects.toBe(paidLimit)
     expect(attempt).toHaveBeenCalledTimes(2)
-  })
-
-  test('a keyless run the free plan rejects falls back to the keyed answer', async () => {
-    const keyed = rateLimited()
-    const attempt = vi.fn(async key => {
-      if (key) throw keyed
-      return rejectedBy('CodeSizeError')
-    })
-    await expect(runWithKeys(['dev'], attempt)).rejects.toBe(keyed)
   })
 
   test('without keys a plan-rejected keyless run is returned as is', async () => {
