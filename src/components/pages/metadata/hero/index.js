@@ -155,7 +155,7 @@ export const Hero = function Hero ({
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchMetadata(normalized, { track: true })
+    fetchMetadata(normalized, { track: true, withAccount: true })
   }
 
   const handleBack = () => {
@@ -166,7 +166,7 @@ export const Hero = function Hero ({
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchMetadata(url)
+    fetchMetadata(url, { withAccount: true })
   }
 
   const handleForward = () => {
@@ -177,7 +177,7 @@ export const Hero = function Hero ({
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchMetadata(url)
+    fetchMetadata(url, { withAccount: true })
   }
 
   const handleBlur = e => {

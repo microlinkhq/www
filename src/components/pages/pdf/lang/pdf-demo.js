@@ -147,7 +147,7 @@ const PdfDemo = () => {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchPdf(normalized, { track: true })
+    fetchPdf(normalized, { track: true, withAccount: true })
   }
 
   const handleBack = () => {
@@ -158,7 +158,7 @@ const PdfDemo = () => {
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchPdf(url)
+    fetchPdf(url, { withAccount: true })
   }
 
   const handleForward = () => {
@@ -169,7 +169,7 @@ const PdfDemo = () => {
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchPdf(url)
+    fetchPdf(url, { withAccount: true })
   }
 
   const handleBlur = e => {

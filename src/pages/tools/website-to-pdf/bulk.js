@@ -2430,7 +2430,7 @@ const PdfBatchTool = () => {
           }
 
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey: localStorageData,
             meta: false,
             pdf: pdfOpts,
             screenshot: true,

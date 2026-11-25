@@ -1,6 +1,11 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { toRawResponse } from '../../../src/components/patterns/MultiCodeEditor/interactive/raw-response.js'
 import microlink from '../../../src/helpers/microlink.js'
+import {
+  CLERK_FRONTEND_API,
+  SESSION_KEYS_URL,
+  forgetAccount
+} from '../../../src/helpers/dashboard-account.js'
 
 const URL_TO_FETCH = 'https://example.com'
 const FORWARDED_HEADERS = { 'user-agent': 'googlebot', 'accept-language': 'en' }
@@ -235,5 +240,85 @@ describe('request', () => {
     const raw = toRawResponse(result)
     expect(raw.headers['content-type']).toBe('image/png')
     expect(new Uint8Array(raw.body)).toEqual(bytes)
+  })
+})
+
+describe('request on the signed-in account', () => {
+  const CLIENT = {
+    response: {
+      last_active_session_id: 'sess_1',
+      sessions: [{ id: 'sess_1', user: { email_addresses: [] } }]
+    }
+  }
+
+  const apiJson = (body, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { 'content-type': 'application/json' }
+    })
+
+  const isApiCall = input => typeof input !== 'string'
+
+  let fetchMock
+
+  const answerApi = handler =>
+    fetchMock.mockImplementation(async input => {
+      if (input === `${CLERK_FRONTEND_API}/client`) return apiJson(CLIENT)
+      if (String(input).endsWith('/tokens')) return apiJson({ jwt: 'jwt' })
+      if (input === SESSION_KEYS_URL) {
+        return apiJson({ apiKeys: ['dev', 'paid'] })
+      }
+      return handler(input)
+    })
+
+  const apiCalls = () =>
+    fetchMock.mock.calls.map(([input]) => input).filter(isApiCall)
+
+  beforeEach(() => {
+    forgetAccount()
+    fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+    vi.stubGlobal('document', { cookie: '__client_uat=1732000000' })
+  })
+
+  afterEach(() => {
+    forgetAccount()
+    vi.unstubAllGlobals()
+  })
+
+  test('runs on the development key first, on the pro endpoint', async () => {
+    answerApi(() => apiJson({ status: 'success', data: {} }))
+    await microlink.request(URL_TO_FETCH)
+    const [sent] = apiCalls()
+    expect(sent.url.startsWith('https://pro.microlink.io/')).toBe(true)
+    expect(sent.headers.get('x-api-key')).toBe('dev')
+  })
+
+  test('moves to the paid key when the development key is out of runs', async () => {
+    answerApi(input =>
+      input.headers.get('x-api-key') === 'dev'
+        ? apiJson({ status: 'fail', code: 'ERATE' }, 429)
+        : apiJson({ status: 'success', data: { title: 'paid' } })
+    )
+    const { data } = await microlink.request(URL_TO_FETCH)
+    expect(data.title).toBe('paid')
+    expect(apiCalls().map(call => call.headers.get('x-api-key'))).toEqual([
+      'dev',
+      'paid'
+    ])
+  })
+
+  test('a pasted key is tried before the account keys', async () => {
+    answerApi(() => apiJson({ status: 'success', data: {} }))
+    await microlink.request(URL_TO_FETCH, { apiKey: 'pasted' })
+    expect(apiCalls()[0].headers.get('x-api-key')).toBe('pasted')
+  })
+
+  test('a signed-out visitor stays on the free endpoint without touching Clerk', async () => {
+    vi.stubGlobal('document', { cookie: '' })
+    answerApi(() => apiJson({ status: 'success', data: {} }))
+    await microlink.request(URL_TO_FETCH)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(apiCalls()[0].url.startsWith('https://api.microlink.io/')).toBe(true)
   })
 })

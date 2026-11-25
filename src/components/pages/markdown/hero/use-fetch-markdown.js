@@ -4,6 +4,7 @@ import {
   buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { normalizeApiError } from 'helpers/api-error'
+import { fetchApi } from 'helpers/api-fetch'
 import { trackEvent } from 'helpers/gtag'
 
 export const useFetchMarkdown = ({
@@ -20,7 +21,7 @@ export const useFetchMarkdown = ({
   setMarkdownContent
 }) =>
   useCallback(
-    async (url, { track } = {}) => {
+    async (url, { track, withAccount } = {}) => {
       if (track) trackEvent('demo submit', { product: 'markdown' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -36,13 +37,12 @@ export const useFetchMarkdown = ({
       const t0 = Date.now()
 
       try {
-        const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(
+        const { res, json } = await fetchApi(
+          `url=${encodeURIComponent(
             url
           )}&data.markdown.attr=markdown&meta=false`,
-          { signal: controller.signal }
+          { signal: controller.signal, withAccount }
         )
-        const json = await res.json()
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {

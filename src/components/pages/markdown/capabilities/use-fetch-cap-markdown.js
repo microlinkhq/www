@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { normalizeApiError } from 'helpers/api-error'
+import { fetchApi } from 'helpers/api-fetch'
 
 export const useFetchCapMarkdown = ({
   capAbortRef,
@@ -13,7 +14,7 @@ export const useFetchCapMarkdown = ({
   setCapHtml
 }) =>
   useCallback(
-    async url => {
+    async (url, { withAccount } = {}) => {
       if (capAbortRef.current) capAbortRef.current.abort()
       if (capHtmlAbortRef.current) capHtmlAbortRef.current.abort()
       const controller = new window.AbortController()
@@ -25,47 +26,37 @@ export const useFetchCapMarkdown = ({
       setCapHtmlLoading(true)
       setCapError(null)
 
-      const htmlPromise = window
-        .fetch(
-          `https://api.microlink.io/?data.html.attr=html&meta=false&url=${encodeURIComponent(
-            url
-          )}`,
-          { signal: htmlController.signal }
-        )
-        .then(r =>
-          r.json().then(json => {
-            if (!r.ok) return { error: normalizeApiError(json, r) }
-            const html = json?.data?.html
-            return {
-              html: html
-                ? typeof html === 'string'
-                  ? html
-                  : JSON.stringify(html)
-                : ''
-            }
-          })
-        )
+      const htmlPromise = fetchApi(
+        `data.html.attr=html&meta=false&url=${encodeURIComponent(url)}`,
+        { signal: htmlController.signal, withAccount }
+      )
+        .then(({ res: r, json }) => {
+          if (!r.ok) return { error: normalizeApiError(json, r) }
+          const html = json?.data?.html
+          return {
+            html: html
+              ? typeof html === 'string'
+                ? html
+                : JSON.stringify(html)
+              : ''
+          }
+        })
         .catch(err => {
           if (err.name === 'AbortError') return { aborted: true }
           return { error: normalizeApiError.fromNetwork(err) }
         })
 
-      const mdPromise = window
-        .fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(
-            url
-          )}&data.markdown.attr=markdown&meta=true`,
-          { signal: controller.signal }
-        )
-        .then(r =>
-          r.json().then(json => {
-            if (!r.ok) return { error: normalizeApiError(json, r) }
-            const md = json?.data?.markdown
-            return {
-              md: md ? (typeof md === 'string' ? md : JSON.stringify(md)) : ''
-            }
-          })
-        )
+      const mdPromise = fetchApi(
+        `url=${encodeURIComponent(url)}&data.markdown.attr=markdown&meta=true`,
+        { signal: controller.signal, withAccount }
+      )
+        .then(({ res: r, json }) => {
+          if (!r.ok) return { error: normalizeApiError(json, r) }
+          const md = json?.data?.markdown
+          return {
+            md: md ? (typeof md === 'string' ? md : JSON.stringify(md)) : ''
+          }
+        })
         .catch(err => {
           if (err.name === 'AbortError') return { aborted: true }
           return { error: normalizeApiError.fromNetwork(err) }

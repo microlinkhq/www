@@ -1,4 +1,5 @@
 import createClient from 'microlink.io'
+import { accountApiKeys } from 'helpers/account-keys'
 
 import { toModuleSource } from './to-module-source'
 import { readTraceBody, toTracePayload } from './trace'
@@ -209,7 +210,10 @@ const runEntry = (doc, win, entry) =>
     doc.body.appendChild(script)
   })
 
-const evalInFrame = async (iframe, files, { apiKey, entry }) => {
+const runKey = async apiKey => apiKey || (await accountApiKeys())[0]
+
+const evalInFrame = async (iframe, files, { apiKey: pastedKey, entry }) => {
+  const apiKey = await runKey(pastedKey)
   const win = iframe.contentWindow
   const doc = iframe.contentDocument
   const logs = Object.create(null)

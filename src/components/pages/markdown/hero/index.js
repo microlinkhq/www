@@ -154,7 +154,7 @@ export const Hero = function Hero ({
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchMarkdown(normalized, { track: true })
+    fetchMarkdown(normalized, { track: true, withAccount: true })
   }
 
   const handleBack = () => {
@@ -166,7 +166,7 @@ export const Hero = function Hero ({
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchMarkdown(url)
+    fetchMarkdown(url, { withAccount: true })
   }
 
   const handleForward = () => {
@@ -178,7 +178,7 @@ export const Hero = function Hero ({
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchMarkdown(url)
+    fetchMarkdown(url, { withAccount: true })
   }
 
   const handleBlur = e => {
@@ -223,7 +223,7 @@ export const Hero = function Hero ({
 
     if (!nerdStats) {
       setShowNerdStats(true)
-      fetchMarkdown(inputUrl)
+      fetchMarkdown(inputUrl, { withAccount: true })
       return
     }
 

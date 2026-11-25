@@ -161,7 +161,7 @@ export const Hero = function Hero ({
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchScreenshot(normalized, { track: true })
+    fetchScreenshot(normalized, { track: true, withAccount: true })
   }
 
   const handleBack = () => {
@@ -173,7 +173,7 @@ export const Hero = function Hero ({
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchScreenshot(url)
+    fetchScreenshot(url, { withAccount: true })
   }
 
   const handleForward = () => {
@@ -185,7 +185,7 @@ export const Hero = function Hero ({
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchScreenshot(url)
+    fetchScreenshot(url, { withAccount: true })
   }
 
   const handleBlur = e => {
@@ -230,7 +230,7 @@ export const Hero = function Hero ({
 
     if (!nerdStats) {
       setShowNerdStats(true)
-      fetchScreenshot(inputUrl)
+      fetchScreenshot(inputUrl, { withAccount: true })
       return
     }
 

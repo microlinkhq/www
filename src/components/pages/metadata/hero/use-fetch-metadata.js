@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { normalizeApiError } from 'helpers/api-error'
+import { fetchApi } from 'helpers/api-fetch'
 import { trackEvent } from 'helpers/gtag'
 
 export const useFetchMetadata = ({
@@ -12,7 +13,7 @@ export const useFetchMetadata = ({
   setMetaData
 }) =>
   useCallback(
-    async (url, { track } = {}) => {
+    async (url, { track, withAccount } = {}) => {
       if (track) trackEvent('demo submit', { product: 'metadata' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -24,13 +25,10 @@ export const useFetchMetadata = ({
       const t0 = Date.now()
 
       try {
-        const endpoint =
-          `https://api.microlink.io?url=${encodeURIComponent(url)}` +
-          '&palette&video&audio'
-        const res = await window.fetch(endpoint, {
-          signal: controller.signal
-        })
-        const json = await res.json()
+        const { res, json } = await fetchApi(
+          `url=${encodeURIComponent(url)}&palette&video&audio`,
+          { signal: controller.signal, withAccount }
+        )
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {

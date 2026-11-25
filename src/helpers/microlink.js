@@ -1,4 +1,5 @@
 import createClient from 'microlink.io'
+import { accountApiKeys, requestKeys, runWithKeys } from './account-keys'
 
 const client = createClient()
 
@@ -60,7 +61,7 @@ const apiUrl = (url, options) => {
     : withScalarHeader(built, prepared.scalar)
 }
 
-const request = async (url, options) => {
+const requestOnce = async (url, options) => {
   const prepared = prepareOptions(options)
   try {
     if (prepared.scalar === undefined) {
@@ -74,5 +75,13 @@ const request = async (url, options) => {
     throw err
   }
 }
+
+const withKey = (options, apiKey) =>
+  apiKey === undefined ? options : { ...options, apiKey }
+
+const request = async (url, { apiKey, ...options } = {}) =>
+  runWithKeys(requestKeys(apiKey, await accountApiKeys()), key =>
+    requestOnce(url, withKey(options, key))
+  )
 
 export default { request, apiUrl }

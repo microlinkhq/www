@@ -1917,7 +1917,7 @@ const ScreenshotTool = () => {
         const reqStart = Date.now()
         try {
           const mqlOpts = {
-            apiKey: localStorageData?.apiKey,
+            apiKey: localStorageData,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,

@@ -149,7 +149,7 @@ export const Hero = function Hero ({ onRequestTiming }) {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchPdf(normalized, { track: true })
+    fetchPdf(normalized, { track: true, withAccount: true })
   }
 
   const handleBack = () => {
@@ -160,7 +160,7 @@ export const Hero = function Hero ({ onRequestTiming }) {
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchPdf(url)
+    fetchPdf(url, { withAccount: true })
   }
 
   const handleForward = () => {
@@ -171,7 +171,7 @@ export const Hero = function Hero ({ onRequestTiming }) {
     const url = navStack[newIndex]
     setNavIndex(newIndex)
     setInputUrl(url)
-    fetchPdf(url)
+    fetchPdf(url, { withAccount: true })
   }
 
   const handleBlur = e => {
