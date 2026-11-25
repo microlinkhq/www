@@ -3,7 +3,7 @@ import { displayName, isFreeAccount } from 'helpers/dashboard-account'
 import React, { useId } from 'react'
 import { createPortal } from 'react-dom'
 import styled, { css } from 'styled-components'
-import { colors, shadows, speed, theme, timings, transition } from 'theme'
+import { speed, theme, timings, transition } from 'theme'
 
 import ToolbarAccountAvatar, { AVATAR_SIZE } from './ToolbarAccountAvatar'
 import {
@@ -15,11 +15,18 @@ import {
 } from './ToolbarAccountItems'
 import {
   ACCOUNT_MENU_LABEL,
-  DASHBOARD_LINK,
-  SETTINGS_LINK,
+  ACCOUNT_MENU_LINKS,
   SIGN_OUT_ACTION,
   UPGRADE_LINK
 } from './ToolbarAccountLinks'
+import {
+  ACCOUNT_COLORS,
+  ACCOUNT_ITEM_PX,
+  ACCOUNT_POPUP_PADDING,
+  ACCOUNT_POPUP_RADIUS,
+  ACCOUNT_POPUP_SHADOW,
+  accountPalette
+} from './ToolbarAccountPalette'
 import { useAccountMenu } from './use-account-menu'
 
 const MENU_WIDTH = '240px'
@@ -42,12 +49,18 @@ const Trigger = styled.button`
     bg: 'transparent',
     cursor: 'pointer'
   })};
+  ${accountPalette};
   touch-action: manipulation;
   transition: box-shadow ${transition.medium};
 
   &:hover,
   &[aria-expanded='true'] {
-    box-shadow: 0 0 0 2px ${colors.black10};
+    box-shadow: 0 0 0 2px ${ACCOUNT_COLORS.lineStrong};
+  }
+
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px ${ACCOUNT_COLORS.brand};
   }
 `
 
@@ -73,14 +86,17 @@ const Popup = styled.div`
     position: 'fixed',
     zIndex: POPUP_LAYER,
     width: MENU_WIDTH,
-    p: 1,
+    p: ACCOUNT_POPUP_PADDING,
     bg: 'white',
     border: 1,
-    borderColor: 'black10',
-    borderRadius: 4,
-    boxShadow: shadows[4],
-    textAlign: 'left'
+    borderColor: ACCOUNT_COLORS.line,
+    borderRadius: ACCOUNT_POPUP_RADIUS,
+    boxShadow: ACCOUNT_POPUP_SHADOW,
+    textAlign: 'left',
+    overflowY: 'auto'
   })};
+  overscroll-behavior: contain;
+  ${accountPalette};
   transform-origin: top right;
   transition: opacity ${MENU_TRANSITION};
   ${({ $isOpen }) => ($isOpen ? openPopup : closedPopup)};
@@ -95,7 +111,12 @@ const MenuList = styled.ul`
 `
 
 const Separator = styled.li`
-  ${theme({ height: '1px', my: 1, mx: -1, bg: 'black10' })};
+  ${theme({
+    height: '1px',
+    my: ACCOUNT_POPUP_PADDING,
+    mx: `-${ACCOUNT_POPUP_PADDING}`,
+    bg: ACCOUNT_COLORS.line
+  })};
 `
 
 const MenuSeparator = () => <Separator role='separator' />
@@ -156,7 +177,7 @@ const ToolbarAccountMenu = ({
             <AccountProfile
               id={profileId}
               profile={profile}
-              css={theme({ p: 2 })}
+              css={theme({ px: ACCOUNT_ITEM_PX, py: 2 })}
             />
             <MenuList
               ref={menuRef}
@@ -167,7 +188,7 @@ const ToolbarAccountMenu = ({
               onKeyDown={onMenuKeyDown}
             >
               <MenuSeparator />
-              {[DASHBOARD_LINK, SETTINGS_LINK].map(link => (
+              {ACCOUNT_MENU_LINKS.map(link => (
                 <li key={link.ctaAction} role='none'>
                   <AccountDashboardItem
                     link={link}

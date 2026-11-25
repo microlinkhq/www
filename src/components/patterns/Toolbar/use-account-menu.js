@@ -32,10 +32,14 @@ export const linkActivatedBySpace = (key, tagName) =>
 const menuItems = menu =>
   menu ? Array.from(menu.querySelectorAll(MENU_ITEM_SELECTOR)) : []
 
-export const popupPosition = (triggerRect, viewportWidth, offset) => ({
-  top: triggerRect.bottom + offset,
-  right: viewportWidth - triggerRect.right
-})
+export const popupPosition = (triggerRect, viewport, offset) => {
+  const top = triggerRect.bottom + offset
+  return {
+    top,
+    right: viewport.width - triggerRect.right,
+    maxHeight: Math.max(viewport.height - top - offset, 0)
+  }
+}
 
 export const useAccountMenu = ({ offset }) => {
   const [isOpen, setIsOpen] = useState(false)
@@ -49,7 +53,10 @@ export const useAccountMenu = ({ offset }) => {
     () =>
       popupPosition(
         triggerRef.current.getBoundingClientRect(),
-        document.documentElement.clientWidth,
+        {
+          width: document.documentElement.clientWidth,
+          height: document.documentElement.clientHeight
+        },
         offset
       ),
     [offset]

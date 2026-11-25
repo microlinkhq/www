@@ -5,32 +5,53 @@ import React from 'react'
 import styled from 'styled-components'
 import { theme } from 'theme'
 
+import {
+  ACCOUNT_COLORS,
+  ACCOUNT_EMAIL_FONT_SIZE,
+  ACCOUNT_EMAIL_LINE_HEIGHT,
+  ACCOUNT_FONT_SIZE,
+  ACCOUNT_ITEM_GAP,
+  ACCOUNT_ITEM_PX,
+  ACCOUNT_LINE_HEIGHT,
+  ACCOUNT_SEMIBOLD,
+  ACCOUNT_UPGRADE_PY,
+  accountPalette
+} from './ToolbarAccountPalette'
+
 const ITEM_ICON_SIZE = '16px'
 
 const ITEM_STYLE_PROPS = {
   display: 'flex',
   alignItems: 'center',
-  gap: 2,
+  gap: ACCOUNT_ITEM_GAP,
   width: '100%',
-  px: 2,
+  px: ACCOUNT_ITEM_PX,
   py: 2,
   border: 0,
-  borderRadius: 3,
+  borderRadius: 4,
   bg: 'transparent',
-  color: 'black80',
+  color: ACCOUNT_COLORS.inkSoft,
   fontFamily: 'sans',
-  fontSize: 0,
-  lineHeight: 0,
+  fontSize: ACCOUNT_FONT_SIZE,
+  fontWeight: 'normal',
+  lineHeight: ACCOUNT_LINE_HEIGHT,
   textAlign: 'left',
   textDecoration: 'none',
   cursor: 'pointer'
 }
 
-const ITEM_STYLES = theme(ITEM_STYLE_PROPS)
+const ITEM_STYLES = theme({
+  ...ITEM_STYLE_PROPS,
+  '& svg': { color: ACCOUNT_COLORS.inkFaint }
+})
 
-const ITEM_HIGHLIGHT_STYLES = theme({ bg: 'black05', color: 'black' })
+const ITEM_HIGHLIGHT_STYLES = theme({
+  bg: ACCOUNT_COLORS.paper,
+  color: ACCOUNT_COLORS.ink
+})
 
 export const AccountItemLink = withAnalytics(styled.a`
+  ${accountPalette};
   ${ITEM_STYLES};
   touch-action: manipulation;
 
@@ -41,6 +62,7 @@ export const AccountItemLink = withAnalytics(styled.a`
 `)
 
 export const AccountItemButton = withAnalytics(styled.button`
+  ${accountPalette};
   ${ITEM_STYLES};
   touch-action: manipulation;
 
@@ -51,17 +73,20 @@ export const AccountItemButton = withAnalytics(styled.button`
 `)
 
 export const UpgradeItemLink = withAnalytics(styled.a`
+  ${accountPalette};
   ${theme({
     ...ITEM_STYLE_PROPS,
-    bg: 'secondary',
+    gap: 2,
+    py: ACCOUNT_UPGRADE_PY,
+    bg: ACCOUNT_COLORS.brand,
     color: 'white',
-    fontWeight: 'bold'
+    fontWeight: ACCOUNT_SEMIBOLD
   })};
   touch-action: manipulation;
 
   &:hover,
   &:focus-visible {
-    filter: brightness(0.92);
+    ${theme({ bg: ACCOUNT_COLORS.brandStrong })};
   }
 `)
 
@@ -95,24 +120,36 @@ const ProfileBlock = styled.div`
 `
 
 const ProfileLine = styled.span`
+  ${accountPalette};
   ${theme({
     display: 'block',
     fontFamily: 'sans',
-    fontSize: 0,
-    lineHeight: 1,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap'
   })};
 `
 
+const ProfileName = styled(ProfileLine)`
+  ${theme({
+    color: ACCOUNT_COLORS.ink,
+    fontSize: ACCOUNT_FONT_SIZE,
+    fontWeight: 'regular',
+    lineHeight: ACCOUNT_LINE_HEIGHT
+  })};
+`
+
+const ProfileEmail = styled(ProfileLine)`
+  ${theme({
+    color: ACCOUNT_COLORS.inkMuted,
+    fontSize: ACCOUNT_EMAIL_FONT_SIZE,
+    lineHeight: ACCOUNT_EMAIL_LINE_HEIGHT
+  })};
+`
+
 export const AccountProfile = ({ profile, ...props }) => (
   <ProfileBlock {...props}>
-    {profile.name && (
-      <ProfileLine css={theme({ color: 'black', fontWeight: 'bold' })}>
-        {profile.name}
-      </ProfileLine>
-    )}
-    <ProfileLine css={theme({ color: 'black60' })}>{profile.email}</ProfileLine>
+    {profile.name && <ProfileName>{profile.name}</ProfileName>}
+    <ProfileEmail>{profile.email}</ProfileEmail>
   </ProfileBlock>
 )

@@ -3,7 +3,9 @@ import { UNAVATAR_TOKEN } from './unavatar'
 
 export const CLERK_FRONTEND_API = 'https://clerk.microlink.io/v1'
 export const SESSION_KEYS_URL = `${DASHBOARD_URL}/api/v1/session-keys`
+export const PLAYGROUND_PATH = '/playground'
 export const ACCOUNT_SETTINGS_PATH = '/settings'
+export const CHANGELOG_PATH = '/changelog'
 export const UPGRADE_PATH = '/plans/create'
 export const ACCOUNT_TTL_MS = 5 * 60 * 1000
 

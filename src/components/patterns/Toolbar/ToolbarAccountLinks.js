@@ -1,6 +1,19 @@
-import { ACCOUNT_SETTINGS_PATH, UPGRADE_PATH } from 'helpers/dashboard-account'
+import {
+  ACCOUNT_SETTINGS_PATH,
+  CHANGELOG_PATH,
+  PLAYGROUND_PATH,
+  UPGRADE_PATH
+} from 'helpers/dashboard-account'
 import { LOGIN_PATH } from 'helpers/dashboard-url'
-import { Layout, LogIn, LogOut, Settings, Zap } from 'react-feather'
+import {
+  FlaskConical,
+  LayoutDashboard,
+  LogIn,
+  LogOut,
+  Settings,
+  Sparkles,
+  Zap
+} from 'lucide-react'
 
 export const ACCOUNT_MENU_LABEL = 'Microlink account'
 
@@ -15,9 +28,16 @@ export const SIGN_IN_LINK = {
 export const DASHBOARD_LINK = {
   label: 'Dashboard',
   title: 'Open the Microlink dashboard',
-  icon: Layout,
+  icon: LayoutDashboard,
   dashboardPath: '/',
   ctaAction: 'dashboard'
+}
+
+export const PLAYGROUND_LINK = {
+  label: 'Playground',
+  icon: FlaskConical,
+  dashboardPath: PLAYGROUND_PATH,
+  ctaAction: 'playground'
 }
 
 export const SETTINGS_LINK = {
@@ -26,6 +46,20 @@ export const SETTINGS_LINK = {
   dashboardPath: ACCOUNT_SETTINGS_PATH,
   ctaAction: 'settings'
 }
+
+export const CHANGELOG_LINK = {
+  label: 'Changelog',
+  icon: Sparkles,
+  dashboardPath: CHANGELOG_PATH,
+  ctaAction: 'changelog'
+}
+
+export const ACCOUNT_MENU_LINKS = [
+  DASHBOARD_LINK,
+  PLAYGROUND_LINK,
+  SETTINGS_LINK,
+  CHANGELOG_LINK
+]
 
 export const UPGRADE_LINK = {
   label: 'Buy plan',
