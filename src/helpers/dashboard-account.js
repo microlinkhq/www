@@ -1,5 +1,4 @@
 import { DASHBOARD_URL } from './dashboard-url'
-import { UNAVATAR_TOKEN } from './unavatar'
 
 export const CLERK_FRONTEND_API = 'https://clerk.microlink.io/v1'
 export const SESSION_KEYS_URL = `${DASHBOARD_URL}/api/v1/session-keys`
@@ -8,8 +7,6 @@ export const ACCOUNT_SETTINGS_PATH = '/settings'
 export const CHANGELOG_PATH = '/changelog'
 export const UPGRADE_PATH = '/plans/create'
 export const ACCOUNT_TTL_MS = 5 * 60 * 1000
-
-const UNAVATAR_URL = 'https://unavatar.io'
 
 const fetchJson = async (fetcher, url, init) => {
   const response = await fetcher(url, init)
@@ -29,21 +26,8 @@ const primaryEmail = user =>
 export const toProfile = user => ({
   email: primaryEmail(user),
   name: [user?.first_name, user?.last_name].filter(Boolean).join(' '),
-  imageUrl:
-    user?.has_image !== false && typeof user?.image_url === 'string'
-      ? user.image_url
-      : ''
+  imageUrl: typeof user?.image_url === 'string' ? user.image_url : ''
 })
-
-export const avatarSources = ({ imageUrl, email }) =>
-  [
-    imageUrl,
-    email
-      ? `${UNAVATAR_URL}/${encodeURIComponent(
-        email
-      )}?token=${UNAVATAR_TOKEN}&fallback=false`
-      : ''
-  ].filter(Boolean)
 
 export const initialOf = ({ name, email }) =>
   (name || email).slice(0, 1).toUpperCase()
