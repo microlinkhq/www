@@ -92,8 +92,10 @@ const Popup = styled.div`
     borderColor: ACCOUNT_COLORS.line,
     borderRadius: ACCOUNT_POPUP_RADIUS,
     boxShadow: ACCOUNT_POPUP_SHADOW,
-    textAlign: 'left'
+    textAlign: 'left',
+    overflowY: 'auto'
   })};
+  overscroll-behavior: contain;
   ${accountPalette};
   transform-origin: top right;
   transition: opacity ${MENU_TRANSITION};

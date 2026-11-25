@@ -62,9 +62,19 @@ describe('menu keys', () => {
 
 describe('popupPosition', () => {
   test('places the menu just under the trigger, aligned to its right edge', () => {
-    expect(popupPosition({ bottom: 64, right: 800 }, 1000, 8)).toEqual({
-      top: 72,
-      right: 200
-    })
+    expect(
+      popupPosition({ bottom: 64, right: 800 }, { width: 1000, height: 800 }, 8)
+    ).toEqual({ top: 72, right: 200, maxHeight: 720 })
+  })
+
+  test('caps the menu height to the space left under the trigger', () => {
+    expect(
+      popupPosition({ bottom: 64, right: 800 }, { width: 1000, height: 300 }, 8)
+        .maxHeight
+    ).toBe(220)
+    expect(
+      popupPosition({ bottom: 64, right: 800 }, { width: 1000, height: 40 }, 8)
+        .maxHeight
+    ).toBe(0)
   })
 })
