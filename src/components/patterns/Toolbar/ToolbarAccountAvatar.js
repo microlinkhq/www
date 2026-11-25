@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
-import { avatarSources, initialOf } from 'helpers/dashboard-account'
+import { initialOf } from 'helpers/dashboard-account'
 import { theme } from 'theme'
 
 export const AVATAR_SIZE = 32
@@ -32,11 +32,9 @@ const AvatarInitial = styled.span`
 `
 
 const AccountAvatar = ({ profile }) => {
-  const sources = avatarSources(profile)
-  const [failed, setFailed] = useState(0)
-  const source = sources[failed]
+  const [failed, setFailed] = useState(false)
 
-  if (source === undefined) {
+  if (failed || profile.imageUrl === '') {
     return (
       <AvatarInitial aria-hidden='true'>{initialOf(profile)}</AvatarInitial>
     )
@@ -44,12 +42,12 @@ const AccountAvatar = ({ profile }) => {
 
   return (
     <AvatarImage
-      src={source}
+      src={profile.imageUrl}
       alt=''
       width={AVATAR_SIZE}
       height={AVATAR_SIZE}
       referrerPolicy='no-referrer'
-      onError={() => setFailed(count => count + 1)}
+      onError={() => setFailed(true)}
     />
   )
 }

@@ -5,7 +5,6 @@ import {
   SESSION_KEYS_URL,
   accountLoad,
   accountMenuMode,
-  avatarSources,
   displayName,
   fetchAccount,
   initialOf,
@@ -13,7 +12,6 @@ import {
   signOut,
   toProfile
 } from '../../../src/helpers/dashboard-account'
-import { UNAVATAR_TOKEN } from '../../../src/helpers/unavatar'
 
 const USER = {
   first_name: 'Ada',
@@ -96,9 +94,8 @@ describe('toProfile', () => {
     expect(toProfile(USER)).toEqual(PROFILE)
   })
 
-  test('drops the photo when Clerk says the user has none', () => {
-    expect(toProfile({ ...USER, has_image: false }).imageUrl).toBe('')
-    expect(toProfile({ ...USER, has_image: true }).imageUrl).toBe(
+  test("keeps Clerk's default avatar when the user has no photo", () => {
+    expect(toProfile({ ...USER, has_image: false }).imageUrl).toBe(
       PROFILE.imageUrl
     )
   })
@@ -112,18 +109,6 @@ describe('toProfile', () => {
 })
 
 describe('avatar and labels', () => {
-  test('the avatar tries the photo, then unavatar.io by email', () => {
-    const unavatar = `https://unavatar.io/ada%40example.com?token=${UNAVATAR_TOKEN}&fallback=false`
-    expect(avatarSources(PROFILE)).toEqual([PROFILE.imageUrl, unavatar])
-    expect(avatarSources({ imageUrl: '', email: PROFILE.email })).toEqual([
-      unavatar
-    ])
-    expect(avatarSources({ imageUrl: PROFILE.imageUrl, email: '' })).toEqual([
-      PROFILE.imageUrl
-    ])
-    expect(avatarSources({ imageUrl: '', email: '' })).toEqual([])
-  })
-
   test('the initial and the display name prefer the name, then the email', () => {
     expect(initialOf(PROFILE)).toBe('A')
     expect(initialOf({ name: '', email: 'zoe@example.com' })).toBe('Z')
