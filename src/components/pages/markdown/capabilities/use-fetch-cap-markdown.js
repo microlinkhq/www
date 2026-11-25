@@ -14,7 +14,7 @@ export const useFetchCapMarkdown = ({
   setCapHtml
 }) =>
   useCallback(
-    async (url, { withAccount } = {}) => {
+    async url => {
       if (capAbortRef.current) capAbortRef.current.abort()
       if (capHtmlAbortRef.current) capHtmlAbortRef.current.abort()
       const controller = new window.AbortController()
@@ -28,7 +28,7 @@ export const useFetchCapMarkdown = ({
 
       const htmlPromise = fetchApi(
         `data.html.attr=html&meta=false&url=${encodeURIComponent(url)}`,
-        { signal: htmlController.signal, withAccount }
+        { signal: htmlController.signal }
       )
         .then(({ res: r, json }) => {
           if (!r.ok) return { error: normalizeApiError(json, r) }
@@ -48,7 +48,7 @@ export const useFetchCapMarkdown = ({
 
       const mdPromise = fetchApi(
         `url=${encodeURIComponent(url)}&data.markdown.attr=markdown&meta=true`,
-        { signal: controller.signal, withAccount }
+        { signal: controller.signal }
       )
         .then(({ res: r, json }) => {
           if (!r.ok) return { error: normalizeApiError(json, r) }

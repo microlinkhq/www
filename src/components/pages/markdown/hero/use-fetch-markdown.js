@@ -21,7 +21,7 @@ export const useFetchMarkdown = ({
   setMarkdownContent
 }) =>
   useCallback(
-    async (url, { track, withAccount } = {}) => {
+    async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'markdown' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -41,7 +41,7 @@ export const useFetchMarkdown = ({
           `url=${encodeURIComponent(
             url
           )}&data.markdown.attr=markdown&meta=false`,
-          { signal: controller.signal, withAccount }
+          { signal: controller.signal }
         )
         const elapsedMs = Date.now() - t0
 

@@ -173,7 +173,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
     setHistory(h => addToHistory(h, normalized))
     setNavStack(newStack)
     setNavIndex(newIndex)
-    fetchScreenshot(normalized, { track: true, withAccount: true })
+    fetchScreenshot(normalized, { track: true })
   }
 
   const handleBack = () => {
@@ -185,7 +185,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchScreenshot(url, { withAccount: true })
+    fetchScreenshot(url)
   }
 
   const handleForward = () => {
@@ -197,7 +197,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
     setNavIndex(newIndex)
     setInputUrl(url)
     setShowNerdStats(false)
-    fetchScreenshot(url, { withAccount: true })
+    fetchScreenshot(url)
   }
 
   const handleBlur = e => {
@@ -261,7 +261,7 @@ const ScreenshotDemo = ({ onRequestTiming, alt = 'Website screenshot' }) => {
 
     if (!nerdStats) {
       setShowNerdStats(true)
-      fetchScreenshot(inputUrl, { withAccount: true })
+      fetchScreenshot(inputUrl)
       return
     }
 

@@ -22,13 +22,14 @@ const keysOf = keys => vi.fn(async () => keys)
 const sentKey = call => call[1].headers?.['x-api-key']
 
 describe('fetchApi', () => {
-  test('without the account it calls the free endpoint and loads no keys', async () => {
+  test('a signed-out visitor calls the free endpoint without a key', async () => {
     const fetcher = vi.fn(async () => json(SUCCESS))
-    const loadKeys = keysOf(['dev'])
-    const { res, json: body } = await fetchApi(QUERY, { fetcher, loadKeys })
+    const { res, json: body } = await fetchApi(QUERY, {
+      fetcher,
+      loadKeys: keysOf([])
+    })
     expect(res.ok).toBe(true)
     expect(body).toEqual(SUCCESS)
-    expect(loadKeys).not.toHaveBeenCalled()
     expect(fetcher.mock.calls[0][0]).toBe(`${FREE_API_URL}/?${QUERY}`)
     expect(sentKey(fetcher.mock.calls[0])).toBeUndefined()
   })
@@ -37,7 +38,6 @@ describe('fetchApi', () => {
     const fetcher = vi.fn(async () => json(SUCCESS))
     await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['dev'])
     })
     const [url] = fetcher.mock.calls[0]
@@ -52,7 +52,6 @@ describe('fetchApi', () => {
     await fetchApi(QUERY, {
       fetcher,
       signal,
-      withAccount: true,
       loadKeys: keysOf(['dev'])
     })
     expect(fetcher.mock.calls.every(call => call[1].signal === signal)).toBe(
@@ -66,7 +65,6 @@ describe('fetchApi', () => {
     )
     const { json: body } = await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['dev', 'paid'])
     })
     expect(body).toEqual(SUCCESS)
@@ -79,7 +77,6 @@ describe('fetchApi', () => {
     )
     await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['stale', 'dev'])
     })
     expect(fetcher.mock.calls.map(sentKey)).toEqual(['stale', 'dev'])
@@ -89,7 +86,6 @@ describe('fetchApi', () => {
     const fetcher = vi.fn(async () => json(RATE_LIMITED, 429))
     const { res } = await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['dev', 'paid'])
     })
     expect(res.status).toBe(429)
@@ -103,7 +99,6 @@ describe('fetchApi', () => {
     const fetcher = vi.fn(async () => json(RATE_LIMITED, 429))
     const { res, json: body } = await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['dev'])
     })
     expect(res.status).toBe(429)
@@ -116,7 +111,6 @@ describe('fetchApi', () => {
     )
     const { res } = await fetchApi(QUERY, {
       fetcher,
-      withAccount: true,
       loadKeys: keysOf(['dev', 'paid'])
     })
     expect(res.status).toBe(400)
@@ -131,7 +125,6 @@ describe('fetchApi', () => {
     await expect(
       fetchApi(QUERY, {
         fetcher,
-        withAccount: true,
         loadKeys: keysOf(['dev', 'paid'])
       })
     ).rejects.toBe(abort)
@@ -142,7 +135,10 @@ describe('fetchApi', () => {
     const fetcher = vi.fn(
       async () => new Response('<html>bad gateway</html>', { status: 502 })
     )
-    const { res, json: body } = await fetchApi(QUERY, { fetcher })
+    const { res, json: body } = await fetchApi(QUERY, {
+      fetcher,
+      loadKeys: keysOf([])
+    })
     expect(res.status).toBe(502)
     expect(body).toBeNull()
   })

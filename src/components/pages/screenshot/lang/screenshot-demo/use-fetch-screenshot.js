@@ -20,7 +20,7 @@ export const useFetchScreenshot = ({
   setImgVisible
 }) =>
   useCallback(
-    async (url, { track, withAccount } = {}) => {
+    async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'screenshot' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -35,7 +35,7 @@ export const useFetchScreenshot = ({
       try {
         const { res, json } = await fetchApi(
           `url=${encodeURIComponent(url)}&screenshot`,
-          { signal: controller.signal, withAccount }
+          { signal: controller.signal }
         )
         const elapsedMs = Date.now() - t0
 

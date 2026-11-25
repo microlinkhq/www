@@ -14,7 +14,7 @@ export const useFetchPdf = ({
   setPdfSrc
 }) =>
   useCallback(
-    async (url, { track, withAccount } = {}) => {
+    async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'pdf' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -30,7 +30,7 @@ export const useFetchPdf = ({
         const scale = url === DEFAULT_HISTORY[0] || url === DEFAULT_HISTORY[1]
         const { res, json } = await fetchApi(
           `url=${encodeURIComponent(url)}&pdf` + (scale ? '&scale=1.2' : ''),
-          { signal: controller.signal, withAccount }
+          { signal: controller.signal }
         )
         const elapsedMs = Date.now() - t0
 

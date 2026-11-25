@@ -88,7 +88,7 @@ export const Capabilities = () => {
     setCapFocused(false)
     if (!normalized) return
     setCapUrl(normalized)
-    fetchCapMarkdown(normalized, { withAccount: true })
+    fetchCapMarkdown(normalized)
   }
 
   return (

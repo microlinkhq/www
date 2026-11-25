@@ -3,6 +3,7 @@ import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
+import { useAccountKeys } from 'components/hook/use-account-keys'
 import React from 'react'
 
 const defaultMedia = [
@@ -13,6 +14,12 @@ const defaultMedia = [
   'logo'
 ].filter(Boolean)
 
+const PENDING_KEYS = 'pending'
+const KEYLESS = 'keyless'
+
+const cardKeyOf = keys =>
+  keys === undefined ? PENDING_KEYS : keys[0] ?? KEYLESS
+
 const Microlink = ({
   url,
   style,
@@ -21,6 +28,7 @@ const Microlink = ({
   media = defaultMedia,
   ...props
 }) => {
+  const keys = useAccountKeys()
   if (url) url = template(url)
 
   const variations = urlVariations(url)
@@ -34,13 +42,18 @@ const Microlink = ({
       ? setData(demolinkData)
       : { ...demolinkData, ...setData }
 
+  const waitsForKeys = _fetchData && keys === undefined
+
   return (
     <LinkPreview
+      key={_fetchData ? cardKeyOf(keys) : KEYLESS}
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
-      fetchData={_fetchData}
+      fetchData={_fetchData && !waitsForKeys}
+      loading={waitsForKeys || undefined}
       setData={_setData}
+      apiKey={keys?.[0]}
       {...props}
     />
   )

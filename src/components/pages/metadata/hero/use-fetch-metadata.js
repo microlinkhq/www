@@ -13,7 +13,7 @@ export const useFetchMetadata = ({
   setMetaData
 }) =>
   useCallback(
-    async (url, { track, withAccount } = {}) => {
+    async (url, { track } = {}) => {
       if (track) trackEvent('demo submit', { product: 'metadata' })
       if (abortRef.current) abortRef.current.abort()
       const controller = new window.AbortController()
@@ -27,7 +27,7 @@ export const useFetchMetadata = ({
       try {
         const { res, json } = await fetchApi(
           `url=${encodeURIComponent(url)}&palette&video&audio`,
-          { signal: controller.signal, withAccount }
+          { signal: controller.signal }
         )
         const elapsedMs = Date.now() - t0
 

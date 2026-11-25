@@ -10,14 +10,9 @@ const endpointFor = key => (key === undefined ? FREE_API_URL : PRO_API_URL)
 
 export const fetchApi = async (
   query,
-  {
-    signal,
-    withAccount = false,
-    fetcher = globalThis.fetch,
-    loadKeys = accountApiKeys
-  } = {}
+  { signal, fetcher = globalThis.fetch, loadKeys = accountApiKeys } = {}
 ) => {
-  const keys = withAccount ? await loadKeys() : []
+  const keys = await loadKeys()
   const { response, body } = await fetchWithKeys(keys, key =>
     fetcher(`${endpointFor(key)}/?${query}`, requestInit(key, signal))
   )
