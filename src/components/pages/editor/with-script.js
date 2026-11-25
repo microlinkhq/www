@@ -1,5 +1,9 @@
 import createClient from 'microlink.io'
-import { accountApiKeys } from 'helpers/account-keys'
+import {
+  accountApiKeys,
+  fetchWithKeys,
+  requestKeys
+} from 'helpers/account-keys'
 
 import { toModuleSource } from './to-module-source'
 import { readTraceBody, toTracePayload } from './trace'
@@ -75,7 +79,7 @@ const mergeHeaders = (input, init, apiKey) => {
 const requestMethod = (input, init) =>
   init?.method || (input && input.method) || 'GET'
 
-const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
+const sendOnce = async (nativeFetch, input, init, apiKey) => {
   const url = requestUrl(input)
   if (!apiKey || !isMicrolinkApi(url)) {
     return {
@@ -100,6 +104,31 @@ const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
     requestOptions: { headers },
     method: requestMethod(input, nextInit)
   }
+}
+
+const carriesOwnKey = (input, init) =>
+  new Headers(
+    init.headers ?? (typeof input === 'string' ? undefined : input.headers)
+  ).has('x-api-key')
+
+const freshInput = input => (typeof input === 'string' ? input : input.clone())
+
+export const sendFetch = async (
+  nativeFetch,
+  input,
+  init = {},
+  apiKeys = []
+) => {
+  if (!isMicrolinkApi(requestUrl(input)) || carriesOwnKey(input, init)) {
+    return sendOnce(nativeFetch, input, init, undefined)
+  }
+  const sends = new Map()
+  const { response } = await fetchWithKeys(apiKeys, async key => {
+    const sent = await sendOnce(nativeFetch, freshInput(input), init, key)
+    sends.set(sent.response, sent)
+    return sent.response
+  })
+  return sends.get(response)
 }
 
 const formatLogArg = arg => {
@@ -132,7 +161,7 @@ const patchConsole = (consoleRef, logs) => {
   }
 }
 
-const installFetch = (target, assign, apiKey) => {
+const installFetch = (target, assign, apiKeys) => {
   const native = target.fetch.bind(target)
   target.fetch = async (input, init) => {
     const {
@@ -140,7 +169,7 @@ const installFetch = (target, assign, apiKey) => {
       requestUrl: url,
       requestOptions,
       method
-    } = await sendFetch(native, input, init, apiKey)
+    } = await sendFetch(native, input, init, apiKeys)
     if (isMicrolinkApi(response.url || url)) {
       const options = { ...requestOptions }
       if (method && String(method).toUpperCase() !== 'GET') {
@@ -166,9 +195,8 @@ const installFetch = (target, assign, apiKey) => {
   }
 }
 
-const createShimUrl = (win, apiKey) => {
-  win.__microlinkCreateClient = (opts = {}) =>
-    createClient({ ...(apiKey ? { apiKey } : {}), ...opts })
+const createShimUrl = win => {
+  win.__microlinkCreateClient = (opts = {}) => createClient(opts)
   return URL.createObjectURL(
     new Blob(['export default globalThis.__microlinkCreateClient\n'], {
       type: 'text/javascript'
@@ -210,10 +238,8 @@ const runEntry = (doc, win, entry) =>
     doc.body.appendChild(script)
   })
 
-const runKey = async apiKey => apiKey || (await accountApiKeys())[0]
-
-const evalInFrame = async (iframe, files, { apiKey: pastedKey, entry }) => {
-  const apiKey = await runKey(pastedKey)
+const evalInFrame = async (iframe, files, { apiKey, entry }) => {
+  const apiKeys = requestKeys(apiKey, await accountApiKeys())
   const win = iframe.contentWindow
   const doc = iframe.contentDocument
   const logs = Object.create(null)
@@ -227,10 +253,10 @@ const evalInFrame = async (iframe, files, { apiKey: pastedKey, entry }) => {
   const blobUrls = []
 
   try {
-    restoreIframeFetch = installFetch(win, assignTrace, apiKey)
-    restoreParentFetch = installFetch(window, assignTrace, apiKey)
+    restoreIframeFetch = installFetch(win, assignTrace, apiKeys)
+    restoreParentFetch = installFetch(window, assignTrace, apiKeys)
 
-    const shimUrl = createShimUrl(win, apiKey)
+    const shimUrl = createShimUrl(win)
     blobUrls.push(shimUrl)
     const imports = { 'microlink.io': shimUrl }
 
