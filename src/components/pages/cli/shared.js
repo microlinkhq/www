@@ -1,6 +1,6 @@
 import React from 'react'
 import { css, keyframes } from 'styled-components'
-import { Code, LogIn, Monitor } from 'react-feather'
+import { Code, LogIn, Monitor } from 'lucide-react'
 
 import { Terminal as TerminalPromptIcon } from 'components/icons/Terminal'
 import { SEARCH_LAYOUT_WIDE_MAX_WIDTH } from 'components/pages/search'

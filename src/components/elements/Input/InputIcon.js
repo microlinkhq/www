@@ -1,8 +1,8 @@
 import Unavatar from '../Unavatar/Unavatar'
-import FeatherIcon from '../../icons/Feather'
+import LucideIcon from '../../icons/Lucide'
 import React from 'react'
 import { withDebounce } from 'helpers/hoc/with-debounce'
-import { Link } from 'react-feather'
+import { Link } from 'lucide-react'
 
 const createInputIcon = (UnavatarComponent, debounceKeys) =>
   React.memo(
@@ -25,7 +25,7 @@ const createInputIcon = (UnavatarComponent, debounceKeys) =>
         )
       }
 
-      return <FeatherIcon icon={Link} color='black50' size={[0, 0, 1, 1]} />
+      return <LucideIcon icon={Link} color='black50' size={[0, 0, 1, 1]} />
     },
     debounceKeys)
   )

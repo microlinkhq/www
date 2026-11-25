@@ -1,5 +1,5 @@
-import { CheckCircle, XCircle } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { CircleCheckBig, CircleX } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { fontSizes, theme } from 'theme'
@@ -33,8 +33,8 @@ const ListItem = ({
         })}
         as='span'
       >
-        <FeatherIcon
-          icon={isYes ? CheckCircle : XCircle}
+        <LucideIcon
+          icon={isYes ? CircleCheckBig : CircleX}
           color={isYes ? 'close' : 'gray'}
           size={ICON_SIZE}
           aria-hidden='true'

@@ -1,10 +1,10 @@
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { Link } from 'components/elements/Link'
 import Flex from 'components/elements/Flex'
 import { useHover } from 'components/hook/use-hover'
 import React from 'react'
 import { theme } from 'theme'
-import { ArrowRight, ChevronRight } from 'react-feather'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 
 const ArrowLink = ({ children, ...props }) => {
   const [ref, isHover] = useHover()
@@ -22,7 +22,7 @@ const ArrowLink = ({ children, ...props }) => {
         externalIcon={false}
         {...props}
       >
-        {children} <FeatherIcon icon={icon} />
+        {children} <LucideIcon icon={icon} />
       </Link>
     </Flex>
   )
@@ -41,7 +41,7 @@ export const ArrowLinkLabel = ({ children, ...props }) => (
     })}
     {...props}
   >
-    {children} <FeatherIcon icon={ChevronRight} size={1} />
+    {children} <LucideIcon icon={ChevronRight} size={1} />
   </Flex>
 )
 

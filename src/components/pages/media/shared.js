@@ -6,7 +6,7 @@ import {
   Mic as MicIcon,
   Video as VideoIcon,
   Share2 as Share2Icon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'

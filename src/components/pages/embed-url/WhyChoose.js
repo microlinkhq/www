@@ -1,7 +1,7 @@
 import { rgba } from 'polished'
 import { colors, layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
-import { Check } from 'react-feather'
+import { Check } from 'lucide-react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'

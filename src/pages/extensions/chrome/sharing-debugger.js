@@ -6,14 +6,14 @@ import {
   theme
 } from 'theme'
 import {
-  CheckCircle,
-  Chrome,
+  CircleCheckBig,
   Code,
   Cpu,
   Eye,
   FileText,
-  Sidebar
-} from 'react-feather'
+  PanelLeft
+} from 'lucide-react'
+import { Chrome } from 'components/icons/Chrome'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -216,7 +216,7 @@ const WhatItDoes = () => (
 
 const FEATURES = [
   {
-    icon: CheckCircle,
+    icon: CircleCheckBig,
     title: '17 checks, two lenses',
     body: 'Sharing checks cover title and description length, image presence, resolution and aspect ratio, HTTPS, publisher, and logo. SEO checks cover title and description length, language, canonical and redirect hygiene, tracking parameters, duplicate title and description, freshness, and author.'
   },
@@ -226,7 +226,7 @@ const FEATURES = [
     body: 'See the card WhatsApp, Facebook, Google, Telegram, LinkedIn, X, Discord, and Slack will render for your URL — before you share the link anywhere.'
   },
   {
-    icon: Sidebar,
+    icon: PanelLeft,
     title: 'Keeps up as you browse',
     body: 'The side panel stays open while you move around. Switch tabs and Use Tab follows you, so auditing a whole site is paste, read, fix, next page — never reopening anything.'
   },

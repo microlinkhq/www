@@ -1,6 +1,6 @@
 import React from 'react'
 import { theme } from 'theme'
-import { MoreVertical } from 'react-feather'
+import { EllipsisVertical } from 'lucide-react'
 import Image from 'components/elements/Image/Image'
 import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
@@ -70,7 +70,7 @@ export const GooglePreview = ({ metadata }) => {
               {url}
             </Text>
             <Flex css={theme({ ml: 1, color: 'black40' })}>
-              <MoreVertical size={14} />
+              <EllipsisVertical size={14} />
             </Flex>
           </Flex>
         </Box>

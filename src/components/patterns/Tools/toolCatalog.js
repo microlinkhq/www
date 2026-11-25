@@ -7,7 +7,7 @@ import {
   Code as CodeIcon,
   FileText as FileTextIcon,
   Map as MapIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Camera as CameraIcon } from 'components/icons/Camera'
 import { BookImage as BookImageIcon } from 'components/icons/BookImage'

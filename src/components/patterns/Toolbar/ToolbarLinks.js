@@ -9,18 +9,17 @@ import { Inbox as InboxIcon } from 'components/icons/Inbox'
 import { BookImage as BookImageIcon } from 'components/icons/BookImage'
 import {
   Layers,
-  BarChart2,
+  ChartNoAxesColumn,
   Box as BoxIcon,
-  Chrome as ChromeIcon,
   Code,
   Image,
   Map,
   Search as SearchIcon,
-  Sliders,
+  SlidersVertical,
   Tag as TagIcon,
   Users,
   Activity,
-  AlignLeft as AlignLeftIcon,
+  TextAlignStart as AlignLeftIcon,
   Maximize,
   Server as ServerIcon,
   Package as PackageIcon,
@@ -29,10 +28,11 @@ import {
   Video as VideoIcon,
   Zap,
   FileText,
-  Layout as LayoutIcon,
+  PanelsTopLeft as LayoutIcon,
   Link as LinkIcon,
   Link2
-} from 'react-feather'
+} from 'lucide-react'
+import { Chrome as ChromeIcon } from 'components/icons/Chrome'
 import { Lighthouse as LighthouseIcon } from 'components/icons/Lighthouse'
 import { PDF as PDFIcon } from 'components/icons/PDF'
 import { ShieldUser as ShieldUserIcon } from 'components/icons/ShieldUser'
@@ -449,7 +449,7 @@ export const NAVIGATION_SECTIONS = [
             label: 'Features',
             href: '/features',
             description: 'Scraping, functions, proxy',
-            icon: Sliders
+            icon: SlidersVertical
           }),
           createNavigationItem({
             label: 'Use cases',
@@ -501,7 +501,7 @@ export const NAVIGATION_SECTIONS = [
             label: 'Blog',
             href: '/blog',
             description: 'Stories and deep dives',
-            icon: BarChart2
+            icon: ChartNoAxesColumn
           }),
           createNavigationItem({
             label: 'Changelog',

@@ -1,11 +1,11 @@
 import React from 'react'
 import {
   Check,
-  CheckCircle,
+  CircleCheckBig,
   FileText,
   Search as SearchIcon,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 import { layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
@@ -13,14 +13,14 @@ import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 import Terminal from 'components/elements/Terminal/Terminal'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 
 import { BulletItem, TutorialStepContainer } from './'
 
 const Bullet = ({ children }) => (
   <BulletItem>
-    <FeatherIcon
-      icon={CheckCircle}
+    <LucideIcon
+      icon={CircleCheckBig}
       color='close'
       size={[1, 1, 2, 2]}
       css={theme({ flexShrink: 0, mr: 1, alignSelf: 'flex-start' })}

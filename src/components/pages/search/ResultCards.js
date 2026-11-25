@@ -1,5 +1,5 @@
 import React from 'react'
-import { Clock, Code as CodeIcon, FileText, MapPin, Star } from 'react-feather'
+import { Clock, Code as CodeIcon, FileText, MapPin, Star } from 'lucide-react'
 import { colors, theme } from 'theme'
 
 import Box from 'components/elements/Box'

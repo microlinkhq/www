@@ -1,5 +1,5 @@
 import React from 'react'
-import { EyeOff, FileText, MousePointer, ToggleLeft, Zap } from 'react-feather'
+import { EyeOff, FileText, MousePointer, ToggleLeft, Zap } from 'lucide-react'
 
 import Switcher from 'components/patterns/UseCaseSwitcher'
 

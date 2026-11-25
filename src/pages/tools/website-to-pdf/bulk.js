@@ -11,9 +11,9 @@ import {
 } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
-  AlertTriangle,
+  TriangleExclamationPoint,
   FileText,
-  CheckCircle,
+  CircleCheckBig,
   ChevronDown,
   Clipboard,
   Check,
@@ -21,11 +21,11 @@ import {
   ExternalLink,
   Globe,
   ArrowRight,
-  HelpCircle,
+  CircleQuestionMark,
   Settings,
-  Trash2,
+  Trash,
   X
-} from 'react-feather'
+} from 'lucide-react'
 import {
   ReactCompareSlider,
   ReactCompareSliderImage
@@ -507,14 +507,14 @@ const AnimatedResultsList = ({ results }) => {
           <Wrapper key={item.id}>
             {item.data.success
               ? (
-                <CheckCircle
+                <CircleCheckBig
                   size={14}
                   color={colors.green6}
                   style={{ flexShrink: 0 }}
                 />
                 )
               : (
-                <AlertTriangle
+                <TriangleExclamationPoint
                   size={14}
                   color={colors.red7}
                   style={{ flexShrink: 0 }}
@@ -1164,7 +1164,7 @@ const OptionsPanel = ({
                       </Tooltip.Content>
                     }
                   >
-                    <HelpCircle
+                    <CircleQuestionMark
                       size={16}
                       color={colors.black60}
                       style={{ marginLeft: '6px' }}
@@ -1193,7 +1193,7 @@ const OptionsPanel = ({
                       </Tooltip.Content>
                     }
                   >
-                    <HelpCircle
+                    <CircleQuestionMark
                       size={16}
                       color={colors.black60}
                       style={{ marginLeft: '6px' }}
@@ -1255,7 +1255,7 @@ const OptionsPanel = ({
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1281,7 +1281,7 @@ const OptionsPanel = ({
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1311,7 +1311,7 @@ const OptionsPanel = ({
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1360,7 +1360,7 @@ const OptionsPanel = ({
                       </Tooltip.Content>
                     }
                   >
-                    <HelpCircle
+                    <CircleQuestionMark
                       size={14}
                       color={colors.black40}
                       style={{ marginLeft: space[1] }}
@@ -1628,7 +1628,7 @@ const PdfHistory = ({
                   : undefined
               }
             >
-              <Trash2 size={14} />
+              <Trash size={14} />
               {confirmingDelete ? 'Are you sure?' : 'Delete'}
             </DeleteSelectedButton>
             <DownloadZipButton
@@ -2082,7 +2082,7 @@ const BulkPreview = ({
                     background: `linear-gradient(225deg, ${colors.green6}22 0%, ${colors.green8}22 100%)`
                   }}
                 >
-                  <CheckCircle size={28} color={colors.green6} />
+                  <CircleCheckBig size={28} color={colors.green6} />
                 </Box>
                 <Text
                   css={theme({
@@ -2141,7 +2141,7 @@ const BulkPreview = ({
                       background: `linear-gradient(225deg, ${colors.yellow7}22 0%, ${colors.yellow9}22 100%)`
                     }}
                   >
-                    <AlertTriangle size={28} color={colors.yellow7} />
+                    <TriangleExclamationPoint size={28} color={colors.yellow7} />
                   </Box>
                 )}
                 {!allRateLimited && (

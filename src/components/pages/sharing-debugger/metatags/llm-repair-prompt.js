@@ -3,8 +3,8 @@ import { theme, space, layout } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { ChevronDown, ChevronUp } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { ChevronDown, ChevronUp } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'
 
 export const LlmRepairPrompt = ({
@@ -83,7 +83,7 @@ export const LlmRepairPrompt = ({
               }
             })}
           >
-            <FeatherIcon
+            <LucideIcon
               icon={isPromptExpanded ? ChevronUp : ChevronDown}
               color='currentColor'
               size='14px'

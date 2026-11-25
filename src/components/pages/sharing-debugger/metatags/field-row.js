@@ -14,8 +14,8 @@ import {
 } from './validators'
 import { CodeInline } from 'components/markdown/CodeInline'
 import Choose from 'components/elements/Choose'
-import { CheckCircle, XCircle } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { CircleCheckBig, CircleX } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 
 export const FieldRow = ({
   name,
@@ -47,8 +47,8 @@ export const FieldRow = ({
       })}
     >
       <Flex css={theme({ gap: 2 })}>
-        <FeatherIcon
-          icon={status === VALIDATOR_STATUS_OK ? CheckCircle : XCircle}
+        <LucideIcon
+          icon={status === VALIDATOR_STATUS_OK ? CircleCheckBig : CircleX}
           color={color}
         />
         <Text

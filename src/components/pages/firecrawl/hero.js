@@ -5,8 +5,8 @@ import { AlternativeHeroActions } from 'components/patterns/ProductStory/alterna
 import BluePrintBackground from 'components/patterns/BluePrintBackground/BluePrintBackground'
 import { trackEvent } from 'helpers/gtag'
 import styled from 'styled-components'
-import { Check as CheckIcon } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { Check as CheckIcon } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 import { GradientText } from 'components/patterns/ProductStory'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -88,7 +88,7 @@ const HeroFactList = styled(Box).attrs({ as: 'ul' })`
 
 const HeroFact = ({ featured, children }) => (
   <Flex as='li' css={theme({ alignItems: 'flex-start', gap: 2, pb: 2 })}>
-    <FeatherIcon
+    <LucideIcon
       aria-hidden='true'
       icon={CheckIcon}
       size='16px'

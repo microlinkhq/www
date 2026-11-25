@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileText, Image as ImageIcon } from 'react-feather'
+import { FileText, Image as ImageIcon } from 'lucide-react'
 
 import { colors, layout, theme, transition } from 'theme'
 

@@ -2,12 +2,12 @@ import React from 'react'
 import {
   Camera,
   FileText,
-  Filter,
+  Funnel,
   Play,
   Printer,
   Search,
   Tag
-} from 'react-feather'
+} from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -32,7 +32,7 @@ const PANEL_ICONS = {
   markdown: FileText,
   search: Search,
   function: Play,
-  extract: Filter
+  extract: Funnel
 }
 
 const EXAMPLE_PANELS = PANELS.flatMap(panel => {

@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from 'react'
-import { Globe } from 'react-feather'
+import { Globe } from 'lucide-react'
 import { theme } from 'theme'
 import microlink from 'helpers/microlink'
 import Box from '../Box'
-import FeatherIcon from '../../icons/Feather'
+import LucideIcon from '../../icons/Lucide'
 import { StyledImage } from './styles'
 
 const FallbackIcon = ({ style }) => (
@@ -22,7 +22,7 @@ const FallbackIcon = ({ style }) => (
       overflow: 'hidden'
     })}
   >
-    <FeatherIcon icon={Globe} size={[1, 1, 1, 1]} />
+    <LucideIcon icon={Globe} size={[1, 1, 1, 1]} />
   </Box>
 )
 

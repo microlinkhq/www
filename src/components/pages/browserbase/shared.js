@@ -3,10 +3,10 @@ import {
   Code as CodeIcon,
   Clock as ClockIcon,
   Cpu as CpuIcon,
-  Grid as GridIcon,
+  Grid3x3 as GridIcon,
   Shield as ShieldIcon,
   Zap as ZapIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'

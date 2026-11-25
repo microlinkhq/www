@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box as BoxIcon, Cpu, Download, Unlock } from 'react-feather'
+import { Box as BoxIcon, Cpu, Download, LockOpen } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -40,7 +40,7 @@ const HERO_FEATURES = [
   {
     title: 'No key to start',
     description: `Credentials are optional: without one, the node calls the free endpoint. A free API key gives ${FREE_PLAN_REQUESTS_PER_DAY} requests a day with every Pro feature.`,
-    icon: <Unlock {...featureIconProps} aria-hidden='true' />
+    icon: <LockOpen {...featureIconProps} aria-hidden='true' />
   },
   {
     title: 'Files, not links',

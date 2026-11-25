@@ -12,8 +12,8 @@ import { layout, theme } from 'theme'
 import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { Logo } from 'components/pages/recipes'
-import FeatherIcon from 'components/icons/Feather'
-import { Eye } from 'react-feather'
+import LucideIcon from 'components/icons/Lucide'
+import { Eye } from 'lucide-react'
 
 const Description = recipe => {
   const { description, domain } = recipe
@@ -93,7 +93,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
 
           {isLoaded && (
             <Flex css={theme({ pt: 2, alignItems: 'center' })}>
-              <FeatherIcon icon={Eye} color='black50' size={[1, 1, 2, 2]} />
+              <LucideIcon icon={Eye} color='black50' size={[1, 1, 2, 2]} />
               <Text css={theme({ pl: 2, color: 'black50' })}>
                 {formatNumber(count)}
               </Text>
@@ -127,9 +127,7 @@ const RecipeTemplate = ({ pageContext: recipe }) => {
               gap: [3, 4]
             })}
           >
-            <ArrowLink href='/docs/sdk/methods/extract'>
-              Read docs
-            </ArrowLink>
+            <ArrowLink href='/docs/sdk/methods/extract'>Read docs</ArrowLink>
             <ArrowLink href={gitHubUrl}>Edit on GitHub</ArrowLink>
           </Flex>
         </Flex>

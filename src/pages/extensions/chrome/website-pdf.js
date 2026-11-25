@@ -1,13 +1,13 @@
 import { breakpoints, colors, layout, theme } from 'theme'
 import {
   Archive,
-  Chrome,
   Clock,
   Key,
   Layers,
   Shield,
-  Sliders
-} from 'react-feather'
+  SlidersVertical
+} from 'lucide-react'
+import { Chrome } from 'components/icons/Chrome'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -187,7 +187,7 @@ const FEATURES = [
     body: 'When the run completes, all documents are packaged into a single ZIP archive that downloads automatically — no clicking through files.'
   },
   {
-    icon: Sliders,
+    icon: SlidersVertical,
     title: 'Full PDF control',
     body: 'Paper format from A0 to A6 plus Letter, Legal, Tabloid, and Ledger. Portrait or landscape, print or screen appearance, and advanced scale, margin, and page-range options.'
   },

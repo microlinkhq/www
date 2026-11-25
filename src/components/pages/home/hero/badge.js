@@ -5,7 +5,7 @@ import { REDUCED_MOTION_MEDIA } from 'helpers/reduced-motion'
 import { visuallyHiddenCss } from 'helpers/visually-hidden'
 import { space, speed, timings, theme } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
-import { Check as CheckIcon } from 'react-feather'
+import { Check as CheckIcon } from 'lucide-react'
 import styled, { keyframes } from 'styled-components'
 
 import analyticsData from '../../../../../data/analytics.json'

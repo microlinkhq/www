@@ -14,7 +14,7 @@ import React, {
   useMemo,
   useRef
 } from 'react'
-import { Clipboard, Check, RotateCcw, HelpCircle } from 'react-feather'
+import { Clipboard, Check, RotateCcw, CircleQuestionMark } from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { css, keyframes } from 'styled-components'
@@ -1566,7 +1566,7 @@ const LayoutTab = ({ config, set, setHoverTarget }) => {
                   }
                   >
                     <HelpIconWrap>
-                      <HelpCircle size={13} />
+                      <CircleQuestionMark size={13} />
                     </HelpIconWrap>
                   </Tooltip>
                 </Flex>

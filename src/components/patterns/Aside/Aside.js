@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
-import { Menu, X } from 'react-feather'
+import { Menu, X } from 'lucide-react'
 import styled from 'styled-components'
 import { shadows, theme } from 'theme'
 import AsideBase from './AsideBase'
@@ -113,7 +113,7 @@ const Aside = ({ children, ...props }) => {
             <AsideButton
               title='close aside menu'
               iconComponent={
-                <FeatherIcon
+                <LucideIcon
                   icon={X}
                   size={[1, 1, 2, 2]}
                   onClick={handleClose}
@@ -130,7 +130,7 @@ const Aside = ({ children, ...props }) => {
           title='open aside menu'
           css={theme({ mb: 2 })}
           iconComponent={
-            <FeatherIcon
+            <LucideIcon
               icon={Menu}
               size={[1, 1, 2, 2]}
               onClick={toggleOpen}

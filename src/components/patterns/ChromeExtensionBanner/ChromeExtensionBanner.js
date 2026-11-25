@@ -1,5 +1,6 @@
 import { colors, layout, theme, transition } from 'theme'
-import { Check, Chrome } from 'react-feather'
+import { Check } from 'lucide-react'
+import { Chrome } from 'components/icons/Chrome'
 import styled, { css } from 'styled-components'
 import React from 'react'
 

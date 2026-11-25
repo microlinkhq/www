@@ -1,7 +1,7 @@
 import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Check as CheckIcon, X as XIcon } from 'react-feather'
+import { Check as CheckIcon, X as XIcon } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -15,7 +15,7 @@ import { DEFAULT_PLAN, PLANS } from 'helpers/pro-plans'
 import Heading from 'components/elements/Heading'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { SignupLink } from 'components/patterns/SignupLink'
 import Caption from 'components/patterns/Caption/Caption'
@@ -403,7 +403,7 @@ const ComparisonProHeaderPlanCell = styled(ComparisonHeaderPlanCell)`
 const renderComparisonValue = value => {
   if (value === true) {
     return (
-      <FeatherIcon
+      <LucideIcon
         icon={CheckIcon}
         size='16px'
         css={theme({ color: 'secondary' })}
@@ -824,7 +824,7 @@ const BuyCard = styled(BvbCard)`
 
 const BvbBullet = ({ children, kind }) => (
   <Flex css={theme({ alignItems: 'flex-start', gap: 2, pt: [2, 2, 3, 3] })}>
-    <FeatherIcon
+    <LucideIcon
       css={theme({
         flexShrink: 0,
         mt: '3px',

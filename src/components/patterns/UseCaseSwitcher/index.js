@@ -1,7 +1,7 @@
 import { breakpoints, colors, theme, touchTargets, transition } from 'theme'
 import React, { useRef, useState, useSyncExternalStore } from 'react'
 import styled, { css } from 'styled-components'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import CodeEditor from 'components/elements/CodeEditor/CodeEditor'

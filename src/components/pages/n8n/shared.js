@@ -1,15 +1,15 @@
 import React from 'react'
 import {
   Activity,
-  AlignLeft,
+  TextAlignStart,
   Aperture,
   Camera,
   FileText,
   Film,
-  Music,
+  EighthNotes,
   Printer,
   Tag
-} from 'react-feather'
+} from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Container from 'components/elements/Container'
@@ -110,7 +110,7 @@ export const OPERATIONS = [
   {
     value: 'text',
     name: 'Text',
-    icon: AlignLeft,
+    icon: TextAlignStart,
     description: 'The page content as plain text.',
     detail: (
       <>
@@ -122,7 +122,7 @@ export const OPERATIONS = [
   {
     value: 'audio',
     name: 'Audio',
-    icon: Music,
+    icon: EighthNotes,
     description: 'A playable audio source.',
     detail: (
       <>

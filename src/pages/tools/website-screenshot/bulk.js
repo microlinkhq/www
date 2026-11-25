@@ -12,18 +12,18 @@ import {
 } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
-  AlertTriangle,
+  TriangleExclamationPoint,
   Camera,
-  CheckCircle,
+  CircleCheckBig,
   Download,
   Globe,
   ArrowRight,
-  HelpCircle,
+  CircleQuestionMark,
   Link2,
   Settings,
-  Trash2,
+  Trash,
   X
-} from 'react-feather'
+} from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
@@ -332,14 +332,14 @@ const AnimatedResultsList = ({ results }) => {
           <Wrapper key={item.id}>
             {item.data.success
               ? (
-                <CheckCircle
+                <CircleCheckBig
                   size={14}
                   color='#22c55e'
                   style={{ flexShrink: 0 }}
                 />
                 )
               : (
-                <AlertTriangle
+                <TriangleExclamationPoint
                   size={14}
                   color='#ef4444'
                   style={{ flexShrink: 0 }}
@@ -1043,7 +1043,7 @@ const OptionsPanel = ({
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1069,7 +1069,7 @@ const OptionsPanel = ({
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1274,7 +1274,7 @@ const ScreenshotHistory = ({
                   : undefined
               }
             >
-              <Trash2 size={14} />
+              <Trash size={14} />
               {confirmingDelete ? 'Are you sure?' : 'Delete'}
             </DeleteSelectedButton>
             <DownloadZipButton
@@ -1581,7 +1581,7 @@ const BulkPreview = ({
                     'linear-gradient(225deg, #22c55e22 0%, #16a34a22 100%)'
                   }}
                 >
-                  <CheckCircle size={28} color='#22c55e' />
+                  <CircleCheckBig size={28} color='#22c55e' />
                 </Box>
                 <Text
                   css={theme({
@@ -1640,7 +1640,7 @@ const BulkPreview = ({
                     'linear-gradient(225deg, #f59e0b22 0%, #d9770622 100%)'
                   }}
                 >
-                  <AlertTriangle size={28} color='#f59e0b' />
+                  <TriangleExclamationPoint size={28} color='#f59e0b' />
                 </Box>
                 <Text
                   css={theme({

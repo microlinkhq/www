@@ -30,7 +30,7 @@ import Meta from 'components/elements/Meta/Meta'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
 
-import { Terminal as TerminalIcon, X as CloseIcon } from 'react-feather'
+import { Terminal as TerminalIcon, X as CloseIcon } from 'lucide-react'
 
 import ArrowLink from 'components/patterns/ArrowLink'
 import { CallToAction as FreeKeyCallToAction } from 'components/patterns/CallToAction'

@@ -1,14 +1,14 @@
 import { theme, shadows, transition, shadowInk, colors } from 'theme'
 import React from 'react'
 import styled, { css } from 'styled-components'
-import { ChevronRight } from 'react-feather'
+import { ChevronRight } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Subhead from 'components/elements/Subhead'
 import Text from 'components/elements/Text'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 
 import { ACCENT } from '../features'
 import { Eyebrow } from '../primitives'
@@ -104,7 +104,7 @@ export const ParamsSection = ({ eyebrow = 'Parameters', title, rows }) => (
                 aria-hidden='true'
                 css={theme({ ml: 'auto', color: 'secondary', flexShrink: 0 })}
               >
-                <FeatherIcon icon={ChevronRight} />
+                <LucideIcon icon={ChevronRight} />
               </Box>
             </Flex>
             <Text

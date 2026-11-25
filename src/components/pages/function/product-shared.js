@@ -1,6 +1,6 @@
 import React from 'react'
 import { colors } from 'theme'
-import { CheckCircle, Code, Globe } from 'react-feather'
+import { CircleCheckBig, Code, Globe } from 'lucide-react'
 
 import { editorTemplateHref } from 'components/pages/editor/shared'
 import { Link } from 'components/elements/Link'
@@ -154,7 +154,7 @@ export const PRIMER = {
         'The function runs against that page. Mention page and Microlink starts a headless browser and gives you the full Puppeteer page object. Skip page and no browser starts.'
     },
     {
-      icon: CheckCircle,
+      icon: CircleCheckBig,
       title: 'Read the return value',
       description:
         'value is what the function returned. isFulfilled is false if it threw, and value then holds the error. profiling.phases shows install, build, spawn, and run.'

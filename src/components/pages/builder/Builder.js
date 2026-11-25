@@ -1,6 +1,6 @@
 import { colors, theme, transition } from 'theme'
 import React, { useCallback, useId, useMemo, useState } from 'react'
-import { ChevronDown, RotateCcw } from 'react-feather'
+import { ChevronDown, RotateCcw } from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'

@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Check as CheckIcon, Minus as MinusIcon } from 'react-feather'
+import { Check as CheckIcon, Minus as MinusIcon } from 'lucide-react'
 import { breakpoints, colors, gradient, layout, theme } from 'theme'
 
 import Box from 'components/elements/Box'
@@ -8,7 +8,7 @@ import { Button } from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
 import Text from 'components/elements/Text'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import ArrowLink from 'components/patterns/ArrowLink'
 import { SignupLink } from 'components/patterns/SignupLink'
 import { CDN_EDGES } from 'helpers/cdn-edges'
@@ -158,7 +158,7 @@ export const isMissing = item => item?.missing === true
 
 const PlanItem = ({ absent, children }) => (
   <Flex as='li' css={theme({ alignItems: 'flex-start', gap: 2, pb: 2 })}>
-    <FeatherIcon
+    <LucideIcon
       aria-hidden='true'
       icon={absent ? MinusIcon : CheckIcon}
       size='16px'

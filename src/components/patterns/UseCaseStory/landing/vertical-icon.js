@@ -1,6 +1,6 @@
 import { theme } from 'theme'
 import React from 'react'
-import { Code, Search } from 'react-feather'
+import { Code, Search } from 'lucide-react'
 
 import Flex from 'components/elements/Flex'
 import { Camera } from 'components/icons/Camera'

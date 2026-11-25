@@ -5,7 +5,7 @@ import {
   Droplet as DropletIcon,
   LifeBuoy as LifeBuoyIcon,
   Mail as MailIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'

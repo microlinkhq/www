@@ -6,12 +6,12 @@ import {
   Crosshair,
   Download,
   Globe,
-  HelpCircle,
+  CircleQuestionMark,
   Maximize,
   Settings,
-  XSquare,
+  SquareX,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -152,7 +152,7 @@ const REASON_TO_USE = [
     )
   },
   {
-    icon: XSquare,
+    icon: SquareX,
     title: 'No Extension, No Install — 100% Online and Free',
     description: (
       <>
@@ -394,7 +394,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -420,7 +420,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}

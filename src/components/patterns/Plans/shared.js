@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Check as CheckIcon } from 'react-feather'
+import { Check as CheckIcon } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Highlight from 'components/elements/Highlight'
 import Text from 'components/elements/Text'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { useCurrencyContext } from 'components/hook/use-currency'
 import { colors, gradient, theme } from 'theme'
 
@@ -54,7 +54,7 @@ export const PlanCheckList = styled(Box).attrs({ as: 'ul' })`
 
 export const PlanCheck = ({ children }) => (
   <Flex as='li' css={theme({ alignItems: 'center', gap: 2, pt: 2 })}>
-    <FeatherIcon
+    <LucideIcon
       data-icon='check'
       css={theme({
         display: 'inline-flex',

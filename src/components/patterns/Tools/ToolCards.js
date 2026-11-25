@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { ArrowRight, ChevronRight } from 'react-feather'
+import { ArrowRight, ChevronRight } from 'lucide-react'
 import { theme, transition, space } from 'theme'
 
 import Box from 'components/elements/Box'

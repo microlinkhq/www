@@ -8,14 +8,7 @@ import {
   SECTION_VERTICAL_SPACING,
   theme
 } from 'theme'
-import {
-  Activity,
-  Code,
-  Database,
-  Package,
-  Repeat,
-  Server
-} from 'react-feather'
+import { Activity, Code, Database, Package, Repeat, Server } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'

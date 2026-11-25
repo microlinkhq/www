@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown } from 'lucide-react'
 import { colors, theme, touchTargets } from 'theme'
 import React from 'react'
 

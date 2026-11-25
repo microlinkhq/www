@@ -6,9 +6,9 @@ import { formatNumber } from 'helpers/format-number'
 import React, { useState, useEffect } from 'react'
 import { issueUrl } from 'helpers/issue-url'
 import kebabCase from 'lodash/kebabCase'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { getDomain } from 'tldts'
-import { Eye } from 'react-feather'
+import { Eye } from 'lucide-react'
 
 import { Logo } from 'components/pages/recipes'
 
@@ -145,7 +145,7 @@ const RecipesPage = () => {
                       css={{ alignItems: 'center' }}
                       style={{ visibility: isLoaded ? 'inherit' : 'hidden' }}
                     >
-                      <FeatherIcon
+                      <LucideIcon
                         icon={Eye}
                         color='black50'
                         size={[0, 0, 1, 1]}

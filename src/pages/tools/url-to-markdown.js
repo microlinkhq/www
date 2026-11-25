@@ -13,19 +13,19 @@ import React, { useState, useCallback, useEffect, useRef } from 'react'
 import {
   Globe,
   ArrowRight,
-  HelpCircle,
+  CircleQuestionMark,
   FileText,
   Settings,
   Download,
   Clipboard,
   Check,
   Loader,
-  Edit2,
+  Pen,
   Save,
   Code,
   ChevronDown,
   X
-} from 'react-feather'
+} from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled, { keyframes } from 'styled-components'
@@ -693,7 +693,7 @@ const SettingsPopover = ({
           </Tooltip.Content>
         }
       >
-        <HelpCircle
+        <CircleQuestionMark
           size={16}
           color={colors.black60}
           style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -721,7 +721,7 @@ const SettingsPopover = ({
           </Tooltip.Content>
         }
       >
-        <HelpCircle
+        <CircleQuestionMark
           size={16}
           color={colors.black60}
           style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -749,7 +749,7 @@ const SettingsPopover = ({
           </Tooltip.Content>
         }
       >
-        <HelpCircle
+        <CircleQuestionMark
           size={16}
           color={colors.black60}
           style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -797,7 +797,7 @@ const SettingsPopover = ({
                   </Tooltip.Content>
               }
               >
-                <HelpCircle
+                <CircleQuestionMark
                   size={16}
                   color={colors.black60}
                   style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -1419,7 +1419,7 @@ const MarkdownPreviewDisplay = ({
                     : { bg: 'gray1', borderColor: 'black20' }
                 })}
               >
-                {isEditing ? <X size={15} /> : <Edit2 size={15} />}
+                {isEditing ? <X size={15} /> : <Pen size={15} />}
                 <Caps css={theme({ fontSize: 0 })}>
                   {isEditing ? 'Stop' : 'Edit'}
                 </Caps>

@@ -23,7 +23,7 @@ import {
   NewsletterHoneypot,
   useNewsletter
 } from 'components/hook/use-newsletter'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown } from 'lucide-react'
 import styled from 'styled-components'
 
 import { FEATURES } from 'components/patterns/FeatureStory'

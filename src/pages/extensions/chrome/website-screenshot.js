@@ -1,13 +1,13 @@
 import { breakpoints, colors, layout, theme } from 'theme'
 import {
-  Chrome,
   Clock,
   Crosshair,
-  Edit3,
+  PenLine,
   Layers,
   Monitor,
   Share2
-} from 'react-feather'
+} from 'lucide-react'
+import { Chrome } from 'components/icons/Chrome'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -196,7 +196,7 @@ const FEATURES = [
     body: 'Wrap any capture in a browser frame over a gradient background — a shareable image ready for social posts, changelogs, and launch threads.'
   },
   {
-    icon: Edit3,
+    icon: PenLine,
     title: 'Built-in annotation editor',
     body: 'Freehand pen, text, rectangles, and arrows with color and stroke controls. Zoom, undo/redo, and download the annotated result as a PNG.'
   },

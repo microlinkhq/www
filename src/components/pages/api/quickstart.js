@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowUpRight } from 'react-feather'
+import { ArrowUpRight } from 'lucide-react'
 import { colors, shadows, theme, touchTargets, transition } from 'theme'
 import styled from 'styled-components'
 

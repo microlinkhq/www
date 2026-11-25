@@ -1,4 +1,4 @@
-import { Grid } from 'react-feather'
+import { Grid3x3 } from 'lucide-react'
 
 import {
   GoogleIcon,
@@ -21,7 +21,7 @@ import { TelegramPreview } from './telegram'
 import { DiscordPreview } from './discord'
 
 export const PREVIEWS = {
-  all: { name: 'All', component: null, icon: Grid },
+  all: { name: 'All', component: null, icon: Grid3x3 },
   whatsapp: {
     name: 'WhatsApp',
     component: WhatsAppPreview,

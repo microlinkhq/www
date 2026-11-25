@@ -10,7 +10,7 @@ import {
   theme,
   transition
 } from 'theme'
-import { Terminal as TerminalIcon } from 'react-feather'
+import { Terminal as TerminalIcon } from 'lucide-react'
 import Button from 'components/elements/Button/Button'
 import Flex from 'components/elements/Flex'
 import { stripProtocol } from './url'

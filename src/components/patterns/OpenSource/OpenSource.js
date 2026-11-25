@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Star as StarIcon } from 'react-feather'
+import { Star as StarIcon } from 'lucide-react'
 
 import {
   theme,
@@ -344,8 +344,7 @@ const OpenSource = ({
             >
               open source
             </span>
-            ,{' '}
-            <br />
+            , <br />
             trusted by developers
           </Subhead>
           <Caption

@@ -2,7 +2,7 @@ import React, { useEffect, useMemo, useState } from 'react'
 import {
   Award,
   BookOpen,
-  Edit3,
+  PenLine,
   FileText,
   Image as ImageIcon,
   Map,
@@ -11,7 +11,7 @@ import {
   ShoppingBag,
   Type,
   Video
-} from 'react-feather'
+} from 'lucide-react'
 
 import { theme } from 'theme'
 import { visuallyHiddenCss } from 'helpers/visually-hidden'
@@ -180,7 +180,7 @@ const PlaygroundExamplesPanel = ({
                   $active={isActive}
                   aria-hidden='true'
                 >
-                  <Edit3 />
+                  <PenLine />
                 </VerticalExampleOptionIcon>
                 <Box css={theme({ minWidth: 0, pt: 1 })}>
                   <Text

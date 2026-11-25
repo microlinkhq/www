@@ -1,5 +1,5 @@
-import { ChevronUp, ChevronDown } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { ChevronUp, ChevronDown } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import { fontWeights, theme } from 'theme'
@@ -45,7 +45,7 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
     >
       {view}
       {isActive && (
-        <FeatherIcon
+        <LucideIcon
           icon={isExpanded ? ChevronUp : ChevronDown}
           color='black'
           size={[0, 0, 0, 0]}

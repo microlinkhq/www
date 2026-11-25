@@ -4,7 +4,7 @@ import {
   Heart as HeartIcon,
   MessageCircle as MessageIcon,
   Repeat as RepeatIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 export const STRIPE_DEMO_DATA = {
   title: 'Financial Infrastructure to Grow Your Revenue',

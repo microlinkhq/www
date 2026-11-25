@@ -7,7 +7,7 @@ const getWidth = size => {
   return fontSizes[size] || size
 }
 
-const FeatherIcon = ({
+const LucideIcon = ({
   color,
   icon: Icon,
   size = [1, 1, 2, 2],
@@ -39,4 +39,4 @@ const FeatherIcon = ({
   )
 }
 
-export default React.memo(FeatherIcon)
+export default React.memo(LucideIcon)
