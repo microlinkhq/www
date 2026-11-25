@@ -274,6 +274,13 @@ describe('button rules accept the real variants and reject the others', () => {
       iconViolations(fixture('<Button><LucideIcon /></Button>'))
     ).toHaveLength(1)
     expect(
+      iconViolations(
+        fixture(
+          "import { Check } from 'lucide-react'\nconst Save = () => <Button>Save<Check /></Button>"
+        )
+      )
+    ).toHaveLength(1)
+    expect(
       iconViolations(fixture('<Button><ButtonIcon /></Button>'))
     ).toHaveLength(1)
     expect(
