@@ -18,8 +18,8 @@ import {
   UpgradeItemLink
 } from './ToolbarAccountItems'
 import {
+  ACCOUNT_MENU_LINKS,
   DASHBOARD_LINK,
-  SETTINGS_LINK,
   SIGN_IN_LINK,
   SIGN_OUT_ACTION,
   UPGRADE_LINK
@@ -34,6 +34,10 @@ const ACTION_STYLES = {
 
 const MOBILE_ITEM_STYLES = { minHeight: '44px', fontSize: 1 }
 
+const MOBILE_MENU_LINKS = ACCOUNT_MENU_LINKS.filter(
+  link => link !== DASHBOARD_LINK
+)
+
 const SignedInAccount = ({ account, ctaLocation, onNavigate }) => (
   <>
     <Flex css={theme({ alignItems: 'center', gap: 2, px: 2, pb: 2 })}>
@@ -41,14 +45,16 @@ const SignedInAccount = ({ account, ctaLocation, onNavigate }) => (
       <AccountProfile profile={account.profile} />
     </Flex>
     <Box as='ul' css={theme(TOOLBAR_LIST_RESET_STYLES)}>
-      <li>
-        <AccountDashboardItem
-          link={SETTINGS_LINK}
-          ctaLocation={ctaLocation}
-          onClick={onNavigate}
-          css={theme(MOBILE_ITEM_STYLES)}
-        />
-      </li>
+      {MOBILE_MENU_LINKS.map(link => (
+        <li key={link.ctaAction}>
+          <AccountDashboardItem
+            link={link}
+            ctaLocation={ctaLocation}
+            onClick={onNavigate}
+            css={theme(MOBILE_ITEM_STYLES)}
+          />
+        </li>
+      ))}
       <li>
         <AccountItemButton
           type='button'
