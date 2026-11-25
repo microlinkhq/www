@@ -5,8 +5,8 @@ import {
   FileText as FileTextIcon,
   Table as TableIcon,
   Cpu as CpuIcon,
-  CheckSquare as CheckSquareIcon
-} from 'react-feather'
+  SquareCheckBig as CheckSquareIcon
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'

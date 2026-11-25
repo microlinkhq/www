@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Check as CheckIcon, Copy as CopyIcon } from 'react-feather'
+import { Check as CheckIcon, Copy as CopyIcon } from 'lucide-react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'

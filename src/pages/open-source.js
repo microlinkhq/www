@@ -1,4 +1,4 @@
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import Meta from 'components/elements/Meta/Meta'
 import Heading from 'components/elements/Heading'
 import { Link } from 'components/elements/Link'
@@ -12,7 +12,7 @@ import { formatNumber } from 'helpers/format-number'
 import { useOss } from 'components/hook/use-oss'
 import { layout, theme } from 'theme'
 import React from 'react'
-import { Star, AlertCircle } from 'react-feather'
+import { Star, CircleExclamationPoint } from 'lucide-react'
 
 export const Head = () => (
   <Meta
@@ -88,7 +88,7 @@ const OssPage = () => {
                           {formatNumber(stars)}
                         </Text>
                         <Flex>
-                          <FeatherIcon
+                          <LucideIcon
                             icon={Star}
                             size={[0, 0, 1, 1]}
                             css={{ display: 'flex', alignItems: 'center' }}
@@ -97,8 +97,8 @@ const OssPage = () => {
                       </Flex>
                       <Flex css={{ alignItems: 'center' }}>
                         <Text css={theme({ mr: 1 })}>{issues}</Text>
-                        <FeatherIcon
-                          icon={AlertCircle}
+                        <LucideIcon
+                          icon={CircleExclamationPoint}
                           size={[0, 0, 1, 1]}
                           css={{ display: 'flex', alignItems: 'center' }}
                         />

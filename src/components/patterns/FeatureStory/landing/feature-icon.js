@@ -10,7 +10,7 @@ import {
   Shield,
   Slash,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'

@@ -1,6 +1,6 @@
 import { layout, theme } from 'theme'
 import React from 'react'
-import { Check } from 'react-feather'
+import { Check } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'

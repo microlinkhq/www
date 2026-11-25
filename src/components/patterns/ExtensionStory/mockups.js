@@ -1,5 +1,5 @@
 import { colors, fonts, theme } from 'theme'
-import { Archive, ChevronDown, X } from 'react-feather'
+import { Archive, ChevronDown, X } from 'lucide-react'
 import React from 'react'
 import styled from 'styled-components'
 

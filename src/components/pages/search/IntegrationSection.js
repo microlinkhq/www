@@ -1,5 +1,5 @@
 import React from 'react'
-import { GitMerge, Hexagon, Target } from 'react-feather'
+import { GitMerge, Hexagon, Target } from 'lucide-react'
 
 import { layout, theme } from 'theme'
 

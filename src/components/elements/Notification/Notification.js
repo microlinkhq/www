@@ -1,6 +1,6 @@
-import { CheckCircle, X, AlertTriangle } from 'react-feather' // TODO: XCircle is probably X
+import { CircleCheckBig, X, TriangleExclamationPoint } from 'lucide-react' // TODO: XCircle is probably X
 import React, { createElement, useState } from 'react'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { theme, transition, touchTargets, speed } from 'theme'
 import styled from 'styled-components'
 import Text from '../Text'
@@ -67,7 +67,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
         {...props}
       >
         <Flex css={theme({ alignItems: 'center' })}>
-          <FeatherIcon
+          <LucideIcon
             css={theme({
               mr: 3,
               color: iconColor,
@@ -116,7 +116,7 @@ const Notification = ({ icon, iconColor, children, ...props }) => {
 
 const NotificationSuccess = props =>
   createElement(Notification, {
-    icon: CheckCircle,
+    icon: CircleCheckBig,
     iconColor: 'close',
     ...props
   })
@@ -130,7 +130,7 @@ const NotificationError = props =>
 
 const NotificationWarning = props =>
   createElement(Notification, {
-    icon: AlertTriangle,
+    icon: TriangleExclamationPoint,
     iconColor: 'minimize',
     ...props
   })

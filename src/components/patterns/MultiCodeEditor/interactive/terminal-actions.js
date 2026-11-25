@@ -1,6 +1,6 @@
 import CodeCopy from 'components/elements/Codecopy'
-import FeatherIcon from 'components/icons/Feather'
-import { Key, Globe } from 'react-feather'
+import LucideIcon from 'components/icons/Lucide'
+import { Key, Globe } from 'lucide-react'
 import { colors } from 'theme'
 import React from 'react'
 
@@ -59,7 +59,7 @@ const TerminalActions = React.memo(
           }
         }}
       >
-        <FeatherIcon
+        <LucideIcon
           icon={Key}
           color={showApiKeyInput ? colors.black : colors.black20}
           size={[1, 1, 1, 1]}
@@ -95,7 +95,7 @@ const TerminalActions = React.memo(
           }
         }}
       >
-        <FeatherIcon
+        <LucideIcon
           icon={Globe}
           color={colors.black20}
           size={[1, 1, 1, 1]}

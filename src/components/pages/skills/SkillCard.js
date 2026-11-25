@@ -5,8 +5,8 @@ import {
   accentIcon,
   accentTile
 } from 'theme'
-import { ArrowRight } from 'react-feather'
-import FeatherIcon from 'components/icons/Feather'
+import { ArrowRight } from 'lucide-react'
+import LucideIcon from 'components/icons/Lucide'
 import styled from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -72,7 +72,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
             bg: accentTile(accent)
           })}
         >
-          <FeatherIcon
+          <LucideIcon
             icon={getSkillIcon(skill.slug, fallbackIcon)}
             size={1}
             color={accentIcon(accent)}
@@ -108,7 +108,7 @@ const SkillCard = ({ skill, accent, fallbackIcon }) => (
         </Flex>
       </Flex>
       <Flex css={theme({ justifyContent: 'flex-end', mt: 'auto' })}>
-        <FeatherIcon
+        <LucideIcon
           icon={ArrowRight}
           size={1}
           aria-hidden='true'

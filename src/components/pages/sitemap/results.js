@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { ArrowUpRight } from 'react-feather'
+import { ArrowUpRight } from 'lucide-react'
 import styled from 'styled-components'
 import { theme, layout, touchTargets } from 'theme'
 import Box from 'components/elements/Box'

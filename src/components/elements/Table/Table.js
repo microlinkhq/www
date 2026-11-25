@@ -7,9 +7,9 @@ import React, {
 } from 'react'
 import styled, { css } from 'styled-components'
 import { breakpoints, theme } from 'theme'
-import { Check as CheckIcon } from 'react-feather'
+import { Check as CheckIcon } from 'lucide-react'
 
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
@@ -283,7 +283,7 @@ export const CellNote = ({ children }) => (
 )
 
 export const Check = () => (
-  <FeatherIcon
+  <LucideIcon
     icon={CheckIcon}
     size='16px'
     role='img'

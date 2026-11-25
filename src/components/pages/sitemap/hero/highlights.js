@@ -1,5 +1,5 @@
 import React from 'react'
-import { FileText, Shield, Zap } from 'react-feather'
+import { FileText, Shield, Zap } from 'lucide-react'
 import { space, theme } from 'theme'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'

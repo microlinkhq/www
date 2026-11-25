@@ -1,6 +1,6 @@
 import Box from 'components/elements/Box'
 import { TOOLBAR_PRIMARY_HEIGHT } from 'components/elements/Toolbar'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import styled, { css } from 'styled-components'
 import { backDrop } from 'helpers/style'
 import { isDevelopment } from 'helpers/is-development'
@@ -105,7 +105,7 @@ export const TopLevelDirectLink = styled(ToolbarNavLink)`
   ${TOP_LEVEL_INTERACTION_ACTIVE_LINK_STYLES}
 `
 
-export const TopLevelChevron = styled(FeatherIcon).withConfig({
+export const TopLevelChevron = styled(LucideIcon).withConfig({
   shouldForwardProp: prop => !['isOpen'].includes(prop)
 })`
   align-items: center;

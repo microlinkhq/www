@@ -1,6 +1,6 @@
 import { borders, colors, gradient, layout, theme, transition } from 'theme'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
-import { Check, Copy } from 'react-feather'
+import { Check, Copy } from 'lucide-react'
 import styled from 'styled-components'
 
 import Box from 'components/elements/Box'

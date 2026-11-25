@@ -1,5 +1,5 @@
 import React from 'react'
-import { Globe, Package, Unlock, Zap } from 'react-feather'
+import { Globe, Package, LockOpen, Zap } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import { Button } from 'components/elements/Button/Button'
@@ -51,7 +51,7 @@ const HERO_FEATURES = [
   {
     title: 'Free to start',
     description: `Free API key with ${FREE_PLAN_REQUESTS_PER_DAY}\u00a0requests a day and every Pro feature.`,
-    icon: <Unlock {...featureIconProps} aria-hidden='true' />
+    icon: <LockOpen {...featureIconProps} aria-hidden='true' />
   }
 ]
 

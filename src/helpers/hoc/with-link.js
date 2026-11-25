@@ -3,10 +3,10 @@
 import React, { useRef, useState, useEffect } from 'react'
 import { toRaw, transition, colors, toPx } from 'theme'
 import { useLocation } from '@gatsbyjs/reach-router'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import styled, { css } from 'styled-components'
 import { Link as GatsbyLink } from 'gatsby'
-import { ArrowUpRight } from 'react-feather'
+import { ArrowUpRight } from 'lucide-react'
 
 import Flex from '../../components/elements/Flex'
 
@@ -67,7 +67,7 @@ const Icon = ({ children }) => {
   return (
     <Flex as='span' ref={ref} css={linkIconWrapper}>
       {children}
-      <FeatherIcon icon={ArrowUpRight} size={toPx(size)} />
+      <LucideIcon icon={ArrowUpRight} size={toPx(size)} />
     </Flex>
   )
 }

@@ -11,7 +11,7 @@ import {
   FileText,
   Globe,
   ArrowRight,
-  HelpCircle,
+  CircleQuestionMark,
   Settings,
   Download,
   Clipboard,
@@ -21,7 +21,7 @@ import {
   Code,
   Loader,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 import {
   ReactCompareSlider,
   ReactCompareSliderImage
@@ -578,7 +578,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   </Tooltip.Content>
                 }
               >
-                <HelpCircle
+                <CircleQuestionMark
                   size={16}
                   color={colors.black60}
                   style={{ marginLeft: '6px' }}
@@ -607,7 +607,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                   </Tooltip.Content>
                 }
               >
-                <HelpCircle
+                <CircleQuestionMark
                   size={16}
                   color={colors.black60}
                   style={{ marginLeft: '6px' }}
@@ -667,7 +667,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -693,7 +693,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -723,7 +723,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -772,7 +772,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                       </Tooltip.Content>
                     }
                   >
-                    <HelpCircle
+                    <CircleQuestionMark
                       size={14}
                       color={colors.black40}
                       style={{ marginLeft: '4px' }}

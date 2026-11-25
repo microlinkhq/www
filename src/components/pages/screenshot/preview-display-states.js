@@ -3,7 +3,7 @@
 import { trackEvent } from 'helpers/gtag'
 import { colors, theme, transition } from 'theme'
 import React from 'react'
-import { Check, Clipboard, Download, ExternalLink, Loader } from 'react-feather'
+import { Check, Clipboard, Download, ExternalLink, Loader } from 'lucide-react'
 import styled, { keyframes } from 'styled-components'
 
 import Box from 'components/elements/Box'

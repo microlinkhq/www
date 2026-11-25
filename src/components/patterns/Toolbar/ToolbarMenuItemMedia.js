@@ -1,5 +1,5 @@
 import React from 'react'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 
 const ToolbarMenuItemMedia = ({
   label,
@@ -15,7 +15,7 @@ const ToolbarMenuItemMedia = ({
       <img src={logo} width={size} height={size} alt={label} style={imageCss} />
       )
     : (
-      <FeatherIcon
+      <LucideIcon
         icon={Icon}
         size={size}
         className={iconClassName}

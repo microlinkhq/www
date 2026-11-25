@@ -261,12 +261,10 @@ describe('ProductPriceComparison', () => {
     )
     const limitation = html.slice(0, html.indexOf('No free plan'))
     const lastIcon = limitation.lastIndexOf('<svg')
-    expect(limitation.slice(lastIcon)).toMatch(
-      /<line[^>]*x1="5"[^>]*y1="12"[^>]*x2="19"/
-    )
-    expect(limitation.slice(lastIcon)).not.toContain('polyline')
+    expect(limitation.slice(lastIcon)).toContain('lucide-minus')
+    expect(limitation.slice(lastIcon)).not.toContain('lucide-check')
     const feature = html.slice(0, html.indexOf('S3 upload'))
-    expect(feature.slice(feature.lastIndexOf('<svg'))).toContain('polyline')
+    expect(feature.slice(feature.lastIndexOf('<svg'))).toContain('lucide-check')
   })
 
   test('keeps "Price checked" with its date', () => {

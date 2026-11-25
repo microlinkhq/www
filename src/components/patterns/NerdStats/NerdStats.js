@@ -1,6 +1,6 @@
 import React from 'react'
 import styled, { keyframes } from 'styled-components'
-import { Terminal } from 'react-feather'
+import { Terminal } from 'lucide-react'
 import {
   theme,
   borders,

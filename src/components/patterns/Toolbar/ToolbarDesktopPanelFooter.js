@@ -1,8 +1,8 @@
 import Box from 'components/elements/Box'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
-import FeatherIcon from 'components/icons/Feather'
-import { ChevronRight } from 'react-feather'
+import LucideIcon from 'components/icons/Lucide'
+import { ChevronRight } from 'lucide-react'
 import React from 'react'
 
 import { theme } from 'theme'
@@ -79,7 +79,7 @@ const ToolbarDesktopPanelFooter = ({ entry, page, onItemClick }) => (
     >
       <Caps as='span' css={theme(PAGE_LINK_STYLES)}>
         {page.label}
-        <FeatherIcon icon={ChevronRight} size={TOOLBAR_CHEVRON_ICON_SIZE} />
+        <LucideIcon icon={ChevronRight} size={TOOLBAR_CHEVRON_ICON_SIZE} />
       </Caps>
     </PanelFooterPageLink>
   </Box>

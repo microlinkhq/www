@@ -3,8 +3,8 @@ import Faq from 'components/patterns/Faq/Faq'
 import Caption from 'components/patterns/Caption/Caption'
 import Layout from 'components/patterns/Layout'
 import { cx, colors, borders, layout, theme } from 'theme'
-import FeatherIcon from 'components/icons/Feather'
-import { XCircle, CheckCircle } from 'react-feather'
+import LucideIcon from 'components/icons/Lucide'
+import { CircleX, CircleCheckBig } from 'lucide-react'
 import React from 'react'
 import { issueUrl } from 'helpers/issue-url'
 
@@ -42,12 +42,12 @@ const StatusIcon = ({ value }) => {
     )
   }
 
-  const iconName = isPresent ? CheckCircle : XCircle
+  const iconName = isPresent ? CircleCheckBig : CircleX
   const color = isPresent ? cx('close') : cx('gray')
 
   return (
     <Box css={theme({ pl: 2 })}>
-      <FeatherIcon icon={iconName} color={color} size={[1, 1, 2, 2]} />
+      <LucideIcon icon={iconName} color={color} size={[1, 1, 2, 2]} />
     </Box>
   )
 }

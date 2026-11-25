@@ -6,7 +6,7 @@ import {
   Clock as ClockIcon,
   Shield as ShieldIcon,
   Crosshair as CrosshairIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'

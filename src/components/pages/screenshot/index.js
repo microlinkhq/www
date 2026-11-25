@@ -10,7 +10,7 @@ import {
   SECTION_VERTICAL_SPACING
 } from 'theme'
 import React, { useState, useCallback, useEffect, useRef } from 'react'
-import { Camera, Code, X } from 'react-feather'
+import { Camera, Code, X } from 'lucide-react'
 import styled from 'styled-components'
 import get from 'dlv'
 

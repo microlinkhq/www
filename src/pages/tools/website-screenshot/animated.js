@@ -16,10 +16,10 @@ import {
   ExternalLink,
   Globe,
   ArrowRight,
-  HelpCircle,
+  CircleQuestionMark,
   Settings,
   Film
-} from 'react-feather'
+} from 'lucide-react'
 import isUrl from 'is-url-http/lightweight'
 import prependHttp from 'prepend-http'
 import styled from 'styled-components'
@@ -408,7 +408,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}
@@ -434,7 +434,7 @@ const OptionsPanel = ({ options, setOptions, onSubmit, isLoading }) => {
                 </Tooltip.Content>
               }
             >
-              <HelpCircle
+              <CircleQuestionMark
                 size={16}
                 color={colors.black60}
                 style={{ marginLeft: '6px', marginTop: '5px' }}

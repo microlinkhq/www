@@ -7,7 +7,7 @@ import {
   SECTION_VERTICAL_SPACING
 } from 'theme'
 import React from 'react'
-import { Globe, ArrowRight, Code, Clipboard } from 'react-feather'
+import { Globe, ArrowRight, Code, Clipboard } from 'lucide-react'
 
 import { CDN_EDGES } from 'helpers/cdn-edges'
 

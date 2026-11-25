@@ -1,7 +1,7 @@
 import { breakpoints, colors, space, theme, transition } from 'theme'
 import React, { useRef, useState, useSyncExternalStore } from 'react'
 import styled, { css } from 'styled-components'
-import { ChevronDown, ChevronUp } from 'react-feather'
+import { ChevronDown, ChevronUp } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'

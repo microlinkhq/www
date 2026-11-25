@@ -10,7 +10,7 @@ import {
   ZoomIn,
   ZoomOut,
   Maximize2
-} from 'react-feather'
+} from 'lucide-react'
 
 const ToolbarButton = styled('button')`
   ${theme({

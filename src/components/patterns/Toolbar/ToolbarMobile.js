@@ -5,9 +5,9 @@ import Toolbar, {
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
 import Caps from 'components/elements/Caps'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { useLocation } from '@gatsbyjs/reach-router'
-import { ChevronDown, X } from 'react-feather'
+import { ChevronDown, X } from 'lucide-react'
 import { backDrop } from 'helpers/style'
 import styled, { css } from 'styled-components'
 import { colors, fontWeights, theme, transition } from 'theme'
@@ -203,7 +203,7 @@ const SectionToggle = styled('button').withConfig({
   ${theme(MOBILE_TOP_LEVEL_ITEM_SURFACE_STYLES)};
 `
 
-const SectionChevron = styled(FeatherIcon).withConfig({
+const SectionChevron = styled(LucideIcon).withConfig({
   shouldForwardProp: prop => !['isExpanded'].includes(prop)
 })`
   color: ${colors.black60};

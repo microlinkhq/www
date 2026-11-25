@@ -1,4 +1,5 @@
-import { Camera, Chrome, FileText, Share2 } from 'react-feather'
+import { Camera, FileText, Share2 } from 'lucide-react'
+import { Chrome } from 'components/icons/Chrome'
 
 import {
   PDF_EXTENSION_URL,

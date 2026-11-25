@@ -1,4 +1,4 @@
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { DashboardLink } from 'components/patterns/SignupLink'
 import { withAnalytics } from 'helpers/hoc/with-analytics'
 import React from 'react'
@@ -91,7 +91,7 @@ export const UpgradeItemLink = withAnalytics(styled.a`
 `)
 
 export const ItemIcon = ({ icon }) => (
-  <FeatherIcon icon={icon} size={ITEM_ICON_SIZE} aria-hidden='true' />
+  <LucideIcon icon={icon} size={ITEM_ICON_SIZE} aria-hidden='true' />
 )
 
 export const AccountDashboardItem = ({

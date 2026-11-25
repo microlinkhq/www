@@ -1,7 +1,7 @@
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'
-import { ChevronDown } from 'react-feather'
+import { ChevronDown } from 'lucide-react'
 import React from 'react'
 import { theme } from 'theme'
 

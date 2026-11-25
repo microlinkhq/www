@@ -1,7 +1,7 @@
 import { DashedGridOverlay } from 'components/patterns/DashedGridOverlay'
 import { SECTION_VERTICAL_SPACING, colors, layout, theme, borders } from 'theme'
 import React from 'react'
-import { Check as CheckIcon, X as XIcon } from 'react-feather'
+import { Check as CheckIcon, X as XIcon } from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Caps from 'components/elements/Caps'

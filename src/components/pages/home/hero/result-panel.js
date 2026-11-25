@@ -8,7 +8,7 @@ import { transition, theme } from 'theme'
 import React, { useEffect, useRef, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
-import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
+import { Copy as CopyIcon, Check as CheckIcon } from 'lucide-react'
 
 import { CODE_TAB, INSTALL_COMMENT } from './constants'
 import { JsonView } from './json-view'

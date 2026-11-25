@@ -6,7 +6,7 @@ import {
   Layers as LayersIcon,
   Zap as ZapIcon,
   FileText as FileTextIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 import { Link } from 'components/elements/Link'
 import { FREE_PLAN_REQUESTS_PER_DAY } from 'helpers/free-tier'

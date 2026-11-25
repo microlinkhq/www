@@ -14,7 +14,7 @@ const VARIANT_PROP = () => /\bvariant\s*[:=]\s*\{?\s*['"]([^'"]+)['"]/g
 const STYLED_BUTTON = () =>
   /(?:export\s+)?const\s+([A-Z]\w*)\s*=\s*styled\(Button\)/g
 const ICON_IMPORT =
-  /import\s*\{([^}]*)\}\s*from\s*['"](?:react-feather|components\/icons\/[^'"]+)['"]/g
+  /import\s*\{([^}]*)\}\s*from\s*['"](?:lucide-react|components\/icons\/[^'"]+)['"]/g
 const DEFAULT_ICON_IMPORT =
   /import\s+([A-Z]\w*)\s+from\s*['"]components\/icons\/[^'"]+['"]/g
 
@@ -38,7 +38,7 @@ const iconNamesOf = src => {
   const defaults = [...src.matchAll(DEFAULT_ICON_IMPORT)].map(
     ([, name]) => name
   )
-  return [...named, ...defaults, 'FeatherIcon', 'ButtonIcon']
+  return [...named, ...defaults, 'LucideIcon', 'ButtonIcon']
 }
 
 const visibleLabel = body =>
@@ -271,7 +271,7 @@ describe('button rules accept the real variants and reject the others', () => {
   test('an icon beside a label is rejected, including when the button is named', () => {
     expect(iconViolations(fixture('<Button><svg /></Button>'))).toHaveLength(1)
     expect(
-      iconViolations(fixture('<Button><FeatherIcon /></Button>'))
+      iconViolations(fixture('<Button><LucideIcon /></Button>'))
     ).toHaveLength(1)
     expect(
       iconViolations(fixture('<Button><ButtonIcon /></Button>'))

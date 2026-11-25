@@ -3,7 +3,7 @@ import { transition, theme } from 'theme'
 import React from 'react'
 import styled, { css } from 'styled-components'
 
-import { Copy as CopyIcon, Check as CheckIcon } from 'react-feather'
+import { Copy as CopyIcon, Check as CheckIcon } from 'lucide-react'
 
 const HeroActions = styled(Flex)`
   ${theme({

@@ -1,26 +1,26 @@
 import React from 'react'
 import {
   Activity,
-  AlignLeft,
+  TextAlignStart,
   Aperture,
   AtSign,
   Camera,
   Code,
   FileText,
   Film,
-  Filter,
+  Funnel,
   Headphones,
   Image,
   Layers,
-  Layout,
+  PanelsTopLeft,
   Link2,
-  Music,
+  EighthNotes,
   Play,
   Printer,
   Search,
   Tag,
   Video
-} from 'react-feather'
+} from 'lucide-react'
 
 import Box from 'components/elements/Box'
 import Subhead from 'components/elements/Subhead'
@@ -85,7 +85,7 @@ export const METHOD_GROUPS = [
       },
       {
         title: 'embed',
-        icon: Layout,
+        icon: PanelsTopLeft,
         description: 'oEmbed-style iframe HTML for rich cards.'
       },
       {
@@ -96,7 +96,7 @@ export const METHOD_GROUPS = [
       },
       {
         title: 'text',
-        icon: AlignLeft,
+        icon: TextAlignStart,
         description: 'Readable plain text with the markup stripped out.'
       }
     ]
@@ -138,7 +138,7 @@ export const METHOD_GROUPS = [
       },
       {
         title: 'extract',
-        icon: Filter,
+        icon: Funnel,
         description: 'Typed values pulled with CSS selector rules.'
       },
       {
@@ -182,7 +182,7 @@ export const METHOD_GROUPS = [
       },
       {
         title: 'audios',
-        icon: Music,
+        icon: EighthNotes,
         description: 'Audio sources collected from the page.'
       },
       {

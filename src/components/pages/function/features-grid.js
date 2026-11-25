@@ -6,7 +6,7 @@ import { SECTION_VERTICAL_SPACING, colors, layout, theme } from 'theme'
 import React from 'react'
 import {
   Activity,
-  AlertCircle,
+  CircleExclamationPoint,
   Clock,
   Code,
   FilePlus,
@@ -20,13 +20,13 @@ import {
   Terminal,
   Type,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 
 import { FEATURES, FEATURES_INTRO } from './product-shared'
 
 const ICONS = {
   Activity,
-  AlertCircle,
+  AlertCircle: CircleExclamationPoint,
   Clock,
   Code,
   FilePlus,

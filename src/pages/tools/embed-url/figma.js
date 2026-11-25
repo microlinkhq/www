@@ -1,6 +1,6 @@
 import { layout, theme, SECTION_VERTICAL_SPACING } from 'theme'
 import React from 'react'
-import { Globe, Code, Clipboard } from 'react-feather'
+import { Globe, Code, Clipboard } from 'lucide-react'
 
 import Caps from 'components/elements/Caps'
 import Container from 'components/elements/Container'

@@ -32,7 +32,7 @@ import {
   MousePointer as MousePointerIcon,
   Package as PackageIcon,
   Repeat as RepeatIcon
-} from 'react-feather'
+} from 'lucide-react'
 
 const MONO = fonts.mono
 const GAP = 4

@@ -1,5 +1,5 @@
 import Caps from 'components/elements/Caps'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import { WandSparkles } from 'components/icons/WandSparkles'
 import { theme } from 'theme'
 import React from 'react'
@@ -60,7 +60,7 @@ export const StatusLine = ({ liveStatus }) => (
       color: liveStatus.color
     })}
   >
-    <FeatherIcon icon={WandSparkles} size={0} color={liveStatus.color} />
+    <LucideIcon icon={WandSparkles} size={0} color={liveStatus.color} />
     {liveStatus.live
       ? (
         <ShimmerText data-text={liveStatus.text}>{liveStatus.text}</ShimmerText>

@@ -2,7 +2,7 @@ import {
   Activity,
   Code,
   Globe,
-  Grid,
+  Grid3x3,
   Layers,
   Link,
   Monitor,
@@ -10,9 +10,9 @@ import {
   Play,
   Search,
   Terminal,
-  UploadCloud,
+  CloudUpload,
   Zap
-} from 'react-feather'
+} from 'lucide-react'
 import { siKubernetes } from 'simple-icons'
 import React from 'react'
 
@@ -44,7 +44,7 @@ const CATEGORY_ICONS = {
   automation: Globe,
   infrastructure: Layers,
   agent: Terminal,
-  'other-skills': Grid
+  'other-skills': Grid3x3
 }
 
 const SKILL_ICONS = {
@@ -60,7 +60,7 @@ const SKILL_ICONS = {
   'nodejs-performance': Activity,
   optimo: Sparkles,
   'run-skill': Play,
-  'unavatar-api': UploadCloud,
+  'unavatar-api': CloudUpload,
   'use-pnpm': Package
 }
 

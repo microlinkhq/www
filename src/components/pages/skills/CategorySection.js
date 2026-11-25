@@ -1,5 +1,5 @@
 import { theme, layout, accentBand, accentIcon, accentTile } from 'theme'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import Subhead from 'components/elements/Subhead'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
@@ -51,7 +51,7 @@ const CategorySection = ({ category }) => (
           bg: accentTile(category.accent)
         })}
       >
-        <FeatherIcon
+        <LucideIcon
           icon={category.icon}
           size={[2, 2, 3, 3]}
           color={accentIcon(category.accent)}

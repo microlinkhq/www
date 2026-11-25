@@ -11,13 +11,13 @@ import {
   Code as CodeIcon,
   Search as SearchIcon,
   Layers as LayersIcon,
-  Layout as LayoutIcon,
-  AlignLeft as AlignLeftIcon,
+  PanelsTopLeft as LayoutIcon,
+  TextAlignStart as AlignLeftIcon,
   Tag as TagIcon,
   Video as VideoIcon,
   Film as FilmIcon,
-  Music as MusicIcon
-} from 'react-feather'
+  EighthNotes as MusicIcon
+} from 'lucide-react'
 
 // Single source of truth for the product line-up. The hero's product menu and
 // the homepage products grid both render from this, so they never drift.

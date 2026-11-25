@@ -10,7 +10,7 @@ import {
 } from 'theme'
 import { TOOLBAR_PRIMARY_HEIGHTS } from 'components/elements/Toolbar'
 import { hideScrollbar } from 'helpers/style'
-import FeatherIcon from 'components/icons/Feather'
+import LucideIcon from 'components/icons/Lucide'
 import styled from 'styled-components'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
@@ -55,7 +55,7 @@ const CategoryChip = ({ category, isActive }) => (
       }
     })}
   >
-    <FeatherIcon
+    <LucideIcon
       icon={category.icon}
       size={0}
       aria-hidden='true'
