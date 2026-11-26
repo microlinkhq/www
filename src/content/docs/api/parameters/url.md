@@ -68,5 +68,6 @@ If the URL cannot be processed, you'll receive one of these error codes:
 - **EMAXREDIRECTS**: Too many redirects (more than 10 hops)
 - **ETIMEOUT**: The URL took too long to respond
 - **EUNREACHABLE**: The URL sent no response in the time Microlink waited for it
+- **EGOOGLELINK**: The URL is a [Google goto link](/blog/google-goto-urls-explained) that Google holds longer than the request can wait; retry after `Retry-After`
 
 See [error codes](/docs/api/basics/error-codes) for the complete list.
