@@ -33,7 +33,6 @@ const AVATAR_TOUCH_SIZE = 44
 const AVATAR_OVERLAP = 10
 const AVATAR_SIZES = [AVATAR_TOUCH_SIZE, AVATAR_SIZE, AVATAR_SIZE, AVATAR_SIZE]
 const AVATAR_OVERLAPS = [0, AVATAR_OVERLAP, AVATAR_OVERLAP, AVATAR_OVERLAP]
-const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
 
 const AvatarLink = styled(GatsbyLink)`
   touch-action: manipulation;
@@ -133,17 +132,6 @@ const SocialProof = () => (
   </Flex>
 )
 
-const actionCss = theme({
-  mt: [4, 4, 5, 5],
-  minWidth: BUTTON_MIN_WIDTH,
-  px: [3, 3, 5, 5],
-  py: 3,
-  fontSize: [1, 1, 2, 2],
-  borderRadius: 3,
-  boxShadow: 2,
-  whiteSpace: 'normal'
-})
-
 const NextSteps = ({ links }) => (
   <Flex
     as='ul'
@@ -234,12 +222,7 @@ export const CallToAction = ({
             >
               {captionFor({ caption, outcome, signedIn })}
             </Caption>
-            <PrimaryAction
-              cta={cta}
-              action={action}
-              signedIn={signedIn}
-              css={actionCss}
-            />
+            <PrimaryAction cta={cta} action={action} signedIn={signedIn} />
             {shownFacts.length > 0 && <Facts facts={shownFacts} />}
             <SocialProof />
             {links.length > 0 && <NextSteps links={links} />}

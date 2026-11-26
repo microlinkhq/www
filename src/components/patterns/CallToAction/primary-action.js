@@ -2,7 +2,21 @@ import React from 'react'
 import { Button } from 'components/elements/Button/Button'
 import { DashboardLink, SignupLink } from 'components/patterns/SignupLink'
 import { PLAYGROUND_PATH } from 'helpers/dashboard-account'
+import { theme } from 'theme'
 import { ACTION_LABEL } from './free-key'
+
+const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
+
+const actionCss = theme({
+  mt: [4, 4, 5, 5],
+  minWidth: BUTTON_MIN_WIDTH,
+  px: [3, 3, 5, 5],
+  py: 3,
+  fontSize: [1, 1, 2, 2],
+  borderRadius: 3,
+  boxShadow: 2,
+  whiteSpace: 'normal'
+})
 
 export const PLAYGROUND_LABEL = 'Open the playground'
 
@@ -15,10 +29,10 @@ const signedInCaption = outcome =>
 export const captionFor = ({ caption, outcome, signedIn }) =>
   caption || (signedIn ? signedInCaption(outcome) : signedOutCaption(outcome))
 
-export const PrimaryAction = ({ action, cta, signedIn, css }) => {
+export const PrimaryAction = ({ action, cta, signedIn }) => {
   if (action) {
     return (
-      <Button forwardedAs='a' href={action.href} css={css}>
+      <Button forwardedAs='a' href={action.href} css={actionCss}>
         {action.label}
       </Button>
     )
@@ -31,7 +45,7 @@ export const PrimaryAction = ({ action, cta, signedIn, css }) => {
         forwardedAs='a'
         dashboardPath={PLAYGROUND_PATH}
         cta={cta}
-        css={css}
+        css={actionCss}
       >
         {PLAYGROUND_LABEL}
       </DashboardLink>
@@ -39,7 +53,7 @@ export const PrimaryAction = ({ action, cta, signedIn, css }) => {
   }
 
   return (
-    <SignupLink component={Button} forwardedAs='a' cta={cta} css={css}>
+    <SignupLink component={Button} forwardedAs='a' cta={cta} css={actionCss}>
       {ACTION_LABEL}
     </SignupLink>
   )
