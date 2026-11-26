@@ -16,7 +16,7 @@ const page = await microlink.search('technical seo checklist')
 | Field | Type | Description |
 |-------|------|-------------|
 | `title` | `string` | Page title from the SERP entry |
-| `url` | `string` | Destination URL |
+| `url` | `string` | Destination URL, never a [Google goto URL](/blog/google-goto-urls-explained) |
 | `description` | `string` | Snippet or meta description |
 
 ```js

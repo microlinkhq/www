@@ -119,7 +119,7 @@ The Google link `https://www.google.com/goto?url=…` could not be resolved to i
 
 **Solution**
 
-The target [url](/docs/api/parameters/url) is a Google result link (`https://www.google.com/goto?url=…`). Microlink asks Google where it goes before doing anything else, and Google sometimes holds the link: it asks to come back after a wait. The wait grows the more links are opened, from a few seconds to over a minute.
+The target [url](/docs/api/parameters/url) is a [Google result link](/blog/google-goto-urls-explained) (`https://www.google.com/goto?url=…`). Microlink asks Google where it goes before doing anything else, and Google sometimes holds the link: it asks to come back after a wait. The wait grows the more links are opened, from a few seconds to over a minute.
 
 When the wait doesn't fit in the request, it fails with HTTP status `503`. The response carries a `Retry-After` header in seconds, at most 120. Microlink keeps the link's place in Google's queue, so a request after `Retry-After` doesn't start the wait again and usually answers with the destination. [microlink.io](https://www.npmjs.com/package/microlink.io) already waits for `Retry-After` and retries:
 
