@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import microlink from 'helpers/microlink'
 
 export const IDLE = { phase: 'idle' }
@@ -7,8 +7,10 @@ export const FAILED = { phase: 'failed' }
 
 export const cardOptions = ({
   media,
+  apiKey,
   contrast,
   data,
+  endpoint,
   force,
   headers,
   prerender,
@@ -22,7 +24,9 @@ export const cardOptions = ({
       screenshot: media.includes('screenshot'),
       video: media.includes('video'),
       palette: contrast,
+      apiKey,
       data,
+      endpoint,
       force,
       headers,
       prerender,
@@ -50,8 +54,14 @@ export const isLazy = (lazy, Observer = globalThis.IntersectionObserver) =>
 const useVisible = (enabled, lazy) => {
   const [visible, setVisible] = useState(false)
   const lazyKey = JSON.stringify(lazy)
+  const observerRef = useRef(null)
+  const stop = () => {
+    observerRef.current?.disconnect()
+    observerRef.current = null
+  }
   const ref = useCallback(
     node => {
+      stop()
       if (!enabled || node === null) return
       if (!isLazy(lazy)) {
         setVisible(true)
@@ -62,13 +72,16 @@ const useVisible = (enabled, lazy) => {
           if (!entry.isIntersecting) return
           setVisible(true)
           observer.disconnect()
+          if (observerRef.current === observer) observerRef.current = null
         },
         typeof lazy === 'object' ? lazy : undefined
       )
+      observerRef.current = observer
       observer.observe(node)
     },
     [enabled, lazyKey]
   )
+  useEffect(() => stop, [])
   return [visible, ref]
 }
 

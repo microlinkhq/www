@@ -58,19 +58,58 @@ describe('Microlink card', () => {
     cardFor({
       url: LIVE_URL,
       lazy: { rootMargin: '400px' },
-      contrast: true,
+      apiKey: 'k',
+      contrast: false,
+      data: { title: 't' },
+      endpoint: 'https://example.test',
+      force: false,
+      headers: { a: 'b' },
+      prerender: false,
+      proxy: false,
       ttl: '1d',
       size: 'large'
     })
     expect(globalThis.__cardOptions).toMatchObject({
       lazy: { rootMargin: '400px' },
-      contrast: true,
+      apiKey: 'k',
+      contrast: false,
+      data: { title: 't' },
+      endpoint: 'https://example.test',
+      force: false,
+      headers: { a: 'b' },
+      prerender: false,
+      proxy: false,
       ttl: '1d'
     })
     expect(globalThis.__cardOptions.size).toBeUndefined()
     expect(globalThis.__cardProps.size).toBe('large')
-    expect(globalThis.__cardProps.contrast).toBe(true)
-    expect(globalThis.__cardProps.ttl).toBeUndefined()
+    expect(globalThis.__cardProps.contrast).toBe(false)
+    for (const name of [
+      'apiKey',
+      'data',
+      'endpoint',
+      'force',
+      'headers',
+      'prerender',
+      'proxy',
+      'ttl'
+    ]) {
+      expect(globalThis.__cardProps[name]).toBeUndefined()
+    }
+  })
+
+  test('a known demo link is drawn from the fixture', () => {
+    globalThis.__card = { phase: 'idle' }
+    const { props } = cardFor({ url: 'https://microlink.io' })
+    expect(globalThis.__cardOptions.enabled).toBe(false)
+    expect(props.fetchData).toBe(false)
+    expect(props.loading).toBeUndefined()
+    expect(props.setData.url).toBe('https://microlink.io/')
+  })
+
+  test('fetchData still fetches a demo link', () => {
+    cardFor({ url: 'https://microlink.io', fetchData: true })
+    expect(globalThis.__cardOptions.enabled).toBe(true)
   })
 
   test('a failed request shows the link', () => {

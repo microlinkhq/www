@@ -21,8 +21,10 @@ const Viewport = styled('div')`
 `
 
 const CARD_QUERY_PROPS = [
+  'apiKey',
   'contrast',
   'data',
+  'endpoint',
   'force',
   'headers',
   'prerender',
