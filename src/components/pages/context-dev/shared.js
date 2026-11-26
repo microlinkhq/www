@@ -400,7 +400,7 @@ const COMPARISON_DATA = [
     contextdev: false
   },
   {
-    feature: 'Animated capture\u00a0(MP4/WebM)',
+    feature: 'Animated capture\u00a0(MP4)',
     microlink: true,
     contextdev: false
   },
@@ -505,9 +505,7 @@ const WHY_SWITCH_ITEMS = [
       <>
         Microlink screenshots cost the same flat request price and come back as{' '}
         <b>CDN&#8209;hosted URLs</b> you can embed directly, with{' '}
-        <b>
-          browser&#8209;frame overlays, device presets, and MP4/WebM recordings
-        </b>{' '}
+        <b>browser&#8209;frame overlays, device presets, and MP4 recordings</b>{' '}
         as parameters. Context.dev returns a screenshot as an inline base64
         image with no hosted URL: storing and serving it is your job.
       </>

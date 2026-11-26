@@ -170,7 +170,7 @@ export const WEBSITE_SCREENSHOT = [
     name: 'Animated screenshots as video',
     cta: 'Record a page as video',
     blurb:
-      'Record any page as a short MP4 or WebM instead of a still frame, up to 10 seconds at up to 60 fps.',
+      'Record any page as a short MP4 instead of a still frame, up to 10 seconds at up to 60 fps.',
     keywords: [
       'animated screenshot api',
       'record website as video api',

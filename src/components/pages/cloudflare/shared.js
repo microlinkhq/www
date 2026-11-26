@@ -329,7 +329,7 @@ const COMPARISON_DATA = [
     cloudflare: false
   },
   {
-    feature: 'Animated capture\u00a0(MP4/WebM)',
+    feature: 'Animated capture\u00a0(MP4)',
     microlink: true,
     cloudflare: false
   },
@@ -423,9 +423,9 @@ const WHY_SWITCH_ITEMS = [
       <>
         Browser chrome <b>overlays</b> with light/dark themes and custom
         backgrounds, <b>dark&#8209;mode capture</b>, named <b>device presets</b>{' '}
-        like iPhone 15 Pro Max, and <b>animated MP4/WebM</b> recordings, each
-        one a query parameter. Cloudflare’s endpoint exposes viewport numbers
-        and PNG, JPEG, or&nbsp;WebP.
+        like iPhone 15 Pro Max, and <b>animated MP4</b> recordings, each one a
+        query parameter. Cloudflare’s endpoint exposes viewport numbers and PNG,
+        JPEG, or&nbsp;WebP.
       </>
     )
   },

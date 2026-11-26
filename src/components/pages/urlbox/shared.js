@@ -526,7 +526,7 @@ const HONESTY_ITEMS = [
   {
     title: 'SVG or scrolling video\u00a0output',
     description:
-      'Urlbox can output SVG images and record scrolling videos (WebM/MP4) of page content. Microlink records MP4 or WebM video of a page but does not produce SVG or scrolling video\u00a0captures.'
+      'Urlbox can output SVG images and record scrolling videos (WebM/MP4) of page content. Microlink records MP4 video of a page but does not produce SVG or scrolling video\u00a0captures.'
   }
 ]
 
