@@ -56,54 +56,49 @@ function ViewButton ({ view, activeView, onClick, isExpanded, disabled }) {
   )
 }
 
-const ViewNavigation = React.memo(
-  ({ activeView, onViewClick, isExpanded, showApiKeyInput }) => (
-    <Flex
-      as='nav'
-      role='tablist'
-      aria-label='Response view options'
-      css={theme({
-        pt: 2,
+const ViewNavigation = React.memo(({ activeView, onViewClick, isExpanded }) => (
+  <Flex
+    as='nav'
+    role='tablist'
+    aria-label='Response view options'
+    css={theme({
+      pt: 2,
+      justifyContent: 'flex-end'
+    })}
+  >
+    <Text
+      style={{
+        display: 'flex',
         justifyContent: 'flex-end'
+      }}
+      css={theme({
+        fontSize: 0,
+        color: 'black50'
       })}
     >
-      <Text
-        style={{
-          display: 'flex',
-          justifyContent: 'flex-end'
-        }}
-        css={theme({
-          fontSize: 0,
-          color: 'black50'
-        })}
-      >
-        <ViewButton
-          disabled={showApiKeyInput}
-          view='code'
-          activeView={activeView}
-          onClick={() => onViewClick('code')}
-          isExpanded={isExpanded}
-        />
-        <span aria-hidden='true'>|</span>
-        <ViewButton
-          disabled={showApiKeyInput}
-          view='body'
-          activeView={activeView}
-          onClick={() => onViewClick('body')}
-          isExpanded={isExpanded}
-        />
-        <span aria-hidden='true'>|</span>
-        <ViewButton
-          disabled={showApiKeyInput}
-          view='headers'
-          activeView={activeView}
-          onClick={() => onViewClick('headers')}
-          isExpanded={isExpanded}
-        />
-      </Text>
-    </Flex>
-  )
-)
+      <ViewButton
+        view='code'
+        activeView={activeView}
+        onClick={() => onViewClick('code')}
+        isExpanded={isExpanded}
+      />
+      <span aria-hidden='true'>|</span>
+      <ViewButton
+        view='body'
+        activeView={activeView}
+        onClick={() => onViewClick('body')}
+        isExpanded={isExpanded}
+      />
+      <span aria-hidden='true'>|</span>
+      <ViewButton
+        view='headers'
+        activeView={activeView}
+        onClick={() => onViewClick('headers')}
+        isExpanded={isExpanded}
+      />
+    </Text>
+  </Flex>
+))
 
 ViewNavigation.displayName = 'ViewNavigation'
 

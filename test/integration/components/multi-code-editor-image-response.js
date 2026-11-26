@@ -32,7 +32,7 @@ describe('response view', () => {
       "const contentType = headers?.['content-type'] || ''"
     ])
     expect(contentTypeRead).toBe("headers?.['content-type'] || ''")
-    expect(editor).toContain('showResponseFade(responseData, showApiKeyInput)')
+    expect(editor).toContain('showResponseFade(responseData)')
     expect(editor).not.toContain("headers['content-type'].includes")
   })
 })
