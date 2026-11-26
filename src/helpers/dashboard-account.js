@@ -1,4 +1,5 @@
 import { DASHBOARD_URL } from './dashboard-url'
+import { signedInMarker } from './dashboard-session'
 
 export const CLERK_FRONTEND_API = 'https://clerk.microlink.io/v1'
 export const SESSION_KEYS_URL = `${DASHBOARD_URL}/api/v1/session-keys`
@@ -134,8 +135,45 @@ export const accountLoad = (marker, fetcher = fetch, now = Date.now()) => {
   return { session, account }
 }
 
+const EMPTY_SESSION_CACHE = { marker: null, loadedAt: 0, session: null }
+
+let sessionCache = EMPTY_SESSION_CACHE
+
+const isSessionFresh = (marker, now) =>
+  sessionCache.marker === marker && now - sessionCache.loadedAt < ACCOUNT_TTL_MS
+
+const sessionFor = (marker, fetcher, now) => {
+  if (isFresh(marker, now)) return cached.session
+  if (isSessionFresh(marker, now)) return sessionCache.session
+  const session = loadSession(fetcher).catch(() => null)
+  sessionCache = { marker, loadedAt: now, session }
+  session.then(found => {
+    if (found === null && sessionCache.session === session) {
+      sessionCache = EMPTY_SESSION_CACHE
+    }
+  })
+  return session
+}
+
+export const NO_SESSION = 'No active dashboard session'
+
+export const accountToken = async (
+  document = globalThis.document,
+  fetcher = fetch,
+  now = Date.now()
+) => {
+  const marker = signedInMarker(document ? document.cookie : '')
+  if (marker === null) return null
+  const session = await sessionFor(marker, fetcher, now)
+  if (session === null) throw new Error(NO_SESSION)
+  const token = await sessionToken(fetcher, session.sessionId)
+  if (token === null) throw new Error(NO_SESSION)
+  return token
+}
+
 export const forgetAccount = () => {
   cached = EMPTY_CACHE
+  sessionCache = EMPTY_SESSION_CACHE
 }
 
 export const signOut = async (account, fetcher = fetch) => {

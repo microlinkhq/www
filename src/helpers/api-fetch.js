@@ -1,20 +1,18 @@
-import { accountApiKeys, fetchWithKeys } from './account-keys'
+import { isSignedIn, sessionRequest } from './session-request'
 
 export const FREE_API_URL = 'https://api.microlink.io'
-export const PRO_API_URL = 'https://pro.microlink.io'
 
-const requestInit = (key, signal) =>
-  key === undefined ? { signal } : { signal, headers: { 'x-api-key': key } }
+const readJson = response => response.json().catch(() => null)
 
-const endpointFor = key => (key === undefined ? FREE_API_URL : PRO_API_URL)
+const sendQuery = (query, { signal, fetcher, signedIn, token }) =>
+  signedIn()
+    ? sessionRequest(query, { signal, fetcher, token })
+    : fetcher(`${FREE_API_URL}/?${query}`, { signal })
 
 export const fetchApi = async (
   query,
-  { signal, fetcher = globalThis.fetch, loadKeys = accountApiKeys } = {}
+  { signal, fetcher = globalThis.fetch, signedIn = isSignedIn, token } = {}
 ) => {
-  const keys = await loadKeys()
-  const { response, body } = await fetchWithKeys(keys, key =>
-    fetcher(`${endpointFor(key)}/?${query}`, requestInit(key, signal))
-  )
-  return { res: response, json: body }
+  const res = await sendQuery(query, { signal, fetcher, signedIn, token })
+  return { res, json: await readJson(res) }
 }

@@ -3,8 +3,11 @@ import {
   ACCOUNT_TTL_MS,
   CLERK_FRONTEND_API,
   SESSION_KEYS_URL,
+  NO_SESSION as NO_SESSION_ERROR,
   accountLoad,
   accountMenuMode,
+  accountToken,
+  forgetAccount,
   displayName,
   fetchAccount,
   initialOf,
@@ -369,5 +372,73 @@ describe('menu state', () => {
     expect(isFreeAccount({ apiKeys: [] })).toBe(true)
     expect(isFreeAccount({ apiKeys: ['dev'] })).toBe(true)
     expect(isFreeAccount({ apiKeys: ['dev', 'pro'] })).toBe(false)
+  })
+})
+
+describe('accountToken', () => {
+  const cookieFor = marker => ({ cookie: `__client_uat=${marker}` })
+
+  test('a signed-out visitor gets no token and never reaches Clerk', async () => {
+    const { calls, fetcher } = signedIn()
+    expect(await accountToken({ cookie: '' }, fetcher, 0)).toBe(null)
+    expect(calls).toHaveLength(0)
+  })
+
+  test('mints a fresh token on every call and never loads the keys', async () => {
+    forgetAccount()
+    const { calls, fetcher } = signedIn()
+    expect(await accountToken(cookieFor('700'), fetcher, 0)).toBe('jwt_1')
+    expect(await accountToken(cookieFor('700'), fetcher, 1000)).toBe('jwt_1')
+    expect(calls.map(call => call.url)).toEqual([
+      CLIENT_URL,
+      TOKEN_URL,
+      TOKEN_URL
+    ])
+    expect(calls.some(call => call.url === SESSION_KEYS_URL)).toBe(false)
+  })
+
+  test('reuses the session the account menu already loaded', async () => {
+    forgetAccount()
+    const { calls, fetcher } = signedIn()
+    await accountFor('710', fetcher, 0)
+    const before = calls.length
+    await accountToken(cookieFor('710'), fetcher, 1000)
+    expect(calls.slice(before).map(call => call.url)).toEqual([TOKEN_URL])
+  })
+
+  test('reads the session again once the ttl is over', async () => {
+    forgetAccount()
+    const { calls, fetcher } = signedIn()
+    await accountToken(cookieFor('720'), fetcher, 0)
+    await accountToken(cookieFor('720'), fetcher, ACCOUNT_TTL_MS)
+    expect(calls.filter(call => call.url === CLIENT_URL)).toHaveLength(2)
+  })
+
+  test('a cookie without a live session throws, so no keyless run follows', async () => {
+    forgetAccount()
+    const { fetcher } = fakeFetch({ [CLIENT_URL]: () => json(NO_SESSION) })
+    await expect(accountToken(cookieFor('730'), fetcher, 0)).rejects.toThrow(
+      NO_SESSION_ERROR
+    )
+  })
+
+  test('a session that cannot be read is tried again on the next call', async () => {
+    forgetAccount()
+    const down = fakeFetch({})
+    await expect(
+      accountToken(cookieFor('740'), down.fetcher, 0)
+    ).rejects.toThrow()
+    await settle()
+    const { fetcher } = signedIn()
+    expect(await accountToken(cookieFor('740'), fetcher, 1)).toBe('jwt_1')
+  })
+
+  test('a token Clerk refuses throws', async () => {
+    forgetAccount()
+    const { fetcher } = fakeFetch({
+      [CLIENT_URL]: () => json(CLIENT),
+      [TOKEN_URL]: () => json({ error: 'nope' }, 401)
+    })
+    await expect(accountToken(cookieFor('750'), fetcher, 0)).rejects.toThrow()
   })
 })

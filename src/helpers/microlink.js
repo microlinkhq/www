@@ -1,5 +1,5 @@
 import createClient from 'microlink.io'
-import { accountApiKeys, requestKeys, runWithKeys } from './account-keys'
+import { isSignedIn, sessionRequest } from './session-request'
 
 const client = createClient()
 
@@ -76,12 +76,54 @@ const requestOnce = async (url, options) => {
   }
 }
 
-const withKey = (options, apiKey) =>
-  apiKey === undefined ? options : { ...options, apiKey }
+const RAW_BODY_OPTIONS = ['stream', 'embed']
 
-const request = async (url, { apiKey, ...options } = {}) =>
-  runWithKeys(requestKeys(apiKey, await accountApiKeys()), key =>
-    requestOnce(url, withKey(options, key))
-  )
+const wantsRawBody = options =>
+  RAW_BODY_OPTIONS.some(name => Boolean(options[name]))
+
+const parseJson = text => {
+  try {
+    return JSON.parse(text)
+  } catch {
+    return { status: 'fail', message: text }
+  }
+}
+
+const sessionFailure = (body, response) =>
+  Object.assign(new Error(body.message ?? `Error ${response.status}`), {
+    ...body,
+    description: body.message,
+    statusCode: response.status,
+    headers: Object.fromEntries(response.headers),
+    url: response.url,
+    keyed: true
+  })
+
+const toResult = async (response, raw) => {
+  const reply = {
+    url: response.url,
+    headers: response.headers,
+    statusCode: response.status
+  }
+  if (raw && response.ok) {
+    return { ...reply, body: await response.arrayBuffer() }
+  }
+  const body = parseJson(await response.text())
+  if (!response.ok || body.status === 'fail') {
+    throw sessionFailure(body, response)
+  }
+  return { ...body, response: { ...reply, body } }
+}
+
+const requestOnSession = async (url, options) => {
+  const query = new URL(apiUrl(url, options)).search.slice(1)
+  return toResult(await sessionRequest(query), wantsRawBody(options))
+}
+
+const request = async (url, { apiKey, ...options } = {}) => {
+  if (apiKey) return requestOnce(url, { ...options, apiKey })
+  if (isSignedIn()) return requestOnSession(url, options)
+  return requestOnce(url, options)
+}
 
 export default { request, apiUrl }
