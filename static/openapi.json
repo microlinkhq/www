@@ -1001,7 +1001,26 @@
             }
           },
           "500": {
-            "description": "An unexpected error occurred. Typical codes: EFATAL, EFATALCLIENT.",
+            "description": "An unexpected error occurred. Typical codes: EFATAL, EFATALCLIENT, EGOOGLELINK.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Google is holding the Google result link given as url before it redirects. Code: EGOOGLELINK. The `Retry-After` header says when to try again.",
+            "headers": {
+              "Retry-After": {
+                "description": "Seconds to wait before requesting the url again.",
+                "schema": {
+                  "type": "integer",
+                  "minimum": 0
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1214,6 +1233,7 @@
               "EFILENAME",
               "EFATALCLIENT",
               "EFORBIDDENURL",
+              "EGOOGLELINK",
               "EHEADERS",
               "EHTMLNESTED",
               "EINVALURL",
