@@ -266,7 +266,7 @@ const COMPARISON_DATA = [
   },
   { feature: 'Screenshot\u00a0capture', microlink: true, iframely: false },
   { feature: 'PDF\u00a0generation', microlink: true, iframely: false },
-  { feature: 'Video output\u00a0(MP4/WebM)', microlink: true, iframely: false },
+  { feature: 'Video output\u00a0(MP4)', microlink: true, iframely: false },
   { feature: 'Markdown\u00a0conversion', microlink: true, iframely: false },
   {
     feature: 'Open\u2011source core\u00a0(MIT)',

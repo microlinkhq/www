@@ -22,7 +22,7 @@ The image is uploaded to the Microlink CDN and cached according to [ttl](/docs/a
 - [omitBackground](/docs/api/parameters/screenshot/omitBackground) `<boolean>` — omits the default white background, producing transparent captures (default: `false`).
 - [overlay](/docs/api/parameters/screenshot/overlay) `<object>` — composes the capture over a `browser` frame (`'light'` or `'dark'`) and a `background` color, gradient, or image URL.
 - [codeScheme](/docs/api/parameters/screenshot/codeScheme) `<string>` — syntax-highlights JSON and text responses using a Prism theme or a remote CSS URL (default: `'atom-dark'`).
-- [animated](/docs/api/parameters/screenshot/animated) `<boolean> | <object>` — records a short video of the page instead of a static image (default: `false`). As an object it takes `duration`, the recording length in milliseconds and also accepting `'5s'` form (default: `5000`, max `10000`), `fps` (default: `30`, max `60`), and `type`, the video container — `'mp4'` or `'webm'` (default: `'mp4'`).
+- [animated](/docs/api/parameters/screenshot/animated) `<boolean> | <object>` — records a short video of the page instead of a static image (default: `false`). As an object it takes `duration`, the recording length in milliseconds and also accepting `'5s'` form (default: `5000`, max `10000`), and `fps` (default: `30`, max `60`). The video is always an H.264 MP4.
 - `optimizeForSpeed` `<boolean>` — prioritizes capture speed over image size and fidelity (default: `false`).
 
 Any [shared option](/docs/sdk/getting-started/options) composes naturally here: [device](/docs/api/parameters/device) emulation, [colorScheme](/docs/api/parameters/colorScheme), custom [styles](/docs/api/parameters/styles), or [waitForSelector](/docs/api/parameters/waitForSelector) timing all apply before the capture happens.
@@ -67,13 +67,13 @@ Record the page as a short video instead of a static image. Passing `animated: t
 ```js
 const { animated } = await microlink.screenshot(
   'https://threejs.org/examples/webgl_animation_skinning_blending',
-  { animated: { duration: '8s', fps: 60, type: 'webm' } }
+  { animated: { duration: '8s', fps: 60 } }
 )
 
 console.log(animated.url, animated.type)
 ```
 
-The asset gains an `animated` object carrying the recording — its `url`, `duration`, `fps`, `type`, and `size`.
+The asset gains an `animated` object carrying the recording — its `url`, `duration`, `fps`, `type`, `codec`, and `size`.
 
 ## Serving the image
 

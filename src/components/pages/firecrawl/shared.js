@@ -345,7 +345,7 @@ const COMPARISON_DATA = [
   },
   { feature: 'Browser chrome\u00a0overlay', microlink: true, firecrawl: false },
   {
-    feature: 'Animated capture\u00a0(MP4/WebM)',
+    feature: 'Animated capture\u00a0(MP4)',
     microlink: true,
     firecrawl: false
   },

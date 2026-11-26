@@ -289,7 +289,7 @@ const COMPARISON_DATA = [
   },
   { feature: 'PDF\u00a0generation', microlink: true, apiflash: false },
   {
-    feature: 'Video output (MP4,\u00a0WebM)',
+    feature: 'Video output\u00a0(MP4)',
     microlink: true,
     apiflash: false
   },

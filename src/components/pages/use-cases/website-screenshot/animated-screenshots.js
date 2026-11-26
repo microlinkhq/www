@@ -5,7 +5,7 @@ export const CONTENT = {
   head: {
     title: 'Record any website as an animated screenshot video',
     description:
-      'An animated screenshot records any URL as a short MP4 or WebM instead of a still image. Up to 10 seconds at 60 fps, embeddable in a video tag.'
+      'An animated screenshot records any URL as a short H.264 MP4 instead of a still image. Up to 10 seconds at 60 fps, embeddable in a video tag.'
   },
   hero: {
     title: 'Take an animated screenshot of any website',
@@ -45,8 +45,8 @@ export const CONTENT = {
       },
       {
         label: '2 · Set length, frame rate and container',
-        sdk: "const { animated } = await microlink.screenshot('https://example.com', {\n  animated: { duration: '8s', fps: 60, type: 'webm' }\n})",
-        note: 'duration accepts milliseconds or the 8s form and tops out at 10 seconds. fps tops out at 60. type is mp4 for H.264 or webm for VP9.'
+        sdk: "const { animated } = await microlink.screenshot('https://example.com', {\n  animated: { duration: '8s', fps: 60 }\n})",
+        note: 'duration accepts milliseconds or the 8s form and tops out at 10 seconds. fps tops out at 60. The video is always an H.264 MP4.'
       },
       {
         label: '3 · Let the CSS motion play',
@@ -116,7 +116,7 @@ export const CONTENT = {
       {
         kicker: 'Bounded',
         title: 'Short clips, predictable weight.',
-        body: 'Ten seconds is the ceiling, and frame rate and container are yours to choose. H.264 plays everywhere; VP9 in WebM trades compatibility for size. Both are far lighter than the GIF people reach for first.',
+        body: 'Ten seconds is the ceiling, and the frame rate is yours to choose. The video is H.264 in an MP4, which plays everywhere and is far lighter than the GIF people reach for first.',
         note: 'When not to: for a long page or a flow with many steps, a recording is the wrong tool. Capture the whole page as a still with [fullPage](/docs/api/parameters/screenshot/fullPage) or script the steps with a [browser function](/function).'
       }
     ]
@@ -135,7 +135,7 @@ export const CONTENT = {
     {
       question: 'Can I get an animated GIF instead of a video?',
       answer:
-        'No. The output is H.264 in an MP4 container by default, or VP9 in WebM when you set type to webm. Both are much smaller than an equivalent GIF. Keep the MP4 default when playback has to work everywhere.'
+        'No. The output is H.264 in an MP4 container, much smaller than an equivalent GIF, and it plays everywhere.'
     },
     {
       question: 'Why does my recording miss the animation on the page?',
@@ -165,7 +165,7 @@ export const CONTENT = {
       {
         title: 'Tune the recording',
         description:
-          'Pass an object with duration up to 10 seconds, fps up to 60, and type set to mp4 or webm.'
+          'Pass an object with duration up to 10 seconds and fps up to 60.'
       },
       {
         title: 'Enable CSS motion',
