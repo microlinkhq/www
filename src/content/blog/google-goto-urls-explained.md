@@ -22,7 +22,7 @@ Most of those requests come back with the page behind the link on the first requ
 - A Google result link is resolved to its destination before any other work.
 - When Google holds a link longer than the request can wait, the API answers HTTP `503` with a `Retry-After` header and the error code [EGOOGLELINK](/docs/api/basics/error-codes#egooglelink).
 - Microlink remembers Google's wait, so a retry after `Retry-After` continues it instead of starting a new one.
-- Our [official SDK](https://www.npmjs.com/package/microlink.io) already retries after `Retry-After`. Calling the API directly, add that one retry.
+- Our [official SDK](https://www.npmjs.com/package/microlink.io) already retries after `Retry-After`. Calling the API directly, retry after `Retry-After` on every `503`.
 - [Microlink Search](/docs/guides/search) never returns a Google link, so there is nothing to resolve.
 
 ## What are Google goto URLs
