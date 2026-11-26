@@ -7,6 +7,15 @@ import {
   toForcedError
 } from '../../../src/helpers/api-error.js'
 
+describe('getErrorMeta', () => {
+  it('names an unreachable account and offers a retry', () => {
+    expect(getErrorMeta('EACCOUNT')).toEqual({
+      title: 'Couldn\u2019t reach your account',
+      showRetry: true
+    })
+  })
+})
+
 describe('toForcedError', () => {
   it('turns a state value into the error code the panel renders', () => {
     const error = toForcedError('EPROXYNEEDED')
