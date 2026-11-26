@@ -1,5 +1,6 @@
 import { act, createElement } from 'react'
 import { createRoot } from 'react-dom/client'
+import { renderToStaticMarkup } from 'react-dom/server'
 import { afterEach, beforeAll, describe, expect, test, vi } from 'vitest'
 import { getApiUrl } from '@microlink/react'
 import {
@@ -300,6 +301,23 @@ describe('useCardData', () => {
     }
   }
 
+  test('the first render is loading when it will fetch and idle when it will not', () => {
+    const Probe = ({ enabled }) => {
+      const [card] = useCardData(URL_TO_FETCH, {
+        enabled,
+        media: ['image'],
+        lazy: false
+      })
+      return card.phase
+    }
+    expect(renderToStaticMarkup(createElement(Probe, { enabled: true }))).toBe(
+      'loading'
+    )
+    expect(renderToStaticMarkup(createElement(Probe, { enabled: false }))).toBe(
+      'idle'
+    )
+  })
+
   test('a card that should not fetch stays idle and is not observed', async () => {
     globalThis.__cardRequest = vi.fn()
     globalThis.__observers = []
@@ -331,6 +349,7 @@ describe('useCardData', () => {
       observer.intersect(true)
     })
     expect(globalThis.__cardRequest).toHaveBeenCalledTimes(1)
+    expect(observer.disconnected).toBe(true)
     expect(rendered.view.card).toEqual({
       phase: 'ready',
       data: { title: 'live' }
