@@ -9,25 +9,22 @@ const bytes = new Uint8Array([1, 2, 3])
 
 describe('showResponseFade', () => {
   test('shows the fade when the response or its content type is missing', () => {
-    expect(showResponseFade(null, false)).toBe(true)
-    expect(showResponseFade({}, false)).toBe(true)
-    expect(showResponseFade({ headers: undefined }, false)).toBe(true)
-    expect(showResponseFade({ headers: {} }, false)).toBe(true)
+    expect(showResponseFade(null)).toBe(true)
+    expect(showResponseFade({})).toBe(true)
+    expect(showResponseFade({ headers: undefined })).toBe(true)
+    expect(showResponseFade({ headers: {} })).toBe(true)
     expect(
-      showResponseFade(
-        { headers: { 'content-type': 'application/json' } },
-        false
-      )
+      showResponseFade({ headers: { 'content-type': 'application/json' } })
     ).toBe(true)
   })
 
-  test('hides the fade for an image and keeps it for the api key form', () => {
-    const image = { headers: { 'content-type': 'image/png' } }
-    expect(showResponseFade(image, false)).toBe(false)
-    expect(showResponseFade(image, true)).toBe(true)
-    expect(
-      showResponseFade({ headers: { 'content-type': 'IMAGE/PNG' } }, false)
-    ).toBe(false)
+  test('hides the fade for an image', () => {
+    expect(showResponseFade({ headers: { 'content-type': 'image/png' } })).toBe(
+      false
+    )
+    expect(showResponseFade({ headers: { 'content-type': 'IMAGE/PNG' } })).toBe(
+      false
+    )
   })
 })
 

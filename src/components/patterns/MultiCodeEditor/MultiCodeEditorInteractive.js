@@ -2,7 +2,6 @@ import If from 'components/elements/If'
 import { theme } from 'theme'
 
 import { useCodeLanguage } from 'components/hook/use-code-language'
-import { useLocalStorage } from 'components/hook/use-local-storage'
 import React, { useState, useCallback, useMemo } from 'react'
 import { mqlCode } from 'helpers/mql-code'
 
@@ -66,9 +65,6 @@ function MultiCodeEditorInteractive ({
   const [activeView, setActiveView] = useState(normalizedDefaultView)
   const [isExpanded, setIsExpanded] = useState(false)
 
-  const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
-  const [showApiKeyInput, setShowApiKeyInput] = useState(false)
-
   const requestKey = JSON.stringify(mqlCodeProps ?? null)
   const [previousDefaults, setPreviousDefaults] = useState({
     normalizedDefaultView,
@@ -82,7 +78,6 @@ function MultiCodeEditorInteractive ({
     setActiveView(normalizedDefaultView)
     setResponseData(defaultResponseData ?? null)
     setIsLoading(false)
-    setShowApiKeyInput(false)
     setIsExpanded(false)
   }
 
@@ -105,28 +100,18 @@ function MultiCodeEditorInteractive ({
     requestKey,
     onLoadingChange,
     setIsLoading,
-    setResponseData,
-    setShowApiKeyInput
+    setResponseData
   })
-
-  const handleApiKeySubmit = useCallback(
-    newApiKey => {
-      setApiKey(newApiKey)
-      setShowApiKeyInput(false)
-      parseCodeAndExecute(newApiKey)
-    },
-    [setApiKey, parseCodeAndExecute]
-  )
 
   const executeRequest = useCallback(() => {
     if (!isLoading) {
-      parseCodeAndExecute(apiKey).then(applied => {
+      parseCodeAndExecute().then(applied => {
         if (!applied) return
         setActiveView('body')
         setIsExpanded(false)
       })
     }
-  }, [isLoading, parseCodeAndExecute, apiKey])
+  }, [isLoading, parseCodeAndExecute])
 
   useAutoExecute({
     autoExecute,
@@ -181,14 +166,11 @@ function MultiCodeEditorInteractive ({
         ? null
         : (
           <TerminalActions
-            showApiKeyInput={showApiKeyInput}
-            setShowApiKeyInput={setShowApiKeyInput}
-            setActiveView={setActiveView}
             handleOpenInBrowser={handleOpenInBrowser}
             getCurrentViewText={getCurrentViewText}
           />
           ),
-    [bodyPreviewOnly, showApiKeyInput, handleOpenInBrowser, getCurrentViewText]
+    [bodyPreviewOnly, handleOpenInBrowser, getCurrentViewText]
   )
 
   const componentHeight = isExpanded
@@ -229,7 +211,7 @@ function MultiCodeEditorInteractive ({
             aria-busy={isLoading}
           >
             <If
-              condition={showResponseFade(responseData, showApiKeyInput)}
+              condition={showResponseFade(responseData)}
               render={() => <FadeOverlay $position='top' aria-hidden='true' />}
             />
 
@@ -239,16 +221,12 @@ function MultiCodeEditorInteractive ({
               setCode={setCode}
               editable={editable}
               responseData={responseData}
-              apiKey={apiKey}
-              onApiKeySubmit={handleApiKeySubmit}
-              setApiKey={setApiKey}
-              showApiKeyInput={showApiKeyInput}
               language={language}
               codeSnippets={codeSnippets}
             />
 
             <If
-              condition={showResponseFade(responseData, showApiKeyInput)}
+              condition={showResponseFade(responseData)}
               render={() => (
                 <FadeOverlay $position='bottom' aria-hidden='true' />
               )}
@@ -271,7 +249,6 @@ function MultiCodeEditorInteractive ({
             activeView={activeView}
             onViewClick={handleViewClick}
             isExpanded={isExpanded}
-            showApiKeyInput={showApiKeyInput}
           />
         )}
       </div>

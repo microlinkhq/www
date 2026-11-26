@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef } from 'react'
 
 const isTextContentType = contentType => contentType.startsWith('text/')
 
-const contentTypeOf = headers => (headers?.['content-type'] || '').toLowerCase()
+export const contentTypeOf = headers =>
+  (headers?.['content-type'] || '').toLowerCase()
 
 export const responseBodyText = ({ body, headers }) => {
   const contentType = contentTypeOf(headers)
@@ -32,8 +33,8 @@ export const responseBodyText = ({ body, headers }) => {
   throw new Error(`Unsupported content type: ${contentType}`)
 }
 
-export const showResponseFade = (responseData, showApiKeyInput) =>
-  showApiKeyInput || !contentTypeOf(responseData?.headers).includes('image/')
+export const showResponseFade = responseData =>
+  !contentTypeOf(responseData?.headers).includes('image/')
 
 export const useAutoExecute = ({
   autoExecute,

@@ -2,15 +2,13 @@ import { Code } from 'components/elements/CodeEditor/CodeEditor'
 import { TerminalText } from 'components/elements/Terminal/Terminal'
 import Image from 'components/elements/Image/Image'
 import Choose from 'components/elements/Choose'
-import Text from 'components/elements/Text'
 import Flex from 'components/elements/Flex'
 import Box from 'components/elements/Box'
 import React, { useState, useEffect } from 'react'
 import { colors, fontSizes, fontWeights, theme, transition } from 'theme'
 
-import ProBadge from '../../ProBadge/ProBadge'
 import InteractiveCodeEditor from './interactive-code-editor'
-import ApiKeyInput from './api-key-input'
+import { contentTypeOf } from './hooks'
 import { Content, fontStyles } from './content'
 
 const IMAGE_OVERLAY_STYLE = {
@@ -39,10 +37,6 @@ const ContentArea = React.memo(
     setCode,
     editable,
     responseData,
-    apiKey,
-    onApiKeySubmit,
-    setApiKey,
-    showApiKeyInput,
     language,
     codeSnippets
   }) => {
@@ -54,7 +48,7 @@ const ContentArea = React.memo(
         return
       }
       const { body, headers } = responseData
-      const contentType = headers?.['content-type'] || ''
+      const contentType = contentTypeOf(headers)
       if (!contentType.startsWith('image/')) {
         setImageUrl(null)
         return
@@ -63,56 +57,6 @@ const ContentArea = React.memo(
       setImageUrl(url)
       return () => URL.revokeObjectURL(url)
     }, [responseData])
-
-    if (showApiKeyInput) {
-      return (
-        <Content
-          as='div'
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center'
-          }}
-        >
-          <div style={{ width: '100%', textAlign: 'center' }}>
-            <Text as='h3' css={theme({ fontSize: 2, fontWeight: 'bold' })}>
-              API key setup
-            </Text>
-
-            <>
-              <Text css={theme({ py: 3, fontSize: 0, color: 'black60' })}>
-                <Choose>
-                  <Choose.When
-                    condition={!apiKey}
-                    render={() => (
-                      <>
-                        Some requests need a <ProBadge /> API key.
-                        <br />
-                        Enter your Microlink API key to unlock all features.
-                      </>
-                    )}
-                  />
-                  <Choose.Otherwise
-                    render={() => (
-                      <>
-                        API key already configured. <br />
-                        You can access to <ProBadge /> features now.
-                      </>
-                    )}
-                  />
-                </Choose>
-              </Text>
-              <ApiKeyInput
-                apiKey={apiKey}
-                onApiKeySubmit={onApiKeySubmit}
-                setApiKey={setApiKey}
-              />
-            </>
-          </div>
-        </Content>
-      )
-    }
 
     return (
       <Choose>
@@ -151,7 +95,7 @@ const ContentArea = React.memo(
             }
 
             const { body, headers } = responseData
-            const contentType = headers?.['content-type'] || ''
+            const contentType = contentTypeOf(headers)
 
             if (contentType.includes('application/json')) {
               const jsonText = new TextDecoder().decode(body)

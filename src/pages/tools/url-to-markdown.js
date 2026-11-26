@@ -1594,7 +1594,6 @@ const MarkdownTool = () => {
   const [showUnsavedModal, setShowUnsavedModal] = useState(false)
   const pendingActionRef = useRef(null)
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(MARKDOWN_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
 
@@ -1685,7 +1684,6 @@ const MarkdownTool = () => {
           : { attr: 'markdown' }
 
         const mqlOpts = {
-          apiKey: localStorageData,
           meta: options.meta,
           data: { markdown: dataRule },
           adblock: options.adblock,
@@ -1771,7 +1769,7 @@ const MarkdownTool = () => {
         setIsLoading(false)
       }
     },
-    [options, localStorageData, setHistory]
+    [options, setHistory]
   )
 
   const handleSubmit = useCallback(

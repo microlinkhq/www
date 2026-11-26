@@ -11,7 +11,6 @@ import { fonts, theme, touchTargets } from 'theme'
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
 import Text from 'components/elements/Text'
-import { useLocalStorage } from 'components/hook/use-local-storage'
 
 import FileBar from './chrome'
 import {
@@ -41,7 +40,7 @@ const Editor = () => {
   const [files, setFiles] = useState(DEFAULT_FILES)
   const [activeFile, setActiveFile] = useState(ENTRY_FILE)
   const [templatesOpen, setTemplatesOpen] = useState(false)
-  const [apiKey, setApiKey] = useLocalStorage('mql-api-key', '')
+  const [apiKey, setApiKey] = useState('')
   const [copyLabel, setCopyLabel] = useState('Copy')
   const editorApi = useRef(null)
   const filesRef = useRef(DEFAULT_FILES)

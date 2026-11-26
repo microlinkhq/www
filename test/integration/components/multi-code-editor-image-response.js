@@ -28,11 +28,14 @@ describe('response view', () => {
 
   test('tolerates a failed request with no content type', () => {
     expect(source.match(/const contentType = (.*)/g)).toEqual([
-      "const contentType = headers?.['content-type'] || ''",
-      "const contentType = headers?.['content-type'] || ''"
+      'const contentType = contentTypeOf(headers)',
+      'const contentType = contentTypeOf(headers)'
     ])
-    expect(contentTypeRead).toBe("headers?.['content-type'] || ''")
-    expect(editor).toContain('showResponseFade(responseData, showApiKeyInput)')
+    expect(contentTypeRead).toBe('contentTypeOf(headers)')
+    expect(source.match(/contentType\.startsWith\('image\/'\)/g)).toHaveLength(
+      2
+    )
+    expect(editor).toContain('showResponseFade(responseData)')
     expect(editor).not.toContain("headers['content-type'].includes")
   })
 })

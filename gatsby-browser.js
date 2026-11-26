@@ -1,9 +1,11 @@
 const { navigate } = require('gatsby')
 const { recordAttribution } = require('./src/helpers/attribution')
 const { registerWebMcpTools } = require('./src/helpers/webmcp')
+const { clearStoredApiKey } = require('./src/helpers/clear-stored-api-key')
 
 exports.onClientEntry = () => {
   window.process = { cwd: () => '/' }
+  clearStoredApiKey(window)
   recordAttribution()
   registerWebMcpTools({
     document,

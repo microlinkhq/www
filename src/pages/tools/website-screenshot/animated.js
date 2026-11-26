@@ -838,7 +838,6 @@ const AnimatedScreenshotTool = () => {
     height: DEVICES.desktop.height
   })
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -876,7 +875,6 @@ const AnimatedScreenshotTool = () => {
         )
 
         const mqlOpts = {
-          apiKey: localStorageData,
           meta: false,
           screenshot: {
             animated: {
@@ -958,7 +956,7 @@ const AnimatedScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory, localStorageData]
+    [options, setHistory]
   )
 
   const handleHistorySelect = useCallback(entry => {
