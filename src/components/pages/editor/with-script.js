@@ -58,20 +58,14 @@ const toProUrl = (url, base) => {
   return parsed.href
 }
 
-const collectedHeaders = (input, init) => {
-  const headers = new Headers(
-    typeof input === 'string' ? undefined : input.headers
-  )
-  if (init && init.headers) {
-    new Headers(init.headers).forEach((value, key) => {
-      headers.set(key, value)
-    })
-  }
-  return headers
+const sentHeaders = (input, init) => {
+  if (init && init.headers) return new Headers(init.headers)
+  if (typeof input === 'string' || !input) return new Headers()
+  return new Headers(input.headers)
 }
 
 const mergeHeaders = (input, init, apiKey) => {
-  const headers = collectedHeaders(input, init)
+  const headers = sentHeaders(input, init)
   headers.set('x-api-key', apiKey)
   return headers
 }
@@ -106,8 +100,7 @@ const sendOnce = async (nativeFetch, input, init, apiKey, base) => {
   }
 }
 
-const carriesOwnKey = (input, init) =>
-  collectedHeaders(input, init).has('x-api-key')
+const carriesOwnKey = (input, init) => sentHeaders(input, init).has('x-api-key')
 
 const isGet = (input, init) =>
   String(requestMethod(input, init)).toUpperCase() === 'GET'

@@ -236,21 +236,55 @@ describe('sendFetch', () => {
     expect(native.mock.calls).toEqual([[FREE_URL, init]])
   })
 
-  test('a key on the request is kept when the init carries other headers', async () => {
+  test('a key on the request is kept when the init does not replace headers', async () => {
+    const native = vi.fn(async () => json({}))
+    const request = new Request(FREE_URL, {
+      headers: { 'x-api-key': 'own' }
+    })
+    await sendFetch(native, request, {}, { onSession: true })
+    expect(native.mock.calls).toEqual([[request, {}]])
+  })
+
+  test('init headers replace the request, so the pasted key is the one sent', async () => {
     const native = vi.fn(async () => json({}))
     const request = new Request(FREE_URL, {
       headers: { 'x-api-key': 'own' }
     })
     const init = { headers: { accept: 'application/json' } }
-    await sendFetch(native, request, {}, { onSession: true })
     await sendFetch(native, request, init, {
       onSession: true,
       apiKey: 'pasted'
     })
-    expect(native.mock.calls).toEqual([
-      [request, {}],
-      [request, init]
-    ])
+    const headers = new Headers(native.mock.calls[0][1].headers)
+    expect(headers.get('x-api-key')).toBe('pasted')
+    expect(headers.get('accept')).toBe('application/json')
+  })
+
+  test('an init key is the key that is sent', async () => {
+    const native = vi.fn(async () => json({}))
+    const request = new Request(FREE_URL)
+    const init = { headers: { 'x-api-key': 'from-init' } }
+    await sendFetch(native, request, init, {
+      onSession: true,
+      apiKey: 'pasted'
+    })
+    expect(native.mock.calls).toEqual([[request, init]])
+  })
+
+  test('init headers that drop the request key use the session', async () => {
+    const native = nativeWith(async () => json({}))
+    const request = new Request(FREE_URL, {
+      headers: { 'x-api-key': 'own' }
+    })
+    await sendFetch(
+      native,
+      request,
+      { headers: { accept: 'application/json' } },
+      { onSession: true }
+    )
+    expect(urlOf(native.mock.calls.at(-1))).toBe(
+      `${SESSION_REQUEST_URL}?${QUERY}`
+    )
   })
 
   test('the method on the init wins, and a POST request stays off the session route', async () => {
