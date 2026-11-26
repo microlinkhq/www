@@ -33,30 +33,30 @@ export const serializeError = error => {
 
 const requestUrl = input => {
   if (typeof input === 'string') return input
+  if (input && typeof input.href === 'string') return input.href
   if (input && typeof input.url === 'string') return input.url
   return ''
 }
 
-const isMicrolinkApi = url => {
+const parsedUrl = url => {
   try {
-    return MICROLINK_HOSTS.has(
-      new URL(url, 'https://api.microlink.io').hostname
-    )
+    return new URL(url)
   } catch (_) {
-    return false
+    return null
   }
 }
 
+const isMicrolinkApi = url => {
+  const parsed = parsedUrl(url)
+  return parsed !== null && MICROLINK_HOSTS.has(parsed.hostname)
+}
+
 const toProUrl = url => {
-  try {
-    const parsed = new URL(url, 'https://api.microlink.io')
-    if (!MICROLINK_HOSTS.has(parsed.hostname)) return url
-    parsed.protocol = 'https:'
-    parsed.hostname = 'pro.microlink.io'
-    return parsed.href
-  } catch (_) {
-    return url
-  }
+  const parsed = parsedUrl(url)
+  if (!parsed || !MICROLINK_HOSTS.has(parsed.hostname)) return url
+  parsed.protocol = 'https:'
+  parsed.hostname = 'pro.microlink.io'
+  return parsed.href
 }
 
 const collectedHeaders = (input, init) => {
@@ -116,7 +116,10 @@ const isGet = (input, init) =>
 const signalOf = (input, init) =>
   init.signal ?? (typeof input === 'string' ? undefined : input.signal)
 
-const queryOf = url => new URL(url, 'https://api.microlink.io').search.slice(1)
+const queryOf = url => {
+  const parsed = parsedUrl(url)
+  return parsed ? parsed.search.slice(1) : ''
+}
 
 const sendOnSession = async (nativeFetch, input, init) => {
   const url = requestUrl(input)

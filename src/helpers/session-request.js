@@ -36,7 +36,8 @@ const isGatewayRefusal = body =>
 
 const fromGateway = async response => {
   if (response.ok) return response
-  if (!isGatewayRefusal(await readJson(response))) return response
+  const body = await readJson(response)
+  if (body !== null && !isGatewayRefusal(body)) return response
   return accountFailure(
     response.status,
     response.status === NO_KEYS_STATUS ? NO_KEYS_MESSAGE : ACCOUNT_ERROR_MESSAGE
@@ -57,9 +58,14 @@ export const sessionRequest = async (
 ) => {
   const jwt = await mintToken(token)
   if (jwt === null) return accountFailure(401, ACCOUNT_ERROR_MESSAGE)
-  const response = await fetcher(`${SESSION_REQUEST_URL}?${query}`, {
-    signal,
-    headers: { authorization: `Bearer ${jwt}` }
-  })
-  return fromGateway(response)
+  try {
+    const response = await fetcher(`${SESSION_REQUEST_URL}?${query}`, {
+      signal,
+      headers: { authorization: `Bearer ${jwt}` }
+    })
+    return fromGateway(response)
+  } catch (error) {
+    if (error && error.name === 'AbortError') throw error
+    return accountFailure(502, ACCOUNT_ERROR_MESSAGE)
+  }
 }

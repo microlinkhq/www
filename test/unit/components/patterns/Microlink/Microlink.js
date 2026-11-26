@@ -18,6 +18,12 @@ vi.mock('components/hook/use-session-card', () => ({
   }
 }))
 
+vi.mock('helpers/template', () => ({ template: value => value }))
+
+vi.mock('helpers/demo-links', () => ({
+  findDemoLinkByVariations: () => undefined
+}))
+
 const LIVE_URL = 'https://example.com/not-a-demo-link'
 
 const cardFor = props => {

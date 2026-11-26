@@ -66,6 +66,12 @@ describe('sendFetch', () => {
   })
 
   test('a session that cannot be reached answers with an account error, never keyless', async () => {
+    vi.stubGlobal(
+      'fetch',
+      vi.fn(async () => {
+        throw new TypeError('Failed to fetch')
+      })
+    )
     const native = vi.fn(async () => {
       throw new TypeError('Failed to fetch')
     })
@@ -99,6 +105,33 @@ describe('sendFetch', () => {
       [FREE_URL, init],
       [FREE_URL, init]
     ])
+  })
+
+  test('a URL object keeps its query on the session route', async () => {
+    const native = nativeWith(async () => json({}))
+    await sendFetch(native, new URL(FREE_URL), {}, { onSession: true })
+    expect(urlOf(native.mock.calls.at(-1))).toBe(
+      `${SESSION_REQUEST_URL}?${QUERY}`
+    )
+  })
+
+  test('a URL object for another site is sent untouched', async () => {
+    const native = vi.fn(async () => json({}))
+    const url = new URL('https://example.com/data.json')
+    await sendFetch(native, url, {}, { onSession: true })
+    expect(native.mock.calls).toEqual([[url, {}]])
+  })
+
+  test('a relative request stays on the page', async () => {
+    const native = vi.fn(async () => json({}))
+    await sendFetch(native, '/data.json?lang=en', {}, { onSession: true })
+    expect(native.mock.calls).toEqual([['/data.json?lang=en', {}]])
+  })
+
+  test('a pasted key does not rewrite a relative request', async () => {
+    const native = vi.fn(async () => json({}))
+    await sendFetch(native, '/data.json', {}, { apiKey: 'pasted' })
+    expect(native.mock.calls).toEqual([['/data.json', {}]])
   })
 
   test('requests to other sites are sent untouched', async () => {

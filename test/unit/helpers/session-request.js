@@ -103,14 +103,27 @@ describe('sessionRequest', () => {
     expect((await res.json()).code).toBe('ERATE')
   })
 
-  test('a non-JSON response is returned unchanged', async () => {
-    const original = new Response('<html>', { status: 502 })
+  test('a non-JSON gateway failure is an account failure', async () => {
     const res = await sessionRequest(QUERY, {
-      fetcher: async () => original,
+      fetcher: async () => new Response('<html>', { status: 502 }),
       token: tokenOf('jwt')
     })
-    expect(res).toBe(original)
-    expect(await res.text()).toBe('<html>')
+    expect(res.status).toBe(502)
+    expect(await res.json()).toMatchObject({
+      status: 'fail',
+      code: 'EACCOUNT'
+    })
+  })
+
+  test('a dropped dashboard connection is an account failure', async () => {
+    const res = await sessionRequest(QUERY, {
+      fetcher: async () => {
+        throw new TypeError('Failed to fetch')
+      },
+      token: tokenOf('jwt')
+    })
+    expect(res.status).toBe(502)
+    expect((await res.json()).code).toBe('EACCOUNT')
   })
 
   test('an API error passes through untouched', async () => {
