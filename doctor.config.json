@@ -123,6 +123,16 @@
       },
       {
         "files": [
+          "src/components/hook/use-card-data.js"
+        ],
+        "rules": [
+          "react-doctor/js-set-map-lookups",
+          "react-doctor/effect-needs-cleanup",
+          "react-doctor/exhaustive-deps"
+        ]
+      },
+      {
+        "files": [
           "src/components/patterns/RaceContainer/use-race-schedule.js",
           "src/helpers/hoc/with-debounce.js",
           "src/components/patterns/ExamplesSwitcher/use-scroll-cues.js",

@@ -26,6 +26,11 @@ export const applyFetchError = (silent, err, setStatus, setError) => {
   if (failure.error) setError(failure.error)
 }
 
+export const finishFetch = (generation, current, apply) => {
+  if (generation !== current) return
+  apply()
+}
+
 const ErrorMessage = error => {
   const { text, more, linkText } = errorCopy(error)
 
@@ -68,9 +73,11 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const didInitialFetch = useRef(false)
   const warningId = useRef(0)
+  const fetchGeneration = useRef(0)
 
   const fetchData = useCallback(
     async (url, opts) => {
+      const generation = ++fetchGeneration.current
       const {
         queryUrl,
         syncQuery = true,
@@ -91,12 +98,16 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
           ? await Promise.all(url.map(doFetch))
           : await doFetch(url)
 
-        setStatus('fetched')
-        setData(data)
-        setResponse(response)
+        finishFetch(generation, fetchGeneration.current, () => {
+          setStatus('fetched')
+          setData(data)
+          setResponse(response)
+        })
       } catch (err) {
-        console.error('FetchProvider:', err)
-        applyFetchError(silent, err, setStatus, setError)
+        finishFetch(generation, fetchGeneration.current, () => {
+          console.error('FetchProvider:', err)
+          applyFetchError(silent, err, setStatus, setError)
+        })
       }
     },
     [setQuery, fromCache, mqlOpts]

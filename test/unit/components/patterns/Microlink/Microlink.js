@@ -18,6 +18,15 @@ vi.mock('components/hook/use-card-data', () => ({
   }
 }))
 
+vi.mock('helpers/template', () => ({ template: value => value }))
+
+vi.mock('helpers/demo-links', () => ({
+  findDemoLinkByVariations: variations =>
+    variations.includes('https://microlink.io/')
+      ? { data: { url: 'https://microlink.io/', title: 'Microlink' } }
+      : undefined
+}))
+
 const LIVE_URL = 'https://example.com/not-a-demo-link'
 
 const cardFor = props => {

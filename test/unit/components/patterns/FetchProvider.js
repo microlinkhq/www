@@ -3,8 +3,13 @@ import { describe, expect, test, vi } from 'vitest'
 import {
   applyFetchError,
   errorCopy,
-  fetchErrorState
+  fetchErrorState,
+  finishFetch
 } from '../../../../src/components/patterns/FetchProvider'
+
+vi.mock('helpers/demo-links', () => ({
+  findDemoLinkByVariations: () => undefined
+}))
 
 describe('FetchProvider error copy', () => {
   test('shows the API description with a link to learn more', () => {
@@ -35,6 +40,16 @@ describe('FetchProvider error copy', () => {
       more: 'https://microlink.io/report',
       linkText: 'Report it.'
     })
+  })
+})
+
+describe('FetchProvider fetch settlement', () => {
+  test('a superseded fetch does not settle, the current one does', () => {
+    const apply = vi.fn()
+    finishFetch(1, 2, apply)
+    expect(apply).not.toHaveBeenCalled()
+    finishFetch(2, 2, apply)
+    expect(apply).toHaveBeenCalledTimes(1)
   })
 })
 
