@@ -362,6 +362,28 @@ describe('request on the signed-in account', () => {
     expect(err.statusCode).toBe(200)
   })
 
+  test('a 200 JSON failure is not returned as embed bytes', async () => {
+    answerSession(
+      () =>
+        new Response(
+          JSON.stringify({
+            status: 'fail',
+            code: 'EUNREACHABLE',
+            message: 'down'
+          }),
+          {
+            status: 200,
+            headers: { 'content-type': 'application/json; charset=utf-8' }
+          }
+        )
+    )
+    const err = await microlink
+      .request(URL_TO_FETCH, { embed: 'screenshot' })
+      .catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('EUNREACHABLE')
+  })
+
   test('an embed error is the API error, not the raw body', async () => {
     answerSession(() =>
       apiJson({ status: 'fail', code: 'ERATE', message: 'limited' }, 429)

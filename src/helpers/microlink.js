@@ -105,7 +105,8 @@ const toResult = async (response, raw) => {
     headers: response.headers,
     statusCode: response.status
   }
-  if (raw && response.ok) {
+  const type = response.headers.get('content-type') || ''
+  if (raw && response.ok && !type.includes('json')) {
     return { ...reply, body: await response.arrayBuffer() }
   }
   const body = parseJson(await response.text())
