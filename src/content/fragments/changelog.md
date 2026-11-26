@@ -1,6 +1,6 @@
 ### November 2026
 
-- [Microlink Blog](/blog): Published [Resolving Google result links](/blog/resolving-google-result-links).
+- [Microlink Blog](/blog): Published [Google Goto URLs, explained](/blog/google-goto-urls-explained).
 - [Microlink API](/docs/api/basics/error-codes#egooglelink): A Google result link Google is holding answers `503` with `Retry-After` and the [EGOOGLELINK](/docs/api/basics/error-codes#egooglelink) code instead of `EFATAL`.
 - [Microlink Blog](/blog): Published [Introducing Nodebox](/blog/introducing-nodebox).
 - [Microlink API](/docs/api/parameters/timeout): [timeout](/docs/api/parameters/timeout) takes a percentage of the plan budget, such as `timeout=80%25` in a URL.
