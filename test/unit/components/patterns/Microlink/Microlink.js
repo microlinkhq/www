@@ -43,7 +43,7 @@ describe('Microlink card', () => {
   test('shows the skeleton while the data loads', () => {
     const { props, html } = cardFor({ url: LIVE_URL })
     expect(props.loading).toBe(true)
-    expect(html).toBe('<div></div>')
+    expect(html).toMatch(/^<div class="[^"]+"><\/div>$/)
     expect(globalThis.__cardOptions.enabled).toBe(true)
   })
 

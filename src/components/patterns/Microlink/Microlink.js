@@ -5,6 +5,8 @@ import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
 import { useCardData } from 'components/hook/use-card-data'
 import React from 'react'
+import styled from 'styled-components'
+import { theme } from 'theme'
 
 const defaultMedia = [
   'iframe',
@@ -13,6 +15,10 @@ const defaultMedia = [
   'image',
   'logo'
 ].filter(Boolean)
+
+const Viewport = styled('div')`
+  ${theme({ width: '100%' })}
+`
 
 const CARD_QUERY_PROPS = [
   'contrast',
@@ -84,7 +90,7 @@ const Microlink = ({
     />
   )
 
-  return _fetchData ? <div ref={ref}>{preview}</div> : preview
+  return _fetchData ? <Viewport ref={ref}>{preview}</Viewport> : preview
 }
 
 export default Microlink
