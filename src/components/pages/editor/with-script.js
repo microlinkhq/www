@@ -38,21 +38,21 @@ const requestUrl = input => {
   return ''
 }
 
-const parsedUrl = url => {
+const parsedUrl = (url, base) => {
   try {
-    return new URL(url)
+    return new URL(url, base || undefined)
   } catch (_) {
     return null
   }
 }
 
-const isMicrolinkApi = url => {
-  const parsed = parsedUrl(url)
+const isMicrolinkApi = (url, base) => {
+  const parsed = parsedUrl(url, base)
   return parsed !== null && MICROLINK_HOSTS.has(parsed.hostname)
 }
 
-const toProUrl = url => {
-  const parsed = parsedUrl(url)
+const toProUrl = (url, base) => {
+  const parsed = parsedUrl(url, base)
   if (!parsed || !MICROLINK_HOSTS.has(parsed.hostname)) return url
   parsed.protocol = 'https:'
   parsed.hostname = 'pro.microlink.io'
@@ -80,9 +80,9 @@ const mergeHeaders = (input, init, apiKey) => {
 const requestMethod = (input, init) =>
   init?.method || (input && input.method) || 'GET'
 
-const sendOnce = async (nativeFetch, input, init, apiKey) => {
+const sendOnce = async (nativeFetch, input, init, apiKey, base) => {
   const url = requestUrl(input)
-  if (!apiKey || !isMicrolinkApi(url)) {
+  if (!apiKey || !isMicrolinkApi(url, base)) {
     return {
       response: await nativeFetch(input, init),
       requestUrl: url,
@@ -92,7 +92,7 @@ const sendOnce = async (nativeFetch, input, init, apiKey) => {
       method: requestMethod(input, init)
     }
   }
-  const nextUrl = toProUrl(url)
+  const nextUrl = toProUrl(url, base)
   const headers = mergeHeaders(input, init, apiKey)
   const nextInit = { ...init, headers }
   const response =
@@ -116,15 +116,15 @@ const isGet = (input, init) =>
 const signalOf = (input, init) =>
   init.signal ?? (typeof input === 'string' ? undefined : input.signal)
 
-const queryOf = url => {
-  const parsed = parsedUrl(url)
+const queryOf = (url, base) => {
+  const parsed = parsedUrl(url, base)
   return parsed ? parsed.search.slice(1) : ''
 }
 
-const sendOnSession = async (nativeFetch, input, init) => {
+const sendOnSession = async (nativeFetch, input, init, base) => {
   const url = requestUrl(input)
   return {
-    response: await sessionRequest(queryOf(url), {
+    response: await sessionRequest(queryOf(url, base), {
       fetcher: nativeFetch,
       signal: signalOf(input, init)
     }),
@@ -134,10 +134,10 @@ const sendOnSession = async (nativeFetch, input, init) => {
   }
 }
 
-const runsOnSession = (input, init, { apiKey, onSession }) =>
+const runsOnSession = (input, init, { apiKey, onSession, base }) =>
   !apiKey &&
   onSession &&
-  isMicrolinkApi(requestUrl(input)) &&
+  isMicrolinkApi(requestUrl(input), base) &&
   !carriesOwnKey(input, init) &&
   isGet(input, init)
 
@@ -145,13 +145,13 @@ export const sendFetch = async (
   nativeFetch,
   input,
   init = {},
-  { apiKey, onSession = false } = {}
+  { apiKey, onSession = false, base } = {}
 ) => {
-  if (runsOnSession(input, init, { apiKey, onSession })) {
-    return sendOnSession(nativeFetch, input, init)
+  if (runsOnSession(input, init, { apiKey, onSession, base })) {
+    return sendOnSession(nativeFetch, input, init, base)
   }
   const ownKey = carriesOwnKey(input, init) ? undefined : apiKey
-  return sendOnce(nativeFetch, input, init, ownKey)
+  return sendOnce(nativeFetch, input, init, ownKey, base)
 }
 
 const formatLogArg = arg => {
@@ -184,16 +184,17 @@ const patchConsole = (consoleRef, logs) => {
   }
 }
 
-const installFetch = (target, assign, runOptions) => {
+export const installFetch = (target, assign, runOptions) => {
   const native = target.fetch.bind(target)
+  const base = target.location.href
   target.fetch = async (input, init) => {
     const {
       response,
       requestUrl: url,
       requestOptions,
       method
-    } = await sendFetch(native, input, init, runOptions)
-    if (isMicrolinkApi(url) || isMicrolinkApi(response.url)) {
+    } = await sendFetch(native, input, init, { ...runOptions, base })
+    if (isMicrolinkApi(url, base) || isMicrolinkApi(response.url)) {
       const options = { ...requestOptions }
       if (method && String(method).toUpperCase() !== 'GET') {
         options.method = method

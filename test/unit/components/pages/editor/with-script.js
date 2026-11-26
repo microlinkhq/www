@@ -1,5 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { sendFetch } from '../../../../../src/components/pages/editor/with-script'
+import {
+  installFetch,
+  sendFetch
+} from '../../../../../src/components/pages/editor/with-script'
 import {
   CLERK_FRONTEND_API,
   forgetAccount
@@ -124,14 +127,93 @@ describe('sendFetch', () => {
 
   test('a relative request stays on the page', async () => {
     const native = vi.fn(async () => json({}))
-    await sendFetch(native, '/data.json?lang=en', {}, { onSession: true })
-    expect(native.mock.calls).toEqual([['/data.json?lang=en', {}]])
+    const input = '/data.json?lang=en'
+    await sendFetch(native, input, {}, { onSession: true })
+    await sendFetch(
+      native,
+      input,
+      {},
+      {
+        onSession: true,
+        base: 'https://microlink.io/editor'
+      }
+    )
+    expect(native.mock.calls).toEqual([
+      [input, {}],
+      [input, {}]
+    ])
+  })
+
+  test('a protocol-relative API url keeps its query on the session route', async () => {
+    const native = nativeWith(async () => json({}))
+    await sendFetch(
+      native,
+      `//api.microlink.io/?${QUERY}`,
+      {},
+      {
+        onSession: true,
+        base: 'https://microlink.io/editor'
+      }
+    )
+    expect(urlOf(native.mock.calls.at(-1))).toBe(
+      `${SESSION_REQUEST_URL}?${QUERY}`
+    )
+  })
+
+  test('a protocol-relative request to another site is sent untouched', async () => {
+    const native = vi.fn(async () => json({}))
+    const input = '//example.com/data.json'
+    await sendFetch(
+      native,
+      input,
+      {},
+      {
+        onSession: true,
+        base: 'https://microlink.io/editor'
+      }
+    )
+    expect(native.mock.calls).toEqual([[input, {}]])
   })
 
   test('a pasted key does not rewrite a relative request', async () => {
     const native = vi.fn(async () => json({}))
-    await sendFetch(native, '/data.json', {}, { apiKey: 'pasted' })
+    await sendFetch(
+      native,
+      '/data.json',
+      {},
+      {
+        apiKey: 'pasted',
+        base: 'https://microlink.io/editor'
+      }
+    )
     expect(native.mock.calls).toEqual([['/data.json', {}]])
+  })
+
+  test('a pasted key rewrites a protocol-relative API url', async () => {
+    const native = vi.fn(async () => json({}))
+    const sent = await sendFetch(
+      native,
+      `//api.microlink.io/?${QUERY}`,
+      {},
+      { apiKey: 'pasted', base: 'https://microlink.io/editor' }
+    )
+    expect(sent.requestUrl).toBe(`https://pro.microlink.io/?${QUERY}`)
+  })
+
+  test('the installed fetch resolves against the window location', async () => {
+    const native = nativeWith(async () => json({}))
+    const target = {
+      fetch: native,
+      location: { href: 'https://microlink.io/editor' }
+    }
+    const restore = installFetch(target, () => {}, { onSession: true })
+    await target.fetch(`//api.microlink.io/?${QUERY}`)
+    expect(urlOf(native.mock.calls.at(-1))).toBe(
+      `${SESSION_REQUEST_URL}?${QUERY}`
+    )
+    await target.fetch('/data.json')
+    expect(native.mock.calls.at(-1)).toEqual(['/data.json', {}])
+    restore()
   })
 
   test('requests to other sites are sent untouched', async () => {
