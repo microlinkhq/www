@@ -1791,7 +1791,6 @@ const ScreenshotTool = () => {
   const [bulkTotalBytes, setBulkTotalBytes] = useState(null)
   const bulkUrlsRef = useRef([])
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -1917,7 +1916,6 @@ const ScreenshotTool = () => {
         const reqStart = Date.now()
         try {
           const mqlOpts = {
-            apiKey: localStorageData,
             meta: false,
             screenshot: { type: options.type, fullPage: options.fullPage },
             viewport,
@@ -2028,7 +2026,7 @@ const ScreenshotTool = () => {
         await downloadZipFromEntries(successEntries)
       }
     },
-    [options, localStorageData, setHistory, downloadZipFromEntries]
+    [options, setHistory, downloadZipFromEntries]
   )
 
   const handleHistorySelect = useCallback(entry => {

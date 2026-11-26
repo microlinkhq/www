@@ -2316,7 +2316,6 @@ const PdfBatchTool = () => {
     setBulkTotalMs(380)
   }, [])
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -2430,7 +2429,6 @@ const PdfBatchTool = () => {
           }
 
           const mqlOpts = {
-            apiKey: localStorageData,
             meta: false,
             pdf: pdfOpts,
             screenshot: true,
@@ -2542,7 +2540,7 @@ const PdfBatchTool = () => {
         await downloadZipFromEntries(successEntries)
       }
     },
-    [options, localStorageData, setHistory, downloadZipFromEntries]
+    [options, setHistory, downloadZipFromEntries]
   )
 
   const handleHistorySelect = useCallback(entry => {

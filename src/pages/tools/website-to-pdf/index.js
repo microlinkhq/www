@@ -1177,7 +1177,6 @@ const PdfTool = () => {
   const [responseData, setResponseData] = useState(null)
   const [showNerdStats, setShowNerdStats] = useState(false)
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(PDF_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -1231,7 +1230,6 @@ const PdfTool = () => {
         }
 
         const mqlOpts = {
-          apiKey: localStorageData,
           meta: false,
           pdf: pdfOpts,
           screenshot: true,
@@ -1309,7 +1307,7 @@ const PdfTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory, localStorageData]
+    [options, setHistory]
   )
 
   const handleHistorySelect = useCallback(entry => {

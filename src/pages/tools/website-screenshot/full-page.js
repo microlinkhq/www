@@ -471,7 +471,6 @@ const ScreenshotTool = () => {
     height: 1080
   })
 
-  const [localStorageData] = useLocalStorage('mql-api-key')
   const [history, setHistory] = useLocalStorage(SCREENSHOT_HISTORY_KEY, [])
   const [activeHistoryId, setActiveHistoryId] = useState(null)
   const [historyReady, setHistoryReady] = useState(false)
@@ -504,7 +503,6 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          apiKey: localStorageData,
           meta: false,
           screenshot: {
             type: options.type,
@@ -583,7 +581,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory, localStorageData]
+    [options, setHistory]
   )
 
   const handleHistorySelect = useCallback(entry => {
