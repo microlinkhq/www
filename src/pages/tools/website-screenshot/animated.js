@@ -876,7 +876,7 @@ const AnimatedScreenshotTool = () => {
         )
 
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: localStorageData,
           meta: false,
           screenshot: {
             animated: {

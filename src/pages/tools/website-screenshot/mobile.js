@@ -595,7 +595,7 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: localStorageData,
           meta: false,
           screenshot: {
             type: options.type,
@@ -670,7 +670,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory]
+    [options, setHistory, localStorageData]
   )
 
   const handleHistorySelect = useCallback(entry => {

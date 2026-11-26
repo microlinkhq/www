@@ -1,4 +1,5 @@
 import createClient from 'microlink.io'
+import { isSignedIn, sessionRequest } from './session-request'
 
 const client = createClient()
 
@@ -60,7 +61,7 @@ const apiUrl = (url, options) => {
     : withScalarHeader(built, prepared.scalar)
 }
 
-const request = async (url, options) => {
+const requestOnce = async (url, options) => {
   const prepared = prepareOptions(options)
   try {
     if (prepared.scalar === undefined) {
@@ -73,6 +74,57 @@ const request = async (url, options) => {
     }
     throw err
   }
+}
+
+const RAW_BODY_OPTIONS = ['stream', 'embed']
+
+const wantsRawBody = options =>
+  RAW_BODY_OPTIONS.some(name => Boolean(options[name]))
+
+const parseJson = text => {
+  try {
+    return JSON.parse(text)
+  } catch {
+    return { status: 'fail', message: text }
+  }
+}
+
+const sessionFailure = (body, response) =>
+  Object.assign(new Error(body.message ?? `Error ${response.status}`), {
+    ...body,
+    description: body.message,
+    statusCode: response.status,
+    headers: Object.fromEntries(response.headers),
+    url: response.url,
+    keyed: true
+  })
+
+const toResult = async (response, raw) => {
+  const reply = {
+    url: response.url,
+    headers: response.headers,
+    statusCode: response.status
+  }
+  const type = response.headers.get('content-type') || ''
+  if (raw && response.ok && !type.includes('json')) {
+    return { ...reply, body: await response.arrayBuffer() }
+  }
+  const body = parseJson(await response.text())
+  if (!response.ok || body.status === 'fail') {
+    throw sessionFailure(body, response)
+  }
+  return { ...body, response: { ...reply, body } }
+}
+
+const requestOnSession = async (url, options) => {
+  const query = new URL(apiUrl(url, options)).search.slice(1)
+  return toResult(await sessionRequest(query), wantsRawBody(options))
+}
+
+const request = async (url, { apiKey, ...options } = {}) => {
+  if (apiKey) return requestOnce(url, { ...options, apiKey })
+  if (isSignedIn()) return requestOnSession(url, options)
+  return requestOnce(url, options)
 }
 
 export default { request, apiUrl }

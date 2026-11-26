@@ -1,4 +1,5 @@
 import createClient from 'microlink.io'
+import { isSignedIn, sessionRequest } from 'helpers/session-request'
 
 import { toModuleSource } from './to-module-source'
 import { readTraceBody, toTracePayload } from './trace'
@@ -32,41 +33,36 @@ export const serializeError = error => {
 
 const requestUrl = input => {
   if (typeof input === 'string') return input
+  if (input && typeof input.href === 'string') return input.href
   if (input && typeof input.url === 'string') return input.url
   return ''
 }
 
-const isMicrolinkApi = url => {
+const parsedUrl = (url, base) => {
   try {
-    return MICROLINK_HOSTS.has(
-      new URL(url, 'https://api.microlink.io').hostname
-    )
+    return new URL(url, base)
   } catch (_) {
-    return false
+    return null
   }
 }
 
-const toProUrl = url => {
-  try {
-    const parsed = new URL(url, 'https://api.microlink.io')
-    if (!MICROLINK_HOSTS.has(parsed.hostname)) return url
-    parsed.protocol = 'https:'
-    parsed.hostname = 'pro.microlink.io'
-    return parsed.href
-  } catch (_) {
-    return url
-  }
+const isMicrolinkApi = (url, base) => {
+  const parsed = parsedUrl(url, base)
+  return parsed !== null && MICROLINK_HOSTS.has(parsed.hostname)
 }
+
+const toProUrl = (url, base) => {
+  const parsed = parsedUrl(url, base)
+  parsed.protocol = 'https:'
+  parsed.hostname = 'pro.microlink.io'
+  return parsed.href
+}
+
+const sentHeaders = (input, init) =>
+  new Headers(init && init.headers ? init.headers : input.headers)
 
 const mergeHeaders = (input, init, apiKey) => {
-  const headers = new Headers(
-    typeof input === 'string' ? undefined : input.headers
-  )
-  if (init && init.headers) {
-    new Headers(init.headers).forEach((value, key) => {
-      headers.set(key, value)
-    })
-  }
+  const headers = sentHeaders(input, init)
   headers.set('x-api-key', apiKey)
   return headers
 }
@@ -74,9 +70,9 @@ const mergeHeaders = (input, init, apiKey) => {
 const requestMethod = (input, init) =>
   init?.method || (input && input.method) || 'GET'
 
-const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
+const sendOnce = async (nativeFetch, input, init, apiKey, base) => {
   const url = requestUrl(input)
-  if (!apiKey || !isMicrolinkApi(url)) {
+  if (!apiKey || !isMicrolinkApi(url, base)) {
     return {
       response: await nativeFetch(input, init),
       requestUrl: url,
@@ -86,7 +82,7 @@ const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
       method: requestMethod(input, init)
     }
   }
-  const nextUrl = toProUrl(url)
+  const nextUrl = toProUrl(url, base)
   const headers = mergeHeaders(input, init, apiKey)
   const nextInit = { ...init, headers }
   const response =
@@ -99,6 +95,49 @@ const sendFetch = async (nativeFetch, input, init = {}, apiKey) => {
     requestOptions: { headers },
     method: requestMethod(input, nextInit)
   }
+}
+
+const carriesOwnKey = (input, init) => sentHeaders(input, init).has('x-api-key')
+
+const isGet = (input, init) =>
+  String(requestMethod(input, init)).toUpperCase() === 'GET'
+
+const signalOf = (input, init) =>
+  init.signal ?? (typeof input === 'string' ? undefined : input.signal)
+
+const queryOf = (url, base) => parsedUrl(url, base).search.slice(1)
+
+const sendOnSession = async (nativeFetch, input, init, base) => {
+  const url = requestUrl(input)
+  return {
+    response: await sessionRequest(queryOf(url, base), {
+      fetcher: nativeFetch,
+      signal: signalOf(input, init)
+    }),
+    requestUrl: url,
+    requestOptions: { headers: init.headers || (input && input.headers) },
+    method: requestMethod(input, init)
+  }
+}
+
+const runsOnSession = (input, init, { apiKey, onSession, base }) =>
+  !apiKey &&
+  onSession &&
+  isMicrolinkApi(requestUrl(input), base) &&
+  !carriesOwnKey(input, init) &&
+  isGet(input, init)
+
+export const sendFetch = async (
+  nativeFetch,
+  input,
+  init = {},
+  { apiKey, onSession = false, base } = {}
+) => {
+  if (runsOnSession(input, init, { apiKey, onSession, base })) {
+    return sendOnSession(nativeFetch, input, init, base)
+  }
+  const ownKey = carriesOwnKey(input, init) ? undefined : apiKey
+  return sendOnce(nativeFetch, input, init, ownKey, base)
 }
 
 const formatLogArg = arg => {
@@ -131,16 +170,17 @@ const patchConsole = (consoleRef, logs) => {
   }
 }
 
-const installFetch = (target, assign, apiKey) => {
+export const installFetch = (target, assign, runOptions) => {
   const native = target.fetch.bind(target)
+  const base = target.location.href
   target.fetch = async (input, init) => {
     const {
       response,
       requestUrl: url,
       requestOptions,
       method
-    } = await sendFetch(native, input, init, apiKey)
-    if (isMicrolinkApi(response.url || url)) {
+    } = await sendFetch(native, input, init, { ...runOptions, base })
+    if (isMicrolinkApi(url, base) || isMicrolinkApi(response.url)) {
       const options = { ...requestOptions }
       if (method && String(method).toUpperCase() !== 'GET') {
         options.method = method
@@ -210,6 +250,7 @@ const runEntry = (doc, win, entry) =>
   })
 
 const evalInFrame = async (iframe, files, { apiKey, entry }) => {
+  const runOptions = { apiKey, onSession: !apiKey && isSignedIn() }
   const win = iframe.contentWindow
   const doc = iframe.contentDocument
   const logs = Object.create(null)
@@ -223,8 +264,8 @@ const evalInFrame = async (iframe, files, { apiKey, entry }) => {
   const blobUrls = []
 
   try {
-    restoreIframeFetch = installFetch(win, assignTrace, apiKey)
-    restoreParentFetch = installFetch(window, assignTrace, apiKey)
+    restoreIframeFetch = installFetch(win, assignTrace, runOptions)
+    restoreParentFetch = installFetch(window, assignTrace, runOptions)
 
     const shimUrl = createShimUrl(win, apiKey)
     blobUrls.push(shimUrl)

@@ -1,5 +1,6 @@
 import { useCallback } from 'react'
 import { normalizeApiError } from 'helpers/api-error'
+import { fetchApi } from 'helpers/api-fetch'
 import { trackEvent } from 'helpers/gtag'
 import { DEFAULT_HISTORY } from './history'
 
@@ -27,12 +28,10 @@ export const useFetchPdf = ({
       let waitForPdfRender = false
       try {
         const scale = url === DEFAULT_HISTORY[0] || url === DEFAULT_HISTORY[1]
-        const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(url)}&pdf` +
-            (scale ? '&scale=1.2' : ''),
+        const { res, json } = await fetchApi(
+          `url=${encodeURIComponent(url)}&pdf` + (scale ? '&scale=1.2' : ''),
           { signal: controller.signal }
         )
-        const json = await res.json()
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {

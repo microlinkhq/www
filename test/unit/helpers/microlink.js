@@ -1,6 +1,16 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { toRawResponse } from '../../../src/components/patterns/MultiCodeEditor/interactive/raw-response.js'
 import microlink from '../../../src/helpers/microlink.js'
+import {
+  CLERK_FRONTEND_API,
+  SESSION_KEYS_URL,
+  forgetAccount
+} from '../../../src/helpers/dashboard-account.js'
+import {
+  ACCOUNT_ERROR_CODE,
+  SESSION_REQUEST_URL
+} from '../../../src/helpers/session-request.js'
+import { normalizeApiError } from '../../../src/helpers/api-error.js'
 
 const URL_TO_FETCH = 'https://example.com'
 const FORWARDED_HEADERS = { 'user-agent': 'googlebot', 'accept-language': 'en' }
@@ -235,5 +245,205 @@ describe('request', () => {
     const raw = toRawResponse(result)
     expect(raw.headers['content-type']).toBe('image/png')
     expect(new Uint8Array(raw.body)).toEqual(bytes)
+  })
+})
+
+describe('request on the signed-in account', () => {
+  const CLIENT = {
+    response: {
+      last_active_session_id: 'sess_1',
+      sessions: [{ id: 'sess_1', user: { email_addresses: [] } }]
+    }
+  }
+
+  const apiJson = (body, status = 200) =>
+    new Response(JSON.stringify(body), {
+      status,
+      headers: { 'content-type': 'application/json' }
+    })
+
+  let fetchMock
+
+  const answerSession = handler =>
+    fetchMock.mockImplementation(async (input, init) => {
+      if (input === `${CLERK_FRONTEND_API}/client`) return apiJson(CLIENT)
+      if (String(input).endsWith('/tokens')) return apiJson({ jwt: 'jwt' })
+      if (input === SESSION_KEYS_URL) throw new Error('keys must not load')
+      return handler(String(input), init)
+    })
+
+  const sessionCalls = () =>
+    fetchMock.mock.calls.filter(([input]) =>
+      String(input).startsWith(SESSION_REQUEST_URL)
+    )
+
+  beforeEach(() => {
+    forgetAccount()
+    fetchMock = vi.fn()
+    vi.stubGlobal('fetch', fetchMock)
+    vi.stubGlobal('document', { cookie: '__client_uat=1732000000' })
+  })
+
+  afterEach(() => {
+    forgetAccount()
+    vi.unstubAllGlobals()
+  })
+
+  test('runs through the dashboard session request with the same query', async () => {
+    answerSession(() => apiJson({ status: 'success', data: { title: 'ok' } }))
+    const { data } = await microlink.request(URL_TO_FETCH, {
+      screenshot: true,
+      headers: { 'user-agent': 'googlebot' }
+    })
+    expect(data.title).toBe('ok')
+    const [[url, init]] = sessionCalls()
+    expect(url).toBe(
+      `${SESSION_REQUEST_URL}?url=https%3A%2F%2Fexample.com&screenshot=true&headers.user-agent=googlebot`
+    )
+    expect(init.headers.authorization).toBe('Bearer jwt')
+    expect(
+      fetchMock.mock.calls.some(([input]) =>
+        String(input?.url ?? input).includes('microlink.io/?')
+      )
+    ).toBe(false)
+  })
+
+  test('keeps a scalar headers option in the query', async () => {
+    answerSession(() => apiJson({ status: 'success', data: {} }))
+    await microlink.request(URL_TO_FETCH, { headers: 'googlebot' })
+    expect(sessionCalls()[0][0]).toContain('headers=googlebot')
+  })
+
+  test('the result reaches the code viewers like a direct one', async () => {
+    const payload = { status: 'success', data: { title: 'Microlink' } }
+    answerSession(() => apiJson(payload))
+    const result = await microlink.request(URL_TO_FETCH)
+    const raw = toRawResponse(result)
+    expect(raw.headers['content-type']).toBe('application/json')
+    expect(JSON.parse(new TextDecoder().decode(raw.body))).toEqual(payload)
+  })
+
+  test('an embed result arrives as untouched bytes', async () => {
+    const bytes = new Uint8Array([137, 80, 78, 71])
+    answerSession(
+      () => new Response(bytes, { headers: { 'content-type': 'image/png' } })
+    )
+    const result = await microlink.request(URL_TO_FETCH, {
+      screenshot: true,
+      embed: 'screenshot'
+    })
+    const raw = toRawResponse(result)
+    expect(raw.headers['content-type']).toBe('image/png')
+    expect(new Uint8Array(raw.body)).toEqual(bytes)
+  })
+
+  test('a stream result arrives as untouched bytes', async () => {
+    const bytes = new Uint8Array([1, 2, 3, 4])
+    answerSession(
+      () =>
+        new Response(bytes, {
+          headers: { 'content-type': 'application/octet-stream' }
+        })
+    )
+    const result = await microlink.request(URL_TO_FETCH, {
+      stream: 'screenshot'
+    })
+    const raw = toRawResponse(result)
+    expect(new Uint8Array(raw.body)).toEqual(bytes)
+  })
+
+  test('a 200 body that failed still throws the API error', async () => {
+    answerSession(() =>
+      apiJson({ status: 'fail', code: 'EUNREACHABLE', message: 'down' }, 200)
+    )
+    const err = await microlink.request(URL_TO_FETCH).catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('EUNREACHABLE')
+    expect(err.statusCode).toBe(200)
+  })
+
+  test('a 200 JSON failure is not returned as embed bytes', async () => {
+    answerSession(
+      () =>
+        new Response(
+          JSON.stringify({
+            status: 'fail',
+            code: 'EUNREACHABLE',
+            message: 'down'
+          }),
+          {
+            status: 200,
+            headers: { 'content-type': 'application/json; charset=utf-8' }
+          }
+        )
+    )
+    const err = await microlink
+      .request(URL_TO_FETCH, { embed: 'screenshot' })
+      .catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('EUNREACHABLE')
+  })
+
+  test('an embed error is the API error, not the raw body', async () => {
+    answerSession(() =>
+      apiJson({ status: 'fail', code: 'ERATE', message: 'limited' }, 429)
+    )
+    const err = await microlink
+      .request(URL_TO_FETCH, { embed: 'screenshot' })
+      .catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('ERATE')
+  })
+
+  test('a spent account throws the API error, marked as keyed', async () => {
+    answerSession(() =>
+      apiJson({ status: 'fail', code: 'ERATE', message: 'limited' }, 429)
+    )
+    const err = await microlink.request(URL_TO_FETCH).catch(err => err)
+    expect(err.code).toBe('ERATE')
+    expect(err.statusCode).toBe(429)
+    expect(err.keyed).toBe(true)
+    expect(normalizeApiError.fromMql(err)).toEqual({
+      code: 'ERATE',
+      message: 'limited',
+      keyed: true
+    })
+  })
+
+  test('a session that cannot be reached throws an account error, with no keyless run', async () => {
+    fetchMock.mockImplementation(async () => {
+      throw new TypeError('Failed to fetch')
+    })
+    const err = await microlink.request(URL_TO_FETCH).catch(err => err)
+    expect(err.code).toBe(ACCOUNT_ERROR_CODE)
+    expect(
+      fetchMock.mock.calls.some(([input]) =>
+        String(input?.url ?? input).startsWith('https://api.microlink.io')
+      )
+    ).toBe(false)
+  })
+
+  test('a pasted key runs direct on the pro endpoint', async () => {
+    answerSession(() => apiJson({ status: 'success', data: {} }))
+    fetchMock.mockImplementation(async () =>
+      apiJson({ status: 'success', data: {} })
+    )
+    await microlink.request(URL_TO_FETCH, { apiKey: 'pasted' })
+    const [sent] = fetchMock.mock.calls[0]
+    expect(sent.url.startsWith('https://pro.microlink.io/')).toBe(true)
+    expect(sent.headers.get('x-api-key')).toBe('pasted')
+    expect(sessionCalls()).toHaveLength(0)
+  })
+
+  test('a signed-out visitor stays on the free endpoint without touching Clerk', async () => {
+    vi.stubGlobal('document', { cookie: '' })
+    fetchMock.mockImplementation(async () =>
+      apiJson({ status: 'success', data: {} })
+    )
+    await microlink.request(URL_TO_FETCH)
+    expect(fetchMock).toHaveBeenCalledTimes(1)
+    expect(fetchMock.mock.calls[0][0].url).toMatch(
+      /^https:\/\/api\.microlink\.io\//
+    )
   })
 })

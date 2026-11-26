@@ -3,6 +3,7 @@ import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
+import { useSessionCard } from 'components/hook/use-session-card'
 import React from 'react'
 
 const defaultMedia = [
@@ -12,6 +13,14 @@ const defaultMedia = [
   'image',
   'logo'
 ].filter(Boolean)
+
+const cardPropsFor = (card, setData) => {
+  if (card.phase === 'keyless' || card.phase === 'idle') return { setData }
+  if (card.phase === 'session') {
+    return { fetchData: false, setData: { ...card.data, ...setData } }
+  }
+  return { fetchData: false, loading: true, setData }
+}
 
 const Microlink = ({
   url,
@@ -34,14 +43,21 @@ const Microlink = ({
       ? setData(demolinkData)
       : { ...demolinkData, ...setData }
 
+  const card = useSessionCard(url, { enabled: _fetchData, media, ...props })
+
+  if (card.phase === 'failed') {
+    return <a href={url}>{url}</a>
+  }
+
   return (
     <LinkPreview
+      key={card.phase}
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
       fetchData={_fetchData}
-      setData={_setData}
       {...props}
+      {...cardPropsFor(card, _setData)}
     />
   )
 }

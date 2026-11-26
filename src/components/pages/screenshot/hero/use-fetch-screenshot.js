@@ -4,6 +4,7 @@ import {
   buildSdkQuery
 } from 'components/patterns/NerdStats/NerdStats'
 import { normalizeApiError } from 'helpers/api-error'
+import { fetchApi } from 'helpers/api-fetch'
 import { trackEvent } from 'helpers/gtag'
 
 export const useFetchScreenshot = ({
@@ -32,11 +33,10 @@ export const useFetchScreenshot = ({
 
       let waitForImageLoad = false
       try {
-        const res = await window.fetch(
-          `https://api.microlink.io?url=${encodeURIComponent(url)}&screenshot`,
+        const { res, json } = await fetchApi(
+          `url=${encodeURIComponent(url)}&screenshot`,
           { signal: controller.signal }
         )
-        const json = await res.json()
         const elapsedMs = Date.now() - t0
 
         if (!res.ok) {
