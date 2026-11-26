@@ -337,6 +337,42 @@ describe('request on the signed-in account', () => {
     expect(new Uint8Array(raw.body)).toEqual(bytes)
   })
 
+  test('a stream result arrives as untouched bytes', async () => {
+    const bytes = new Uint8Array([1, 2, 3, 4])
+    answerSession(
+      () =>
+        new Response(bytes, {
+          headers: { 'content-type': 'application/octet-stream' }
+        })
+    )
+    const result = await microlink.request(URL_TO_FETCH, {
+      stream: 'screenshot'
+    })
+    const raw = toRawResponse(result)
+    expect(new Uint8Array(raw.body)).toEqual(bytes)
+  })
+
+  test('a 200 body that failed still throws the API error', async () => {
+    answerSession(() =>
+      apiJson({ status: 'fail', code: 'EUNREACHABLE', message: 'down' }, 200)
+    )
+    const err = await microlink.request(URL_TO_FETCH).catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('EUNREACHABLE')
+    expect(err.statusCode).toBe(200)
+  })
+
+  test('an embed error is the API error, not the raw body', async () => {
+    answerSession(() =>
+      apiJson({ status: 'fail', code: 'ERATE', message: 'limited' }, 429)
+    )
+    const err = await microlink
+      .request(URL_TO_FETCH, { embed: 'screenshot' })
+      .catch(error => error)
+    expect(err).toBeInstanceOf(Error)
+    expect(err.code).toBe('ERATE')
+  })
+
   test('a spent account throws the API error, marked as keyed', async () => {
     answerSession(() =>
       apiJson({ status: 'fail', code: 'ERATE', message: 'limited' }, 429)

@@ -7,22 +7,42 @@ export const KEYLESS = { phase: 'keyless' }
 export const IDLE = { phase: 'idle' }
 export const FAILED = { phase: 'failed' }
 
-export const cardOptions = ({
-  media,
-  contrast,
-  data,
-  force,
-  headers,
-  prerender,
-  proxy,
-  ttl
-}) =>
-  Object.fromEntries(
+const CARD_INPUT_FIELDS = [
+  'contrast',
+  'data',
+  'force',
+  'headers',
+  'prerender',
+  'proxy',
+  'ttl'
+]
+
+const cardRequestInput = (media, options) => ({
+  media: [].concat(media ?? []),
+  ...Object.fromEntries(
+    CARD_INPUT_FIELDS.flatMap(field =>
+      options[field] === undefined ? [] : [[field, options[field]]]
+    )
+  )
+})
+
+export const cardOptions = ({ media, ...options }) => {
+  const {
+    media: mediaList,
+    contrast,
+    data,
+    force,
+    headers,
+    prerender,
+    proxy,
+    ttl
+  } = cardRequestInput(media, options)
+  return Object.fromEntries(
     Object.entries({
-      audio: media.includes('audio'),
-      iframe: media.includes('iframe'),
-      screenshot: media.includes('screenshot'),
-      video: media.includes('video'),
+      audio: mediaList.includes('audio'),
+      iframe: mediaList.includes('iframe'),
+      screenshot: mediaList.includes('screenshot'),
+      video: mediaList.includes('video'),
       palette: contrast,
       data,
       force,
@@ -32,6 +52,7 @@ export const cardOptions = ({
       ttl
     }).filter(([, value]) => value !== undefined)
   )
+}
 
 export const loadSessionCard = async (
   url,
@@ -49,7 +70,7 @@ export const loadSessionCard = async (
 
 export const useSessionCard = (url, { enabled, media, ...options }) => {
   const [card, setCard] = useState(enabled ? PENDING : IDLE)
-  const mediaKey = [].concat(media).join(',')
+  const requestKey = JSON.stringify(cardRequestInput(media, options))
   useEffect(() => {
     if (!enabled) {
       setCard(IDLE)
@@ -57,14 +78,12 @@ export const useSessionCard = (url, { enabled, media, ...options }) => {
     }
     let live = true
     setCard(PENDING)
-    loadSessionCard(url, { ...options, media: mediaKey.split(',') }).then(
-      next => {
-        if (live) setCard(next)
-      }
-    )
+    loadSessionCard(url, JSON.parse(requestKey)).then(next => {
+      if (live) setCard(next)
+    })
     return () => {
       live = false
     }
-  }, [url, enabled, mediaKey])
+  }, [url, enabled, requestKey])
   return card
 }

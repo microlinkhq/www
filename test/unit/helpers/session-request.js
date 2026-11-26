@@ -76,8 +76,41 @@ describe('sessionRequest', () => {
       expect(res.status).toBe(status)
       expect(body.status).toBe('fail')
       expect(body.code).toBe(ACCOUNT_ERROR_CODE)
-      expect(body.message).toEqual(expect.any(String))
+      expect(body.message).toBe(
+        status === 404
+          ? 'Your Microlink account has no API keys yet.'
+          : 'Your Microlink session could not be reached. Sign in again to run this on your account.'
+      )
     }
+  })
+
+  test('a successful response is kept even when it names an error', async () => {
+    const original = json({ error: 'notice', data: { ok: true } })
+    const res = await sessionRequest(QUERY, {
+      fetcher: async () => original,
+      token: tokenOf('jwt')
+    })
+    expect(res).toBe(original)
+  })
+
+  test('an API failure that also names an error stays the API failure', async () => {
+    const original = json({ status: 'fail', error: 'nope', code: 'ERATE' }, 429)
+    const res = await sessionRequest(QUERY, {
+      fetcher: async () => original,
+      token: tokenOf('jwt')
+    })
+    expect(res).toBe(original)
+    expect((await res.json()).code).toBe('ERATE')
+  })
+
+  test('a non-JSON response is returned unchanged', async () => {
+    const original = new Response('<html>', { status: 502 })
+    const res = await sessionRequest(QUERY, {
+      fetcher: async () => original,
+      token: tokenOf('jwt')
+    })
+    expect(res).toBe(original)
+    expect(await res.text()).toBe('<html>')
   })
 
   test('an API error passes through untouched', async () => {

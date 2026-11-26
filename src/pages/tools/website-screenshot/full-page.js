@@ -583,7 +583,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory]
+    [options, setHistory, localStorageData]
   )
 
   const handleHistorySelect = useCallback(entry => {

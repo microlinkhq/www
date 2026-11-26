@@ -406,6 +406,14 @@ describe('accountToken', () => {
     expect(calls.slice(before).map(call => call.url)).toEqual([TOKEN_URL])
   })
 
+  test('a different visitor does not reuse the previous session', async () => {
+    forgetAccount()
+    const { calls, fetcher } = signedIn()
+    await accountToken(cookieFor('760'), fetcher, 0)
+    await accountToken(cookieFor('761'), fetcher, 1000)
+    expect(calls.filter(call => call.url === CLIENT_URL)).toHaveLength(2)
+  })
+
   test('reads the session again once the ttl is over', async () => {
     forgetAccount()
     const { calls, fetcher } = signedIn()

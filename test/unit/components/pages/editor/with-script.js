@@ -121,6 +121,69 @@ describe('sendFetch', () => {
     expect(native.mock.calls).toEqual([[FREE_URL, init]])
   })
 
+  test('a key on the request is kept when the init carries other headers', async () => {
+    const native = vi.fn(async () => json({}))
+    const request = new Request(FREE_URL, {
+      headers: { 'x-api-key': 'own' }
+    })
+    const init = { headers: { accept: 'application/json' } }
+    await sendFetch(native, request, {}, { onSession: true })
+    await sendFetch(native, request, init, {
+      onSession: true,
+      apiKey: 'pasted'
+    })
+    expect(native.mock.calls).toEqual([
+      [request, {}],
+      [request, init]
+    ])
+  })
+
+  test('the method on the init wins, and a POST request stays off the session route', async () => {
+    const native = vi.fn(async () => json({}))
+    const posted = new Request(FREE_URL, { method: 'POST', body: '{}' })
+    const gotten = new Request(FREE_URL)
+    const init = { method: 'POST', body: '{}' }
+    await sendFetch(native, posted, {}, { onSession: true })
+    await sendFetch(native, gotten, init, { onSession: true })
+    expect(native.mock.calls).toEqual([
+      [posted, {}],
+      [gotten, init]
+    ])
+  })
+
+  test('an abort signal on the request or the init reaches the session request', async () => {
+    const requestController = new AbortController()
+    const initController = new AbortController()
+    const request = new Request(FREE_URL, {
+      signal: requestController.signal
+    })
+    const native = nativeWith(async () => json({}))
+    await sendFetch(native, request, {}, { onSession: true })
+    await sendFetch(
+      native,
+      FREE_URL,
+      { signal: initController.signal },
+      { onSession: true }
+    )
+    await sendFetch(
+      native,
+      new Request(FREE_URL, { signal: requestController.signal }),
+      { signal: initController.signal },
+      { onSession: true }
+    )
+    const signals = native.mock.calls
+      .filter(([input]) =>
+        String(urlOf([input])).startsWith(SESSION_REQUEST_URL)
+      )
+      .map(([, init]) => init.signal)
+    expect(signals[0]).toBe(request.signal)
+    expect(signals[1]).toBe(initController.signal)
+    expect(signals[2]).toBe(initController.signal)
+    requestController.abort()
+    expect(signals[0].aborted).toBe(true)
+    expect(signals[2].aborted).toBe(false)
+  })
+
   test('a signed-out run goes keyless', async () => {
     const native = vi.fn(async () => json({}))
     await sendFetch(native, FREE_URL, {}, {})
