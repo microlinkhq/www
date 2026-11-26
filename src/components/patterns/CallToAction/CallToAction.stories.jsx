@@ -1,5 +1,6 @@
 import React from 'react'
 import { Story } from 'story'
+import { theme } from 'theme'
 import { CallToAction } from '.'
 
 const SIGNED_OUT_MARKER = '0'
@@ -25,12 +26,15 @@ export default () => (
 `
 
 const Section = ({ name }) => (
-  <Story name={name} code={code}>
+  <Story name={name} code={code} css={theme({ width: '100%' })}>
     <CallToAction outcome='capturing screenshots' cta='screenshot:footer-cta' />
   </Story>
 )
 
-export default { title: 'Patterns/CallToAction' }
+export default {
+  title: 'Patterns/CallToAction',
+  parameters: { layout: 'fullscreen' }
+}
 
 export const SignedOut = {
   loaders: [signedOut],
