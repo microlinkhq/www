@@ -2,6 +2,11 @@ import { useCallback, useLayoutEffect, useRef } from 'react'
 import microlink from 'helpers/microlink'
 import { toRawResponse } from './raw-response'
 
+export const withoutSnippetKey = options =>
+  Object.fromEntries(
+    Object.entries(options).filter(([key]) => key !== 'apiKey')
+  )
+
 export const useExecuteRequest = ({
   url,
   mqlOpts,
@@ -24,7 +29,7 @@ export const useExecuteRequest = ({
     try {
       const result = await (async () => {
         try {
-          const raw = await microlink.request(url, mqlOpts)
+          const raw = await microlink.request(url, withoutSnippetKey(mqlOpts))
           return { status: 'fulfilled', ...toRawResponse(raw) }
         } catch (error) {
           const {
