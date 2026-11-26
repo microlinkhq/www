@@ -347,7 +347,8 @@ const Hero = function Hero ({
     if (userInteractedRef.current) return () => timers.forEach(clearTimeout)
     onSubmitRef.current(INITIAL_PLACEHOLDER_URL, {
       queryUrl: INITIAL_PLACEHOLDER_URL,
-      syncQuery: false
+      syncQuery: false,
+      silent: true
     })
     let previousUrl = INITIAL_PLACEHOLDER_URL
     let timeOffset = INITIAL_DELAY_MS
@@ -381,7 +382,11 @@ const Hero = function Hero ({
       timers.push(
         setTimeout(() => {
           if (userInteractedRef.current) return
-          onSubmitRef.current(toUrl, { queryUrl: toUrl, syncQuery: false })
+          onSubmitRef.current(toUrl, {
+            queryUrl: toUrl,
+            syncQuery: false,
+            silent: true
+          })
         }, timeOffset + HOLD_AFTER_TYPING_MS)
       )
 

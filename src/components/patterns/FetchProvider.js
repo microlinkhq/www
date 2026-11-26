@@ -9,8 +9,16 @@ import { useQueryState } from 'components/hook/use-query-state'
 import microlink from 'helpers/microlink'
 import prependHttp from 'prepend-http'
 
-const ErrorMessage = ({ more }) => {
-  const text = 'The URL has something weird.'
+const UNKNOWN_ERROR_TEXT = 'The URL has something weird.'
+
+export const errorCopy = ({ description, more } = {}) => ({
+  text: description || UNKNOWN_ERROR_TEXT,
+  more,
+  linkText: description ? 'Learn more.' : 'Report it.'
+})
+
+const ErrorMessage = error => {
+  const { text, more, linkText } = errorCopy(error)
 
   return (
     <Notification.Error>
@@ -18,7 +26,7 @@ const ErrorMessage = ({ more }) => {
         <Choose.When condition={!!more}>
           {text}{' '}
           <Link display='inline' href={more}>
-            Report it.
+            {linkText}
           </Link>
         </Choose.When>
         <Choose.Otherwise>{text}</Choose.Otherwise>
@@ -54,8 +62,13 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const fetchData = useCallback(
     async (url, opts) => {
+      const {
+        queryUrl,
+        syncQuery = true,
+        silent = false,
+        ...fetchOpts
+      } = opts || {}
       try {
-        const { queryUrl, syncQuery = true, ...fetchOpts } = opts || {}
         if (syncQuery) {
           setQuery({ url: queryUrl || url, ...fetchOpts })
         }
@@ -74,6 +87,10 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
         setResponse(response)
       } catch (err) {
         console.error('FetchProvider:', err)
+        if (silent) {
+          setStatus('initial')
+          return
+        }
         setStatus('error')
         setError(err)
       }
