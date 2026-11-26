@@ -1,6 +1,7 @@
-import { describe, expect, test } from 'vitest'
+import { describe, expect, test, vi } from 'vitest'
 
 import {
+  applyFetchError,
   errorCopy,
   fetchErrorState
 } from '../../../../src/components/patterns/FetchProvider'
@@ -38,14 +39,23 @@ describe('FetchProvider error copy', () => {
 })
 
 describe('FetchProvider fetch failure', () => {
-  test('a silent failure returns to the initial state', () => {
-    expect(fetchErrorState(true, new Error('nope'))).toEqual({
-      status: 'initial'
-    })
+  test('a silent failure returns to the initial state and leaves the error', () => {
+    const err = new Error('nope')
+    const setStatus = vi.fn()
+    const setError = vi.fn()
+    expect(fetchErrorState(true, err)).toEqual({ status: 'initial' })
+    applyFetchError(true, err, setStatus, setError)
+    expect(setStatus).toHaveBeenCalledWith('initial')
+    expect(setError).not.toHaveBeenCalled()
   })
 
   test('a failure the visitor can see keeps the error', () => {
     const err = new Error('nope')
+    const setStatus = vi.fn()
+    const setError = vi.fn()
     expect(fetchErrorState(false, err)).toEqual({ status: 'error', error: err })
+    applyFetchError(false, err, setStatus, setError)
+    expect(setStatus).toHaveBeenCalledWith('error')
+    expect(setError).toHaveBeenCalledWith(err)
   })
 })

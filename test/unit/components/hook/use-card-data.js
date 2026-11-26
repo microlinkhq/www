@@ -318,6 +318,14 @@ describe('useCardData', () => {
     )
   })
 
+  test('a missing media list still renders a loading card', () => {
+    const Probe = () => {
+      const [card] = useCardData(URL_TO_FETCH, { enabled: true, lazy: false })
+      return card.phase
+    }
+    expect(renderToStaticMarkup(createElement(Probe))).toBe('loading')
+  })
+
   test('a card that should not fetch stays idle and is not observed', async () => {
     globalThis.__cardRequest = vi.fn()
     globalThis.__observers = []
@@ -359,7 +367,7 @@ describe('useCardData', () => {
   test('observer options are the lazy object, including null', async () => {
     globalThis.__cardRequest = vi.fn(async () => ({ data: { title: 'live' } }))
     globalThis.__observers = []
-    await renderCard({
+    const rendered = await renderCard({
       url: URL_TO_FETCH,
       options: {
         enabled: true,
@@ -368,6 +376,17 @@ describe('useCardData', () => {
       }
     })
     expect(globalThis.__observers[0].options).toEqual({ rootMargin: '400px' })
+    await rendered.rerender({
+      url: URL_TO_FETCH,
+      options: {
+        enabled: true,
+        media: ['image'],
+        lazy: { rootMargin: '10px' }
+      }
+    })
+    expect(globalThis.__observers.at(-1).options).toEqual({
+      rootMargin: '10px'
+    })
     globalThis.__observers = []
     await renderCard({
       url: URL_TO_FETCH,

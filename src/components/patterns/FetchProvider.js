@@ -20,6 +20,12 @@ export const errorCopy = ({ description, more } = {}) => ({
 export const fetchErrorState = (silent, err) =>
   silent ? { status: 'initial' } : { status: 'error', error: err }
 
+export const applyFetchError = (silent, err, setStatus, setError) => {
+  const failure = fetchErrorState(silent, err)
+  setStatus(failure.status)
+  if (failure.error) setError(failure.error)
+}
+
 const ErrorMessage = error => {
   const { text, more, linkText } = errorCopy(error)
 
@@ -90,9 +96,7 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
         setResponse(response)
       } catch (err) {
         console.error('FetchProvider:', err)
-        const failure = fetchErrorState(silent, err)
-        setStatus(failure.status)
-        if (failure.error) setError(failure.error)
+        applyFetchError(silent, err, setStatus, setError)
       }
     },
     [setQuery, fromCache, mqlOpts]
