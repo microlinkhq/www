@@ -58,11 +58,8 @@ const toProUrl = (url, base) => {
   return parsed.href
 }
 
-const sentHeaders = (input, init) => {
-  if (init && init.headers) return new Headers(init.headers)
-  if (typeof input === 'string' || !input) return new Headers()
-  return new Headers(input.headers)
-}
+const sentHeaders = (input, init) =>
+  new Headers(init && init.headers ? init.headers : input.headers)
 
 const mergeHeaders = (input, init, apiKey) => {
   const headers = sentHeaders(input, init)
