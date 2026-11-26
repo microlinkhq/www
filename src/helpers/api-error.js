@@ -2,6 +2,7 @@ const ERROR_META = {
   ERATE: { title: 'Rate limit reached', showRetry: false },
   ETIMEOUT: { title: 'Request timed out', showRetry: true },
   EFATAL: { title: 'Processing failed', showRetry: true },
+  EGOOGLELINK: { title: 'Google link not resolved', showRetry: true },
   EPDFTOOLARGE: { title: 'Document too large', showRetry: false },
   EPAGERANGE: { title: 'Page range not found', showRetry: false },
   EPROXYNEEDED: { title: 'Antibot detected', showRetry: false },

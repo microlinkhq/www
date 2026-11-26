@@ -174,7 +174,16 @@ export const buildOpenApi = ({ parameters, errorCodes }) => ({
             'The daily or monthly rate limit has been reached. Code: ERATE.'
           ),
           500: errorResponse(
-            'An unexpected error occurred. Typical codes: EFATAL, EFATALCLIENT.'
+            'An unexpected error occurred. Typical codes: EFATAL, EFATALCLIENT, EGOOGLELINK.'
+          ),
+          503: errorResponse(
+            'Google is holding the Google result link given as url before it redirects. Code: EGOOGLELINK. The `Retry-After` header says when to try again.',
+            {
+              'Retry-After': {
+                description: 'Seconds to wait before requesting the url again.',
+                schema: { type: 'integer', minimum: 0 }
+              }
+            }
           )
         }
       }

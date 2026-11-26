@@ -519,6 +519,10 @@
       "destination": "/docs/api/basics/error-codes#eheaders"
     },
     {
+      "source": "/egooglelink",
+      "destination": "/docs/api/basics/error-codes#egooglelink"
+    },
+    {
       "source": "/ehtmlnested",
       "destination": "/docs/api/basics/error-codes#ehtmlnested"
     },

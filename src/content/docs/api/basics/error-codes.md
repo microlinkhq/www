@@ -109,6 +109,35 @@ The URL is being resolved into an IP address whose range is not allowed.
 
 The service will only resolve URLs that point to unicast IP addresses.
 
+## EGOOGLELINK
+
+**Message**
+
+Google is holding `https://www.google.com/goto?url=…` for 34s before it redirects. Retry after that.
+
+The Google link `https://www.google.com/goto?url=…` could not be resolved to its destination.
+
+**Solution**
+
+The target [url](/docs/api/parameters/url) is a Google result link (`https://www.google.com/goto?url=…`). Microlink asks Google where it goes before doing anything else, and Google sometimes holds the link: it asks to come back after a wait. The wait grows the more links are opened, from a few seconds to over a minute.
+
+When the wait doesn't fit in the request, it fails with HTTP status `503`. The response carries a `Retry-After` header in seconds, at most 120. Microlink keeps the link's place in Google's queue, so a request after `Retry-After` doesn't start the wait again and usually answers with the destination. [microlink.io](https://www.npmjs.com/package/microlink.io) already waits for `Retry-After` and retries:
+
+```js
+import createClient from 'microlink.io'
+
+const microlink = createClient({ apiKey: process.env.MICROLINK_API_KEY })
+
+const data = await microlink.metadata('https://www.google.com/goto?url=CAES…')
+console.log(data.url) // the destination
+```
+
+A longer [timeout](/docs/api/parameters/timeout) gives Microlink more time to find the destination within the same request, although it can't shorten Google's wait.
+
+When neither Google nor Microlink finds a destination and Google gives no wait, the request fails with HTTP status `500` instead, with a `report` link to send us the request.
+
+To skip Google result links entirely, get the results from [Microlink search](/docs/guides/search): every result it returns points to the real page.
+
 ## EHEADERS
 
 **Message**

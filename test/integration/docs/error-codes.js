@@ -41,3 +41,10 @@ test('a code with no retry path does not offer one', () => {
   expect(getErrorMeta('EUNREACHABLE').showRetry).toBe(false)
   expect(getErrorMeta('ETIMEOUT').showRetry).toBe(true)
 })
+
+test('a google link offers a retry, since Google releases a held link after the wait', () => {
+  expect(getErrorMeta('EGOOGLELINK')).toEqual({
+    title: 'Google link not resolved',
+    showRetry: true
+  })
+})
