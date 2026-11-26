@@ -201,10 +201,6 @@ const AddressPrompt = styled('span')`
     fontFamily: 'sans',
     letterSpacing: 0
   })};
-  background-image: ${gradient};
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   font-weight: 600;
   white-space: nowrap;
   pointer-events: none;
@@ -212,6 +208,13 @@ const AddressPrompt = styled('span')`
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
   opacity: ${p => (p.$visible ? 1 : 0)};
   transform: translateX(${p => (p.$visible ? 0 : space[1])});
+
+  .address-prompt__label {
+    background-image: ${gradient};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .address-prompt__arrow {
     ${theme({
@@ -401,7 +404,7 @@ export const SourceToolbar = ({
       />
       <AddressPrompt $visible={!isFocused && !hasInteracted} aria-hidden='true'>
         <span className='address-prompt__arrow'>&larr;</span>
-        Type any URL
+        <span className='address-prompt__label'>Type any URL</span>
       </AddressPrompt>
 
       {isFocused && history.length > 0 && (

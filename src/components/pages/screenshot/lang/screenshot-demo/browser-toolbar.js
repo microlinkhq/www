@@ -282,7 +282,7 @@ export const BrowserToolbar = ({
       />
       <AddressPrompt $visible={!isFocused && !hasInteracted} aria-hidden='true'>
         <span className='address-prompt__arrow'>←</span>
-        Type any URL
+        <span className='address-prompt__label'>Type any URL</span>
       </AddressPrompt>
 
       {isFocused && history.length > 0 && (

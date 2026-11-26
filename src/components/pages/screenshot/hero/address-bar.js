@@ -142,10 +142,6 @@ export const AddressPrompt = styled('span')`
     fontFamily: 'sans',
     letterSpacing: 0
   })};
-  background-image: ${gradient};
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   font-weight: 600;
   white-space: nowrap;
   pointer-events: none;
@@ -153,6 +149,13 @@ export const AddressPrompt = styled('span')`
   transition: opacity 0.2s ease, transform 0.2s ease, color 0.2s ease;
   opacity: ${p => (p.$visible ? 1 : 0)};
   transform: translateX(${p => (p.$visible ? 0 : space[1])});
+
+  .address-prompt__label {
+    background-image: ${gradient};
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
   .address-prompt__arrow {
     ${theme({
