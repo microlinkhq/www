@@ -32,6 +32,19 @@ describe('cardOptions', () => {
     })
   })
 
+  test('a false query prop is still sent', () => {
+    expect(
+      cardOptions({ media: ['image'], contrast: false, force: false })
+    ).toEqual({
+      audio: false,
+      iframe: false,
+      screenshot: false,
+      video: false,
+      palette: false,
+      force: false
+    })
+  })
+
   test('passes the card query props and drops the unset ones', () => {
     expect(
       cardOptions({
@@ -210,7 +223,9 @@ const installDocument = () => {
     },
     {
       get (target, prop, receiver) {
-        if (Reflect.has(target, prop)) { return Reflect.get(target, prop, receiver) }
+        if (Reflect.has(target, prop)) {
+          return Reflect.get(target, prop, receiver)
+        }
         if (typeof prop === 'string' && /^[A-Z]/.test(prop)) {
           return constructors[prop]
         }

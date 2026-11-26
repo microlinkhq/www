@@ -18,7 +18,7 @@ const CARD_INPUT_FIELDS = [
 ]
 
 const cardRequestInput = (media, options) => ({
-  media: [].concat(media ?? []),
+  media: [].concat(media),
   ...Object.fromEntries(
     CARD_INPUT_FIELDS.flatMap(field =>
       options[field] === undefined ? [] : [[field, options[field]]]
