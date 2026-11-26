@@ -3,8 +3,10 @@ import { findDemoLinkByVariations } from 'helpers/demo-links'
 import { urlVariations } from 'helpers/url-variations'
 import { template } from 'helpers/template'
 import LinkPreview from '@microlink/react'
-import { useSessionCard } from 'components/hook/use-session-card'
+import { useCardData } from 'components/hook/use-card-data'
 import React from 'react'
+import styled from 'styled-components'
+import { theme } from 'theme'
 
 const defaultMedia = [
   'iframe',
@@ -14,19 +16,41 @@ const defaultMedia = [
   'logo'
 ].filter(Boolean)
 
-const cardPropsFor = (card, setData) => {
-  if (card.phase === 'keyless' || card.phase === 'idle') return { setData }
-  if (card.phase === 'session') {
-    return { fetchData: false, setData: { ...card.data, ...setData } }
+const Viewport = styled('div')`
+  ${theme({ width: '100%' })}
+`
+
+const CARD_QUERY_PROPS = [
+  'apiKey',
+  'contrast',
+  'data',
+  'endpoint',
+  'force',
+  'headers',
+  'prerender',
+  'proxy',
+  'ttl'
+]
+
+const splitProps = props => {
+  const query = {}
+  const rest = {}
+  for (const [name, value] of Object.entries(props)) {
+    if (CARD_QUERY_PROPS.includes(name)) query[name] = value
+    else rest[name] = value
   }
-  return { fetchData: false, loading: true, setData }
+  return { query, rest }
 }
+
+const dataFor = (card, setData) =>
+  card.phase === 'ready' ? { ...card.data, ...setData } : setData
 
 const Microlink = ({
   url,
   style,
   fetchData,
   setData,
+  lazy,
   media = defaultMedia,
   ...props
 }) => {
@@ -43,23 +67,32 @@ const Microlink = ({
       ? setData(demolinkData)
       : { ...demolinkData, ...setData }
 
-  const card = useSessionCard(url, { enabled: _fetchData, media, ...props })
+  const { query, rest } = splitProps(props)
+  const [card, ref] = useCardData(url, {
+    enabled: _fetchData,
+    lazy,
+    media,
+    ...query
+  })
 
-  if (card.phase === 'failed') {
-    return <a href={url}>{url}</a>
-  }
+  if (card.phase === 'failed') return <a href={url}>{url}</a>
 
-  return (
+  const preview = (
     <LinkPreview
       key={card.phase}
       url={url}
       media={media}
       style={{ margin: 'auto', ...style }}
-      fetchData={_fetchData}
-      {...props}
-      {...cardPropsFor(card, _setData)}
+      {...rest}
+      contrast={query.contrast}
+      lazy={false}
+      fetchData={false}
+      loading={card.phase === 'loading' || undefined}
+      setData={dataFor(card, _setData)}
     />
   )
+
+  return _fetchData ? <Viewport ref={ref}>{preview}</Viewport> : preview
 }
 
 export default Microlink

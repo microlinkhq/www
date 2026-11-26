@@ -9,8 +9,30 @@ import { useQueryState } from 'components/hook/use-query-state'
 import microlink from 'helpers/microlink'
 import prependHttp from 'prepend-http'
 
-const ErrorMessage = ({ more }) => {
-  const text = 'The URL has something weird.'
+const UNKNOWN_ERROR_TEXT = 'The URL has something weird.'
+
+export const errorCopy = ({ description, more } = {}) => ({
+  text: description || UNKNOWN_ERROR_TEXT,
+  more,
+  linkText: description ? 'Learn more.' : 'Report it.'
+})
+
+export const fetchErrorState = (silent, err) =>
+  silent ? { status: 'initial' } : { status: 'error', error: err }
+
+export const applyFetchError = (silent, err, setStatus, setError) => {
+  const failure = fetchErrorState(silent, err)
+  setStatus(failure.status)
+  if (failure.error) setError(failure.error)
+}
+
+export const finishFetch = (generation, current, apply) => {
+  if (generation !== current) return
+  apply()
+}
+
+const ErrorMessage = error => {
+  const { text, more, linkText } = errorCopy(error)
 
   return (
     <Notification.Error>
@@ -18,7 +40,7 @@ const ErrorMessage = ({ more }) => {
         <Choose.When condition={!!more}>
           {text}{' '}
           <Link display='inline' href={more}>
-            Report it.
+            {linkText}
           </Link>
         </Choose.When>
         <Choose.Otherwise>{text}</Choose.Otherwise>
@@ -51,11 +73,18 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
 
   const didInitialFetch = useRef(false)
   const warningId = useRef(0)
+  const fetchGeneration = useRef(0)
 
   const fetchData = useCallback(
     async (url, opts) => {
+      const generation = ++fetchGeneration.current
+      const {
+        queryUrl,
+        syncQuery = true,
+        silent = false,
+        ...fetchOpts
+      } = opts || {}
       try {
-        const { queryUrl, syncQuery = true, ...fetchOpts } = opts || {}
         if (syncQuery) {
           setQuery({ url: queryUrl || url, ...fetchOpts })
         }
@@ -69,13 +98,16 @@ const FetchProvider = ({ fromCache = defaultFromCache, mqlOpts, children }) => {
           ? await Promise.all(url.map(doFetch))
           : await doFetch(url)
 
-        setStatus('fetched')
-        setData(data)
-        setResponse(response)
+        finishFetch(generation, fetchGeneration.current, () => {
+          setStatus('fetched')
+          setData(data)
+          setResponse(response)
+        })
       } catch (err) {
-        console.error('FetchProvider:', err)
-        setStatus('error')
-        setError(err)
+        finishFetch(generation, fetchGeneration.current, () => {
+          console.error('FetchProvider:', err)
+          applyFetchError(silent, err, setStatus, setError)
+        })
       }
     },
     [setQuery, fromCache, mqlOpts]
