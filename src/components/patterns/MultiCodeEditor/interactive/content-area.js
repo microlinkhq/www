@@ -8,6 +8,7 @@ import React, { useState, useEffect } from 'react'
 import { colors, fontSizes, fontWeights, theme, transition } from 'theme'
 
 import InteractiveCodeEditor from './interactive-code-editor'
+import { contentTypeOf } from './hooks'
 import { Content, fontStyles } from './content'
 
 const IMAGE_OVERLAY_STYLE = {
@@ -47,7 +48,7 @@ const ContentArea = React.memo(
         return
       }
       const { body, headers } = responseData
-      const contentType = headers?.['content-type'] || ''
+      const contentType = contentTypeOf(headers)
       if (!contentType.startsWith('image/')) {
         setImageUrl(null)
         return
@@ -94,7 +95,7 @@ const ContentArea = React.memo(
             }
 
             const { body, headers } = responseData
-            const contentType = headers?.['content-type'] || ''
+            const contentType = contentTypeOf(headers)
 
             if (contentType.includes('application/json')) {
               const jsonText = new TextDecoder().decode(body)

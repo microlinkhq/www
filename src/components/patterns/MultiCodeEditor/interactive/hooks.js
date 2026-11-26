@@ -2,7 +2,8 @@ import { useCallback, useEffect, useRef } from 'react'
 
 const isTextContentType = contentType => contentType.startsWith('text/')
 
-const contentTypeOf = headers => (headers?.['content-type'] || '').toLowerCase()
+export const contentTypeOf = headers =>
+  (headers?.['content-type'] || '').toLowerCase()
 
 export const responseBodyText = ({ body, headers }) => {
   const contentType = contentTypeOf(headers)

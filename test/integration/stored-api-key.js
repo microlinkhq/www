@@ -22,5 +22,10 @@ describe('stored api key', () => {
       'gatsby-browser.js',
       HELPER
     ])
+    const entry = fs.readFileSync(
+      path.join(process.cwd(), 'gatsby-browser.js'),
+      'utf8'
+    )
+    expect(entry).toContain('clearStoredApiKey(window)')
   })
 })
