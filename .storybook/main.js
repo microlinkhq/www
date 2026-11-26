@@ -65,7 +65,12 @@ export default {
       theme: path.resolve(src, 'theme'),
       components: path.resolve(src, 'components'),
       data: path.resolve(src, 'data'),
-      helpers: path.resolve(src, 'helpers')
+      helpers: path.resolve(src, 'helpers'),
+      styles: path.resolve(src, 'styles'),
+      '~normalize.css': path.resolve(
+        __dirname,
+        '../node_modules/normalize.css/normalize.css'
+      )
     }
 
     config.plugins = config.plugins || []

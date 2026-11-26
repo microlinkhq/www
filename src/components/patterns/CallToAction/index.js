@@ -10,7 +10,6 @@ import {
   transition
 } from 'theme'
 import Box from 'components/elements/Box'
-import { Button } from 'components/elements/Button/Button'
 import Container from 'components/elements/Container'
 import Flex from 'components/elements/Flex'
 import { Link } from 'components/elements/Link'
@@ -22,8 +21,9 @@ import {
   customerPath
 } from 'components/patterns/CustomerStory/customers'
 import DotsBackground from 'components/patterns/DotsBackground/DotsBackground'
-import { SignupLink } from 'components/patterns/SignupLink'
-import { ACTION_LABEL, FREE_KEY_FACTS, Facts } from './free-key'
+import { useDashboardAccount } from 'components/hook/use-dashboard-account'
+import { FREE_KEY_FACTS, Facts } from './free-key'
+import { PrimaryAction, captionFor } from './primary-action'
 import analyticsData from '../../../../data/analytics.json'
 
 const [{ reqs_pretty: reqsPretty }] = analyticsData
@@ -33,7 +33,6 @@ const AVATAR_TOUCH_SIZE = 44
 const AVATAR_OVERLAP = 10
 const AVATAR_SIZES = [AVATAR_TOUCH_SIZE, AVATAR_SIZE, AVATAR_SIZE, AVATAR_SIZE]
 const AVATAR_OVERLAPS = [0, AVATAR_OVERLAP, AVATAR_OVERLAP, AVATAR_OVERLAP]
-const BUTTON_MIN_WIDTH = ['100%', '320px', '320px', '320px']
 
 const AvatarLink = styled(GatsbyLink)`
   touch-action: manipulation;
@@ -133,30 +132,6 @@ const SocialProof = () => (
   </Flex>
 )
 
-const actionCss = theme({
-  mt: [4, 4, 5, 5],
-  minWidth: BUTTON_MIN_WIDTH,
-  px: [3, 3, 5, 5],
-  py: 3,
-  fontSize: [1, 1, 2, 2],
-  borderRadius: 3,
-  boxShadow: 2,
-  whiteSpace: 'normal'
-})
-
-const PrimaryAction = ({ action, cta }) =>
-  action
-    ? (
-      <Button forwardedAs='a' href={action.href} css={actionCss}>
-        {action.label}
-      </Button>
-      )
-    : (
-      <SignupLink component={Button} forwardedAs='a' cta={cta} css={actionCss}>
-        {ACTION_LABEL}
-      </SignupLink>
-      )
-
 const NextSteps = ({ links }) => (
   <Flex
     as='ul'
@@ -179,80 +154,84 @@ const NextSteps = ({ links }) => (
   </Flex>
 )
 
-const captionFor = ({ caption, outcome }) =>
-  caption || `Sign up, add the key to your requests, and start ${outcome}.`
-
 export const CallToAction = ({
   id,
   outcome,
   caption,
   cta,
   action,
-  facts = FREE_KEY_FACTS,
+  facts,
   links = [],
   children
-}) => (
-  <Container
-    as='section'
-    id={id}
-    css={theme({
-      alignItems: 'center',
-      maxWidth: '100%',
-      bg: 'white',
-      px: [3, 3, 4, 4],
-      py: SECTION_VERTICAL_SPACING
-    })}
-  >
-    <Box
+}) => {
+  const { signedIn } = useDashboardAccount()
+  const shownFacts = facts ?? (signedIn ? [] : FREE_KEY_FACTS)
+
+  return (
+    <Container
+      as='section'
+      id={id}
       css={theme({
-        width: '100%',
-        maxWidth: layout.large,
-        p: 2,
-        bg: 'gray0',
-        border: 1,
-        borderColor: 'black05',
-        borderRadius: 5
+        alignItems: 'center',
+        maxWidth: '100%',
+        bg: 'white',
+        px: [3, 3, 4, 4],
+        py: SECTION_VERTICAL_SPACING
       })}
     >
-      <DotsBackground
+      <Box
         css={theme({
-          minHeight: 'auto',
-          overflow: 'hidden',
-          isolation: 'isolate',
-          bg: 'white',
+          width: '100%',
+          maxWidth: layout.large,
+          p: 2,
+          bg: 'gray0',
           border: 1,
-          borderColor: 'black10',
-          borderRadius: 4,
-          boxShadow: 2
+          borderColor: 'black05',
+          borderRadius: 5
         })}
       >
-        <Flex
+        <DotsBackground
           css={theme({
-            flexDirection: 'column',
-            alignItems: 'center',
-            textAlign: 'center',
-            px: [3, 4, 5, 5],
-            py: [5, 5, 6, 6]
+            minHeight: 'auto',
+            overflow: 'hidden',
+            isolation: 'isolate',
+            bg: 'white',
+            border: 1,
+            borderColor: 'black10',
+            borderRadius: 4,
+            boxShadow: 2
           })}
         >
-          <Subhead>Start building</Subhead>
-          <Caption
-            forwardedAs='div'
+          <Flex
             css={theme({
-              pt: [3, 3, 4, 4],
-              maxWidth: layout.small,
-              color: 'black70'
+              flexDirection: 'column',
+              alignItems: 'center',
+              textAlign: 'center',
+              px: [3, 4, 5, 5],
+              py: [5, 5, 6, 6]
             })}
           >
-            {captionFor({ caption, outcome })}
-          </Caption>
-          <PrimaryAction cta={cta} action={action} />
-          {facts.length > 0 && <Facts facts={facts} />}
-          <SocialProof />
-          {links.length > 0 && <NextSteps links={links} />}
-          {children && <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>}
-        </Flex>
-      </DotsBackground>
-    </Box>
-  </Container>
-)
+            <Subhead>Start building</Subhead>
+            <Caption
+              forwardedAs='div'
+              css={theme({
+                pt: [3, 3, 4, 4],
+                maxWidth: layout.small,
+                color: 'black70'
+              })}
+            >
+              {captionFor({ caption, outcome, signedIn })}
+            </Caption>
+            <PrimaryAction cta={cta} action={action} signedIn={signedIn} />
+            {shownFacts.length > 0 && <Facts facts={shownFacts} />}
+            <SocialProof />
+            {links.length > 0 && <NextSteps links={links} />}
+            {children && (
+              <Box css={theme({ pt: [4, 4, 5, 5] })}>{children}</Box>
+            )}
+          </Flex>
+        </DotsBackground>
+      </Box>
+    </Container>
+  )
+}

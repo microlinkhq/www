@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components'
 import Flex from 'components/elements/Flex'
 import themeSpec, { theme } from 'theme'
 import React from 'react'
+import 'styles/main.scss'
 
 global.___loader = {
   enqueue: () => {},
