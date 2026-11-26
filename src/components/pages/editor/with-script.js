@@ -40,7 +40,7 @@ const requestUrl = input => {
 
 const parsedUrl = (url, base) => {
   try {
-    return new URL(url, base || undefined)
+    return new URL(url, base)
   } catch (_) {
     return null
   }
@@ -53,7 +53,6 @@ const isMicrolinkApi = (url, base) => {
 
 const toProUrl = (url, base) => {
   const parsed = parsedUrl(url, base)
-  if (!parsed || !MICROLINK_HOSTS.has(parsed.hostname)) return url
   parsed.protocol = 'https:'
   parsed.hostname = 'pro.microlink.io'
   return parsed.href
@@ -116,10 +115,7 @@ const isGet = (input, init) =>
 const signalOf = (input, init) =>
   init.signal ?? (typeof input === 'string' ? undefined : input.signal)
 
-const queryOf = (url, base) => {
-  const parsed = parsedUrl(url, base)
-  return parsed ? parsed.search.slice(1) : ''
-}
+const queryOf = (url, base) => parsedUrl(url, base).search.slice(1)
 
 const sendOnSession = async (nativeFetch, input, init, base) => {
   const url = requestUrl(input)
