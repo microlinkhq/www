@@ -35,7 +35,7 @@ const TONES = {
   optional: t => ({ fill: t.paper, stroke: t.soft, dashed: true })
 }
 
-const labelWidth = text => Math.ceil((text.length * 8 + 16) / 4) * 4
+export const labelWidth = text => Math.ceil((text.length * 8 + 16) / 4) * 4
 
 const Frame = styled(Box)(
   theme({
