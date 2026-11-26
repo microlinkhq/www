@@ -72,7 +72,6 @@ const useVisible = (enabled, lazy) => {
           if (!entry.isIntersecting) return
           setVisible(true)
           observer.disconnect()
-          if (observerRef.current === observer) observerRef.current = null
         },
         typeof lazy === 'object' ? lazy : undefined
       )
@@ -81,7 +80,6 @@ const useVisible = (enabled, lazy) => {
     },
     [enabled, lazyKey]
   )
-  useEffect(() => stop, [])
   return [visible, ref]
 }
 
