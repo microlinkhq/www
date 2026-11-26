@@ -38,6 +38,7 @@ import Tooltip from 'components/patterns/Tooltip/Tooltip'
 
 import { useLocalStorage } from 'components/hook/use-local-storage'
 import { normalizeApiError } from 'helpers/api-error'
+import { storedApiKey } from 'helpers/stored-api-key'
 import { CDN_EDGES } from 'helpers/cdn-edges'
 import {
   extractNerdStats,
@@ -504,7 +505,7 @@ const ScreenshotTool = () => {
 
       try {
         const mqlOpts = {
-          apiKey: localStorageData?.apiKey,
+          apiKey: storedApiKey(localStorageData),
           meta: false,
           screenshot: {
             type: options.type,
@@ -583,7 +584,7 @@ const ScreenshotTool = () => {
         setIsLoading(false)
       }
     },
-    [options, setHistory]
+    [options, localStorageData, setHistory]
   )
 
   const handleHistorySelect = useCallback(entry => {
