@@ -129,14 +129,14 @@ const SOUNDCLOUD_DEMO_DATA = {
   publisher: 'SoundCloud',
   author: 'Avicii',
   image: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fsoundcloud.com%2Faviciiofficial%2Fwake-me-up&embed=image.url',
+    url: 'https://i1.sndcdn.com/artworks-iZmB5ZoeKkrV-0-t500x500.jpg',
     palette: ['#FF5500', '#1A1A1A', '#FFFFFF', '#FF7733', '#333333', '#FFB088'],
     background_color: '#FF5500',
     color: '#FFFFFF',
     alternative_color: '#1A1A1A'
   },
   logo: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fsoundcloud.com&embed=logo.url',
+    url: 'https://a-v2.sndcdn.com/assets/images/sc-icons/ios-a62dfc8fe7.png',
     palette: ['#FF5500', '#FF7733', '#CC4400', '#FFB088', '#993300'],
     background_color: '#FF5500',
     color: '#FFFFFF'

@@ -14,11 +14,11 @@ export const STRIPE_DEMO_DATA = {
   publisher: 'Stripe',
   author: 'Stripe',
   image: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fstripe.com&embed=image.url',
+    url: 'https://b.stripecdn.com/mkt-ssr-statics/assets/_next/static/media/stripe.37119086.jpg',
     palette: ['#635BFF', '#0A2540', '#F6F9FC']
   },
   logo: {
-    url: 'https://api.microlink.io/?url=https%3A%2F%2Fstripe.com&embed=logo.url'
+    url: 'https://images.stripeassets.com/fzn2n1nzq965/4vVgZi0ZMoEzOhkcv7EVwK/8cce6fdcf2733b2ec8e99548908847ed/favicon.png?w=180&h=180'
   }
 }
 
