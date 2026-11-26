@@ -43,7 +43,7 @@ import FetchProvider from 'components/patterns/FetchProvider'
 import Layout from 'components/patterns/Layout'
 import Block from 'components/patterns/Block/Block'
 import OpenSource, { getRepoStars } from 'components/patterns/OpenSource'
-import LinkPreviewRaw from '@microlink/react'
+import MicrolinkCard from 'components/patterns/Microlink/Microlink'
 import { FeaturedToolCard } from 'components/patterns/Tools/ToolCards'
 import { TOOLS as TOOL_CATALOG } from 'components/patterns/Tools/toolCatalog'
 import {
@@ -187,7 +187,7 @@ const HeroPreviewBody = styled(Box)`
   }
 `
 
-const LinkPreview = styled(LinkPreviewRaw)`
+const LinkPreview = styled(MicrolinkCard)`
   --microlink-max-width: 100%;
   --microlink-hover-background-color: white;
   width: 100%;

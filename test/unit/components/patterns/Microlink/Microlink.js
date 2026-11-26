@@ -11,17 +11,11 @@ vi.mock('@microlink/react', () => ({
   }
 }))
 
-vi.mock('components/hook/use-session-card', () => ({
-  useSessionCard: (url, options) => {
+vi.mock('components/hook/use-card-data', () => ({
+  useCardData: (url, options) => {
     globalThis.__cardOptions = options
-    return globalThis.__card
+    return [globalThis.__card, () => {}]
   }
-}))
-
-vi.mock('helpers/template', () => ({ template: value => value }))
-
-vi.mock('helpers/demo-links', () => ({
-  findDemoLinkByVariations: () => undefined
 }))
 
 const LIVE_URL = 'https://example.com/not-a-demo-link'
@@ -34,53 +28,68 @@ const cardFor = props => {
 describe('Microlink card', () => {
   beforeEach(() => {
     globalThis.__cardProps = undefined
-    globalThis.__card = { phase: 'pending' }
+    globalThis.__card = { phase: 'loading' }
   })
 
-  test('holds a live card on its skeleton until the visitor is known', () => {
-    const { props } = cardFor({ url: LIVE_URL })
-    expect(props.fetchData).toBe(false)
+  test('the SDK only draws the card, it never fetches', () => {
+    for (const phase of ['loading', 'ready', 'idle']) {
+      globalThis.__card = { phase, data: {} }
+      const { props } = cardFor({ url: LIVE_URL, lazy: true })
+      expect(props.fetchData).toBe(false)
+      expect(props.lazy).toBe(false)
+    }
+  })
+
+  test('shows the skeleton while the data loads', () => {
+    const { props, html } = cardFor({ url: LIVE_URL })
     expect(props.loading).toBe(true)
+    expect(html).toBe('<div></div>')
     expect(globalThis.__cardOptions.enabled).toBe(true)
   })
 
-  test('a signed-out visitor lets the card fetch keyless', () => {
-    globalThis.__card = { phase: 'keyless' }
-    const { props } = cardFor({ url: LIVE_URL })
-    expect(props.fetchData).toBe(true)
-    expect(props.loading).toBeUndefined()
-    expect(props.apiKey).toBeUndefined()
-  })
-
-  test('a signed-in visitor gets the data from the session request', () => {
-    globalThis.__card = { phase: 'session', data: { title: 'live' } }
+  test('draws the fetched data, with the caller data on top', () => {
+    globalThis.__card = { phase: 'ready', data: { title: 'live', url: 'u' } }
     const { props } = cardFor({ url: LIVE_URL, setData: { title: 'mine' } })
-    expect(props.fetchData).toBe(false)
     expect(props.loading).toBeUndefined()
-    expect(props.setData).toEqual({ title: 'mine' })
-    globalThis.__card = { phase: 'session', data: { title: 'live', url: 'u' } }
-    expect(cardFor({ url: LIVE_URL }).props.setData).toEqual({
-      title: 'live',
-      url: 'u'
-    })
+    expect(props.setData).toEqual({ title: 'mine', url: 'u' })
   })
 
-  test('a failed session request shows the link, never a keyless card', () => {
+  test('query props go to the fetch, the rest to the card', () => {
+    cardFor({
+      url: LIVE_URL,
+      lazy: { rootMargin: '400px' },
+      contrast: true,
+      ttl: '1d',
+      size: 'large'
+    })
+    expect(globalThis.__cardOptions).toMatchObject({
+      lazy: { rootMargin: '400px' },
+      contrast: true,
+      ttl: '1d'
+    })
+    expect(globalThis.__cardOptions.size).toBeUndefined()
+    expect(globalThis.__cardProps.size).toBe('large')
+    expect(globalThis.__cardProps.contrast).toBe(true)
+    expect(globalThis.__cardProps.ttl).toBeUndefined()
+  })
+
+  test('a failed request shows the link', () => {
     globalThis.__card = { phase: 'failed' }
     const { props, html } = cardFor({ url: LIVE_URL })
     expect(props).toBeUndefined()
     expect(html).toBe(`<a href="${LIVE_URL}">${LIVE_URL}</a>`)
   })
 
-  test('a card with its data in hand never fetches', () => {
+  test('a card with its data in hand never fetches and has no wrapper', () => {
     globalThis.__card = { phase: 'idle' }
-    const { props } = cardFor({
+    const { props, html } = cardFor({
       url: LIVE_URL,
       fetchData: false,
-      setData: { title: 'x' }
+      setData: () => ({ title: 'x' })
     })
     expect(globalThis.__cardOptions.enabled).toBe(false)
-    expect(props.fetchData).toBe(false)
     expect(props.loading).toBeUndefined()
+    expect(props.setData).toEqual({ title: 'x' })
+    expect(html).toBe('')
   })
 })

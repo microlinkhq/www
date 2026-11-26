@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import styled from 'styled-components'
 import { borders, colors, radii, theme, transition, shadows } from 'theme'
 
-import LinkPreviewRaw from '@microlink/react'
+import MicrolinkCard from 'components/patterns/Microlink/Microlink'
 
 import Box from 'components/elements/Box'
 import Flex from 'components/elements/Flex'
@@ -569,7 +569,7 @@ export const InteractiveExample = ({
         )}
         {source === 'sdk' && (
           <ExampleIframeFrame>
-            <LinkPreviewRaw
+            <MicrolinkCard
               key={`sdk-${demoUrl}`}
               url={demoUrl}
               size='large'
