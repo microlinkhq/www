@@ -18,11 +18,7 @@ import Input from 'components/elements/Input/Input'
 import Text from 'components/elements/Text'
 import { Link } from 'components/elements/Link'
 import Dot from 'components/elements/Dot/Dot'
-import {
-  NEWSLETTER_ACTION,
-  NewsletterHoneypot,
-  useNewsletter
-} from 'components/hook/use-newsletter'
+import { useSignupForm } from 'components/hook/use-signup-form'
 import { ChevronDown } from 'lucide-react'
 import styled from 'styled-components'
 
@@ -400,7 +396,7 @@ const GiantEmail = () => (
 )
 
 const Footer = ({ ...props }) => {
-  const { status, message, onSubmit, isLoading } = useNewsletter()
+  const { href, onSubmit } = useSignupForm({ cta: 'footer:newsletter' })
 
   return (
     <Container
@@ -467,8 +463,23 @@ const Footer = ({ ...props }) => {
             />
           </Flex>
 
-          <form action={NEWSLETTER_ACTION} method='post' onSubmit={onSubmit}>
-            <NewsletterHoneypot />
+          <Flex
+            as='form'
+            action={href}
+            method='get'
+            onSubmit={onSubmit}
+            css={theme({
+              flexDirection: 'column',
+              alignItems: ['flex-start', 'flex-start', 'flex-end', 'flex-end'],
+              gap: 2
+            })}
+          >
+            <Text
+              id='footer-signup-hint'
+              css={theme({ color: 'black50', fontSize: 0 })}
+            >
+              Product updates, with a free account
+            </Text>
             <Flex css={theme({ alignItems: 'stretch' })}>
               <Input
                 type='email'
@@ -476,32 +487,22 @@ const Footer = ({ ...props }) => {
                 placeholder='you@domain.com'
                 autoComplete='email'
                 inputMode='email'
+                spellCheck={false}
                 label='Email address'
+                aria-describedby='footer-signup-hint'
                 css={theme({ fontSize: 0, width: '10rem' })}
                 required
               />
               <Button
                 type='submit'
-                loading={isLoading}
                 data-event-location='Footer'
-                data-event-name='Be Notified'
+                data-event-name='Sign up'
                 css={theme({ ml: 2 })}
               >
-                Be Notified
+                Sign up
               </Button>
             </Flex>
-            <Text
-              role='status'
-              aria-live='polite'
-              css={theme({
-                pt: message ? 2 : 0,
-                fontSize: 0,
-                color: status === 'error' ? 'red8' : 'black80'
-              })}
-            >
-              {message}
-            </Text>
-          </form>
+          </Flex>
         </Flex>
 
         <Box css={theme({ mt: [4, 4, 5, 5] })}>

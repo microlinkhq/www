@@ -8,19 +8,14 @@ import Flex from 'components/elements/Flex'
 import Heading from 'components/elements/Heading'
 import Input from 'components/elements/Input/Input'
 import Meta from 'components/elements/Meta/Meta'
-import Text from 'components/elements/Text'
-import {
-  NEWSLETTER_ACTION,
-  NewsletterHoneypot,
-  useNewsletter
-} from 'components/hook/use-newsletter'
+import { useSignupForm } from 'components/hook/use-signup-form'
 
 export const Head = () => (
-  <Meta description='Get early access & updates on new releases.' />
+  <Meta description='Create a free Microlink account to get product updates and early access to new releases.' />
 )
 
 const NewsletterPage = () => {
-  const { status, message, onSubmit, isLoading } = useNewsletter()
+  const { href, onSubmit } = useSignupForm({ cta: 'newsletter:form' })
 
   return (
     <Layout>
@@ -39,7 +34,8 @@ const NewsletterPage = () => {
             maxWidth: layout.small
           })}
         >
-          Get early access & updates on new releases.
+          Create a free account to get product updates and early access to new
+          releases. We email you a sign-in link to confirm the address.
         </Caption>
 
         <Flex
@@ -56,12 +52,7 @@ const NewsletterPage = () => {
             })}
           >
             <Flex css={theme({ pt: 3 })}>
-              <form
-                action={NEWSLETTER_ACTION}
-                method='post'
-                onSubmit={onSubmit}
-              >
-                <NewsletterHoneypot />
+              <form action={href} method='get' onSubmit={onSubmit}>
                 <Flex>
                   <Input
                     type='email'
@@ -69,6 +60,7 @@ const NewsletterPage = () => {
                     placeholder='you@domain.com'
                     autoComplete='email'
                     inputMode='email'
+                    spellCheck={false}
                     label='Email address'
                     autoFocus
                     css={theme({ width: ['10rem', null, '16rem'] })}
@@ -77,26 +69,13 @@ const NewsletterPage = () => {
 
                   <Button
                     type='submit'
-                    loading={isLoading}
-                    data-event-location='Footer'
-                    data-event-name='Be Notified'
+                    data-event-location='Newsletter'
+                    data-event-name='Sign up'
                     css={theme({ ml: 2 })}
                   >
-                    Be Notified
+                    Sign up
                   </Button>
                 </Flex>
-                <Text
-                  role='status'
-                  aria-live='polite'
-                  css={theme({
-                    pt: message ? 2 : 0,
-                    fontSize: 0,
-                    textAlign: 'center',
-                    color: status === 'error' ? 'red8' : 'black80'
-                  })}
-                >
-                  {message}
-                </Text>
               </form>
             </Flex>
           </Flex>

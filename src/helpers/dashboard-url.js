@@ -205,3 +205,10 @@ export const dashboardPathFromHref = href => {
   const path = normalizePath(url.pathname)
   return `${path === '/' ? LOGIN_PATH : path}${url.search}${url.hash}`
 }
+
+export const withEmailHandoff = (href, email) => {
+  const address = typeof email === 'string' ? email.trim() : ''
+  if (!address) return href
+  const [base] = splitOnce(href, '#')
+  return `${base}#email=${encodeURIComponent(address)}`
+}

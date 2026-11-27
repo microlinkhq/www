@@ -8,7 +8,8 @@ import {
   eventLocation,
   loginUrl,
   productFromPath,
-  signupUrl
+  signupUrl,
+  withEmailHandoff
 } from '../../../src/helpers/dashboard-url.js'
 
 const SIGNUP = 'https://dashboard.microlink.io/signup'
@@ -434,5 +435,26 @@ describe('dashboard-url', () => {
       ).toBeUndefined()
       expect(dashboardPathFromHref(undefined)).toBeUndefined()
     })
+  })
+})
+
+describe('withEmailHandoff', () => {
+  const href = 'https://dashboard.microlink.io/signup?cta=footer:newsletter'
+
+  it('carries the trimmed email in the fragment, never the query', () => {
+    expect(withEmailHandoff(href, '  ana+news@example.com ')).toBe(
+      `${href}#email=ana%2Bnews%40example.com`
+    )
+  })
+
+  it('replaces an existing fragment', () => {
+    expect(withEmailHandoff(`${href}#top`, 'a@b.co')).toBe(
+      `${href}#email=a%40b.co`
+    )
+  })
+
+  it('leaves the href untouched without an email', () => {
+    expect(withEmailHandoff(href, '   ')).toBe(href)
+    expect(withEmailHandoff(href, undefined)).toBe(href)
   })
 })
